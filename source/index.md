@@ -25,7 +25,7 @@ search: false
 
 Welcome to [BlockCypher's](http://www.blockcypher.com/) API documentation! BlockCypher is a simple, mostly RESTful JSON API for interacting with blockchains, accessed over HTTP or HTTPS from the [api.blockcypher.com](https://api.blockcypher.com/v1/btc/main) domain. Currently, BlockCypher supports Bitcoin, Bitcoin TestNet3, Litecoin, Dogecoin, Urocoin, and BlockCypher's Test Chain (more about BlockCypher's Test Chain [below](#testing)).
 
-BlockCypher's API provides a superset of the endpoints you'd find in the above blockchain's reference implementations, in addition to some special features that make our BlockCypher unique and powerful, such as dependable WebHook or WebSockets-based [Events](#events), [On-Chain Microtransactions](#microtransactions), and [Payment Forwarding](#payment-forwarding).
+BlockCypher's API provides a superset of the endpoints you'd find in the above blockchain's reference implementations, in addition to some special features that make BlockCypher unique and powerful, such as dependable WebHook or WebSockets-based [Events](#events), [On-Chain Microtransactions](#microtransactions), and [Payment Forwarding](#payment-forwarding).
 
 Consequently, if you're familiar with a blockchain's reference implementation, you'll feel right at home using BlockCypher, but without worrying about scaling or implementation challenges. And if you're not familiar---with the reference implementations or blockchains in general---BlockCypher's API is a great way to dip your toes into blockchain development, without a lengthy setup process. In either case, BlockCypher has a 99.99% up-time, and an expressive, logical API that you'll love using.
 
