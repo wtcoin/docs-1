@@ -13,7 +13,7 @@
 
       <script>
         $(function() {
-          setupLanguages(["shell","ruby","python","java"]);
+          setupLanguages(["shell","ruby"]);
         });
       </script>
   </head>
@@ -30,8 +30,6 @@
         <div class="lang-selector">
               <a href="#" data-language-name="shell">cURL</a>
               <a href="#" data-language-name="ruby">Ruby</a>
-              <a href="#" data-language-name="python">Python</a>
-              <a href="#" data-language-name="java">Java</a>
         </div>
       <div id="toc">
       </div>
@@ -53,6 +51,8 @@
 <span class="c">#                                  __/ | |                    </span>
 <span class="c">#                                 |___/|_|                    </span>
 </code></pre>
+<pre class="highlight ruby"><code><span class="nb">puts</span> <span class="s2">"BlockCypher!"</span>
+</code></pre>
 
 <p>Welcome to <a href="http://www.blockcypher.com/">BlockCypher&rsquo;s</a> API documentation! BlockCypher is a simple, mostly RESTful JSON API for interacting with blockchains, accessed over HTTP or HTTPS from the <a href="https://api.blockcypher.com/v1/btc/main">api.blockcypher.com</a> domain. Currently, BlockCypher supports Bitcoin, Bitcoin Testnet3, Litecoin, Dogecoin, Urocoin, and BlockCypher&rsquo;s Test Chain (more about BlockCypher&rsquo;s Test Chain <a href="#testing">below</a>).</p>
 
@@ -62,7 +62,24 @@
 
 <h2 id="documentation-structure">Documentation Structure</h2>
 
-<p>In these docs you&rsquo;ll find everything you need to leverage BlockCypher for your applications. For all officially supported languages, you&rsquo;ll see code samples on the right pane (or below the description, if you&rsquo;re on mobile), in addition to basic cURL requests/responses for every single endpoint. You can switch between language context via the selector in the upper right. We&rsquo;re working on supporting more languages, but if you&rsquo;re working on your own language library, definitely let us know: we&rsquo;d love to add more community supported libraries here.</p>
+<blockquote>
+<p>You&rsquo;ll see code in this section, like this:</p>
+</blockquote>
+<pre class="highlight shell"><code><span class="gp">$ </span>man curl | grep -A 3 <span class="s2">"DESCRIPTION"</span>
+</code></pre>
+
+<blockquote>
+<p>Alongside expected responses:</p>
+</blockquote>
+<pre class="highlight shell"><code>DESCRIPTION
+curl is a tool to transfer data from or to a server, using one of the supported protocols <span class="o">(</span>DICT, FILE, FTP, FTPS, GOPHER, HTTP, HTTPS, IMAP, IMAPS, LDAP, LDAPS, POP3, POP3S, RTMP, RTSP, SCP, SFTP, SMB, SMBS, SMTP, SMTPS, TELNET and TFTP<span class="o">)</span>. The <span class="nb">command </span>is designed to work without user interaction.
+</code></pre>
+
+<p>In these docs you&rsquo;ll find everything you need to leverage BlockCypher for your applications. For all officially supported languages, you&rsquo;ll see code samples, in addition to basic cURL requests/responses for every single endpoint. You can switch between cURL/language samples via the selector in the upper right. We&rsquo;re working on supporting more languages, but if you&rsquo;re working on your own language library, definitely let us know: we&rsquo;d love to add more community supported libraries here.</p>
+
+<aside class="notice">
+Currently, we only have cURL code samples, but are working on adding other official SDK samples soon!
+</aside>
 
 <h2 id="api-versions">API Versions</h2>
 
@@ -91,8 +108,69 @@
 </ul>
 
 <h2 id="restful-resources:-coins-&amp;-chains">RESTful Resources: Coins &amp; Chains</h2>
+<pre class="highlight shell"><code><span class="gp">$ </span>curl https://api.blockcypher.com/v1/btc/main
+
+<span class="o">{</span>
+  <span class="s2">"name"</span>: <span class="s2">"BTC.main"</span>,
+  <span class="s2">"height"</span>: 355578,
+  <span class="s2">"hash"</span>: <span class="s2">"00000000000000000a0b253f20709b0c77d8a56aa8db632ecbdc7381816504cd"</span>,
+  <span class="s2">"time"</span>: <span class="s2">"2015-05-08T23:12:55.243311146Z"</span>,
+  <span class="s2">"latest_url"</span>: <span class="s2">"https://api.blockcypher.com/v1/btc/main/blocks/00000000000000000a0b253f20709b0c77d8a56aa8db632ecbdc7381816504cd"</span>,
+  <span class="s2">"previous_hash"</span>: <span class="s2">"00000000000000000acef50ef89494493b4a08a8419588e1e3e20cd73bc85a6b"</span>,
+  <span class="s2">"previous_url"</span>: <span class="s2">"https://api.blockcypher.com/v1/btc/main/blocks/00000000000000000acef50ef89494493b4a08a8419588e1e3e20cd73bc85a6b"</span>,
+  <span class="s2">"peer_count"</span>: 250,
+  <span class="s2">"unconfirmed_count"</span>: 637
+<span class="o">}</span>
+</code></pre>
+
+<p>Almost all resources exist under a given blockchain, and follow this pattern:</p>
+
+<p><code class="prettyprint">https://api.blockcypher.com/$API_VERSION/$COIN/$CHAIN/</code></p>
+
+<p>Currently, there&rsquo;s only one version of the API (v1). Thus, here&rsquo;s an exhaustive list of blockchains and their corresponding resources:</p>
+
+<table><thead>
+<tr>
+<th>Coin</th>
+<th>Chain</th>
+<th>Resource</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Bitcoin</td>
+<td>Main</td>
+<td><code class="prettyprint">api.blockcypher.com/v1/btc/main</code></td>
+</tr>
+<tr>
+<td>Bitcoin</td>
+<td>Testnet3</td>
+<td><code class="prettyprint">api.blockcypher.com/v1/btc/test3</code></td>
+</tr>
+<tr>
+<td>Dogecoin</td>
+<td>Main</td>
+<td><code class="prettyprint">api.blockcypher.com/v1/doge/main</code></td>
+</tr>
+<tr>
+<td>Litecoin</td>
+<td>Main</td>
+<td><code class="prettyprint">api.blockcypher.com/v1/ltc/main</code></td>
+</tr>
+<tr>
+<td>Urocoin</td>
+<td>Main</td>
+<td><code class="prettyprint">api.blockcypher.com/v1/uro/main</code></td>
+</tr>
+<tr>
+<td>BlockCypher</td>
+<td>Test</td>
+<td><code class="prettyprint">api.blockcypher.com/v1/bcy/test</code></td>
+</tr>
+</tbody></table>
 
 <h2 id="rate-limits-and-tokens">Rate Limits and Tokens</h2>
+
+<h2 id="batching">Batching</h2>
 
 <h2 id="testing">Testing</h2>
 
@@ -124,8 +202,6 @@
           <div class="lang-selector">
                 <a href="#" data-language-name="shell">cURL</a>
                 <a href="#" data-language-name="ruby">Ruby</a>
-                <a href="#" data-language-name="python">Python</a>
-                <a href="#" data-language-name="java">Java</a>
           </div>
       </div>
     </div>
