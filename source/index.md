@@ -22,9 +22,20 @@ includes:
 
 # Introduction
 
+```shell
+#  ______ _            _    _____             _               
+#  | ___ \ |          | |  /  __ \           | |              
+#  | |_/ / | ___   ___| | _| /  \/_   _ _ __ | |__   ___ _ __ 
+#  | ___ \ |/ _ \ / __| |/ / |   | | | | '_ \| '_ \ / _ \ '__|
+#  | |_/ / | (_) | (__|   <| \__/\ |_| | |_) | | | |  __/ |   
+#  \____/|_|\___/ \___|_|\_\\____/\__, | .__/|_| |_|\___|_|   
+#                                  __/ | |                    
+#                                 |___/|_|                    
+```
+
 Welcome to [BlockCypher's](http://www.blockcypher.com/) API documentation! BlockCypher is a simple, mostly RESTful JSON API for interacting with blockchains, accessed over HTTP or HTTPS from the [api.blockcypher.com](https://api.blockcypher.com/v1/btc/main) domain. Currently, BlockCypher supports Bitcoin, Bitcoin Testnet3, Litecoin, Dogecoin, Urocoin, and BlockCypher's Test Chain (more about BlockCypher's Test Chain [below](#testing)).
 
-BlockCypher's API provides a superset of the endpoints you'd find in reference implementations, in addition to some special features that make BlockCypher unique and powerful, such as dependable WebHook or WebSockets-based [Events](#events), [On-Chain Microtransactions](#microtransactions), and [Payment Forwarding](#payment-forwarding).
+BlockCypher's API provides a superset of the endpoints you'd find in reference implementations, in addition to some special features that make BlockCypher uniquely powerful, like dependable WebHook or WebSockets-based [Events](#events), [On-Chain Microtransactions](#microtransactions), and [Payment Forwarding](#payment-forwarding).
 
 Consequently, if you're familiar with a blockchain's reference implementation, you'll feel right at home using BlockCypher, but without worrying about scaling or implementation challenges. And if you're not familiar---with the reference implementations or blockchains in general---BlockCypher's API is a great way to dip your toes into blockchain development, without a lengthy setup process. In either case, BlockCypher has 99.99% up-time, and maintains an expressive, logical API that you'll love using.
 
@@ -32,7 +43,7 @@ Consequently, if you're familiar with a blockchain's reference implementation, y
 
 In these docs you'll find everything you need to leverage BlockCypher for your applications. For all officially supported languages, you'll see code samples on the right pane (or below the description, if you're on mobile), in addition to basic cURL requests/responses for every single endpoint. You can switch between language context via the selector in the upper right. We're working on supporting more languages, but if you're working on your own language library, definitely let us know: we'd love to add more community supported libraries here.
 
-## API Versioning
+## API Versions
 
 All API calls are versioned, and the current BlockCypher API is v1. We will never introduce any breaking changes within v1, but we may add new, non-breaking features from time to time.
 
