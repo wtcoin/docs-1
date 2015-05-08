@@ -65,8 +65,6 @@ These client SDKs were made by members of the community, and are not officially 
 - **.NET** --- [https://github.com/bscheiman/BlockCypher](https://github.com/bscheiman/BlockCypher)
 - **Go** --- [https://github.com/acityinohio/blockcy](https://github.com/acityinohio/blockcy)
 
-## Importing Libraries
-
 ## RESTful Resources: Coins & Chains
 
 ## Rate Limits and Tokens
