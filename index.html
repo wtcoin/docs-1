@@ -56,7 +56,7 @@
 
 <p>Welcome to <a href="http://www.blockcypher.com/">BlockCypher&rsquo;s</a> API documentation! BlockCypher is a simple, mostly RESTful JSON API for interacting with blockchains, accessed over HTTP or HTTPS from the <a href="https://api.blockcypher.com/v1/btc/main">api.blockcypher.com</a> domain. Currently, BlockCypher supports Bitcoin, Bitcoin Testnet3, Litecoin, Dogecoin, Urocoin, and BlockCypher&rsquo;s Test Chain (more about BlockCypher&rsquo;s Test Chain <a href="#testing">below</a>).</p>
 
-<p>BlockCypher&rsquo;s API provides a superset of the endpoints you&rsquo;d find in reference implementations, in addition to some special features that make BlockCypher uniquely powerful, like dependable WebHook or WebSockets-based <a href="#events">Events</a>, <a href="#microtransactions">On-Chain Microtransactions</a>, and <a href="#payment-forwarding">Payment Forwarding</a>.</p>
+<p>BlockCypher&rsquo;s API provides a superset of the endpoints you&rsquo;d find in reference implementations, in addition to some special features that make BlockCypher uniquely powerful, like dependable WebHook or WebSockets-based <a href="#events,-websockets,-&amp;-webhooks">Events</a>, <a href="#microtransactions">On-Chain Microtransactions</a>, and <a href="#payment-forwarding">Payment Forwarding</a>.</p>
 
 <p>Consequently, if you&rsquo;re familiar with a blockchain&rsquo;s reference implementation, you&rsquo;ll feel right at home using BlockCypher, but without worrying about scaling or implementation challenges. And if you&rsquo;re not familiar&mdash;with the reference implementations or blockchains in general&mdash;BlockCypher&rsquo;s API is a great way to dip your toes into blockchain development, without a lengthy setup process. In either case, BlockCypher has 99.99% up-time, and maintains an expressive, logical API that you&rsquo;ll love using.</p>
 
@@ -169,6 +169,27 @@ Currently, we only have cURL code samples, but are working on adding other offic
 </tbody></table>
 
 <h2 id="rate-limits-and-tokens">Rate Limits and Tokens</h2>
+
+<p>We want everyone to try BlockCypher with as little friction as possible, which is why you don&rsquo;t need a token to get started. However, we do rate-limit non-registered users to maintain fidelity for registered users:</p>
+
+<ul>
+<li>Classic requests, up to 5 requests/sec and 600 requests/hr</li>
+<li>WebHooks and WebSockets, up to 600 requests/hr</li>
+</ul>
+
+<aside class="warning">
+If you exceed these limits as a non-registered user, your requests will return an HTTP Status Code 429!
+</aside>
+
+<p>Please <a href="http://acccounts.blockcypher.com/">register for a user token</a> if your usage exceeds those limits, or if you want to preventively avoid the rate limits. Our future pricing plan will be tiered based on usage and volume. We will have a free tier and an extended free plan for our early users. To request higher limits or SLAs, please <a href="mailto:contact@blockcypher.com">email us.</a></p>
+
+<blockquote>
+<p>Adding your token to requests:</p>
+</blockquote>
+<pre class="highlight shell"><code><span class="gp">$ </span>curl https://api.blockcypher.com/v1/btc/main?token<span class="o">=</span><span class="nv">$YOUR_TOKEN</span>
+</code></pre>
+
+<p>Once you have your token, you can append it to all your requests like any other URL parameter if you&rsquo;re using cURL, or through the appropriate method in the language SDK you&rsquo;re using.</p>
 
 <h2 id="batching">Batching</h2>
 
