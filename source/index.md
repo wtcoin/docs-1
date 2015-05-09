@@ -37,7 +37,7 @@ puts "BlockCypher!"
 
 Welcome to [BlockCypher's](http://www.blockcypher.com/) API documentation! BlockCypher is a simple, mostly RESTful JSON API for interacting with blockchains, accessed over HTTP or HTTPS from the [api.blockcypher.com](https://api.blockcypher.com/v1/btc/main) domain. Currently, BlockCypher supports Bitcoin, Bitcoin Testnet3, Litecoin, Dogecoin, Urocoin, and BlockCypher's Test Chain (more about BlockCypher's Test Chain [below](#testing)).
 
-BlockCypher's API provides a superset of the endpoints you'd find in reference implementations, in addition to some special features that make BlockCypher uniquely powerful, like dependable WebHook or WebSockets-based [Events](#events), [On-Chain Microtransactions](#microtransactions), and [Payment Forwarding](#payment-forwarding).
+BlockCypher's API provides a superset of the endpoints you'd find in reference implementations, in addition to some special features that make BlockCypher uniquely powerful, like dependable WebHook or WebSockets-based [Events](#events,-websockets,-&-webhooks), [On-Chain Microtransactions](#microtransactions), and [Payment Forwarding](#payment-forwarding).
 
 Consequently, if you're familiar with a blockchain's reference implementation, you'll feel right at home using BlockCypher, but without worrying about scaling or implementation challenges. And if you're not familiar---with the reference implementations or blockchains in general---BlockCypher's API is a great way to dip your toes into blockchain development, without a lengthy setup process. In either case, BlockCypher has 99.99% up-time, and maintains an expressive, logical API that you'll love using.
 
@@ -117,6 +117,25 @@ Urocoin | Main | `api.blockcypher.com/v1/uro/main`
 BlockCypher | Test | `api.blockcypher.com/v1/bcy/test`
 
 ## Rate Limits and Tokens
+
+We want everyone to try BlockCypher with as little friction as possible, which is why you don't need a token to get started. However, we do rate-limit non-registered users to maintain fidelity for registered users:
+
+- Classic requests, up to 5 requests/sec and 600 requests/hr
+- WebHooks and WebSockets, up to 600 requests/hr
+
+<aside class="warning">
+If you exceed these limits as a non-registered user, your requests will return an HTTP Status Code 429!
+</aside>
+
+Please [register for a user token](http://acccounts.blockcypher.com/) if your usage exceeds those limits, or if you want to preventively avoid the rate limits. Our future pricing plan will be tiered based on usage and volume. We will have a free tier and an extended free plan for our early users. To request higher limits or SLAs, please [email us.](mailto:contact@blockcypher.com)
+
+> Adding your token to requests:
+
+```shell
+$ curl https://api.blockcypher.com/v1/btc/main?token=$YOUR_TOKEN
+```
+
+Once you have your token, you can append it to all your requests like any other URL parameter if you're using cURL, or through the appropriate method in the language SDK you're using.
 
 ## Batching
 
