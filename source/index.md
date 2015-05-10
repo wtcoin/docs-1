@@ -139,6 +139,55 @@ Once you have your token, you can append it to all your requests like any other 
 
 ## Batching
 
+```shell
+$ curl https://api.blockcypher.com/v1/btc/main/blocks/5;6;7
+
+[{
+  "hash": "000000003031a0e73735690c5a1ff2a4be82553b2a12b776fbd3a215dc8f778d",
+  "height": 6,
+  "chain": "BTC.main",
+  "total": 0,
+  "fees": 0,
+  "ver": 1,
+  "time": "2009-01-09T03:29:49Z",
+	...,
+},
+{
+  "hash": "000000009b7262315dbf071787ad3656097b892abffd1f95a1a022f896f533fc",
+  "height": 5,
+  "chain": "BTC.main",
+  "total": 0,
+  "fees": 0,
+  "ver": 1,
+  "time": "2009-01-09T03:23:48Z",
+	...,
+},
+{
+  "hash": "0000000071966c2b1d065fd446b1e485b2c9d9594acd2007ccbd5441cfc89444",
+  "height": 7,
+  "chain": "BTC.main",
+  "total": 0,
+  "fees": 0,
+  "ver": 1,
+  "time": "2009-01-09T03:39:29Z",
+	...,
+}]
+```
+
+All endpoints that can retrieve a single [Object](#objects) can be batched to return multiple objects. If you're cURLing the API directly, batching simply requires appending each identifier to the previous one using a semicolon (check the code pane for an example). The results are aggregated in a JSON array and may not be ordered, especially for bigger batches. But this shouldn't matter, as the requested identifiers are always present in the returned objects. The other supported client SDKs batch differently, but each idiomatic to their respective language (check the code pane examples in each library).
+
+<aside class="notice">
+The maximum number of elements that can be batched in a single call is 100.
+</aside>
+
+When cURLing BlockCypher, batching also works when the identifiers aren't the last part of the URL; e.g., this URL will return the balances of three separate addresses:
+
+`http://api.blockcypher.com/v1/btc/main/addrs/1J38WorKngZLJvA7qMin9g5jqUfTQUBZNE;1JP8FqoXtCMrR1sZc2McLWmHxENox1Y1PV;1ENn7XmqXNnReiQEFHhBGzfiv5gAyBj7r1/balance`
+
+<aside class="warning">
+Since the default, non-registered <a href="#rate-limits-and-tokens">rate limit</a> per second is 5, larger batches require an API token. To use larger batches <a href="https://accounts.blockcypher.com/">please register.</a>
+</aside>
+
 ## Testing 
 
 We offer two different options for testing your blockchain application: Bitcoin Testnet3, and BlockCypher's Test Chain. We offer automated faucets for both Testnet3 and BlockCypher's Test Chain, but we recommend using BlockCypher's Test Chain for a variety of reasons:
@@ -148,4 +197,42 @@ We offer two different options for testing your blockchain application: Bitcoin 
 - New blocks get built every minute, confirming the transactions that have been created using our transaction API.
 - The prefix for standard addreses is 'B' or 'C' (0x1B). The prefix for multisig addresses is 'D' (0x1F).
 
+In case you missed the [Resources section](#restful-resources:-coins-&-chains), the BlockCypher Test Chain is accessible from this resource:
+
+`https://api.blockcypher.com/v1/bcy/test`
+
 ### Test Faucets
+
+To help facilitate automated testing in your applications, a faucet endpoint is available on both BlockCypher's Test Chain and Bitcoin Testnet3. Calling the faucet endpoint, along with passing a valid address, will automatically create---and propagate---a new transaction funding the address with the amount you provide.
+
+The faucets can be used from your browser if you want to play with them before automating:
+
+- [Bitcoin Testnet Faucet](https://accounts.blockcypher.com/testnet-faucet)
+- [BlockCypher Test Chain Faucet](https://accounts.blockcypher.com/blockcypher-faucet)
+
+```shell
+# Make new address; returns private key/public key/address
+$ curl -X POST http://api.blockcypher.com/v1/bcy/test/addrs?token=$YOUR_TOKEN
+
+{
+"private": "26415016a2fb49f51aef161cb35bd537be07b75a6ac1e297d3b7a370cc85433b",
+"public": "02c572d062fefcc8c3e1bf5016450addcedb89cd7e4507d8a323f327b4ad1018e0",
+"address": "CFqoZmZ3ePwK5wnkhxJjJAQKJ82C7RJdmd"
+}
+
+# Fund prior address with faucet
+$ curl -d '{"address": "CFqoZmZ3ePwK5wnkhxJjJAQKJ82C7RJdmd", "amount": 100000}' http://api.blockcypher.com/v1/bcy/test/faucet?token=$YOUR_TOKEN
+{
+  "tx_ref": "02dbf5585d438a1cba82a9041dd815635a6b0df684225cb5271e11397a759479"
+}
+```
+
+This example shows how you can leverage the faucet to programmatically fund addresses, to test your applications. While the example used BlockCypher's Test Chain, the same example could have used Bitcoin Testnet3 and worked the exact same way.
+
+<aside class="notice">
+You need <a href="https://accounts.blockcypher.com/">a token</a> to use test faucets.
+</aside>
+
+<aside class="warning">
+On the BlockCypher Test Chain, the faucet will refuse to fund an address with more than 50 billion BlockCypher satoshis and will not fund more than 10 million BlockCypher satoshis at a time. On Bitcoin Testnet3 those numbers are adjusted to 10 million and 500,000 testnet satoshis respectively.
+</aside>
