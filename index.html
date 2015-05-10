@@ -192,6 +192,53 @@ If you exceed these limits as a non-registered user, your requests will return a
 <p>Once you have your token, you can append it to all your requests like any other URL parameter if you&rsquo;re using cURL, or through the appropriate method in the language SDK you&rsquo;re using.</p>
 
 <h2 id="batching">Batching</h2>
+<pre class="highlight shell"><code><span class="gp">$ </span>curl https://api.blockcypher.com/v1/btc/main/blocks/5;6;7
+
+<span class="o">[{</span>
+  <span class="s2">"hash"</span>: <span class="s2">"000000003031a0e73735690c5a1ff2a4be82553b2a12b776fbd3a215dc8f778d"</span>,
+  <span class="s2">"height"</span>: 6,
+  <span class="s2">"chain"</span>: <span class="s2">"BTC.main"</span>,
+  <span class="s2">"total"</span>: 0,
+  <span class="s2">"fees"</span>: 0,
+  <span class="s2">"ver"</span>: 1,
+  <span class="s2">"time"</span>: <span class="s2">"2009-01-09T03:29:49Z"</span>,
+    ...,
+<span class="o">}</span>,
+<span class="o">{</span>
+  <span class="s2">"hash"</span>: <span class="s2">"000000009b7262315dbf071787ad3656097b892abffd1f95a1a022f896f533fc"</span>,
+  <span class="s2">"height"</span>: 5,
+  <span class="s2">"chain"</span>: <span class="s2">"BTC.main"</span>,
+  <span class="s2">"total"</span>: 0,
+  <span class="s2">"fees"</span>: 0,
+  <span class="s2">"ver"</span>: 1,
+  <span class="s2">"time"</span>: <span class="s2">"2009-01-09T03:23:48Z"</span>,
+    ...,
+<span class="o">}</span>,
+<span class="o">{</span>
+  <span class="s2">"hash"</span>: <span class="s2">"0000000071966c2b1d065fd446b1e485b2c9d9594acd2007ccbd5441cfc89444"</span>,
+  <span class="s2">"height"</span>: 7,
+  <span class="s2">"chain"</span>: <span class="s2">"BTC.main"</span>,
+  <span class="s2">"total"</span>: 0,
+  <span class="s2">"fees"</span>: 0,
+  <span class="s2">"ver"</span>: 1,
+  <span class="s2">"time"</span>: <span class="s2">"2009-01-09T03:39:29Z"</span>,
+    ...,
+<span class="o">}]</span>
+</code></pre>
+
+<p>All endpoints that can retrieve a single <a href="#objects">Object</a> can be batched to return multiple objects. If you&rsquo;re cURLing the API directly, batching simply requires appending each identifier to the previous one using a semicolon (check the code pane for an example). The results are aggregated in a JSON array and may not be ordered, especially for bigger batches. But this shouldn&rsquo;t matter, as the requested identifiers are always present in the returned objects. The other supported client SDKs batch differently, but each idiomatic to their respective language (check the code pane examples in each library).</p>
+
+<aside class="notice">
+The maximum number of elements that can be batched in a single call is 100.
+</aside>
+
+<p>When cURLing BlockCypher, batching also works when the identifiers aren&rsquo;t the last part of the URL; e.g., this URL will return the balances of three separate addresses:</p>
+
+<p><code class="prettyprint">http://api.blockcypher.com/v1/btc/main/addrs/1J38WorKngZLJvA7qMin9g5jqUfTQUBZNE;1JP8FqoXtCMrR1sZc2McLWmHxENox1Y1PV;1ENn7XmqXNnReiQEFHhBGzfiv5gAyBj7r1/balance</code></p>
+
+<aside class="warning">
+Since the default, non-registered <a href="#rate-limits-and-tokens">rate limit</a> per second is 5, larger batches require an API token. To use larger batches <a href="https://accounts.blockcypher.com/">please register.</a>
+</aside>
 
 <h2 id="testing">Testing</h2>
 
@@ -204,7 +251,45 @@ If you exceed these limits as a non-registered user, your requests will return a
 <li>The prefix for standard addreses is &lsquo;B&rsquo; or &#39;C&rsquo; (0x1B). The prefix for multisig addresses is &rsquo;D&rsquo; (0x1F).</li>
 </ul>
 
+<p>In case you missed the <a href="#restful-resources:-coins-&amp;-chains">Resources section</a>, the BlockCypher Test Chain is accessible from this resource:</p>
+
+<p><code class="prettyprint">https://api.blockcypher.com/v1/bcy/test</code></p>
+
 <h3 id="test-faucets">Test Faucets</h3>
+
+<p>To help facilitate automated testing in your applications, a faucet endpoint is available on both BlockCypher&rsquo;s Test Chain and Bitcoin Testnet3. Calling the faucet endpoint, along with passing a valid address, will automatically create&mdash;and propagate&mdash;a new transaction funding the address with the amount you provide.</p>
+
+<p>The faucets can be used from your browser if you want to play with them before automating:</p>
+
+<ul>
+<li><a href="https://accounts.blockcypher.com/testnet-faucet">Bitcoin Testnet Faucet</a></li>
+<li><a href="https://accounts.blockcypher.com/blockcypher-faucet">BlockCypher Test Chain Faucet</a></li>
+</ul>
+<pre class="highlight shell"><code><span class="c"># Make new address; returns private key/public key/address</span>
+<span class="gp">$ </span>curl -X POST http://api.blockcypher.com/v1/bcy/test/addrs?token<span class="o">=</span><span class="nv">$YOUR_TOKEN</span>
+
+<span class="o">{</span>
+<span class="s2">"private"</span>: <span class="s2">"26415016a2fb49f51aef161cb35bd537be07b75a6ac1e297d3b7a370cc85433b"</span>,
+<span class="s2">"public"</span>: <span class="s2">"02c572d062fefcc8c3e1bf5016450addcedb89cd7e4507d8a323f327b4ad1018e0"</span>,
+<span class="s2">"address"</span>: <span class="s2">"CFqoZmZ3ePwK5wnkhxJjJAQKJ82C7RJdmd"</span>
+<span class="o">}</span>
+
+<span class="c"># Fund prior address with faucet</span>
+<span class="gp">$ </span>curl -d <span class="s1">'{"address": "CFqoZmZ3ePwK5wnkhxJjJAQKJ82C7RJdmd", "amount": 100000}'</span> http://api.blockcypher.com/v1/bcy/test/faucet?token<span class="o">=</span><span class="nv">$YOUR_TOKEN</span>
+<span class="o">{</span>
+  <span class="s2">"tx_ref"</span>: <span class="s2">"02dbf5585d438a1cba82a9041dd815635a6b0df684225cb5271e11397a759479"</span>
+<span class="o">}</span>
+</code></pre>
+
+<p>This example shows how you can leverage the faucet to programmatically fund addresses, to test your applications. While the example used BlockCypher&rsquo;s Test Chain, the same example could have used Bitcoin Testnet3 and worked the exact same way.</p>
+
+<aside class="notice">
+You need <a href="https://accounts.blockcypher.com/">a token</a> to use test faucets.
+</aside>
+
+<aside class="warning">
+On the BlockCypher Test Chain, the faucet will refuse to fund an address with more than 50 billion BlockCypher satoshis and will not fund more than 10 million BlockCypher satoshis at a time. On Bitcoin Testnet3 those numbers are adjusted to 10 million and 500,000 testnet satoshis respectively.
+</aside>
 
           <h1 id="objects">Objects</h1>
 
