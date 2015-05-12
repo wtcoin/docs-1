@@ -17,7 +17,7 @@ Objects sometimes contain <b>attributes</b> that are <i>optional.</i> These are 
 
 ## Blockchain
 
-> Example Blockchain Object:
+> An example Blockchain Object
 
 ```shell
 {
@@ -35,7 +35,7 @@ Objects sometimes contain <b>attributes</b> that are <i>optional.</i> These are 
 }
 ```
 
-A Blockchain represents the current state of a particular blockchain from the [Coin/Chain resources](#restful-resources:-coins-&-chains) that BlockCypher supports. Most typically returned from the [Chain API endpoint](#chain).
+A Blockchain represents the current state of a particular blockchain from the [Coin/Chain resources](#restful-resources:-coins-&-chains) that BlockCypher supports. Typically returned from the [Chain API endpoint](#chain-endpoint).
 
 Attribute | Type | Description
 --------- | ---- | -----------
@@ -52,6 +52,36 @@ Attribute | Type | Description
 **last_fork_hash** | *string* | ***Optional*** The hash of the latest confirmed block in the latest fork of the blockchain; when no competing blockchain fork present, not returned with endpoints that return Blockchains
 
 ## Block
+
+> An example Block Object
+
+```shell
+{
+"hash": "0000000000000000189bba3564a63772107b567...",
+"height": 294322,
+"chain": "BTC.main",
+"total": 1146652915,
+"fees": 130999,
+"ver": 2,
+"time": "2014-04-05T07:49:18Z",
+"received_time": "2014-04-05T07:49:18Z",
+"bits": 419486617,
+"nonce": 1225187768,
+"n_tx": 10,
+"prev_block": "0000000000000000ced0958bd27720b71d3...",
+"mrkl_root": "359d624d37aee1efa5662b7f5dbc390e996d...",
+"txids": [
+	"32b3b86e40d996b1f281e24e8d4af2ceacbf874c403836...",
+	"1579f716359ba1a207f70248135f5e5fadf539be1dcf53...",
+	...,
+],
+"depth": 61793,
+"prev_block_url": "https://api.blockcypher.com/v1/btc/main/blocks/0000000000000000ced0958bd27720b71d32c5847e40660aaca39f33c298abb0",
+"tx_url": "https://api.blockcypher.com/v1/btc/main/txs/"
+}
+```
+
+A Block represents the current state of a particular block from a [Blockchain](#blockchain). Typically returned from the [Block API endpoint](#block-endpoint).
 
 ## Transaction
 

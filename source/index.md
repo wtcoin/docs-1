@@ -14,8 +14,10 @@ includes:
   - blockchain
   - address
   - tx
-  - events
+  - microtx
+  - zeroconf
   - payfwd
+  - events
 ---
 
 # Introduction
