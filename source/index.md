@@ -39,7 +39,7 @@ Welcome to [BlockCypher's](http://www.blockcypher.com/) API documentation! Block
 
 BlockCypher's API provides a superset of the endpoints you'd find in reference implementations, in addition to some special features that make BlockCypher uniquely powerful, like dependable WebHook or WebSockets-based [Events](#events,-websockets,-&-webhooks), [On-Chain Microtransactions](#microtransactions), and [Payment Forwarding](#payment-forwarding).
 
-Consequently, if you're familiar with a blockchain's reference implementation, you'll feel right at home using BlockCypher, but without worrying about scaling or implementation challenges. And if you're not familiar---with the reference implementations or blockchains in general---BlockCypher's API is a great way to dip your toes into blockchain development, without a lengthy setup process. In either case, BlockCypher has 99.99% up-time, and maintains an expressive, logical API that you'll love using.
+Consequently, if you're familiar with a blockchain's reference implementation, you'll feel right at home using BlockCypher, but without worrying about scaling or implementation challenges. And if you're not familiar---with the reference implementations or blockchains in general---BlockCypher's API is a great way to dip your toes into blockchain development, without a lengthy setup process. In either case, BlockCypher has 99.99% up-time, and maintains an expressive, logical API that you'll love.
 
 ## Documentation Structure
 
@@ -89,15 +89,15 @@ These client SDKs were made by members of the community, and are not officially 
 $ curl https://api.blockcypher.com/v1/btc/main
 
 {
-  "name": "BTC.main",
-  "height": 355578,
-  "hash": "00000000000000000a0b253f20709b0c77d8a56aa8db632ecbdc7381816504cd",
-  "time": "2015-05-08T23:12:55.243311146Z",
-  "latest_url": "https://api.blockcypher.com/v1/btc/main/blocks/00000000000000000a0b253f20709b0c77d8a56aa8db632ecbdc7381816504cd",
-  "previous_hash": "00000000000000000acef50ef89494493b4a08a8419588e1e3e20cd73bc85a6b",
-  "previous_url": "https://api.blockcypher.com/v1/btc/main/blocks/00000000000000000acef50ef89494493b4a08a8419588e1e3e20cd73bc85a6b",
-  "peer_count": 250,
-  "unconfirmed_count": 637
+"name": "BTC.main",
+"height": 355578,
+"hash": "00000000000000000a0b253f20709b0c77d8a56aa8db632ecbdc7381816504cd",
+"time": "2015-05-08T23:12:55.243311146Z",
+"latest_url": "https://api.blockcypher.com/v1/btc/main/blocks/00000000000000000a0b253f20709b0c77d8a56aa8db632ecbdc7381816504cd",
+"previous_hash": "00000000000000000acef50ef89494493b4a08a8419588e1e3e20cd73bc85a6b",
+"previous_url": "https://api.blockcypher.com/v1/btc/main/blocks/00000000000000000acef50ef89494493b4a08a8419588e1e3e20cd73bc85a6b",
+"peer_count": 250,
+"unconfirmed_count": 637
 }
 ```
 
@@ -143,34 +143,34 @@ Once you have your token, you can append it to all your requests like any other 
 $ curl https://api.blockcypher.com/v1/btc/main/blocks/5;6;7
 
 [{
-  "hash": "000000003031a0e73735690c5a1ff2a4be82553b2a12b776fbd3a215dc8f778d",
-  "height": 6,
-  "chain": "BTC.main",
-  "total": 0,
-  "fees": 0,
-  "ver": 1,
-  "time": "2009-01-09T03:29:49Z",
-	...,
+"hash": "000000003031a0e73735690c5a1ff2a4be82553b2a12b776fbd3a215dc8f778d",
+"height": 6,
+"chain": "BTC.main",
+"total": 0,
+"fees": 0,
+"ver": 1,
+"time": "2009-01-09T03:29:49Z",
+...,
 },
 {
-  "hash": "000000009b7262315dbf071787ad3656097b892abffd1f95a1a022f896f533fc",
-  "height": 5,
-  "chain": "BTC.main",
-  "total": 0,
-  "fees": 0,
-  "ver": 1,
-  "time": "2009-01-09T03:23:48Z",
-	...,
+"hash": "000000009b7262315dbf071787ad3656097b892abffd1f95a1a022f896f533fc",
+"height": 5,
+"chain": "BTC.main",
+"total": 0,
+"fees": 0,
+"ver": 1,
+"time": "2009-01-09T03:23:48Z",
+...,
 },
 {
-  "hash": "0000000071966c2b1d065fd446b1e485b2c9d9594acd2007ccbd5441cfc89444",
-  "height": 7,
-  "chain": "BTC.main",
-  "total": 0,
-  "fees": 0,
-  "ver": 1,
-  "time": "2009-01-09T03:39:29Z",
-	...,
+"hash": "0000000071966c2b1d065fd446b1e485b2c9d9594acd2007ccbd5441cfc89444",
+"height": 7,
+"chain": "BTC.main",
+"total": 0,
+"fees": 0,
+"ver": 1,
+"time": "2009-01-09T03:39:29Z",
+...,
 }]
 ```
 
@@ -223,7 +223,7 @@ $ curl -X POST http://api.blockcypher.com/v1/bcy/test/addrs?token=$YOUR_TOKEN
 # Fund prior address with faucet
 $ curl -d '{"address": "CFqoZmZ3ePwK5wnkhxJjJAQKJ82C7RJdmd", "amount": 100000}' http://api.blockcypher.com/v1/bcy/test/faucet?token=$YOUR_TOKEN
 {
-  "tx_ref": "02dbf5585d438a1cba82a9041dd815635a6b0df684225cb5271e11397a759479"
+"tx_ref": "02dbf5585d438a1cba82a9041dd815635a6b0df684225cb5271e11397a759479"
 }
 ```
 
