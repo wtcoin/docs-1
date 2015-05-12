@@ -26,7 +26,9 @@
       </span>
     </a>
     <div class="tocify-wrapper">
-      <img src="images/logo.svg" />
+			<a href="http://www.blockcypher.com/">
+				<img src="images/logo.svg" />
+			</a>
         <div class="lang-selector">
               <a href="#" data-language-name="shell">cURL</a>
               <a href="#" data-language-name="ruby">Ruby</a>
@@ -309,7 +311,7 @@ Objects sometimes contain <b>attributes</b> that are <i>optional.</i> These are 
 <h2 id="blockchain">Blockchain</h2>
 
 <blockquote>
-<p>Example Blockchain Object:</p>
+<p>An example Blockchain Object</p>
 </blockquote>
 <pre class="highlight shell"><code><span class="o">{</span>
 <span class="s2">"name"</span>: <span class="s2">"BTC.main"</span>,
@@ -326,7 +328,7 @@ Objects sometimes contain <b>attributes</b> that are <i>optional.</i> These are 
 <span class="o">}</span>
 </code></pre>
 
-<p>A Blockchain represents the current state of a particular blockchain from the <a href="#restful-resources:-coins-&amp;-chains">Coin/Chain resources</a> that BlockCypher supports. Most typically returned from the <a href="#chain">Chain API endpoint</a>.</p>
+<p>A Blockchain represents the current state of a particular blockchain from the <a href="#restful-resources:-coins-&amp;-chains">Coin/Chain resources</a> that BlockCypher supports. Typically returned from the <a href="#chain-endpoint">Chain API endpoint</a>.</p>
 
 <table><thead>
 <tr>
@@ -394,6 +396,36 @@ Objects sometimes contain <b>attributes</b> that are <i>optional.</i> These are 
 
 <h2 id="block">Block</h2>
 
+<blockquote>
+<p>An example Block Object</p>
+</blockquote>
+<pre class="highlight shell"><code><span class="o">{</span>
+<span class="s2">"hash"</span>: <span class="s2">"0000000000000000189bba3564a63772107b567..."</span>,
+<span class="s2">"height"</span>: 294322,
+<span class="s2">"chain"</span>: <span class="s2">"BTC.main"</span>,
+<span class="s2">"total"</span>: 1146652915,
+<span class="s2">"fees"</span>: 130999,
+<span class="s2">"ver"</span>: 2,
+<span class="s2">"time"</span>: <span class="s2">"2014-04-05T07:49:18Z"</span>,
+<span class="s2">"received_time"</span>: <span class="s2">"2014-04-05T07:49:18Z"</span>,
+<span class="s2">"bits"</span>: 419486617,
+<span class="s2">"nonce"</span>: 1225187768,
+<span class="s2">"n_tx"</span>: 10,
+<span class="s2">"prev_block"</span>: <span class="s2">"0000000000000000ced0958bd27720b71d3..."</span>,
+<span class="s2">"mrkl_root"</span>: <span class="s2">"359d624d37aee1efa5662b7f5dbc390e996d..."</span>,
+<span class="s2">"txids"</span>: <span class="o">[</span>
+    <span class="s2">"32b3b86e40d996b1f281e24e8d4af2ceacbf874c403836..."</span>,
+    <span class="s2">"1579f716359ba1a207f70248135f5e5fadf539be1dcf53..."</span>,
+    ...,
+<span class="o">]</span>,
+<span class="s2">"depth"</span>: 61793,
+<span class="s2">"prev_block_url"</span>: <span class="s2">"https://api.blockcypher.com/v1/btc/main/blocks/0000000000000000ced0958bd27720b71d32c5847e40660aaca39f33c298abb0"</span>,
+<span class="s2">"tx_url"</span>: <span class="s2">"https://api.blockcypher.com/v1/btc/main/txs/"</span>
+<span class="o">}</span>
+</code></pre>
+
+<p>A Block represents the current state of a particular block from a <a href="#blockchain">Blockchain</a>. Typically returned from the <a href="#block-endpoint">Block API endpoint</a>.</p>
+
 <h2 id="transaction">Transaction</h2>
 
 <h2 id="transactioninput">TransactionInput</h2>
@@ -418,13 +450,81 @@ Objects sometimes contain <b>attributes</b> that are <i>optional.</i> These are 
 
           <h1 id="blockchain-api">Blockchain API</h1>
 
+<h2 id="chain-endpoint">Chain Endpoint</h2>
+
+<h2 id="block-endpoint">Block Endpoint</h2>
+
           <h1 id="address-api">Address API</h1>
+
+<h2 id="address-balance-endpoint">Address Balance Endpoint</h2>
+
+<h2 id="address-endpoint">Address Endpoint</h2>
+
+<h2 id="address-details-endpoint">Address Details Endpoint</h2>
+
+<h2 id="generate-address-endpoint">Generate Address Endpoint</h2>
+
+<h2 id="generate-multisig-address-endpoint">Generate Multisig Address Endpoint</h2>
+
+<h2 id="wallets">Wallets</h2>
 
           <h1 id="transactions-api">Transactions API</h1>
 
-          <h1 id="events,-websockets,-&amp;-webhooks">Events, WebSockets, &amp; WebHooks</h1>
+<h2 id="unconfirmed-transactions-endpoint">Unconfirmed Transactions Endpoint</h2>
+
+<h2 id="transaction-hash-endpoint">Transaction Hash Endpoint</h2>
+
+<h2 id="create-transaction-endpoints">Create Transaction Endpoints</h2>
+
+<h3 id="new-transaction-endpoint">New Transaction Endpoint</h3>
+
+<h3 id="send-transaction-endpoint">Send Transaction Endpoint</h3>
+
+<h2 id="push-raw-transaction-endpoint">Push Raw Transaction Endpoint</h2>
+
+<h2 id="decode-raw-transaction-endpoint">Decode Raw Transaction Endpoint</h2>
+
+<h2 id="multisig-transactions">Multisig Transactions</h2>
+
+          <h1 id="microtransactions-api">Microtransactions API</h1>
+
+<h2 id="microtransaction-endpoint">Microtransaction Endpoint</h2>
+
+<h2 id="security-vs-convenience">Security vs Convenience</h2>
+
+          <h1 id="zero-confirmation-confidence">Zero Confirmation Confidence</h1>
+
+<h2 id="transaction-confidence-endpoint">Transaction Confidence Endpoint</h2>
+
+<h2 id="using-zero-confirmation-events">Using Zero Confirmation Events</h2>
+
+<h2 id="more-on-security-vs-convenience">More on Security vs Convenience</h2>
 
           <h1 id="payment-forwarding">Payment Forwarding</h1>
+
+<h2 id="create-payment-endpoint">Create Payment Endpoint</h2>
+
+<h2 id="list-payments-endpoint">List Payments Endpoint</h2>
+
+<h2 id="payment-id-endpoint">Payment ID Endpoint</h2>
+
+<h2 id="delete-payment-endpoint">Delete Payment Endpoint</h2>
+
+          <h1 id="events,-websockets,-&amp;-webhooks">Events, WebSockets, &amp; WebHooks</h1>
+
+<h2 id="types-of-events">Types of Events</h2>
+
+<h2 id="websockets">WebSockets</h2>
+
+<h2 id="webhooks">WebHooks</h2>
+
+<h3 id="create-webhook-endpoint">Create WebHook Endpoint</h3>
+
+<h3 id="list-webhooks-endpoint">List WebHooks Endpoint</h3>
+
+<h3 id="webhook-id-endpoint">WebHook ID Endpoint</h3>
+
+<h3 id="delete-webhook-endpoint">Delete WebHook Endpoint</h3>
 
       </div>
       <div class="dark-box">
