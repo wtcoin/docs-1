@@ -102,7 +102,7 @@ Attribute | Type | Description
 **tx_url** | *url* | The base BlockCypher URL to receive transaction details. To get more details about specific transactions, you must concatenate this URL with the desired transaction hash(es).
 **mrkl_root** | *string* | The [Merkle root](https://bitcoin.stackexchange.com/questions/10479/what-is-the-merkle-root) of this block.
 **txids** | *array[string]* | An array of transaction hashes in this block. By default, only 20 are included.
-**next_txids** | *url* | ***Optional*** If there are more transactions that couldn't be fit in the **txids** array, this is the BlockCypher URL to query to retrieve the next set of transactions (within a Block object).
+**next_txids** | *url* | ***Optional*** If there are more transactions that couldn't fit in the **txids** array, this is the BlockCypher URL to query the next set of transactions (within a Block object).
 
 ## Transaction
 
