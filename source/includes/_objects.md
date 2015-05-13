@@ -239,7 +239,7 @@ Attribute | Type | Description
 }
 ```
 
-A TransactionOutput represents an output created by a transaction. Typically found with an array in a [Transaction](#transaction).
+A TransactionOutput represents an output created by a transaction. Typically found within an array in a [Transaction](#transaction).
 
 Attribute | Type | Description
 --------- | ---- | -----------
@@ -249,9 +249,69 @@ Attribute | Type | Description
 **script_type** | *string* | The type of encumbrance script used for this output.
 **spent_by** | *string* | ***Optional*** The transaction hash that spent this output. Only returned for outputs that have been spent.
 
-## TransactionTemplate
+## TransactionSkeleton
+
+> An example Transaction Skeleton Object 
+
+```shell
+{
+"tx": {
+	"block_height": -1,
+	"hash": "f961dea839fd69653547a0308360...",
+	"addresses": [
+		"1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD",
+		"1FGAsJFNgWvFz2tWQAnRq8S6fVX9Zmuxje",
+		],
+	"total": 661116,
+	"fees": 10000,
+	"received": "2014-04-20T23:52:21.069978821Z",
+	...
+},
+"tosign": [
+	"04779733bba8085dd86c21d86c...",
+	"0396ea6f1bf7493e738339bd72..."
+],
+"errors": [
+	{ "error": "..." }
+],
+"signatures": [
+	"a832bd21afc21...",
+	"0123ba82a273b..."
+],
+"pubkeys": [
+	"02c8d29d...",
+	"02c9d27d...",
+]
+}
+```
+
+A Transaction Skeleton is a convenience/wrapper Object that's used primarily when [Creating Transactions](#creating-transactions) through the [New](#new-transaction-endpoint) and [Send](#send-transaction-endpoint) endpoints.
+
+Attribute | Type | Description
+--------- | ---- | -----------
+**tx** | *[Transaction](#transaction)* | A temporary transaction, usually returned fully filled but missing input scripts.
+**tosign** | *array[string]* | Array of hex-encoded data for you to sign, one for each input.
+**signatures** | *array[string]* | Array of signatures corresponding to all the data in **tosign**, typically provided by you.
+**pubkeys** | *array[string]* | Array of public keys corresponding to each signature. In general, these are provided by you, and correspond to the signatures you provide.
+**errors** | *array["error":string]* | ***Optional*** Array of errors in the form *"error":"description-of-error"*. This is only returned if there was an error in any stage of transaction generation, and is usually accompanied by a HTTP 400 code.
 
 ## Microtransaction
+
+> An example Microtransaction object
+
+```shell
+{
+"from_pubkey": "03bb318b00de944086fad67ab78a832eb1bf26916053ecd3b14a3f48f9fbe0821f",
+"to_address": "mrS82nWF3TCfhafSaKnmUUktGNYuTZn1Ap",
+"value_satoshis": 5000,
+"token": "477a17a15d55b408038404a46c059ef9",
+"signatures": [
+	"3045022100..."
+]
+}
+```
+
+A Microtransaction represents a streamlined---and typically much lower value---transaction, one which BlockCypher can sign for you if you send your private key. Microtransactions can also be signed on the client-side without ever sending your private key. You'll find these objects used in the [Microtransaction API.](#microtransaction-api)
 
 ## Address
 
