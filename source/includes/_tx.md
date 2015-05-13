@@ -4,7 +4,7 @@
 
 ## Transaction Hash Endpoint
 
-## Create Transaction Endpoints
+## Creating Transactions
 
 ### New Transaction Endpoint
 

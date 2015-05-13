@@ -12,7 +12,7 @@
 Before diving into BlockCypher's endpoints, this section details all the Objects exposed and expected by the API. Some of you might be more interested in the endpoints themselves, in which case, feel free to [skip to the next section.](#blockchain-api) But for others, a section dedicated to all of BlockCypher's Objects might prove a useful overview, especially if you're new to Blockchain development in general. And in either case, this section provides a comprehensive reference for Objects in the API. For each Object there's a description and a link to a germane API endpoint.
 
 <aside class="notice">
-Objects sometimes contain <b>attributes</b> that are <i>optional.</i> These are always noted in the <b>description</b>. In these cases, the Object may not be guaranteed to include that <b>attribute</b> in its response.
+Objects sometimes contain <b>attributes</b> that are <b><i>optional.</i></b> These are always noted in the <b>description</b>. In these cases, the Object may not be guaranteed to include that <b>attribute</b> in its response.
 </aside>
 
 ## Blockchain
@@ -39,17 +39,17 @@ A Blockchain represents the current state of a particular blockchain from the [C
 
 Attribute | Type | Description
 --------- | ---- | -----------
-**name** | *string* | The name of the blockchain represented, in the form of $COIN.$CHAIN
-**height** | *integer* | The current height of the blockchain; i.e., the number of blocks in the blockchain
-**hash** | *string* | The hash of the latest confirmed block in the blockchain; in Bitcoin, the [hashing function is SHA256(SHA256(block))](https://en.bitcoin.it/wiki/Block_hashing_algorithm)
+**name** | *string* | The name of the blockchain represented, in the form of $COIN.$CHAIN.
+**height** | *integer* | The current height of the blockchain; i.e., the number of blocks in the blockchain.
+**hash** | *string* | The hash of the latest confirmed block in the blockchain; in Bitcoin, the [hashing function is SHA256(SHA256(block))](https://en.bitcoin.it/wiki/Block_hashing_algorithm).
 **time** | [*time*](https://tools.ietf.org/html/rfc3339) | The time of the latest update to the blockchain; typically when the latest block was added.
-**latest_url** | *url* | The URL to query for more information on the latest confirmed block; returns a [Block](#block)
-**previous_hash** | *string* | The hash of the second-to-latest confirmed block in the blockchain
-**previous_url** | *url* | The URL to query for more information on the second-to-latest confirmed block; returns a [Block](#block)
-**peer_count** | *integer* | *N/A, will be deprecated soon*
-**unconfirmed_count** | *integer* | Number of unconfirmed transactions in memory pool (likely to be included in next block)
-**last_fork_height** | *integer* | ***Optional*** The current height of the latest fork to the blockchain; when no competing blockchain fork present, not returned with endpoints that return Blockchains
-**last_fork_hash** | *string* | ***Optional*** The hash of the latest confirmed block in the latest fork of the blockchain; when no competing blockchain fork present, not returned with endpoints that return Blockchains
+**latest_url** | *url* | The BlockCypher URL to query for more information on the latest confirmed block; returns a [Block](#block).
+**previous_hash** | *string* | The hash of the second-to-latest confirmed block in the blockchain.
+**previous_url** | *url* | The BlockCypher URL to query for more information on the second-to-latest confirmed block; returns a [Block](#block).
+**peer_count** | *integer* | *N/A, will be deprecated soon*.
+**unconfirmed_count** | *integer* | Number of unconfirmed transactions in memory pool (likely to be included in next block).
+**last_fork_height** | *integer* | ***Optional*** The current height of the latest fork to the blockchain; when no competing blockchain fork present, not returned with endpoints that return Blockchains.
+**last_fork_hash** | *string* | ***Optional*** The hash of the latest confirmed block in the latest fork of the blockchain; when no competing blockchain fork present, not returned with endpoints that return Blockchains.
 
 ## Block
 
@@ -81,7 +81,28 @@ Attribute | Type | Description
 }
 ```
 
-A Block represents the current state of a particular block from a [Blockchain](#blockchain). Typically returned from the [Block API endpoint](#block-endpoint).
+A Block represents the current state of a particular block from a [Blockchain](#blockchain). Typically returned from the [Block Hash](#block-hash-endpoint) and [Block Height](#block-height-endpoint) endpoints.
+
+Attribute | Type | Description
+--------- | ---- | -----------
+**hash** | *string* | The hash of the block; in Bitcoin, the [hashing function is SHA256(SHA256(block))](https://en.bitcoin.it/wiki/Block_hashing_algorithm)
+**height** | *integer* | The height of the block in the blockchain; i.e., there are **height** earlier blocks in its blockchain.
+**depth** | *integer* | The depth of the block in the blockchain; i.e., there are **depth** later blocks in its blockchain.
+**chain** | *string* | The name of the blockchain represented, in the form of $COIN.$CHAIN
+**total** | *integer* | The total number of satoshis (or smallest, indivisible coin units in non-Bitcoin blockchains) transacted in this block.
+**fees** | *integer* | The total number of fees---in satoshis---collected by miners in this block. 
+**ver** | *integer* | Block version. In Bitcoin, per [BIP34](https://github.com/bitcoin/bips/blob/master/bip-0034.mediawiki) the last version 1 block was at height 227835.
+**time** | [*time*](https://tools.ietf.org/html/rfc3339) | Recorded time at which block was built. *Note: Miners rarely post accurate clock times.*
+**received_time** | [*time*](https://tools.ietf.org/html/rfc3339) | The time BlockCypher's servers receive the block. Our servers' clock is continuously adjusted and accurate.
+**bits** | *integer* | The block-encoded [difficulty target](https://en.bitcoin.it/wiki/Difficulty).
+**nonce** | *integer* | The [number used by a miner](https://en.bitcoin.it/wiki/Nonce) to generate this block. 
+**n_tx** | *integer* | Number of transactions in this block.
+**prev_block** | *string* | The hash of the previous block in the blockchain.
+**prev_block_url** | *url* | The BlockCypher URL to query for more information on the previous block.
+**tx_url** | *url* | The base BlockCypher URL to receive transaction details. To get more details about specific transactions, you must concatenate this URL with the desired transaction hash(es).
+**mrkl_root** | *string* | The [Merkle root](https://bitcoin.stackexchange.com/questions/10479/what-is-the-merkle-root) of this block.
+**txids** | *array[string]* | An array of transaction hashes in this block. By default, only 20 are included.
+**next_txids** | *url* | ***Optional*** If there are more transactions that couldn't be fit in the **txids** array, this is the BlockCypher URL to query to retrieve the next set of transactions (within a Block object).
 
 ## Transaction
 
