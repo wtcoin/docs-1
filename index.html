@@ -305,7 +305,7 @@ On the BlockCypher Test Chain, the faucet will refuse to fund an address with mo
 <p>Before diving into BlockCypher&rsquo;s endpoints, this section details all the Objects exposed and expected by the API. Some of you might be more interested in the endpoints themselves, in which case, feel free to <a href="#blockchain-api">skip to the next section.</a> But for others, a section dedicated to all of BlockCypher&rsquo;s Objects might prove a useful overview, especially if you&rsquo;re new to Blockchain development in general. And in either case, this section provides a comprehensive reference for Objects in the API. For each Object there&rsquo;s a description and a link to a germane API endpoint.</p>
 
 <aside class="notice">
-Objects sometimes contain <b>attributes</b> that are <i>optional.</i> These are always noted in the <b>description</b>. In these cases, the Object may not be guaranteed to include that <b>attribute</b> in its response.
+Objects sometimes contain <b>attributes</b> that are <b><i>optional.</i></b> These are always noted in the <b>description</b>. In these cases, the Object may not be guaranteed to include that <b>attribute</b> in its response.
 </aside>
 
 <h2 id="blockchain">Blockchain</h2>
@@ -340,17 +340,17 @@ Objects sometimes contain <b>attributes</b> that are <i>optional.</i> These are 
 <tr>
 <td><strong>name</strong></td>
 <td><em>string</em></td>
-<td>The name of the blockchain represented, in the form of $COIN.$CHAIN</td>
+<td>The name of the blockchain represented, in the form of $COIN.$CHAIN.</td>
 </tr>
 <tr>
 <td><strong>height</strong></td>
 <td><em>integer</em></td>
-<td>The current height of the blockchain; i.e., the number of blocks in the blockchain</td>
+<td>The current height of the blockchain; i.e., the number of blocks in the blockchain.</td>
 </tr>
 <tr>
 <td><strong>hash</strong></td>
 <td><em>string</em></td>
-<td>The hash of the latest confirmed block in the blockchain; in Bitcoin, the <a href="https://en.bitcoin.it/wiki/Block_hashing_algorithm">hashing function is SHA256(SHA256(block))</a></td>
+<td>The hash of the latest confirmed block in the blockchain; in Bitcoin, the <a href="https://en.bitcoin.it/wiki/Block_hashing_algorithm">hashing function is SHA256(SHA256(block))</a>.</td>
 </tr>
 <tr>
 <td><strong>time</strong></td>
@@ -360,37 +360,37 @@ Objects sometimes contain <b>attributes</b> that are <i>optional.</i> These are 
 <tr>
 <td><strong>latest_url</strong></td>
 <td><em>url</em></td>
-<td>The URL to query for more information on the latest confirmed block; returns a <a href="#block">Block</a></td>
+<td>The BlockCypher URL to query for more information on the latest confirmed block; returns a <a href="#block">Block</a>.</td>
 </tr>
 <tr>
 <td><strong>previous_hash</strong></td>
 <td><em>string</em></td>
-<td>The hash of the second-to-latest confirmed block in the blockchain</td>
+<td>The hash of the second-to-latest confirmed block in the blockchain.</td>
 </tr>
 <tr>
 <td><strong>previous_url</strong></td>
 <td><em>url</em></td>
-<td>The URL to query for more information on the second-to-latest confirmed block; returns a <a href="#block">Block</a></td>
+<td>The BlockCypher URL to query for more information on the second-to-latest confirmed block; returns a <a href="#block">Block</a>.</td>
 </tr>
 <tr>
 <td><strong>peer_count</strong></td>
 <td><em>integer</em></td>
-<td><em>N/A, will be deprecated soon</em></td>
+<td><em>N/A, will be deprecated soon</em>.</td>
 </tr>
 <tr>
 <td><strong>unconfirmed_count</strong></td>
 <td><em>integer</em></td>
-<td>Number of unconfirmed transactions in memory pool (likely to be included in next block)</td>
+<td>Number of unconfirmed transactions in memory pool (likely to be included in next block).</td>
 </tr>
 <tr>
 <td><strong>last_fork_height</strong></td>
 <td><em>integer</em></td>
-<td><strong><em>Optional</em></strong> The current height of the latest fork to the blockchain; when no competing blockchain fork present, not returned with endpoints that return Blockchains</td>
+<td><strong><em>Optional</em></strong> The current height of the latest fork to the blockchain; when no competing blockchain fork present, not returned with endpoints that return Blockchains.</td>
 </tr>
 <tr>
 <td><strong>last_fork_hash</strong></td>
 <td><em>string</em></td>
-<td><strong><em>Optional</em></strong> The hash of the latest confirmed block in the latest fork of the blockchain; when no competing blockchain fork present, not returned with endpoints that return Blockchains</td>
+<td><strong><em>Optional</em></strong> The hash of the latest confirmed block in the latest fork of the blockchain; when no competing blockchain fork present, not returned with endpoints that return Blockchains.</td>
 </tr>
 </tbody></table>
 
@@ -424,7 +424,106 @@ Objects sometimes contain <b>attributes</b> that are <i>optional.</i> These are 
 <span class="o">}</span>
 </code></pre>
 
-<p>A Block represents the current state of a particular block from a <a href="#blockchain">Blockchain</a>. Typically returned from the <a href="#block-endpoint">Block API endpoint</a>.</p>
+<p>A Block represents the current state of a particular block from a <a href="#blockchain">Blockchain</a>. Typically returned from the <a href="#block-hash-endpoint">Block Hash</a> and <a href="#block-height-endpoint">Block Height</a> endpoints.</p>
+
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>hash</strong></td>
+<td><em>string</em></td>
+<td>The hash of the block; in Bitcoin, the <a href="https://en.bitcoin.it/wiki/Block_hashing_algorithm">hashing function is SHA256(SHA256(block))</a></td>
+</tr>
+<tr>
+<td><strong>height</strong></td>
+<td><em>integer</em></td>
+<td>The height of the block in the blockchain; i.e., there are <strong>height</strong> earlier blocks in its blockchain.</td>
+</tr>
+<tr>
+<td><strong>depth</strong></td>
+<td><em>integer</em></td>
+<td>The depth of the block in the blockchain; i.e., there are <strong>depth</strong> later blocks in its blockchain.</td>
+</tr>
+<tr>
+<td><strong>chain</strong></td>
+<td><em>string</em></td>
+<td>The name of the blockchain represented, in the form of $COIN.$CHAIN</td>
+</tr>
+<tr>
+<td><strong>total</strong></td>
+<td><em>integer</em></td>
+<td>The total number of satoshis (or smallest, indivisible coin units in non-Bitcoin blockchains) transacted in this block.</td>
+</tr>
+<tr>
+<td><strong>fees</strong></td>
+<td><em>integer</em></td>
+<td>The total number of fees&mdash;in satoshis&mdash;collected by miners in this block.</td>
+</tr>
+<tr>
+<td><strong>ver</strong></td>
+<td><em>integer</em></td>
+<td>Block version. In Bitcoin, per <a href="https://github.com/bitcoin/bips/blob/master/bip-0034.mediawiki">BIP34</a> the last version 1 block was at height 227835.</td>
+</tr>
+<tr>
+<td><strong>time</strong></td>
+<td><a href="https://tools.ietf.org/html/rfc3339"><em>time</em></a></td>
+<td>Recorded time at which block was built. <em>Note: Miners rarely post accurate clock times.</em></td>
+</tr>
+<tr>
+<td><strong>received_time</strong></td>
+<td><a href="https://tools.ietf.org/html/rfc3339"><em>time</em></a></td>
+<td>The time BlockCypher&rsquo;s servers receive the block. Our servers&rsquo; clock is continuously adjusted and accurate.</td>
+</tr>
+<tr>
+<td><strong>bits</strong></td>
+<td><em>integer</em></td>
+<td>The block-encoded <a href="https://en.bitcoin.it/wiki/Difficulty">difficulty target</a>.</td>
+</tr>
+<tr>
+<td><strong>nonce</strong></td>
+<td><em>integer</em></td>
+<td>The <a href="https://en.bitcoin.it/wiki/Nonce">number used by a miner</a> to generate this block.</td>
+</tr>
+<tr>
+<td><strong>n_tx</strong></td>
+<td><em>integer</em></td>
+<td>Number of transactions in this block.</td>
+</tr>
+<tr>
+<td><strong>prev_block</strong></td>
+<td><em>string</em></td>
+<td>The hash of the previous block in the blockchain.</td>
+</tr>
+<tr>
+<td><strong>prev_block_url</strong></td>
+<td><em>url</em></td>
+<td>The BlockCypher URL to query for more information on the previous block.</td>
+</tr>
+<tr>
+<td><strong>tx_url</strong></td>
+<td><em>url</em></td>
+<td>The base BlockCypher URL to receive transaction details. To get more details about specific transactions, you must concatenate this URL with the desired transaction hash(es).</td>
+</tr>
+<tr>
+<td><strong>mrkl_root</strong></td>
+<td><em>string</em></td>
+<td>The <a href="https://bitcoin.stackexchange.com/questions/10479/what-is-the-merkle-root">Merkle root</a> of this block.</td>
+</tr>
+<tr>
+<td><strong>txids</strong></td>
+<td><em>array[string]</em></td>
+<td>An array of transaction hashes in this block. By default, only 20 are included.</td>
+</tr>
+<tr>
+<td><strong>next_txids</strong></td>
+<td><em>url</em></td>
+<td><strong><em>Optional</em></strong> If there are more transactions that couldn&rsquo;t be fit in the <strong>txids</strong> array, this is the BlockCypher URL to query to retrieve the next set of transactions (within a Block object).</td>
+</tr>
+</tbody></table>
 
 <h2 id="transaction">Transaction</h2>
 
@@ -452,7 +551,9 @@ Objects sometimes contain <b>attributes</b> that are <i>optional.</i> These are 
 
 <h2 id="chain-endpoint">Chain Endpoint</h2>
 
-<h2 id="block-endpoint">Block Endpoint</h2>
+<h2 id="block-hash-endpoint">Block Hash Endpoint</h2>
+
+<h2 id="block-height-endpoint">Block Height Endpoint</h2>
 
           <h1 id="address-api">Address API</h1>
 
@@ -474,7 +575,7 @@ Objects sometimes contain <b>attributes</b> that are <i>optional.</i> These are 
 
 <h2 id="transaction-hash-endpoint">Transaction Hash Endpoint</h2>
 
-<h2 id="create-transaction-endpoints">Create Transaction Endpoints</h2>
+<h2 id="creating-transactions">Creating Transactions</h2>
 
 <h3 id="new-transaction-endpoint">New Transaction Endpoint</h3>
 
