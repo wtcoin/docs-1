@@ -1,4 +1,4 @@
-# Events, WebSockets, & WebHooks
+# Events & Hooks
 
 ## Types of Events
 

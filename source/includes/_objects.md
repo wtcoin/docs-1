@@ -167,6 +167,7 @@ A Transaction represents the current state of a particular transaction from eith
 
 Attribute | Type | Description
 --------- | ---- | -----------
+**block_height** | *integer* | Height of the block that contains this transaction. If this is an unconfirmed transaction, it will equal -1.
 **hash** | *string* | The hash of the transaction. While reasonably unique, using hashes as identifiers may be [unsafe](https://en.bitcoin.it/wiki/Transaction_Malleability).
 **addresses** | *array[string]* | Array of bitcoin public addresses involved in the transaction.
 **total** | *integer* | The total number of satoshis (or smallest, indivisible coin units in non-Bitcoin blockchains) exchanged in this transaction.
@@ -182,16 +183,45 @@ Attribute | Type | Description
 **vout_sz** | *integer* | Total number of outputs in the transaction.
 **confirmations** | *integer* | Number of subsequent blocks, including the block the transaction is in. Unconfirmed transactions have 0 confirmations.
 **confidence** | *float* | The percentage chance this transaction will be included in the next block, if unconfirmed. For more information, check the section on [Zero Confirmation Confidence.](#zero-confirmation-confidence)
-**inputs** | *array[[TXInput](#transactioninput)]* | Array of [Transaction Inputs](#transaction-input), limited to 20 by default.
-**outputs** | *array[[TXOutput](#transactionoutput)]* | Array of [Transaction-Outputs](#transaction-output), limited to 20 by default.
+**inputs** | *array[[TXInput](#transactioninput)]* | Array of [Transaction Inputs](#transactioninput), limited to 20 by default.
+**outputs** | *array[[TXOutput](#transactionoutput)]* | Array of [Transaction Outputs](#transactionoutput), limited to 20 by default.
 **confirmed** | [*time*](https://tools.ietf.org/html/rfc3339) | ***Optional*** Time at which transaction was included in a block; only present for confirmed transactions.
 **receive_count** | *integer* | ***Optional*** Number of peers that have sent this transaction to BlockCypher; only present for unconfirmed transactions.
 **block_hash** | *string* | ***Optional***  Hash of the block that contains this transaction; only present for confirmed transactions.
-**block_height** | *integer* | ***Optional*** Height of the block that contains this transaction; only present for confirmed transactions.
 **double_of** | *string* | ***Optional*** If this transaction is a double-spend (i.e. **double_spend** == true) then this is the hash of the transaction it's double-spending.
 **hex** | *string* | ***Optional*** Hex-encoded bytes of the transaction, as sent over the network.
 
 ## TransactionInput
+
+> An example Transaction Input Object
+
+```shell
+{
+"prev_hash": "e5c9be87798b0fa8ad55a22b5d731d6f50d72bffaa6179f9999499e57388cc33",
+"output_index": 1,
+"script": "004730440220689409a16c98fa1659cae4c2020789eebfeb00065c5aeae0de9943fe0aba62ee0220133726168e492ae1bbbd3609c1be6c9c99cf16e61ba0d34c353a9e6c64b7a7bd01483045022100fa45e61471a893bafdb614f3f163c5f04c934b550fe737c8ca6c9e1eb18b16af022004d9a50c5ebe03433c117c9a87fd5b39ea55c6d117e784e5d4df51bc1ad0537b014c69522103c97e68c1190136ecce2ef05bc923fc21714c36ae134119fc9a56128616556f4f2103a80c263ec2cad9cb532661b588f63820c380f2639c96fc1fcc8df01ffe81039521028ff42346d94389ad9cfcff1e1ac3563a608dca99923b645324bb77baaeb6f26053ae",
+"output_value": 2450698356,
+"sequence": 4294967295,
+"addresses": [
+	"34ch2jrhYXDFsLK1FZQ3SjqgFRnX8mGC5W"
+],
+"script_type": "pay-to-script-hash",
+"age": 5
+}
+```
+
+A TransactionInput represents an input consumed within a transaction. Typically found within an array in a [Transaction](#transaction). In most cases, Transaction Inputs are from previous [UTXOs](https://bitcoin.org/en/glossary/unspent-transaction-output), with the most prominent exceptions being attempted double-spend and [coinbase](https://bitcoin.org/en/glossary/coinbase) inputs.
+
+Attribute | Type | Description
+--------- | ---- | -----------
+**prev_hash** | *string* | The previous transaction hash where this input was an output. Not present for [coinbase](https://bitcoin.org/en/glossary/coinbase) transactions.
+**output_index** | *integer* | The index of the output being spent within the previous transaction. Not present for [coinbase](https://bitcoin.org/en/glossary/coinbase) transactions.
+**output_value** | *integer* | The value of the output being spent within the previous transaction. Not present for [coinbase](https://bitcoin.org/en/glossary/coinbase) transactions.
+**script_type** | *string* | The type of script that encumbers the output corresponding to this input.
+**script** | *string* | Raw hexadecimal encoding of the script.
+**addresses** | *array[string]* | An array of public addresses associated with the output of the previous transaction.
+**sequence** | *integer* | Legacy 4-byte [sequence number](https://bitcoin.org/en/glossary/sequence-number), not usually relevant unless dealing with locktime encumbrances.
+**age** | *integer* | ***Optional*** Number of confirmations of the previous transaction for which this input was an output. Currently, only returned in unconfirmed transactions.
 
 ## TransactionOutput
 
