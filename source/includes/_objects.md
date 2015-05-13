@@ -199,7 +199,7 @@ Attribute | Type | Description
 {
 "prev_hash": "e5c9be87798b0fa8ad55a22b5d731d6f50d72bffaa6179f9999499e57388cc33",
 "output_index": 1,
-"script": "004730440220689409a16c98fa1659cae4c2020789eebfeb00065c5aeae0de9943fe0aba62ee0220133726168e492ae1bbbd3609c1be6c9c99cf16e61ba0d34c353a9e6c64b7a7bd01483045022100fa45e61471a893bafdb614f3f163c5f04c934b550fe737c8ca6c9e1eb18b16af022004d9a50c5ebe03433c117c9a87fd5b39ea55c6d117e784e5d4df51bc1ad0537b014c69522103c97e68c1190136ecce2ef05bc923fc21714c36ae134119fc9a56128616556f4f2103a80c263ec2cad9cb532661b588f63820c380f2639c96fc1fcc8df01ffe81039521028ff42346d94389ad9cfcff1e1ac3563a608dca99923b645324bb77baaeb6f26053ae",
+"script": "004730440220689409a16c98fa1659cae4c20...",
 "output_value": 2450698356,
 "sequence": 4294967295,
 "addresses": [
@@ -224,6 +224,30 @@ Attribute | Type | Description
 **age** | *integer* | ***Optional*** Number of confirmations of the previous transaction for which this input was an output. Currently, only returned in unconfirmed transactions.
 
 ## TransactionOutput
+
+> An example Transaction Output Object
+
+```shell
+{
+"value": 70320221545,
+"script": "76a914e6aad9d712c419ea8febf009a3f3bfdd8d222fac88ac",
+"spent_by": "35832d6c70b98b54e9a53ab2d51176eb19ad11bc4505d6bb1ea6c51a68cb92ee",
+"addresses": [
+	"1N2f642sbgCMbNtXFajz9XDACDFnFzdXzV"
+],
+"script_type": "pay-to-pubkey-hash"
+}
+```
+
+A TransactionOutput represents an output created by a transaction. Typically found with an array in a [Transaction](#transaction).
+
+Attribute | Type | Description
+--------- | ---- | -----------
+**value** | *int* | Value in this transaction output, in satoshis (or smallest, indivisible coin units in non-Bitcoin blockchains).
+**script** | *string* | Raw hexadecimal encoding of the encumbrance script for this output.
+**addresses** | *array[string]* | Addresses that correspond to this output; typically this will only have a single address, and you can think of this output as having "sent" **value** to the address contained herein.
+**script_type** | *string* | The type of encumbrance script used for this output.
+**spent_by** | *string* | ***Optional*** The transaction hash that spent this output. Only returned for outputs that have been spent.
 
 ## TransactionTemplate
 
