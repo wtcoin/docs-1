@@ -58,7 +58,7 @@
 
 <p>Welcome to <a href="http://www.blockcypher.com/">BlockCypher&rsquo;s</a> API documentation! BlockCypher is a simple, mostly RESTful JSON API for interacting with blockchains, accessed over HTTP or HTTPS from the <a href="https://api.blockcypher.com/v1/btc/main">api.blockcypher.com</a> domain. Currently, BlockCypher supports Bitcoin, Bitcoin Testnet3, Litecoin, Dogecoin, Urocoin, and BlockCypher&rsquo;s Test Chain (more about BlockCypher&rsquo;s Test Chain <a href="#testing">below</a>).</p>
 
-<p>BlockCypher&rsquo;s API provides a superset of the endpoints you&rsquo;d find in reference implementations, in addition to some special features that make BlockCypher uniquely powerful, like dependable WebHook or WebSockets-based <a href="#events,-websockets,-&amp;-webhooks">Events</a>, <a href="#microtransactions">On-Chain Microtransactions</a>, and <a href="#payment-forwarding">Payment Forwarding</a>.</p>
+<p>BlockCypher&rsquo;s API provides a superset of the endpoints you&rsquo;d find in reference implementations, in addition to some special features that make BlockCypher uniquely powerful, like <a href="#zero-confirmation-confidence">Zero Confirmation Confidence</a> intervals, dependable WebHook or WebSockets-based <a href="#events,-websockets,-&amp;-webhooks">Events</a>, <a href="#microtransactions-api">On-Chain Microtransactions</a>, and <a href="#payment-forwarding">Payment Forwarding</a>.</p>
 
 <p>Consequently, if you&rsquo;re familiar with a blockchain&rsquo;s reference implementation, you&rsquo;ll feel right at home using BlockCypher, but without worrying about scaling or implementation challenges. And if you&rsquo;re not familiar&mdash;with the reference implementations or blockchains in general&mdash;BlockCypher&rsquo;s API is a great way to dip your toes into blockchain development, without a lengthy setup process. In either case, BlockCypher has 99.99% up-time, and maintains an expressive, logical API that you&rsquo;ll love.</p>
 
@@ -527,6 +527,189 @@ Objects sometimes contain <b>attributes</b> that are <b><i>optional.</i></b> The
 
 <h2 id="transaction">Transaction</h2>
 
+<blockquote>
+<p>An example Transaction Object</p>
+</blockquote>
+<pre class="highlight shell"><code><span class="o">{</span>
+<span class="s2">"block_hash"</span>: <span class="s2">"0000000000000000c504bdea36e531d80..."</span>,
+<span class="s2">"block_height"</span>: 293000,
+<span class="s2">"hash"</span>: <span class="s2">"f854aebae95150b379cc1187d848d58225f3c41..."</span>,
+<span class="s2">"addresses"</span>: <span class="o">[</span>
+    <span class="s2">"13XXaBufpMvqRqLkyDty1AXqueZHVe6iyy"</span>,
+    <span class="s2">"19YtzZdcfs1V2ZCgyRWo8i2wLT8ND1Tu4L"</span>,
+    <span class="s2">"1BNiazBzCxJacAKo2yL83Wq1VJ18AYzNHy"</span>,
+    <span class="s2">"1GbMfYui17L5m6sAy3L3WXAtf1P32bxJXq"</span>,
+    <span class="s2">"1N2f642sbgCMbNtXFajz9XDACDFnFzdXzV"</span>
+<span class="o">]</span>,
+<span class="s2">"total"</span>: 70320221545,
+<span class="s2">"fees"</span>: 0,
+<span class="s2">"size"</span>: 636,
+<span class="s2">"preference"</span>: <span class="s2">"low"</span>,
+<span class="s2">"relayed_by"</span>: <span class="s2">""</span>,
+<span class="s2">"confirmed"</span>: <span class="s2">"2014-03-29T01:29:19Z"</span>,
+<span class="s2">"received"</span>: <span class="s2">"2014-03-29T01:29:19Z"</span>,
+<span class="s2">"ver"</span>: 1,
+<span class="s2">"lock_time"</span>: 0,
+<span class="s2">"double_spend"</span>: <span class="nb">false</span>,
+<span class="s2">"vin_sz"</span>: 4,
+<span class="s2">"vout_sz"</span>: 1,
+<span class="s2">"confirmations"</span>: 63171,
+<span class="s2">"confidence"</span>: 1,
+<span class="s2">"inputs"</span>: <span class="o">[</span>
+    <span class="o">{</span>
+        <span class="s2">"prev_hash"</span>: <span class="s2">"583910b7bf90ab802e22e5c25a89..."</span>,
+        <span class="s2">"output_index"</span>: 1,
+        <span class="s2">"script"</span>: <span class="s2">"4830450220504b1ccfddf508422bdd8..."</span>,
+        <span class="s2">"output_value"</span>: 16450000,
+        <span class="s2">"sequence"</span>: 4294967295,
+        <span class="s2">"addresses"</span>: <span class="o">[</span>
+            <span class="s2">"1GbMfYui17L5m6sAy3L3WXAtf1P32bxJXq"</span>
+        <span class="o">]</span>,
+        <span class="s2">"script_type"</span>: <span class="s2">"pay-to-pubkey-hash"</span>
+    <span class="o">}</span>,
+    ...,
+    ...,
+<span class="o">]</span>,
+<span class="s2">"outputs"</span>: <span class="o">[</span>
+    <span class="o">{</span>
+        <span class="s2">"value"</span>: 70320221545,
+        <span class="s2">"script"</span>: <span class="s2">"76a914e6aad9d712c419ea8febf009a..."</span>,
+        <span class="s2">"spent_by"</span>: <span class="s2">"35832d6c70b98b54e9a53ab2d5117..."</span>,
+        <span class="s2">"addresses"</span>: <span class="o">[</span>
+            <span class="s2">"1N2f642sbgCMbNtXFajz9XDACDFnFzdXzV"</span>
+        <span class="o">]</span>,
+        <span class="s2">"script_type"</span>: <span class="s2">"pay-to-pubkey-hash"</span>
+    <span class="o">}</span>
+<span class="o">]</span>
+<span class="o">}</span>
+</code></pre>
+
+<p>A Transaction represents the current state of a particular transaction from either a <a href="#block">Block</a> within a <a href="#blockchain">Blockchain</a>, or an unconfirmed transaction that has yet to be included in a <a href="#block">Block</a>. Typically returned from the <a href="#unconfirmed-transactions-endpoint">Unconfirmed Transactions</a> and <a href="#transaction-hash">Transaction Hash</a> endpoints.</p>
+
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>hash</strong></td>
+<td><em>string</em></td>
+<td>The hash of the transaction. While reasonably unique, using hashes as identifiers may be <a href="https://en.bitcoin.it/wiki/Transaction_Malleability">unsafe</a>.</td>
+</tr>
+<tr>
+<td><strong>addresses</strong></td>
+<td><em>array[string]</em></td>
+<td>Array of bitcoin public addresses involved in the transaction.</td>
+</tr>
+<tr>
+<td><strong>total</strong></td>
+<td><em>integer</em></td>
+<td>The total number of satoshis (or smallest, indivisible coin units in non-Bitcoin blockchains) exchanged in this transaction.</td>
+</tr>
+<tr>
+<td><strong>fees</strong></td>
+<td><em>integer</em></td>
+<td>The total number of fees&mdash;in satoshis&mdash;collected by miners in this transaction.</td>
+</tr>
+<tr>
+<td><strong>size</strong></td>
+<td><em>integer</em></td>
+<td>The size of the transaction in bytes.</td>
+</tr>
+<tr>
+<td><strong>preference</strong></td>
+<td><em>string</em></td>
+<td>The likelihood that this transaction will make it to the next block; reflects the preference level miners have to include this transaction. Can be high, medium or low.</td>
+</tr>
+<tr>
+<td><strong>relayed_by</strong></td>
+<td><em>string</em></td>
+<td>Address of the peer that sent BlockCypher&rsquo;s servers this transaction.</td>
+</tr>
+<tr>
+<td><strong>received</strong></td>
+<td><a href="https://tools.ietf.org/html/rfc3339"><em>time</em></a></td>
+<td>Time this transaction was received by BlockCypher&rsquo;s servers.</td>
+</tr>
+<tr>
+<td><strong>ver</strong></td>
+<td><em>integer</em></td>
+<td>Version number, <a href="https://en.bitcoin.it/wiki/Transaction">typically 1 for Bitcoin transactions.</a></td>
+</tr>
+<tr>
+<td><strong>lock_time</strong></td>
+<td><em>integer</em></td>
+<td>Time when transaction can be valid. Can be interpreted in two ways: if less than 500 million, refers to block height. If more, refers to Unix epoch time.</td>
+</tr>
+<tr>
+<td><strong>double_spend</strong></td>
+<td><em>bool</em></td>
+<td>True if this is an attempted double spend; false otherwise.</td>
+</tr>
+<tr>
+<td><strong>vin_sz</strong></td>
+<td><em>integer</em></td>
+<td>Total number of inputs in the transaction.</td>
+</tr>
+<tr>
+<td><strong>vout_sz</strong></td>
+<td><em>integer</em></td>
+<td>Total number of outputs in the transaction.</td>
+</tr>
+<tr>
+<td><strong>confirmations</strong></td>
+<td><em>integer</em></td>
+<td>Number of subsequent blocks, including the block the transaction is in. Unconfirmed transactions have 0 confirmations.</td>
+</tr>
+<tr>
+<td><strong>confidence</strong></td>
+<td><em>float</em></td>
+<td>The percentage chance this transaction will be included in the next block, if unconfirmed. For more information, check the section on <a href="#zero-confirmation-confidence">Zero Confirmation Confidence.</a></td>
+</tr>
+<tr>
+<td><strong>inputs</strong></td>
+<td><em>array[<a href="#transactioninput">TXInput</a>]</em></td>
+<td>Array of <a href="#transaction-input">Transaction Inputs</a>, limited to 20 by default.</td>
+</tr>
+<tr>
+<td><strong>outputs</strong></td>
+<td><em>array[<a href="#transactionoutput">TXOutput</a>]</em></td>
+<td>Array of <a href="#transaction-output">Transaction-Outputs</a>, limited to 20 by default.</td>
+</tr>
+<tr>
+<td><strong>confirmed</strong></td>
+<td><a href="https://tools.ietf.org/html/rfc3339"><em>time</em></a></td>
+<td><strong><em>Optional</em></strong> Time at which transaction was included in a block; only present for confirmed transactions.</td>
+</tr>
+<tr>
+<td><strong>receive_count</strong></td>
+<td><em>integer</em></td>
+<td><strong><em>Optional</em></strong> Number of peers that have sent this transaction to BlockCypher; only present for unconfirmed transactions.</td>
+</tr>
+<tr>
+<td><strong>block_hash</strong></td>
+<td><em>string</em></td>
+<td><strong><em>Optional</em></strong>  Hash of the block that contains this transaction; only present for confirmed transactions.</td>
+</tr>
+<tr>
+<td><strong>block_height</strong></td>
+<td><em>integer</em></td>
+<td><strong><em>Optional</em></strong> Height of the block that contains this transaction; only present for confirmed transactions.</td>
+</tr>
+<tr>
+<td><strong>double_of</strong></td>
+<td><em>string</em></td>
+<td><strong><em>Optional</em></strong> If this transaction is a double-spend (i.e. <strong>double_spend</strong> == true) then this is the hash of the transaction it&rsquo;s double-spending.</td>
+</tr>
+<tr>
+<td><strong>hex</strong></td>
+<td><em>string</em></td>
+<td><strong><em>Optional</em></strong> Hex-encoded bytes of the transaction, as sent over the network.</td>
+</tr>
+</tbody></table>
+
 <h2 id="transactioninput">TransactionInput</h2>
 
 <h2 id="transactionoutput">TransactionOutput</h2>
@@ -535,11 +718,11 @@ Objects sometimes contain <b>attributes</b> that are <b><i>optional.</i></b> The
 
 <h2 id="microtransaction">Microtransaction</h2>
 
-<h2 id="wallet">Wallet</h2>
-
 <h2 id="address">Address</h2>
 
 <h2 id="addresskeychain">AddressKeychain</h2>
+
+<h2 id="wallet">Wallet</h2>
 
 <h2 id="event">Event</h2>
 
