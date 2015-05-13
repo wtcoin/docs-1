@@ -106,6 +106,91 @@ Attribute | Type | Description
 
 ## Transaction
 
+> An example Transaction Object
+
+```shell
+{
+"block_hash": "0000000000000000c504bdea36e531d80...",
+"block_height": 293000,
+"hash": "f854aebae95150b379cc1187d848d58225f3c41...",
+"addresses": [
+	"13XXaBufpMvqRqLkyDty1AXqueZHVe6iyy",
+	"19YtzZdcfs1V2ZCgyRWo8i2wLT8ND1Tu4L",
+	"1BNiazBzCxJacAKo2yL83Wq1VJ18AYzNHy",
+	"1GbMfYui17L5m6sAy3L3WXAtf1P32bxJXq",
+	"1N2f642sbgCMbNtXFajz9XDACDFnFzdXzV"
+],
+"total": 70320221545,
+"fees": 0,
+"size": 636,
+"preference": "low",
+"relayed_by": "",
+"confirmed": "2014-03-29T01:29:19Z",
+"received": "2014-03-29T01:29:19Z",
+"ver": 1,
+"lock_time": 0,
+"double_spend": false,
+"vin_sz": 4,
+"vout_sz": 1,
+"confirmations": 63171,
+"confidence": 1,
+"inputs": [
+	{
+		"prev_hash": "583910b7bf90ab802e22e5c25a89...",
+		"output_index": 1,
+		"script": "4830450220504b1ccfddf508422bdd8...",
+		"output_value": 16450000,
+		"sequence": 4294967295,
+		"addresses": [
+			"1GbMfYui17L5m6sAy3L3WXAtf1P32bxJXq"
+		],
+		"script_type": "pay-to-pubkey-hash"
+	},
+	...,
+	...,
+],
+"outputs": [
+	{
+		"value": 70320221545,
+		"script": "76a914e6aad9d712c419ea8febf009a...",
+		"spent_by": "35832d6c70b98b54e9a53ab2d5117...",
+		"addresses": [
+			"1N2f642sbgCMbNtXFajz9XDACDFnFzdXzV"
+		],
+		"script_type": "pay-to-pubkey-hash"
+	}
+]
+}
+```
+
+A Transaction represents the current state of a particular transaction from either a [Block](#block) within a [Blockchain](#blockchain), or an unconfirmed transaction that has yet to be included in a [Block](#block). Typically returned from the [Unconfirmed Transactions](#unconfirmed-transactions-endpoint) and [Transaction Hash](#transaction-hash) endpoints.
+
+Attribute | Type | Description
+--------- | ---- | -----------
+**hash** | *string* | The hash of the transaction. While reasonably unique, using hashes as identifiers may be [unsafe](https://en.bitcoin.it/wiki/Transaction_Malleability).
+**addresses** | *array[string]* | Array of bitcoin public addresses involved in the transaction.
+**total** | *integer* | The total number of satoshis (or smallest, indivisible coin units in non-Bitcoin blockchains) exchanged in this transaction.
+**fees** | *integer* | The total number of fees---in satoshis---collected by miners in this transaction.
+**size** | *integer* | The size of the transaction in bytes.
+**preference** | *string* | The likelihood that this transaction will make it to the next block; reflects the preference level miners have to include this transaction. Can be high, medium or low.
+**relayed_by** | *string* | Address of the peer that sent BlockCypher's servers this transaction.
+**received** | [*time*](https://tools.ietf.org/html/rfc3339) | Time this transaction was received by BlockCypher's servers.
+**ver** | *integer* | Version number, [typically 1 for Bitcoin transactions.](https://en.bitcoin.it/wiki/Transaction)
+**lock_time** | *integer* | Time when transaction can be valid. Can be interpreted in two ways: if less than 500 million, refers to block height. If more, refers to Unix epoch time.
+**double_spend** | *bool* | True if this is an attempted double spend; false otherwise.
+**vin_sz** | *integer* | Total number of inputs in the transaction.
+**vout_sz** | *integer* | Total number of outputs in the transaction.
+**confirmations** | *integer* | Number of subsequent blocks, including the block the transaction is in. Unconfirmed transactions have 0 confirmations.
+**confidence** | *float* | The percentage chance this transaction will be included in the next block, if unconfirmed. For more information, check the section on [Zero Confirmation Confidence.](#zero-confirmation-confidence)
+**inputs** | *array[[TXInput](#transactioninput)]* | Array of [Transaction Inputs](#transaction-input), limited to 20 by default.
+**outputs** | *array[[TXOutput](#transactionoutput)]* | Array of [Transaction-Outputs](#transaction-output), limited to 20 by default.
+**confirmed** | [*time*](https://tools.ietf.org/html/rfc3339) | ***Optional*** Time at which transaction was included in a block; only present for confirmed transactions.
+**receive_count** | *integer* | ***Optional*** Number of peers that have sent this transaction to BlockCypher; only present for unconfirmed transactions.
+**block_hash** | *string* | ***Optional***  Hash of the block that contains this transaction; only present for confirmed transactions.
+**block_height** | *integer* | ***Optional*** Height of the block that contains this transaction; only present for confirmed transactions.
+**double_of** | *string* | ***Optional*** If this transaction is a double-spend (i.e. **double_spend** == true) then this is the hash of the transaction it's double-spending.
+**hex** | *string* | ***Optional*** Hex-encoded bytes of the transaction, as sent over the network.
+
 ## TransactionInput
 
 ## TransactionOutput
@@ -114,11 +199,11 @@ Attribute | Type | Description
 
 ## Microtransaction
 
-## Wallet
-
 ## Address
 
 ## AddressKeychain
+
+## Wallet
 
 ## Event
 
