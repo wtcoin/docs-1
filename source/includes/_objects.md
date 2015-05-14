@@ -249,9 +249,9 @@ Attribute | Type | Description
 **script_type** | *string* | The type of encumbrance script used for this output.
 **spent_by** | *string* | ***Optional*** The transaction hash that spent this output. Only returned for outputs that have been spent.
 
-## TransactionReference
+## TXRef
 
-> An example TransactionReference Object
+> An example TXRef Object
 
 ```shell
 {
@@ -267,7 +267,7 @@ Attribute | Type | Description
 }
 ```
 
-A TransactionReference object represents summarized data about a transaction input or output. Typically found in an array within an [Address](#address) object, which is usually returned from the standard [Address Endpoint](#address-endpoint).
+A TXRef object represents summarized data about a transaction input or output. Typically found in an array within an [Address](#address) object, which is usually returned from the standard [Address Endpoint](#address-endpoint).
 
 Attribute | Type | Description
 --------- | ---- | -----------
@@ -384,13 +384,32 @@ Attribute | Type | Description
 "n_tx": 7,
 "unconfirmed_n_tx": 0,
 "final_n_tx": 7,
-"txs": [
+"txrefs": [
+	...
+],
+"unconfirmed_txrefs": [
 	...
 ]
 }
 ```
 
 An Address represents a public address on a blockchain, and contains information about the state of balances and transactions related to this address. Typically returned from the [Address Balance](#address-balance-endpoint), [Address](#address-endpoint), and [Address Detail Endpoint](#address-detail-endpoint).
+
+Attribute | Type | Description
+--------- | ---- | -----------
+**address** | *string* | The requested address.
+**total_received** | *integer* |Total amount of satoshis (or the lowest non-divisible unit in non-Bitcoin blockchains) received by this address.
+**total_sent** | *integer* | Total amount of satoshis (or the lowest non-divisible unit in non-Bitcoin blockchains) sent by this address.
+**balance**	| *integer* | Balance of confirmed satoshis (or the lowest non-divisible unit in non-Bitcoin blockchains) on this address. This is the difference between outputs and inputs on this address, but only for transactions that have been included into a block (i.e., for transactions whose confirmations > 0).
+**unconfirmed_balance**	| *integer* | Balance of unconfirmed satoshis (or the lowest non-divisible unit in non-Bitcoin blockchains) on this address. Can be negative (if unconfirmed transactions are just spending outputs). Only unconfirmed transactions (haven't made it into a block) are included.
+**final_balance**	| *integer* |	Total balance of satoshis (or the lowest non-divisible unit in non-Bitcoin blockchains) including confirmed and unconfirmed transactions for this address. 
+**n_tx** | *integer* | Number of confirmed transactions on this address. Only transactions that have made it into a block (confirmations > 0) are counted.
+**unconfirmed_n_tx** | *integer* | Number of unconfirmed transactions for this address. Only unconfirmed transactions (confirmations == 0) are counted.
+**final_n_tx** | *integer* | Final number of transactions, including confirmed and unconfirmed transactions, for this address.
+**tx_url** | *url* | To retrieve base URL transactions. To get the full URL, concatenate this URL with a transaction's hash.
+**txs** | *array[[Transaction](#transaction)]* | ***Optional***  Array of full transaction details associated with this address. Usually only returned from the [Address Detail Endpoint](#address-detail).
+**txrefs** | *array[[TXRef](#txref)]* | ***Optional*** Array of transaction inputs and outputs for this address. Usually only returned from the standard [Address Endpoint](#address-endpoint). 
+**unconfirmed_txrefs** | *array[[TXRef](#txref)]* | ***Optional*** All unconfirmed transaction inputs and outputs for this address. Usually only returned from the standard [Address Endpoint](#address-endpoint).
 
 ## AddressKeychain
 
