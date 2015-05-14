@@ -4,7 +4,7 @@
 
 ## Address Endpoint
 
-## Address Details Endpoint
+## Address Detail Endpoint
 
 ## Generate Address Endpoint
 

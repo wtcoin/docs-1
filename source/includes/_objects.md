@@ -193,7 +193,7 @@ Attribute | Type | Description
 
 ## TransactionInput
 
-> An example Transaction Input Object
+> An example TransactionInput Object
 
 ```shell
 {
@@ -225,7 +225,7 @@ Attribute | Type | Description
 
 ## TransactionOutput
 
-> An example Transaction Output Object
+> An example TransactionOutput Object
 
 ```shell
 {
@@ -249,9 +249,47 @@ Attribute | Type | Description
 **script_type** | *string* | The type of encumbrance script used for this output.
 **spent_by** | *string* | ***Optional*** The transaction hash that spent this output. Only returned for outputs that have been spent.
 
+## TransactionReference
+
+> An example TransactionReference Object
+
+```shell
+{
+"tx_hash": "14b1052855bbf6561bc4db8aa501762e7cc1e86994dda9e782a6b73b1ce0dc1e",
+"block_height": 302013,
+"tx_input_n": -1,
+"tx_output_n": 0,
+"value": 20213,
+"spent": false,
+"confirmations": 54405,
+"confirmed": "2014-05-22T03:46:25Z",
+"double_spend": false
+}
+```
+
+A TransactionReference object represents summarized data about a transaction input or output. Typically found in an array within an [Address](#address) object, which is usually returned from the standard [Address Endpoint](#address-endpoint).
+
+Attribute | Type | Description
+--------- | ---- | -----------
+**block_height** | *integer* | Height of the block that contains this transaction. If this is an unconfirmed transaction, it will equal -1.
+**tx_hash** | *string* | The hash of the transaction containing this input or output. While reasonably unique, using hashes as identifiers may be [unsafe](https://en.bitcoin.it/wiki/Transaction_Malleability).
+**tx_input_n** | *integer* | Index of the input in the transaction. It's a negative number for an output.
+**tx_output_n** | *integer* |	Index of the output in the transaction. It's a negative number for an input.
+**value** | *integer* | The value transfered by this input/output in satoshis (or smallest, indivisible coin units in non-Bitcoin blockchains) exchanged in this transaction.
+**preference** | *string* | The likelihood that this transaction will make it to the next block; reflects the preference level miners have to include this transaction. Can be high, medium or low.
+**spent** | *bool* | 	True if this output was spent; false otherwise.
+**double_spend** | *bool* | True if this is an attempted double spend; false otherwise.
+**confirmations** | *integer* | Number of subsequent blocks, including the block the transaction is in. Unconfirmed transactions have 0 confirmations.
+**confidence** | *float* | ***Optional*** The percentage chance this transaction will be included in the next block, if unconfirmed. For more information, check the section on [Zero Confirmation Confidence.](#zero-confirmation-confidence)
+**confirmed** | [*time*](https://tools.ietf.org/html/rfc3339) | ***Optional*** Time at which transaction was included in a block; only present for confirmed transactions.
+**spent_by** | *string* | ***Optional*** The transaction hash that spent this output. Only returned for outputs that have been spent.
+**received** | [*time*](https://tools.ietf.org/html/rfc3339) | ***Optional*** Time this transaction was received by BlockCypher's servers; only present for unconfirmed transactions.
+**receive_count** | *integer* | ***Optional*** Number of peers that have sent this transaction to BlockCypher; only present for unconfirmed transactions.
+**double_of** | *string* | ***Optional*** If this transaction is a double-spend (i.e. **double_spend** == true) then this is the hash of the transaction it's double-spending.
+
 ## TransactionSkeleton
 
-> An example Transaction Skeleton Object 
+> An example TransactionSkeleton Object 
 
 ```shell
 {
@@ -285,7 +323,7 @@ Attribute | Type | Description
 }
 ```
 
-A Transaction Skeleton is a convenience/wrapper Object that's used primarily when [Creating Transactions](#creating-transactions) through the [New](#new-transaction-endpoint) and [Send](#send-transaction-endpoint) endpoints.
+A TransactionSkeleton is a convenience/wrapper Object that's used primarily when [Creating Transactions](#creating-transactions) through the [New](#new-transaction-endpoint) and [Send](#send-transaction-endpoint) endpoints.
 
 Attribute | Type | Description
 --------- | ---- | -----------
@@ -332,6 +370,27 @@ Attribute | Type | Description
 **hash** | *string* | ***Optional*** The hash of the finalized transaction, once sent.
 
 ## Address
+
+> An example Address object
+
+```shell
+{
+"address": "1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD",
+"total_received": 4433416,
+"total_sent": 0,
+"balance": 4433416,
+"unconfirmed_balance": 0,
+"final_balance": 4433416,
+"n_tx": 7,
+"unconfirmed_n_tx": 0,
+"final_n_tx": 7,
+"txs": [
+	...
+]
+}
+```
+
+An Address represents a public address on a blockchain, and contains information about the state of balances and transactions related to this address. Typically returned from the [Address Balance](#address-balance-endpoint), [Address](#address-endpoint), and [Address Detail Endpoint](#address-detail-endpoint).
 
 ## AddressKeychain
 
