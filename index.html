@@ -832,10 +832,10 @@ Objects sometimes contain <b>attributes</b> that are <b><i>optional.</i></b> The
 </tr>
 </tbody></table>
 
-<h2 id="transactionreference">TransactionReference</h2>
+<h2 id="txref">TXRef</h2>
 
 <blockquote>
-<p>An example TransactionReference Object</p>
+<p>An example TXRef Object</p>
 </blockquote>
 <pre class="highlight shell"><code><span class="o">{</span>
 <span class="s2">"tx_hash"</span>: <span class="s2">"14b1052855bbf6561bc4db8aa501762e7cc1e86994dda9e782a6b73b1ce0dc1e"</span>,
@@ -850,7 +850,7 @@ Objects sometimes contain <b>attributes</b> that are <b><i>optional.</i></b> The
 <span class="o">}</span>
 </code></pre>
 
-<p>A TransactionReference object represents summarized data about a transaction input or output. Typically found in an array within an <a href="#address">Address</a> object, which is usually returned from the standard <a href="#address-endpoint">Address Endpoint</a>.</p>
+<p>A TXRef object represents summarized data about a transaction input or output. Typically found in an array within an <a href="#address">Address</a> object, which is usually returned from the standard <a href="#address-endpoint">Address Endpoint</a>.</p>
 
 <table><thead>
 <tr>
@@ -1109,13 +1109,90 @@ Only one of these three fields is required for the microtransaction endpoint: <b
 <span class="s2">"n_tx"</span>: 7,
 <span class="s2">"unconfirmed_n_tx"</span>: 0,
 <span class="s2">"final_n_tx"</span>: 7,
-<span class="s2">"txs"</span>: <span class="o">[</span>
+<span class="s2">"txrefs"</span>: <span class="o">[</span>
+    ...
+<span class="o">]</span>,
+<span class="s2">"unconfirmed_txrefs"</span>: <span class="o">[</span>
     ...
 <span class="o">]</span>
 <span class="o">}</span>
 </code></pre>
 
 <p>An Address represents a public address on a blockchain, and contains information about the state of balances and transactions related to this address. Typically returned from the <a href="#address-balance-endpoint">Address Balance</a>, <a href="#address-endpoint">Address</a>, and <a href="#address-detail-endpoint">Address Detail Endpoint</a>.</p>
+
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>address</strong></td>
+<td><em>string</em></td>
+<td>The requested address.</td>
+</tr>
+<tr>
+<td><strong>total_received</strong></td>
+<td><em>integer</em></td>
+<td>Total amount of satoshis (or the lowest non-divisible unit in non-Bitcoin blockchains) received by this address.</td>
+</tr>
+<tr>
+<td><strong>total_sent</strong></td>
+<td><em>integer</em></td>
+<td>Total amount of satoshis (or the lowest non-divisible unit in non-Bitcoin blockchains) sent by this address.</td>
+</tr>
+<tr>
+<td><strong>balance</strong></td>
+<td><em>integer</em></td>
+<td>Balance of confirmed satoshis (or the lowest non-divisible unit in non-Bitcoin blockchains) on this address. This is the difference between outputs and inputs on this address, but only for transactions that have been included into a block (i.e., for transactions whose confirmations &gt; 0).</td>
+</tr>
+<tr>
+<td><strong>unconfirmed_balance</strong></td>
+<td><em>integer</em></td>
+<td>Balance of unconfirmed satoshis (or the lowest non-divisible unit in non-Bitcoin blockchains) on this address. Can be negative (if unconfirmed transactions are just spending outputs). Only unconfirmed transactions (haven&rsquo;t made it into a block) are included.</td>
+</tr>
+<tr>
+<td><strong>final_balance</strong></td>
+<td><em>integer</em></td>
+<td>Total balance of satoshis (or the lowest non-divisible unit in non-Bitcoin blockchains) including confirmed and unconfirmed transactions for this address.</td>
+</tr>
+<tr>
+<td><strong>n_tx</strong></td>
+<td><em>integer</em></td>
+<td>Number of confirmed transactions on this address. Only transactions that have made it into a block (confirmations &gt; 0) are counted.</td>
+</tr>
+<tr>
+<td><strong>unconfirmed_n_tx</strong></td>
+<td><em>integer</em></td>
+<td>Number of unconfirmed transactions for this address. Only unconfirmed transactions (confirmations == 0) are counted.</td>
+</tr>
+<tr>
+<td><strong>final_n_tx</strong></td>
+<td><em>integer</em></td>
+<td>Final number of transactions, including confirmed and unconfirmed transactions, for this address.</td>
+</tr>
+<tr>
+<td><strong>tx_url</strong></td>
+<td><em>url</em></td>
+<td>To retrieve base URL transactions. To get the full URL, concatenate this URL with a transaction&rsquo;s hash.</td>
+</tr>
+<tr>
+<td><strong>txs</strong></td>
+<td><em>array[<a href="#transaction">Transaction</a>]</em></td>
+<td><strong><em>Optional</em></strong>  Array of full transaction details associated with this address. Usually only returned from the <a href="#address-detail">Address Detail Endpoint</a>.</td>
+</tr>
+<tr>
+<td><strong>txrefs</strong></td>
+<td><em>array[<a href="#txref">TXRef</a>]</em></td>
+<td><strong><em>Optional</em></strong> Array of transaction inputs and outputs for this address. Usually only returned from the standard <a href="#address-endpoint">Address Endpoint</a>.</td>
+</tr>
+<tr>
+<td><strong>unconfirmed_txrefs</strong></td>
+<td><em>array[<a href="#txref">TXRef</a>]</em></td>
+<td><strong><em>Optional</em></strong> All unconfirmed transaction inputs and outputs for this address. Usually only returned from the standard <a href="#address-endpoint">Address Endpoint</a>.</td>
+</tr>
+</tbody></table>
 
 <h2 id="addresskeychain">AddressKeychain</h2>
 
