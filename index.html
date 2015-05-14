@@ -713,7 +713,7 @@ Objects sometimes contain <b>attributes</b> that are <b><i>optional.</i></b> The
 <h2 id="transactioninput">TransactionInput</h2>
 
 <blockquote>
-<p>An example Transaction Input Object</p>
+<p>An example TransactionInput Object</p>
 </blockquote>
 <pre class="highlight shell"><code><span class="o">{</span>
 <span class="s2">"prev_hash"</span>: <span class="s2">"e5c9be87798b0fa8ad55a22b5d731d6f50d72bffaa6179f9999499e57388cc33"</span>,
@@ -783,7 +783,7 @@ Objects sometimes contain <b>attributes</b> that are <b><i>optional.</i></b> The
 <h2 id="transactionoutput">TransactionOutput</h2>
 
 <blockquote>
-<p>An example Transaction Output Object</p>
+<p>An example TransactionOutput Object</p>
 </blockquote>
 <pre class="highlight shell"><code><span class="o">{</span>
 <span class="s2">"value"</span>: 70320221545,
@@ -832,10 +832,114 @@ Objects sometimes contain <b>attributes</b> that are <b><i>optional.</i></b> The
 </tr>
 </tbody></table>
 
+<h2 id="transactionreference">TransactionReference</h2>
+
+<blockquote>
+<p>An example TransactionReference Object</p>
+</blockquote>
+<pre class="highlight shell"><code><span class="o">{</span>
+<span class="s2">"tx_hash"</span>: <span class="s2">"14b1052855bbf6561bc4db8aa501762e7cc1e86994dda9e782a6b73b1ce0dc1e"</span>,
+<span class="s2">"block_height"</span>: 302013,
+<span class="s2">"tx_input_n"</span>: -1,
+<span class="s2">"tx_output_n"</span>: 0,
+<span class="s2">"value"</span>: 20213,
+<span class="s2">"spent"</span>: <span class="nb">false</span>,
+<span class="s2">"confirmations"</span>: 54405,
+<span class="s2">"confirmed"</span>: <span class="s2">"2014-05-22T03:46:25Z"</span>,
+<span class="s2">"double_spend"</span>: <span class="nb">false</span>
+<span class="o">}</span>
+</code></pre>
+
+<p>A TransactionReference object represents summarized data about a transaction input or output. Typically found in an array within an <a href="#address">Address</a> object, which is usually returned from the standard <a href="#address-endpoint">Address Endpoint</a>.</p>
+
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>block_height</strong></td>
+<td><em>integer</em></td>
+<td>Height of the block that contains this transaction. If this is an unconfirmed transaction, it will equal -1.</td>
+</tr>
+<tr>
+<td><strong>tx_hash</strong></td>
+<td><em>string</em></td>
+<td>The hash of the transaction containing this input or output. While reasonably unique, using hashes as identifiers may be <a href="https://en.bitcoin.it/wiki/Transaction_Malleability">unsafe</a>.</td>
+</tr>
+<tr>
+<td><strong>tx_input_n</strong></td>
+<td><em>integer</em></td>
+<td>Index of the input in the transaction. It&rsquo;s a negative number for an output.</td>
+</tr>
+<tr>
+<td><strong>tx_output_n</strong></td>
+<td><em>integer</em></td>
+<td>Index of the output in the transaction. It&rsquo;s a negative number for an input.</td>
+</tr>
+<tr>
+<td><strong>value</strong></td>
+<td><em>integer</em></td>
+<td>The value transfered by this input/output in satoshis (or smallest, indivisible coin units in non-Bitcoin blockchains) exchanged in this transaction.</td>
+</tr>
+<tr>
+<td><strong>preference</strong></td>
+<td><em>string</em></td>
+<td>The likelihood that this transaction will make it to the next block; reflects the preference level miners have to include this transaction. Can be high, medium or low.</td>
+</tr>
+<tr>
+<td><strong>spent</strong></td>
+<td><em>bool</em></td>
+<td>True if this output was spent; false otherwise.</td>
+</tr>
+<tr>
+<td><strong>double_spend</strong></td>
+<td><em>bool</em></td>
+<td>True if this is an attempted double spend; false otherwise.</td>
+</tr>
+<tr>
+<td><strong>confirmations</strong></td>
+<td><em>integer</em></td>
+<td>Number of subsequent blocks, including the block the transaction is in. Unconfirmed transactions have 0 confirmations.</td>
+</tr>
+<tr>
+<td><strong>confidence</strong></td>
+<td><em>float</em></td>
+<td><strong><em>Optional</em></strong> The percentage chance this transaction will be included in the next block, if unconfirmed. For more information, check the section on <a href="#zero-confirmation-confidence">Zero Confirmation Confidence.</a></td>
+</tr>
+<tr>
+<td><strong>confirmed</strong></td>
+<td><a href="https://tools.ietf.org/html/rfc3339"><em>time</em></a></td>
+<td><strong><em>Optional</em></strong> Time at which transaction was included in a block; only present for confirmed transactions.</td>
+</tr>
+<tr>
+<td><strong>spent_by</strong></td>
+<td><em>string</em></td>
+<td><strong><em>Optional</em></strong> The transaction hash that spent this output. Only returned for outputs that have been spent.</td>
+</tr>
+<tr>
+<td><strong>received</strong></td>
+<td><a href="https://tools.ietf.org/html/rfc3339"><em>time</em></a></td>
+<td><strong><em>Optional</em></strong> Time this transaction was received by BlockCypher&rsquo;s servers; only present for unconfirmed transactions.</td>
+</tr>
+<tr>
+<td><strong>receive_count</strong></td>
+<td><em>integer</em></td>
+<td><strong><em>Optional</em></strong> Number of peers that have sent this transaction to BlockCypher; only present for unconfirmed transactions.</td>
+</tr>
+<tr>
+<td><strong>double_of</strong></td>
+<td><em>string</em></td>
+<td><strong><em>Optional</em></strong> If this transaction is a double-spend (i.e. <strong>double_spend</strong> == true) then this is the hash of the transaction it&rsquo;s double-spending.</td>
+</tr>
+</tbody></table>
+
 <h2 id="transactionskeleton">TransactionSkeleton</h2>
 
 <blockquote>
-<p>An example Transaction Skeleton Object </p>
+<p>An example TransactionSkeleton Object </p>
 </blockquote>
 <pre class="highlight shell"><code><span class="o">{</span>
 <span class="s2">"tx"</span>: <span class="o">{</span>
@@ -868,7 +972,7 @@ Objects sometimes contain <b>attributes</b> that are <b><i>optional.</i></b> The
 <span class="o">}</span>
 </code></pre>
 
-<p>A Transaction Skeleton is a convenience/wrapper Object that&rsquo;s used primarily when <a href="#creating-transactions">Creating Transactions</a> through the <a href="#new-transaction-endpoint">New</a> and <a href="#send-transaction-endpoint">Send</a> endpoints.</p>
+<p>A TransactionSkeleton is a convenience/wrapper Object that&rsquo;s used primarily when <a href="#creating-transactions">Creating Transactions</a> through the <a href="#new-transaction-endpoint">New</a> and <a href="#send-transaction-endpoint">Send</a> endpoints.</p>
 
 <table><thead>
 <tr>
@@ -992,6 +1096,27 @@ Only one of these three fields is required for the microtransaction endpoint: <b
 
 <h2 id="address">Address</h2>
 
+<blockquote>
+<p>An example Address object</p>
+</blockquote>
+<pre class="highlight shell"><code><span class="o">{</span>
+<span class="s2">"address"</span>: <span class="s2">"1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD"</span>,
+<span class="s2">"total_received"</span>: 4433416,
+<span class="s2">"total_sent"</span>: 0,
+<span class="s2">"balance"</span>: 4433416,
+<span class="s2">"unconfirmed_balance"</span>: 0,
+<span class="s2">"final_balance"</span>: 4433416,
+<span class="s2">"n_tx"</span>: 7,
+<span class="s2">"unconfirmed_n_tx"</span>: 0,
+<span class="s2">"final_n_tx"</span>: 7,
+<span class="s2">"txs"</span>: <span class="o">[</span>
+    ...
+<span class="o">]</span>
+<span class="o">}</span>
+</code></pre>
+
+<p>An Address represents a public address on a blockchain, and contains information about the state of balances and transactions related to this address. Typically returned from the <a href="#address-balance-endpoint">Address Balance</a>, <a href="#address-endpoint">Address</a>, and <a href="#address-detail-endpoint">Address Detail Endpoint</a>.</p>
+
 <h2 id="addresskeychain">AddressKeychain</h2>
 
 <h2 id="wallet">Wallet</h2>
@@ -1016,7 +1141,7 @@ Only one of these three fields is required for the microtransaction endpoint: <b
 
 <h2 id="address-endpoint">Address Endpoint</h2>
 
-<h2 id="address-details-endpoint">Address Details Endpoint</h2>
+<h2 id="address-detail-endpoint">Address Detail Endpoint</h2>
 
 <h2 id="generate-address-endpoint">Generate Address Endpoint</h2>
 
