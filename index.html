@@ -718,7 +718,7 @@ Objects sometimes contain <b>attributes</b> that are <b><i>optional.</i></b> The
 <pre class="highlight shell"><code><span class="o">{</span>
 <span class="s2">"prev_hash"</span>: <span class="s2">"e5c9be87798b0fa8ad55a22b5d731d6f50d72bffaa6179f9999499e57388cc33"</span>,
 <span class="s2">"output_index"</span>: 1,
-<span class="s2">"script"</span>: <span class="s2">"004730440220689409a16c98fa1659cae4c2020789eebfeb00065c5aeae0de9943fe0aba62ee0220133726168e492ae1bbbd3609c1be6c9c99cf16e61ba0d34c353a9e6c64b7a7bd01483045022100fa45e61471a893bafdb614f3f163c5f04c934b550fe737c8ca6c9e1eb18b16af022004d9a50c5ebe03433c117c9a87fd5b39ea55c6d117e784e5d4df51bc1ad0537b014c69522103c97e68c1190136ecce2ef05bc923fc21714c36ae134119fc9a56128616556f4f2103a80c263ec2cad9cb532661b588f63820c380f2639c96fc1fcc8df01ffe81039521028ff42346d94389ad9cfcff1e1ac3563a608dca99923b645324bb77baaeb6f26053ae"</span>,
+<span class="s2">"script"</span>: <span class="s2">"004730440220689409a16c98fa1659cae4c20..."</span>,
 <span class="s2">"output_value"</span>: 2450698356,
 <span class="s2">"sequence"</span>: 4294967295,
 <span class="s2">"addresses"</span>: <span class="o">[</span>
@@ -782,9 +782,213 @@ Objects sometimes contain <b>attributes</b> that are <b><i>optional.</i></b> The
 
 <h2 id="transactionoutput">TransactionOutput</h2>
 
-<h2 id="transactiontemplate">TransactionTemplate</h2>
+<blockquote>
+<p>An example Transaction Output Object</p>
+</blockquote>
+<pre class="highlight shell"><code><span class="o">{</span>
+<span class="s2">"value"</span>: 70320221545,
+<span class="s2">"script"</span>: <span class="s2">"76a914e6aad9d712c419ea8febf009a3f3bfdd8d222fac88ac"</span>,
+<span class="s2">"spent_by"</span>: <span class="s2">"35832d6c70b98b54e9a53ab2d51176eb19ad11bc4505d6bb1ea6c51a68cb92ee"</span>,
+<span class="s2">"addresses"</span>: <span class="o">[</span>
+    <span class="s2">"1N2f642sbgCMbNtXFajz9XDACDFnFzdXzV"</span>
+<span class="o">]</span>,
+<span class="s2">"script_type"</span>: <span class="s2">"pay-to-pubkey-hash"</span>
+<span class="o">}</span>
+</code></pre>
+
+<p>A TransactionOutput represents an output created by a transaction. Typically found within an array in a <a href="#transaction">Transaction</a>.</p>
+
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>value</strong></td>
+<td><em>int</em></td>
+<td>Value in this transaction output, in satoshis (or smallest, indivisible coin units in non-Bitcoin blockchains).</td>
+</tr>
+<tr>
+<td><strong>script</strong></td>
+<td><em>string</em></td>
+<td>Raw hexadecimal encoding of the encumbrance script for this output.</td>
+</tr>
+<tr>
+<td><strong>addresses</strong></td>
+<td><em>array[string]</em></td>
+<td>Addresses that correspond to this output; typically this will only have a single address, and you can think of this output as having &ldquo;sent&rdquo; <strong>value</strong> to the address contained herein.</td>
+</tr>
+<tr>
+<td><strong>script_type</strong></td>
+<td><em>string</em></td>
+<td>The type of encumbrance script used for this output.</td>
+</tr>
+<tr>
+<td><strong>spent_by</strong></td>
+<td><em>string</em></td>
+<td><strong><em>Optional</em></strong> The transaction hash that spent this output. Only returned for outputs that have been spent.</td>
+</tr>
+</tbody></table>
+
+<h2 id="transactionskeleton">TransactionSkeleton</h2>
+
+<blockquote>
+<p>An example Transaction Skeleton Object </p>
+</blockquote>
+<pre class="highlight shell"><code><span class="o">{</span>
+<span class="s2">"tx"</span>: <span class="o">{</span>
+    <span class="s2">"block_height"</span>: -1,
+    <span class="s2">"hash"</span>: <span class="s2">"f961dea839fd69653547a0308360..."</span>,
+    <span class="s2">"addresses"</span>: <span class="o">[</span>
+        <span class="s2">"1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD"</span>,
+        <span class="s2">"1FGAsJFNgWvFz2tWQAnRq8S6fVX9Zmuxje"</span>,
+        <span class="o">]</span>,
+    <span class="s2">"total"</span>: 661116,
+    <span class="s2">"fees"</span>: 10000,
+    <span class="s2">"received"</span>: <span class="s2">"2014-04-20T23:52:21.069978821Z"</span>,
+    ...
+<span class="o">}</span>,
+<span class="s2">"tosign"</span>: <span class="o">[</span>
+    <span class="s2">"04779733bba8085dd86c21d86c..."</span>,
+    <span class="s2">"0396ea6f1bf7493e738339bd72..."</span>
+<span class="o">]</span>,
+<span class="s2">"errors"</span>: <span class="o">[</span>
+    <span class="o">{</span> <span class="s2">"error"</span>: <span class="s2">"..."</span> <span class="o">}</span>
+<span class="o">]</span>,
+<span class="s2">"signatures"</span>: <span class="o">[</span>
+    <span class="s2">"a832bd21afc21..."</span>,
+    <span class="s2">"0123ba82a273b..."</span>
+<span class="o">]</span>,
+<span class="s2">"pubkeys"</span>: <span class="o">[</span>
+    <span class="s2">"02c8d29d..."</span>,
+    <span class="s2">"02c9d27d..."</span>,
+<span class="o">]</span>
+<span class="o">}</span>
+</code></pre>
+
+<p>A Transaction Skeleton is a convenience/wrapper Object that&rsquo;s used primarily when <a href="#creating-transactions">Creating Transactions</a> through the <a href="#new-transaction-endpoint">New</a> and <a href="#send-transaction-endpoint">Send</a> endpoints.</p>
+
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>tx</strong></td>
+<td><em><a href="#transaction">Transaction</a></em></td>
+<td>A temporary transaction, usually returned fully filled but missing input scripts.</td>
+</tr>
+<tr>
+<td><strong>tosign</strong></td>
+<td><em>array[string]</em></td>
+<td>Array of hex-encoded data for you to sign, one for each input.</td>
+</tr>
+<tr>
+<td><strong>signatures</strong></td>
+<td><em>array[string]</em></td>
+<td>Array of signatures corresponding to all the data in <strong>tosign</strong>, typically provided by you.</td>
+</tr>
+<tr>
+<td><strong>pubkeys</strong></td>
+<td><em>array[string]</em></td>
+<td>Array of public keys corresponding to each signature. In general, these are provided by you, and correspond to the signatures you provide.</td>
+</tr>
+<tr>
+<td><strong>errors</strong></td>
+<td><em>array[&ldquo;error&rdquo;:string]</em></td>
+<td><strong><em>Optional</em></strong> Array of errors in the form <em>&ldquo;error&rdquo;:&ldquo;description-of-error&rdquo;</em>. This is only returned if there was an error in any stage of transaction generation, and is usually accompanied by a HTTP 400 code.</td>
+</tr>
+</tbody></table>
 
 <h2 id="microtransaction">Microtransaction</h2>
+
+<blockquote>
+<p>An example Microtransaction object</p>
+</blockquote>
+<pre class="highlight shell"><code><span class="o">{</span>
+<span class="s2">"from_pubkey"</span>: <span class="s2">"03bb318b00de944086fad67ab78a832eb1bf26916053ecd3b14a3f48f9fbe0821f"</span>,
+<span class="s2">"to_address"</span>: <span class="s2">"mrS82nWF3TCfhafSaKnmUUktGNYuTZn1Ap"</span>,
+<span class="s2">"value_satoshis"</span>: 5000,
+<span class="s2">"token"</span>: <span class="s2">"477a17a15d55b408038404a46c059ef9"</span>,
+<span class="s2">"signatures"</span>: <span class="o">[</span>
+    <span class="s2">"3045022100..."</span>
+<span class="o">]</span>
+<span class="o">}</span>
+</code></pre>
+
+<p>A Microtransaction represents a streamlined&mdash;and typically much lower value&mdash;transaction, one which BlockCypher can sign for you if you send your private key. Microtransactions can also be signed on the client-side without ever sending your private key. You&rsquo;ll find these objects used in the <a href="#microtransactions-api">Microtransaction API.</a></p>
+
+<aside class="notice">
+Only one of these three fields is required for the microtransaction endpoint: <b>from_pubkey</b>, <b>from_private</b>, <b>from_wif</b> . If you send more than one, the API will return an error.
+</aside>
+
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>from_pubkey</strong></td>
+<td><em>string</em></td>
+<td>Hex-encoded public key from which you&rsquo;re sending coins.</td>
+</tr>
+<tr>
+<td><strong>from_private</strong></td>
+<td><em>string</em></td>
+<td>Hex-encoded private key from which you&rsquo;re sending coins.</td>
+</tr>
+<tr>
+<td><strong>from_wif</strong></td>
+<td><em>string</em></td>
+<td>WIF-encoded private key from which you&rsquo;re sending coins.</td>
+</tr>
+<tr>
+<td><strong>to_address</strong></td>
+<td><em>string</em></td>
+<td>The target address to which you&rsquo;re sending coins.</td>
+</tr>
+<tr>
+<td><strong>value_satoshis</strong></td>
+<td><em>int</em></td>
+<td>Value you&rsquo;re sending/you&rsquo;ve sent in satoshis (or smallest, indivisible coin units in non-Bitcoin blockchains).</td>
+</tr>
+<tr>
+<td><strong>token</strong></td>
+<td><em>string</em></td>
+<td>Your <a href="http://accounts.blockcypher.com/">BlockCypher API token</a></td>
+</tr>
+<tr>
+<td><strong>change_address</strong></td>
+<td><em>string</em></td>
+<td><strong><em>Optional</em></strong> Address BlockCypher will use to send back your change. If not set, defaults to the address from which the coins were originally sent. While not required, we recommend that you set a change address.</td>
+</tr>
+<tr>
+<td><strong>wait_guarantee</strong></td>
+<td><em>bool</em></td>
+<td><strong><em>Optional</em></strong> If <em>true</em>, this microtransaction will wait for BlockCypher to guarantee it, using our <a href="#zero-confirmation-confidence">Zero Confirmation Confidence</a> index. The guarantee usually takes around 8 seconds. If not set, defaults to <em>true</em>. If set to <em>false</em>, the microtransaction API will return as soon as the transaction is broadcast.</td>
+</tr>
+<tr>
+<td><strong>tosign</strong></td>
+<td><em>array[string]</em></td>
+<td><strong><em>Optional</em></strong> Hex-encoded data for you to sign after initiating the microtransaction. Sent in reply to a microtransaction generated using <strong>from_pubkey</strong>/a public key.</td>
+</tr>
+<tr>
+<td><strong>signatures</strong></td>
+<td><em>array[string]</em></td>
+<td><strong><em>Optional</em></strong> Hex-encoded signatures for you to send back after having received (and signed) <strong>tosign</strong>.</td>
+</tr>
+<tr>
+<td><strong>hash</strong></td>
+<td><em>string</em></td>
+<td><strong><em>Optional</em></strong> The hash of the finalized transaction, once sent.</td>
+</tr>
+</tbody></table>
 
 <h2 id="address">Address</h2>
 
