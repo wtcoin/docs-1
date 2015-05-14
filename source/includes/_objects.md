@@ -311,7 +311,25 @@ Attribute | Type | Description
 }
 ```
 
-A Microtransaction represents a streamlined---and typically much lower value---transaction, one which BlockCypher can sign for you if you send your private key. Microtransactions can also be signed on the client-side without ever sending your private key. You'll find these objects used in the [Microtransaction API.](#microtransaction-api)
+A Microtransaction represents a streamlined---and typically much lower value---transaction, one which BlockCypher can sign for you if you send your private key. Microtransactions can also be signed on the client-side without ever sending your private key. You'll find these objects used in the [Microtransaction API.](#microtransactions-api)
+
+<aside class="notice">
+Only one of these three fields is required for the microtransaction endpoint: <b>from_pubkey</b>, <b>from_private</b>, <b>from_wif</b> . If you send more than one, the API will return an error.
+</aside>
+
+Attribute | Type | Description
+--------- | ---- | -----------
+**from_pubkey** | *string* | Hex-encoded public key from which you're sending coins.
+**from_private** | *string* | Hex-encoded private key from which you're sending coins.
+**from_wif** | *string* | WIF-encoded private key from which you're sending coins.
+**to_address** | *string* | The target address to which you're sending coins.
+**value_satoshis** | *int* | Value you're sending/you've sent in satoshis (or smallest, indivisible coin units in non-Bitcoin blockchains).
+**token** | *string* | Your [BlockCypher API token](http://accounts.blockcypher.com/)
+**change_address** | *string* | ***Optional*** Address BlockCypher will use to send back your change. If not set, defaults to the address from which the coins were originally sent. While not required, we recommend that you set a change address.
+**wait_guarantee** | *bool* | ***Optional*** If *true*, this microtransaction will wait for BlockCypher to guarantee it, using our [Zero Confirmation Confidence](#zero-confirmation-confidence) index. The guarantee usually takes around 8 seconds. If not set, defaults to *true*. If set to *false*, the microtransaction API will return as soon as the transaction is broadcast.
+**tosign** | *array[string]* | ***Optional*** Hex-encoded data for you to sign after initiating the microtransaction. Sent in reply to a microtransaction generated using **from_pubkey**/a public key.
+**signatures** | *array[string]* | ***Optional*** Hex-encoded signatures for you to send back after having received (and signed) **tosign**.
+**hash** | *string* | ***Optional*** The hash of the finalized transaction, once sent.
 
 ## Address
 
