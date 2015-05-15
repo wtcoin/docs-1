@@ -1196,13 +1196,278 @@ Only one of these three fields is required for the microtransaction endpoint: <b
 
 <h2 id="addresskeychain">AddressKeychain</h2>
 
+<blockquote>
+<p>An example AddressKeychain object</p>
+</blockquote>
+<pre class="highlight shell"><code><span class="o">{</span>
+<span class="s2">"private"</span>: <span class="s2">"86751cb880a9a1addcc3b67979976158dd800afe9d14b68349921299b20c94dd"</span>,
+<span class="s2">"public"</span>: <span class="s2">"03866586fbe3652eb219c5ed99c3fc72d125472248183f966e0673be08a1c543de"</span>,
+<span class="s2">"address"</span>: <span class="s2">"n1ucSDLByN5GLLQuE7BMrtTWHwHtkaVkfA"</span>,
+<span class="s2">"wif"</span>: <span class="s2">"cS64ygfjWjN73S78oUbJQeikDn9uS7KNWS1PL7NqeBUuF4UobnAy"</span>
+<span class="o">}</span>
+</code></pre>
+
+<p>An AddressKeychain represents an associated collection of public and private keys alongside their respective public address. Generally returned and used with the <a href="#generate-address-endpoint">Generate Address Endpoint</a>.</p>
+
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>address</strong></td>
+<td><em>string</em></td>
+<td>Standard address representation.</td>
+</tr>
+<tr>
+<td><strong>public</strong></td>
+<td><em>string</em></td>
+<td>Hex-encoded Public key.</td>
+</tr>
+<tr>
+<td><strong>private</strong></td>
+<td><em>string</em></td>
+<td>Hex-encoded Private key.</td>
+</tr>
+<tr>
+<td><strong>wif</strong></td>
+<td><em>string</em></td>
+<td><a href="https://en.bitcoin.it/wiki/Wallet_import_format">Wallet import format</a>, a common encoding for the private key.</td>
+</tr>
+<tr>
+<td><strong>pubkeys</strong></td>
+<td><em>array[string]</em></td>
+<td><strong><em>Optional</em></strong> Array of public keys to provide to generate a multisig address.</td>
+</tr>
+<tr>
+<td><strong>script_type</strong></td>
+<td><em>array[string]</em></td>
+<td><strong><em>Optional</em></strong> If generating a multisig address, the type of multisig script; typically &ldquo;multisig-n-of-m&rdquo;, where n and m are integers.</td>
+</tr>
+</tbody></table>
+
 <h2 id="wallet">Wallet</h2>
+
+<blockquote>
+<p>An example Wallet object</p>
+</blockquote>
+<pre class="highlight shell"><code><span class="o">{</span>
+<span class="s2">"name"</span>: <span class="s2">"alice"</span>,
+<span class="s2">"addresses"</span>: <span class="o">[</span><span class="s2">"1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e"</span><span class="o">]</span>
+<span class="o">}</span>
+</code></pre>
+
+<p>A Wallet represents a list of addresses, and can be used interchangeably with all the <a href="#address-api">Address API</a> endpoints.</p>
+
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>name</strong></td>
+<td><em>string</em></td>
+<td>Name of the wallet.</td>
+</tr>
+<tr>
+<td><strong>addresses</strong></td>
+<td><em>array[string]</em></td>
+<td>List of addresses associated with this wallet.</td>
+</tr>
+</tbody></table>
 
 <h2 id="event">Event</h2>
 
+<blockquote>
+<p>An example Event object</p>
+</blockquote>
+<pre class="highlight shell"><code><span class="o">{</span>
+<span class="s2">"event"</span>: <span class="s2">"unconfirmed-tx"</span>,
+<span class="s2">"address"</span>: <span class="s2">"15qx9ug952GWGTNn7Uiv6vode4RcGrRemh"</span>,
+<span class="s2">"token"</span>: <span class="s2">"b972c4c0-180f-11e4-8c21-0800200c9a66"</span>
+<span class="s2">"url"</span>: <span class="s2">"https://my.domain.com/callbacks/new-block"</span>
+<span class="o">}</span>
+</code></pre>
+
+<p>An Event represents a WebHooks or WebSockets-based notification request, as detailed in the <a href="#events-&amp;-hooks">Events &amp; Hooks</a> section of the documentation.</p>
+
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>event</strong></td>
+<td><em>string</em></td>
+<td>Type of event; can be <em>unconfirmed-tx</em>, <em>new-block</em>, <em>confirmed-tx</em>, <em>tx-confirmation</em>, <em>double-spend-tx</em>.</td>
+</tr>
+<tr>
+<td><strong>hash</strong></td>
+<td><em>string</em></td>
+<td><strong><em>optional</em></strong> Only objects with a matching hash will be sent. The hash can either be for a block or a transaction.</td>
+</tr>
+<tr>
+<td><strong>wallet_name</strong></td>
+<td><em>string</em></td>
+<td><strong><em>optional</em></strong> Only transactions associated with the given wallet will be sent. If used, requires a user token.</td>
+</tr>
+<tr>
+<td><strong>token</strong></td>
+<td><em>string</em></td>
+<td><strong><em>optional</em></strong> Required if wallet_name is used, though generally we advise users to include it (as they can reach API throttling thresholds rapidly).</td>
+</tr>
+<tr>
+<td><strong>address</strong></td>
+<td><em>string</em></td>
+<td><strong><em>optional</em></strong> Only transactions associated with the given address will be sent. A wallet name can also be used instead of an address, which will then match on any address in the wallet.</td>
+</tr>
+<tr>
+<td><strong>script</strong></td>
+<td><em>string</em></td>
+<td><strong><em>optional</em></strong> Only transactions with an output script of the provided type will be sent. The recognized types of scripts are: <em>pay-to-pubkey-hash</em>, <em>pay-to-multi-pubkey-hash</em>, <em>pay-to-pubkey</em>, <em>pay-to-script-hash</em>, <em>null-data</em> (sometimes called OP_RETURN), <em>empty</em> or <em>unknown</em>.</td>
+</tr>
+<tr>
+<td><strong>url</strong></td>
+<td><em>url</em></td>
+<td><strong><em>optional</em></strong> Callback URL for this Event&rsquo;s WebHook; not applicable for WebSockets usage.</td>
+</tr>
+</tbody></table>
+
 <h2 id="paymentforward">PaymentForward</h2>
 
+<blockquote>
+<p>An example PaymentForward object</p>
+</blockquote>
+<pre class="highlight shell"><code><span class="o">{</span>
+<span class="s2">"destination"</span>: <span class="s2">"15qx9ug952GWGTNn7Uiv6vode4RcGrRemh"</span>,
+<span class="s2">"callback_url"</span>: <span class="s2">"https://my.domain.com/callbacks/new-block"</span>
+<span class="s2">"process_fees_address"</span>: <span class="s2">"1LWw6FdzNUcX8bnekMMZ7eofcGF7SXmbrL"</span>,
+<span class="s2">"process_fees_percent"</span>: 0.1,
+<span class="s2">"token"</span>: <span class="s2">"f47ac10b-58cc-4372-a567-0e02b2c3d479"</span>
+<span class="o">}</span>
+</code></pre>
+
+<p>A PaymentForward object represents a request set up through the <a href="#payment-forwarding">Payment Forwarding</a> service.</p>
+
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>id</strong></td>
+<td><em>string</em></td>
+<td>Identifier of the payment forwarding request; generated when a new request is created.</td>
+</tr>
+<tr>
+<td><strong>token</strong></td>
+<td><em>string</em></td>
+<td>The mandatory user token.</td>
+</tr>
+<tr>
+<td><strong>destination</strong></td>
+<td><em>string</em></td>
+<td>The required destination address for payment forwarding.</td>
+</tr>
+<tr>
+<td><strong>input_address</strong></td>
+<td><em>string</em></td>
+<td>The address which will automatically forward to <strong>destination</strong>; generated when a new request is created.</td>
+</tr>
+<tr>
+<td><strong>process_fees_address</strong></td>
+<td><em>string</em></td>
+<td><strong><em>Optional</em></strong> Address to forward processing fees, if specified. Allows you to receive a fee for your own services.</td>
+</tr>
+<tr>
+<td><strong>process_fees_satoshis</strong></td>
+<td><em>int</em></td>
+<td><strong><em>Optional</em></strong> Fixed processing fee amount to be sent to the fee address. A fixed satoshi amount or a percentage is required if a <strong>process_fees_address</strong> has been specified.</td>
+</tr>
+<tr>
+<td><strong>process_fees_percent</strong></td>
+<td><em>float</em></td>
+<td><strong><em>Optional</em></strong> Percentage of the transaction to be sent to the fee address. A fixed satoshi amount or a percentage is required if a <strong>process_fees_address</strong> has been specified.</td>
+</tr>
+<tr>
+<td><strong>callback_url</strong></td>
+<td><em>url</em></td>
+<td><strong><em>Optional</em></strong> The URL to call anytime a new payment is forwarded.</td>
+</tr>
+<tr>
+<td><strong>enable_confirmations</strong></td>
+<td><em>bool</em></td>
+<td><strong><em>Optional</em></strong> Whether to also call the <strong>callback_url</strong> with subsequent confirmations of the forwarding transactions. Automatically sets up a WebHook.</td>
+</tr>
+<tr>
+<td><strong>mining_fees_satoshis</strong></td>
+<td><em>int</em></td>
+<td><strong><em>Optional</em></strong> Mining fee amount to include in the forwarding transaction, in satoshis. If not set, defaults to 10,000.</td>
+</tr>
+<tr>
+<td><strong>transactions</strong></td>
+<td><em>array[string]</em></td>
+<td><strong><em>Optional</em></strong> History of forwarding transaction hashes for this payment forwarding request.</td>
+</tr>
+</tbody></table>
+
 <h2 id="paymentforwardcallback">PaymentForwardCallback</h2>
+
+<blockquote>
+<p>An example PaymentForwardCallback object</p>
+</blockquote>
+<pre class="highlight shell"><code><span class="o">{</span>
+<span class="s2">"value"</span>: 100000000,
+<span class="s2">"input_address"</span>: <span class="s2">"16uKw7GsQSzfMaVTcT7tpFQkd7Rh9qcXWX"</span>, 
+<span class="s2">"destination"</span>: <span class="s2">"15qx9ug952GWGTNn7Uiv6vode4RcGrRemh"</span>,
+<span class="s2">"input_transaction_hash"</span>: <span class="s2">"39bed5d..."</span>,
+<span class="s2">"transaction_hash"</span>: <span class="s2">"1aa6103..."</span>
+<span class="o">}</span>
+</code></pre>
+
+<p>A PaymentForwardCallback object represents the payload delivered to the optional <strong>callback_url</strong> in a <a href="#payment-forward">PaymentForward</a> request.</p>
+
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>value</strong></td>
+<td><em>int</em></td>
+<td>Amount sent to the destination address, in satoshis.</td>
+</tr>
+<tr>
+<td><strong>input_address</strong></td>
+<td><em>string</em></td>
+<td>The intermediate address to which the payment was originally sent.</td>
+</tr>
+<tr>
+<td><strong>destination</strong></td>
+<td><em>string</em></td>
+<td>The final destination address to which the payment will eventually be sent.</td>
+</tr>
+<tr>
+<td><strong>input_transaction_hash</strong></td>
+<td><em>string</em></td>
+<td>The transaction hash representing the initial payment to the <strong>input_address</strong>.</td>
+</tr>
+<tr>
+<td><strong>transaction_hash</strong></td>
+<td><em>string</em></td>
+<td>The transaction hash of the generated transaction that forwards the payment from the <strong>input_address</strong> to the <strong>destination.</strong></td>
+</tr>
+</tbody></table>
 
           <h1 id="blockchain-api">Blockchain API</h1>
 
