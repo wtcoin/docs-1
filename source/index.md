@@ -67,7 +67,7 @@ Currently, we only have cURL code samples, but are working on adding other offic
 
 All API calls are versioned, and the current BlockCypher API is v1. We will never introduce any breaking changes within v1, but we may add new, non-breaking features from time to time.
 
-## Official Libraries
+## BlockCypher Supported Language SDKs
 
 BlockCypher has client SDKs for the following languages:
 
@@ -76,7 +76,7 @@ BlockCypher has client SDKs for the following languages:
 - **Java** --- [https://github.com/blockcypher/java-client](https://github.com/blockcypher/java-client)
 - **Node.js** (under development, code samples coming soon) --- [https://github.com/blockcypher/node-client](https://github.com/blockcypher/node-client)
 
-If you're using these languages, we strongly encourage you to use the official SDK. If not, or you'd rather write your own bindings, we always support cURLing endpoints directly, which is the default code sample display.
+If you're using these languages, we strongly encourage you to use an official SDK. Of course, all our API calls are standard HTTP endpoints using JSON formatted responses, so any language (or cURL from the command-line) will work just fine.
 
 ## Unofficial Libraries
 
