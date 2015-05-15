@@ -71,12 +71,12 @@ All API calls are versioned, and the current BlockCypher API is v1. We will neve
 
 BlockCypher has client SDKs for the following languages:
 
-- **Ruby** --- [https://github.com/blockcypher/blockcypher-python](https://github.com/blockcypher/blockcypher-python)
-- **Python** --- [https://github.com/blockcypher/ruby-client](https://github.com/blockcypher/ruby-client)
+- **Ruby** --- [https://github.com/blockcypher/ruby-client](https://github.com/blockcypher/ruby-client)
+- **Python** --- [https://github.com/blockcypher/blockcypher-python](https://github.com/blockcypher/blockcypher-python)
 - **Java** --- [https://github.com/blockcypher/java-client](https://github.com/blockcypher/java-client)
 - **Node.js** (under development, code samples coming soon) --- [https://github.com/blockcypher/node-client](https://github.com/blockcypher/node-client)
 
-If you're using these languages, we strongly encourage you to use the official SDK. If not, or you'd rather write your own bindings, we always support cURLing endpoints directly, which is the default code sample you'll see to the right.
+If you're using these languages, we strongly encourage you to use the official SDK. If not, or you'd rather write your own bindings, we always support cURLing endpoints directly, which is the default code sample display.
 
 ## Unofficial Libraries
 
