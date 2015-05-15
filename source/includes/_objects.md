@@ -413,9 +413,49 @@ Attribute | Type | Description
 
 ## AddressKeychain
 
+> An example AddressKeychain object
+
+```shell
+{
+"private": "86751cb880a9a1addcc3b67979976158dd800afe9d14b68349921299b20c94dd",
+"public": "03866586fbe3652eb219c5ed99c3fc72d125472248183f966e0673be08a1c543de",
+"address": "n1ucSDLByN5GLLQuE7BMrtTWHwHtkaVkfA",
+"wif": "cS64ygfjWjN73S78oUbJQeikDn9uS7KNWS1PL7NqeBUuF4UobnAy"
+}
+```
+
+An AddressKeychain represents an associated collection of public and private keys alongside their respective public address. Generally returned and used with the [Generate Address Endpoint](#generate-address-endpoint).
+
+Attribute | Type | Description
+--------- | ---- | -----------
+**address**	| *string* | Standard address representation.
+**public** | *string* | Hex-encoded Public key.
+**private**	| *string* | Hex-encoded Private key.
+**wif**	| *string* | [Wallet import format](https://en.bitcoin.it/wiki/Wallet_import_format), a common encoding for the private key.
+**pubkeys**	| *array[string]* | ***Optional*** Array of public keys to provide to generate a multisig address.
+**script_type**	| *array[string]* | ***Optional*** If generating a multisig address, the type of multisig script; typically "multisig-n-of-m", where n and m are integers.
+
 ## Wallet
 
+> An example Wallet object
+
+```shell
+{
+"name": "alice",
+"addresses": ["1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e"]
+}
+```
+
+A Wallet represents a list of addresses, and can be used interchangeably with all the [Address API](#address-api) endpoints.
+
+Attribute | Type | Description
+--------- | ---- | -----------
+**name** | *string* | Name of the wallet.
+**addresses** | *array[string]* | List of addresses associated with this wallet.
+
 ## Event
+
+> An example Event object
 
 ## PaymentForward
 
