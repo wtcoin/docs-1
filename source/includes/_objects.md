@@ -457,7 +457,77 @@ Attribute | Type | Description
 
 > An example Event object
 
+```shell
+{
+"event": "unconfirmed-tx",
+"address": "15qx9ug952GWGTNn7Uiv6vode4RcGrRemh",
+"token": "b972c4c0-180f-11e4-8c21-0800200c9a66"
+"url": "https://my.domain.com/callbacks/new-block"
+}
+```
+
+An Event represents a WebHooks or WebSockets-based notification request, as detailed in the [Events & Hooks](#events-&-hooks) section of the documentation.
+
+Attribute | Type | Description
+--------- | ---- | -----------
+**event** | *string* | Type of event; can be *unconfirmed-tx*, *new-block*, *confirmed-tx*, *tx-confirmation*, *double-spend-tx*.
+**hash**	| *string* | ***optional*** Only objects with a matching hash will be sent. The hash can either be for a block or a transaction.
+**wallet_name**	|  *string* | ***optional*** Only transactions associated with the given wallet will be sent. If used, requires a user token.
+**token**	| *string* | ***optional*** Required if wallet_name is used, though generally we advise users to include it (as they can reach API throttling thresholds rapidly).
+**address**	| *string* | ***optional*** Only transactions associated with the given address will be sent. A wallet name can also be used instead of an address, which will then match on any address in the wallet.
+**script**	| *string* | ***optional*** Only transactions with an output script of the provided type will be sent. The recognized types of scripts are: *pay-to-pubkey-hash*, *pay-to-multi-pubkey-hash*, *pay-to-pubkey*, *pay-to-script-hash*, *null-data* (sometimes called OP_RETURN), *empty* or *unknown*.
+**url** | *url* | ***optional*** Callback URL for this Event's WebHook; not applicable for WebSockets usage.
+
 ## PaymentForward
+
+> An example PaymentForward object
+
+```shell
+{
+"destination": "15qx9ug952GWGTNn7Uiv6vode4RcGrRemh",
+"callback_url": "https://my.domain.com/callbacks/new-block"
+"process_fees_address": "1LWw6FdzNUcX8bnekMMZ7eofcGF7SXmbrL",
+"process_fees_percent": 0.1,
+"token": "f47ac10b-58cc-4372-a567-0e02b2c3d479"
+}
+```
+
+A PaymentForward object represents a request set up through the [Payment Forwarding](#payment-forwarding) service.
+
+Attribute | Type | Description
+--------- | ---- | -----------
+**id** | *string* | Identifier of the payment forwarding request; generated when a new request is created.
+**token**	| *string* | The mandatory user token.
+**destination**	| *string* | The required destination address for payment forwarding.
+**input_address**	| *string* | The address which will automatically forward to **destination**; generated when a new request is created.
+**process_fees_address** | *string* | ***Optional*** Address to forward processing fees, if specified. Allows you to receive a fee for your own services.
+**process_fees_satoshis**	| *int* | ***Optional*** Fixed processing fee amount to be sent to the fee address. A fixed satoshi amount or a percentage is required if a **process_fees_address** has been specified.
+**process_fees_percent** | *float* | ***Optional*** Percentage of the transaction to be sent to the fee address. A fixed satoshi amount or a percentage is required if a **process_fees_address** has been specified.
+**callback_url** | *url* | ***Optional*** The URL to call anytime a new payment is forwarded.
+**enable_confirmations** | *bool* | ***Optional*** Whether to also call the **callback_url** with subsequent confirmations of the forwarding transactions. Automatically sets up a WebHook.
+**mining_fees_satoshis** | *int* | ***Optional*** Mining fee amount to include in the forwarding transaction, in satoshis. If not set, defaults to 10,000.
+**transactions** | *array[string]* | ***Optional*** History of forwarding transaction hashes for this payment forwarding request.
 
 ## PaymentForwardCallback
 
+> An example PaymentForwardCallback object
+
+```shell
+{
+"value": 100000000,
+"input_address": "16uKw7GsQSzfMaVTcT7tpFQkd7Rh9qcXWX", 
+"destination": "15qx9ug952GWGTNn7Uiv6vode4RcGrRemh",
+"input_transaction_hash": "39bed5d...",
+"transaction_hash": "1aa6103..."
+}
+```
+
+A PaymentForwardCallback object represents the payload delivered to the optional **callback_url** in a [PaymentForward](#payment-forward) request.
+
+Attribute | Type | Description
+--------- | ---- | -----------
+**value** | *int* | Amount sent to the destination address, in satoshis.
+**input_address** | *string* | The intermediate address to which the payment was originally sent.
+**destination** | *string* |The final destination address to which the payment will eventually be sent.
+**input_transaction_hash** | *string* | The transaction hash representing the initial payment to the **input_address**.
+**transaction_hash** | *string* | The transaction hash of the generated transaction that forwards the payment from the **input_address** to the **destination.**
