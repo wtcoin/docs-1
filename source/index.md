@@ -118,6 +118,10 @@ Litecoin | Main | `api.blockcypher.com/v1/ltc/main`
 Urocoin | Main | `api.blockcypher.com/v1/uro/main`
 BlockCypher | Test | `api.blockcypher.com/v1/bcy/test`
 
+<aside class="notice">
+Unless otherwise noted, all descriptions of direct HTTP requests will assume one of these base resources prepends it. But you can always see the full call in the cURL code sample.
+</aside>
+
 ## Rate Limits and Tokens
 
 We want everyone to try BlockCypher with as little friction as possible, which is why you don't need a token to get started. However, we do rate-limit non-registered users to maintain fidelity for registered users:

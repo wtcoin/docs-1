@@ -28,7 +28,7 @@ General information about a blockchain is available by GET-ing the [base resourc
 
 Resource | Method | Return Object
 -------- | ------ | -------------
-/v1/$COIN/$CHAIN | GET | [Blockchain](#blockchain)
+/ | GET | [Blockchain](#blockchain)
 
 The returned object contains a litany of information about the blockchain, including its height, the time/hash of the latest block, and more.
 
@@ -68,7 +68,7 @@ If you want more data on a particular block, you can use the Block Hash endpoint
 
 Resource | Method | Return Object
 -------- | ------ | -------------
-/v1/$COIN/$CHAIN/blocks/$BLOCK_HASH | GET | [Block](#block)
+/blocks/$BLOCK_HASH | GET | [Block](#block)
 
 $BLOCK_HASH is a *string* representing the hash of the block you're interested in querying, for example:
 
@@ -109,7 +109,7 @@ You can also query for information on a block using its height, using the same r
 
 Resource | Method | Return Object
 -------- | ------ | -------------
-/v1/$COIN/$CHAIN/blocks/$BLOCK_HEIGHT | GET | [Block](#block)
+/blocks/$BLOCK_HEIGHT | GET | [Block](#block)
 
 $BLOCK_HEIGHT is an *integer* representing the height of the block you're interested in querying, for example:
 
@@ -118,5 +118,5 @@ $BLOCK_HEIGHT is an *integer* representing the height of the block you're intere
 As above, the returned object contains information about the block, including its hash, the total amount of satoshis transacted within it, the number of transactions in it, and much more. For more detail on the data returned, check the [Block](#block) object.
 
 <aside class="warning">
-With recent blocks, Block Height is not always a unique identifier to a particular block (due to the possibility of soft forks and the nature of the consensus model with blockchains). If you're querying blocks with <b>depth above 10</b> the height should be a safe identifier.
+With recent blocks, $BLOCK_HEIGHT is not always a unique identifier to a particular block (due to the possibility of soft forks and the nature of the consensus model with blockchains). If you're querying blocks with <b>depth above 10</b> the height should be a safe identifier.
 </aside>
