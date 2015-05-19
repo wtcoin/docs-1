@@ -70,6 +70,11 @@ Resource | Method | Return Object
 -------- | ------ | -------------
 /blocks/$BLOCK_HASH | GET | [Block](#block)
 
+Flag | Type | Effect
+---- | ---- | ------
+**txstart** | *integer* | Filters response to only include transaction hashes after **txstart** in the block.
+**limit** | *integer* | Filters response to only include a maximum of **limit** transactions hashes in the block. Maximum value allowed is 200.
+
 $BLOCK_HASH is a *string* representing the hash of the block you're interested in querying, for example:
 
 `0000000000000000189bba3564a63772107b5673c940c16f12662b3e8546b412`
@@ -79,7 +84,7 @@ The returned object contains information about the block, including its height, 
 ## Block Height Endpoint
 
 ```shell
-$ curl https://api.blockcypher.com/v1/btc/main/blocks/294322
+$ curl https://api.blockcypher.com/v1/btc/main/blocks/294322?txstart=1&limit=1
 
 {
 "hash": "0000000000000000189bba3564a63772107b567...",
@@ -96,9 +101,7 @@ $ curl https://api.blockcypher.com/v1/btc/main/blocks/294322
 "prev_block": "0000000000000000ced0958bd27720b71d3...",
 "mrkl_root": "359d624d37aee1efa5662b7f5dbc390e996d...",
 "txids": [
-	"32b3b86e40d996b1f281e24e8d4af2ceacbf874c403836...",
 	"1579f716359ba1a207f70248135f5e5fadf539be1dcf53...",
-	...,
 ],
 "depth": 61793,
 "prev_block_url": "https://api.blockcypher.com/v1/btc/main/blocks/0000000000000000ced0958bd27720b71d32c5847e40660aaca39f33c298abb0",
@@ -110,6 +113,11 @@ You can also query for information on a block using its height, using the same r
 Resource | Method | Return Object
 -------- | ------ | -------------
 /blocks/$BLOCK_HEIGHT | GET | [Block](#block)
+
+Flag | Type | Effect
+---- | ---- | ------
+**txstart** | *integer* | Filters response to only include transaction hashes after **txstart** in the block.
+**limit** | *integer* | Filters response to only include a maximum of **limit** transactions hashes in the block. Maximum value allowed is 200.
 
 $BLOCK_HEIGHT is an *integer* representing the height of the block you're interested in querying, for example:
 

@@ -1,5 +1,5 @@
 ---
-title: BlockCypher Reference 
+title: BlockCypher Reference
 
 language_tabs:
   - shell: cURL
@@ -194,7 +194,7 @@ When cURLing BlockCypher, batching also works when the identifiers aren't the la
 Since the default, non-registered <a href="#rate-limits-and-tokens">rate limit</a> per second is 5, larger batches require an API token. To use larger batches <a href="https://accounts.blockcypher.com/">please register.</a>
 </aside>
 
-## Testing 
+## Testing
 
 We offer two different options for testing your blockchain application: Bitcoin Testnet3, and BlockCypher's Test Chain. We offer automated faucets for both Testnet3 and BlockCypher's Test Chain, but we recommend using BlockCypher's Test Chain for a variety of reasons:
 

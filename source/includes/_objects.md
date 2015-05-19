@@ -90,12 +90,12 @@ Attribute | Type | Description
 **depth** | *integer* | The depth of the block in the blockchain; i.e., there are **depth** later blocks in its blockchain.
 **chain** | *string* | The name of the blockchain represented, in the form of $COIN.$CHAIN
 **total** | *integer* | The total number of satoshis (or smallest, indivisible coin units in non-Bitcoin blockchains) transacted in this block.
-**fees** | *integer* | The total number of fees---in satoshis---collected by miners in this block. 
+**fees** | *integer* | The total number of fees---in satoshis---collected by miners in this block.
 **ver** | *integer* | Block version. In Bitcoin, per [BIP34](https://github.com/bitcoin/bips/blob/master/bip-0034.mediawiki) the last version 1 block was at height 227835.
 **time** | [*time*](https://tools.ietf.org/html/rfc3339) | Recorded time at which block was built. *Note: Miners rarely post accurate clock times.*
 **received_time** | [*time*](https://tools.ietf.org/html/rfc3339) | The time BlockCypher's servers receive the block. Our servers' clock is continuously adjusted and accurate.
 **bits** | *integer* | The block-encoded [difficulty target](https://en.bitcoin.it/wiki/Difficulty).
-**nonce** | *integer* | The [number used by a miner](https://en.bitcoin.it/wiki/Nonce) to generate this block. 
+**nonce** | *integer* | The [number used by a miner](https://en.bitcoin.it/wiki/Nonce) to generate this block.
 **n_tx** | *integer* | Number of transactions in this block.
 **prev_block** | *string* | The hash of the previous block in the blockchain.
 **prev_block_url** | *url* | The BlockCypher URL to query for more information on the previous block.
@@ -289,7 +289,7 @@ Attribute | Type | Description
 
 ## TransactionSkeleton
 
-> An example TransactionSkeleton Object 
+> An example TransactionSkeleton Object
 
 ```shell
 {
@@ -402,14 +402,15 @@ Attribute | Type | Description
 **total_sent** | *integer* | Total amount of satoshis (or the lowest non-divisible unit in non-Bitcoin blockchains) sent by this address.
 **balance**	| *integer* | Balance of confirmed satoshis (or the lowest non-divisible unit in non-Bitcoin blockchains) on this address. This is the difference between outputs and inputs on this address, but only for transactions that have been included into a block (i.e., for transactions whose confirmations > 0).
 **unconfirmed_balance**	| *integer* | Balance of unconfirmed satoshis (or the lowest non-divisible unit in non-Bitcoin blockchains) on this address. Can be negative (if unconfirmed transactions are just spending outputs). Only unconfirmed transactions (haven't made it into a block) are included.
-**final_balance**	| *integer* |	Total balance of satoshis (or the lowest non-divisible unit in non-Bitcoin blockchains) including confirmed and unconfirmed transactions for this address. 
+**final_balance**	| *integer* |	Total balance of satoshis (or the lowest non-divisible unit in non-Bitcoin blockchains) including confirmed and unconfirmed transactions for this address.
 **n_tx** | *integer* | Number of confirmed transactions on this address. Only transactions that have made it into a block (confirmations > 0) are counted.
 **unconfirmed_n_tx** | *integer* | Number of unconfirmed transactions for this address. Only unconfirmed transactions (confirmations == 0) are counted.
 **final_n_tx** | *integer* | Final number of transactions, including confirmed and unconfirmed transactions, for this address.
-**tx_url** | *url* | To retrieve base URL transactions. To get the full URL, concatenate this URL with a transaction's hash.
+**tx_url** | *url* | ***Optional*** To retrieve base URL transactions. To get the full URL, concatenate this URL with a transaction's hash.
 **txs** | *array[[Transaction](#transaction)]* | ***Optional***  Array of full transaction details associated with this address. Usually only returned from the [Address Detail Endpoint](#address-detail).
-**txrefs** | *array[[TXRef](#txref)]* | ***Optional*** Array of transaction inputs and outputs for this address. Usually only returned from the standard [Address Endpoint](#address-endpoint). 
+**txrefs** | *array[[TXRef](#txref)]* | ***Optional*** Array of transaction inputs and outputs for this address. Usually only returned from the standard [Address Endpoint](#address-endpoint).
 **unconfirmed_txrefs** | *array[[TXRef](#txref)]* | ***Optional*** All unconfirmed transaction inputs and outputs for this address. Usually only returned from the standard [Address Endpoint](#address-endpoint).
+**hasMore** | *bool* | ***Optional*** If *true*, then the Address object contains more transactions than shown. Useful for determining whether to poll the API for more transaction information.
 
 ## AddressKeychain
 
@@ -515,7 +516,7 @@ Attribute | Type | Description
 ```shell
 {
 "value": 100000000,
-"input_address": "16uKw7GsQSzfMaVTcT7tpFQkd7Rh9qcXWX", 
+"input_address": "16uKw7GsQSzfMaVTcT7tpFQkd7Rh9qcXWX",
 "destination": "15qx9ug952GWGTNn7Uiv6vode4RcGrRemh",
 "input_transaction_hash": "39bed5d...",
 "transaction_hash": "1aa6103..."
