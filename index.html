@@ -170,6 +170,10 @@ Currently, we only have cURL code samples, but are working on adding other offic
 </tr>
 </tbody></table>
 
+<aside class="notice">
+Unless otherwise noted, all descriptions of direct HTTP requests will assume one of these base resources prepends it. But you can always see the full call in the cURL code sample.
+</aside>
+
 <h2 id="rate-limits-and-tokens">Rate Limits and Tokens</h2>
 
 <p>We want everyone to try BlockCypher with as little friction as possible, which is why you don&rsquo;t need a token to get started. However, we do rate-limit non-registered users to maintain fidelity for registered users:</p>
@@ -939,7 +943,7 @@ Objects sometimes contain <b>attributes</b> that are <b><i>optional.</i></b> The
 <h2 id="transactionskeleton">TransactionSkeleton</h2>
 
 <blockquote>
-<p>An example TransactionSkeleton Object </p>
+<p>An example TransactionSkeleton Object</p>
 </blockquote>
 <pre class="highlight shell"><code><span class="o">{</span>
 <span class="s2">"tx"</span>: <span class="o">{</span>
@@ -1175,7 +1179,7 @@ Only one of these three fields is required for the microtransaction endpoint: <b
 <tr>
 <td><strong>tx_url</strong></td>
 <td><em>url</em></td>
-<td>To retrieve base URL transactions. To get the full URL, concatenate this URL with a transaction&rsquo;s hash.</td>
+<td><strong><em>Optional</em></strong> To retrieve base URL transactions. To get the full URL, concatenate this URL with a transaction&rsquo;s hash.</td>
 </tr>
 <tr>
 <td><strong>txs</strong></td>
@@ -1191,6 +1195,11 @@ Only one of these three fields is required for the microtransaction endpoint: <b
 <td><strong>unconfirmed_txrefs</strong></td>
 <td><em>array[<a href="#txref">TXRef</a>]</em></td>
 <td><strong><em>Optional</em></strong> All unconfirmed transaction inputs and outputs for this address. Usually only returned from the standard <a href="#address-endpoint">Address Endpoint</a>.</td>
+</tr>
+<tr>
+<td><strong>hasMore</strong></td>
+<td><em>bool</em></td>
+<td><strong><em>Optional</em></strong> If <em>true</em>, then the Address object contains more transactions than shown. Useful for determining whether to poll the API for more transaction information.</td>
 </tr>
 </tbody></table>
 
@@ -1426,7 +1435,7 @@ Only one of these three fields is required for the microtransaction endpoint: <b
 </blockquote>
 <pre class="highlight shell"><code><span class="o">{</span>
 <span class="s2">"value"</span>: 100000000,
-<span class="s2">"input_address"</span>: <span class="s2">"16uKw7GsQSzfMaVTcT7tpFQkd7Rh9qcXWX"</span>, 
+<span class="s2">"input_address"</span>: <span class="s2">"16uKw7GsQSzfMaVTcT7tpFQkd7Rh9qcXWX"</span>,
 <span class="s2">"destination"</span>: <span class="s2">"15qx9ug952GWGTNn7Uiv6vode4RcGrRemh"</span>,
 <span class="s2">"input_transaction_hash"</span>: <span class="s2">"39bed5d..."</span>,
 <span class="s2">"transaction_hash"</span>: <span class="s2">"1aa6103..."</span>
@@ -1503,7 +1512,7 @@ Only one of these three fields is required for the microtransaction endpoint: <b
 </tr>
 </thead><tbody>
 <tr>
-<td>/v1/$COIN/$CHAIN</td>
+<td>/</td>
 <td>GET</td>
 <td><a href="#blockchain">Blockchain</a></td>
 </tr>
@@ -1551,9 +1560,28 @@ Only one of these three fields is required for the microtransaction endpoint: <b
 </tr>
 </thead><tbody>
 <tr>
-<td>/v1/$COIN/$CHAIN/blocks/$BLOCK_HASH</td>
+<td>/blocks/$BLOCK_HASH</td>
 <td>GET</td>
 <td><a href="#block">Block</a></td>
+</tr>
+</tbody></table>
+
+<table><thead>
+<tr>
+<th>Flag</th>
+<th>Type</th>
+<th>Effect</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>txstart</strong></td>
+<td><em>integer</em></td>
+<td>Filters response to only include transaction hashes after <strong>txstart</strong> in the block.</td>
+</tr>
+<tr>
+<td><strong>limit</strong></td>
+<td><em>integer</em></td>
+<td>Filters response to only include a maximum of <strong>limit</strong> transactions hashes in the block. Maximum value allowed is 200.</td>
 </tr>
 </tbody></table>
 
@@ -1564,7 +1592,7 @@ Only one of these three fields is required for the microtransaction endpoint: <b
 <p>The returned object contains information about the block, including its height, the total amount of satoshis transacted within it, the number of transactions in it, and much more. For more detail on the data returned, check the <a href="#block">Block</a> object.</p>
 
 <h2 id="block-height-endpoint">Block Height Endpoint</h2>
-<pre class="highlight shell"><code><span class="gp">$ </span>curl https://api.blockcypher.com/v1/btc/main/blocks/294322
+<pre class="highlight shell"><code><span class="gp">$ </span>curl https://api.blockcypher.com/v1/btc/main/blocks/294322?txstart<span class="o">=</span>1&amp;limit<span class="o">=</span>1
 
 <span class="o">{</span>
 <span class="s2">"hash"</span>: <span class="s2">"0000000000000000189bba3564a63772107b567..."</span>,
@@ -1581,9 +1609,7 @@ Only one of these three fields is required for the microtransaction endpoint: <b
 <span class="s2">"prev_block"</span>: <span class="s2">"0000000000000000ced0958bd27720b71d3..."</span>,
 <span class="s2">"mrkl_root"</span>: <span class="s2">"359d624d37aee1efa5662b7f5dbc390e996d..."</span>,
 <span class="s2">"txids"</span>: <span class="o">[</span>
-    <span class="s2">"32b3b86e40d996b1f281e24e8d4af2ceacbf874c403836..."</span>,
     <span class="s2">"1579f716359ba1a207f70248135f5e5fadf539be1dcf53..."</span>,
-    ...,
 <span class="o">]</span>,
 <span class="s2">"depth"</span>: 61793,
 <span class="s2">"prev_block_url"</span>: <span class="s2">"https://api.blockcypher.com/v1/btc/main/blocks/0000000000000000ced0958bd27720b71d32c5847e40660aaca39f33c298abb0"</span>,
@@ -1601,9 +1627,28 @@ Only one of these three fields is required for the microtransaction endpoint: <b
 </tr>
 </thead><tbody>
 <tr>
-<td>/v1/$COIN/$CHAIN/blocks/$BLOCK_HEIGHT</td>
+<td>/blocks/$BLOCK_HEIGHT</td>
 <td>GET</td>
 <td><a href="#block">Block</a></td>
+</tr>
+</tbody></table>
+
+<table><thead>
+<tr>
+<th>Flag</th>
+<th>Type</th>
+<th>Effect</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>txstart</strong></td>
+<td><em>integer</em></td>
+<td>Filters response to only include transaction hashes after <strong>txstart</strong> in the block.</td>
+</tr>
+<tr>
+<td><strong>limit</strong></td>
+<td><em>integer</em></td>
+<td>Filters response to only include a maximum of <strong>limit</strong> transactions hashes in the block. Maximum value allowed is 200.</td>
 </tr>
 </tbody></table>
 
@@ -1614,16 +1659,258 @@ Only one of these three fields is required for the microtransaction endpoint: <b
 <p>As above, the returned object contains information about the block, including its hash, the total amount of satoshis transacted within it, the number of transactions in it, and much more. For more detail on the data returned, check the <a href="#block">Block</a> object.</p>
 
 <aside class="warning">
-With recent blocks, Block Height is not always a unique identifier to a particular block (due to the possibility of soft forks and the nature of the consensus model with blockchains). If you&rsquo;re querying blocks with <b>depth above 10</b> the height should be a safe identifier.
+With recent blocks, $BLOCK_HEIGHT is not always a unique identifier to a particular block (due to the possibility of soft forks and the nature of the consensus model with blockchains). If you&rsquo;re querying blocks with <b>depth above 10</b> the height should be a safe identifier.
 </aside>
 
           <h1 id="address-api">Address API</h1>
 
+<p>BlockCypher&rsquo;s Address API allows you to look up information about public addresses on the blockchain, generate single-use, low-value key pairs with corresponding addresses, help generate multisig addresses, and collect multiple addresses into a single shortcut for address viewing, all <a href="#restful-resources:-coins-&amp;-chains">based on the coin/chain resource</a> you&rsquo;ve selected for your endpoints.</p>
+
+<p>If you&rsquo;re new to blockchains, you can think of public addresses as similar to bank account numbers in a traditional ledger. The biggest differences:</p>
+
+<ul>
+<li>Anyone can generate a public address themselves (through <a href="https://en.wikipedia.org/wiki/Elliptic_Curve_Digital_Signature_Algorithm">ECDSA</a> in Bitcoin). No single authority is needed to generate new addresses; it&rsquo;s just public-private key cryptography.</li>
+<li>Public addresses are significantly more lightweight. Consequently, and unlike traditional bank accounts, you can (and should!) generate new addresses for every transaction.</li>
+<li>Addresses can also leverage <a href="https://en.bitcoin.it/wiki/Pay_to_script_hash"><em>pay-to-script-hash</em></a>, which means they can represent exotic things beyond a single private-public key pair; the most prominent example being multi-signature addresses that require n-of-m signatures to spend.</li>
+</ul>
+
 <h2 id="address-balance-endpoint">Address Balance Endpoint</h2>
+<pre class="highlight shell"><code><span class="gp">$ </span>curl http://api.blockcypher.com/v1/btc/main/addrs/1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD/balance
+
+<span class="o">{</span>
+<span class="s2">"address"</span>: <span class="s2">"1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD"</span>,
+<span class="s2">"total_received"</span>: 4433416,
+<span class="s2">"total_sent"</span>: 0,
+<span class="s2">"balance"</span>: 4433416,
+<span class="s2">"unconfirmed_balance"</span>: 0,
+<span class="s2">"final_balance"</span>: 4433416,
+<span class="s2">"n_tx"</span>: 7,
+<span class="s2">"unconfirmed_n_tx"</span>: 0,
+<span class="s2">"final_n_tx"</span>: 7
+<span class="o">}</span>
+</code></pre>
+
+<p>The Address Balance Endpoint is the simplest&mdash;and fastest&mdash;method to get a subset of information on a public address.</p>
+
+<table><thead>
+<tr>
+<th>Resource</th>
+<th>Method</th>
+<th>Return Object</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>/addrs/$ADDRESS/balance</td>
+<td>GET</td>
+<td><a href="#Address">Address</a></td>
+</tr>
+</tbody></table>
+
+<p>$ADDRESS is a <em>string</em> representing the public address you&rsquo;re interested in querying, for example:</p>
+
+<p><code class="prettyprint">1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD</code></p>
+
+<p>The returned object contains information about the address, including its balance in satoshis and the number of transactions associated with it. The endpoint omits any detailed transaction information, but if that isn&rsquo;t required by your application, then it&rsquo;s the fastest and preferred way to get public address information.</p>
 
 <h2 id="address-endpoint">Address Endpoint</h2>
+<pre class="highlight shell"><code><span class="gp">$ </span>curl http://api.blockcypher.com/v1/btc/main/addrs/1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD
 
-<h2 id="address-detail-endpoint">Address Detail Endpoint</h2>
+<span class="o">{</span>
+<span class="s2">"address"</span>: <span class="s2">"1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD"</span>,
+<span class="s2">"total_received"</span>: 4433416,
+<span class="s2">"total_sent"</span>: 0,
+<span class="s2">"balance"</span>: 4433416,
+<span class="s2">"unconfirmed_balance"</span>: 0,
+<span class="s2">"final_balance"</span>: 4433416,
+<span class="s2">"n_tx"</span>: 7,
+<span class="s2">"unconfirmed_n_tx"</span>: 0,
+<span class="s2">"final_n_tx"</span>: 7,
+<span class="s2">"txrefs"</span>: <span class="o">[</span>
+    <span class="o">{</span>
+    <span class="s2">"tx_hash"</span>: <span class="s2">"14b1052855bbf6561bc4db8aa501762..."</span>,
+    <span class="s2">"block_height"</span>: 302013,
+    <span class="s2">"tx_input_n"</span>: -1,
+    <span class="s2">"tx_output_n"</span>: 0,
+    <span class="s2">"value"</span>: 20213,
+    <span class="s2">"spent"</span>: <span class="nb">false</span>,
+    <span class="s2">"confirmations"</span>: 55061,
+    <span class="s2">"confirmed"</span>: <span class="s2">"2014-05-22T03:46:25Z"</span>,
+    <span class="s2">"double_spend"</span>: <span class="nb">false</span>
+    <span class="o">}</span>,
+    <span class="o">{</span>
+    <span class="s2">"tx_hash"</span>: <span class="s2">"4cff011ec53022f2ae47197d1a2fd4a6..."</span>,
+    <span class="s2">"block_height"</span>: 302002,
+    <span class="s2">"tx_input_n"</span>: -1,
+    <span class="s2">"tx_output_n"</span>: 0,
+    <span class="s2">"value"</span>: 40596,
+    <span class="s2">"spent"</span>: <span class="nb">false</span>,
+    <span class="s2">"confirmations"</span>: 55072,
+    <span class="s2">"confirmed"</span>: <span class="s2">"2014-05-22T02:56:08Z"</span>,
+    <span class="s2">"double_spend"</span>: <span class="nb">false</span>
+    <span class="o">}</span>,
+...
+<span class="o">]</span>,
+<span class="s2">"tx_url"</span>: <span class="s2">"https://api.blockcypher.com/v1/btc/main/txs/"</span>
+<span class="o">}</span>
+</code></pre>
+
+<p>The default Address Endpoint strikes a balance between speed of response and data on Addresses. It returns more information about an address&rsquo; transactions than the <a href="#address-balance-endpoint">Address Balance Endpoint</a> but doesn&rsquo;t return full transaction information (like the <a href="#address-full-endpoint">Address Full Endpoint</a>).</p>
+
+<table><thead>
+<tr>
+<th>Resource</th>
+<th>Method</th>
+<th>Return Object</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>/addrs/$ADDRESS</td>
+<td>GET</td>
+<td><a href="#Address">Address</a></td>
+</tr>
+</tbody></table>
+
+<table><thead>
+<tr>
+<th>Flag</th>
+<th>Type</th>
+<th>Effect</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>unspentOnly</strong></td>
+<td><em>bool</em></td>
+<td>If <em>true</em>, filters response to only include unspent transaction outputs (UTXOs).</td>
+</tr>
+<tr>
+<td><strong>before</strong></td>
+<td><em>integer</em></td>
+<td>Filters response to only include transactions before <em>integer</em> height in the blockchain.</td>
+</tr>
+</tbody></table>
+
+<p>$ADDRESS is a <em>string</em> representing the public address you&rsquo;re interested in querying, for example:</p>
+
+<p><code class="prettyprint">1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD</code></p>
+
+<p>The returned object contains information about the address, including its balance in satoshis, the number of transactions associated with it, and transaction inputs/outputs.</p>
+
+<h2 id="address-full-endpoint">Address Full Endpoint</h2>
+<pre class="highlight shell"><code><span class="gp">$ </span>curl http://api.blockcypher.com/v1/btc/main/addrs/1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD/full?before<span class="o">=</span>300000
+
+<span class="o">{</span>
+<span class="s2">"address"</span>: <span class="s2">"1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD"</span>,
+<span class="s2">"total_received"</span>: 4433416,
+<span class="s2">"total_sent"</span>: 0,
+<span class="s2">"balance"</span>: 4433416,
+<span class="s2">"unconfirmed_balance"</span>: 0,
+<span class="s2">"final_balance"</span>: 4433416,
+<span class="s2">"n_tx"</span>: 7,
+<span class="s2">"unconfirmed_n_tx"</span>: 0,
+<span class="s2">"final_n_tx"</span>: 7,
+<span class="s2">"txs"</span>: <span class="o">[</span>
+    <span class="o">{</span>
+    <span class="s2">"block_hash"</span>: <span class="s2">"0000000000000000af64802c79..."</span>,
+    <span class="s2">"block_height"</span>: 292586,
+    <span class="s2">"hash"</span>: <span class="s2">"b4735a0690dab16b8789fceaf81c511f..."</span>,
+    <span class="s2">"addresses"</span>: <span class="o">[</span>
+        <span class="s2">"18KXZzuC3xvz6upUMQpsZzXrBwNPWZjdSa"</span>,
+        <span class="s2">"1AAuRETEcHDqL4VM3R97aZHP8DSUHxpkFV"</span>,
+        <span class="s2">"1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD"</span>,
+        <span class="s2">"1VxsEDjo6ZLMT99dpcLu4RQonMDVEQQTG"</span>
+    <span class="o">]</span>,
+    <span class="s2">"total"</span>: 3537488,
+    <span class="s2">"fees"</span>: 20000,
+    <span class="s2">"size"</span>: 438,
+    <span class="s2">"preference"</span>: <span class="s2">"medium"</span>,
+    <span class="s2">"relayed_by"</span>: <span class="s2">""</span>,
+    <span class="s2">"confirmed"</span>: <span class="s2">"2014-03-26T17:08:04Z"</span>,
+    <span class="s2">"received"</span>: <span class="s2">"2014-03-26T17:08:04Z"</span>,
+    <span class="s2">"ver"</span>: 1,
+    <span class="s2">"lock_time"</span>: 0,
+    <span class="s2">"double_spend"</span>: <span class="nb">false</span>,
+    <span class="s2">"vin_sz"</span>: 2,
+    <span class="s2">"vout_sz"</span>: 2,
+    <span class="s2">"confirmations"</span>: 64492,
+    <span class="s2">"confidence"</span>: 1,
+    <span class="s2">"inputs"</span>: <span class="o">[</span>
+        <span class="o">{</span>
+        <span class="s2">"prev_hash"</span>: <span class="s2">"729f6469b59fea5da7..."</span>,
+        <span class="s2">"output_index"</span>: 0,
+        <span class="s2">"script"</span>: <span class="s2">"483045022100d06cdad1a..."</span>,
+        <span class="s2">"output_value"</span>: 3500000,
+        <span class="s2">"sequence"</span>: 4294967295,
+        <span class="s2">"addresses"</span>: <span class="o">[</span>
+            <span class="s2">"1VxsEDjo6ZLMT99dpcLu4RQonMDVEQQTG"</span>
+        <span class="o">]</span>,
+        <span class="s2">"script_type"</span>: <span class="s2">"pay-to-pubkey-hash"</span>
+        <span class="o">}</span>,
+        ...
+    <span class="o">]</span>,
+    <span class="s2">"outputs"</span>: <span class="o">[</span>
+        <span class="o">{</span>
+        <span class="s2">"value"</span>: 3500000,
+        <span class="s2">"script"</span>: <span class="s2">"76a9148629647bd642a237..."</span>,
+        <span class="s2">"addresses"</span>: <span class="o">[</span>
+            <span class="s2">"1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD"</span>
+        <span class="o">]</span>,
+        <span class="s2">"script_type"</span>: <span class="s2">"pay-to-pubkey-hash"</span>
+        <span class="o">}</span>,
+        <span class="o">{</span>
+        <span class="s2">"value"</span>: 37488,
+        <span class="s2">"script"</span>: <span class="s2">"76a9145049e2ad94ed9c68..."</span>,
+        <span class="s2">"spent_by"</span>: <span class="s2">"3ebe4bb294beaed58aca83..."</span>,
+        <span class="s2">"addresses"</span>: <span class="o">[</span>
+            <span class="s2">"18KXZzuC3xvz6upUMQpsZzXrBwNPWZjdSa"</span>
+        <span class="o">]</span>,
+        <span class="s2">"script_type"</span>: <span class="s2">"pay-to-pubkey-hash"</span>
+        <span class="o">}</span>
+    <span class="o">]</span>
+    <span class="o">}</span>,
+    ...,
+<span class="o">]</span>
+<span class="o">}</span>
+</code></pre>
+
+<p>The Address Full Endpoint returns all information available about a particular address, including an array of complete <a href="#transaction">Transactions</a> instead of just transaction inputs and outputs. Unfortunately, because of the amount of data returned, it is the slowest of the address endpoints, but it returns the most detailed data record.</p>
+
+<aside class="notice">
+If your returned [Address](#address) object includes the **hasMore** attribute, there are more transactions than can be displayed. If this is the case, note the block height of the last transaction in the array, and then you can use the **before** flag to page through results.
+</aside>
+
+<table><thead>
+<tr>
+<th>Resource</th>
+<th>Method</th>
+<th>Return Object</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>/addrs/$ADDRESS/full</td>
+<td>GET</td>
+<td><a href="#Address">Address</a></td>
+</tr>
+</tbody></table>
+
+<table><thead>
+<tr>
+<th>Flag</th>
+<th>Type</th>
+<th>Effect</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>before</strong></td>
+<td><em>integer</em></td>
+<td>Filters response to only include transactions before <em>integer</em> height in the blockchain.</td>
+</tr>
+</tbody></table>
+
+<p>$ADDRESS is a <em>string</em> representing the public address you&rsquo;re interested in querying, for example:</p>
+
+<p><code class="prettyprint">1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD</code></p>
+
+<p>The returned object contains information about the address, including its balance in satoshis, the number of transactions associated with it, and the corresponding full transaction records.</p>
 
 <h2 id="generate-address-endpoint">Generate Address Endpoint</h2>
 
