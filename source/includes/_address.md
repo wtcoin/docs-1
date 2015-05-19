@@ -32,7 +32,7 @@ Resource | Method | Return Object
 -------- | ------ | -------------
 /addrs/$ADDRESS/balance | GET | [Address](#address)
 
-$ADDRESS is a *string* representing the public address you're interested in querying, for example:
+$ADDRESS is a *string* representing the public address (or wallet name) you're interested in querying, for example:
 
 `1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD`
 
@@ -93,7 +93,7 @@ Flag | Type | Effect
 **unspentOnly** | *bool* | If **unspentOnly** is *true*, filters response to only include unspent transaction outputs (UTXOs).
 **before** | *integer* | Filters response to only include transactions below **before** height in the blockchain.
 
-$ADDRESS is a *string* representing the public address you're interested in querying, for example:
+$ADDRESS is a *string* representing the public address (or wallet name) you're interested in querying, for example:
 
 `1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD`
 
@@ -188,7 +188,7 @@ Flag | Type | Effect
 ---- | ---- | ------
 **before** | *integer* | Filters response to only include transactions before *integer* height in the blockchain.
 
-$ADDRESS is a *string* representing the public address you're interested in querying, for example:
+$ADDRESS is a *string* representing the public address (or wallet name) you're interested in querying, for example:
 
 `1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD`
 
@@ -265,16 +265,60 @@ Don't be confused: this Wallet API has nothing to do with private key management
 
 A wallet can be created, deleted, and have addresses added and removed. The wallet itself can have any custom name as long as it does not start with the standard address prefix (1 or 3 for Bitcoin).
 
-Wallets can be leveraged by the [Address API](#address-api), just by using their name instead of $ADDRESS. They can also be used with [Events](#events-&-hooks) and with the [Transactions API](#transactions-api), in which case a user token is mandatory. In general, using a wallet instead of an address in an API will have the effect of [batching the set of addresses](#batching) contained in the wallet.
+Wallets can be leveraged by the [Address API](#address-api), just by using their name instead of $ADDRESS. They can also be used with [Events](#events-&-hooks) and with the [Transactions API](#transactions-api). In general, using a wallet instead of an address in an API will have the effect of [batching the set of addresses](#batching) contained in the wallet.
+
+<aside class="warning">
+You are required to authenticate with your <a href="#rate-limits-and-tokens">user token</a> when using a wallet in any API endpoint. You can register <a href="http://accounts.blockcypher.com/">for a token here.</a>
+</aside>
+
+The following code examples should be considered serially; that is to say, the results will appear as if each API call were done sequentially. Also, $NAME is a *string* representing the name of your wallet, for example:
+
+`alice`
 
 ### Create Wallet Endpoint
 
-### Wallet Addresses Endpoint
+```shell
+$ curl -d '{"name": "alice","addresses": ["1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e"]}' https://api.blockcypher.com/v1/btc/main/wallets?token=USERTOKEN
+
+{
+"token": "USERTOKEN",
+"name": "alice",
+"addresses": [
+	"1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e"
+]
+}
+```
+
+Resource | Method | Request Object | Return Object
+-------- | ------ | -------------- | -------------
+/wallets | POST | [Wallet](#wallet) | [Wallet](#wallet)
 
 ### Add Addresses to Wallet Endpoint
 
+Resource | Method | Request Object | Return Object
+-------- | ------ | -------------- | -------------
+/wallets/$NAME/addresses | POST | [Wallet](#wallet) | [Wallet](#wallet)
+
+### Wallet Addresses Endpoint
+
+Resource | Method | Return Object
+-------- | ------ | -------------
+/wallets/$NAME/addresses | GET | [Wallet](#wallet)
+
 ### Remove Addresses from Wallet Endpoint
+
+Resource | Method | Request Object | Return Object
+-------- | ------ | -------------- | -------------
+/wallets/$NAME/addresses | DELETE | [Wallet](#wallet) | [Wallet](#wallet)
 
 ### Generate Address in Wallet Endpoint
 
+Resource | Method | Request Object | Return Object
+-------- | ------ | -------------- | -------------
+/wallets/$NAME/addresses/generate | POST | *nil* | [AddressKeychain](#AddressKeychain)
+
 ### Delete Wallet Endpoint
+
+Resource | Method | Request Object | Return Object
+-------- | ------ | -------------- | -------------
+/wallets/$NAME | DELETE | *nil* | [Wallet](#wallet)
