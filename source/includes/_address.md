@@ -30,7 +30,7 @@ The Address Balance Endpoint is the simplest---and fastest---method to get a sub
 
 Resource | Method | Return Object
 -------- | ------ | -------------
-/addrs/$ADDRESS/balance | GET | [Address](#Address)
+/addrs/$ADDRESS/balance | GET | [Address](#address)
 
 $ADDRESS is a *string* representing the public address you're interested in querying, for example:
 
@@ -86,12 +86,12 @@ The default Address Endpoint strikes a balance between speed of response and dat
 
 Resource | Method | Return Object
 -------- | ------ | -------------
-/addrs/$ADDRESS | GET | [Address](#Address)
+/addrs/$ADDRESS | GET | [Address](#address)
 
 Flag | Type | Effect
 ---- | ---- | ------
-**unspentOnly** | *bool* | If *true*, filters response to only include unspent transaction outputs (UTXOs).
-**before** | *integer* | Filters response to only include transactions before *integer* height in the blockchain.
+**unspentOnly** | *bool* | If **unspentOnly** is *true*, filters response to only include unspent transaction outputs (UTXOs).
+**before** | *integer* | Filters response to only include transactions below **before** height in the blockchain.
 
 $ADDRESS is a *string* representing the public address you're interested in querying, for example:
 
@@ -180,13 +180,9 @@ $ curl http://api.blockcypher.com/v1/btc/main/addrs/1DEP8i3QJCsomS4BSMY2RpU1upv6
 
 The Address Full Endpoint returns all information available about a particular address, including an array of complete [Transactions](#transaction) instead of just transaction inputs and outputs. Unfortunately, because of the amount of data returned, it is the slowest of the address endpoints, but it returns the most detailed data record.
 
-<aside class="notice">
-If your returned [Address](#address) object includes the **hasMore** attribute, there are more transactions than can be displayed. If this is the case, note the block height of the last transaction in the array, and then you can use the **before** flag to page through results.
-</aside>
-
 Resource | Method | Return Object
 -------- | ------ | -------------
-/addrs/$ADDRESS/full | GET | [Address](#Address)
+/addrs/$ADDRESS/full | GET | [Address](#address)
 
 Flag | Type | Effect
 ---- | ---- | ------
@@ -198,8 +194,87 @@ $ADDRESS is a *string* representing the public address you're interested in quer
 
 The returned object contains information about the address, including its balance in satoshis, the number of transactions associated with it, and the corresponding full transaction records.
 
+<aside class="notice">
+If your returned <a href="#address">Address</a> object includes the <b>hasMore</b> attribute, there are more transactions associated with the address than transfered through this endpoint. If this happens, note the block height of the last transaction in the array, and then you can use the <b>before</b> flag to page through results.
+</aside>
+
 ## Generate Address Endpoint
+
+```shell
+$ curl -X POST http://api.blockcypher.com/v1/btc/test3/addrs
+
+{
+"private": "81ee75559d37cbe4b7cbbfb9931ab1ba32172c5cdfc3ac2d020259b4c1104198",
+"public": "0231ff9ec76820cb36b69061f6ffb125db3793b4aced468a1261b0680e1ef4883a",
+"address": "mvpW7fMSi1nbZhJJDySNS2PUau8ppnu4kY",
+"wif": "cRwGhRjCuuNtPgLcoYd1CuAqjFXCV5YNCQ1LB8RsFCvu61VfSsgR"
+}
+```
+
+The Generate Address endpoint allows you to generate private-public key-pairs along with an associated public address. No information is required with this POST request.
+
+<aside class="success">
+The private key returned is immediately discarded by our servers, but we advise that these keys should not be used for any high-value---or long-term storage---addresses.
+</aside>
+
+<aside class="warning">
+Always use HTTPS for Address Generation requests. Otherwise, your generated private keys will be sent over insecure channels and could be MITM'd.
+</aside>
+
+Resource | Method | Request Object | Return Object
+-------- | ------ | -------------- | -------------
+/addrs | POST | *nil* | [AddressKeychain](#addresskeychain)
+
+The returned object contains a private key in hex-encoded and wif-encoded format, a public key, and a public address.
 
 ## Generate Multisig Address Endpoint
 
+```shell
+$ curl -d '{"pubkeys": ["02c716d071a76cbf0d29c29cacfec76e0ef8116b37389fb7a3e76d6d32cf59f4d3", "033ef4d5165637d99b673bcdbb7ead359cee6afd7aaf78d3da9d2392ee4102c8ea", "022b8934cc41e76cb4286b9f3ed57e2d27798395b04dd23711981a77dc216df8ca"], "script_type": "multisig-2-of-3"}' https://api.blockcypher.com/v1/btc/main/addrs
+
+{
+"private": "",
+"public": "",
+"address": "3BF1M1PnTge94QewuWh3B8mRVw8U4SVnb4",
+"wif": "",
+"pubkeys": [
+	"02c716d071a76cbf0d29c29cacfec76e0ef8116b37389fb7a3e76d6d32cf59f4d3",
+	"033ef4d5165637d99b673bcdbb7ead359cee6afd7aaf78d3da9d2392ee4102c8ea",
+	"022b8934cc41e76cb4286b9f3ed57e2d27798395b04dd23711981a77dc216df8ca"
+],
+"script_type": "multisig-2-of-3"
+}
+```
+The Generate Multisig Address Endpoint is a convenience method to help you generate multisig addresses from multiple public keys. After supplying a partially filled-out [AddressKeychain](#addresskeychain) object (including only an array of hex-encoded public keys and the script type), the returned object includes the computed public address.
+
+<aside class="notice">
+This endpoint is the same resource as the <a href="#generateadressendpoint">Generate Address Endpoint</a>, but with data in the request body.
+</aside>
+
+Resource | Method | Request Object | Return Object
+-------- | ------ | -------------- | -------------
+/addrs | POST | [AddressKeychain](#addresskeychain) | [AddressKeychain](#addresskeychain)
+
 ## Wallets
+
+The Wallet API allows you to group multiple addresses under a single name. It only holds public address information and never requires any private keys. 
+
+<aside class="notice">
+Don't be confused: this Wallet API has nothing to do with private key management. The best way to think of the Wallet API is a "Set of Public Addresses to Query Together" API, but that name refused to fit into any of our marketing materials.
+</aside>
+
+A wallet can be created, deleted, and have addresses added and removed. The wallet itself can have any custom name as long as it does not start with the standard address prefix (1 or 3 for Bitcoin).
+
+Wallets can be leveraged by the [Address API](#address-api), just by using their name instead of $ADDRESS. They can also be used with [Events](#events-&-hooks) and with the [Transactions API](#transactions-api), in which case a user token is mandatory. In general, using a wallet instead of an address in an API will have the effect of [batching the set of addresses](#batching) contained in the wallet.
+
+### Create Wallet Endpoint
+
+### Wallet Addresses Endpoint
+
+### Add Addresses to Wallet Endpoint
+
+### Remove Addresses from Wallet Endpoint
+
+### Generate Address in Wallet Endpoint
+
+### Delete Wallet Endpoint
