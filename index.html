@@ -1702,7 +1702,7 @@ With recent blocks, $BLOCK_HEIGHT is not always a unique identifier to a particu
 <tr>
 <td>/addrs/$ADDRESS/balance</td>
 <td>GET</td>
-<td><a href="#Address">Address</a></td>
+<td><a href="#address">Address</a></td>
 </tr>
 </tbody></table>
 
@@ -1766,7 +1766,7 @@ With recent blocks, $BLOCK_HEIGHT is not always a unique identifier to a particu
 <tr>
 <td>/addrs/$ADDRESS</td>
 <td>GET</td>
-<td><a href="#Address">Address</a></td>
+<td><a href="#address">Address</a></td>
 </tr>
 </tbody></table>
 
@@ -1780,12 +1780,12 @@ With recent blocks, $BLOCK_HEIGHT is not always a unique identifier to a particu
 <tr>
 <td><strong>unspentOnly</strong></td>
 <td><em>bool</em></td>
-<td>If <em>true</em>, filters response to only include unspent transaction outputs (UTXOs).</td>
+<td>If <strong>unspentOnly</strong> is <em>true</em>, filters response to only include unspent transaction outputs (UTXOs).</td>
 </tr>
 <tr>
 <td><strong>before</strong></td>
 <td><em>integer</em></td>
-<td>Filters response to only include transactions before <em>integer</em> height in the blockchain.</td>
+<td>Filters response to only include transactions below <strong>before</strong> height in the blockchain.</td>
 </tr>
 </tbody></table>
 
@@ -1874,10 +1874,6 @@ With recent blocks, $BLOCK_HEIGHT is not always a unique identifier to a particu
 
 <p>The Address Full Endpoint returns all information available about a particular address, including an array of complete <a href="#transaction">Transactions</a> instead of just transaction inputs and outputs. Unfortunately, because of the amount of data returned, it is the slowest of the address endpoints, but it returns the most detailed data record.</p>
 
-<aside class="notice">
-If your returned [Address](#address) object includes the **hasMore** attribute, there are more transactions than can be displayed. If this is the case, note the block height of the last transaction in the array, and then you can use the **before** flag to page through results.
-</aside>
-
 <table><thead>
 <tr>
 <th>Resource</th>
@@ -1888,7 +1884,7 @@ If your returned [Address](#address) object includes the **hasMore** attribute, 
 <tr>
 <td>/addrs/$ADDRESS/full</td>
 <td>GET</td>
-<td><a href="#Address">Address</a></td>
+<td><a href="#address">Address</a></td>
 </tr>
 </tbody></table>
 
@@ -1912,11 +1908,111 @@ If your returned [Address](#address) object includes the **hasMore** attribute, 
 
 <p>The returned object contains information about the address, including its balance in satoshis, the number of transactions associated with it, and the corresponding full transaction records.</p>
 
+<aside class="notice">
+If your returned <a href="#address">Address</a> object includes the <b>hasMore</b> attribute, there are more transactions associated with the address than transfered through this endpoint. If this happens, note the block height of the last transaction in the array, and then you can use the <b>before</b> flag to page through results.
+</aside>
+
 <h2 id="generate-address-endpoint">Generate Address Endpoint</h2>
+<pre class="highlight shell"><code><span class="gp">$ </span>curl -X POST http://api.blockcypher.com/v1/btc/test3/addrs
+
+<span class="o">{</span>
+<span class="s2">"private"</span>: <span class="s2">"81ee75559d37cbe4b7cbbfb9931ab1ba32172c5cdfc3ac2d020259b4c1104198"</span>,
+<span class="s2">"public"</span>: <span class="s2">"0231ff9ec76820cb36b69061f6ffb125db3793b4aced468a1261b0680e1ef4883a"</span>,
+<span class="s2">"address"</span>: <span class="s2">"mvpW7fMSi1nbZhJJDySNS2PUau8ppnu4kY"</span>,
+<span class="s2">"wif"</span>: <span class="s2">"cRwGhRjCuuNtPgLcoYd1CuAqjFXCV5YNCQ1LB8RsFCvu61VfSsgR"</span>
+<span class="o">}</span>
+</code></pre>
+
+<p>The Generate Address endpoint allows you to generate private-public key-pairs along with an associated public address. No information is required with this POST request.</p>
+
+<aside class="success">
+The private key returned is immediately discarded by our servers, but we advise that these keys should not be used for any high-value&mdash;or long-term storage&mdash;addresses.
+</aside>
+
+<aside class="warning">
+Always use HTTPS for Address Generation requests. Otherwise, your generated private keys will be sent over insecure channels and could be MITM&rsquo;d.
+</aside>
+
+<table><thead>
+<tr>
+<th>Resource</th>
+<th>Method</th>
+<th>Request Object</th>
+<th>Return Object</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>/addrs</td>
+<td>POST</td>
+<td><em>nil</em></td>
+<td><a href="#addresskeychain">AddressKeychain</a></td>
+</tr>
+</tbody></table>
+
+<p>The returned object contains a private key in hex-encoded and wif-encoded format, a public key, and a public address.</p>
 
 <h2 id="generate-multisig-address-endpoint">Generate Multisig Address Endpoint</h2>
+<pre class="highlight shell"><code><span class="gp">$ </span>curl -d <span class="s1">'{"pubkeys": ["02c716d071a76cbf0d29c29cacfec76e0ef8116b37389fb7a3e76d6d32cf59f4d3", "033ef4d5165637d99b673bcdbb7ead359cee6afd7aaf78d3da9d2392ee4102c8ea", "022b8934cc41e76cb4286b9f3ed57e2d27798395b04dd23711981a77dc216df8ca"], "script_type": "multisig-2-of-3"}'</span> https://api.blockcypher.com/v1/btc/main/addrs
+
+<span class="o">{</span>
+<span class="s2">"private"</span>: <span class="s2">""</span>,
+<span class="s2">"public"</span>: <span class="s2">""</span>,
+<span class="s2">"address"</span>: <span class="s2">"3BF1M1PnTge94QewuWh3B8mRVw8U4SVnb4"</span>,
+<span class="s2">"wif"</span>: <span class="s2">""</span>,
+<span class="s2">"pubkeys"</span>: <span class="o">[</span>
+    <span class="s2">"02c716d071a76cbf0d29c29cacfec76e0ef8116b37389fb7a3e76d6d32cf59f4d3"</span>,
+    <span class="s2">"033ef4d5165637d99b673bcdbb7ead359cee6afd7aaf78d3da9d2392ee4102c8ea"</span>,
+    <span class="s2">"022b8934cc41e76cb4286b9f3ed57e2d27798395b04dd23711981a77dc216df8ca"</span>
+<span class="o">]</span>,
+<span class="s2">"script_type"</span>: <span class="s2">"multisig-2-of-3"</span>
+<span class="o">}</span>
+</code></pre>
+
+<p>The Generate Multisig Address Endpoint is a convenience method to help you generate multisig addresses from multiple public keys. After supplying a partially filled-out <a href="#addresskeychain">AddressKeychain</a> object (including only an array of hex-encoded public keys and the script type), the returned object includes the computed public address.</p>
+
+<aside class="notice">
+This endpoint is the same resource as the <a href="#generateadressendpoint">Generate Address Endpoint</a>, but with data in the request body.
+</aside>
+
+<table><thead>
+<tr>
+<th>Resource</th>
+<th>Method</th>
+<th>Request Object</th>
+<th>Return Object</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>/addrs</td>
+<td>POST</td>
+<td><a href="#addresskeychain">AddressKeychain</a></td>
+<td><a href="#addresskeychain">AddressKeychain</a></td>
+</tr>
+</tbody></table>
 
 <h2 id="wallets">Wallets</h2>
+
+<p>The Wallet API allows you to group multiple addresses under a single name. It only holds public address information and never requires any private keys. </p>
+
+<aside class="notice">
+Don&rsquo;t be confused: this Wallet API has nothing to do with private key management. The best way to think of the Wallet API is a &ldquo;Set of Public Addresses to Query Together&rdquo; API, but that name refused to fit into any of our marketing materials.
+</aside>
+
+<p>A wallet can be created, deleted, and have addresses added and removed. The wallet itself can have any custom name as long as it does not start with the standard address prefix (1 or 3 for Bitcoin).</p>
+
+<p>Wallets can be leveraged by the <a href="#address-api">Address API</a>, just by using their name instead of $ADDRESS. They can also be used with <a href="#events-&amp;-hooks">Events</a> and with the <a href="#transactions-api">Transactions API</a>, in which case a user token is mandatory. In general, using a wallet instead of an address in an API will have the effect of <a href="#batching">batching the set of addresses</a> contained in the wallet.</p>
+
+<h3 id="create-wallet-endpoint">Create Wallet Endpoint</h3>
+
+<h3 id="wallet-addresses-endpoint">Wallet Addresses Endpoint</h3>
+
+<h3 id="add-addresses-to-wallet-endpoint">Add Addresses to Wallet Endpoint</h3>
+
+<h3 id="remove-addresses-from-wallet-endpoint">Remove Addresses from Wallet Endpoint</h3>
+
+<h3 id="generate-address-in-wallet-endpoint">Generate Address in Wallet Endpoint</h3>
+
+<h3 id="delete-wallet-endpoint">Delete Wallet Endpoint</h3>
 
           <h1 id="transactions-api">Transactions API</h1>
 
