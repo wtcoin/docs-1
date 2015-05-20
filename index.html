@@ -1278,6 +1278,11 @@ Only one of these three fields is required for the microtransaction endpoint: <b
 </tr>
 </thead><tbody>
 <tr>
+<td><strong>token</strong></td>
+<td><em>string</em></td>
+<td>User token associated with this wallet.</td>
+</tr>
+<tr>
 <td><strong>name</strong></td>
 <td><em>string</em></td>
 <td>Name of the wallet.</td>
@@ -2038,7 +2043,24 @@ You are required to authenticate with your <a href="#rate-limits-and-tokens">use
 </tr>
 </tbody></table>
 
+<p>This endpoint allows you to create a new wallet, by POSTing a partially filled out <a href="#wallet">Wallet</a> object. At minimum, you must include the <strong>name</strong> attribute and at least one public address in the <strong>addresses</strong> array. If successful, it will return the same <a href="#wallet">Wallet</a> object you requested, appended with your user token.</p>
+
+<aside class="warning">
+If the named wallet already exists under your token, attempting to create a new wallet will return an error.
+</aside>
+
 <h3 id="add-addresses-to-wallet-endpoint">Add Addresses to Wallet Endpoint</h3>
+<pre class="highlight shell"><code><span class="gp">$ </span>curl -d <span class="s1">'{"addresses": ["13cj1QtfW61kQHoqXm3khVRYPJrgQiRM6j"]}'</span> https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses?token<span class="o">=</span>USERTOKEN
+
+<span class="o">{</span>
+<span class="s2">"token"</span>: <span class="s2">"USERTOKEN"</span>,
+<span class="s2">"name"</span>: <span class="s2">"alice"</span>,
+<span class="s2">"addresses"</span>: <span class="o">[</span>
+    <span class="s2">"1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e"</span>,
+    <span class="s2">"13cj1QtfW61kQHoqXm3khVRYPJrgQiRM6j"</span>
+<span class="o">]</span>
+<span class="o">}</span>
+</code></pre>
 
 <table><thead>
 <tr>
@@ -2056,7 +2078,20 @@ You are required to authenticate with your <a href="#rate-limits-and-tokens">use
 </tr>
 </tbody></table>
 
+<p>This endpoint allows you to add public addresses to an existing wallet, by POSTing a partially filled out <a href="#wallet">Wallet</a> object. You only need to include the additional addresses in a new <strong>addresses</strong> array in the object. If successful, it will return the newly modified <a href="#wallet">Wallet</a>, including an up-to-date, complete listing of addresses.</p>
+
 <h3 id="wallet-addresses-endpoint">Wallet Addresses Endpoint</h3>
+<pre class="highlight shell"><code><span class="gp">$ </span>curl https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses?token<span class="o">=</span>USERTOKEN
+
+<span class="o">{</span>
+<span class="s2">"token"</span>: <span class="s2">""</span>,
+<span class="s2">"name"</span>: <span class="s2">""</span>,
+<span class="s2">"addresses"</span>: <span class="o">[</span>
+    <span class="s2">"13cj1QtfW61kQHoqXm3khVRYPJrgQiRM6j"</span>,
+    <span class="s2">"1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e"</span>
+<span class="o">]</span>
+<span class="o">}</span>
+</code></pre>
 
 <table><thead>
 <tr>
@@ -2072,7 +2107,19 @@ You are required to authenticate with your <a href="#rate-limits-and-tokens">use
 </tr>
 </tbody></table>
 
+<p>This endpoint returns a list of the addresses associated with the $NAME wallet. It returns the addresses in a partially filled out <a href="#wallet">Wallet</a> object, which you&rsquo;ll find under the <strong>addresses</strong> attribute.</p>
+
 <h3 id="remove-addresses-from-wallet-endpoint">Remove Addresses from Wallet Endpoint</h3>
+<pre class="highlight shell"><code><span class="gp">$ </span>curl -X DELETE -d <span class="s1">'{"addresses": ["1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e"]}'</span> https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses?token<span class="o">=</span>USERTOKEN
+
+<span class="o">{</span>
+<span class="s2">"token"</span>: <span class="s2">"USERTOKEN"</span>,
+<span class="s2">"name"</span>: <span class="s2">"alice"</span>,
+<span class="s2">"addresses"</span>: <span class="o">[</span>
+    <span class="s2">"13cj1QtfW61kQHoqXm3khVRYPJrgQiRM6j"</span>
+<span class="o">]</span>
+<span class="o">}</span>
+</code></pre>
 
 <table><thead>
 <tr>
@@ -2090,7 +2137,24 @@ You are required to authenticate with your <a href="#rate-limits-and-tokens">use
 </tr>
 </tbody></table>
 
+<p>This endpoint allows you to delete an array of addresses associated with the $NAME wallet. If successful, it will return the newly modified <a href="#wallet">Wallet</a>, including an up-to-date, complete listing of addresses.</p>
+
 <h3 id="generate-address-in-wallet-endpoint">Generate Address in Wallet Endpoint</h3>
+<pre class="highlight shell"><code><span class="gp">$ </span>curl -X POST https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses/generate?token<span class="o">=</span>USERTOKEN
+
+<span class="o">{</span>
+<span class="s2">"token"</span>: <span class="s2">"USERTOKEN"</span>,
+<span class="s2">"name"</span>: <span class="s2">"alice"</span>,
+<span class="s2">"addresses"</span>: <span class="o">[</span>
+    <span class="s2">"13cj1QtfW61kQHoqXm3khVRYPJrgQiRM6j"</span>,
+    <span class="s2">"14LcPtRSGjYb1s8kfxsVDbXvA7VYCmoFho"</span>
+<span class="o">]</span>,
+<span class="s2">"private"</span>: <span class="s2">"6238efeb679d75ec3b1a43e76cc0ed33abdf56e30bb5bb95e4793134a7958609"</span>,
+<span class="s2">"public"</span>: <span class="s2">"03e4f273521a30373a639f60da836f2308a5d53853ec18f903dd235c73e6e26e4a"</span>,
+<span class="s2">"address"</span>: <span class="s2">"14LcPtRSGjYb1s8kfxsVDbXvA7VYCmoFho"</span>,
+<span class="s2">"wif"</span>: <span class="s2">"KzWeDL7sysRay7pZUm6hQQLaDVjmN1jUZzeZuq6ru5FtN1RhPrLX"</span>
+<span class="o">}</span>
+</code></pre>
 
 <table><thead>
 <tr>
@@ -2104,11 +2168,16 @@ You are required to authenticate with your <a href="#rate-limits-and-tokens">use
 <td>/wallets/$NAME/addresses/generate</td>
 <td>POST</td>
 <td><em>nil</em></td>
-<td><a href="#AddressKeychain">AddressKeychain</a></td>
+<td><a href="#Wallet">Wallet</a> composed with <a href="#AddressKeychain">AddressKeychain</a></td>
 </tr>
 </tbody></table>
 
+<p>This endpoint allows you to generate a new address associated with the $NAME wallet, similar to the <a href="#generate-address-endpoint">Generate Address Endpoint</a>. If successful, it will returned the newly modified <a href="#wallet">Wallet</a> composed with an <a href="#AddressKeychain">AddressKeychain</a>.</p>
+
 <h3 id="delete-wallet-endpoint">Delete Wallet Endpoint</h3>
+<pre class="highlight shell"><code><span class="gp">$ </span>curl -X DELETE -d <span class="s1">'{"name":"alice"}'</span> https://api.blockcypher.com/v1/btc/main/wallets/alice?token<span class="o">=</span>USERTOKEN
+
+</code></pre>
 
 <table><thead>
 <tr>
@@ -2121,10 +2190,12 @@ You are required to authenticate with your <a href="#rate-limits-and-tokens">use
 <tr>
 <td>/wallets/$NAME</td>
 <td>DELETE</td>
-<td><em>nil</em></td>
 <td><a href="#wallet">Wallet</a></td>
+<td><em>nil</em></td>
 </tr>
 </tbody></table>
+
+<p>This endpoint deletes the wallet with $NAME. You are also required to send a partially filled <a href="#wallet">Wallet</a> as a request object; all that&rsquo;s necessary is the <strong>name</strong> attribute in the wallet object. If successful, it will return an HTTP 400 status code, but no return object.</p>
 
           <h1 id="transactions-api">Transactions API</h1>
 
