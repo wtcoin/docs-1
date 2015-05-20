@@ -293,32 +293,107 @@ Resource | Method | Request Object | Return Object
 -------- | ------ | -------------- | -------------
 /wallets | POST | [Wallet](#wallet) | [Wallet](#wallet)
 
+This endpoint allows you to create a new wallet, by POSTing a partially filled out [Wallet](#wallet) object. At minimum, you must include the **name** attribute and at least one public address in the **addresses** array. If successful, it will return the same [Wallet](#wallet) object you requested, appended with your user token.
+
+<aside class="warning">
+If the named wallet already exists under your token, attempting to create a new wallet will return an error.
+</aside>
+
 ### Add Addresses to Wallet Endpoint
+
+```shell
+$ curl -d '{"addresses": ["13cj1QtfW61kQHoqXm3khVRYPJrgQiRM6j"]}' https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses?token=USERTOKEN
+
+{
+"token": "USERTOKEN",
+"name": "alice",
+"addresses": [
+	"1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e",
+	"13cj1QtfW61kQHoqXm3khVRYPJrgQiRM6j"
+]
+}
+```
 
 Resource | Method | Request Object | Return Object
 -------- | ------ | -------------- | -------------
 /wallets/$NAME/addresses | POST | [Wallet](#wallet) | [Wallet](#wallet)
 
+This endpoint allows you to add public addresses to an existing wallet, by POSTing a partially filled out [Wallet](#wallet) object. You only need to include the additional addresses in a new **addresses** array in the object. If successful, it will return the newly modified [Wallet](#wallet), including an up-to-date, complete listing of addresses.
+
 ### Wallet Addresses Endpoint
+
+```shell
+$ curl https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses?token=USERTOKEN
+
+{
+"token": "",
+"name": "",
+"addresses": [
+	"13cj1QtfW61kQHoqXm3khVRYPJrgQiRM6j",
+	"1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e"
+]
+}
+```
 
 Resource | Method | Return Object
 -------- | ------ | -------------
 /wallets/$NAME/addresses | GET | [Wallet](#wallet)
 
+This endpoint returns a list of the addresses associated with the $NAME wallet. It returns the addresses in a partially filled out [Wallet](#wallet) object, which you'll find under the **addresses** attribute.
+
 ### Remove Addresses from Wallet Endpoint
 
+```shell
+$ curl -X DELETE -d '{"addresses": ["1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e"]}' https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses?token=USERTOKEN
+
+{
+"token": "USERTOKEN",
+"name": "alice",
+"addresses": [
+	"13cj1QtfW61kQHoqXm3khVRYPJrgQiRM6j"
+]
+}
+```
 Resource | Method | Request Object | Return Object
 -------- | ------ | -------------- | -------------
 /wallets/$NAME/addresses | DELETE | [Wallet](#wallet) | [Wallet](#wallet)
 
+This endpoint allows you to delete an array of addresses associated with the $NAME wallet. If successful, it will return the newly modified [Wallet](#wallet), including an up-to-date, complete listing of addresses.
+
 ### Generate Address in Wallet Endpoint
+
+```shell
+$ curl -X POST https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses/generate?token=USERTOKEN
+
+{
+"token": "USERTOKEN",
+"name": "alice",
+"addresses": [
+	"13cj1QtfW61kQHoqXm3khVRYPJrgQiRM6j",
+	"14LcPtRSGjYb1s8kfxsVDbXvA7VYCmoFho"
+],
+"private": "6238efeb679d75ec3b1a43e76cc0ed33abdf56e30bb5bb95e4793134a7958609",
+"public": "03e4f273521a30373a639f60da836f2308a5d53853ec18f903dd235c73e6e26e4a",
+"address": "14LcPtRSGjYb1s8kfxsVDbXvA7VYCmoFho",
+"wif": "KzWeDL7sysRay7pZUm6hQQLaDVjmN1jUZzeZuq6ru5FtN1RhPrLX"
+}
+```
 
 Resource | Method | Request Object | Return Object
 -------- | ------ | -------------- | -------------
-/wallets/$NAME/addresses/generate | POST | *nil* | [AddressKeychain](#AddressKeychain)
+/wallets/$NAME/addresses/generate | POST | *nil* | [Wallet](#Wallet) composed with [AddressKeychain](#AddressKeychain)
+
+This endpoint allows you to generate a new address associated with the $NAME wallet, similar to the [Generate Address Endpoint](#generate-address-endpoint). If successful, it will returned the newly modified [Wallet](#wallet) composed with an [AddressKeychain](#AddressKeychain).
 
 ### Delete Wallet Endpoint
 
+```shell
+$ curl -X DELETE -d '{"name":"alice"}' https://api.blockcypher.com/v1/btc/main/wallets/alice?token=USERTOKEN
+
+```
+
 Resource | Method | Request Object | Return Object
 -------- | ------ | -------------- | -------------
-/wallets/$NAME | DELETE | *nil* | [Wallet](#wallet)
+/wallets/$NAME | DELETE | [Wallet](#wallet) | *nil*
+
+This endpoint deletes the wallet with $NAME. You are also required to send a partially filled [Wallet](#wallet) as a request object; all that's necessary is the **name** attribute in the wallet object. If successful, it will return an HTTP 400 status code, but no return object.

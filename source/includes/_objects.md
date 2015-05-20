@@ -451,6 +451,7 @@ A Wallet represents a list of addresses, and can be used interchangeably with al
 
 Attribute | Type | Description
 --------- | ---- | -----------
+**token** | *string* | User token associated with this wallet.
 **name** | *string* | Name of the wallet.
 **addresses** | *array[string]* | List of addresses associated with this wallet.
 
