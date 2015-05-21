@@ -232,7 +232,32 @@ If you want to automatically empty your input address(es) without knowing their 
 The BlockCypher API automatically allows unconfirmed UTXOs as inputs when creating transactions. If you only want to allow confirmed UTXOs, set the <b>confirmations</b> value in your <a href="#transaction ">Transaction</a> request object to 1.
 </aside>
 
+While we demonstrated the simplest use of this endpoint, you can have finer-grain control by modifying the [Tranasaction](#transaction) request object. Instead of providing **addresses**, you can use **prev_hash** and **output_index** within the **inputs** array, in which case, we'll use the inputs as provided and not attempt to generate them from a list of addresses. We will compute change and fees the same way (you can read more about the fee computation in the next section).
+
+<aside class="notice">
+By default, BlockCypher will set the change address to the first transaction input listed in the transaction. To redirect this default behavior, you can set an optional <b>change_address</b> field within the <a href="#transaction">Transaction</a> request object.
+</aside>
+
+For further control, you can also change the **script_type** in the **output** of your partially filled [Transaction](#transaction). You'll notice this used to powerful effect in the section on [Multisig Transactions](#multisig-transactions). These are the possible script types:
+
+1. *pay-to-pubkey-hash* (most common transaction transferring to a public key hash, and the default behavior if no out)
+1. *pay-to-multi-pubkey-hash* (multi-signatures transaction, now actually less used than *pay-to-script-hash* for this purpose)
+1. *pay-to-pubkey* (used for mining transactions)
+1. *pay-to-script-hash* (used for transactions relying on arbitrary scripts, now used primarily for multi-sig transactions)
+1. *null-data* (sometimes called op-return; used to embed small chunks of data in the blockchain)
+1. *empty* (no script present, mostly used for mining transaction inputs)
+1. *unknown* (non-standard script)
+
+As a return object, you'll receive a [TransactionSkeleton](#transactionskeleton) containing a slightly-more complete [Transaction](#transaction) alongside data you need to sign (in the **tosign** array). You'll need this object for the next step of the transaction creation process.
+
+```shell
+# the request body is truncated because it's huge, but it's basically the same as the returned object from above plus the signatures and public keys
+$ curl -d { "tx": {...}, "tosign": ["32b5ea64c253b6b466366647458cfd60de9cd29d7dc542293aa0b8b7300cd827"], "signatures": [""], "pubkeys":[""]}
+```
+
 ### Send Transaction Endpoint
+
+### Dealing with Errors
 
 ## Push Raw Transaction Endpoint
 
