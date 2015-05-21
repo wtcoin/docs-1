@@ -210,7 +210,7 @@ $ curl -d '{"inputs":[{"addresses": ["CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"]}],"ou
 }
 ```
 
-To use BlockCypher's two-endpoint transaction creation tool, first you need to provide the input address(es), output address, and value to transfer. This is provided in the form of a partially-filled out [Transaction](#transaction) request object.
+To use BlockCypher's two-endpoint transaction creation tool, first you need to provide the input address(es), output address, and value to transfer (in satoshis). This is provided in the form of a partially-filled out [Transaction](#transaction) request object.
 
 Resource | Method | Request Object | Return Object
 -------- | ------ | -------------- | -------------
@@ -218,8 +218,18 @@ Resource | Method | Request Object | Return Object
 
 As you can see from the code example, you only need to provide a single public address within the **addresses** array of both the **input** and **output** of your [Transaction](#transaction) request object. You also need to fill in the **value** with the amount you'd like to transfer from one address to another.
 
+If you'd like, you can even use a [Wallet](#wallet) instead of addresses as your input. You just need to use two non-standard fields (your **wallet_name** and **wallet_token**) within the **inputs** array in your transaction, instead of **addresses**:
+
+`{inputs:[{"wallet_name":"alice", "wallet_token":"YOUR_TOKEN"}], value: 5000000}`
+
+While this particular usage will differ between client libraries, the result is the same: the addresses within your wallet will be used as the **inputs**, as if all of them had been placed within the **addresses** array.
+
 <aside class="notice">
-The **value** can be set to -1 to *sweep* all value from your input address(es) to your output address.
+If you want to automatically empty your input address(es) without knowing their exact value, your <a href="#transactions">Transaction</a> request object's <b>value</b> can be set to -1 to <i>sweep</i> all value from your input address(es) to your output address.
+</aside>
+
+<aside class="notice">
+The BlockCypher API automatically allows unconfirmed UTXOs as inputs when creating transactions. If you only want to allow confirmed UTXOs, set the <b>confirmations</b> value in your <a href="#transaction ">Transaction</a> request object to 1.
 </aside>
 
 ### Send Transaction Endpoint
