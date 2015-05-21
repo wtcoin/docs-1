@@ -250,12 +250,28 @@ For further control, you can also change the **script_type** in the **output** o
 
 As a return object, you'll receive a [TransactionSkeleton](#transactionskeleton) containing a slightly-more complete [Transaction](#transaction) alongside data you need to sign (in the **tosign** array). You'll need this object for the next step of the transaction creation process.
 
+<aside class="warning">
+The <b>hash</b> assigned to <a href="#transaction">Transaction</a> within the return object is only temporary. A final <b>hash</b> will be provided after the transaction is sent to the network through the Send Transaction Endpoint.
+</aside>
+
 ```shell
 # the request body is truncated because it's huge, but it's basically the same as the returned object from above plus the signatures and public keys
 $ curl -d { "tx": {...}, "tosign": ["32b5ea64c253b6b466366647458cfd60de9cd29d7dc542293aa0b8b7300cd827"], "signatures": [""], "pubkeys":[""]}
 ```
 
 ### Send Transaction Endpoint
+
+With your [TransactionSkeleton](#transactionskeleton) returned from the New Transaction Endpoint, you now need to use your private key(s) to sign the data provided in the **tosign** array, and put that (hex-encoded) data into the **signatures** array of the TransactionSkeleton. You also need to include the corresponding public key(s) in the **pubkeys** array, in the order of the addresses/inputs provided. Signature and public key order matters, so make sure they are returned in the same order as the inputs you provided.
+
+<aside class="notice">
+A note on fees: fees in cryptocurrencies can be complex. We provide 2 different ways for you to control the fees included in your transactions:
+
+<p>1) Set the <b>preference</b> property in your <a href="#transaction">Transaction</a> within your <a href="#transactionskeleton">TransactionSkeleton request object</a> to "high", "medium" or "low". This will calculate and include appropriate fees for your transaction to be included in the next 1-2 blocks, 3-5 blocks or 5 or more blocks respectively. The default fee calculation is based on a "high" <b>preference</b>. A preference set to "zero" will set no fee.</p>
+
+<p>2) Manually set the fee to a desired amount by setting the <b>fees</b> property in your <a href="#transaction">Transaction</a> within your <a href="#transactionskeleton">TransactionSkeleton request object</a>. Note that a fee too low may result in an error for some transactions that would require it.</p>
+
+To learn more about fees, <a href="http://bitcoinfees.com/">bitcoinfees.com</a> is a good resource.
+</aside>
 
 ### Dealing with Errors
 
