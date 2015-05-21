@@ -187,6 +187,7 @@ Attribute | Type | Description
 **outputs** | *array[[TXOutput](#transactionoutput)]* | Array of [Transaction Outputs](#transactionoutput), limited to 20 by default.
 **confirmed** | [*time*](https://tools.ietf.org/html/rfc3339) | ***Optional*** Time at which transaction was included in a block; only present for confirmed transactions.
 **receive_count** | *integer* | ***Optional*** Number of peers that have sent this transaction to BlockCypher; only present for unconfirmed transactions.
+**change_address** | *string* | ***Optional*** Address BlockCypher will use to send back your change, if you [constructed this transaction](#creating-transactions). If not set, defaults to the address from which the coins were originally sent.
 **block_hash** | *string* | ***Optional***  Hash of the block that contains this transaction; only present for confirmed transactions.
 **double_of** | *string* | ***Optional*** If this transaction is a double-spend (i.e. **double_spend** == true) then this is the hash of the transaction it's double-spending.
 **hex** | *string* | ***Optional*** Hex-encoded bytes of the transaction, as sent over the network.

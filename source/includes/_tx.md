@@ -104,39 +104,7 @@ $ curl https://api.blockcypher.com/v1/btc/main/txs/f854aebae95150b379cc1187d848d
 	],
 	"script_type": "pay-to-pubkey-hash"
 	},
-	{
-	"prev_hash": "f6966bb3d3ba0eb97fd11b223fb13c79...",
-	"output_index": 36,
-	"script": "48304502210086de855e03008abcc49335c...",
-	"output_value": 10061545,
-	"sequence": 4294967295,
-	"addresses": [
-		"19YtzZdcfs1V2ZCgyRWo8i2wLT8ND1Tu4L"
-	],
-	"script_type": "pay-to-pubkey-hash"
-	},
-	{
-	"prev_hash": "9ea2f9695e6694309fb0d8b966afb46...",
-	"output_index": 1,
-	"script": "48304502201f1eb5b79279258a91c00dee...",
-	"output_value": 70000000000,
-	"sequence": 4294967295,
-	"addresses": [
-		"1BNiazBzCxJacAKo2yL83Wq1VJ18AYzNHy"
-	],
-	"script_type": "pay-to-pubkey-hash"
-	},
-	{
-	"prev_hash": "279ccbbab8605390a85fe6f0e4fb04e...",
-	"output_index": 0,
-	"script": "483045022100baac0c25867855f6259287...",
-	"output_value": 293710000,
-	"sequence": 4294967295,
-	"addresses": [
-		"13XXaBufpMvqRqLkyDty1AXqueZHVe6iyy"
-	],
-	"script_type": "pay-to-pubkey-hash"
-	}
+	...
 ],
 "outputs": [
 	{
@@ -167,7 +135,92 @@ The returned object contains detailed information about the transaction, includi
 
 ## Creating Transactions
 
+Within BlockCypher's API, you can push transactions to blockchains one of two ways:
+
+- Use a third party library to create your transactions and [push raw transactions](#push-raw-transaction-endpoint)
+- Use our two-endpoint process outlined below, wherein we generate a [Transaction Skeleton](#transactionskeleton) based on your input address, output address, and value to transfer.
+
+In either case, for security reasons, we never take possession of your private keys. We do use private keys with our [Microtransactions API](#microtransactions-api), but they are for low-value transactions and we discard them immediately from our servers' memory.
+
+<aside class="warning">
+Always use HTTPS for creating and pushing transactions.
+</aside>
+
 ### New Transaction Endpoint
+
+```shell
+$ curl -d '{"inputs":[{"addresses": ["CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"]}],"outputs":[{"addresses": ["C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn"], "value": 1000000}]}' https://api.blockcypher.com/v1/bcy/test/txs/new
+
+{
+  "tx": {
+    "block_height": -1,
+    "hash": "c2b350b273b3bf04791d8e59fc9c021fd91fa423c50c29473dc079150f5a778a",
+    "addresses": [
+      "CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9",
+      "C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn"
+    ],
+    "total": 4988000,
+    "fees": 12000,
+    "size": 119,
+    "preference": "high",
+    "relayed_by": "208.71.159.84",
+    "received": "2015-05-21T19:04:14.492743867Z",
+    "ver": 1,
+    "lock_time": 0,
+    "double_spend": false,
+    "vin_sz": 1,
+    "vout_sz": 2,
+    "confirmations": 0,
+    "inputs": [
+      {
+        "prev_hash": "c8ea8b221580ebb2f1cabc8b40797bffec742b97c82a329df96d93121db43519",
+        "output_index": 0,
+        "script": "",
+        "output_value": 5000000,
+        "sequence": 4294967295,
+        "addresses": [
+          "CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"
+        ],
+        "script_type": "",
+        "age": 4
+      }
+    ],
+    "outputs": [
+      {
+        "value": 1000000,
+        "script": "76a9145fb1af31edd2aa5a2bbaa24f6043d6ec31f7e63288ac",
+        "addresses": [
+          "C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn"
+        ],
+        "script_type": "pay-to-pubkey-hash"
+      },
+      {
+        "value": 3988000,
+        "script": "76a914efec6de6c253e657a9d5506a78ee48d89762fb3188ac",
+        "addresses": [
+          "CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"
+        ],
+        "script_type": "pay-to-pubkey-hash"
+      }
+    ]
+  },
+  "tosign": [
+    "32b5ea64c253b6b466366647458cfd60de9cd29d7dc542293aa0b8b7300cd827"
+  ]
+}
+```
+
+To use BlockCypher's two-endpoint transaction creation tool, first you need to provide the input address(es), output address, and value to transfer. This is provided in the form of a partially-filled out [Transaction](#transaction) request object.
+
+Resource | Method | Request Object | Return Object
+-------- | ------ | -------------- | -------------
+/tx/new | POST | [Transaction](#transaction) | [TransactionSkeleton](#transactionskeleton)
+
+As you can see from the code example, you only need to provide a single public address within the **addresses** array of both the **input** and **output** of your [Transaction](#transaction) request object. You also need to fill in the **value** with the amount you'd like to transfer from one address to another.
+
+<aside class="notice">
+The **value** can be set to -1 to *sweep* all value from your input address(es) to your output address.
+</aside>
 
 ### Send Transaction Endpoint
 
@@ -176,3 +229,4 @@ The returned object contains detailed information about the transaction, includi
 ## Decode Raw Transaction Endpoint
 
 ## Multisig Transactions
+
