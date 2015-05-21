@@ -698,6 +698,11 @@ Objects sometimes contain <b>attributes</b> that are <b><i>optional.</i></b> The
 <td><strong><em>Optional</em></strong> Number of peers that have sent this transaction to BlockCypher; only present for unconfirmed transactions.</td>
 </tr>
 <tr>
+<td><strong>change_address</strong></td>
+<td><em>string</em></td>
+<td><strong><em>Optional</em></strong> Address BlockCypher will use to send back your change, if you <a href="#creating-transactions">constructed this transaction</a>. If not set, defaults to the address from which the coins were originally sent.</td>
+</tr>
+<tr>
 <td><strong>block_hash</strong></td>
 <td><em>string</em></td>
 <td><strong><em>Optional</em></strong>  Hash of the block that contains this transaction; only present for confirmed transactions.</td>
@@ -2013,18 +2018,17 @@ You are required to authenticate with your <a href="#rate-limits-and-tokens">use
 
 <p>The following code examples should be considered serially; that is to say, the results will appear as if each API call were done sequentially. Also, $NAME is a <em>string</em> representing the name of your wallet, for example:</p>
 
-<p><code class="prettyprint">alice</code></p>
+<p><code class="prettyprint">alice</code>
+<br /></p>
 
 <h3 id="create-wallet-endpoint">Create Wallet Endpoint</h3>
 <pre class="highlight shell"><code><span class="gp">$ </span>curl -d <span class="s1">'{"name": "alice","addresses": ["1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e"]}'</span> https://api.blockcypher.com/v1/btc/main/wallets?token<span class="o">=</span>USERTOKEN
 
-<span class="o">{</span>
-<span class="s2">"token"</span>: <span class="s2">"USERTOKEN"</span>,
+<span class="o">{</span><span class="s2">"token"</span>: <span class="s2">"USERTOKEN"</span>,
 <span class="s2">"name"</span>: <span class="s2">"alice"</span>,
 <span class="s2">"addresses"</span>: <span class="o">[</span>
     <span class="s2">"1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e"</span>
-<span class="o">]</span>
-<span class="o">}</span>
+<span class="o">]}</span>
 </code></pre>
 
 <table><thead>
@@ -2049,17 +2053,17 @@ You are required to authenticate with your <a href="#rate-limits-and-tokens">use
 If the named wallet already exists under your token, attempting to create a new wallet will return an error.
 </aside>
 
+<p><br /></p>
+
 <h3 id="add-addresses-to-wallet-endpoint">Add Addresses to Wallet Endpoint</h3>
 <pre class="highlight shell"><code><span class="gp">$ </span>curl -d <span class="s1">'{"addresses": ["13cj1QtfW61kQHoqXm3khVRYPJrgQiRM6j"]}'</span> https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses?token<span class="o">=</span>USERTOKEN
 
-<span class="o">{</span>
-<span class="s2">"token"</span>: <span class="s2">"USERTOKEN"</span>,
+<span class="o">{</span><span class="s2">"token"</span>: <span class="s2">"USERTOKEN"</span>,
 <span class="s2">"name"</span>: <span class="s2">"alice"</span>,
 <span class="s2">"addresses"</span>: <span class="o">[</span>
     <span class="s2">"1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e"</span>,
     <span class="s2">"13cj1QtfW61kQHoqXm3khVRYPJrgQiRM6j"</span>
-<span class="o">]</span>
-<span class="o">}</span>
+<span class="o">]}</span>
 </code></pre>
 
 <table><thead>
@@ -2080,17 +2084,17 @@ If the named wallet already exists under your token, attempting to create a new 
 
 <p>This endpoint allows you to add public addresses to an existing wallet, by POSTing a partially filled out <a href="#wallet">Wallet</a> object. You only need to include the additional addresses in a new <strong>addresses</strong> array in the object. If successful, it will return the newly modified <a href="#wallet">Wallet</a>, including an up-to-date, complete listing of addresses.</p>
 
+<p><br /></p>
+
 <h3 id="wallet-addresses-endpoint">Wallet Addresses Endpoint</h3>
 <pre class="highlight shell"><code><span class="gp">$ </span>curl https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses?token<span class="o">=</span>USERTOKEN
 
-<span class="o">{</span>
-<span class="s2">"token"</span>: <span class="s2">""</span>,
+<span class="o">{</span><span class="s2">"token"</span>: <span class="s2">""</span>,
 <span class="s2">"name"</span>: <span class="s2">""</span>,
 <span class="s2">"addresses"</span>: <span class="o">[</span>
     <span class="s2">"13cj1QtfW61kQHoqXm3khVRYPJrgQiRM6j"</span>,
     <span class="s2">"1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e"</span>
-<span class="o">]</span>
-<span class="o">}</span>
+<span class="o">]}</span>
 </code></pre>
 
 <table><thead>
@@ -2109,16 +2113,16 @@ If the named wallet already exists under your token, attempting to create a new 
 
 <p>This endpoint returns a list of the addresses associated with the $NAME wallet. It returns the addresses in a partially filled out <a href="#wallet">Wallet</a> object, which you&rsquo;ll find under the <strong>addresses</strong> attribute.</p>
 
+<p><br /></p>
+
 <h3 id="remove-addresses-from-wallet-endpoint">Remove Addresses from Wallet Endpoint</h3>
 <pre class="highlight shell"><code><span class="gp">$ </span>curl -X DELETE -d <span class="s1">'{"addresses": ["1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e"]}'</span> https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses?token<span class="o">=</span>USERTOKEN
 
-<span class="o">{</span>
-<span class="s2">"token"</span>: <span class="s2">"USERTOKEN"</span>,
+<span class="o">{</span><span class="s2">"token"</span>: <span class="s2">"USERTOKEN"</span>,
 <span class="s2">"name"</span>: <span class="s2">"alice"</span>,
 <span class="s2">"addresses"</span>: <span class="o">[</span>
     <span class="s2">"13cj1QtfW61kQHoqXm3khVRYPJrgQiRM6j"</span>
-<span class="o">]</span>
-<span class="o">}</span>
+<span class="o">]}</span>
 </code></pre>
 
 <table><thead>
@@ -2139,11 +2143,12 @@ If the named wallet already exists under your token, attempting to create a new 
 
 <p>This endpoint allows you to delete an array of addresses associated with the $NAME wallet. If successful, it will return the newly modified <a href="#wallet">Wallet</a>, including an up-to-date, complete listing of addresses.</p>
 
+<p><br /></p>
+
 <h3 id="generate-address-in-wallet-endpoint">Generate Address in Wallet Endpoint</h3>
 <pre class="highlight shell"><code><span class="gp">$ </span>curl -X POST https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses/generate?token<span class="o">=</span>USERTOKEN
 
-<span class="o">{</span>
-<span class="s2">"token"</span>: <span class="s2">"USERTOKEN"</span>,
+<span class="o">{</span><span class="s2">"token"</span>: <span class="s2">"USERTOKEN"</span>,
 <span class="s2">"name"</span>: <span class="s2">"alice"</span>,
 <span class="s2">"addresses"</span>: <span class="o">[</span>
     <span class="s2">"13cj1QtfW61kQHoqXm3khVRYPJrgQiRM6j"</span>,
@@ -2152,8 +2157,7 @@ If the named wallet already exists under your token, attempting to create a new 
 <span class="s2">"private"</span>: <span class="s2">"6238efeb679d75ec3b1a43e76cc0ed33abdf56e30bb5bb95e4793134a7958609"</span>,
 <span class="s2">"public"</span>: <span class="s2">"03e4f273521a30373a639f60da836f2308a5d53853ec18f903dd235c73e6e26e4a"</span>,
 <span class="s2">"address"</span>: <span class="s2">"14LcPtRSGjYb1s8kfxsVDbXvA7VYCmoFho"</span>,
-<span class="s2">"wif"</span>: <span class="s2">"KzWeDL7sysRay7pZUm6hQQLaDVjmN1jUZzeZuq6ru5FtN1RhPrLX"</span>
-<span class="o">}</span>
+<span class="s2">"wif"</span>: <span class="s2">"KzWeDL7sysRay7pZUm6hQQLaDVjmN1jUZzeZuq6ru5FtN1RhPrLX"</span><span class="o">}</span>
 </code></pre>
 
 <table><thead>
@@ -2168,11 +2172,17 @@ If the named wallet already exists under your token, attempting to create a new 
 <td>/wallets/$NAME/addresses/generate</td>
 <td>POST</td>
 <td><em>nil</em></td>
-<td><a href="#Wallet">Wallet</a> composed with <a href="#AddressKeychain">AddressKeychain</a></td>
+<td><a href="#Wallet">Wallet</a> + <a href="#AddressKeychain">AddressKeychain</a></td>
 </tr>
 </tbody></table>
 
 <p>This endpoint allows you to generate a new address associated with the $NAME wallet, similar to the <a href="#generate-address-endpoint">Generate Address Endpoint</a>. If successful, it will returned the newly modified <a href="#wallet">Wallet</a> composed with an <a href="#AddressKeychain">AddressKeychain</a>.</p>
+
+<p><br />
+<br />
+<br />
+<br />
+<br /></p>
 
 <h3 id="delete-wallet-endpoint">Delete Wallet Endpoint</h3>
 <pre class="highlight shell"><code><span class="gp">$ </span>curl -X DELETE -d <span class="s1">'{"name":"alice"}'</span> https://api.blockcypher.com/v1/btc/main/wallets/alice?token<span class="o">=</span>USERTOKEN
@@ -2199,13 +2209,254 @@ If the named wallet already exists under your token, attempting to create a new 
 
           <h1 id="transactions-api">Transactions API</h1>
 
+<p>BlockCypher&rsquo;s Transactions API allows you to look up information about unconfirmed transactions, query transactions based on hash, and create and propagate your own transactions, including multisignature transactions&mdash;all <a href="#restful-resources:-coins-&amp;-chains">based on the coin/chain resource</a> you&rsquo;ve selected for your endpoints.</p>
+
+<p>If you&rsquo;re new to blockchains, the idea of transactions is relatively self-explanatory. Here&rsquo;s what&rsquo;s going on underneath the hood: a transaction takes previous &ldquo;unspent transaction outputs&rdquo; (also known as <a href="https://bitcoin.org/en/glossary/unspent-transaction-output">UTXOs</a>) as &ldquo;transaction inputs&rdquo; and creates new &ldquo;locking scripts&rdquo; on those inputs such that they are &ldquo;sent&rdquo; to new addresses (to become new UTXOs). While most of these public addresses are reference points for single private keys that can &ldquo;unlock&rdquo; the newly created UTXOs, occasionally they are sent to more exotic addresses through <em>pay-to-script-hash</em>, typically multisignature addresses.</p>
+
+<p>Generally speaking, UTXOs are generated from previous transactions (except for <a href="https://bitcoin.org/en/glossary/coinbase">Coinbase inputs</a>).</p>
+
+<aside class="success">
+Even if you don&rsquo;t use the API to assist in creating transactions, we highly recommend using BlockCypher to push your raw transactions. BlockCypher maintains connections to 20% of all nodes on all blockchains it supports, which means we can propagate transactions faster than almost anyone else. Given our speed and reliability, this is especially powerful when used in concert with our <a href="#zero-confirmation-confidence">Zero Confirmation Confidence factor.</a>
+</aside>
+
 <h2 id="unconfirmed-transactions-endpoint">Unconfirmed Transactions Endpoint</h2>
+<pre class="highlight shell"><code><span class="gp">$ </span>curl http://api.blockcypher.com/v1/btc/main/txs
+
+<span class="o">[</span>
+    <span class="o">{</span>
+    <span class="s2">"block_height"</span>: -1,
+    <span class="s2">"hash"</span>: <span class="s2">"7f3af38d988e479f651520b13b85..."</span>,
+    <span class="s2">"addresses"</span>: <span class="o">[</span>
+        <span class="s2">"19ZZonTmBD3VBhgFSWrtNis6Wo4aNRyjAV"</span>,
+        <span class="s2">"1GD2Gnt3Vk51FpUhZWrFpSa24KE2ZGPaWG"</span>,
+        <span class="s2">"1HEJiW8jxvUvVQ5cuButRmFj6ZzKzM9Fp6"</span>
+    <span class="o">]</span>,
+    <span class="s2">"total"</span>: 46977000,
+    <span class="s2">"fees"</span>: 10000,
+    <span class="s2">"size"</span>: 225,
+    <span class="s2">"preference"</span>: <span class="s2">"medium"</span>,
+    <span class="s2">"relayed_by"</span>: <span class="s2">"54.209.56.58:8333"</span>,
+    ...
+    <span class="o">}</span>,
+    <span class="o">{</span>
+    <span class="s2">"block_height"</span>: -1,
+    <span class="s2">"hash"</span>: <span class="s2">"7e2d8b4e95c8246e81f297539409..."</span>,
+    <span class="s2">"addresses"</span>: <span class="o">[</span>
+        <span class="s2">"12u8EFJR6QJpNYbuQcYt2iMsAtPdnCFwQb"</span>,
+        <span class="s2">"1MUbYoqSadRSEipwcmKnH37NaKakDCmgwW"</span>
+    <span class="o">]</span>,
+    <span class="s2">"total"</span>: 1070000,
+    <span class="s2">"fees"</span>: 10000,
+    <span class="s2">"size"</span>: 225,
+    <span class="s2">"preference"</span>: <span class="s2">"medium"</span>,
+    <span class="s2">"relayed_by"</span>: <span class="s2">"52.1.229.213:8333"</span>,
+    <span class="s2">"received"</span>: <span class="s2">"2015-05-21T05:44:13.878Z"</span>,
+    ...
+    <span class="o">}</span>,
+...
+<span class="o">]</span>
+</code></pre>
+
+<p>The Unconfirmed Transactions Endpoint returns an array of the latest transactions relayed by nodes in a blockchain that haven&rsquo;t been included in any blocks.</p>
+
+<table><thead>
+<tr>
+<th>Resource</th>
+<th>Method</th>
+<th>Return Object</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>/txs</td>
+<td>GET</td>
+<td>Array[<a href="#transactions">Transactions</a>]</td>
+</tr>
+</tbody></table>
+
+<p>The returned object is an array of <a href="#transactions">Transactions</a> that haven&rsquo;t been included in blocks, arranged in reverse chronological order (latest is first, then older transactions follow).</p>
+
+<aside class="notice">
+Due to <a href="https://bitcoin.org/en/glossary/malleability">transaction malleability</a> it can be difficult to deal with transaction hashes before they&rsquo;ve been confirmed in blocks. Use caution, and consider applying our <a href="#zero-confirmation-confidence">Zero Confirmation Confidence</a> factor to mitigate potential issues.
+</aside>
 
 <h2 id="transaction-hash-endpoint">Transaction Hash Endpoint</h2>
+<pre class="highlight shell"><code><span class="gp">$ </span>curl https://api.blockcypher.com/v1/btc/main/txs/f854aebae95150b379cc1187d848d58225f3c4157fe992bcd166f58bd5063449
+
+<span class="o">{</span>
+<span class="s2">"block_hash"</span>: <span class="s2">"0000000000000000c504bdea36e5..."</span>,
+<span class="s2">"block_height"</span>: 293000,
+<span class="s2">"hash"</span>: <span class="s2">"f854aebae95150b379cc1187d848d58225f..."</span>,
+<span class="s2">"addresses"</span>: <span class="o">[</span>
+    <span class="s2">"13XXaBufpMvqRqLkyDty1AXqueZHVe6iyy"</span>,
+    <span class="s2">"19YtzZdcfs1V2ZCgyRWo8i2wLT8ND1Tu4L"</span>,
+    <span class="s2">"1BNiazBzCxJacAKo2yL83Wq1VJ18AYzNHy"</span>,
+    <span class="s2">"1GbMfYui17L5m6sAy3L3WXAtf1P32bxJXq"</span>,
+    <span class="s2">"1N2f642sbgCMbNtXFajz9XDACDFnFzdXzV"</span>
+<span class="o">]</span>,
+<span class="s2">"total"</span>: 70320221545,
+<span class="s2">"fees"</span>: 0,
+<span class="s2">"size"</span>: 636,
+<span class="s2">"preference"</span>: <span class="s2">"low"</span>,
+<span class="s2">"relayed_by"</span>: <span class="s2">""</span>,
+<span class="s2">"confirmed"</span>: <span class="s2">"2014-03-29T01:29:19Z"</span>,
+<span class="s2">"received"</span>: <span class="s2">"2014-03-29T01:29:19Z"</span>,
+<span class="s2">"ver"</span>: 1,
+<span class="s2">"lock_time"</span>: 0,
+<span class="s2">"double_spend"</span>: <span class="nb">false</span>,
+<span class="s2">"vin_sz"</span>: 4,
+<span class="s2">"vout_sz"</span>: 1,
+<span class="s2">"confirmations"</span>: 64373,
+<span class="s2">"confidence"</span>: 1,
+<span class="s2">"inputs"</span>: <span class="o">[</span>
+    <span class="o">{</span>
+    <span class="s2">"prev_hash"</span>: <span class="s2">"583910b7bf90ab802e22e5c25a89b59..."</span>,
+    <span class="s2">"output_index"</span>: 1,
+    <span class="s2">"script"</span>: <span class="s2">"4830450220504b1ccfddf508422bdd8b0f..."</span>,
+    <span class="s2">"output_value"</span>: 16450000,
+    <span class="s2">"sequence"</span>: 4294967295,
+    <span class="s2">"addresses"</span>: <span class="o">[</span>
+        <span class="s2">"1GbMfYui17L5m6sAy3L3WXAtf1P32bxJXq"</span>
+    <span class="o">]</span>,
+    <span class="s2">"script_type"</span>: <span class="s2">"pay-to-pubkey-hash"</span>
+    <span class="o">}</span>,
+    ...
+<span class="o">]</span>,
+<span class="s2">"outputs"</span>: <span class="o">[</span>
+    <span class="o">{</span>
+    <span class="s2">"value"</span>: 70320221545,
+    <span class="s2">"script"</span>: <span class="s2">"76a914e6aad9d712c419ea8febf009a3f3..."</span>,
+    <span class="s2">"spent_by"</span>: <span class="s2">"35832d6c70b98b54e9a53ab2d51176eb..."</span>,
+    <span class="s2">"addresses"</span>: <span class="o">[</span>
+        <span class="s2">"1N2f642sbgCMbNtXFajz9XDACDFnFzdXzV"</span>
+    <span class="o">]</span>,
+    <span class="s2">"script_type"</span>: <span class="s2">"pay-to-pubkey-hash"</span>
+    <span class="o">}</span>
+<span class="o">]</span>
+<span class="o">}</span>
+</code></pre>
+
+<p>The Transaction Hash Endpoint returns detailed information about a given transaction based on its hash.</p>
+
+<table><thead>
+<tr>
+<th>Resource</th>
+<th>Method</th>
+<th>Return Object</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>/txs/$TXHASH</td>
+<td>GET</td>
+<td><a href="#transactions">Transactions</a></td>
+</tr>
+</tbody></table>
+
+<p>$TXHASH is a <em>string</em> representing the hex-encoded transaction hash you&rsquo;re interested in querying, for example:</p>
+
+<p><code class="prettyprint">f854aebae95150b379cc1187d848d58225f3c4157fe992bcd166f58bd5063449</code></p>
+
+<p>The returned object contains detailed information about the transaction, including the value transfered, date received, and a full listing of inputs and outputs.</p>
 
 <h2 id="creating-transactions">Creating Transactions</h2>
 
+<p>Within BlockCypher&rsquo;s API, you can push transactions to blockchains one of two ways:</p>
+
+<ul>
+<li>Use a third party library to create your transactions and <a href="#push-raw-transaction-endpoint">push raw transactions</a></li>
+<li>Use our two-endpoint process outlined below, wherein we generate a <a href="#transactionskeleton">Transaction Skeleton</a> based on your input address, output address, and value to transfer.</li>
+</ul>
+
+<p>In either case, for security reasons, we never take possession of your private keys. We do use private keys with our <a href="#microtransactions-api">Microtransactions API</a>, but they are for low-value transactions and we discard them immediately from our servers&rsquo; memory.</p>
+
+<aside class="warning">
+Always use HTTPS for creating and pushing transactions.
+</aside>
+
 <h3 id="new-transaction-endpoint">New Transaction Endpoint</h3>
+<pre class="highlight shell"><code><span class="gp">$ </span>curl -d <span class="s1">'{"inputs":[{"addresses": ["CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"]}],"outputs":[{"addresses": ["C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn"], "value": 1000000}]}'</span> https://api.blockcypher.com/v1/bcy/test/txs/new
+
+<span class="o">{</span>
+  <span class="s2">"tx"</span>: <span class="o">{</span>
+    <span class="s2">"block_height"</span>: -1,
+    <span class="s2">"hash"</span>: <span class="s2">"c2b350b273b3bf04791d8e59fc9c021fd91fa423c50c29473dc079150f5a778a"</span>,
+    <span class="s2">"addresses"</span>: <span class="o">[</span>
+      <span class="s2">"CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"</span>,
+      <span class="s2">"C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn"</span>
+    <span class="o">]</span>,
+    <span class="s2">"total"</span>: 4988000,
+    <span class="s2">"fees"</span>: 12000,
+    <span class="s2">"size"</span>: 119,
+    <span class="s2">"preference"</span>: <span class="s2">"high"</span>,
+    <span class="s2">"relayed_by"</span>: <span class="s2">"208.71.159.84"</span>,
+    <span class="s2">"received"</span>: <span class="s2">"2015-05-21T19:04:14.492743867Z"</span>,
+    <span class="s2">"ver"</span>: 1,
+    <span class="s2">"lock_time"</span>: 0,
+    <span class="s2">"double_spend"</span>: <span class="nb">false</span>,
+    <span class="s2">"vin_sz"</span>: 1,
+    <span class="s2">"vout_sz"</span>: 2,
+    <span class="s2">"confirmations"</span>: 0,
+    <span class="s2">"inputs"</span>: <span class="o">[</span>
+      <span class="o">{</span>
+        <span class="s2">"prev_hash"</span>: <span class="s2">"c8ea8b221580ebb2f1cabc8b40797bffec742b97c82a329df96d93121db43519"</span>,
+        <span class="s2">"output_index"</span>: 0,
+        <span class="s2">"script"</span>: <span class="s2">""</span>,
+        <span class="s2">"output_value"</span>: 5000000,
+        <span class="s2">"sequence"</span>: 4294967295,
+        <span class="s2">"addresses"</span>: <span class="o">[</span>
+          <span class="s2">"CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"</span>
+        <span class="o">]</span>,
+        <span class="s2">"script_type"</span>: <span class="s2">""</span>,
+        <span class="s2">"age"</span>: 4
+      <span class="o">}</span>
+    <span class="o">]</span>,
+    <span class="s2">"outputs"</span>: <span class="o">[</span>
+      <span class="o">{</span>
+        <span class="s2">"value"</span>: 1000000,
+        <span class="s2">"script"</span>: <span class="s2">"76a9145fb1af31edd2aa5a2bbaa24f6043d6ec31f7e63288ac"</span>,
+        <span class="s2">"addresses"</span>: <span class="o">[</span>
+          <span class="s2">"C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn"</span>
+        <span class="o">]</span>,
+        <span class="s2">"script_type"</span>: <span class="s2">"pay-to-pubkey-hash"</span>
+      <span class="o">}</span>,
+      <span class="o">{</span>
+        <span class="s2">"value"</span>: 3988000,
+        <span class="s2">"script"</span>: <span class="s2">"76a914efec6de6c253e657a9d5506a78ee48d89762fb3188ac"</span>,
+        <span class="s2">"addresses"</span>: <span class="o">[</span>
+          <span class="s2">"CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"</span>
+        <span class="o">]</span>,
+        <span class="s2">"script_type"</span>: <span class="s2">"pay-to-pubkey-hash"</span>
+      <span class="o">}</span>
+    <span class="o">]</span>
+  <span class="o">}</span>,
+  <span class="s2">"tosign"</span>: <span class="o">[</span>
+    <span class="s2">"32b5ea64c253b6b466366647458cfd60de9cd29d7dc542293aa0b8b7300cd827"</span>
+  <span class="o">]</span>
+<span class="o">}</span>
+</code></pre>
+
+<p>To use BlockCypher&rsquo;s two-endpoint transaction creation tool, first you need to provide the input address(es), output address, and value to transfer. This is provided in the form of a partially-filled out <a href="#transaction">Transaction</a> request object.</p>
+
+<table><thead>
+<tr>
+<th>Resource</th>
+<th>Method</th>
+<th>Request Object</th>
+<th>Return Object</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>/tx/new</td>
+<td>POST</td>
+<td><a href="#transaction">Transaction</a></td>
+<td><a href="#transactionskeleton">TransactionSkeleton</a></td>
+</tr>
+</tbody></table>
+
+<p>As you can see from the code example, you only need to provide a single public address within the <strong>addresses</strong> array of both the <strong>input</strong> and <strong>output</strong> of your <a href="#transaction">Transaction</a> request object. You also need to fill in the <strong>value</strong> with the amount you&rsquo;d like to transfer from one address to another.</p>
+
+<aside class="notice">
+The **value** can be set to -1 to *sweep* all value from your input address(es) to your output address.
+</aside>
 
 <h3 id="send-transaction-endpoint">Send Transaction Endpoint</h3>
 
