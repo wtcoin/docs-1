@@ -2434,7 +2434,7 @@ Always use HTTPS for creating and pushing transactions.
 <span class="o">}</span>
 </code></pre>
 
-<p>To use BlockCypher&rsquo;s two-endpoint transaction creation tool, first you need to provide the input address(es), output address, and value to transfer. This is provided in the form of a partially-filled out <a href="#transaction">Transaction</a> request object.</p>
+<p>To use BlockCypher&rsquo;s two-endpoint transaction creation tool, first you need to provide the input address(es), output address, and value to transfer (in satoshis). This is provided in the form of a partially-filled out <a href="#transaction">Transaction</a> request object.</p>
 
 <table><thead>
 <tr>
@@ -2454,11 +2454,62 @@ Always use HTTPS for creating and pushing transactions.
 
 <p>As you can see from the code example, you only need to provide a single public address within the <strong>addresses</strong> array of both the <strong>input</strong> and <strong>output</strong> of your <a href="#transaction">Transaction</a> request object. You also need to fill in the <strong>value</strong> with the amount you&rsquo;d like to transfer from one address to another.</p>
 
+<p>If you&rsquo;d like, you can even use a <a href="#wallet">Wallet</a> instead of addresses as your input. You just need to use two non-standard fields (your <strong>wallet_name</strong> and <strong>wallet_token</strong>) within the <strong>inputs</strong> array in your transaction, instead of <strong>addresses</strong>:</p>
+
+<p><code class="prettyprint">{inputs:[{&quot;wallet_name&quot;:&quot;alice&quot;, &quot;wallet_token&quot;:&quot;YOUR_TOKEN&quot;}], value: 5000000}</code></p>
+
+<p>While this particular usage will differ between client libraries, the result is the same: the addresses within your wallet will be used as the <strong>inputs</strong>, as if all of them had been placed within the <strong>addresses</strong> array.</p>
+
 <aside class="notice">
-The **value** can be set to -1 to *sweep* all value from your input address(es) to your output address.
+If you want to automatically empty your input address(es) without knowing their exact value, your <a href="#transactions">Transaction</a> request object&rsquo;s <b>value</b> can be set to -1 to <i>sweep</i> all value from your input address(es) to your output address.
 </aside>
 
+<aside class="notice">
+The BlockCypher API automatically allows unconfirmed UTXOs as inputs when creating transactions. If you only want to allow confirmed UTXOs, set the <b>confirmations</b> value in your <a href="#transaction ">Transaction</a> request object to 1.
+</aside>
+
+<p>While we demonstrated the simplest use of this endpoint, you can have finer-grain control by modifying the <a href="#transaction">Tranasaction</a> request object. Instead of providing <strong>addresses</strong>, you can use <strong>prev_hash</strong> and <strong>output_index</strong> within the <strong>inputs</strong> array, in which case, we&rsquo;ll use the inputs as provided and not attempt to generate them from a list of addresses. We will compute change and fees the same way (you can read more about the fee computation in the next section).</p>
+
+<aside class="notice">
+By default, BlockCypher will set the change address to the first transaction input listed in the transaction. To redirect this default behavior, you can set an optional <b>change_address</b> field within the <a href="#transaction">Transaction</a> request object.
+</aside>
+
+<p>For further control, you can also change the <strong>script_type</strong> in the <strong>output</strong> of your partially filled <a href="#transaction">Transaction</a>. You&rsquo;ll notice this used to powerful effect in the section on <a href="#multisig-transactions">Multisig Transactions</a>. These are the possible script types:</p>
+
+<ol>
+<li><em>pay-to-pubkey-hash</em> (most common transaction transferring to a public key hash, and the default behavior if no out)</li>
+<li><em>pay-to-multi-pubkey-hash</em> (multi-signatures transaction, now actually less used than <em>pay-to-script-hash</em> for this purpose)</li>
+<li><em>pay-to-pubkey</em> (used for mining transactions)</li>
+<li><em>pay-to-script-hash</em> (used for transactions relying on arbitrary scripts, now used primarily for multi-sig transactions)</li>
+<li><em>null-data</em> (sometimes called op-return; used to embed small chunks of data in the blockchain)</li>
+<li><em>empty</em> (no script present, mostly used for mining transaction inputs)</li>
+<li><em>unknown</em> (non-standard script)</li>
+</ol>
+
+<p>As a return object, you&rsquo;ll receive a <a href="#transactionskeleton">TransactionSkeleton</a> containing a slightly-more complete <a href="#transaction">Transaction</a> alongside data you need to sign (in the <strong>tosign</strong> array). You&rsquo;ll need this object for the next step of the transaction creation process.</p>
+
+<aside class="warning">
+The <b>hash</b> assigned to <a href="#transaction">Transaction</a> within the return object is only temporary. A final <b>hash</b> will be provided after the transaction is sent to the network through the Send Transaction Endpoint.
+</aside>
+<pre class="highlight shell"><code><span class="c"># the request body is truncated because it's huge, but it's basically the same as the returned object from above plus the signatures and public keys</span>
+<span class="gp">$ </span>curl -d <span class="o">{</span> <span class="s2">"tx"</span>: <span class="o">{</span>...<span class="o">}</span>, <span class="s2">"tosign"</span>: <span class="o">[</span><span class="s2">"32b5ea64c253b6b466366647458cfd60de9cd29d7dc542293aa0b8b7300cd827"</span><span class="o">]</span>, <span class="s2">"signatures"</span>: <span class="o">[</span><span class="s2">""</span><span class="o">]</span>, <span class="s2">"pubkeys"</span>:[<span class="s2">""</span><span class="o">]}</span>
+</code></pre>
+
 <h3 id="send-transaction-endpoint">Send Transaction Endpoint</h3>
+
+<p>With your <a href="#transactionskeleton">TransactionSkeleton</a> returned from the New Transaction Endpoint, you now need to use your private key(s) to sign the data provided in the <strong>tosign</strong> array, and put that (hex-encoded) data into the <strong>signatures</strong> array of the TransactionSkeleton. You also need to include the corresponding public key(s) in the <strong>pubkeys</strong> array, in the order of the addresses/inputs provided. Signature and public key order matters, so make sure they are returned in the same order as the inputs you provided.</p>
+
+<aside class="notice">
+A note on fees: fees in cryptocurrencies can be complex. We provide 2 different ways for you to control the fees included in your transactions:
+
+<p>1) Set the <b>preference</b> property in your <a href="#transaction">Transaction</a> within your <a href="#transactionskeleton">TransactionSkeleton request object</a> to &ldquo;high&rdquo;, &ldquo;medium&rdquo; or &ldquo;low&rdquo;. This will calculate and include appropriate fees for your transaction to be included in the next 1-2 blocks, 3-5 blocks or 5 or more blocks respectively. The default fee calculation is based on a &ldquo;high&rdquo; <b>preference</b>. A preference set to &ldquo;zero&rdquo; will set no fee.</p>
+
+<p>2) Manually set the fee to a desired amount by setting the <b>fees</b> property in your <a href="#transaction">Transaction</a> within your <a href="#transactionskeleton">TransactionSkeleton request object</a>. Note that a fee too low may result in an error for some transactions that would require it.</p>
+
+To learn more about fees, <a href="http://bitcoinfees.com/">bitcoinfees.com</a> is a good resource.
+</aside>
+
+<h3 id="dealing-with-errors">Dealing with Errors</h3>
 
 <h2 id="push-raw-transaction-endpoint">Push Raw Transaction Endpoint</h2>
 
