@@ -1084,7 +1084,7 @@ Only one of these three fields is required for the microtransaction endpoint: <b
 <tr>
 <td><strong>wait_guarantee</strong></td>
 <td><em>bool</em></td>
-<td><strong><em>Optional</em></strong> If <em>true</em>, this microtransaction will wait for BlockCypher to guarantee it, using our <a href="#zero-confirmation-confidence">Zero Confirmation Confidence</a> index. The guarantee usually takes around 8 seconds. If not set, defaults to <em>true</em>. If set to <em>false</em>, the microtransaction API will return as soon as the transaction is broadcast.</td>
+<td><strong><em>Optional</em></strong> If not set, defaults to <em>true</em>, which means the API will wait for BlockCypher to guarantee the transaction, using our <a href="#zero-confirmation-confidence">Zero Confirmation Confidence</a> factor. The guarantee usually takes around 8 seconds. If manually set to <em>false</em>, the Microtransaction endpoint will return as soon as the transaction is broadcast.</td>
 </tr>
 <tr>
 <td><strong>tosign</strong></td>
@@ -1095,6 +1095,21 @@ Only one of these three fields is required for the microtransaction endpoint: <b
 <td><strong>signatures</strong></td>
 <td><em>array[string]</em></td>
 <td><strong><em>Optional</em></strong> Hex-encoded signatures for you to send back after having received (and signed) <strong>tosign</strong>.</td>
+</tr>
+<tr>
+<td><strong>inputs</strong></td>
+<td><em>array[<a href="#txinput">TXInput</a>]</em></td>
+<td><strong><em>Optional</em></strong> Partial list of inputs that will be used with this transaction. Only returned when using <strong>from_pubkey</strong>.</td>
+</tr>
+<tr>
+<td><strong>outputs</strong></td>
+<td><em>array[<a href="#txoutput">TXOutput</a>]</em></td>
+<td><strong><em>Optional</em></strong> Partial list of outputs that will be used with this transaction. Only returned when using <strong>from_pubkey</strong>.</td>
+</tr>
+<tr>
+<td><strong>fees</strong></td>
+<td><em>integer</em></td>
+<td><strong><em>Optional</em></strong> BlockCypher&rsquo;s optimally calculated fees for this Microtransaction to guarantee swift 99% confirmation, only returned when using <strong>from_pubkey</strong>. BlockCypher pays these fees for the first 8,000 Microtransactions, but like regular transactions, it is deducted from the source address thereafter.</td>
 </tr>
 <tr>
 <td><strong>hash</strong></td>
@@ -2778,14 +2793,14 @@ If you only need a <i>pay-to-script-hash</i> address corresponding to N-of-M mul
 
 <h3 id="spending-multisig-funds">Spending Multisig Funds</h3>
 <pre class="highlight shell"><code><span class="o">{</span>
-  <span class="s2">"inputs"</span>: <span class="o">[{</span>
-    <span class="s2">"addresses"</span>   : <span class="o">[</span>pubkey1, pubkey2, pubkey3],
-    <span class="s2">"script_type"</span> : <span class="s2">"multisig-2-of-3"</span>
-  <span class="o">}]</span>,
-  <span class="s2">"outputs"</span>: <span class="o">[{</span>
-    <span class="s2">"addresses"</span> : <span class="o">[</span>destAddr],
-    <span class="s2">"value"</span>     : 150000
-  <span class="o">}]</span>
+    <span class="s2">"inputs"</span>: <span class="o">[{</span>
+        <span class="s2">"addresses"</span>   : <span class="o">[</span>pubkey1, pubkey2, pubkey3],
+        <span class="s2">"script_type"</span> : <span class="s2">"multisig-2-of-3"</span>
+    <span class="o">}]</span>,
+    <span class="s2">"outputs"</span>: <span class="o">[{</span>
+        <span class="s2">"addresses"</span> : <span class="o">[</span>destAddr],
+        <span class="s2">"value"</span>     : 150000
+    <span class="o">}]</span>
 <span class="o">}</span>
 </code></pre>
 
@@ -2795,9 +2810,129 @@ If you only need a <i>pay-to-script-hash</i> address corresponding to N-of-M mul
 
           <h1 id="microtransactions-api">Microtransactions API</h1>
 
+<p>In addition to our normal <a href="#transactions-api">Transactions API</a>, we offer a unique, on-chain microtransaction endpoint that makes it easy to propagate smaller, nearly-instantly guaranteed, more frequent transactions that are still publicly auditable and trusted through their existence on the blockchain. How can we do what others claim require off-chain, centralized services?</p>
+
+<p>Simple. We leverage our own infrastructure; in particular, our <a href="#zero-confirmation-confidence">Zero Confirmation Confidence factor</a>. Using this factor, when we reach 99% confidence that a microtransaction will reach the next block (usually ~8 seconds), we guarantee its value and return the completed microtransaction. As of this writing, we haven&rsquo;t had a single failed mictrotransaction, and we&rsquo;re improving our confidence data all the time.</p>
+
+<p>We also pay for the mining fees on transactions for the first 8,000 microtransactions. After which, we automatically optimize fee structure to achieve a balance between guaranteeing confidence it will be in the next block and minimizing cost. If there isn&rsquo;t enough value for the fee, we&rsquo;ll return an error.</p>
+
+<aside class="notice">
+In order for us to keep track of mining fees, we require that all calls to the Microtransactions API use a token. You can <a href="http://accounts.blockcypher.com/">register for one here.</a>
+</aside>
+
+<aside class="warning">
+The Microtransaction API will accept values between <b>2,000 satoshis (~$0.005)</b> and <b>4,000,000 satoshis (~$9.50)</b>. Anything below or above these thresholds will return an error. If you need to transfer larger values, use the <a href="#creating-transactions">standard Transaction process.</a> If you need to transfer lower values, you may want to reevaluate your application.
+</aside>
+
+<aside class="warning">
+As with creating <a href="#creating-transactions">normal Transactions</a>, always use HTTPS with the Microtransaction API.
+</aside>
+
 <h2 id="microtransaction-endpoint">Microtransaction Endpoint</h2>
 
+<p>The endpoint is simple to employ, and uses a slightly pared down transaction object, appropriately called a <a href="#microtransaction">Microtransaction</a>. For low value source addresses and testing, we support directly sending private keys&mdash;we&rsquo;ll construct, sign, and send the transaction for you. <strong>We never store the private key, and remove it from server memory as soon as its used.</strong> That said, where your application model supports it and/or when dealing with higher-value source addresses, we encourage you to send public keys and sign the data yourself&mdash;a two-step process similar to using <code class="prettyprint">/tx/new</code> and <code class="prettyprint">/tx/send</code> with <a href="#creating-transactions">normal Transactions</a>.</p>
+
+<p>In either case, you use the same endpoint.</p>
+
+<table><thead>
+<tr>
+<th>Resource</th>
+<th>Method</th>
+<th>Request Object</th>
+<th>Return Object</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>/txs/micro</td>
+<td>POST</td>
+<td><a href="#microtransaction">Microtransaction</a></td>
+<td><a href="#microtransaction">Microtransaction</a></td>
+</tr>
+</tbody></table>
+
+<p>The request object is a partially filled out <a href="#microtransaction">Microtransaction</a>, whose format differs depending on whether you&rsquo;re sending a private key or public key for the source address. In either case, there are two options you can set:</p>
+
+<ul>
+<li>If not set, <strong>change_address</strong> defaults to the original source address computed by the private or public key sent. You can set it manually in the request object, useful if your source address is high-value, or you want to mitigate security risk after sending private keys.</li>
+<li>If not set, <strong>wait_guarantee</strong> defaults to <em>true</em>, which means the API will wait for BlockCypher to guarantee the transaction, using our <a href="#zero-confirmation-confidence">Zero Confirmation Confidence</a> factor. The guarantee usually takes around 8 seconds. If manually set to <em>false</em>, the Microtransaction endpoint will return as soon as the transaction is broadcast.</li>
+</ul>
+<pre class="highlight shell"><code><span class="gp">$ </span>curl -H <span class="s2">"Content-Type: application/json"</span> -d <span class="s1">'{ "from_private": "97838249d77bf...", "to_address": "C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn", "value_satoshis": 10000, "token": "YOURTOKEN" }'</span> https://api.blockcypher.com/v1/bcy/test/txs/micro
+
+<span class="o">{</span>
+<span class="s2">"from_private"</span>: <span class="s2">"97838249d77bfa65f97be02b63fd1b7bb6a58474c7c22784a0da63993d1c2f90"</span>,
+<span class="s2">"to_address"</span>: <span class="s2">"C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn"</span>,
+<span class="s2">"value_satoshis"</span>: 10000,
+<span class="s2">"hash"</span>: <span class="s2">"892fd7b36c1c3a2e5edb9b4a5d4ffd9ba74d78d3acf3b249991bd8d10a287dbd"</span>
+<span class="o">}</span>
+</code></pre>
+
+<h3 id="via-private-keys">Via Private Keys</h3>
+
+<p>The simplest way to send a Microtransaction is by using a private key. Within the request object you must include <strong>from_private</strong> (or the equivalent*<em>from_wif</em><em>), **to_address</em><em>, **token</em><em>, and **value_satoshis</em>*. You can read more descriptions about these fields within <a href="#microtransaction">Microtransaction object description</a>, although they should be self-explanatory.</p>
+
+<p>The call will hold until the confidence factor reaches 99% (usually about 8 seconds). If successful thereafter, a completed <a href="#microtransaction">Microtransaction object</a> will be returned (which will include the transaction&rsquo;s <strong>hash</strong> for future queries), along with an HTTP Status Code 201.</p>
+<pre class="highlight shell"><code>curl -H <span class="s2">"Content-Type: application/json"</span> -d <span class="s1">'{ "from_pubkey": "02152e2bb5b273561ece7bbe8b1df...", "to_address": "C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn", "value_satoshis": 20000, "token": "YOURTOKEN" }'</span> https://api.blockcypher.com/v1/bcy/test/txs/micro
+
+<span class="o">{</span>
+  <span class="s2">"from_pubkey"</span>: <span class="s2">"02152e2bb5b273561ece7bbe..."</span>,
+  <span class="s2">"to_address"</span>: <span class="s2">"C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn"</span>,
+  <span class="s2">"value_satoshis"</span>: 20000,
+  <span class="s2">"tosign"</span>: <span class="o">[</span>
+    <span class="s2">"0f804bef755e623ba3f2c89795814ffa3a0dc53a376ad3deb3c7d3e91957cf12"</span>
+  <span class="o">]</span>,
+  <span class="s2">"token"</span>: <span class="s2">"YOURTOKEN"</span>,
+  <span class="s2">"inputs"</span>: <span class="o">[</span>
+        ...
+  <span class="o">]</span>,
+  <span class="s2">"outputs"</span>: <span class="o">[</span>
+    ...
+  <span class="o">]</span>,
+  <span class="s2">"fees"</span>: 735
+<span class="o">}</span>
+
+<span class="c"># Using our CLI signer tool...</span>
+./signer 0f804bef755e623ba3f2c89795814ffa3a0dc53a376ad3deb3c7d3e91957cf12 <span class="nv">$YOURPRIVATEKEY</span>
+
+30450221009050c3c966d1f895b6d6f6ab544113b88b3ce6908083a58170ef1e32da415e2f022037cb5dae353165f505d18a12c50b318c826b2c3552e41f70f7ade186e0434388
+
+<span class="c">#request object is same as return object above, but + signature</span>
+curl -H <span class="s2">"Content-Type: application/json"</span> -d <span class="s1">'{ ..., "signatures": ["30450221009050c3c966d1f895b6d6f6ab544113b88b3ce6908083a58170ef1e32da415e2f022037cb5dae353165f505d18a12c50b318c826b2c3552e41f70f7ade186e0434388"],...}'</span> https://api.blockcypher.com/v1/bcy/test/txs/micro
+
+<span class="o">{</span>
+  <span class="s2">"from_pubkey"</span>: <span class="s2">"02152e2bb5b273561ece7bbe8b1..."</span>,
+  <span class="s2">"to_address"</span>: <span class="s2">"C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn"</span>,
+  <span class="s2">"value_satoshis"</span>: 20000,
+  <span class="s2">"hash"</span>: <span class="s2">"ce8b3a2d5bb1f552c9d526559dd892b4ee..."</span>,
+  <span class="s2">"inputs"</span>: <span class="o">[</span>
+    ...
+  <span class="o">]</span>,
+  <span class="s2">"outputs"</span>: <span class="o">[</span>
+    ...
+  <span class="o">]</span>,
+  <span class="s2">"fees"</span>: 735
+<span class="o">}</span>
+</code></pre>
+
+<h3 id="via-public-keys-and-client-side-signing">Via Public Keys and Client-side Signing</h3>
+
+<p>If your security/application model allows it, we strongly recommend using public keys instead. Much like <a href="#creating-transactions">creating normal transactions</a> the process requires two endpoint calls; the first is similar to the private key method, but with public keys. E.g., your required object must contain <strong>from_pubkey</strong> (instead of private keys), <strong>to_address</strong>, <strong>token</strong>, and <strong>value_satoshis</strong>.</p>
+
+<p>After POSTing this to <code class="prettyprint">/txs/micro</code> you&rsquo;ll receive another partially filled out <a href="#microtransaction">Microtransaction</a> object, but one containing a <strong>tosign</strong> array. You must then sign the data in this array with your locally-stored private key; signing can be a tricky process, but you can use our <a href="https://github.com/blockcypher/btcutils/tree/master/signer">signer tool</a> as a baseline. Once that data is signed, it must be inserted to a <strong>signatures</strong> within the previously returned <a href="#microtransaction">Microtransaction</a> object. Then, you send this completed <a href="#microtransaction">Microtransaction</a> to <code class="prettyprint">/txs/micro</code>.</p>
+
+<p>As with the private key method, the call will hold until the confidence factor reaches 99% (usually about 8 seconds). If successful thereafter, a completed <a href="#microtransaction">Microtransaction object</a> will be returned (which will include the transaction&rsquo;s <strong>hash</strong> for future queries), along with an HTTP Status Code 201.</p>
+
 <h2 id="security-vs-convenience">Security vs Convenience</h2>
+
+<p>In general, sending any private key to an outside service is bad security practice. However, security and convenience are often in opposition. In terms of deciding whether passing private keys for microtransactions is a reasonable tradeoff, consider the following:</p>
+
+<ul>
+<li>The private key data is sent in a JSON document over SSL, protected against eavesdroppers.</li>
+<li>We never log or store any private key. They&rsquo;re only present on our systems during the time of signing.</li>
+<li>The use of a different change addresses is highly encouraged; in this way, leftover value from the source address gets transferred to another private key.</li>
+<li>Regardless of the above, never pass a private key for addresses with high value. The Microtransaction API is meant for low-value transactions and low-value addresses.</li>
+</ul>
+
+<p>Finally, we only offer the option of passing private keys because we understand that signing on the client side can be difficult, depending on the environment. We hope that by fully understanding the tradeoffs and risks, you&rsquo;ll make the right choice for your situation.</p>
 
           <h1 id="zero-confirmation-confidence">Zero Confirmation Confidence</h1>
 
