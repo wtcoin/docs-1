@@ -368,6 +368,9 @@ Attribute | Type | Description
 **wait_guarantee** | *bool* | ***Optional*** If not set, defaults to *true*, which means the API will wait for BlockCypher to guarantee the transaction, using our [Zero Confirmation Confidence](#zero-confirmation-confidence) factor. The guarantee usually takes around 8 seconds. If manually set to *false*, the Microtransaction endpoint will return as soon as the transaction is broadcast.
 **tosign** | *array[string]* | ***Optional*** Hex-encoded data for you to sign after initiating the microtransaction. Sent in reply to a microtransaction generated using **from_pubkey**/a public key.
 **signatures** | *array[string]* | ***Optional*** Hex-encoded signatures for you to send back after having received (and signed) **tosign**.
+**inputs** | *array[[TXInput](#txinput)]* | ***Optional*** Partial list of inputs that will be used with this transaction. Only returned when using **from_pubkey**.
+**outputs** | *array[[TXOutput](#txoutput)]* | ***Optional*** Partial list of outputs that will be used with this transaction. Only returned when using **from_pubkey**.
+**fees** | *integer* | ***Optional*** BlockCypher's optimally calculated fees for this Microtransaction to guarantee swift 99% confirmation, only returned when using **from_pubkey**. BlockCypher pays these fees for the first 8,000 Microtransactions, but like regular transactions, it is deducted from the source address thereafter.
 **hash** | *string* | ***Optional*** The hash of the finalized transaction, once sent.
 
 ## Address

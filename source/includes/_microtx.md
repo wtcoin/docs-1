@@ -33,12 +33,65 @@ The request object is a partially filled out [Microtransaction](#microtransactio
 - If not set, **change_address** defaults to the original source address computed by the private or public key sent. You can set it manually in the request object, useful if your source address is high-value, or you want to mitigate security risk after sending private keys.
 - If not set, **wait_guarantee** defaults to *true*, which means the API will wait for BlockCypher to guarantee the transaction, using our [Zero Confirmation Confidence](#zero-confirmation-confidence) factor. The guarantee usually takes around 8 seconds. If manually set to *false*, the Microtransaction endpoint will return as soon as the transaction is broadcast.
 
+```shell
+$ curl -H "Content-Type: application/json" -d '{ "from_private": "97838249d77bf...", "to_address": "C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn", "value_satoshis": 10000, "token": "YOURTOKEN" }' https://api.blockcypher.com/v1/bcy/test/txs/micro
+
+{
+"from_private": "97838249d77bfa65f97be02b63fd1b7bb6a58474c7c22784a0da63993d1c2f90",
+"to_address": "C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn",
+"value_satoshis": 10000,
+"hash": "892fd7b36c1c3a2e5edb9b4a5d4ffd9ba74d78d3acf3b249991bd8d10a287dbd"
+}
+```
+
 ### Via Private Keys
 
 The simplest way to send a Microtransaction is by using a private key. Within the request object you must include **from_private** (or the equivalent**from_wif**), **to_address**, **token**, and **value_satoshis**. You can read more descriptions about these fields within [Microtransaction object description](#microtransaction), although they should be self-explanatory.
 
 The call will hold until the confidence factor reaches 99% (usually about 8 seconds). If successful thereafter, a completed [Microtransaction object](#microtransaction) will be returned (which will include the transaction's **hash** for future queries), along with an HTTP Status Code 201.
 
+```shell
+curl -H "Content-Type: application/json" -d '{ "from_pubkey": "02152e2bb5b273561ece7bbe8b1df...", "to_address": "C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn", "value_satoshis": 20000, "token": "YOURTOKEN" }' https://api.blockcypher.com/v1/bcy/test/txs/micro
+
+{
+  "from_pubkey": "02152e2bb5b273561ece7bbe...",
+  "to_address": "C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn",
+  "value_satoshis": 20000,
+  "tosign": [
+    "0f804bef755e623ba3f2c89795814ffa3a0dc53a376ad3deb3c7d3e91957cf12"
+  ],
+  "token": "YOURTOKEN",
+  "inputs": [
+		...
+  ],
+  "outputs": [
+	...
+  ],
+  "fees": 735
+}
+
+# Using our CLI signer tool...
+./signer 0f804bef755e623ba3f2c89795814ffa3a0dc53a376ad3deb3c7d3e91957cf12 $YOURPRIVATEKEY
+
+30450221009050c3c966d1f895b6d6f6ab544113b88b3ce6908083a58170ef1e32da415e2f022037cb5dae353165f505d18a12c50b318c826b2c3552e41f70f7ade186e0434388
+
+#request object is same as return object above, but + signature
+curl -H "Content-Type: application/json" -d '{ ..., "signatures": ["30450221009050c3c966d1f895b6d6f6ab544113b88b3ce6908083a58170ef1e32da415e2f022037cb5dae353165f505d18a12c50b318c826b2c3552e41f70f7ade186e0434388"],...}' https://api.blockcypher.com/v1/bcy/test/txs/micro
+
+{
+  "from_pubkey": "02152e2bb5b273561ece7bbe8b1...",
+  "to_address": "C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn",
+  "value_satoshis": 20000,
+  "hash": "ce8b3a2d5bb1f552c9d526559dd892b4ee...",
+  "inputs": [
+	...
+  ],
+  "outputs": [
+	...
+  ],
+  "fees": 735
+}
+```
 ### Via Public Keys and Client-side Signing
 
 If your security/application model allows it, we strongly recommend using public keys instead. Much like [creating normal transactions](#creating-transactions) the process requires two endpoint calls; the first is similar to the private key method, but with public keys. E.g., your required object must contain **from_pubkey** (instead of private keys), **to_address**, **token**, and **value_satoshis**.
