@@ -214,7 +214,7 @@ To use BlockCypher's two-endpoint transaction creation tool, first you need to p
 
 Resource | Method | Request Object | Return Object
 -------- | ------ | -------------- | -------------
-/tx/new | POST | [Transaction](#transaction) | [TransactionSkeleton](#transactionskeleton)
+/txs/new | POST | [Transaction](#transaction) | [TransactionSkeleton](#transactionskeleton)
 
 As you can see from the code example, you only need to provide a single public address within the **addresses** array of both the **input** and **output** of your [Transaction](#transaction) request object. You also need to fill in the **value** with the amount you'd like to transfer from one address to another.
 
@@ -235,7 +235,7 @@ The BlockCypher API automatically allows unconfirmed UTXOs as inputs when creati
 While we demonstrated the simplest use of this endpoint, you can have finer-grain control by modifying the [Tranasaction](#transaction) request object. Instead of providing **addresses**, you can use **prev_hash** and **output_index** within the **inputs** array, in which case, we'll use the inputs as provided and not attempt to generate them from a list of addresses. We will compute change and fees the same way (you can read more about the fee computation in the next section).
 
 <aside class="notice">
-By default, BlockCypher will set the change address to the first transaction input listed in the transaction. To redirect this default behavior, you can set an optional <b>change_address</b> field within the <a href="#transaction">Transaction</a> request object.
+By default, BlockCypher will set the change address to the first transaction input/address listed in the transaction. To redirect this default behavior, you can set an optional <b>change_address</b> field within the <a href="#transaction">Transaction</a> request object.
 </aside>
 
 For further control, you can also change the **script_type** in the **output** of your partially filled [Transaction](#transaction). You'll notice this used to powerful effect in the section on [Multisig Transactions](#multisig-transactions). These are the possible script types:
@@ -261,7 +261,9 @@ $ curl -d { "tx": {...}, "tosign": ["32b5ea64c253b6b466366647458cfd60de9cd29d7dc
 
 ### Send Transaction Endpoint
 
-With your [TransactionSkeleton](#transactionskeleton) returned from the New Transaction Endpoint, you now need to use your private key(s) to sign the data provided in the **tosign** array, and put that (hex-encoded) data into the **signatures** array of the TransactionSkeleton. You also need to include the corresponding public key(s) in the **pubkeys** array, in the order of the addresses/inputs provided. Signature and public key order matters, so make sure they are returned in the same order as the inputs you provided.
+With your [TransactionSkeleton](#transactionskeleton) returned from the New Transaction Endpoint, you now need to use your private key(s) to sign the data provided in the **tosign** array, and put that (hex-encoded) data into the **signatures** array of the TransactionSkeleton. You also need to include the corresponding (hex-encoded) public key(s) in the **pubkeys** array, in the order of the addresses/inputs provided. Signature and public key order matters, so make sure they are returned in the same order as the inputs you provided.
+
+Digital signing can be a difficult process, and is where the majority of issues arise when dealing with cryptocurrency transactions. We are working on integrating client-side signing solutions into our libraries to make this process easier, but you can read more about [signing here.](#https://bitcoin.org/en/developer-guide#term-signature)
 
 <aside class="notice">
 A note on fees: fees in cryptocurrencies can be complex. We provide 2 different ways for you to control the fees included in your transactions:
@@ -273,11 +275,23 @@ A note on fees: fees in cryptocurrencies can be complex. We provide 2 different 
 To learn more about fees, <a href="http://bitcoinfees.com/">bitcoinfees.com</a> is a good resource.
 </aside>
 
+Resource | Method | Request Object | Return Object
+-------- | ------ | -------------- | -------------
+/txs/send | POST | [Transaction](#transaction) | [TransactionSkeleton](#transactionskeleton)
+
 ### Dealing with Errors
 
 ## Push Raw Transaction Endpoint
 
+Resource | Method | Request Object | Return Object
+-------- | ------ | -------------- | -------------
+/txs/push | POST | {"tx":$TXHEX} | [TransactionSkeleton](#transactionskeleton)
+
 ## Decode Raw Transaction Endpoint
+
+Resource | Method | Request Object | Return Object
+-------- | ------ | -------------- | -------------
+/txs/decode | POST | {"tx":$TXHEX} | [TransactionSkeleton](#transactionskeleton)
 
 ## Multisig Transactions
 
