@@ -255,15 +255,73 @@ The <b>hash</b> assigned to <a href="#transaction">Transaction</a> within the re
 </aside>
 
 ```shell
-# the request body is truncated because it's huge, but it's basically the same as the returned object from above plus the signatures and public keys
-$ curl -d { "tx": {...}, "tosign": ["32b5ea64c253b6b466366647458cfd60de9cd29d7dc542293aa0b8b7300cd827"], "signatures": [""], "pubkeys":[""]}
+# the request body is truncated because it's huge, but it's the same as the returned object from above plus the signatures and public keys
+$ curl -d '{"tx": {...}, "tosign": [ "32b5ea64c253b6b466366647458cfd60de9cd29d7dc542293aa0b8b7300cd827" ], "signatures": [ "3045022100921fc36b911094280f07d8504a80fbab9b823a25f102e2bc69b14bcd369dfc7902200d07067d47f040e724b556e5bc3061af132d5a47bd96e901429d53c41e0f8cca" ], "pubkeys": [ "02152e2bb5b273561ece7bbe8b1df51a4c44f5ab0bc940c105045e2cc77e618044" ] }' https://api.blockcypher.com/v1/bcy/test/txs/send
+
+{
+  "tx": {
+    "block_height": -1,
+    "hash": "4e6dfb1415b4fba5bd257c129847c70fbd4e45e41828079c4a282680528f3a50",
+    "addresses": [
+      "CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9",
+      "C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn"
+    ],
+    "total": 4988000,
+    "fees": 12000,
+    "size": 226,
+    "preference": "high",
+    "relayed_by": "73.162.198.68",
+    "received": "2015-05-22T04:38:57.470017042Z",
+    "ver": 1,
+    "lock_time": 0,
+    "double_spend": false,
+    "vin_sz": 1,
+    "vout_sz": 2,
+    "confirmations": 0,
+    "inputs": [
+      {
+        "prev_hash": "c8ea8b221580ebb2f1cabc8b40797bffec742b97c82a329df96d93121db43519",
+        "output_index": 0,
+        "script": "483045022100921fc36b911094280f07d8504a80fbab9b823a25f102e2bc69b14bcd369dfc7902200d07067d47f040e724b556e5bc3061af132d5a47bd96e901429d53c41e0f8cca012102152e2bb5b273561ece7bbe8b1df51a4c44f5ab0bc940c105045e2cc77e618044",
+        "output_value": 5000000,
+        "sequence": 4294967295,
+        "addresses": [
+          "CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"
+        ],
+        "script_type": "pay-to-pubkey-hash",
+        "age": 546
+      }
+    ],
+    "outputs": [
+      {
+        "value": 1000000,
+        "script": "76a9145fb1af31edd2aa5a2bbaa24f6043d6ec31f7e63288ac",
+        "addresses": [
+          "C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn"
+        ],
+        "script_type": "pay-to-pubkey-hash"
+      },
+      {
+        "value": 3988000,
+        "script": "76a914efec6de6c253e657a9d5506a78ee48d89762fb3188ac",
+        "addresses": [
+          "CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"
+        ],
+        "script_type": "pay-to-pubkey-hash"
+      }
+    ]
+  },
+  "tosign": [
+    ""
+  ]
+}
 ```
 
 ### Send Transaction Endpoint
 
-With your [TransactionSkeleton](#transactionskeleton) returned from the New Transaction Endpoint, you now need to use your private key(s) to sign the data provided in the **tosign** array, and put that (hex-encoded) data into the **signatures** array of the TransactionSkeleton. You also need to include the corresponding (hex-encoded) public key(s) in the **pubkeys** array, in the order of the addresses/inputs provided. Signature and public key order matters, so make sure they are returned in the same order as the inputs you provided.
+With your [TransactionSkeleton](#transactionskeleton) returned from the New Transaction Endpoint, you now need to use your private key(s) to locally sign the data provided in the **tosign** array, and put that (hex-encoded) data into the **signatures** array of the [TransactionSkeleton](#transactionskeleton). You also need to include the corresponding (hex-encoded) public key(s) in the **pubkeys** array, in the order of the addresses/inputs provided. Signature and public key order matters, so make sure they are returned in the same order as the inputs you provided.
 
-Digital signing can be a difficult process, and is where the majority of issues arise when dealing with cryptocurrency transactions. We are working on integrating client-side signing solutions into our libraries to make this process easier, but you can read more about [signing here.](#https://bitcoin.org/en/developer-guide#term-signature)
+Digital signing can be a difficult process, and is where the majority of issues arise when dealing with cryptocurrency transactions. We are working on integrating client-side signing solutions into our libraries to make this process easier, but you can read more about [signing here.](https://bitcoin.org/en/developer-guide#term-signature) In the mean time, if you want to experiment with client-side signing, consider using our [signer tool](https://github.com/blockcypher/btcutils/tree/master/signer)
 
 <aside class="notice">
 A note on fees: fees in cryptocurrencies can be complex. We provide 2 different ways for you to control the fees included in your transactions:
@@ -277,21 +335,159 @@ To learn more about fees, <a href="http://bitcoinfees.com/">bitcoinfees.com</a> 
 
 Resource | Method | Request Object | Return Object
 -------- | ------ | -------------- | -------------
-/txs/send | POST | [Transaction](#transaction) | [TransactionSkeleton](#transactionskeleton)
+/txs/send | POST | [TransactionSkeleton](#transactionskeleton) | [TransactionSkeleton](#transactionskeleton)
+
+If the transaction was successful, you'll receive a [TransactionSkeleton](#transactionskeleton) with the completed [Transaction](#transaction) (which contains its final **hash**) and an HTTP Status Code 201.
 
 ### Dealing with Errors
 
+Signing and creating transactions can be one of the trickiest parts of using blockchains in your applications. Consequently, when an error is encountered when [Creating Transactions](#creating-transactions), we send back an HTTP Status Code 400 alongside a descriptive array of **errors** within the [TransactionSkeleton](#transactionskeleton).
+
+<aside class="notice">
+One of the most common errors we see are users who use uncompressed public keys when compressed public keys were used to generate the address; remember to be careful to use the right keys!
+</aside>
+
 ## Push Raw Transaction Endpoint
+
+```shell
+$ curl -d '{"tx":"01000000011935b41d12936df99d322ac8972b74ecff7b79408bbccaf1b2eb8015228beac8000000006b483045022100921fc36b911094280f07d8504a80fbab9b823a25f102e2bc69b14bcd369dfc7902200d07067d47f040e724b556e5bc3061af132d5a47bd96e901429d53c41e0f8cca012102152e2bb5b273561ece7bbe8b1df51a4c44f5ab0bc940c105045e2cc77e618044ffffffff0240420f00000000001976a9145fb1af31edd2aa5a2bbaa24f6043d6ec31f7e63288ac20da3c00000000001976a914efec6de6c253e657a9d5506a78ee48d89762fb3188ac00000000"}' https://api.blockcypher.com/v1/bcy/test/txs/push
+
+{
+  "block_height": -1,
+  "hash": "4e6dfb1415b4fba5bd257c129847c70fbd4e45e41828079c4a282680528f3a50",
+  "addresses": [
+    "CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9",
+    "C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn"
+  ],
+  "total": 4988000,
+  "fees": 12000,
+  "size": 226,
+  "preference": "high",
+  "relayed_by": "73.162.198.68",
+  "received": "2015-05-22T05:10:00.305308666Z",
+  "ver": 1,
+  "lock_time": 0,
+  "double_spend": false,
+  "vin_sz": 1,
+  "vout_sz": 2,
+  "confirmations": 0,
+  "inputs": [
+    {
+      "prev_hash": "c8ea8b221580ebb2f1cabc8b40797bffec742b97c82a329df96d93121db43519",
+      "output_index": 0,
+      "script": "483045022100921fc36b911094280f07d8504a80fbab9b823a25f102e2bc69b14bcd369dfc7902200d07067d47f040e724b556e5bc3061af132d5a47bd96e901429d53c41e0f8cca012102152e2bb5b273561ece7bbe8b1df51a4c44f5ab0bc940c105045e2cc77e618044",
+      "output_value": 5000000,
+      "sequence": 4294967295,
+      "addresses": [
+        "CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"
+      ],
+      "script_type": "pay-to-pubkey-hash",
+      "age": 576
+    }
+  ],
+  "outputs": [
+    {
+      "value": 1000000,
+      "script": "76a9145fb1af31edd2aa5a2bbaa24f6043d6ec31f7e63288ac",
+      "addresses": [
+        "C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn"
+      ],
+      "script_type": "pay-to-pubkey-hash"
+    },
+    {
+      "value": 3988000,
+      "script": "76a914efec6de6c253e657a9d5506a78ee48d89762fb3188ac",
+      "addresses": [
+        "CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"
+      ],
+      "script_type": "pay-to-pubkey-hash"
+    }
+  ]
+}
+```
+
+If you'd prefer to use your own transaction library instead of the recommended path of our two-endpoint [transaction generation](#creatingtransactions) we're still happy to help you propagate your raw transactions. Simply send your raw hex-encoded transaction to this endpoint and we'll leverage our huge network of nodes to propagate your transaction faster than anywhere else.
 
 Resource | Method | Request Object | Return Object
 -------- | ------ | -------------- | -------------
-/txs/push | POST | {"tx":$TXHEX} | [TransactionSkeleton](#transactionskeleton)
+/txs/push | POST | {"tx":$TXHEX} | [Transaction](#transaction)
+
+$TXHEX is a hex-encoded raw representation of your transaction, for example:
+
+`01000000011935b41d12936df99d322ac8972b74ecff7b79408bbccaf1b2eb8015228beac8000000006b483045022100921fc36b911094280f07d8504a80fbab9b823a25f102e2bc69b14bcd369dfc7902200d07067d47f040e724b556e5bc3061af132d5a47bd96e901429d53c41e0f8cca012102152e2bb5b273561ece7bbe8b1df51a4c44f5ab0bc940c105045e2cc77e618044ffffffff0240420f00000000001976a9145fb1af31edd2aa5a2bbaa24f6043d6ec31f7e63288ac20da3c00000000001976a914efec6de6c253e657a9d5506a78ee48d89762fb3188ac00000000`
+
+If it succeeds, you'll receive a decoded [Transaction](#transaction) object and an HTTP Status Code 201. If you'd like, you can use the decoded transaction **hash** alongside an [Event](#events-&-hooks) to track its progress in the network.
 
 ## Decode Raw Transaction Endpoint
 
+```shell
+$ curl -d '{"tx":"01000000011935b41d12936df99d322ac8972b74ecff7b79408bbccaf1b2eb8015228beac8000000006b483045022100921fc36b911094280f07d8504a80fbab9b823a25f102e2bc69b14bcd369dfc7902200d07067d47f040e724b556e5bc3061af132d5a47bd96e901429d53c41e0f8cca012102152e2bb5b273561ece7bbe8b1df51a4c44f5ab0bc940c105045e2cc77e618044ffffffff0240420f00000000001976a9145fb1af31edd2aa5a2bbaa24f6043d6ec31f7e63288ac20da3c00000000001976a914efec6de6c253e657a9d5506a78ee48d89762fb3188ac00000000"}' https://api.blockcypher.com/v1/bcy/test/txs/decode
+
+{
+  "block_height": -1,
+  "hash": "4e6dfb1415b4fba5bd257c129847c70fbd4e45e41828079c4a282680528f3a50",
+  "addresses": [
+    "CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9",
+    "C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn"
+  ],
+  "total": 4988000,
+  "fees": 12000,
+  "size": 226,
+  "preference": "high",
+  "relayed_by": "73.162.198.68",
+  "received": "2015-05-22T05:10:00.305308666Z",
+  "ver": 1,
+  "lock_time": 0,
+  "double_spend": false,
+  "vin_sz": 1,
+  "vout_sz": 2,
+  "confirmations": 0,
+  "inputs": [
+    {
+      "prev_hash": "c8ea8b221580ebb2f1cabc8b40797bffec742b97c82a329df96d93121db43519",
+      "output_index": 0,
+      "script": "483045022100921fc36b911094280f07d8504a80fbab9b823a25f102e2bc69b14bcd369dfc7902200d07067d47f040e724b556e5bc3061af132d5a47bd96e901429d53c41e0f8cca012102152e2bb5b273561ece7bbe8b1df51a4c44f5ab0bc940c105045e2cc77e618044",
+      "output_value": 5000000,
+      "sequence": 4294967295,
+      "addresses": [
+        "CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"
+      ],
+      "script_type": "pay-to-pubkey-hash",
+      "age": 576
+    }
+  ],
+  "outputs": [
+    {
+      "value": 1000000,
+      "script": "76a9145fb1af31edd2aa5a2bbaa24f6043d6ec31f7e63288ac",
+      "addresses": [
+        "C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn"
+      ],
+      "script_type": "pay-to-pubkey-hash"
+    },
+    {
+      "value": 3988000,
+      "script": "76a914efec6de6c253e657a9d5506a78ee48d89762fb3188ac",
+      "addresses": [
+        "CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"
+      ],
+      "script_type": "pay-to-pubkey-hash"
+    }
+  ]
+}
+```
+
+We also offer the ability to decode raw transactions without sending propagating them to the network; perhaps you want to double-check another client library or confirm that another service is sending proper transactions. 
+
 Resource | Method | Request Object | Return Object
 -------- | ------ | -------------- | -------------
-/txs/decode | POST | {"tx":$TXHEX} | [TransactionSkeleton](#transactionskeleton)
+/txs/decode | POST | {"tx":$TXHEX} | [Transaction](#transaction)
+
+$TXHEX is a hex-encoded raw representation of your transaction, for example:
+
+`01000000011935b41d12936df99d322ac8972b74ecff7b79408bbccaf1b2eb8015228beac8000000006b483045022100921fc36b911094280f07d8504a80fbab9b823a25f102e2bc69b14bcd369dfc7902200d07067d47f040e724b556e5bc3061af132d5a47bd96e901429d53c41e0f8cca012102152e2bb5b273561ece7bbe8b1df51a4c44f5ab0bc940c105045e2cc77e618044ffffffff0240420f00000000001976a9145fb1af31edd2aa5a2bbaa24f6043d6ec31f7e63288ac20da3c00000000001976a914efec6de6c253e657a9d5506a78ee48d89762fb3188ac00000000`
+
+If it succeeds, you'll receive your decoded [Transaction](#transaction) object.
 
 ## Multisig Transactions
 
