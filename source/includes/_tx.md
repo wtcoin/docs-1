@@ -491,3 +491,40 @@ If it succeeds, you'll receive your decoded [Transaction](#transaction) object.
 
 ## Multisig Transactions
 
+```shell
+{
+	"inputs": [{"addresses": [sourceAddr]}],
+	"outputs": [{
+		"addresses"   : [pubkey1, pubkey2, pubkey3],
+		"script_type" : "multisig-2-of-3",
+		"value"       : 250000,
+	}]
+}
+```
+
+Multisignature transactions are made simple by the method described in the [Creating Transactions](#creating-transactions) section, but they deserve special mention. In order to use them, you first need to fund a multisignature address. You use the `/txs/new` endpoint as before, but instead of the **outputs** **addresses** array containing public addresses, it instead contains the public keys associated with the new address. In addition, you must select a **script_type** of *mutlisig-n-of-m*, where *n* and *m* are numbers (e.g., *multisig-2-of-3*). The code example demonstrates how the partially filled [Transaction request object](#transaction) would appear.
+
+After you've set up your request object, you send to `/txs/new` and receive a partially filled [TransactionSkeleton](#transactionskeleton) as before, but with data to sign from the source address. Sign this data and include the public key(s) of the source address---as demonstrated in the [Creating Transactions](#creating-transactions)---then send along to the `/txs/send` endpoint. If it returns with an HTTP Status Code 201, then your multisignature address (via a *pay-to-script-hash* address) is funded.
+
+<aside class="notice">
+If you only need a <i>pay-to-script-hash</i> address corresponding to N-of-M multisig and don't want---or need---to fund it immediately, you should use the comparatively easier <a href="#generate-multisig-address-endpoint">Generate Multisig Address Endpoint.</a>
+</aside>
+
+### Spending Multisig Funds
+
+```shell
+{
+  "inputs": [{
+    "addresses"   : [pubkey1, pubkey2, pubkey3],
+    "script_type" : "multisig-2-of-3"
+  }],
+  "outputs": [{
+    "addresses" : [destAddr],
+    "value"     : 150000
+  }]
+}
+```
+
+Once funded, you might want to programmatically spend the money in the address at some point. Here the process is similar, but with the inputs and outputs reversed. As you can see in the code sample, you need to provide the public keys within the **inputs** **addresses** array, and the corresponding **script_type** of *multisig-n-of-m* (e.g., *multisig-2-of-3*). Then you follow the same process of sending to `/txs/new` and getting an array of data to be signed.
+
+Each party can send their signed data individually to `/txs/send` and we can correlate the signatures to the public keys; once we have enough signatures we'll propagate the transaction. Or you can send all needed signatures alongside ordered public keys with a single call to `/txs/send`.
