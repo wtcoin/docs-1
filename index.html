@@ -2445,7 +2445,7 @@ Always use HTTPS for creating and pushing transactions.
 </tr>
 </thead><tbody>
 <tr>
-<td>/tx/new</td>
+<td>/txs/new</td>
 <td>POST</td>
 <td><a href="#transaction">Transaction</a></td>
 <td><a href="#transactionskeleton">TransactionSkeleton</a></td>
@@ -2471,7 +2471,7 @@ The BlockCypher API automatically allows unconfirmed UTXOs as inputs when creati
 <p>While we demonstrated the simplest use of this endpoint, you can have finer-grain control by modifying the <a href="#transaction">Tranasaction</a> request object. Instead of providing <strong>addresses</strong>, you can use <strong>prev_hash</strong> and <strong>output_index</strong> within the <strong>inputs</strong> array, in which case, we&rsquo;ll use the inputs as provided and not attempt to generate them from a list of addresses. We will compute change and fees the same way (you can read more about the fee computation in the next section).</p>
 
 <aside class="notice">
-By default, BlockCypher will set the change address to the first transaction input listed in the transaction. To redirect this default behavior, you can set an optional <b>change_address</b> field within the <a href="#transaction">Transaction</a> request object.
+By default, BlockCypher will set the change address to the first transaction input/address listed in the transaction. To redirect this default behavior, you can set an optional <b>change_address</b> field within the <a href="#transaction">Transaction</a> request object.
 </aside>
 
 <p>For further control, you can also change the <strong>script_type</strong> in the <strong>output</strong> of your partially filled <a href="#transaction">Transaction</a>. You&rsquo;ll notice this used to powerful effect in the section on <a href="#multisig-transactions">Multisig Transactions</a>. These are the possible script types:</p>
@@ -2497,7 +2497,9 @@ The <b>hash</b> assigned to <a href="#transaction">Transaction</a> within the re
 
 <h3 id="send-transaction-endpoint">Send Transaction Endpoint</h3>
 
-<p>With your <a href="#transactionskeleton">TransactionSkeleton</a> returned from the New Transaction Endpoint, you now need to use your private key(s) to sign the data provided in the <strong>tosign</strong> array, and put that (hex-encoded) data into the <strong>signatures</strong> array of the TransactionSkeleton. You also need to include the corresponding public key(s) in the <strong>pubkeys</strong> array, in the order of the addresses/inputs provided. Signature and public key order matters, so make sure they are returned in the same order as the inputs you provided.</p>
+<p>With your <a href="#transactionskeleton">TransactionSkeleton</a> returned from the New Transaction Endpoint, you now need to use your private key(s) to sign the data provided in the <strong>tosign</strong> array, and put that (hex-encoded) data into the <strong>signatures</strong> array of the TransactionSkeleton. You also need to include the corresponding (hex-encoded) public key(s) in the <strong>pubkeys</strong> array, in the order of the addresses/inputs provided. Signature and public key order matters, so make sure they are returned in the same order as the inputs you provided.</p>
+
+<p>Digital signing can be a difficult process, and is where the majority of issues arise when dealing with cryptocurrency transactions. We are working on integrating client-side signing solutions into our libraries to make this process easier, but you can read more about <a href="#https://bitcoin.org/en/developer-guide#term-signature">signing here.</a></p>
 
 <aside class="notice">
 A note on fees: fees in cryptocurrencies can be complex. We provide 2 different ways for you to control the fees included in your transactions:
@@ -2509,11 +2511,59 @@ A note on fees: fees in cryptocurrencies can be complex. We provide 2 different 
 To learn more about fees, <a href="http://bitcoinfees.com/">bitcoinfees.com</a> is a good resource.
 </aside>
 
+<table><thead>
+<tr>
+<th>Resource</th>
+<th>Method</th>
+<th>Request Object</th>
+<th>Return Object</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>/txs/send</td>
+<td>POST</td>
+<td><a href="#transaction">Transaction</a></td>
+<td><a href="#transactionskeleton">TransactionSkeleton</a></td>
+</tr>
+</tbody></table>
+
 <h3 id="dealing-with-errors">Dealing with Errors</h3>
 
 <h2 id="push-raw-transaction-endpoint">Push Raw Transaction Endpoint</h2>
 
+<table><thead>
+<tr>
+<th>Resource</th>
+<th>Method</th>
+<th>Request Object</th>
+<th>Return Object</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>/txs/push</td>
+<td>POST</td>
+<td>{&ldquo;tx&rdquo;:$TXHEX}</td>
+<td><a href="#transactionskeleton">TransactionSkeleton</a></td>
+</tr>
+</tbody></table>
+
 <h2 id="decode-raw-transaction-endpoint">Decode Raw Transaction Endpoint</h2>
+
+<table><thead>
+<tr>
+<th>Resource</th>
+<th>Method</th>
+<th>Request Object</th>
+<th>Return Object</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>/txs/decode</td>
+<td>POST</td>
+<td>{&ldquo;tx&rdquo;:$TXHEX}</td>
+<td><a href="#transactionskeleton">TransactionSkeleton</a></td>
+</tr>
+</tbody></table>
 
 <h2 id="multisig-transactions">Multisig Transactions</h2>
 
