@@ -514,14 +514,14 @@ If you only need a <i>pay-to-script-hash</i> address corresponding to N-of-M mul
 
 ```shell
 {
-  "inputs": [{
-    "addresses"   : [pubkey1, pubkey2, pubkey3],
-    "script_type" : "multisig-2-of-3"
-  }],
-  "outputs": [{
-    "addresses" : [destAddr],
-    "value"     : 150000
-  }]
+	"inputs": [{
+		"addresses"   : [pubkey1, pubkey2, pubkey3],
+		"script_type" : "multisig-2-of-3"
+	}],
+	"outputs": [{
+		"addresses" : [destAddr],
+		"value"     : 150000
+	}]
 }
 ```
 
