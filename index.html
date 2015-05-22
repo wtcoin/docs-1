@@ -2491,15 +2491,73 @@ By default, BlockCypher will set the change address to the first transaction inp
 <aside class="warning">
 The <b>hash</b> assigned to <a href="#transaction">Transaction</a> within the return object is only temporary. A final <b>hash</b> will be provided after the transaction is sent to the network through the Send Transaction Endpoint.
 </aside>
-<pre class="highlight shell"><code><span class="c"># the request body is truncated because it's huge, but it's basically the same as the returned object from above plus the signatures and public keys</span>
-<span class="gp">$ </span>curl -d <span class="o">{</span> <span class="s2">"tx"</span>: <span class="o">{</span>...<span class="o">}</span>, <span class="s2">"tosign"</span>: <span class="o">[</span><span class="s2">"32b5ea64c253b6b466366647458cfd60de9cd29d7dc542293aa0b8b7300cd827"</span><span class="o">]</span>, <span class="s2">"signatures"</span>: <span class="o">[</span><span class="s2">""</span><span class="o">]</span>, <span class="s2">"pubkeys"</span>:[<span class="s2">""</span><span class="o">]}</span>
+<pre class="highlight shell"><code><span class="c"># the request body is truncated because it's huge, but it's the same as the returned object from above plus the signatures and public keys</span>
+<span class="gp">$ </span>curl -d <span class="s1">'{"tx": {...}, "tosign": [ "32b5ea64c253b6b466366647458cfd60de9cd29d7dc542293aa0b8b7300cd827" ], "signatures": [ "3045022100921fc36b911094280f07d8504a80fbab9b823a25f102e2bc69b14bcd369dfc7902200d07067d47f040e724b556e5bc3061af132d5a47bd96e901429d53c41e0f8cca" ], "pubkeys": [ "02152e2bb5b273561ece7bbe8b1df51a4c44f5ab0bc940c105045e2cc77e618044" ] }'</span> https://api.blockcypher.com/v1/bcy/test/txs/send
+
+<span class="o">{</span>
+  <span class="s2">"tx"</span>: <span class="o">{</span>
+    <span class="s2">"block_height"</span>: -1,
+    <span class="s2">"hash"</span>: <span class="s2">"4e6dfb1415b4fba5bd257c129847c70fbd4e45e41828079c4a282680528f3a50"</span>,
+    <span class="s2">"addresses"</span>: <span class="o">[</span>
+      <span class="s2">"CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"</span>,
+      <span class="s2">"C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn"</span>
+    <span class="o">]</span>,
+    <span class="s2">"total"</span>: 4988000,
+    <span class="s2">"fees"</span>: 12000,
+    <span class="s2">"size"</span>: 226,
+    <span class="s2">"preference"</span>: <span class="s2">"high"</span>,
+    <span class="s2">"relayed_by"</span>: <span class="s2">"73.162.198.68"</span>,
+    <span class="s2">"received"</span>: <span class="s2">"2015-05-22T04:38:57.470017042Z"</span>,
+    <span class="s2">"ver"</span>: 1,
+    <span class="s2">"lock_time"</span>: 0,
+    <span class="s2">"double_spend"</span>: <span class="nb">false</span>,
+    <span class="s2">"vin_sz"</span>: 1,
+    <span class="s2">"vout_sz"</span>: 2,
+    <span class="s2">"confirmations"</span>: 0,
+    <span class="s2">"inputs"</span>: <span class="o">[</span>
+      <span class="o">{</span>
+        <span class="s2">"prev_hash"</span>: <span class="s2">"c8ea8b221580ebb2f1cabc8b40797bffec742b97c82a329df96d93121db43519"</span>,
+        <span class="s2">"output_index"</span>: 0,
+        <span class="s2">"script"</span>: <span class="s2">"483045022100921fc36b911094280f07d8504a80fbab9b823a25f102e2bc69b14bcd369dfc7902200d07067d47f040e724b556e5bc3061af132d5a47bd96e901429d53c41e0f8cca012102152e2bb5b273561ece7bbe8b1df51a4c44f5ab0bc940c105045e2cc77e618044"</span>,
+        <span class="s2">"output_value"</span>: 5000000,
+        <span class="s2">"sequence"</span>: 4294967295,
+        <span class="s2">"addresses"</span>: <span class="o">[</span>
+          <span class="s2">"CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"</span>
+        <span class="o">]</span>,
+        <span class="s2">"script_type"</span>: <span class="s2">"pay-to-pubkey-hash"</span>,
+        <span class="s2">"age"</span>: 546
+      <span class="o">}</span>
+    <span class="o">]</span>,
+    <span class="s2">"outputs"</span>: <span class="o">[</span>
+      <span class="o">{</span>
+        <span class="s2">"value"</span>: 1000000,
+        <span class="s2">"script"</span>: <span class="s2">"76a9145fb1af31edd2aa5a2bbaa24f6043d6ec31f7e63288ac"</span>,
+        <span class="s2">"addresses"</span>: <span class="o">[</span>
+          <span class="s2">"C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn"</span>
+        <span class="o">]</span>,
+        <span class="s2">"script_type"</span>: <span class="s2">"pay-to-pubkey-hash"</span>
+      <span class="o">}</span>,
+      <span class="o">{</span>
+        <span class="s2">"value"</span>: 3988000,
+        <span class="s2">"script"</span>: <span class="s2">"76a914efec6de6c253e657a9d5506a78ee48d89762fb3188ac"</span>,
+        <span class="s2">"addresses"</span>: <span class="o">[</span>
+          <span class="s2">"CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"</span>
+        <span class="o">]</span>,
+        <span class="s2">"script_type"</span>: <span class="s2">"pay-to-pubkey-hash"</span>
+      <span class="o">}</span>
+    <span class="o">]</span>
+  <span class="o">}</span>,
+  <span class="s2">"tosign"</span>: <span class="o">[</span>
+    <span class="s2">""</span>
+  <span class="o">]</span>
+<span class="o">}</span>
 </code></pre>
 
 <h3 id="send-transaction-endpoint">Send Transaction Endpoint</h3>
 
-<p>With your <a href="#transactionskeleton">TransactionSkeleton</a> returned from the New Transaction Endpoint, you now need to use your private key(s) to sign the data provided in the <strong>tosign</strong> array, and put that (hex-encoded) data into the <strong>signatures</strong> array of the TransactionSkeleton. You also need to include the corresponding (hex-encoded) public key(s) in the <strong>pubkeys</strong> array, in the order of the addresses/inputs provided. Signature and public key order matters, so make sure they are returned in the same order as the inputs you provided.</p>
+<p>With your <a href="#transactionskeleton">TransactionSkeleton</a> returned from the New Transaction Endpoint, you now need to use your private key(s) to locally sign the data provided in the <strong>tosign</strong> array, and put that (hex-encoded) data into the <strong>signatures</strong> array of the <a href="#transactionskeleton">TransactionSkeleton</a>. You also need to include the corresponding (hex-encoded) public key(s) in the <strong>pubkeys</strong> array, in the order of the addresses/inputs provided. Signature and public key order matters, so make sure they are returned in the same order as the inputs you provided.</p>
 
-<p>Digital signing can be a difficult process, and is where the majority of issues arise when dealing with cryptocurrency transactions. We are working on integrating client-side signing solutions into our libraries to make this process easier, but you can read more about <a href="#https://bitcoin.org/en/developer-guide#term-signature">signing here.</a></p>
+<p>Digital signing can be a difficult process, and is where the majority of issues arise when dealing with cryptocurrency transactions. We are working on integrating client-side signing solutions into our libraries to make this process easier, but you can read more about <a href="https://bitcoin.org/en/developer-guide#term-signature">signing here.</a> In the mean time, if you want to experiment with client-side signing, consider using our <a href="https://github.com/blockcypher/btcutils/tree/master/signer">signer tool</a></p>
 
 <aside class="notice">
 A note on fees: fees in cryptocurrencies can be complex. We provide 2 different ways for you to control the fees included in your transactions:
@@ -2522,14 +2580,79 @@ To learn more about fees, <a href="http://bitcoinfees.com/">bitcoinfees.com</a> 
 <tr>
 <td>/txs/send</td>
 <td>POST</td>
-<td><a href="#transaction">Transaction</a></td>
+<td><a href="#transactionskeleton">TransactionSkeleton</a></td>
 <td><a href="#transactionskeleton">TransactionSkeleton</a></td>
 </tr>
 </tbody></table>
 
+<p>If the transaction was successful, you&rsquo;ll receive a <a href="#transactionskeleton">TransactionSkeleton</a> with the completed <a href="#transaction">Transaction</a> (which contains its final <strong>hash</strong>) and an HTTP Status Code 201.</p>
+
 <h3 id="dealing-with-errors">Dealing with Errors</h3>
 
+<p>Signing and creating transactions can be one of the trickiest parts of using blockchains in your applications. Consequently, when an error is encountered when <a href="#creating-transactions">Creating Transactions</a>, we send back an HTTP Status Code 400 alongside a descriptive array of <strong>errors</strong> within the <a href="#transactionskeleton">TransactionSkeleton</a>.</p>
+
+<aside class="notice">
+One of the most common errors we see are users who use uncompressed public keys when compressed public keys were used to generate the address; remember to be careful to use the right keys!
+</aside>
+
 <h2 id="push-raw-transaction-endpoint">Push Raw Transaction Endpoint</h2>
+<pre class="highlight shell"><code><span class="gp">$ </span>curl -d <span class="s1">'{"tx":"01000000011935b41d12936df99d322ac8972b74ecff7b79408bbccaf1b2eb8015228beac8000000006b483045022100921fc36b911094280f07d8504a80fbab9b823a25f102e2bc69b14bcd369dfc7902200d07067d47f040e724b556e5bc3061af132d5a47bd96e901429d53c41e0f8cca012102152e2bb5b273561ece7bbe8b1df51a4c44f5ab0bc940c105045e2cc77e618044ffffffff0240420f00000000001976a9145fb1af31edd2aa5a2bbaa24f6043d6ec31f7e63288ac20da3c00000000001976a914efec6de6c253e657a9d5506a78ee48d89762fb3188ac00000000"}'</span> https://api.blockcypher.com/v1/bcy/test/txs/push
+
+<span class="o">{</span>
+  <span class="s2">"block_height"</span>: -1,
+  <span class="s2">"hash"</span>: <span class="s2">"4e6dfb1415b4fba5bd257c129847c70fbd4e45e41828079c4a282680528f3a50"</span>,
+  <span class="s2">"addresses"</span>: <span class="o">[</span>
+    <span class="s2">"CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"</span>,
+    <span class="s2">"C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn"</span>
+  <span class="o">]</span>,
+  <span class="s2">"total"</span>: 4988000,
+  <span class="s2">"fees"</span>: 12000,
+  <span class="s2">"size"</span>: 226,
+  <span class="s2">"preference"</span>: <span class="s2">"high"</span>,
+  <span class="s2">"relayed_by"</span>: <span class="s2">"73.162.198.68"</span>,
+  <span class="s2">"received"</span>: <span class="s2">"2015-05-22T05:10:00.305308666Z"</span>,
+  <span class="s2">"ver"</span>: 1,
+  <span class="s2">"lock_time"</span>: 0,
+  <span class="s2">"double_spend"</span>: <span class="nb">false</span>,
+  <span class="s2">"vin_sz"</span>: 1,
+  <span class="s2">"vout_sz"</span>: 2,
+  <span class="s2">"confirmations"</span>: 0,
+  <span class="s2">"inputs"</span>: <span class="o">[</span>
+    <span class="o">{</span>
+      <span class="s2">"prev_hash"</span>: <span class="s2">"c8ea8b221580ebb2f1cabc8b40797bffec742b97c82a329df96d93121db43519"</span>,
+      <span class="s2">"output_index"</span>: 0,
+      <span class="s2">"script"</span>: <span class="s2">"483045022100921fc36b911094280f07d8504a80fbab9b823a25f102e2bc69b14bcd369dfc7902200d07067d47f040e724b556e5bc3061af132d5a47bd96e901429d53c41e0f8cca012102152e2bb5b273561ece7bbe8b1df51a4c44f5ab0bc940c105045e2cc77e618044"</span>,
+      <span class="s2">"output_value"</span>: 5000000,
+      <span class="s2">"sequence"</span>: 4294967295,
+      <span class="s2">"addresses"</span>: <span class="o">[</span>
+        <span class="s2">"CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"</span>
+      <span class="o">]</span>,
+      <span class="s2">"script_type"</span>: <span class="s2">"pay-to-pubkey-hash"</span>,
+      <span class="s2">"age"</span>: 576
+    <span class="o">}</span>
+  <span class="o">]</span>,
+  <span class="s2">"outputs"</span>: <span class="o">[</span>
+    <span class="o">{</span>
+      <span class="s2">"value"</span>: 1000000,
+      <span class="s2">"script"</span>: <span class="s2">"76a9145fb1af31edd2aa5a2bbaa24f6043d6ec31f7e63288ac"</span>,
+      <span class="s2">"addresses"</span>: <span class="o">[</span>
+        <span class="s2">"C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn"</span>
+      <span class="o">]</span>,
+      <span class="s2">"script_type"</span>: <span class="s2">"pay-to-pubkey-hash"</span>
+    <span class="o">}</span>,
+    <span class="o">{</span>
+      <span class="s2">"value"</span>: 3988000,
+      <span class="s2">"script"</span>: <span class="s2">"76a914efec6de6c253e657a9d5506a78ee48d89762fb3188ac"</span>,
+      <span class="s2">"addresses"</span>: <span class="o">[</span>
+        <span class="s2">"CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"</span>
+      <span class="o">]</span>,
+      <span class="s2">"script_type"</span>: <span class="s2">"pay-to-pubkey-hash"</span>
+    <span class="o">}</span>
+  <span class="o">]</span>
+<span class="o">}</span>
+</code></pre>
+
+<p>If you&rsquo;d prefer to use your own transaction library instead of the recommended path of our two-endpoint <a href="#creatingtransactions">transaction generation</a> we&rsquo;re still happy to help you propagate your raw transactions. Simply send your raw hex-encoded transaction to this endpoint and we&rsquo;ll leverage our huge network of nodes to propagate your transaction faster than anywhere else.</p>
 
 <table><thead>
 <tr>
@@ -2543,11 +2666,74 @@ To learn more about fees, <a href="http://bitcoinfees.com/">bitcoinfees.com</a> 
 <td>/txs/push</td>
 <td>POST</td>
 <td>{&ldquo;tx&rdquo;:$TXHEX}</td>
-<td><a href="#transactionskeleton">TransactionSkeleton</a></td>
+<td><a href="#transaction">Transaction</a></td>
 </tr>
 </tbody></table>
 
+<p>$TXHEX is a hex-encoded raw representation of your transaction, for example:</p>
+
+<p><code class="prettyprint">01000000011935b41d12936df99d322ac8972b74ecff7b79408bbccaf1b2eb8015228beac8000000006b483045022100921fc36b911094280f07d8504a80fbab9b823a25f102e2bc69b14bcd369dfc7902200d07067d47f040e724b556e5bc3061af132d5a47bd96e901429d53c41e0f8cca012102152e2bb5b273561ece7bbe8b1df51a4c44f5ab0bc940c105045e2cc77e618044ffffffff0240420f00000000001976a9145fb1af31edd2aa5a2bbaa24f6043d6ec31f7e63288ac20da3c00000000001976a914efec6de6c253e657a9d5506a78ee48d89762fb3188ac00000000</code></p>
+
+<p>If it succeeds, you&rsquo;ll receive a decoded <a href="#transaction">Transaction</a> object and an HTTP Status Code 201. If you&rsquo;d like, you can use the decoded transaction <strong>hash</strong> alongside an <a href="#events-&amp;-hooks">Event</a> to track its progress in the network.</p>
+
 <h2 id="decode-raw-transaction-endpoint">Decode Raw Transaction Endpoint</h2>
+<pre class="highlight shell"><code><span class="gp">$ </span>curl -d <span class="s1">'{"tx":"01000000011935b41d12936df99d322ac8972b74ecff7b79408bbccaf1b2eb8015228beac8000000006b483045022100921fc36b911094280f07d8504a80fbab9b823a25f102e2bc69b14bcd369dfc7902200d07067d47f040e724b556e5bc3061af132d5a47bd96e901429d53c41e0f8cca012102152e2bb5b273561ece7bbe8b1df51a4c44f5ab0bc940c105045e2cc77e618044ffffffff0240420f00000000001976a9145fb1af31edd2aa5a2bbaa24f6043d6ec31f7e63288ac20da3c00000000001976a914efec6de6c253e657a9d5506a78ee48d89762fb3188ac00000000"}'</span> https://api.blockcypher.com/v1/bcy/test/txs/decode
+
+<span class="o">{</span>
+  <span class="s2">"block_height"</span>: -1,
+  <span class="s2">"hash"</span>: <span class="s2">"4e6dfb1415b4fba5bd257c129847c70fbd4e45e41828079c4a282680528f3a50"</span>,
+  <span class="s2">"addresses"</span>: <span class="o">[</span>
+    <span class="s2">"CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"</span>,
+    <span class="s2">"C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn"</span>
+  <span class="o">]</span>,
+  <span class="s2">"total"</span>: 4988000,
+  <span class="s2">"fees"</span>: 12000,
+  <span class="s2">"size"</span>: 226,
+  <span class="s2">"preference"</span>: <span class="s2">"high"</span>,
+  <span class="s2">"relayed_by"</span>: <span class="s2">"73.162.198.68"</span>,
+  <span class="s2">"received"</span>: <span class="s2">"2015-05-22T05:10:00.305308666Z"</span>,
+  <span class="s2">"ver"</span>: 1,
+  <span class="s2">"lock_time"</span>: 0,
+  <span class="s2">"double_spend"</span>: <span class="nb">false</span>,
+  <span class="s2">"vin_sz"</span>: 1,
+  <span class="s2">"vout_sz"</span>: 2,
+  <span class="s2">"confirmations"</span>: 0,
+  <span class="s2">"inputs"</span>: <span class="o">[</span>
+    <span class="o">{</span>
+      <span class="s2">"prev_hash"</span>: <span class="s2">"c8ea8b221580ebb2f1cabc8b40797bffec742b97c82a329df96d93121db43519"</span>,
+      <span class="s2">"output_index"</span>: 0,
+      <span class="s2">"script"</span>: <span class="s2">"483045022100921fc36b911094280f07d8504a80fbab9b823a25f102e2bc69b14bcd369dfc7902200d07067d47f040e724b556e5bc3061af132d5a47bd96e901429d53c41e0f8cca012102152e2bb5b273561ece7bbe8b1df51a4c44f5ab0bc940c105045e2cc77e618044"</span>,
+      <span class="s2">"output_value"</span>: 5000000,
+      <span class="s2">"sequence"</span>: 4294967295,
+      <span class="s2">"addresses"</span>: <span class="o">[</span>
+        <span class="s2">"CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"</span>
+      <span class="o">]</span>,
+      <span class="s2">"script_type"</span>: <span class="s2">"pay-to-pubkey-hash"</span>,
+      <span class="s2">"age"</span>: 576
+    <span class="o">}</span>
+  <span class="o">]</span>,
+  <span class="s2">"outputs"</span>: <span class="o">[</span>
+    <span class="o">{</span>
+      <span class="s2">"value"</span>: 1000000,
+      <span class="s2">"script"</span>: <span class="s2">"76a9145fb1af31edd2aa5a2bbaa24f6043d6ec31f7e63288ac"</span>,
+      <span class="s2">"addresses"</span>: <span class="o">[</span>
+        <span class="s2">"C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn"</span>
+      <span class="o">]</span>,
+      <span class="s2">"script_type"</span>: <span class="s2">"pay-to-pubkey-hash"</span>
+    <span class="o">}</span>,
+    <span class="o">{</span>
+      <span class="s2">"value"</span>: 3988000,
+      <span class="s2">"script"</span>: <span class="s2">"76a914efec6de6c253e657a9d5506a78ee48d89762fb3188ac"</span>,
+      <span class="s2">"addresses"</span>: <span class="o">[</span>
+        <span class="s2">"CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"</span>
+      <span class="o">]</span>,
+      <span class="s2">"script_type"</span>: <span class="s2">"pay-to-pubkey-hash"</span>
+    <span class="o">}</span>
+  <span class="o">]</span>
+<span class="o">}</span>
+</code></pre>
+
+<p>We also offer the ability to decode raw transactions without sending propagating them to the network; perhaps you want to double-check another client library or confirm that another service is sending proper transactions. </p>
 
 <table><thead>
 <tr>
@@ -2561,11 +2747,51 @@ To learn more about fees, <a href="http://bitcoinfees.com/">bitcoinfees.com</a> 
 <td>/txs/decode</td>
 <td>POST</td>
 <td>{&ldquo;tx&rdquo;:$TXHEX}</td>
-<td><a href="#transactionskeleton">TransactionSkeleton</a></td>
+<td><a href="#transaction">Transaction</a></td>
 </tr>
 </tbody></table>
 
+<p>$TXHEX is a hex-encoded raw representation of your transaction, for example:</p>
+
+<p><code class="prettyprint">01000000011935b41d12936df99d322ac8972b74ecff7b79408bbccaf1b2eb8015228beac8000000006b483045022100921fc36b911094280f07d8504a80fbab9b823a25f102e2bc69b14bcd369dfc7902200d07067d47f040e724b556e5bc3061af132d5a47bd96e901429d53c41e0f8cca012102152e2bb5b273561ece7bbe8b1df51a4c44f5ab0bc940c105045e2cc77e618044ffffffff0240420f00000000001976a9145fb1af31edd2aa5a2bbaa24f6043d6ec31f7e63288ac20da3c00000000001976a914efec6de6c253e657a9d5506a78ee48d89762fb3188ac00000000</code></p>
+
+<p>If it succeeds, you&rsquo;ll receive your decoded <a href="#transaction">Transaction</a> object.</p>
+
 <h2 id="multisig-transactions">Multisig Transactions</h2>
+<pre class="highlight shell"><code><span class="o">{</span>
+    <span class="s2">"inputs"</span>: <span class="o">[{</span><span class="s2">"addresses"</span>: <span class="o">[</span>sourceAddr]<span class="o">}]</span>,
+    <span class="s2">"outputs"</span>: <span class="o">[{</span>
+        <span class="s2">"addresses"</span>   : <span class="o">[</span>pubkey1, pubkey2, pubkey3],
+        <span class="s2">"script_type"</span> : <span class="s2">"multisig-2-of-3"</span>,
+        <span class="s2">"value"</span>       : 250000,
+    <span class="o">}]</span>
+<span class="o">}</span>
+</code></pre>
+
+<p>Multisignature transactions are made simple by the method described in the <a href="#creating-transactions">Creating Transactions</a> section, but they deserve special mention. In order to use them, you first need to fund a multisignature address. You use the <code class="prettyprint">/txs/new</code> endpoint as before, but instead of the <strong>outputs</strong> <strong>addresses</strong> array containing public addresses, it instead contains the public keys associated with the new address. In addition, you must select a <strong>script_type</strong> of <em>mutlisig-n-of-m</em>, where <em>n</em> and <em>m</em> are numbers (e.g., <em>multisig-2-of-3</em>). The code example demonstrates how the partially filled <a href="#transaction">Transaction request object</a> would appear.</p>
+
+<p>After you&rsquo;ve set up your request object, you send to <code class="prettyprint">/txs/new</code> and receive a partially filled <a href="#transactionskeleton">TransactionSkeleton</a> as before, but with data to sign from the source address. Sign this data and include the public key(s) of the source address&mdash;as demonstrated in the <a href="#creating-transactions">Creating Transactions</a>&mdash;then send along to the <code class="prettyprint">/txs/send</code> endpoint. If it returns with an HTTP Status Code 201, then your multisignature address (via a <em>pay-to-script-hash</em> address) is funded.</p>
+
+<aside class="notice">
+If you only need a <i>pay-to-script-hash</i> address corresponding to N-of-M multisig and don&rsquo;t want&mdash;or need&mdash;to fund it immediately, you should use the comparatively easier <a href="#generate-multisig-address-endpoint">Generate Multisig Address Endpoint.</a>
+</aside>
+
+<h3 id="spending-multisig-funds">Spending Multisig Funds</h3>
+<pre class="highlight shell"><code><span class="o">{</span>
+  <span class="s2">"inputs"</span>: <span class="o">[{</span>
+    <span class="s2">"addresses"</span>   : <span class="o">[</span>pubkey1, pubkey2, pubkey3],
+    <span class="s2">"script_type"</span> : <span class="s2">"multisig-2-of-3"</span>
+  <span class="o">}]</span>,
+  <span class="s2">"outputs"</span>: <span class="o">[{</span>
+    <span class="s2">"addresses"</span> : <span class="o">[</span>destAddr],
+    <span class="s2">"value"</span>     : 150000
+  <span class="o">}]</span>
+<span class="o">}</span>
+</code></pre>
+
+<p>Once funded, you might want to programmatically spend the money in the address at some point. Here the process is similar, but with the inputs and outputs reversed. As you can see in the code sample, you need to provide the public keys within the <strong>inputs</strong> <strong>addresses</strong> array, and the corresponding <strong>script_type</strong> of <em>multisig-n-of-m</em> (e.g., <em>multisig-2-of-3</em>). Then you follow the same process of sending to <code class="prettyprint">/txs/new</code> and getting an array of data to be signed.</p>
+
+<p>Each party can send their signed data individually to <code class="prettyprint">/txs/send</code> and we can correlate the signatures to the public keys; once we have enough signatures we&rsquo;ll propagate the transaction. Or you can send all needed signatures alongside ordered public keys with a single call to <code class="prettyprint">/txs/send</code>.</p>
 
           <h1 id="microtransactions-api">Microtransactions API</h1>
 
