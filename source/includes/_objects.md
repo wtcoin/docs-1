@@ -250,6 +250,28 @@ Attribute | Type | Description
 **script_type** | *string* | The type of encumbrance script used for this output.
 **spent_by** | *string* | ***Optional*** The transaction hash that spent this output. Only returned for outputs that have been spent.
 
+## TXConfidence
+
+```shell
+{
+"age_millis": 12725,
+"receive_count": 666,
+"confidence": 0.9901509730004237,
+"txhash": "43fa951e1bea87c282f6725cf8bdc08bb48761396c3af8dd5a41a085ab62acc9",
+"txurl": "https://api.blockcypher.com/v1/btc/main/txs/43fa951e1bea87c282f6725cf8bdc08bb48761396c3af8dd5a41a085ab62acc9"
+}
+```
+
+A TXConfidence represents information about the confidence that an unconfirmed Transaction will make it into the next block. Typically used as a return object from the [Transaction Confidence Endpoint.](#transaction-confidence-endpoint)
+
+Attribute | Type | Description
+--------- | ---- | -----------
+**age_millis** | *integer* | The age of the transaction in milliseconds, based on the earliest time BlockCypher saw it relayed in the network.
+**receive_count** | *integer* | Number of peers that have sent this transaction to BlockCypher; only positive for unconfirmed transactions. -1 for confirmed transactions.
+**confidence** | *float* | A number from 0 to 1 representing BlockCypher's confidence that the transaction will make it into the next block.
+**txhash** | *string* | The hash of the transaction. While reasonably unique, using hashes as identifiers may be [unsafe](https://en.bitcoin.it/wiki/Transaction_Malleability).
+**txurl** | *url* | The BlockCypher URL one can use to query more detailed information about this [Transaction](#transaction).
+
 ## TXRef
 
 > An example TXRef Object
