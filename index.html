@@ -1426,7 +1426,7 @@ Only one of these three fields is required for the microtransaction endpoint: <b
 </blockquote>
 <pre class="highlight shell"><code><span class="o">{</span>
 <span class="s2">"destination"</span>: <span class="s2">"15qx9ug952GWGTNn7Uiv6vode4RcGrRemh"</span>,
-<span class="s2">"callback_url"</span>: <span class="s2">"https://my.domain.com/callbacks/new-block"</span>
+<span class="s2">"callback_url"</span>: <span class="s2">"https://my.domain.com/callbacks/new-pay"</span>
 <span class="s2">"process_fees_address"</span>: <span class="s2">"1LWw6FdzNUcX8bnekMMZ7eofcGF7SXmbrL"</span>,
 <span class="s2">"process_fees_percent"</span>: 0.1,
 <span class="s2">"token"</span>: <span class="s2">"f47ac10b-58cc-4372-a567-0e02b2c3d479"</span>
@@ -3039,13 +3039,119 @@ While we stand by our work behind our confidence research, please note that thes
 
           <h1 id="payment-forwarding">Payment Forwarding</h1>
 
+<p>The of the well-known benefits of cryptocurrency is the ability to allow users to partake in online commerce without necessarily requiring extensive setup barriers, like registering new accounts. In that spirit, our Payment Forwarding API is the easiest way to accept&mdash;and consolidate&mdash;payments securely without forcing your users to create accounts and jump through unnecessary loops. It&rsquo;s also a generic way to automatically transfer value from one address to another. While there are many possible use cases, the two we hear most about are:</p>
+
+<ul>
+<li>A way to generate payment-specific addresses for which funds will automatically transfer to a main merchant address. Great for automatic merchandise (whether physical or virtual) processing.</li>
+<li>A method to easily fund a multisignature address from any wallet by providing a classic address that will automatically transfer to the multisignature/<em>pay-to-script-hash</em> address.</li>
+</ul>
+
+<p>We do not take a fee on payment forwarding, other than the required 10,000 satoshi miner fee; payments are free. However, as part of your own services, you can include a fee (either fixed or a percentage) that will also be automatically transfered to your own address in the same transaction. Fee-based business models are thus easily achieved, and moreover, easily auditable via the blockchain.</p>
+
+<aside class="notice">
+Payment forwarding is tied to your usage token, you can&rsquo;t create a payment forwarding request without one. You can <a href="http://account.blockcypher.com">register for a token here.</a>
+</aside>
+
+<aside class="warning">
+By default, all payments will be debited with a 10,000 satoshis mining fee. The amount of the fee is configurable. But for very small payments, if the amount sent is even lower than the mining and user-set processing fees, the forward will fail.
+</aside>
+
 <h2 id="create-payment-endpoint">Create Payment Endpoint</h2>
+<pre class="highlight shell"><code><span class="gp">$ </span>curl -d <span class="s1">'{"destination":"15qx9ug952GWGTNn7Uiv6vode4RcGrRemh","callback_url": "https://my.domain.com/callbacks/new-pay","token":"YOURTOKEN"}'</span> http://api.blockcypher.com/v1/btc/main/payments
+
+<span class="o">{</span>
+<span class="s2">"input_address"</span>: <span class="s2">"16uKw7GsQSzfMaVTcT7tpFQkd7Rh9qcXWX"</span>,
+<span class="s2">"destination"</span>: <span class="s2">"15qx9ug952GWGTNn7Uiv6vode4RcGrRemh"</span>,
+<span class="s2">"callback_url"</span>: <span class="s2">"https://my.domain.com/callbacks/payments"</span>,
+<span class="s2">"id"</span>: <span class="s2">"399d0923-e920-48ee-8928-2051cbfbc369"</span>,
+<span class="s2">"token"</span>: <span class="s2">"YOURTOKEN"</span>
+<span class="o">}</span>
+</code></pre>
+
+<p>First, to create an payment forwarding address, you need to POST a partially filled <a href="#paymentforward">PaymentForward</a> object to the payment creation endpoint. You need to include at least a <strong>destination</strong> address and your <strong>token</strong>; optionally, you can add a <strong>callback_url</strong>, processing fees (either percent or fixed) and a <strong>process_fee_address</strong>, and a few other options. You can see more details about these options in the <a href="#paymentforward">PaymentForward</a> object details.</p>
+
+<table><thead>
+<tr>
+<th>Resource</th>
+<th>Method</th>
+<th>Request Object</th>
+<th>Return Object</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>/payments</td>
+<td>POST</td>
+<td><a href="#paymentforward">PaymentForward</a></td>
+<td><a href="#paymentforward">PaymentForward</a></td>
+</tr>
+</tbody></table>
+
+<p>In return, you&rsquo;ll get a more complete <a href="#PaymentForward">PaymentForward</a> object, including an <strong>input_address</strong> and <strong>id</strong>.</p>
+
+<aside class="notice">
+If you decide to have a <b>callback_url</b>, you&rsquo;ll receive a payload at that url whenever a payment is made to the <b>input_address</b>. The payload will come in the form of a <a href="paymentforwardcallback">PaymentForwardCallback</a> object.
+</aside>
 
 <h2 id="list-payments-endpoint">List Payments Endpoint</h2>
+<pre class="highlight shell"><code><span class="gp">$ </span>curl http://api.blockcypher.com/v1/btc/main/payments?token<span class="o">=</span>YOURTOKEN
 
-<h2 id="payment-id-endpoint">Payment ID Endpoint</h2>
+<span class="o">[</span>
+    <span class="o">{</span>
+    <span class="s2">"input_address"</span>: <span class="s2">"16uKw7GsQSzfMaVTcT7tpFQkd7Rh9qcXWX"</span>,
+    <span class="s2">"destination"</span>: <span class="s2">"15qx9ug952GWGTNn7Uiv6vode4RcGrRemh"</span>,
+    <span class="s2">"callback_url"</span>: <span class="s2">"https://my.domain.com/callbacks/payments"</span>,
+    <span class="s2">"id"</span>: <span class="s2">"399d0923-e920-48ee-8928-2051cbfbc369"</span>,
+    <span class="s2">"token"</span>: <span class="s2">"YOURTOKEN"</span>
+    <span class="o">}</span>
+<span class="o">]</span>
+</code></pre>
+
+<p>To list your currently active payment forwarding addresses, you can use this endpoint.</p>
+
+<table><thead>
+<tr>
+<th>Resource</th>
+<th>Method</th>
+<th>Return Object</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>/payments</td>
+<td>GET</td>
+<td>Array[<a href="#paymentforward">PaymentForward</a>]</td>
+</tr>
+</tbody></table>
+
+<p>You&rsquo;ll get a full array of your currently active payment forwarding addresses, based on your token.</p>
 
 <h2 id="delete-payment-endpoint">Delete Payment Endpoint</h2>
+<pre class="highlight shell"><code><span class="c"># Piping to grep to just show status code</span>
+<span class="gp">$ </span>curl -X DELETE -IsL http://api.blockcypher.com/v1/btc/main/payments/399d0923-e920-48ee-8928-2051cbfbc369?token<span class="o">=</span>YOURTOKEN | grep <span class="s2">"HTTP/1.1"</span>
+
+HTTP/1.1 200 OK
+</code></pre>
+
+<p>When you&rsquo;re done with a payment forwarding address, you can delete it via its id.</p>
+
+<table><thead>
+<tr>
+<th>Resource</th>
+<th>Method</th>
+<th>Return Object</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>/payments/$PAYID</td>
+<td>DELETE</td>
+<td><em>nil</em></td>
+</tr>
+</tbody></table>
+
+<p>$PAYID is a string representing the payment forwarding request you want to delete, for example:</p>
+
+<p><code class="prettyprint">399d0923-e920-48ee-8928-2051cbfbc369</code></p>
+
+<p>This will return no object, but will return an HTTP Status Code 200 if the request was successfully deleted.</p>
 
           <h1 id="events-&amp;-hooks">Events &amp; Hooks</h1>
 
