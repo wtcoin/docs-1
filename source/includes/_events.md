@@ -20,14 +20,127 @@ Event | Description
 *tx-confirmation* | Simplifies listening to confirmations on all transactions for a given address up to a provided threshold. Sends first the unconfirmed transaction and then the transaction for each confirmation. Use the **confirmations** property within the [Event](#event) to manually specify the number of confirmations desired (maximum 10, defaults to 6). The payload is a [Transaction](#transaction).
 *double-spend-tx* | Triggered any time a double spend is detected by BlockCypher. The payload is the [Transaction](#transaction) that triggered the event; the hash of the transaction that it's trying to double spend is included in its **double_spend_tx** property.
 
+<aside class="notice">
+Events like <i>unconfirmed-tx</i> can produce a lot of requests. To avoid rate-limiting, please <a href="http://accounts.blockcypher.com/">register for a token.</a>
+</aside>
+
 ## Using WebSockets
+
+```shell
+# no websockets via cURL :-(
+```
+Opening a WebSocket to listen to our feeds is easy, like so in Javascript:
+
+`new WebSocket("wss://socket.blockcypher.com/v1/btc/main");`
+
+The code may differ if you're not programming in Javascript (check relevant code examples for our standard libraries) but the URL will be identical. Once the socket is opened, the JSON document representing the [Event](#event) of interest should be sent.
+
+In addition to standard events, WebSockets accept a "ping" event. If you send the following, you will receive the same message back with "ping" replaced by "pong":
+
+`{ "event": "ping" }`
+
+A regular ping (i.e. every 20 seconds) allows the WebSocket to stay connected for a longer period of time.
 
 ## Using WebHooks
 
+WebHooks leverage similar objects and interactions but with two key differences:
+
+- The JSON [Event](#event) should be sent using a POST request to the "create webhook endpoint" and include a **url** property to denote where payloads should be delivered.
+- The [Transaction](#transaction) or [Block](#block) associated with the [Event](#event) will be POSTed to the provided **url**. The POSTed payload will also include *X-EventType* and *X-EventId* metadata in the HTTP header specifying the **event** type and **id** of the WebHook which triggered the payload.
+
+<aside class="warning">
+To prevent eavesdropping, we recommend securing your callback <b>url</b> by using SSL and providing a <i>secret</i> parameter appended to the <a href="#event">Event</a> request. We POST the payload to the unaltered <b>url</b>, which allows you to check on your server that the parameter was not modified.
+</aside>
+
+<aside class="notice">
+Testing WebHooks can be tricky; we recommend using <a href="http://requestb.in/">requstb.in</a> to set up a temporary server to test your events.
+</aside>
+
 ### Create WebHook Endpoint
+
+```shell
+$ curl -d {"event": "unconfirmed-tx", "address": "15qx9ug952GWGTNn7Uiv6vode4RcGrRemh", "token": "YOURTOKEN" "url": "https://my.domain.com/callbacks/new-tx"} https://api.blockcypher.com/v1/btc/main/hooks
+
+{
+"id": "399d0923-e920-48ee-8928-2051cbfbc369"
+"event": "unconfirmed-tx",
+"address": "15qx9ug952GWGTNn7Uiv6vode4RcGrRemh",
+"token": "YOURTOKEN"
+"url": "https://my.domain.com/callbacks/new-tx"
+}
+```
+
+Using a partially filled out [Event](#event), you can create a WebHook using this resource. Check the [Event object description](#event) and [types of events](#types-of-events) to understand the options available for your events.
+
+Resource | Method | Request Object | Return Object
+-------- | ------ | -------------- | -------------
+/hooks | POST | [Event](#event) | [Event](#event)
+
+If successful, it will return the [Event](#event) with a newly generated **id**.
 
 ### List WebHooks Endpoint
 
+```shell
+$ curl https://api.blockcypher.com/v1/btc/main/hooks?token=YOURTOKEN
+
+[
+	{
+	"id": "399d0923-e920-48ee-8928-2051cbfbc369"
+	"event": "unconfirmed-tx",
+	"address": "15qx9ug952GWGTNn7Uiv6vode4RcGrRemh",
+	"token": "YOURTOKEN"
+	"url": "https://my.domain.com/callbacks/new-tx"
+	}
+]
+```
+
+This resource lists your currently active events, according the base resource and $YOURTOKEN.
+
+Resource | Method | Return Object
+-------- | ------ | -------------
+/hooks?token=$YOURTOKEN | GET | Array[[Event](#event)]
+
 ### WebHook ID Endpoint
 
+```shell
+$ curl https://api.blockcypher.com/v1/btc/main/hooks/399d0923-e920-48ee-8928-2051cbfbc369
+
+{
+"id": "399d0923-e920-48ee-8928-2051cbfbc369"
+"event": "unconfirmed-tx",
+"address": "15qx9ug952GWGTNn7Uiv6vode4RcGrRemh",
+"token": "YOURTOKEN"
+"url": "https://my.domain.com/callbacks/new-tx"
+}
+```
+
+This resource returns an [Event](#event) based on its generated *id*.
+
+Resource | Method | Return Object
+-------- | ------ | -------------
+/hooks/$WEBHOOKID | GET | [Event](#event)
+
+$WEBHOOKID is a string representing the event's generated *id*, for example:
+
+`399d0923-e920-48ee-8928-2051cbfbc369`
+
 ### Delete WebHook Endpoint
+
+```shell
+# Piping into grep to get status code
+$ curl -X DELETE -IsL https://api.blockcypher.com/v1/btc/main/hooks/399d0923-e920-48ee-8928-2051cbfbc369 | grep "HTTP/1.1"
+
+HTTP/1.1 200 OK
+```
+
+This resource deletes an active [Event](#event) based on its *id*.
+
+Resource | Method | Return Object
+-------- | ------ | -------------
+/hooks/$WEBHOOKID | DELETE | *nil*
+
+$WEBHOOKID is a string representing the event's generated *id*, for example:
+
+`399d0923-e920-48ee-8928-2051cbfbc369`
+
+If successful, it won't return any objects, but will respond with an HTTP Status Code 200.

@@ -490,7 +490,7 @@ Attribute | Type | Description
 "event": "unconfirmed-tx",
 "address": "15qx9ug952GWGTNn7Uiv6vode4RcGrRemh",
 "token": "b972c4c0-180f-11e4-8c21-0800200c9a66"
-"url": "https://my.domain.com/callbacks/new-block"
+"url": "https://my.domain.com/callbacks/new-tx"
 }
 ```
 
@@ -498,6 +498,7 @@ An Event represents a WebHooks or WebSockets-based notification request, as deta
 
 Attribute | Type | Description
 --------- | ---- | -----------
+**id** | *string* | Identifier of the event; generated when a new request is created.
 **event** | *string* | Type of event; can be *unconfirmed-tx*, *new-block*, *confirmed-tx*, *tx-confirmation*, *double-spend-tx*.
 **hash**	| *string* | ***optional*** Only objects with a matching hash will be sent. The hash can either be for a block or a transaction.
 **wallet_name**	|  *string* | ***optional*** Only transactions associated with the given wallet will be sent. If used, requires a user token.
