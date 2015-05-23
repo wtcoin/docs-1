@@ -841,6 +841,52 @@ Objects sometimes contain <b>attributes</b> that are <b><i>optional.</i></b> The
 </tr>
 </tbody></table>
 
+<h2 id="txconfidence">TXConfidence</h2>
+<pre class="highlight shell"><code><span class="o">{</span>
+<span class="s2">"age_millis"</span>: 12725,
+<span class="s2">"receive_count"</span>: 666,
+<span class="s2">"confidence"</span>: 0.9901509730004237,
+<span class="s2">"txhash"</span>: <span class="s2">"43fa951e1bea87c282f6725cf8bdc08bb48761396c3af8dd5a41a085ab62acc9"</span>,
+<span class="s2">"txurl"</span>: <span class="s2">"https://api.blockcypher.com/v1/btc/main/txs/43fa951e1bea87c282f6725cf8bdc08bb48761396c3af8dd5a41a085ab62acc9"</span>
+<span class="o">}</span>
+</code></pre>
+
+<p>A TXConfidence represents information about the confidence that an unconfirmed Transaction will make it into the next block. Typically used as a return object from the <a href="#transaction-confidence-endpoint">Transaction Confidence Endpoint.</a></p>
+
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>age_millis</strong></td>
+<td><em>integer</em></td>
+<td>The age of the transaction in milliseconds, based on the earliest time BlockCypher saw it relayed in the network.</td>
+</tr>
+<tr>
+<td><strong>receive_count</strong></td>
+<td><em>integer</em></td>
+<td>Number of peers that have sent this transaction to BlockCypher; only positive for unconfirmed transactions. -1 for confirmed transactions.</td>
+</tr>
+<tr>
+<td><strong>confidence</strong></td>
+<td><em>float</em></td>
+<td>A number from 0 to 1 representing BlockCypher&rsquo;s confidence that the transaction will make it into the next block.</td>
+</tr>
+<tr>
+<td><strong>txhash</strong></td>
+<td><em>string</em></td>
+<td>The hash of the transaction. While reasonably unique, using hashes as identifiers may be <a href="https://en.bitcoin.it/wiki/Transaction_Malleability">unsafe</a>.</td>
+</tr>
+<tr>
+<td><strong>txurl</strong></td>
+<td><em>url</em></td>
+<td>The BlockCypher URL one can use to query more detailed information about this <a href="#transaction">Transaction</a>.</td>
+</tr>
+</tbody></table>
+
 <h2 id="txref">TXRef</h2>
 
 <blockquote>
@@ -2936,11 +2982,60 @@ curl -H <span class="s2">"Content-Type: application/json"</span> -d <span class=
 
           <h1 id="zero-confirmation-confidence">Zero Confirmation Confidence</h1>
 
+<p>One of the things that makes BlockCypher&rsquo;s API uniquely powerful is our ability to accurately predict confidence intervals for the likelihood of unconfirmed transactions to make it into the next block. As you may have gathered from the frequency of links to this feature in these docs, we&rsquo;re exceptionally proud of the work we&rsquo;ve done to build this feature and provide it to our users.</p>
+
+<p>And that pride extends to our own confidence in our confidence product. We&rsquo;ve leveraged this product internally on two major features:</p>
+
+<ul>
+<li>Our <a href="https://live.blockcypher.com/">live block explorer</a> visually shows confidence intervals on unconfirmed transactions directly. Check out a <a href="https://live.blockcypher.com/btc/">live view of bitcoin</a> and click on one of the most recent unconfirmed transactions. Make sure you pick a very recent transaction: our confidence interval rapidly approaches 99% so quickly that you might miss it!</li>
+<li>Our <a href="#microtransactions-api">Microtransactions API</a> is possible because of the Zero Confirmation Confidence. Normally, you&rsquo;d have to wait ~10 minutes for a block confirmation, which makes immediate, frequent, small on-chain transactions impossible. But since we believe in our confidence product&mdash;and have done the work necessary to validate this belief&mdash;we can guarantee microtransactions up to ~$9 each.</li>
+</ul>
+
+<h3 id="how-does-it-work?">How does it work?</h3>
+
+<p>The confidence is calculated based on both elapsed time, and the number of nodes that have received the transaction (the <strong>receive_count</strong> attribute in a <a href="#transaction">Transaction</a> object) and is based on <a href="https://eprint.iacr.org/2012/248.pdf">several public research results</a>. We are constantly improving our confidence model, and generally publish these findings on <a href="http://blog.blockcypher.com/">our blog</a> as well.</p>
+
+<p>As BlockCypher pools resources for many users, we&rsquo;re always connected to a statistically significant number of nodes on the network&mdash;we target around 20% of the active nodes on any given blockchain&mdash;and offer connections in return. While maintaining those connections, we can also assess whether a given node has received a particular transaction. By monitoring the propagation of transactions across the network, we can calculate its probability to be the &ldquo;winning&rdquo; transaction at any given point in time, if a double-spend was attempted. You can also see if a double spend was attempted by checking the <strong>double_spend</strong> and <strong>double_spend_tx</strong> attributes on an unconfirmed <a href="#transaction">Transaction</a>.</p>
+
+<p>The result is a robust and reliable metric for judging unconfirmed transaction confidence, especially when used in concert with <a href="#events-&amp;-hooks">webhooks and websockets.</a></p>
+
+<aside class="notice">
+While we stand by our work behind our confidence research, please note that these measures are ultimately mitigation strategies if you need fast transaction confirmations. There&rsquo;s always an appreciable risk when accepting unconfirmed transactions, and there&rsquo;s no truly bulletproof way to secure unconfirmed transactions. Double spending attacks, while extremely unlikely, can still occur. Block chain confirmations ultimately provide the highest level of security, especially when dealing with higher value addresses.
+</aside>
+
 <h2 id="transaction-confidence-endpoint">Transaction Confidence Endpoint</h2>
+<pre class="highlight shell"><code><span class="gp">$ </span>curl https://api.blockcypher.com/v1/btc/main/txs/43fa951e1bea87c282f6725cf8bdc08bb48761396c3af8dd5a41a085ab62acc9/confidence
 
-<h2 id="using-zero-confirmation-events">Using Zero Confirmation Events</h2>
+<span class="o">{</span>
+<span class="s2">"age_millis"</span>: 12725,
+<span class="s2">"receive_count"</span>: 666,
+<span class="s2">"confidence"</span>: 0.9901509730004237,
+<span class="s2">"txhash"</span>: <span class="s2">"43fa951e1bea87c282f6725cf8bdc08bb48761396c3af8dd5a41a085ab62acc9"</span>,
+<span class="s2">"txurl"</span>: <span class="s2">"https://api.blockcypher.com/v1/btc/main/txs/43fa951e1bea87c282f6725cf8bdc08bb48761396c3af8dd5a41a085ab62acc9"</span>
+<span class="o">}</span>
+</code></pre>
 
-<h2 id="more-on-security-vs-convenience">More on Security vs Convenience</h2>
+<p>Our confidence interval is automatically included in any unconfirmed <a href="#transaction">Transaction</a> object, but you can retrieve it through a specific endpoint too.</p>
+
+<table><thead>
+<tr>
+<th>Resource</th>
+<th>Method</th>
+<th>Return Object</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>/txs/$TXHASH/confidence</td>
+<td>GET</td>
+<td><a href="#txconfidence">TXConfidence</a></td>
+</tr>
+</tbody></table>
+
+<p>$TXHASH is a <em>string</em> representing the hex-encoded transaction hash you&rsquo;re interested in querying, for example:</p>
+
+<p><code class="prettyprint">43fa951e1bea87c282f6725cf8bdc08bb48761396c3af8dd5a41a085ab62acc9</code></p>
+
+<p>The returned <a href="#txconfidence">TXConfidence</a> object contains the all-important confidence percentage, receive count and more.</p>
 
           <h1 id="payment-forwarding">Payment Forwarding</h1>
 
