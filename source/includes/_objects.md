@@ -513,7 +513,7 @@ Attribute | Type | Description
 ```shell
 {
 "destination": "15qx9ug952GWGTNn7Uiv6vode4RcGrRemh",
-"callback_url": "https://my.domain.com/callbacks/new-block"
+"callback_url": "https://my.domain.com/callbacks/new-pay"
 "process_fees_address": "1LWw6FdzNUcX8bnekMMZ7eofcGF7SXmbrL",
 "process_fees_percent": 0.1,
 "token": "f47ac10b-58cc-4372-a567-0e02b2c3d479"
