@@ -58,7 +58,7 @@
 
 <p>Welcome to <a href="http://www.blockcypher.com/">BlockCypher&rsquo;s</a> API documentation! BlockCypher is a simple, mostly RESTful JSON API for interacting with blockchains, accessed over HTTP or HTTPS from the <a href="https://api.blockcypher.com/v1/btc/main">api.blockcypher.com</a> domain. Currently, BlockCypher supports Bitcoin, Bitcoin Testnet3, Litecoin, Dogecoin, Urocoin, and BlockCypher&rsquo;s Test Chain (more about BlockCypher&rsquo;s Test Chain <a href="#testing">below</a>).</p>
 
-<p>BlockCypher&rsquo;s API provides a superset of the endpoints you&rsquo;d find in reference implementations, in addition to some special features that make BlockCypher uniquely powerful, like <a href="#zero-confirmation-confidence">Zero Confirmation Confidence</a> intervals, dependable WebHook or WebSockets-based <a href="#events-&amp;-hooks">Events</a>, <a href="#microtransactions-api">On-Chain Microtransactions</a>, and <a href="#payment-forwarding">Payment Forwarding</a>.</p>
+<p>BlockCypher&rsquo;s API provides a superset of the endpoints you&rsquo;d find in reference implementations, in addition to some special features that make BlockCypher uniquely powerful, like our unconfirmed transaction <a href="#confidence-factor">Confidence Factor</a>, dependable WebHook or WebSockets-based <a href="#events-&amp;-hooks">Events</a>, <a href="#microtransactions-api">On-Chain Microtransactions</a>, and <a href="#payment-forwarding">Payment Forwarding</a>.</p>
 
 <p>Consequently, if you&rsquo;re familiar with a blockchain&rsquo;s reference implementation, you&rsquo;ll feel right at home using BlockCypher, but without worrying about scaling or implementation challenges. And if you&rsquo;re not familiar&mdash;with the reference implementations or blockchains in general&mdash;BlockCypher&rsquo;s API is a great way to dip your toes into blockchain development, without a lengthy setup process. In either case, BlockCypher has 99.99% up-time, and maintains an expressive, logical API that you&rsquo;ll love.</p>
 
@@ -675,7 +675,7 @@ Objects sometimes contain <b>attributes</b> that are <b><i>optional.</i></b> The
 <tr>
 <td><strong>confidence</strong></td>
 <td><em>float</em></td>
-<td>The percentage chance this transaction will be included in the next block, if unconfirmed. For more information, check the section on <a href="#zero-confirmation-confidence">Zero Confirmation Confidence.</a></td>
+<td>The percentage chance this transaction will be included in the next block, if unconfirmed. For more information, check the section on <a href="#confidence-factor">Confidence Factor.</a></td>
 </tr>
 <tr>
 <td><strong>inputs</strong></td>
@@ -962,7 +962,7 @@ Objects sometimes contain <b>attributes</b> that are <b><i>optional.</i></b> The
 <tr>
 <td><strong>confidence</strong></td>
 <td><em>float</em></td>
-<td><strong><em>Optional</em></strong> The percentage chance this transaction will be included in the next block, if unconfirmed. For more information, check the section on <a href="#zero-confirmation-confidence">Zero Confirmation Confidence.</a></td>
+<td><strong><em>Optional</em></strong> The percentage chance this transaction will be included in the next block, if unconfirmed. For more information, check the section on <a href="#confidence-factor">Confidence Factor.</a></td>
 </tr>
 <tr>
 <td><strong>confirmed</strong></td>
@@ -1130,7 +1130,7 @@ Only one of these three fields is required for the microtransaction endpoint: <b
 <tr>
 <td><strong>wait_guarantee</strong></td>
 <td><em>bool</em></td>
-<td><strong><em>Optional</em></strong> If not set, defaults to <em>true</em>, which means the API will wait for BlockCypher to guarantee the transaction, using our <a href="#zero-confirmation-confidence">Zero Confirmation Confidence</a> factor. The guarantee usually takes around 8 seconds. If manually set to <em>false</em>, the Microtransaction endpoint will return as soon as the transaction is broadcast.</td>
+<td><strong><em>Optional</em></strong> If not set, defaults to <em>true</em>, which means the API will wait for BlockCypher to guarantee the transaction, using our <a href="#confidence-factor">Confidence Factor</a>. The guarantee usually takes around 8 seconds. If manually set to <em>false</em>, the Microtransaction endpoint will return as soon as the transaction is broadcast.</td>
 </tr>
 <tr>
 <td><strong>tosign</strong></td>
@@ -2287,67 +2287,7 @@ If the named wallet already exists under your token, attempting to create a new 
 <p>Generally speaking, UTXOs are generated from previous transactions (except for <a href="https://bitcoin.org/en/glossary/coinbase">Coinbase inputs</a>).</p>
 
 <aside class="success">
-Even if you don&rsquo;t use the API to assist in creating transactions, we highly recommend using BlockCypher to push your raw transactions. BlockCypher maintains connections to 20% of all nodes on all blockchains it supports, which means we can propagate transactions faster than almost anyone else. Given our speed and reliability, this is especially powerful when used in concert with our <a href="#zero-confirmation-confidence">Zero Confirmation Confidence factor.</a>
-</aside>
-
-<h2 id="unconfirmed-transactions-endpoint">Unconfirmed Transactions Endpoint</h2>
-<pre class="highlight shell"><code><span class="gp">$ </span>curl http://api.blockcypher.com/v1/btc/main/txs
-
-<span class="o">[</span>
-    <span class="o">{</span>
-    <span class="s2">"block_height"</span>: -1,
-    <span class="s2">"hash"</span>: <span class="s2">"7f3af38d988e479f651520b13b85..."</span>,
-    <span class="s2">"addresses"</span>: <span class="o">[</span>
-        <span class="s2">"19ZZonTmBD3VBhgFSWrtNis6Wo4aNRyjAV"</span>,
-        <span class="s2">"1GD2Gnt3Vk51FpUhZWrFpSa24KE2ZGPaWG"</span>,
-        <span class="s2">"1HEJiW8jxvUvVQ5cuButRmFj6ZzKzM9Fp6"</span>
-    <span class="o">]</span>,
-    <span class="s2">"total"</span>: 46977000,
-    <span class="s2">"fees"</span>: 10000,
-    <span class="s2">"size"</span>: 225,
-    <span class="s2">"preference"</span>: <span class="s2">"medium"</span>,
-    <span class="s2">"relayed_by"</span>: <span class="s2">"54.209.56.58:8333"</span>,
-    ...
-    <span class="o">}</span>,
-    <span class="o">{</span>
-    <span class="s2">"block_height"</span>: -1,
-    <span class="s2">"hash"</span>: <span class="s2">"7e2d8b4e95c8246e81f297539409..."</span>,
-    <span class="s2">"addresses"</span>: <span class="o">[</span>
-        <span class="s2">"12u8EFJR6QJpNYbuQcYt2iMsAtPdnCFwQb"</span>,
-        <span class="s2">"1MUbYoqSadRSEipwcmKnH37NaKakDCmgwW"</span>
-    <span class="o">]</span>,
-    <span class="s2">"total"</span>: 1070000,
-    <span class="s2">"fees"</span>: 10000,
-    <span class="s2">"size"</span>: 225,
-    <span class="s2">"preference"</span>: <span class="s2">"medium"</span>,
-    <span class="s2">"relayed_by"</span>: <span class="s2">"52.1.229.213:8333"</span>,
-    <span class="s2">"received"</span>: <span class="s2">"2015-05-21T05:44:13.878Z"</span>,
-    ...
-    <span class="o">}</span>,
-...
-<span class="o">]</span>
-</code></pre>
-
-<p>The Unconfirmed Transactions Endpoint returns an array of the latest transactions relayed by nodes in a blockchain that haven&rsquo;t been included in any blocks.</p>
-
-<table><thead>
-<tr>
-<th>Resource</th>
-<th>Method</th>
-<th>Return Object</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>/txs</td>
-<td>GET</td>
-<td>Array[<a href="#transactions">Transactions</a>]</td>
-</tr>
-</tbody></table>
-
-<p>The returned object is an array of <a href="#transactions">Transactions</a> that haven&rsquo;t been included in blocks, arranged in reverse chronological order (latest is first, then older transactions follow).</p>
-
-<aside class="notice">
-Due to <a href="https://bitcoin.org/en/glossary/malleability">transaction malleability</a> it can be difficult to deal with transaction hashes before they&rsquo;ve been confirmed in blocks. Use caution, and consider applying our <a href="#zero-confirmation-confidence">Zero Confirmation Confidence</a> factor to mitigate potential issues.
+Even if you don&rsquo;t use the API to assist in creating transactions, we highly recommend using BlockCypher to push your raw transactions. BlockCypher maintains connections to 20% of all nodes on all blockchains it supports, which means we can propagate transactions faster than almost anyone else. Given our speed and reliability, this is especially powerful when used in concert with our <a href="#confidence-factor">Confidence Factor.</a>
 </aside>
 
 <h2 id="transaction-hash-endpoint">Transaction Hash Endpoint</h2>
@@ -2427,6 +2367,66 @@ Due to <a href="https://bitcoin.org/en/glossary/malleability">transaction mallea
 <p><code class="prettyprint">f854aebae95150b379cc1187d848d58225f3c4157fe992bcd166f58bd5063449</code></p>
 
 <p>The returned object contains detailed information about the transaction, including the value transfered, date received, and a full listing of inputs and outputs.</p>
+
+<h2 id="unconfirmed-transactions-endpoint">Unconfirmed Transactions Endpoint</h2>
+<pre class="highlight shell"><code><span class="gp">$ </span>curl http://api.blockcypher.com/v1/btc/main/txs
+
+<span class="o">[</span>
+    <span class="o">{</span>
+    <span class="s2">"block_height"</span>: -1,
+    <span class="s2">"hash"</span>: <span class="s2">"7f3af38d988e479f651520b13b85..."</span>,
+    <span class="s2">"addresses"</span>: <span class="o">[</span>
+        <span class="s2">"19ZZonTmBD3VBhgFSWrtNis6Wo4aNRyjAV"</span>,
+        <span class="s2">"1GD2Gnt3Vk51FpUhZWrFpSa24KE2ZGPaWG"</span>,
+        <span class="s2">"1HEJiW8jxvUvVQ5cuButRmFj6ZzKzM9Fp6"</span>
+    <span class="o">]</span>,
+    <span class="s2">"total"</span>: 46977000,
+    <span class="s2">"fees"</span>: 10000,
+    <span class="s2">"size"</span>: 225,
+    <span class="s2">"preference"</span>: <span class="s2">"medium"</span>,
+    <span class="s2">"relayed_by"</span>: <span class="s2">"54.209.56.58:8333"</span>,
+    ...
+    <span class="o">}</span>,
+    <span class="o">{</span>
+    <span class="s2">"block_height"</span>: -1,
+    <span class="s2">"hash"</span>: <span class="s2">"7e2d8b4e95c8246e81f297539409..."</span>,
+    <span class="s2">"addresses"</span>: <span class="o">[</span>
+        <span class="s2">"12u8EFJR6QJpNYbuQcYt2iMsAtPdnCFwQb"</span>,
+        <span class="s2">"1MUbYoqSadRSEipwcmKnH37NaKakDCmgwW"</span>
+    <span class="o">]</span>,
+    <span class="s2">"total"</span>: 1070000,
+    <span class="s2">"fees"</span>: 10000,
+    <span class="s2">"size"</span>: 225,
+    <span class="s2">"preference"</span>: <span class="s2">"medium"</span>,
+    <span class="s2">"relayed_by"</span>: <span class="s2">"52.1.229.213:8333"</span>,
+    <span class="s2">"received"</span>: <span class="s2">"2015-05-21T05:44:13.878Z"</span>,
+    ...
+    <span class="o">}</span>,
+...
+<span class="o">]</span>
+</code></pre>
+
+<p>The Unconfirmed Transactions Endpoint returns an array of the latest transactions relayed by nodes in a blockchain that haven&rsquo;t been included in any blocks.</p>
+
+<table><thead>
+<tr>
+<th>Resource</th>
+<th>Method</th>
+<th>Return Object</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>/txs</td>
+<td>GET</td>
+<td>Array[<a href="#transactions">Transactions</a>]</td>
+</tr>
+</tbody></table>
+
+<p>The returned object is an array of <a href="#transactions">Transactions</a> that haven&rsquo;t been included in blocks, arranged in reverse chronological order (latest is first, then older transactions follow).</p>
+
+<aside class="notice">
+Due to <a href="https://bitcoin.org/en/glossary/malleability">transaction malleability</a> it can be difficult to deal with transaction hashes before they&rsquo;ve been confirmed in blocks. Use caution, and consider applying our <a href="#confidence-factor">Confidence Factor</a> to mitigate potential issues.
+</aside>
 
 <h2 id="creating-transactions">Creating Transactions</h2>
 
@@ -2868,7 +2868,7 @@ If you only need a <i>pay-to-script-hash</i> address corresponding to N-of-M mul
 
 <p>In addition to our normal <a href="#transactions-api">Transactions API</a>, we offer a unique, on-chain microtransaction endpoint that makes it easy to propagate smaller, nearly-instantly guaranteed, more frequent transactions that are still publicly auditable and trusted through their existence on the blockchain. How can we do what others claim require off-chain, centralized services?</p>
 
-<p>Simple. We leverage our own infrastructure; in particular, our <a href="#zero-confirmation-confidence">Zero Confirmation Confidence factor</a>. Using this factor, when we reach 99% confidence that a microtransaction will reach the next block (usually ~8 seconds), we guarantee its value and return the completed microtransaction. As of this writing, we haven&rsquo;t had a single failed mictrotransaction, and we&rsquo;re improving our confidence data all the time.</p>
+<p>Simple. We leverage our own infrastructure; in particular, our <a href="#confidence-factor">Confidence Factor</a>. When we reach 99% confidence that a microtransaction will reach the next block (usually ~8 seconds), we guarantee its value and return the completed microtransaction. As of this writing, we haven&rsquo;t had a single failed mictrotransaction, and we&rsquo;re improving our confidence data all the time.</p>
 
 <p>We also pay for the mining fees on transactions for the first 8,000 microtransactions. After which, we automatically optimize fee structure to achieve a balance between guaranteeing confidence it will be in the next block and minimizing cost. If there isn&rsquo;t enough value for the fee, we&rsquo;ll return an error.</p>
 
@@ -2910,7 +2910,7 @@ As with creating <a href="#creating-transactions">normal Transactions</a>, alway
 
 <ul>
 <li>If not set, <strong>change_address</strong> defaults to the original source address computed by the private or public key sent. You can set it manually in the request object, useful if your source address is high-value, or you want to mitigate security risk after sending private keys.</li>
-<li>If not set, <strong>wait_guarantee</strong> defaults to <em>true</em>, which means the API will wait for BlockCypher to guarantee the transaction, using our <a href="#zero-confirmation-confidence">Zero Confirmation Confidence</a> factor. The guarantee usually takes around 8 seconds. If manually set to <em>false</em>, the Microtransaction endpoint will return as soon as the transaction is broadcast.</li>
+<li>If not set, <strong>wait_guarantee</strong> defaults to <em>true</em>, which means the API will wait for BlockCypher to guarantee the transaction, using our <a href="#confidence-factor">Confidence Factor</a>. The guarantee usually takes around 8 seconds. If manually set to <em>false</em>, the Microtransaction endpoint will return as soon as the transaction is broadcast.</li>
 </ul>
 <pre class="highlight shell"><code><span class="gp">$ </span>curl -H <span class="s2">"Content-Type: application/json"</span> -d <span class="s1">'{ "from_private": "97838249d77bf...", "to_address": "C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn", "value_satoshis": 10000, "token": "YOURTOKEN" }'</span> https://api.blockcypher.com/v1/bcy/test/txs/micro
 
@@ -2926,7 +2926,7 @@ As with creating <a href="#creating-transactions">normal Transactions</a>, alway
 
 <p>The simplest way to send a Microtransaction is by using a private key. Within the request object you must include <strong>from_private</strong> (or the equivalent*<em>from_wif</em><em>), **to_address</em><em>, **token</em><em>, and **value_satoshis</em>*. You can read more descriptions about these fields within <a href="#microtransaction">Microtransaction object description</a>, although they should be self-explanatory.</p>
 
-<p>The call will hold until the confidence factor reaches 99% (usually about 8 seconds). If successful thereafter, a completed <a href="#microtransaction">Microtransaction object</a> will be returned (which will include the transaction&rsquo;s <strong>hash</strong> for future queries), along with an HTTP Status Code 201.</p>
+<p>The call will hold until the Confidence Factor reaches 99% (usually about 8 seconds). If successful thereafter, a completed <a href="#microtransaction">Microtransaction object</a> will be returned (which will include the transaction&rsquo;s <strong>hash</strong> for future queries), along with an HTTP Status Code 201.</p>
 <pre class="highlight shell"><code>curl -H <span class="s2">"Content-Type: application/json"</span> -d <span class="s1">'{ "from_pubkey": "02152e2bb5b273561ece7bbe8b1df...", "to_address": "C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn", "value_satoshis": 20000, "token": "YOURTOKEN" }'</span> https://api.blockcypher.com/v1/bcy/test/txs/micro
 
 <span class="o">{</span>
@@ -2975,7 +2975,7 @@ curl -H <span class="s2">"Content-Type: application/json"</span> -d <span class=
 
 <p>After POSTing this to <code class="prettyprint">/txs/micro</code> you&rsquo;ll receive another partially filled out <a href="#microtransaction">Microtransaction</a> object, but one containing a <strong>tosign</strong> array. You must then sign the data in this array with your locally-stored private key; signing can be a tricky process, but you can use our <a href="https://github.com/blockcypher/btcutils/tree/master/signer">signer tool</a> as a baseline. Once that data is signed, it must be inserted to a <strong>signatures</strong> within the previously returned <a href="#microtransaction">Microtransaction</a> object. Then, you send this completed <a href="#microtransaction">Microtransaction</a> to <code class="prettyprint">/txs/micro</code>.</p>
 
-<p>As with the private key method, the call will hold until the confidence factor reaches 99% (usually about 8 seconds). If successful thereafter, a completed <a href="#microtransaction">Microtransaction object</a> will be returned (which will include the transaction&rsquo;s <strong>hash</strong> for future queries), along with an HTTP Status Code 201.</p>
+<p>As with the private key method, the call will hold until the Confidence Factor reaches 99% (usually about 8 seconds). If successful thereafter, a completed <a href="#microtransaction">Microtransaction object</a> will be returned (which will include the transaction&rsquo;s <strong>hash</strong> for future queries), along with an HTTP Status Code 201.</p>
 
 <h2 id="security-vs-convenience">Security vs Convenience</h2>
 
@@ -2990,7 +2990,7 @@ curl -H <span class="s2">"Content-Type: application/json"</span> -d <span class=
 
 <p>Finally, we only offer the option of passing private keys because we understand that signing on the client side can be difficult, depending on the environment. We hope that by fully understanding the tradeoffs and risks, you&rsquo;ll make the right choice for your situation.</p>
 
-          <h1 id="zero-confirmation-confidence">Zero Confirmation Confidence</h1>
+          <h1 id="confidence-factor">Confidence Factor</h1>
 
 <p>One of the things that makes BlockCypher&rsquo;s API uniquely powerful is our ability to accurately predict confidence intervals for the likelihood of unconfirmed transactions to make it into the next block. As you may have gathered from the frequency of links to this feature in these docs, we&rsquo;re exceptionally proud of the work we&rsquo;ve done to build this feature and provide it to our users.</p>
 
@@ -2998,7 +2998,7 @@ curl -H <span class="s2">"Content-Type: application/json"</span> -d <span class=
 
 <ul>
 <li>Our <a href="https://live.blockcypher.com/">live block explorer</a> visually shows confidence intervals on unconfirmed transactions directly. Check out a <a href="https://live.blockcypher.com/btc/">live view of bitcoin</a> and click on one of the most recent unconfirmed transactions. Make sure you pick a very recent transaction: our confidence interval rapidly approaches 99% so quickly that you might miss it!</li>
-<li>Our <a href="#microtransactions-api">Microtransactions API</a> is possible because of the Zero Confirmation Confidence. Normally, you&rsquo;d have to wait ~10 minutes for a block confirmation, which makes immediate, frequent, small on-chain transactions impossible. But since we believe in our confidence product&mdash;and have done the work necessary to validate this belief&mdash;we can guarantee microtransactions up to ~$9 each.</li>
+<li>Our <a href="#microtransactions-api">Microtransactions API</a> is possible because of our Confidence Factor. Normally, you&rsquo;d have to wait ~10 minutes for a block confirmation, which makes immediate, frequent, small on-chain transactions impossible. But since we believe in our confidence product&mdash;and have done the work necessary to validate this belief&mdash;we can guarantee microtransactions up to ~$9 each.</li>
 </ul>
 
 <h3 id="how-does-it-work?">How does it work?</h3>
@@ -3239,7 +3239,7 @@ To prevent eavesdropping, we recommend securing your callback <b>url</b> by usin
 </aside>
 
 <aside class="notice">
-Testing WebHooks can be tricky; we recommend using <a href="http://requestb.in/">requstb.in</a> to set up a temporary server to test your events.
+Testing WebHooks can be tricky; we recommend using <a href="http://requestb.in/">reqeustb.in</a> to set up a temporary server to test your events.
 </aside>
 
 <h3 id="create-webhook-endpoint">Create WebHook Endpoint</h3>
