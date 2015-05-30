@@ -15,7 +15,7 @@ includes:
   - address
   - tx
   - microtx
-  - zeroconf
+  - conf
   - payfwd
   - events
 ---
@@ -39,7 +39,7 @@ puts "BlockCypher!"
 
 Welcome to [BlockCypher's](http://www.blockcypher.com/) API documentation! BlockCypher is a simple, mostly RESTful JSON API for interacting with blockchains, accessed over HTTP or HTTPS from the [api.blockcypher.com](https://api.blockcypher.com/v1/btc/main) domain. Currently, BlockCypher supports Bitcoin, Bitcoin Testnet3, Litecoin, Dogecoin, Urocoin, and BlockCypher's Test Chain (more about BlockCypher's Test Chain [below](#testing)).
 
-BlockCypher's API provides a superset of the endpoints you'd find in reference implementations, in addition to some special features that make BlockCypher uniquely powerful, like [Zero Confirmation Confidence](#zero-confirmation-confidence) intervals, dependable WebHook or WebSockets-based [Events](#events-&-hooks), [On-Chain Microtransactions](#microtransactions-api), and [Payment Forwarding](#payment-forwarding).
+BlockCypher's API provides a superset of the endpoints you'd find in reference implementations, in addition to some special features that make BlockCypher uniquely powerful, like our unconfirmed transaction [Confidence Factor](#confidence-factor), dependable WebHook or WebSockets-based [Events](#events-&-hooks), [On-Chain Microtransactions](#microtransactions-api), and [Payment Forwarding](#payment-forwarding).
 
 Consequently, if you're familiar with a blockchain's reference implementation, you'll feel right at home using BlockCypher, but without worrying about scaling or implementation challenges. And if you're not familiar---with the reference implementations or blockchains in general---BlockCypher's API is a great way to dip your toes into blockchain development, without a lengthy setup process. In either case, BlockCypher has 99.99% up-time, and maintains an expressive, logical API that you'll love.
 

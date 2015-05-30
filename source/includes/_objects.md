@@ -182,7 +182,7 @@ Attribute | Type | Description
 **vin_sz** | *integer* | Total number of inputs in the transaction.
 **vout_sz** | *integer* | Total number of outputs in the transaction.
 **confirmations** | *integer* | Number of subsequent blocks, including the block the transaction is in. Unconfirmed transactions have 0 confirmations.
-**confidence** | *float* | The percentage chance this transaction will be included in the next block, if unconfirmed. For more information, check the section on [Zero Confirmation Confidence.](#zero-confirmation-confidence)
+**confidence** | *float* | The percentage chance this transaction will be included in the next block, if unconfirmed. For more information, check the section on [Confidence Factor.](#confidence-factor)
 **inputs** | *array[[TXInput](#transactioninput)]* | Array of [Transaction Inputs](#transactioninput), limited to 20 by default.
 **outputs** | *array[[TXOutput](#transactionoutput)]* | Array of [Transaction Outputs](#transactionoutput), limited to 20 by default.
 **confirmed** | [*time*](https://tools.ietf.org/html/rfc3339) | ***Optional*** Time at which transaction was included in a block; only present for confirmed transactions.
@@ -303,7 +303,7 @@ Attribute | Type | Description
 **spent** | *bool* | 	True if this output was spent; false otherwise.
 **double_spend** | *bool* | True if this is an attempted double spend; false otherwise.
 **confirmations** | *integer* | Number of subsequent blocks, including the block the transaction is in. Unconfirmed transactions have 0 confirmations.
-**confidence** | *float* | ***Optional*** The percentage chance this transaction will be included in the next block, if unconfirmed. For more information, check the section on [Zero Confirmation Confidence.](#zero-confirmation-confidence)
+**confidence** | *float* | ***Optional*** The percentage chance this transaction will be included in the next block, if unconfirmed. For more information, check the section on [Confidence Factor.](#confidence-factor)
 **confirmed** | [*time*](https://tools.ietf.org/html/rfc3339) | ***Optional*** Time at which transaction was included in a block; only present for confirmed transactions.
 **spent_by** | *string* | ***Optional*** The transaction hash that spent this output. Only returned for outputs that have been spent.
 **received** | [*time*](https://tools.ietf.org/html/rfc3339) | ***Optional*** Time this transaction was received by BlockCypher's servers; only present for unconfirmed transactions.
@@ -387,7 +387,7 @@ Attribute | Type | Description
 **value_satoshis** | *int* | Value you're sending/you've sent in satoshis (or smallest, indivisible coin units in non-Bitcoin blockchains).
 **token** | *string* | Your [BlockCypher API token](http://accounts.blockcypher.com/)
 **change_address** | *string* | ***Optional*** Address BlockCypher will use to send back your change. If not set, defaults to the address from which the coins were originally sent. While not required, we recommend that you set a change address.
-**wait_guarantee** | *bool* | ***Optional*** If not set, defaults to *true*, which means the API will wait for BlockCypher to guarantee the transaction, using our [Zero Confirmation Confidence](#zero-confirmation-confidence) factor. The guarantee usually takes around 8 seconds. If manually set to *false*, the Microtransaction endpoint will return as soon as the transaction is broadcast.
+**wait_guarantee** | *bool* | ***Optional*** If not set, defaults to *true*, which means the API will wait for BlockCypher to guarantee the transaction, using our [Confidence Factor](#confidence-factor). The guarantee usually takes around 8 seconds. If manually set to *false*, the Microtransaction endpoint will return as soon as the transaction is broadcast.
 **tosign** | *array[string]* | ***Optional*** Hex-encoded data for you to sign after initiating the microtransaction. Sent in reply to a microtransaction generated using **from_pubkey**/a public key.
 **signatures** | *array[string]* | ***Optional*** Hex-encoded signatures for you to send back after having received (and signed) **tosign**.
 **inputs** | *array[[TXInput](#txinput)]* | ***Optional*** Partial list of inputs that will be used with this transaction. Only returned when using **from_pubkey**.

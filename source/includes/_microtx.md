@@ -2,7 +2,7 @@
 
 In addition to our normal [Transactions API](#transactions-api), we offer a unique, on-chain microtransaction endpoint that makes it easy to propagate smaller, nearly-instantly guaranteed, more frequent transactions that are still publicly auditable and trusted through their existence on the blockchain. How can we do what others claim require off-chain, centralized services?
 
-Simple. We leverage our own infrastructure; in particular, our [Zero Confirmation Confidence factor](#zero-confirmation-confidence). Using this factor, when we reach 99% confidence that a microtransaction will reach the next block (usually ~8 seconds), we guarantee its value and return the completed microtransaction. As of this writing, we haven't had a single failed mictrotransaction, and we're improving our confidence data all the time.
+Simple. We leverage our own infrastructure; in particular, our [Confidence Factor](#confidence-factor). When we reach 99% confidence that a microtransaction will reach the next block (usually ~8 seconds), we guarantee its value and return the completed microtransaction. As of this writing, we haven't had a single failed mictrotransaction, and we're improving our confidence data all the time.
 
 We also pay for the mining fees on transactions for the first 8,000 microtransactions. After which, we automatically optimize fee structure to achieve a balance between guaranteeing confidence it will be in the next block and minimizing cost. If there isn't enough value for the fee, we'll return an error.
 
@@ -31,7 +31,7 @@ Resource | Method | Request Object | Return Object
 The request object is a partially filled out [Microtransaction](#microtransaction), whose format differs depending on whether you're sending a private key or public key for the source address. In either case, there are two options you can set:
 
 - If not set, **change_address** defaults to the original source address computed by the private or public key sent. You can set it manually in the request object, useful if your source address is high-value, or you want to mitigate security risk after sending private keys.
-- If not set, **wait_guarantee** defaults to *true*, which means the API will wait for BlockCypher to guarantee the transaction, using our [Zero Confirmation Confidence](#zero-confirmation-confidence) factor. The guarantee usually takes around 8 seconds. If manually set to *false*, the Microtransaction endpoint will return as soon as the transaction is broadcast.
+- If not set, **wait_guarantee** defaults to *true*, which means the API will wait for BlockCypher to guarantee the transaction, using our [Confidence Factor](#confidence-factor). The guarantee usually takes around 8 seconds. If manually set to *false*, the Microtransaction endpoint will return as soon as the transaction is broadcast.
 
 ```shell
 $ curl -H "Content-Type: application/json" -d '{ "from_private": "97838249d77bf...", "to_address": "C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn", "value_satoshis": 10000, "token": "YOURTOKEN" }' https://api.blockcypher.com/v1/bcy/test/txs/micro
@@ -48,7 +48,7 @@ $ curl -H "Content-Type: application/json" -d '{ "from_private": "97838249d77bf.
 
 The simplest way to send a Microtransaction is by using a private key. Within the request object you must include **from_private** (or the equivalent**from_wif**), **to_address**, **token**, and **value_satoshis**. You can read more descriptions about these fields within [Microtransaction object description](#microtransaction), although they should be self-explanatory.
 
-The call will hold until the confidence factor reaches 99% (usually about 8 seconds). If successful thereafter, a completed [Microtransaction object](#microtransaction) will be returned (which will include the transaction's **hash** for future queries), along with an HTTP Status Code 201.
+The call will hold until the Confidence Factor reaches 99% (usually about 8 seconds). If successful thereafter, a completed [Microtransaction object](#microtransaction) will be returned (which will include the transaction's **hash** for future queries), along with an HTTP Status Code 201.
 
 ```shell
 curl -H "Content-Type: application/json" -d '{ "from_pubkey": "02152e2bb5b273561ece7bbe8b1df...", "to_address": "C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn", "value_satoshis": 20000, "token": "YOURTOKEN" }' https://api.blockcypher.com/v1/bcy/test/txs/micro
@@ -98,7 +98,7 @@ If your security/application model allows it, we strongly recommend using public
 
 After POSTing this to `/txs/micro` you'll receive another partially filled out [Microtransaction](#microtransaction) object, but one containing a **tosign** array. You must then sign the data in this array with your locally-stored private key; signing can be a tricky process, but you can use our [signer tool](https://github.com/blockcypher/btcutils/tree/master/signer) as a baseline. Once that data is signed, it must be inserted to a **signatures** within the previously returned [Microtransaction](#microtransaction) object. Then, you send this completed [Microtransaction](#microtransaction) to `/txs/micro`.
 
-As with the private key method, the call will hold until the confidence factor reaches 99% (usually about 8 seconds). If successful thereafter, a completed [Microtransaction object](#microtransaction) will be returned (which will include the transaction's **hash** for future queries), along with an HTTP Status Code 201.
+As with the private key method, the call will hold until the Confidence Factor reaches 99% (usually about 8 seconds). If successful thereafter, a completed [Microtransaction object](#microtransaction) will be returned (which will include the transaction's **hash** for future queries), along with an HTTP Status Code 201.
 
 ## Security vs Convenience
 

@@ -7,7 +7,7 @@ If you're new to blockchains, the idea of transactions is relatively self-explan
 Generally speaking, UTXOs are generated from previous transactions (except for [Coinbase inputs](https://bitcoin.org/en/glossary/coinbase)).
 
 <aside class="success">
-Even if you don't use the API to assist in creating transactions, we highly recommend using BlockCypher to push your raw transactions. BlockCypher maintains connections to 20% of all nodes on all blockchains it supports, which means we can propagate transactions faster than almost anyone else. Given our speed and reliability, this is especially powerful when used in concert with our <a href="#zero-confirmation-confidence">Zero Confirmation Confidence factor.</a>
+Even if you don't use the API to assist in creating transactions, we highly recommend using BlockCypher to push your raw transactions. BlockCypher maintains connections to 20% of all nodes on all blockchains it supports, which means we can propagate transactions faster than almost anyone else. Given our speed and reliability, this is especially powerful when used in concert with our <a href="#confidence-factor">Confidence Factor.</a>
 </aside>
 
 ## Transaction Hash Endpoint
@@ -130,7 +130,7 @@ Resource | Method | Return Object
 The returned object is an array of [Transactions](#transactions) that haven't been included in blocks, arranged in reverse chronological order (latest is first, then older transactions follow).
 
 <aside class="notice">
-Due to <a href="https://bitcoin.org/en/glossary/malleability">transaction malleability</a> it can be difficult to deal with transaction hashes before they've been confirmed in blocks. Use caution, and consider applying our <a href="#zero-confirmation-confidence">Zero Confirmation Confidence</a> factor to mitigate potential issues.
+Due to <a href="https://bitcoin.org/en/glossary/malleability">transaction malleability</a> it can be difficult to deal with transaction hashes before they've been confirmed in blocks. Use caution, and consider applying our <a href="#confidence-factor">Confidence Factor</a> to mitigate potential issues.
 </aside>
 
 ## Creating Transactions
