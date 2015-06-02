@@ -63,6 +63,19 @@ In these docs you'll find everything you need to leverage BlockCypher for your a
 Currently, we only have cURL code samples, but are working on adding other official SDK samples soon!
 </aside>
 
+### In-Browser Code Examples
+
+We know many learn more from code examples than specific reference documentation, which is why we have code samples in our official languages. In addition, we have a number of in-browser code examples for particular use cases, which you can see here:
+
+- [Browse the Blockchain](http://dev.blockcypher.com/samples/browse-chain.html)
+- [Using WebHooks](http://dev.blockcypher.com/samples/nodejs-webhook.html)
+- [Sending a Simple Transaction](http://dev.blockcypher.com/samples/create-tx.html)
+- [Create Multisig Transactions](http://dev.blockcypher.com/samples/multisig-tx.html)
+
+### Changelog and Errors
+
+Our documentation is powered by [Github Pages](https://pages.github.com/) and [Slate](https://github.com/tripit/slate), which makes viewing changes as simple as checking the [git commit history.](https://github.com/blockcypher/documentation/commits/master). If there's an error or you'd like to suggest a change, please consider submitting a pull request to benefit the broader BlockCypher community.
+
 ## API Versions
 
 All API calls are versioned, and the current BlockCypher API is v1. We will never introduce any breaking changes within v1, but we may add new, non-breaking features from time to time.
@@ -78,7 +91,7 @@ BlockCypher has client SDKs for the following languages:
 
 If you're using these languages, we strongly encourage you to use an official SDK. Of course, all our API calls are standard HTTP endpoints using JSON formatted responses, so any language (or cURL from the command-line) will work just fine.
 
-## Unofficial Libraries
+### Unofficial Libraries
 
 These client SDKs were made by members of the community, and are not officially supported by BlockCypher. As such, BlockCypher cannot guarantee that they're fully up to date, but we hope they will provide a nice jumping-off point for developers using these languages. We'll endeavor to keep this list updated, if any of these prove obsolete. If there's enough support for a particular language, we'll work with the community to turn it into an officially supported SDK.
 
