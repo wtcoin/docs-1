@@ -46,7 +46,7 @@ $ curl -H "Content-Type: application/json" -d '{ "from_private": "97838249d77bf.
 
 ### Via Private Keys
 
-The simplest way to send a Microtransaction is by using a private key. Within the request object you must include **from_private** (or the equivalent**from_wif**), **to_address**, **token**, and **value_satoshis**. You can read more descriptions about these fields within [Microtransaction object description](#microtransaction), although they should be self-explanatory.
+The simplest way to send a Microtransaction is by using a private key. Within the request object you must include **from_private** (or the equivalent **from_wif**), **to_address**, **token**, and **value_satoshis**. You can read more descriptions about these fields within [Microtransaction object description](#microtransaction), although they should be self-explanatory.
 
 The call will hold until the Confidence Factor reaches 99% (usually about 8 seconds). If successful thereafter, a completed [Microtransaction object](#microtransaction) will be returned (which will include the transaction's **hash** for future queries), along with an HTTP Status Code 201.
 
