@@ -50,6 +50,10 @@ The simplest way to send a Microtransaction is by using a private key. Within th
 
 The call will hold until the Confidence Factor reaches 99% (usually about 8 seconds). If successful thereafter, a completed [Microtransaction object](#microtransaction) will be returned (which will include the transaction's **hash** for future queries), along with an HTTP Status Code 201.
 
+<aside class="warning">
+The private key method doesn't work with <b>uncompressed public addresses</b> as sources. You can still use uncompressed public addresses via the public key method listed below, but if you want to use the private key method, please use compressed public addresses (which has been the predominant standard since Bitcoin 0.6.0). You can read more about the distinction between <a href="https://bitcoin.org/en/developer-guide#public-key-formats">uncompressed and compressed keys here.</a>
+</aside>
+
 ```shell
 curl -H "Content-Type: application/json" -d '{ "from_pubkey": "02152e2bb5b273561ece7bbe8b1df...", "to_address": "C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn", "value_satoshis": 20000, "token": "YOURTOKEN" }' https://api.blockcypher.com/v1/bcy/test/txs/micro
 
