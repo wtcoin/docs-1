@@ -1,4 +1,4 @@
-# Events & Hooks
+# Events and Hooks
 
 Blockchains are highly transactional systems. Many usage patterns require knowing when an event occurs: i.e., when a transaction is included into a block, or when an unconfirmed transaction is relayed through the network. Instead of requiring you to continuously poll resources, we provide push APIs to facilitate those use cases, and support both WebSockets and WebHooks.
 

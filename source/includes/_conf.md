@@ -13,7 +13,7 @@ The confidence is calculated based on both elapsed time, and the number of nodes
 
 As BlockCypher pools resources for many users, we're always connected to a statistically significant number of nodes on the network---we target around 20% of the active nodes on any given blockchain---and offer connections in return. While maintaining those connections, we can also assess whether a given node has received a particular transaction. By monitoring the propagation of transactions across the network, we can calculate its probability to be the "winning" transaction at any given point in time, if a double-spend was attempted. You can also see if a double spend was attempted by checking the **double_spend** and **double_spend_tx** attributes on an unconfirmed [Transaction](#transaction).
 
-The result is a robust and reliable metric for judging unconfirmed transaction confidence, especially when used in concert with [webhooks and websockets.](#events-&-hooks)
+The result is a robust and reliable metric for judging unconfirmed transaction confidence, especially when used in concert with [webhooks and websockets.](#events-and-hooks)
 
 <aside class="notice">
 While we stand by our work behind our confidence research, please note that these measures are ultimately mitigation strategies if you need fast transaction confirmations. There's always an appreciable risk when accepting unconfirmed transactions, and there's no truly bulletproof way to secure unconfirmed transactions. Double spending attacks, while extremely unlikely, can still occur. Block chain confirmations ultimately provide the highest level of security, especially when dealing with higher value addresses.

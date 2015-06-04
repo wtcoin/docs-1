@@ -494,7 +494,7 @@ Attribute | Type | Description
 }
 ```
 
-An Event represents a WebHooks or WebSockets-based notification request, as detailed in the [Events & Hooks](#events-&-hooks) section of the documentation.
+An Event represents a WebHooks or WebSockets-based notification request, as detailed in the [Events & Hooks](#events-and-hooks) section of the documentation.
 
 Attribute | Type | Description
 --------- | ---- | -----------

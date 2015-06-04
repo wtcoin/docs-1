@@ -265,7 +265,7 @@ Don't be confused: this Wallet API has nothing to do with private key management
 
 A wallet can be created, deleted, and have addresses added and removed. The wallet itself can have any custom name as long as it does not start with the standard address prefix (1 or 3 for Bitcoin).
 
-Wallets can be leveraged by the [Address API](#address-api), just by using their name instead of $ADDRESS. They can also be used with [Events](#events-&-hooks) and with the [Transactions API](#transactions-api). In general, using a wallet instead of an address in an API will have the effect of [batching the set of addresses](#batching) contained in the wallet.
+Wallets can be leveraged by the [Address API](#address-api), just by using their name instead of $ADDRESS. They can also be used with [Events](#events-and-hooks) and with the [Transactions API](#transactions-api). In general, using a wallet instead of an address in an API will have the effect of [batching the set of addresses](#batching) contained in the wallet.
 
 <aside class="warning">
 You are required to authenticate with your <a href="#rate-limits-and-tokens">user token</a> when using a wallet in any API endpoint. You can register <a href="http://accounts.blockcypher.com/">for a token here.</a>
