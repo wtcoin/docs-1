@@ -13,7 +13,7 @@
 
       <script>
         $(function() {
-          setupLanguages(["shell","ruby"]);
+          setupLanguages(["shell","ruby","javascript"]);
         });
       </script>
   </head>
@@ -32,6 +32,7 @@
         <div class="lang-selector">
               <a href="#" data-language-name="shell">cURL</a>
               <a href="#" data-language-name="ruby">Ruby</a>
+              <a href="#" data-language-name="javascript">NodeJS</a>
         </div>
       <div id="toc">
       </div>
@@ -3231,6 +3232,22 @@ Events like <i>unconfirmed-tx</i> can produce a lot of requests. To avoid rate-l
 <h2 id="using-websockets">Using WebSockets</h2>
 <pre class="highlight shell"><code><span class="c"># no websockets via cURL :-(</span>
 </code></pre>
+<pre class="highlight javascript"><code><span class="c1">//Get latest unconfirmed transactions live</span>
+<span class="kd">var</span> <span class="nx">ws</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">WebSocket</span><span class="p">(</span><span class="s2">"wss://socket.blockcypher.com/v1/btc/main"</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">count</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="nx">ws</span><span class="p">.</span><span class="nx">onmessage</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">tx</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">data</span><span class="p">);</span>
+  <span class="kd">var</span> <span class="nx">shortHash</span> <span class="o">=</span> <span class="nx">tx</span><span class="p">.</span><span class="nx">hash</span><span class="p">.</span><span class="nx">substring</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span> <span class="o">+</span> <span class="s2">"..."</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">total</span> <span class="o">=</span> <span class="nx">tx</span><span class="p">.</span><span class="nx">total</span> <span class="o">/</span> <span class="mi">100000000</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">addrs</span> <span class="o">=</span> <span class="nx">tx</span><span class="p">.</span><span class="nx">addresses</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="s2">", "</span><span class="p">);</span>
+  <span class="nx">$</span><span class="p">(</span><span class="s1">'#browser-websocket'</span><span class="p">).</span><span class="nx">before</span><span class="p">(</span><span class="s2">"&lt;div&gt;Unconfirmed transaction "</span> <span class="o">+</span> <span class="nx">shortHash</span> <span class="o">+</span> <span class="s2">" totalling "</span> <span class="o">+</span> <span class="nx">total</span> <span class="o">+</span> <span class="s2">"BTC involving addresses "</span> <span class="o">+</span> <span class="nx">addrs</span> <span class="o">+</span> <span class="s2">"&lt;/div&gt;"</span><span class="p">);</span>
+  <span class="nx">count</span><span class="o">++</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">count</span> <span class="o">&gt;</span> <span class="mi">10</span><span class="p">)</span> <span class="nx">ws</span><span class="p">.</span><span class="nx">close</span><span class="p">();</span>
+<span class="p">}</span>
+<span class="nx">ws</span><span class="p">.</span><span class="nx">onopen</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">ws</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span><span class="na">filter</span><span class="p">:</span> <span class="s2">"event=unconfirmed-tx"</span><span class="p">}));</span>
+<span class="p">}</span>
+</code></pre>
 
 <p>Opening a WebSocket to listen to our feeds is easy, like so in Javascript:</p>
 
@@ -3243,6 +3260,12 @@ Events like <i>unconfirmed-tx</i> can produce a lot of requests. To avoid rate-l
 <p><code class="prettyprint">{ &quot;event&quot;: &quot;ping&quot; }</code></p>
 
 <p>A regular ping (i.e. every 20 seconds) allows the WebSocket to stay connected for a longer period of time.</p>
+
+<h3 id="a-websockets-live-example">A WebSockets Live Example</h3>
+
+<p>Using the <a href="?javascript#using-webhooks">NodeJS code example</a>, we can demonstrate a client-side WebSocket event stream directly from your browser. In that example, we will subscribe to all pooled transactions (new, unconfirmed transactions) by opening a new WebSocket and sending the filter (<strong>unconfirmed-tx</strong>). Upon notification of new transactions, we format them and add them into the page.</p>
+
+<p><button class="tryme" type="button" id="browser-websocket">Try me!</button></p>
 
 <h2 id="using-webhooks">Using WebHooks</h2>
 
@@ -3389,6 +3412,7 @@ HTTP/1.1 200 OK
           <div class="lang-selector">
                 <a href="#" data-language-name="shell">cURL</a>
                 <a href="#" data-language-name="ruby">Ruby</a>
+                <a href="#" data-language-name="javascript">NodeJS</a>
           </div>
       </div>
     </div>
