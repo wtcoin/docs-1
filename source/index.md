@@ -4,6 +4,7 @@ title: BlockCypher Reference
 language_tabs:
   - shell: cURL
   - ruby: Ruby
+  - javascript: NodeJS
 
 toc_footers:
   - <a href='https://accounts.blockcypher.com/'>Register for a Free Token</a>

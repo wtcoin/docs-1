@@ -29,6 +29,25 @@ Events like <i>unconfirmed-tx</i> can produce a lot of requests. To avoid rate-l
 ```shell
 # no websockets via cURL :-(
 ```
+
+```javascript
+//Get latest unconfirmed transactions live
+var ws = new WebSocket("wss://socket.blockcypher.com/v1/btc/main");
+var count = 0;
+ws.onmessage = function (event) {
+  var tx = JSON.parse(event.data);
+  var shortHash = tx.hash.substring(0, 6) + "...";
+  var total = tx.total / 100000000;
+  var addrs = tx.addresses.join(", ");
+  $('#browser-websocket').before("<div>Unconfirmed transaction " + shortHash + " totalling " + total + "BTC involving addresses " + addrs + "</div>");
+  count++;
+  if (count > 10) ws.close();
+}
+ws.onopen = function(event) {
+  ws.send(JSON.stringify({filter: "event=unconfirmed-tx"}));
+}
+```
+
 Opening a WebSocket to listen to our feeds is easy, like so in Javascript:
 
 `new WebSocket("wss://socket.blockcypher.com/v1/btc/main");`
@@ -40,6 +59,12 @@ In addition to standard events, WebSockets accept a "ping" event. If you send th
 `{ "event": "ping" }`
 
 A regular ping (i.e. every 20 seconds) allows the WebSocket to stay connected for a longer period of time.
+
+### A WebSockets Live Example
+
+Using the [NodeJS code example](?javascript#using-webhooks), we can demonstrate a client-side WebSocket event stream directly from your browser. In that example, we will subscribe to all pooled transactions (new, unconfirmed transactions) by opening a new WebSocket and sending the filter (**unconfirmed-tx**). Upon notification of new transactions, we format them and add them into the page.
+
+<button class="tryme" type="button" id="browser-websocket">Try me!</button>
 
 ## Using WebHooks
 
