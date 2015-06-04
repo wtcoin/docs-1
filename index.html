@@ -59,7 +59,7 @@
 
 <p>Welcome to <a href="http://www.blockcypher.com/">BlockCypher&rsquo;s</a> API documentation! BlockCypher is a simple, mostly RESTful JSON API for interacting with blockchains, accessed over HTTP or HTTPS from the <a href="https://api.blockcypher.com/v1/btc/main">api.blockcypher.com</a> domain. Currently, BlockCypher supports Bitcoin, Bitcoin Testnet3, Litecoin, Dogecoin, Urocoin, and BlockCypher&rsquo;s Test Chain (more about BlockCypher&rsquo;s Test Chain <a href="#testing">below</a>).</p>
 
-<p>BlockCypher&rsquo;s API provides a superset of the endpoints you&rsquo;d find in reference implementations, in addition to some special features that make BlockCypher uniquely powerful, like our unconfirmed transaction <a href="#confidence-factor">Confidence Factor</a>, dependable WebHook or WebSockets-based <a href="#events-&amp;-hooks">Events</a>, <a href="#microtransactions-api">On-Chain Microtransactions</a>, and <a href="#payment-forwarding">Payment Forwarding</a>.</p>
+<p>BlockCypher&rsquo;s API provides a superset of the endpoints you&rsquo;d find in reference implementations, in addition to some special features that make BlockCypher uniquely powerful, like our unconfirmed transaction <a href="#confidence-factor">Confidence Factor</a>, dependable WebHook or WebSockets-based <a href="#events-and-hooks">Events</a>, <a href="#microtransactions-api">On-Chain Microtransactions</a>, and <a href="#payment-forwarding">Payment Forwarding</a>.</p>
 
 <p>Consequently, if you&rsquo;re familiar with a blockchain&rsquo;s reference implementation, you&rsquo;ll feel right at home using BlockCypher, but without worrying about scaling or implementation challenges. And if you&rsquo;re not familiar&mdash;with the reference implementations or blockchains in general&mdash;BlockCypher&rsquo;s API is a great way to dip your toes into blockchain development, without a lengthy setup process. In either case, BlockCypher has 99.99% up-time, and maintains an expressive, logical API that you&rsquo;ll love.</p>
 
@@ -1389,7 +1389,7 @@ Only one of these three fields is required for the microtransaction endpoint: <b
 <span class="o">}</span>
 </code></pre>
 
-<p>An Event represents a WebHooks or WebSockets-based notification request, as detailed in the <a href="#events-&amp;-hooks">Events &amp; Hooks</a> section of the documentation.</p>
+<p>An Event represents a WebHooks or WebSockets-based notification request, as detailed in the <a href="#events-and-hooks">Events &amp; Hooks</a> section of the documentation.</p>
 
 <table><thead>
 <tr>
@@ -2097,7 +2097,7 @@ Don&rsquo;t be confused: this Wallet API has nothing to do with private key mana
 
 <p>A wallet can be created, deleted, and have addresses added and removed. The wallet itself can have any custom name as long as it does not start with the standard address prefix (1 or 3 for Bitcoin).</p>
 
-<p>Wallets can be leveraged by the <a href="#address-api">Address API</a>, just by using their name instead of $ADDRESS. They can also be used with <a href="#events-&amp;-hooks">Events</a> and with the <a href="#transactions-api">Transactions API</a>. In general, using a wallet instead of an address in an API will have the effect of <a href="#batching">batching the set of addresses</a> contained in the wallet.</p>
+<p>Wallets can be leveraged by the <a href="#address-api">Address API</a>, just by using their name instead of $ADDRESS. They can also be used with <a href="#events-and-hooks">Events</a> and with the <a href="#transactions-api">Transactions API</a>. In general, using a wallet instead of an address in an API will have the effect of <a href="#batching">batching the set of addresses</a> contained in the wallet.</p>
 
 <aside class="warning">
 You are required to authenticate with your <a href="#rate-limits-and-tokens">user token</a> when using a wallet in any API endpoint. You can register <a href="http://accounts.blockcypher.com/">for a token here.</a>
@@ -2761,7 +2761,7 @@ One of the most common errors we see are users who use uncompressed public keys 
 
 <p><code class="prettyprint">01000000011935b41d12936df99d322ac8972b74ecff7b79408bbccaf1b2eb8015228beac8000000006b483045022100921fc36b911094280f07d8504a80fbab9b823a25f102e2bc69b14bcd369dfc7902200d07067d47f040e724b556e5bc3061af132d5a47bd96e901429d53c41e0f8cca012102152e2bb5b273561ece7bbe8b1df51a4c44f5ab0bc940c105045e2cc77e618044ffffffff0240420f00000000001976a9145fb1af31edd2aa5a2bbaa24f6043d6ec31f7e63288ac20da3c00000000001976a914efec6de6c253e657a9d5506a78ee48d89762fb3188ac00000000</code></p>
 
-<p>If it succeeds, you&rsquo;ll receive a decoded <a href="#transaction">Transaction</a> object and an HTTP Status Code 201. If you&rsquo;d like, you can use the decoded transaction <strong>hash</strong> alongside an <a href="#events-&amp;-hooks">Event</a> to track its progress in the network.</p>
+<p>If it succeeds, you&rsquo;ll receive a decoded <a href="#transaction">Transaction</a> object and an HTTP Status Code 201. If you&rsquo;d like, you can use the decoded transaction <strong>hash</strong> alongside an <a href="#events-and-hooks">Event</a> to track its progress in the network.</p>
 
 <h2 id="decode-raw-transaction-endpoint">Decode Raw Transaction Endpoint</h2>
 <pre class="highlight shell"><code><span class="gp">$ </span>curl -d <span class="s1">'{"tx":"01000000011935b41d12936df99d322ac8972b74ecff7b79408bbccaf1b2eb8015228beac8000000006b483045022100921fc36b911094280f07d8504a80fbab9b823a25f102e2bc69b14bcd369dfc7902200d07067d47f040e724b556e5bc3061af132d5a47bd96e901429d53c41e0f8cca012102152e2bb5b273561ece7bbe8b1df51a4c44f5ab0bc940c105045e2cc77e618044ffffffff0240420f00000000001976a9145fb1af31edd2aa5a2bbaa24f6043d6ec31f7e63288ac20da3c00000000001976a914efec6de6c253e657a9d5506a78ee48d89762fb3188ac00000000"}'</span> https://api.blockcypher.com/v1/bcy/test/txs/decode
@@ -3027,7 +3027,7 @@ curl -H <span class="s2">"Content-Type: application/json"</span> -d <span class=
 
 <p>As BlockCypher pools resources for many users, we&rsquo;re always connected to a statistically significant number of nodes on the network&mdash;we target around 20% of the active nodes on any given blockchain&mdash;and offer connections in return. While maintaining those connections, we can also assess whether a given node has received a particular transaction. By monitoring the propagation of transactions across the network, we can calculate its probability to be the &ldquo;winning&rdquo; transaction at any given point in time, if a double-spend was attempted. You can also see if a double spend was attempted by checking the <strong>double_spend</strong> and <strong>double_spend_tx</strong> attributes on an unconfirmed <a href="#transaction">Transaction</a>.</p>
 
-<p>The result is a robust and reliable metric for judging unconfirmed transaction confidence, especially when used in concert with <a href="#events-&amp;-hooks">webhooks and websockets.</a></p>
+<p>The result is a robust and reliable metric for judging unconfirmed transaction confidence, especially when used in concert with <a href="#events-and-hooks">webhooks and websockets.</a></p>
 
 <aside class="notice">
 While we stand by our work behind our confidence research, please note that these measures are ultimately mitigation strategies if you need fast transaction confirmations. There&rsquo;s always an appreciable risk when accepting unconfirmed transactions, and there&rsquo;s no truly bulletproof way to secure unconfirmed transactions. Double spending attacks, while extremely unlikely, can still occur. Block chain confirmations ultimately provide the highest level of security, especially when dealing with higher value addresses.
@@ -3183,7 +3183,7 @@ HTTP/1.1 200 OK
 
 <p>This will return no object, but will return an HTTP Status Code 200 if the request was successfully deleted.</p>
 
-          <h1 id="events-&amp;-hooks">Events &amp; Hooks</h1>
+          <h1 id="events-and-hooks">Events and Hooks</h1>
 
 <p>Blockchains are highly transactional systems. Many usage patterns require knowing when an event occurs: i.e., when a transaction is included into a block, or when an unconfirmed transaction is relayed through the network. Instead of requiring you to continuously poll resources, we provide push APIs to facilitate those use cases, and support both WebSockets and WebHooks.</p>
 
