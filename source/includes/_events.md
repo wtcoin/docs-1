@@ -62,7 +62,7 @@ A regular ping (i.e. every 20 seconds) allows the WebSocket to stay connected fo
 
 ### A WebSockets Live Example
 
-Using the [NodeJS code example](?javascript#using-webhooks), we can demonstrate a client-side WebSocket event stream directly from your browser. In that example, we will subscribe to all pooled transactions (new, unconfirmed transactions) by opening a new WebSocket and sending the filter (**unconfirmed-tx**). Upon notification of new transactions, we format them and add them into the page.
+Using the [NodeJS code example](?javascript#using-websockets), we can demonstrate a client-side WebSocket event stream directly from your browser. In that example, we will subscribe to all pooled transactions (new, unconfirmed transactions) by opening a new WebSocket and sending the filter (**unconfirmed-tx**). Upon notification of new transactions, we format them and add them into the page.
 
 <button class="tryme" type="button" id="browser-websocket">Try me!</button>
 
