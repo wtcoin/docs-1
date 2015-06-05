@@ -93,7 +93,7 @@ Currently, we only have cURL code samples, but are working on adding other offic
 
 <h3 id="changelog-and-errors">Changelog and Errors</h3>
 
-<p>Our documentation is powered by <a href="https://pages.github.com/">Github Pages</a> and <a href="https://github.com/tripit/slate">Slate</a>, which makes viewing changes as simple as checking the <a href="https://github.com/blockcypher/documentation/commits/master">git commit history.</a>. If there&rsquo;s an error or you&rsquo;d like to suggest a change, please consider submitting a pull request to benefit the broader BlockCypher community.</p>
+<p>Our documentation is powered by <a href="https://pages.github.com/">GitHub Pages</a> and <a href="https://github.com/tripit/slate">Slate</a>, which makes viewing changes as simple as checking the <a href="https://github.com/blockcypher/documentation/commits/master">git commit history.</a>. If there&rsquo;s an error or you&rsquo;d like to suggest a change, please consider submitting a pull request to benefit the broader BlockCypher community.</p>
 
 <h2 id="api-versions">API Versions</h2>
 
@@ -107,7 +107,7 @@ Currently, we only have cURL code samples, but are working on adding other offic
 <li><strong>Ruby</strong> &mdash; <a href="https://github.com/blockcypher/ruby-client">https://github.com/blockcypher/ruby-client</a></li>
 <li><strong>Python</strong> &mdash; <a href="https://github.com/blockcypher/blockcypher-python">https://github.com/blockcypher/blockcypher-python</a></li>
 <li><strong>Java</strong> &mdash; <a href="https://github.com/blockcypher/java-client">https://github.com/blockcypher/java-client</a></li>
-<li><strong>Node.js</strong> (under development, code samples coming soon) &mdash; <a href="https://github.com/blockcypher/node-client">https://github.com/blockcypher/node-client</a></li>
+<li><strong>Node.js</strong> (under development) &mdash; <a href="https://github.com/blockcypher/node-client">https://github.com/blockcypher/node-client</a></li>
 </ul>
 
 <p>If you&rsquo;re using these languages, we strongly encourage you to use an official SDK. Of course, all our API calls are standard HTTP endpoints using JSON formatted responses, so any language (or cURL from the command-line) will work just fine.</p>
@@ -121,7 +121,7 @@ Currently, we only have cURL code samples, but are working on adding other offic
 <li><strong>Go</strong> &mdash; <a href="https://github.com/acityinohio/blockcy">https://github.com/acityinohio/blockcy</a></li>
 </ul>
 
-<h2 id="restful-resources:-coins-&amp;-chains">RESTful Resources: Coins &amp; Chains</h2>
+<h2 id="restful-resources">RESTful Resources</h2>
 <pre class="highlight shell"><code><span class="gp">$ </span>curl https://api.blockcypher.com/v1/btc/main
 
 <span class="o">{</span>
@@ -184,6 +184,10 @@ Currently, we only have cURL code samples, but are working on adding other offic
 
 <aside class="notice">
 Unless otherwise noted, all descriptions of direct HTTP requests will assume one of these base resources prepends it. But you can always see the full call in the cURL code sample.
+</aside>
+
+<aside class="success">
+Our API <b>always</b> returns values in satoshis, or the lowest non-divisible unit in non-Bitcoin blockchains. As a friendly reminder, there are 10^8 satoshis in a single bitcoin (100,000,000s = 1BTC), 10^8 base units per litecoin, and 10^8 koinus per dogecoin (100,000,000k = 1DOGE).
 </aside>
 
 <h2 id="rate-limits-and-tokens">Rate Limits and Tokens</h2>
@@ -269,7 +273,7 @@ Since the default, non-registered <a href="#rate-limits-and-tokens">rate limit</
 <li>The prefix for standard addreses is &lsquo;B&rsquo; or &#39;C&rsquo; (0x1B). The prefix for multisig addresses is &rsquo;D&rsquo; (0x1F).</li>
 </ul>
 
-<p>In case you missed the <a href="#restful-resources:-coins-&amp;-chains">Resources section</a>, the BlockCypher Test Chain is accessible from this resource:</p>
+<p>In case you missed the <a href="#restful-resources">Resources section</a>, the BlockCypher Test Chain is accessible from this resource:</p>
 
 <p><code class="prettyprint">https://api.blockcypher.com/v1/bcy/test</code></p>
 
@@ -344,7 +348,7 @@ Objects sometimes contain <b>attributes</b> that are <b><i>optional.</i></b> The
 <span class="o">}</span>
 </code></pre>
 
-<p>A Blockchain represents the current state of a particular blockchain from the <a href="#restful-resources:-coins-&amp;-chains">Coin/Chain resources</a> that BlockCypher supports. Typically returned from the <a href="#chain-endpoint">Chain API endpoint</a>.</p>
+<p>A Blockchain represents the current state of a particular blockchain from the <a href="#restful-resources">Coin/Chain resources</a> that BlockCypher supports. Typically returned from the <a href="#chain-endpoint">Chain API endpoint</a>.</p>
 
 <table><thead>
 <tr>
@@ -472,7 +476,7 @@ Objects sometimes contain <b>attributes</b> that are <b><i>optional.</i></b> The
 <tr>
 <td><strong>total</strong></td>
 <td><em>integer</em></td>
-<td>The total number of satoshis (or smallest, indivisible coin units in non-Bitcoin blockchains) transacted in this block.</td>
+<td>The total number of satoshis transacted in this block.</td>
 </tr>
 <tr>
 <td><strong>fees</strong></td>
@@ -627,7 +631,7 @@ Objects sometimes contain <b>attributes</b> that are <b><i>optional.</i></b> The
 <tr>
 <td><strong>total</strong></td>
 <td><em>integer</em></td>
-<td>The total number of satoshis (or smallest, indivisible coin units in non-Bitcoin blockchains) exchanged in this transaction.</td>
+<td>The total number of satoshis exchanged in this transaction.</td>
 </tr>
 <tr>
 <td><strong>fees</strong></td>
@@ -829,7 +833,7 @@ Objects sometimes contain <b>attributes</b> that are <b><i>optional.</i></b> The
 <tr>
 <td><strong>value</strong></td>
 <td><em>int</em></td>
-<td>Value in this transaction output, in satoshis (or smallest, indivisible coin units in non-Bitcoin blockchains).</td>
+<td>Value in this transaction output, in satoshis.</td>
 </tr>
 <tr>
 <td><strong>script</strong></td>
@@ -949,7 +953,7 @@ Objects sometimes contain <b>attributes</b> that are <b><i>optional.</i></b> The
 <tr>
 <td><strong>value</strong></td>
 <td><em>integer</em></td>
-<td>The value transfered by this input/output in satoshis (or smallest, indivisible coin units in non-Bitcoin blockchains) exchanged in this transaction.</td>
+<td>The value transfered by this input/output in satoshis exchanged in this transaction.</td>
 </tr>
 <tr>
 <td><strong>preference</strong></td>
@@ -1127,7 +1131,7 @@ Only one of these three fields is required for the microtransaction endpoint: <b
 <tr>
 <td><strong>value_satoshis</strong></td>
 <td><em>int</em></td>
-<td>Value you&rsquo;re sending/you&rsquo;ve sent in satoshis (or smallest, indivisible coin units in non-Bitcoin blockchains).</td>
+<td>Value you&rsquo;re sending/you&rsquo;ve sent in satoshis.</td>
 </tr>
 <tr>
 <td><strong>token</strong></td>
@@ -1217,27 +1221,27 @@ Only one of these three fields is required for the microtransaction endpoint: <b
 <tr>
 <td><strong>total_received</strong></td>
 <td><em>integer</em></td>
-<td>Total amount of satoshis (or the lowest non-divisible unit in non-Bitcoin blockchains) received by this address.</td>
+<td>Total amount of satoshis received by this address.</td>
 </tr>
 <tr>
 <td><strong>total_sent</strong></td>
 <td><em>integer</em></td>
-<td>Total amount of satoshis (or the lowest non-divisible unit in non-Bitcoin blockchains) sent by this address.</td>
+<td>Total amount of satoshis sent by this address.</td>
 </tr>
 <tr>
 <td><strong>balance</strong></td>
 <td><em>integer</em></td>
-<td>Balance of confirmed satoshis (or the lowest non-divisible unit in non-Bitcoin blockchains) on this address. This is the difference between outputs and inputs on this address, but only for transactions that have been included into a block (i.e., for transactions whose confirmations &gt; 0).</td>
+<td>Balance of confirmed satoshis on this address. This is the difference between outputs and inputs on this address, but only for transactions that have been included into a block (i.e., for transactions whose confirmations &gt; 0).</td>
 </tr>
 <tr>
 <td><strong>unconfirmed_balance</strong></td>
 <td><em>integer</em></td>
-<td>Balance of unconfirmed satoshis (or the lowest non-divisible unit in non-Bitcoin blockchains) on this address. Can be negative (if unconfirmed transactions are just spending outputs). Only unconfirmed transactions (haven&rsquo;t made it into a block) are included.</td>
+<td>Balance of unconfirmed satoshis on this address. Can be negative (if unconfirmed transactions are just spending outputs). Only unconfirmed transactions (haven&rsquo;t made it into a block) are included.</td>
 </tr>
 <tr>
 <td><strong>final_balance</strong></td>
 <td><em>integer</em></td>
-<td>Total balance of satoshis (or the lowest non-divisible unit in non-Bitcoin blockchains) including confirmed and unconfirmed transactions for this address.</td>
+<td>Total balance of satoshis, including confirmed and unconfirmed transactions, for this address.</td>
 </tr>
 <tr>
 <td><strong>n_tx</strong></td>
@@ -1573,7 +1577,7 @@ Only one of these three fields is required for the microtransaction endpoint: <b
 
           <h1 id="blockchain-api">Blockchain API</h1>
 
-<p>The first component&mdash;and highest level&mdash;of the BlockCypher API allows you to query general information about blockchain and blocks <a href="#restful-resources:-coins-&amp;-chains">based on the coin/chain resource</a> you&rsquo;ve selected for your endpoints.</p>
+<p>The first component&mdash;and highest level&mdash;of the BlockCypher API allows you to query general information about blockchain and blocks <a href="#restful-resources">based on the coin/chain resource</a> you&rsquo;ve selected for your endpoints.</p>
 
 <p>If you&rsquo;re new to blockchains, you can think of the blockchain itself as an immutable, distributed ledger. Each block in the blockchain is like a &ldquo;page&rdquo; in the ledger containing information about transactions between parties. A great place to start understanding the mechanics behind blockchains is the <a href="http://bitcoin.org/bitcoin.pdf">original Bitcoin whitepaper.</a></p>
 
@@ -1595,7 +1599,7 @@ Only one of these three fields is required for the microtransaction endpoint: <b
 <span class="o">}</span>
 </code></pre>
 
-<p>General information about a blockchain is available by GET-ing the <a href="#restful-resources:-coins-&amp;-chains">base resource</a>.</p>
+<p>General information about a blockchain is available by GET-ing the <a href="#restful-resources">base resource</a>.</p>
 
 <table><thead>
 <tr>
@@ -1757,7 +1761,7 @@ With recent blocks, $BLOCK_HEIGHT is not always a unique identifier to a particu
 
           <h1 id="address-api">Address API</h1>
 
-<p>BlockCypher&rsquo;s Address API allows you to look up information about public addresses on the blockchain, generate single-use, low-value key pairs with corresponding addresses, help generate multisig addresses, and collect multiple addresses into a single shortcut for address viewing, all <a href="#restful-resources:-coins-&amp;-chains">based on the coin/chain resource</a> you&rsquo;ve selected for your endpoints.</p>
+<p>BlockCypher&rsquo;s Address API allows you to look up information about public addresses on the blockchain, generate single-use, low-value key pairs with corresponding addresses, help generate multisig addresses, and collect multiple addresses into a single shortcut for address viewing, all <a href="#restful-resources">based on the coin/chain resource</a> you&rsquo;ve selected for your endpoints.</p>
 
 <p>If you&rsquo;re new to blockchains, you can think of public addresses as similar to bank account numbers in a traditional ledger. The biggest differences:</p>
 
@@ -2292,7 +2296,7 @@ If the named wallet already exists under your token, attempting to create a new 
 
           <h1 id="transactions-api">Transactions API</h1>
 
-<p>BlockCypher&rsquo;s Transactions API allows you to look up information about unconfirmed transactions, query transactions based on hash, and create and propagate your own transactions, including multisignature transactions&mdash;all <a href="#restful-resources:-coins-&amp;-chains">based on the coin/chain resource</a> you&rsquo;ve selected for your endpoints.</p>
+<p>BlockCypher&rsquo;s Transactions API allows you to look up information about unconfirmed transactions, query transactions based on hash, and create and propagate your own transactions, including multisignature transactions&mdash;all <a href="#restful-resources">based on the coin/chain resource</a> you&rsquo;ve selected for your endpoints.</p>
 
 <p>If you&rsquo;re new to blockchains, the idea of transactions is relatively self-explanatory. Here&rsquo;s what&rsquo;s going on underneath the hood: a transaction takes previous &ldquo;unspent transaction outputs&rdquo; (also known as <a href="https://bitcoin.org/en/glossary/unspent-transaction-output">UTXOs</a>) as &ldquo;transaction inputs&rdquo; and creates new &ldquo;locking scripts&rdquo; on those inputs such that they are &ldquo;sent&rdquo; to new addresses (to become new UTXOs). While most of these public addresses are reference points for single private keys that can &ldquo;unlock&rdquo; the newly created UTXOs, occasionally they are sent to more exotic addresses through <em>pay-to-script-hash</em>, typically multisignature addresses.</p>
 
