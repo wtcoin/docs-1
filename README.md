@@ -41,7 +41,7 @@ Now that you're running the docs locally, you'll probably want to learn more abo
 Found an error or bug?
 --------------------
 
-Just [submit a issue](https://github.com/blockcypher/docs/issues). And, of course, feel free to submit Pull Requests with bug fixes or proposed changes.
+Just [submit an issue](https://github.com/blockcypher/docs/issues). And, of course, feel free to submit Pull Requests with bug fixes or proposed changes.
 
 Special Thanks
 --------------------
