@@ -27,11 +27,8 @@ Events like <i>unconfirmed-tx</i> can produce a lot of requests. To avoid rate-l
 ## Using WebSockets
 
 ```shell
-# no websockets via cURL :-(
-```
-
-```javascript
-//Get latest unconfirmed transactions live
+# no websockets via cURL :-( but here's a Javascript example
+# Get latest unconfirmed transactions live
 var ws = new WebSocket("wss://socket.blockcypher.com/v1/btc/main");
 var count = 0;
 ws.onmessage = function (event) {
@@ -62,7 +59,7 @@ A regular ping (i.e. every 20 seconds) allows the WebSocket to stay connected fo
 
 ### A WebSockets Live Example
 
-Using the [NodeJS code example](?javascript#using-websockets), we can demonstrate a client-side WebSocket event stream directly from your browser. In that example, we will subscribe to all pooled transactions (new, unconfirmed transactions) by opening a new WebSocket and sending the filter (**unconfirmed-tx**). Upon notification of new transactions, we format them and add them into the page.
+Using the example above, we can demonstrate a client-side WebSocket event stream directly from your browser. In that example, we will subscribe to all pooled transactions (new, unconfirmed transactions) by opening a new WebSocket and sending the filter (**unconfirmed-tx**). Upon notification of new transactions, we format them and add them into the page.
 
 <button class="tryme" type="button" id="browser-websocket">Try me!</button>
 

@@ -3,8 +3,6 @@ title: BlockCypher Reference
 
 language_tabs:
   - shell: cURL
-  - ruby: Ruby
-  - javascript: NodeJS
 
 toc_footers:
   - <a href='https://accounts.blockcypher.com/'>Register for a Free Token</a>
@@ -32,10 +30,6 @@ includes:
 #  \____/|_|\___/ \___|_|\_\\____/\__, | .__/|_| |_|\___|_|   
 #                                  __/ | |                    
 #                                 |___/|_|                    
-```
-
-```ruby
-puts "BlockCypher!"
 ```
 
 Welcome to [BlockCypher's](http://www.blockcypher.com/) API documentation! BlockCypher is a simple, mostly RESTful JSON API for interacting with blockchains, accessed over HTTP or HTTPS from the [api.blockcypher.com](https://api.blockcypher.com/v1/btc/main) domain. Currently, BlockCypher supports Bitcoin, Bitcoin Testnet3, Litecoin, Dogecoin, Urocoin, and BlockCypher's Test Chain (more about BlockCypher's Test Chain [below](#testing)).
