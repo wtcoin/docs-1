@@ -51,6 +51,7 @@ Consequently, if you're familiar with a blockchain's reference implementation, y
 ```shell
 $ man curl | grep -A 3 "DESCRIPTION"
 ```
+
 > Alongside expected responses:
 
 ```shell
