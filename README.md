@@ -1,14 +1,12 @@
 BlockCypher's Docs
 ========
 
-![BlockCypher](https://raw.githubusercontent.com/blockcypher/docs/master/source/images/logo.svg)
-
-This repository contains all of BlockCypher's API documentation, presented with the help of [GitHub Pages](https://pages.github.com/) and [Slate](https://github.com/tripit/slate).
+This repository contains all of [BlockCypher's](http://www.blockcypher.com) API documentation, presented with the help of [GitHub Pages](https://pages.github.com/) and [Slate](https://github.com/tripit/slate).
 
 Running BlockCypher's Docs Locally
 ------------------------------
 
-We welcome Pull Requests to help us improve our documentation. If you're making edits, it's a good idea to run your fork of our docs locally; to do so, follow these instructions straight from [Slate.](https://github.com/tripit/slate)
+We welcome Pull Requests to help us improve our documentation. If you're making edits, it's a good idea to run your fork of our docs locally before submitting a Pull Request; to do so, follow these instructions straight from [Slate.](https://github.com/tripit/slate)
 
 ### Prerequisites
 
@@ -43,7 +41,7 @@ Now that you're running the docs locally, you'll probably want to learn more abo
 Found an error or bug?
 --------------------
 
-Just [submit a issue](https://github.com/blockcypher/docs/issues). And, of course, feel free to submit pull requests with bug fixes or proposed changes.
+Just [submit a issue](https://github.com/blockcypher/docs/issues). And, of course, feel free to submit Pull Requests with bug fixes or proposed changes.
 
 Special Thanks
 --------------------
