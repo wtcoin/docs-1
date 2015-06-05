@@ -1,6 +1,6 @@
 # Address API
 
-BlockCypher's Address API allows you to look up information about public addresses on the blockchain, generate single-use, low-value key pairs with corresponding addresses, help generate multisig addresses, and collect multiple addresses into a single shortcut for address viewing, all [based on the coin/chain resource](#restful-resources:-coins-&-chains) you've selected for your endpoints.
+BlockCypher's Address API allows you to look up information about public addresses on the blockchain, generate single-use, low-value key pairs with corresponding addresses, help generate multisig addresses, and collect multiple addresses into a single shortcut for address viewing, all [based on the coin/chain resource](#restful-resources) you've selected for your endpoints.
 
 If you're new to blockchains, you can think of public addresses as similar to bank account numbers in a traditional ledger. The biggest differences:
 

@@ -35,7 +35,7 @@ Objects sometimes contain <b>attributes</b> that are <b><i>optional.</i></b> The
 }
 ```
 
-A Blockchain represents the current state of a particular blockchain from the [Coin/Chain resources](#restful-resources:-coins-&-chains) that BlockCypher supports. Typically returned from the [Chain API endpoint](#chain-endpoint).
+A Blockchain represents the current state of a particular blockchain from the [Coin/Chain resources](#restful-resources) that BlockCypher supports. Typically returned from the [Chain API endpoint](#chain-endpoint).
 
 Attribute | Type | Description
 --------- | ---- | -----------
@@ -89,7 +89,7 @@ Attribute | Type | Description
 **height** | *integer* | The height of the block in the blockchain; i.e., there are **height** earlier blocks in its blockchain.
 **depth** | *integer* | The depth of the block in the blockchain; i.e., there are **depth** later blocks in its blockchain.
 **chain** | *string* | The name of the blockchain represented, in the form of $COIN.$CHAIN
-**total** | *integer* | The total number of satoshis (or smallest, indivisible coin units in non-Bitcoin blockchains) transacted in this block.
+**total** | *integer* | The total number of satoshis transacted in this block.
 **fees** | *integer* | The total number of fees---in satoshis---collected by miners in this block.
 **ver** | *integer* | Block version. In Bitcoin, per [BIP34](https://github.com/bitcoin/bips/blob/master/bip-0034.mediawiki) the last version 1 block was at height 227835.
 **time** | [*time*](https://tools.ietf.org/html/rfc3339) | Recorded time at which block was built. *Note: Miners rarely post accurate clock times.*
@@ -170,7 +170,7 @@ Attribute | Type | Description
 **block_height** | *integer* | Height of the block that contains this transaction. If this is an unconfirmed transaction, it will equal -1.
 **hash** | *string* | The hash of the transaction. While reasonably unique, using hashes as identifiers may be [unsafe](https://en.bitcoin.it/wiki/Transaction_Malleability).
 **addresses** | *array[string]* | Array of bitcoin public addresses involved in the transaction.
-**total** | *integer* | The total number of satoshis (or smallest, indivisible coin units in non-Bitcoin blockchains) exchanged in this transaction.
+**total** | *integer* | The total number of satoshis exchanged in this transaction.
 **fees** | *integer* | The total number of fees---in satoshis---collected by miners in this transaction.
 **size** | *integer* | The size of the transaction in bytes.
 **preference** | *string* | The likelihood that this transaction will make it to the next block; reflects the preference level miners have to include this transaction. Can be high, medium or low.
@@ -244,7 +244,7 @@ A TransactionOutput represents an output created by a transaction. Typically fou
 
 Attribute | Type | Description
 --------- | ---- | -----------
-**value** | *int* | Value in this transaction output, in satoshis (or smallest, indivisible coin units in non-Bitcoin blockchains).
+**value** | *int* | Value in this transaction output, in satoshis.
 **script** | *string* | Raw hexadecimal encoding of the encumbrance script for this output.
 **addresses** | *array[string]* | Addresses that correspond to this output; typically this will only have a single address, and you can think of this output as having "sent" **value** to the address contained herein.
 **script_type** | *string* | The type of encumbrance script used for this output.
@@ -298,7 +298,7 @@ Attribute | Type | Description
 **tx_hash** | *string* | The hash of the transaction containing this input or output. While reasonably unique, using hashes as identifiers may be [unsafe](https://en.bitcoin.it/wiki/Transaction_Malleability).
 **tx_input_n** | *integer* | Index of the input in the transaction. It's a negative number for an output.
 **tx_output_n** | *integer* |	Index of the output in the transaction. It's a negative number for an input.
-**value** | *integer* | The value transfered by this input/output in satoshis (or smallest, indivisible coin units in non-Bitcoin blockchains) exchanged in this transaction.
+**value** | *integer* | The value transfered by this input/output in satoshis exchanged in this transaction.
 **preference** | *string* | The likelihood that this transaction will make it to the next block; reflects the preference level miners have to include this transaction. Can be high, medium or low.
 **spent** | *bool* | 	True if this output was spent; false otherwise.
 **double_spend** | *bool* | True if this is an attempted double spend; false otherwise.
@@ -384,7 +384,7 @@ Attribute | Type | Description
 **from_private** | *string* | Hex-encoded private key from which you're sending coins.
 **from_wif** | *string* | WIF-encoded private key from which you're sending coins.
 **to_address** | *string* | The target address to which you're sending coins.
-**value_satoshis** | *int* | Value you're sending/you've sent in satoshis (or smallest, indivisible coin units in non-Bitcoin blockchains).
+**value_satoshis** | *int* | Value you're sending/you've sent in satoshis.
 **token** | *string* | Your [BlockCypher API token](http://accounts.blockcypher.com/)
 **change_address** | *string* | ***Optional*** Address BlockCypher will use to send back your change. If not set, defaults to the address from which the coins were originally sent. While not required, we recommend that you set a change address.
 **wait_guarantee** | *bool* | ***Optional*** If not set, defaults to *true*, which means the API will wait for BlockCypher to guarantee the transaction, using our [Confidence Factor](#confidence-factor). The guarantee usually takes around 8 seconds. If manually set to *false*, the Microtransaction endpoint will return as soon as the transaction is broadcast.
@@ -424,11 +424,11 @@ An Address represents a public address on a blockchain, and contains information
 Attribute | Type | Description
 --------- | ---- | -----------
 **address** | *string* | The requested address.
-**total_received** | *integer* |Total amount of satoshis (or the lowest non-divisible unit in non-Bitcoin blockchains) received by this address.
-**total_sent** | *integer* | Total amount of satoshis (or the lowest non-divisible unit in non-Bitcoin blockchains) sent by this address.
-**balance**	| *integer* | Balance of confirmed satoshis (or the lowest non-divisible unit in non-Bitcoin blockchains) on this address. This is the difference between outputs and inputs on this address, but only for transactions that have been included into a block (i.e., for transactions whose confirmations > 0).
-**unconfirmed_balance**	| *integer* | Balance of unconfirmed satoshis (or the lowest non-divisible unit in non-Bitcoin blockchains) on this address. Can be negative (if unconfirmed transactions are just spending outputs). Only unconfirmed transactions (haven't made it into a block) are included.
-**final_balance**	| *integer* |	Total balance of satoshis (or the lowest non-divisible unit in non-Bitcoin blockchains) including confirmed and unconfirmed transactions for this address.
+**total_received** | *integer* |Total amount of satoshis received by this address.
+**total_sent** | *integer* | Total amount of satoshis sent by this address.
+**balance**	| *integer* | Balance of confirmed satoshis on this address. This is the difference between outputs and inputs on this address, but only for transactions that have been included into a block (i.e., for transactions whose confirmations > 0).
+**unconfirmed_balance**	| *integer* | Balance of unconfirmed satoshis on this address. Can be negative (if unconfirmed transactions are just spending outputs). Only unconfirmed transactions (haven't made it into a block) are included.
+**final_balance**	| *integer* |	Total balance of satoshis, including confirmed and unconfirmed transactions, for this address.
 **n_tx** | *integer* | Number of confirmed transactions on this address. Only transactions that have made it into a block (confirmations > 0) are counted.
 **unconfirmed_n_tx** | *integer* | Number of unconfirmed transactions for this address. Only unconfirmed transactions (confirmations == 0) are counted.
 **final_n_tx** | *integer* | Final number of transactions, including confirmed and unconfirmed transactions, for this address.

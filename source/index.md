@@ -70,7 +70,7 @@ We know many learn more from code examples than specific reference documentation
 
 ### Changelog and Errors
 
-Our documentation is powered by [Github Pages](https://pages.github.com/) and [Slate](https://github.com/tripit/slate), which makes viewing changes as simple as checking the [git commit history.](https://github.com/blockcypher/documentation/commits/master). If there's an error or you'd like to suggest a change, please consider submitting a pull request to benefit the broader BlockCypher community.
+Our documentation is powered by [GitHub Pages](https://pages.github.com/) and [Slate](https://github.com/tripit/slate), which makes viewing changes as simple as checking the [git commit history.](https://github.com/blockcypher/documentation/commits/master). If there's an error or you'd like to suggest a change, please consider submitting a pull request to benefit the broader BlockCypher community.
 
 ## API Versions
 
@@ -83,7 +83,7 @@ BlockCypher has client SDKs for the following languages:
 - **Ruby** --- [https://github.com/blockcypher/ruby-client](https://github.com/blockcypher/ruby-client)
 - **Python** --- [https://github.com/blockcypher/blockcypher-python](https://github.com/blockcypher/blockcypher-python)
 - **Java** --- [https://github.com/blockcypher/java-client](https://github.com/blockcypher/java-client)
-- **Node.js** (under development, code samples coming soon) --- [https://github.com/blockcypher/node-client](https://github.com/blockcypher/node-client)
+- **Node.js** (under development) --- [https://github.com/blockcypher/node-client](https://github.com/blockcypher/node-client)
 
 If you're using these languages, we strongly encourage you to use an official SDK. Of course, all our API calls are standard HTTP endpoints using JSON formatted responses, so any language (or cURL from the command-line) will work just fine.
 
@@ -94,7 +94,7 @@ These client SDKs were made by members of the community, and are not officially 
 - **.NET** --- [https://github.com/bscheiman/BlockCypher](https://github.com/bscheiman/BlockCypher)
 - **Go** --- [https://github.com/acityinohio/blockcy](https://github.com/acityinohio/blockcy)
 
-## RESTful Resources: Coins & Chains
+## RESTful Resources
 
 ```shell
 $ curl https://api.blockcypher.com/v1/btc/main
@@ -129,6 +129,10 @@ BlockCypher | Test | `api.blockcypher.com/v1/bcy/test`
 
 <aside class="notice">
 Unless otherwise noted, all descriptions of direct HTTP requests will assume one of these base resources prepends it. But you can always see the full call in the cURL code sample.
+</aside>
+
+<aside class="success">
+Our API <b>always</b> returns values in satoshis, or the lowest non-divisible unit in non-Bitcoin blockchains. As a friendly reminder, there are 10^8 satoshis in a single bitcoin (100,000,000s = 1BTC), 10^8 base units per litecoin, and 10^8 koinus per dogecoin (100,000,000k = 1DOGE).
 </aside>
 
 ## Rate Limits and Tokens
@@ -212,7 +216,7 @@ We offer two different options for testing your blockchain application: Bitcoin 
 - New blocks get built every minute, confirming the transactions that have been created using our transaction API.
 - The prefix for standard addreses is 'B' or 'C' (0x1B). The prefix for multisig addresses is 'D' (0x1F).
 
-In case you missed the [Resources section](#restful-resources:-coins-&-chains), the BlockCypher Test Chain is accessible from this resource:
+In case you missed the [Resources section](#restful-resources), the BlockCypher Test Chain is accessible from this resource:
 
 `https://api.blockcypher.com/v1/bcy/test`
 

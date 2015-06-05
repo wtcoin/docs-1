@@ -1,6 +1,6 @@
 # Blockchain API
 
-The first component---and highest level---of the BlockCypher API allows you to query general information about blockchain and blocks [based on the coin/chain resource](#restful-resources:-coins-&-chains) you've selected for your endpoints.
+The first component---and highest level---of the BlockCypher API allows you to query general information about blockchain and blocks [based on the coin/chain resource](#restful-resources) you've selected for your endpoints.
 
 If you're new to blockchains, you can think of the blockchain itself as an immutable, distributed ledger. Each block in the blockchain is like a "page" in the ledger containing information about transactions between parties. A great place to start understanding the mechanics behind blockchains is the [original Bitcoin whitepaper.](http://bitcoin.org/bitcoin.pdf)
 
@@ -24,7 +24,7 @@ $ curl https://api.blockcypher.com/v1/btc/main
 }
 ```
 
-General information about a blockchain is available by GET-ing the [base resource](#restful-resources:-coins-&-chains).
+General information about a blockchain is available by GET-ing the [base resource](#restful-resources).
 
 Resource | Method | Return Object
 -------- | ------ | -------------
