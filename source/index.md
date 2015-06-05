@@ -63,10 +63,10 @@ Currently, we only have cURL code samples, but are working on adding other offic
 
 We know many learn more from code examples than specific reference documentation, which is why we have code samples in our official languages. In addition, we have a number of in-browser code examples for particular use cases, which you can see here:
 
-- [Browse the Blockchain](http://dev.blockcypher.com/samples/browse-chain.html)
-- [Using WebHooks](http://dev.blockcypher.com/samples/nodejs-webhook.html)
-- [Sending a Simple Transaction](http://dev.blockcypher.com/samples/create-tx.html)
-- [Create Multisig Transactions](http://dev.blockcypher.com/samples/multisig-tx.html)
+- [Browse the Blockchain](https://blockcypher.github.io/documentation/samples/browse-chain.html)
+- [Using WebHooks](https://blockcypher.github.io/documentation/samples/nodejs-webhook.html)
+- [Sending a Simple Transaction](https://blockcypher.github.io/documentation/samples/create-tx.html)
+- [Create Multisig Transactions](https://blockcypher.github.io/documentation/samples/multisig-tx.html)
 
 ### Changelog and Errors
 
