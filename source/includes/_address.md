@@ -393,7 +393,7 @@ This endpoint allows you to generate a new address associated with the $NAME wal
 ### Delete Wallet Endpoint
 
 ```shell
-$ curl -X DELETE -d '{"name":"alice"}' https://api.blockcypher.com/v1/btc/main/wallets/alice?token=USERTOKEN
+$ curl -X DELETE https://api.blockcypher.com/v1/btc/main/wallets/alice?token=USERTOKEN
 
 ```
 
@@ -401,4 +401,4 @@ Resource | Method | Request Object | Return Object
 -------- | ------ | -------------- | -------------
 /wallets/$NAME | DELETE | [Wallet](#wallet) | *nil*
 
-This endpoint deletes the wallet with $NAME. You are also required to send a partially filled [Wallet](#wallet) as a request object; all that's necessary is the **name** attribute in the wallet object. If successful, it will return an HTTP 400 status code, but no return object.
+This endpoint deletes the wallet with $NAME. If successful, it will return an HTTP 400 status code, but no return object.
