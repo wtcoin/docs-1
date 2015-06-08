@@ -17,8 +17,6 @@ Objects sometimes contain <b>attributes</b> that are <b><i>optional.</i></b> The
 
 ## Blockchain
 
-> An example Blockchain Object
-
 ```shell
 {
 "name": "BTC.main",
@@ -52,8 +50,6 @@ Attribute | Type | Description
 **last_fork_hash** | *string* | ***Optional*** The hash of the latest confirmed block in the latest fork of the blockchain; when no competing blockchain fork present, not returned with endpoints that return Blockchains.
 
 ## Block
-
-> An example Block Object
 
 ```shell
 {
@@ -105,8 +101,6 @@ Attribute | Type | Description
 **next_txids** | *url* | ***Optional*** If there are more transactions that couldn't fit in the **txids** array, this is the BlockCypher URL to query the next set of transactions (within a Block object).
 
 ## Transaction
-
-> An example Transaction Object
 
 ```shell
 {
@@ -194,8 +188,6 @@ Attribute | Type | Description
 
 ## TransactionInput
 
-> An example TransactionInput Object
-
 ```shell
 {
 "prev_hash": "e5c9be87798b0fa8ad55a22b5d731d6f50d72bffaa6179f9999499e57388cc33",
@@ -225,8 +217,6 @@ Attribute | Type | Description
 **age** | *integer* | ***Optional*** Number of confirmations of the previous transaction for which this input was an output. Currently, only returned in unconfirmed transactions.
 
 ## TransactionOutput
-
-> An example TransactionOutput Object
 
 ```shell
 {
@@ -274,8 +264,6 @@ Attribute | Type | Description
 
 ## TXRef
 
-> An example TXRef Object
-
 ```shell
 {
 "tx_hash": "14b1052855bbf6561bc4db8aa501762e7cc1e86994dda9e782a6b73b1ce0dc1e",
@@ -311,8 +299,6 @@ Attribute | Type | Description
 **double_of** | *string* | ***Optional*** If this transaction is a double-spend (i.e. **double_spend** == true) then this is the hash of the transaction it's double-spending.
 
 ## TransactionSkeleton
-
-> An example TransactionSkeleton Object
 
 ```shell
 {
@@ -358,8 +344,6 @@ Attribute | Type | Description
 
 ## Microtransaction
 
-> An example Microtransaction object
-
 ```shell
 {
 "from_pubkey": "03bb318b00de944086fad67ab78a832eb1bf26916053ecd3b14a3f48f9fbe0821f",
@@ -396,8 +380,6 @@ Attribute | Type | Description
 **hash** | *string* | ***Optional*** The hash of the finalized transaction, once sent.
 
 ## Address
-
-> An example Address object
 
 ```shell
 {
@@ -440,8 +422,6 @@ Attribute | Type | Description
 
 ## AddressKeychain
 
-> An example AddressKeychain object
-
 ```shell
 {
 "private": "86751cb880a9a1addcc3b67979976158dd800afe9d14b68349921299b20c94dd",
@@ -464,8 +444,6 @@ Attribute | Type | Description
 
 ## Wallet
 
-> An example Wallet object
-
 ```shell
 {
 "name": "alice",
@@ -482,8 +460,6 @@ Attribute | Type | Description
 **addresses** | *array[string]* | List of addresses associated with this wallet.
 
 ## Event
-
-> An example Event object
 
 ```shell
 {
@@ -509,8 +485,6 @@ Attribute | Type | Description
 **url** | *url* | ***optional*** Callback URL for this Event's WebHook; not applicable for WebSockets usage.
 
 ## PaymentForward
-
-> An example PaymentForward object
 
 ```shell
 {
@@ -539,8 +513,6 @@ Attribute | Type | Description
 **transactions** | *array[string]* | ***Optional*** History of forwarding transaction hashes for this payment forwarding request.
 
 ## PaymentForwardCallback
-
-> An example PaymentForwardCallback object
 
 ```shell
 {

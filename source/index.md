@@ -36,15 +36,9 @@ Consequently, if you're familiar with a blockchain's reference implementation, y
 
 ## Documentation Structure
 
-> You'll see code in this section, like this:
-
 ```shell
 $ man curl | grep -A 3 "DESCRIPTION"
-```
 
-> Alongside expected responses:
-
-```shell
 DESCRIPTION
 curl is a tool to transfer data from or to a server, using one of the supported protocols (DICT, FILE, FTP, FTPS, GOPHER, HTTP, HTTPS, IMAP, IMAPS, LDAP, LDAPS, POP3, POP3S, RTMP, RTSP, SCP, SFTP, SMB, SMBS, SMTP, SMTPS, TELNET and TFTP). The command is designed to work without user interaction.
 ```
@@ -145,9 +139,8 @@ If you exceed these limits as a non-registered user, your requests will return a
 
 Please [register for a user token](http://acccounts.blockcypher.com/) if your usage exceeds those limits, or if you want to preventively avoid the rate limits. Our future pricing plan will be tiered based on usage and volume. We will have a free tier and an extended free plan for our early users. To request higher limits or SLAs, please [email us.](mailto:contact@blockcypher.com)
 
-> Adding your token to requests:
-
 ```shell
+# Adding your token as URL parameter
 $ curl https://api.blockcypher.com/v1/btc/main?token=$YOUR_TOKEN
 ```
 
@@ -156,6 +149,7 @@ Once you have your token, you can append it to all your requests like any other 
 ## Batching
 
 ```shell
+# Batching blocks 5, 6, and 7
 $ curl https://api.blockcypher.com/v1/btc/main/blocks/5;6;7
 
 [{
