@@ -104,7 +104,7 @@ Attribute | Type | Description
 **txids** | *array[string]* | An array of transaction hashes in this block. By default, only 20 are included.
 **next_txids** | *url* | ***Optional*** If there are more transactions that couldn't fit in the **txids** array, this is the BlockCypher URL to query the next set of transactions (within a Block object).
 
-## Transaction
+## TX
 
 ```shell
 $ curl https://api.blockcypher.com/v1/btc/main/txs/f854aebae95150b379cc1187d848d58225f3c4157fe992bcd166f58bd5063449
@@ -163,7 +163,7 @@ $ curl https://api.blockcypher.com/v1/btc/main/txs/f854aebae95150b379cc1187d848d
 }
 ```
 
-A Transaction represents the current state of a particular transaction from either a [Block](#block) within a [Blockchain](#blockchain), or an unconfirmed transaction that has yet to be included in a [Block](#block). Typically returned from the [Unconfirmed Transactions](#unconfirmed-transactions-endpoint) and [Transaction Hash](#transaction-hash) endpoints.
+A TX represents the current state of a particular transaction from either a [Block](#block) within a [Blockchain](#blockchain), or an unconfirmed transaction that has yet to be included in a [Block](#block). Typically returned from the [Unconfirmed Transactions](#unconfirmed-transactions-endpoint) and [Transaction Hash](#transaction-hash) endpoints.
 
 Attribute | Type | Description
 --------- | ---- | -----------
@@ -183,8 +183,8 @@ Attribute | Type | Description
 **vout_sz** | *integer* | Total number of outputs in the transaction.
 **confirmations** | *integer* | Number of subsequent blocks, including the block the transaction is in. Unconfirmed transactions have 0 confirmations.
 **confidence** | *float* | The percentage chance this transaction will be included in the next block, if unconfirmed. For more information, check the section on [Confidence Factor.](#confidence-factor)
-**inputs** | *array[[TXInput](#transactioninput)]* | Array of [Transaction Inputs](#transactioninput), limited to 20 by default.
-**outputs** | *array[[TXOutput](#transactionoutput)]* | Array of [Transaction Outputs](#transactionoutput), limited to 20 by default.
+**inputs** | *array[[TXInput](#txinput)]* | [TXInput](#txinput) Array, limited to 20 by default.
+**outputs** | *array[[TXOutput](#txoutput)]* | [TXOutput](#txoutput) Array, limited to 20 by default.
 **confirmed** | [*time*](https://tools.ietf.org/html/rfc3339) | ***Optional*** Time at which transaction was included in a block; only present for confirmed transactions.
 **receive_count** | *integer* | ***Optional*** Number of peers that have sent this transaction to BlockCypher; only present for unconfirmed transactions.
 **change_address** | *string* | ***Optional*** Address BlockCypher will use to send back your change, if you [constructed this transaction](#creating-transactions). If not set, defaults to the address from which the coins were originally sent.
@@ -192,7 +192,7 @@ Attribute | Type | Description
 **double_of** | *string* | ***Optional*** If this transaction is a double-spend (i.e. **double_spend** == true) then this is the hash of the transaction it's double-spending.
 **hex** | *string* | ***Optional*** Hex-encoded bytes of the transaction, as sent over the network.
 
-## TransactionInput
+## TXInput
 
 ```shell
 {
@@ -209,7 +209,7 @@ Attribute | Type | Description
 }
 ```
 
-A TransactionInput represents an input consumed within a transaction. Typically found within an array in a [Transaction](#transaction). In most cases, Transaction Inputs are from previous [UTXOs](https://bitcoin.org/en/glossary/unspent-transaction-output), with the most prominent exceptions being attempted double-spend and [coinbase](https://bitcoin.org/en/glossary/coinbase) inputs.
+A TXInput represents an input consumed within a transaction. Typically found within an array in a [TX](#tx). In most cases, TXInputs are from previous [UTXOs](https://bitcoin.org/en/glossary/unspent-transaction-output), with the most prominent exceptions being attempted double-spend and [coinbase](https://bitcoin.org/en/glossary/coinbase) inputs.
 
 Attribute | Type | Description
 --------- | ---- | -----------
@@ -222,7 +222,7 @@ Attribute | Type | Description
 **sequence** | *integer* | Legacy 4-byte [sequence number](https://bitcoin.org/en/glossary/sequence-number), not usually relevant unless dealing with locktime encumbrances.
 **age** | *integer* | ***Optional*** Number of confirmations of the previous transaction for which this input was an output. Currently, only returned in unconfirmed transactions.
 
-## TransactionOutput
+## TXOutput
 
 ```shell
 {
@@ -236,7 +236,7 @@ Attribute | Type | Description
 }
 ```
 
-A TransactionOutput represents an output created by a transaction. Typically found within an array in a [Transaction](#transaction).
+A TXOutput represents an output created by a transaction. Typically found within an array in a [TX](#tx).
 
 Attribute | Type | Description
 --------- | ---- | -----------
@@ -260,7 +260,7 @@ $ curl https://api.blockcypher.com/v1/btc/main/txs/43fa951e1bea87c282f6725cf8bdc
 }
 ```
 
-A TXConfidence represents information about the confidence that an unconfirmed Transaction will make it into the next block. Typically used as a return object from the [Transaction Confidence Endpoint.](#transaction-confidence-endpoint)
+A TXConfidence represents information about the confidence that an unconfirmed transaction will make it into the next block. Typically used as a return object from the [Transaction Confidence Endpoint.](#transaction-confidence-endpoint)
 
 Attribute | Type | Description
 --------- | ---- | -----------
@@ -268,7 +268,7 @@ Attribute | Type | Description
 **receive_count** | *integer* | Number of peers that have sent this transaction to BlockCypher; only positive for unconfirmed transactions. -1 for confirmed transactions.
 **confidence** | *float* | A number from 0 to 1 representing BlockCypher's confidence that the transaction will make it into the next block.
 **txhash** | *string* | The hash of the transaction. While reasonably unique, using hashes as identifiers may be [unsafe](https://en.bitcoin.it/wiki/Transaction_Malleability).
-**txurl** | *url* | The BlockCypher URL one can use to query more detailed information about this [Transaction](#transaction).
+**txurl** | *url* | The BlockCypher URL one can use to query more detailed information about this transaction.
 
 ## TXRef
 
@@ -306,7 +306,7 @@ Attribute | Type | Description
 **receive_count** | *integer* | ***Optional*** Number of peers that have sent this transaction to BlockCypher; only present for unconfirmed transactions.
 **double_of** | *string* | ***Optional*** If this transaction is a double-spend (i.e. **double_spend** == true) then this is the hash of the transaction it's double-spending.
 
-## TransactionSkeleton
+## TXSkeleton
 
 ```shell
 $ curl -d '{"inputs":[{"addresses": ["CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"]}],"outputs":[{"addresses": ["C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn"], "value": 1000000}]}' https://api.blockcypher.com/v1/bcy/test/txs/new
@@ -342,17 +342,17 @@ $ curl -d '{"inputs":[{"addresses": ["CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"]}],"ou
 }
 ```
 
-A TransactionSkeleton is a convenience/wrapper Object that's used primarily when [Creating Transactions](#creating-transactions) through the [New](#new-transaction-endpoint) and [Send](#send-transaction-endpoint) endpoints.
+A TXSkeleton is a convenience/wrapper Object that's used primarily when [Creating Transactions](#creating-transactions) through the [New](#new-transaction-endpoint) and [Send](#send-transaction-endpoint) endpoints.
 
 Attribute | Type | Description
 --------- | ---- | -----------
-**tx** | *[Transaction](#transaction)* | A temporary transaction, usually returned fully filled but missing input scripts.
+**tx** | *[TX](#tx)* | A temporary [TX](#tx), usually returned fully filled but missing input scripts.
 **tosign** | *array[string]* | Array of hex-encoded data for you to sign, one for each input.
 **signatures** | *array[string]* | Array of signatures corresponding to all the data in **tosign**, typically provided by you.
 **pubkeys** | *array[string]* | Array of public keys corresponding to each signature. In general, these are provided by you, and correspond to the signatures you provide.
 **errors** | *array["error":string]* | ***Optional*** Array of errors in the form *"error":"description-of-error"*. This is only returned if there was an error in any stage of transaction generation, and is usually accompanied by a HTTP 400 code.
 
-## Microtransaction
+## MicroTX
 
 ```shell
 {
@@ -366,7 +366,7 @@ Attribute | Type | Description
 }
 ```
 
-A Microtransaction represents a streamlined---and typically much lower value---transaction, one which BlockCypher can sign for you if you send your private key. Microtransactions can also be signed on the client-side without ever sending your private key. You'll find these objects used in the [Microtransaction API.](#microtransactions-api)
+A MicroTX represents a streamlined---and typically much lower value---microtransaction, one which BlockCypher can sign for you if you send your private key. MicroTXs can also be signed on the client-side without ever sending your private key. You'll find these objects used in the [Microtransaction API.](#microtransaction-api)
 
 <aside class="notice">
 Only one of these three fields is required for the microtransaction endpoint: <b>from_pubkey</b>, <b>from_private</b>, <b>from_wif</b> . If you send more than one, the API will return an error.
@@ -386,7 +386,7 @@ Attribute | Type | Description
 **signatures** | *array[string]* | ***Optional*** Hex-encoded signatures for you to send back after having received (and signed) **tosign**.
 **inputs** | *array[[TXInput](#txinput)]* | ***Optional*** Partial list of inputs that will be used with this transaction. Only returned when using **from_pubkey**.
 **outputs** | *array[[TXOutput](#txoutput)]* | ***Optional*** Partial list of outputs that will be used with this transaction. Only returned when using **from_pubkey**.
-**fees** | *integer* | ***Optional*** BlockCypher's optimally calculated fees for this Microtransaction to guarantee swift 99% confirmation, only returned when using **from_pubkey**. BlockCypher pays these fees for the first 8,000 Microtransactions, but like regular transactions, it is deducted from the source address thereafter.
+**fees** | *integer* | ***Optional*** BlockCypher's optimally calculated fees for this MicroTX to guarantee swift 99% confirmation, only returned when using **from_pubkey**. BlockCypher pays these fees for the first 8,000 microtransactions, but like regular transactions, it is deducted from the source address thereafter.
 **hash** | *string* | ***Optional*** The hash of the finalized transaction, once sent.
 
 ## Address
@@ -427,7 +427,7 @@ Attribute | Type | Description
 **unconfirmed_n_tx** | *integer* | Number of unconfirmed transactions for this address. Only unconfirmed transactions (confirmations == 0) are counted.
 **final_n_tx** | *integer* | Final number of transactions, including confirmed and unconfirmed transactions, for this address.
 **tx_url** | *url* | ***Optional*** To retrieve base URL transactions. To get the full URL, concatenate this URL with a transaction's hash.
-**txs** | *array[[Transaction](#transaction)]* | ***Optional***  Array of full transaction details associated with this address. Usually only returned from the [Address Detail Endpoint](#address-detail).
+**txs** | *array[[TX](#tx)]* | ***Optional***  Array of full transaction details associated with this address. Usually only returned from the [Address Detail Endpoint](#address-detail).
 **txrefs** | *array[[TXRef](#txref)]* | ***Optional*** Array of transaction inputs and outputs for this address. Usually only returned from the standard [Address Endpoint](#address-endpoint).
 **unconfirmed_txrefs** | *array[[TXRef](#txref)]* | ***Optional*** All unconfirmed transaction inputs and outputs for this address. Usually only returned from the standard [Address Endpoint](#address-endpoint).
 **hasMore** | *bool* | ***Optional*** If *true*, then the Address object contains more transactions than shown. Useful for determining whether to poll the API for more transaction information.
@@ -500,7 +500,7 @@ Attribute | Type | Description
 **wallet_name**	|  *string* | ***optional*** Only transactions associated with the given wallet will be sent. If used, requires a user token.
 **token**	| *string* | ***optional*** Required if wallet_name is used, though generally we advise users to include it (as they can reach API throttling thresholds rapidly).
 **address**	| *string* | ***optional*** Only transactions associated with the given address will be sent. A wallet name can also be used instead of an address, which will then match on any address in the wallet.
-**confirmations** | *integer* | ***optional***  Used in concert with the *tx-confirmation* event type to set the number of confirmations desired for which to receive an update. You'll receive an updated [Transaction](#transaction) for every confirmation up to this amount. The maximum allowed is 10; if not set, it will default to 6.
+**confirmations** | *integer* | ***optional***  Used in concert with the *tx-confirmation* event type to set the number of confirmations desired for which to receive an update. You'll receive an updated [TX](#tx) for every confirmation up to this amount. The maximum allowed is 10; if not set, it will default to 6.
 **script**	| *string* | ***optional*** Only transactions with an output script of the provided type will be sent. The recognized types of scripts are: *pay-to-pubkey-hash*, *pay-to-multi-pubkey-hash*, *pay-to-pubkey*, *pay-to-script-hash*, *null-data* (sometimes called OP_RETURN), *empty* or *unknown*.
 **url** | *url* | ***optional*** Callback URL for this Event's WebHook; not applicable for WebSockets usage.
 

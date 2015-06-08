@@ -1,6 +1,6 @@
-# Transactions API
+# Transaction API
 
-BlockCypher's Transactions API allows you to look up information about unconfirmed transactions, query transactions based on hash, and create and propagate your own transactions, including multisignature transactions---all [based on the coin/chain resource](#restful-resources) you've selected for your endpoints.
+BlockCypher's Transaction API allows you to look up information about unconfirmed transactions, query transactions based on hash, and create and propagate your own transactions, including multisignature transactions---all [based on the coin/chain resource](#restful-resources) you've selected for your endpoints.
 
 If you're new to blockchains, the idea of transactions is relatively self-explanatory. Here's what's going on underneath the hood: a transaction takes previous "unspent transaction outputs" (also known as [UTXOs](https://bitcoin.org/en/glossary/unspent-transaction-output)) as "transaction inputs" and creates new "locking scripts" on those inputs such that they are "sent" to new addresses (to become new UTXOs). While most of these public addresses are reference points for single private keys that can "unlock" the newly created UTXOs, occasionally they are sent to more exotic addresses through *pay-to-script-hash*, typically multisignature addresses.
 
@@ -73,7 +73,7 @@ The Transaction Hash Endpoint returns detailed information about a given transac
 
 Resource | Method | Return Object
 -------- | ------ | -------------
-/txs/$TXHASH | GET | [Transactions](#transactions)
+/txs/$TXHASH | GET | [TX](#tx)
 
 $TXHASH is a *string* representing the hex-encoded transaction hash you're interested in querying, for example:
 
@@ -125,9 +125,9 @@ The Unconfirmed Transactions Endpoint returns an array of the latest transaction
 
 Resource | Method | Return Object
 -------- | ------ | -------------
-/txs | GET | Array[[Transactions](#transactions)]
+/txs | GET | Array[[TX](#TX)]
 
-The returned object is an array of [Transactions](#transactions) that haven't been included in blocks, arranged in reverse chronological order (latest is first, then older transactions follow).
+The returned object is an array of transactions that haven't been included in blocks, arranged in reverse chronological order (latest is first, then older transactions follow).
 
 <aside class="notice">
 Due to <a href="https://bitcoin.org/en/glossary/malleability">transaction malleability</a> it can be difficult to deal with transaction hashes before they've been confirmed in blocks. Use caution, and consider applying our <a href="#confidence-factor">Confidence Factor</a> to mitigate potential issues.
@@ -138,9 +138,9 @@ Due to <a href="https://bitcoin.org/en/glossary/malleability">transaction mallea
 Within BlockCypher's API, you can push transactions to blockchains one of two ways:
 
 - Use a third party library to create your transactions and [push raw transactions](#push-raw-transaction-endpoint)
-- Use our two-endpoint process outlined below, wherein we generate a [Transaction Skeleton](#transactionskeleton) based on your input address, output address, and value to transfer.
+- Use our two-endpoint process outlined below, wherein we generate a [TXSkeleton](#txskeleton) based on your input address, output address, and value to transfer.
 
-In either case, for security reasons, we never take possession of your private keys. We do use private keys with our [Microtransactions API](#microtransactions-api), but they are for low-value transactions and we discard them immediately from our servers' memory.
+In either case, for security reasons, we never take possession of your private keys. We do use private keys with our [Microtransaction API](#microtransaction-api), but they are for low-value transactions and we discard them immediately from our servers' memory.
 
 <aside class="warning">
 Always use HTTPS for creating and pushing transactions.
@@ -210,13 +210,13 @@ $ curl -d '{"inputs":[{"addresses": ["CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"]}],"ou
 }
 ```
 
-To use BlockCypher's two-endpoint transaction creation tool, first you need to provide the input address(es), output address, and value to transfer (in satoshis). This is provided in the form of a partially-filled out [Transaction](#transaction) request object.
+To use BlockCypher's two-endpoint transaction creation tool, first you need to provide the input address(es), output address, and value to transfer (in satoshis). This is provided in the form of a partially-filled out [TX](#tx) request object.
 
 Resource | Method | Request Object | Return Object
 -------- | ------ | -------------- | -------------
-/txs/new | POST | [Transaction](#transaction) | [TransactionSkeleton](#transactionskeleton)
+/txs/new | POST | [TX](#tx) | [TXSkeleton](#txskeleton)
 
-As you can see from the code example, you only need to provide a single public address within the **addresses** array of both the **input** and **output** of your [Transaction](#transaction) request object. You also need to fill in the **value** with the amount you'd like to transfer from one address to another.
+As you can see from the code example, you only need to provide a single public address within the **addresses** array of both the **input** and **output** of your [TX](#tx) request object. You also need to fill in the **value** with the amount you'd like to transfer from one address to another.
 
 If you'd like, you can even use a [Wallet](#wallet) instead of addresses as your input. You just need to use two non-standard fields (your **wallet_name** and **wallet_token**) within the **inputs** array in your transaction, instead of **addresses**:
 
@@ -225,20 +225,20 @@ If you'd like, you can even use a [Wallet](#wallet) instead of addresses as your
 While this particular usage will differ between client libraries, the result is the same: the addresses within your wallet will be used as the **inputs**, as if all of them had been placed within the **addresses** array.
 
 <aside class="notice">
-If you want to automatically empty your input address(es) without knowing their exact value, your <a href="#transactions">Transaction</a> request object's <b>value</b> can be set to -1 to <i>sweep</i> all value from your input address(es) to your output address.
+If you want to automatically empty your input address(es) without knowing their exact value, your <a href="#tx">TX</a> request object's <b>value</b> can be set to -1 to <i>sweep</i> all value from your input address(es) to your output address.
 </aside>
 
 <aside class="notice">
-The BlockCypher API automatically allows unconfirmed UTXOs as inputs when creating transactions. If you only want to allow confirmed UTXOs, set the <b>confirmations</b> value in your <a href="#transaction ">Transaction</a> request object to 1.
+The BlockCypher API automatically allows unconfirmed UTXOs as inputs when creating transactions. If you only want to allow confirmed UTXOs, set the <b>confirmations</b> value in your <a href="#tx">TX</a> request object to 1.
 </aside>
 
-While we demonstrated the simplest use of this endpoint, you can have finer-grain control by modifying the [Tranasaction](#transaction) request object. Instead of providing **addresses**, you can use **prev_hash** and **output_index** within the **inputs** array, in which case, we'll use the inputs as provided and not attempt to generate them from a list of addresses. We will compute change and fees the same way (you can read more about the fee computation in the next section).
+While we demonstrated the simplest use of this endpoint, you can have finer-grain control by modifying the [TX](#tx) request object. Instead of providing **addresses**, you can use **prev_hash** and **output_index** within the **inputs** array, in which case, we'll use the inputs as provided and not attempt to generate them from a list of addresses. We will compute change and fees the same way (you can read more about the fee computation in the next section).
 
 <aside class="notice">
-By default, BlockCypher will set the change address to the first transaction input/address listed in the transaction. To redirect this default behavior, you can set an optional <b>change_address</b> field within the <a href="#transaction">Transaction</a> request object.
+By default, BlockCypher will set the change address to the first transaction input/address listed in the transaction. To redirect this default behavior, you can set an optional <b>change_address</b> field within the <a href="#tx">TX</a> request object.
 </aside>
 
-For further control, you can also change the **script_type** in the **output** of your partially filled [Transaction](#transaction). You'll notice this used to powerful effect in the section on [Multisig Transactions](#multisig-transactions). These are the possible script types:
+For further control, you can also change the **script_type** in the **output** of your partially filled [TX](#tx). You'll notice this used to powerful effect in the section on [Multisig Transactions](#multisig-transactions). These are the possible script types:
 
 1. *pay-to-pubkey-hash* (most common transaction transferring to a public key hash, and the default behavior if no out)
 1. *pay-to-multi-pubkey-hash* (multi-signatures transaction, now actually less used than *pay-to-script-hash* for this purpose)
@@ -248,10 +248,10 @@ For further control, you can also change the **script_type** in the **output** o
 1. *empty* (no script present, mostly used for mining transaction inputs)
 1. *unknown* (non-standard script)
 
-As a return object, you'll receive a [TransactionSkeleton](#transactionskeleton) containing a slightly-more complete [Transaction](#transaction) alongside data you need to sign (in the **tosign** array). You'll need this object for the next step of the transaction creation process.
+As a return object, you'll receive a [TXSkeleton](#txskeleton) containing a slightly-more complete [TX](#tx) alongside data you need to sign (in the **tosign** array). You'll need this object for the next step of the transaction creation process.
 
 <aside class="warning">
-The <b>hash</b> assigned to <a href="#transaction">Transaction</a> within the return object is only temporary. A final <b>hash</b> will be provided after the transaction is sent to the network through the Send Transaction Endpoint.
+The <b>hash</b> assigned to <a href="#tx">TX</a> within the return object is only temporary. A final <b>hash</b> will be provided after the transaction is sent to the network through the Send Transaction Endpoint.
 </aside>
 
 ```shell
@@ -319,29 +319,29 @@ $ curl -d '{"tx": {...}, "tosign": [ "32b5ea64c253b6b466366647458cfd60de9cd29d7d
 
 ### Send Transaction Endpoint
 
-With your [TransactionSkeleton](#transactionskeleton) returned from the New Transaction Endpoint, you now need to use your private key(s) to locally sign the data provided in the **tosign** array, and put that (hex-encoded) data into the **signatures** array of the [TransactionSkeleton](#transactionskeleton). You also need to include the corresponding (hex-encoded) public key(s) in the **pubkeys** array, in the order of the addresses/inputs provided. Signature and public key order matters, so make sure they are returned in the same order as the inputs you provided.
+With your [TXSkeleton](#txskeleton) returned from the New Transaction Endpoint, you now need to use your private key(s) to locally sign the data provided in the **tosign** array, and put that (hex-encoded) data into the **signatures** array of the [TXSkeleton](#txskeleton). You also need to include the corresponding (hex-encoded) public key(s) in the **pubkeys** array, in the order of the addresses/inputs provided. Signature and public key order matters, so make sure they are returned in the same order as the inputs you provided.
 
 Digital signing can be a difficult process, and is where the majority of issues arise when dealing with cryptocurrency transactions. We are working on integrating client-side signing solutions into our libraries to make this process easier, but you can read more about [signing here.](https://bitcoin.org/en/developer-guide#term-signature) In the mean time, if you want to experiment with client-side signing, consider using our [signer tool](https://github.com/blockcypher/btcutils/tree/master/signer)
 
 <aside class="notice">
 A note on fees: fees in cryptocurrencies can be complex. We provide 2 different ways for you to control the fees included in your transactions:
 
-<p>1) Set the <b>preference</b> property in your <a href="#transaction">Transaction</a> within your <a href="#transactionskeleton">TransactionSkeleton request object</a> to "high", "medium" or "low". This will calculate and include appropriate fees for your transaction to be included in the next 1-2 blocks, 3-5 blocks or 5 or more blocks respectively. The default fee calculation is based on a "high" <b>preference</b>. A preference set to "zero" will set no fee.</p>
+<p>1) Set the <b>preference</b> property in your <a href="#tx">TX</a> within your <a href="#txskeleton">TXSkeleton request object</a> to "high", "medium" or "low". This will calculate and include appropriate fees for your transaction to be included in the next 1-2 blocks, 3-5 blocks or 5 or more blocks respectively. The default fee calculation is based on a "high" <b>preference</b>. A preference set to "zero" will set no fee.</p>
 
-<p>2) Manually set the fee to a desired amount by setting the <b>fees</b> property in your <a href="#transaction">Transaction</a> within your <a href="#transactionskeleton">TransactionSkeleton request object</a>. Note that a fee too low may result in an error for some transactions that would require it.</p>
+<p>2) Manually set the fee to a desired amount by setting the <b>fees</b> property in your <a href="#tx">TX</a> within your <a href="#TXskeleton">TXSkeleton request object</a>. Note that a fee too low may result in an error for some transactions that would require it.</p>
 
 To learn more about fees, <a href="http://bitcoinfees.com/">bitcoinfees.com</a> is a good resource.
 </aside>
 
 Resource | Method | Request Object | Return Object
 -------- | ------ | -------------- | -------------
-/txs/send | POST | [TransactionSkeleton](#transactionskeleton) | [TransactionSkeleton](#transactionskeleton)
+/txs/send | POST | [TXSkeleton](#txskeleton) | [TXSkeleton](#txskeleton)
 
-If the transaction was successful, you'll receive a [TransactionSkeleton](#transactionskeleton) with the completed [Transaction](#transaction) (which contains its final **hash**) and an HTTP Status Code 201.
+If the transaction was successful, you'll receive a [TXSkeleton](#TXskeleton) with the completed [TX](#tx) (which contains its final **hash**) and an HTTP Status Code 201.
 
 ### Dealing with Errors
 
-Signing and creating transactions can be one of the trickiest parts of using blockchains in your applications. Consequently, when an error is encountered when [Creating Transactions](#creating-transactions), we send back an HTTP Status Code 400 alongside a descriptive array of **errors** within the [TransactionSkeleton](#transactionskeleton).
+Signing and creating transactions can be one of the trickiest parts of using blockchains in your applications. Consequently, when an error is encountered when [Creating Transactions](#creating-transactions), we send back an HTTP Status Code 400 alongside a descriptive array of **errors** within the [TXSkeleton](#txskeleton).
 
 <aside class="notice">
 One of the most common errors we see are users who use uncompressed public keys when compressed public keys were used to generate the address; remember to be careful to use the right keys!
@@ -406,17 +406,17 @@ $ curl -d '{"tx":"01000000011935b41d12936df99d322ac8972b74ecff7b79408bbccaf1b2eb
 }
 ```
 
-If you'd prefer to use your own transaction library instead of the recommended path of our two-endpoint [transaction generation](#creatingtransactions) we're still happy to help you propagate your raw transactions. Simply send your raw hex-encoded transaction to this endpoint and we'll leverage our huge network of nodes to propagate your transaction faster than anywhere else.
+If you'd prefer to use your own transaction library instead of the recommended path of our two-endpoint [transaction generation](#creating-transactions) we're still happy to help you propagate your raw transactions. Simply send your raw hex-encoded transaction to this endpoint and we'll leverage our huge network of nodes to propagate your transaction faster than anywhere else.
 
 Resource | Method | Request Object | Return Object
 -------- | ------ | -------------- | -------------
-/txs/push | POST | {"tx":$TXHEX} | [Transaction](#transaction)
+/txs/push | POST | {"tx":$TXHEX} | [TX](#tx)
 
 $TXHEX is a hex-encoded raw representation of your transaction, for example:
 
 `01000000011935b41d12936df99d322ac8972b74ecff7b79408bbccaf1b2eb8015228beac8000000006b483045022100921fc36b911094280f07d8504a80fbab9b823a25f102e2bc69b14bcd369dfc7902200d07067d47f040e724b556e5bc3061af132d5a47bd96e901429d53c41e0f8cca012102152e2bb5b273561ece7bbe8b1df51a4c44f5ab0bc940c105045e2cc77e618044ffffffff0240420f00000000001976a9145fb1af31edd2aa5a2bbaa24f6043d6ec31f7e63288ac20da3c00000000001976a914efec6de6c253e657a9d5506a78ee48d89762fb3188ac00000000`
 
-If it succeeds, you'll receive a decoded [Transaction](#transaction) object and an HTTP Status Code 201. If you'd like, you can use the decoded transaction **hash** alongside an [Event](#events-and-hooks) to track its progress in the network.
+If it succeeds, you'll receive a decoded [TX](#tx) object and an HTTP Status Code 201. If you'd like, you can use the decoded transaction **hash** alongside an [Event](#events-and-hooks) to track its progress in the network.
 
 ## Decode Raw Transaction Endpoint
 
@@ -481,13 +481,13 @@ We also offer the ability to decode raw transactions without sending propagating
 
 Resource | Method | Request Object | Return Object
 -------- | ------ | -------------- | -------------
-/txs/decode | POST | {"tx":$TXHEX} | [Transaction](#transaction)
+/txs/decode | POST | {"tx":$TXHEX} | [TX](#tx)
 
 $TXHEX is a hex-encoded raw representation of your transaction, for example:
 
 `01000000011935b41d12936df99d322ac8972b74ecff7b79408bbccaf1b2eb8015228beac8000000006b483045022100921fc36b911094280f07d8504a80fbab9b823a25f102e2bc69b14bcd369dfc7902200d07067d47f040e724b556e5bc3061af132d5a47bd96e901429d53c41e0f8cca012102152e2bb5b273561ece7bbe8b1df51a4c44f5ab0bc940c105045e2cc77e618044ffffffff0240420f00000000001976a9145fb1af31edd2aa5a2bbaa24f6043d6ec31f7e63288ac20da3c00000000001976a914efec6de6c253e657a9d5506a78ee48d89762fb3188ac00000000`
 
-If it succeeds, you'll receive your decoded [Transaction](#transaction) object.
+If it succeeds, you'll receive your decoded [TX](#tx) object.
 
 ## Multisig Transactions
 
@@ -502,9 +502,9 @@ If it succeeds, you'll receive your decoded [Transaction](#transaction) object.
 }
 ```
 
-Multisignature transactions are made simple by the method described in the [Creating Transactions](#creating-transactions) section, but they deserve special mention. In order to use them, you first need to fund a multisignature address. You use the `/txs/new` endpoint as before, but instead of the **outputs** **addresses** array containing public addresses, it instead contains the public keys associated with the new address. In addition, you must select a **script_type** of *mutlisig-n-of-m*, where *n* and *m* are numbers (e.g., *multisig-2-of-3*). The code example demonstrates how the partially filled [Transaction request object](#transaction) would appear.
+Multisignature transactions are made simple by the method described in the [Creating Transactions](#creating-transactions) section, but they deserve special mention. In order to use them, you first need to fund a multisignature address. You use the `/txs/new` endpoint as before, but instead of the **outputs** **addresses** array containing public addresses, it instead contains the public keys associated with the new address. In addition, you must select a **script_type** of *mutlisig-n-of-m*, where *n* and *m* are numbers (e.g., *multisig-2-of-3*). The code example demonstrates how the partially filled [TX request object](#tx) would appear.
 
-After you've set up your request object, you send to `/txs/new` and receive a partially filled [TransactionSkeleton](#transactionskeleton) as before, but with data to sign from the source address. Sign this data and include the public key(s) of the source address---as demonstrated in the [Creating Transactions](#creating-transactions)---then send along to the `/txs/send` endpoint. If it returns with an HTTP Status Code 201, then your multisignature address (via a *pay-to-script-hash* address) is funded.
+After you've set up your request object, you send to `/txs/new` and receive a partially filled [TXSkeleton](#txskeleton) as before, but with data to sign from the source address. Sign this data and include the public key(s) of the source address---as demonstrated in the [Creating Transactions](#creating-transactions)---then send along to the `/txs/send` endpoint. If it returns with an HTTP Status Code 201, then your multisignature address (via a *pay-to-script-hash* address) is funded.
 
 <aside class="notice">
 If you only need a <i>pay-to-script-hash</i> address corresponding to N-of-M multisig and don't want---or need---to fund it immediately, you should use the comparatively easier <a href="#generate-multisig-address-endpoint">Generate Multisig Address Endpoint.</a>

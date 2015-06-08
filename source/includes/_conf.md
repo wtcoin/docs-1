@@ -5,13 +5,13 @@ One of the things that makes BlockCypher's API uniquely powerful is our ability 
 And that pride extends to our own confidence in our confidence product. We've leveraged this product internally on two major features:
 
 - Our [live block explorer](https://live.blockcypher.com/) visually shows confidence intervals on unconfirmed transactions directly. Check out a [live view of bitcoin](https://live.blockcypher.com/btc/) and click on one of the most recent unconfirmed transactions. Make sure you pick a very recent transaction: our confidence interval rapidly approaches 99% so quickly that you might miss it!
-- Our [Microtransactions API](#microtransactions-api) is possible because of our Confidence Factor. Normally, you'd have to wait ~10 minutes for a block confirmation, which makes immediate, frequent, small on-chain transactions impossible. But since we believe in our confidence product---and have done the work necessary to validate this belief---we can guarantee microtransactions up to ~$9 each.
+- Our [Microtransaction API](#microtransaction-api) is possible because of our Confidence Factor. Normally, you'd have to wait ~10 minutes for a block confirmation, which makes immediate, frequent, small on-chain transactions impossible. But since we believe in our confidence product---and have done the work necessary to validate this belief---we can guarantee microtransactions up to ~$9 each.
 
 ### How does it work?
 
-The confidence is calculated based on both elapsed time, and the number of nodes that have received the transaction (the **receive_count** attribute in a [Transaction](#transaction) object) and is based on [several public research results](https://eprint.iacr.org/2012/248.pdf). We are constantly improving our confidence model, and generally publish these findings on [our blog](http://blog.blockcypher.com/) as well.
+The confidence is calculated based on both elapsed time, and the number of nodes that have received the transaction (the **receive_count** attribute in a [TX](#tx) object) and is based on [several public research results](https://eprint.iacr.org/2012/248.pdf). We are constantly improving our confidence model, and generally publish these findings on [our blog](http://blog.blockcypher.com/) as well.
 
-As BlockCypher pools resources for many users, we're always connected to a statistically significant number of nodes on the network---we target around 20% of the active nodes on any given blockchain---and offer connections in return. While maintaining those connections, we can also assess whether a given node has received a particular transaction. By monitoring the propagation of transactions across the network, we can calculate its probability to be the "winning" transaction at any given point in time, if a double-spend was attempted. You can also see if a double spend was attempted by checking the **double_spend** and **double_spend_tx** attributes on an unconfirmed [Transaction](#transaction).
+As BlockCypher pools resources for many users, we're always connected to a statistically significant number of nodes on the network---we target around 20% of the active nodes on any given blockchain---and offer connections in return. While maintaining those connections, we can also assess whether a given node has received a particular transaction. By monitoring the propagation of transactions across the network, we can calculate its probability to be the "winning" transaction at any given point in time, if a double-spend was attempted. You can also see if a double spend was attempted by checking the **double_spend** and **double_spend_tx** attributes on an [unconfirmed transaction](#tx).
 
 The result is a robust and reliable metric for judging unconfirmed transaction confidence, especially when used in concert with [webhooks and websockets.](#events-and-hooks)
 
@@ -33,7 +33,7 @@ $ curl https://api.blockcypher.com/v1/btc/main/txs/43fa951e1bea87c282f6725cf8bdc
 }
 ```
 
-Our confidence interval is automatically included in any unconfirmed [Transaction](#transaction) object, but you can retrieve it through a specific endpoint too.
+Our confidence interval is automatically included in any [unconfirmed transaction](#tx), but you can retrieve it through a specific endpoint too.
 
 Resource | Method | Return Object
 -------- | ------ | -------------

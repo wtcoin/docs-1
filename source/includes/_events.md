@@ -14,11 +14,11 @@ We support a number of different event types, and you can filter your notificati
 
 Event | Description
 ----- | -----------
-*unconfirmed-tx* | Triggered for every new transaction BlockCypher receives before it's confirmed in a block; basically, for every unconfirmed transaction. The payload is an unconfirmed [Transaction](#transaction).
+*unconfirmed-tx* | Triggered for every new transaction BlockCypher receives before it's confirmed in a block; basically, for every unconfirmed transaction. The payload is an unconfirmed [TX](#tx).
 *new-block* | Triggered for every new block added to the blockchain you've selected as your base resource. The payload is a [Block](#block).
-*confirmed-tx* | Triggered for every new transaction making it into a new block; in other words, for every first transaction confirmation. This is equivalent to listening to the *new-block* event and fetching each transaction in the new [Block](#block). The payload is a confirmed [Transaction](#transaction).
-*tx-confirmation* | Simplifies listening to confirmations on all transactions for a given address up to a provided threshold. Sends first the unconfirmed transaction and then the transaction for each confirmation. Use the **confirmations** property within the [Event](#event) to manually specify the number of confirmations desired (maximum 10, defaults to 6). The payload is a [Transaction](#transaction).
-*double-spend-tx* | Triggered any time a double spend is detected by BlockCypher. The payload is the [Transaction](#transaction) that triggered the event; the hash of the transaction that it's trying to double spend is included in its **double_spend_tx** property.
+*confirmed-tx* | Triggered for every new transaction making it into a new block; in other words, for every first transaction confirmation. This is equivalent to listening to the *new-block* event and fetching each transaction in the new [Block](#block). The payload is a confirmed [TX](#tx).
+*tx-confirmation* | Simplifies listening to confirmations on all transactions for a given address up to a provided threshold. Sends first the unconfirmed transaction and then the transaction for each confirmation. Use the **confirmations** property within the [Event](#event) to manually specify the number of confirmations desired (maximum 10, defaults to 6). The payload is a [TX](#tx).
+*double-spend-tx* | Triggered any time a double spend is detected by BlockCypher. The payload is the [TX](#tx) that triggered the event; the hash of the transaction that it's trying to double spend is included in its **double_spend_tx** property.
 
 <aside class="notice">
 Events like <i>unconfirmed-tx</i> can produce a lot of requests. To avoid rate-limiting, please <a href="http://accounts.blockcypher.com/">register for a token.</a>
@@ -68,7 +68,7 @@ Using the example above, we can demonstrate a client-side WebSocket event stream
 WebHooks leverage similar objects and interactions but with two key differences:
 
 - The JSON [Event](#event) should be sent using a POST request to the "create webhook endpoint" and include a **url** property to denote where payloads should be delivered.
-- The [Transaction](#transaction) or [Block](#block) associated with the [Event](#event) will be POSTed to the provided **url**. The POSTed payload will also include *X-EventType* and *X-EventId* metadata in the HTTP header specifying the **event** type and **id** of the WebHook which triggered the payload.
+- The [TX](#tx) or [Block](#block) associated with the [Event](#event) will be POSTed to the provided **url**. The POSTed payload will also include *X-EventType* and *X-EventId* metadata in the HTTP header specifying the **event** type and **id** of the WebHook which triggered the payload.
 
 <aside class="warning">
 To prevent eavesdropping, we recommend securing your callback <b>url</b> by using SSL and providing a <i>secret</i> parameter appended to the <a href="#event">Event</a> request. We POST the payload to the unaltered <b>url</b>, which allows you to check on your server that the parameter was not modified.
