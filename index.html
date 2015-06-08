@@ -43,14 +43,10 @@
       <div class="dark-box"></div>
       <div class="content">
         <h1 id="introduction">Introduction</h1>
-<pre class="highlight shell"><code><span class="c">#  ______ _            _    _____             _               </span>
-<span class="c">#  | ___ \ |          | |  /  __ \           | |              </span>
-<span class="c">#  | |_/ / | ___   ___| | _| /  \/_   _ _ __ | |__   ___ _ __ </span>
-<span class="c">#  | ___ \ |/ _ \ / __| |/ / |   | | | | '_ \| '_ \ / _ \ '__|</span>
-<span class="c">#  | |_/ / | (_) | (__|   &lt;| \__/\ |_| | |_) | | | |  __/ |   </span>
-<span class="c">#  \____/|_|\___/ \___|_|\_\\____/\__, | .__/|_| |_|\___|_|   </span>
-<span class="c">#                                  __/ | |                    </span>
-<span class="c">#                                 |___/|_|                    </span>
+<pre class="highlight shell"><code><span class="c">#  _               _                  </span>
+<span class="c"># |_) |  _   _ |  /     ._  |_   _  ._</span>
+<span class="c"># |_) | (_) (_ |&lt; \_ \/ |_) | | (/_ | </span>
+<span class="c">#                    /  |             </span>
 </code></pre>
 
 <p>Welcome to <a href="http://www.blockcypher.com/">BlockCypher&rsquo;s</a> API documentation! BlockCypher is a simple, mostly RESTful JSON API for interacting with blockchains, accessed over HTTP or HTTPS from the <a href="https://api.blockcypher.com/v1/btc/main">api.blockcypher.com</a> domain. Currently, BlockCypher supports Bitcoin, Bitcoin Testnet3, Litecoin, Dogecoin, Urocoin, and BlockCypher&rsquo;s Test Chain (more about BlockCypher&rsquo;s Test Chain <a href="#testing">below</a>).</p>
@@ -60,17 +56,9 @@
 <p>Consequently, if you&rsquo;re familiar with a blockchain&rsquo;s reference implementation, you&rsquo;ll feel at home using BlockCypher, but without worrying about scaling or implementation challenges. And if you&rsquo;re not familiar&mdash;with the reference implementations or blockchains in general&mdash;BlockCypher&rsquo;s API is a great way to dip your toes into blockchain development, without a lengthy setup process. In either case, BlockCypher has 99.99% up-time, and maintains an expressive, logical API that you&rsquo;ll love.</p>
 
 <h2 id="documentation-structure">Documentation Structure</h2>
-
-<blockquote>
-<p>You&rsquo;ll see code in this section, like this:</p>
-</blockquote>
 <pre class="highlight shell"><code><span class="gp">$ </span>man curl | grep -A 3 <span class="s2">"DESCRIPTION"</span>
-</code></pre>
 
-<blockquote>
-<p>Alongside expected responses:</p>
-</blockquote>
-<pre class="highlight shell"><code>DESCRIPTION
+DESCRIPTION
 curl is a tool to transfer data from or to a server, using one of the supported protocols <span class="o">(</span>DICT, FILE, FTP, FTPS, GOPHER, HTTP, HTTPS, IMAP, IMAPS, LDAP, LDAPS, POP3, POP3S, RTMP, RTSP, SCP, SFTP, SMB, SMBS, SMTP, SMTPS, TELNET and TFTP<span class="o">)</span>. The <span class="nb">command </span>is designed to work without user interaction.
 </code></pre>
 
@@ -104,10 +92,16 @@ Currently, we only have cURL code samples, but are working on adding other offic
 <p>BlockCypher has client SDKs for the following languages:</p>
 
 <ul>
-<li><strong>Ruby</strong> &mdash; <a href="https://github.com/blockcypher/ruby-client">https://github.com/blockcypher/ruby-client</a></li>
-<li><strong>Python</strong> &mdash; <a href="https://github.com/blockcypher/blockcypher-python">https://github.com/blockcypher/blockcypher-python</a></li>
-<li><strong>Java</strong> &mdash; <a href="https://github.com/blockcypher/java-client">https://github.com/blockcypher/java-client</a></li>
-<li><strong>Node.js</strong> (under development) &mdash; <a href="https://github.com/blockcypher/node-client">https://github.com/blockcypher/node-client</a></li>
+<li><strong>Ruby</strong> <a href="https://github.com/blockcypher/ruby-client">https://github.com/blockcypher/ruby-client</a></li>
+<li><strong>Python</strong> <a href="https://github.com/blockcypher/blockcypher-python">https://github.com/blockcypher/blockcypher-python</a></li>
+<li><strong>Java</strong> <a href="https://github.com/blockcypher/java-client">https://github.com/blockcypher/java-client</a></li>
+</ul>
+
+<p>These client SDKs are under development, but are still officially supported:</p>
+
+<ul>
+<li><strong>Node.js</strong> <a href="https://github.com/blockcypher/node-client">https://github.com/blockcypher/node-client</a></li>
+<li><strong>PHP</strong> <a href="https://github.com/blockcypher/php-client">https://github.com/blockcypher/php-client</a></li>
 </ul>
 
 <p>If you&rsquo;re using these languages, we strongly encourage you to use an official SDK. Of course, all our API calls are standard HTTP endpoints using JSON formatted responses, so any language (or cURL from the command-line) will work just fine.</p>
@@ -117,8 +111,8 @@ Currently, we only have cURL code samples, but are working on adding other offic
 <p>These client SDKs were made by members of the community, and are not officially supported by BlockCypher. As such, BlockCypher cannot guarantee that they&rsquo;re fully up to date, but we hope they will provide a nice jumping-off point for developers using these languages. We&rsquo;ll endeavor to keep this list updated, if any of these prove obsolete. If there&rsquo;s enough support for a particular language, we&rsquo;ll work with the community to turn it into an officially supported SDK.</p>
 
 <ul>
-<li><strong>.NET</strong> &mdash; <a href="https://github.com/bscheiman/BlockCypher">https://github.com/bscheiman/BlockCypher</a></li>
-<li><strong>Go</strong> &mdash; <a href="https://github.com/acityinohio/blockcy">https://github.com/acityinohio/blockcy</a></li>
+<li><strong>.NET</strong>: <a href="https://github.com/bscheiman/BlockCypher">https://github.com/bscheiman/BlockCypher</a></li>
+<li><strong>Go</strong>: <a href="https://github.com/acityinohio/blockcy">https://github.com/acityinohio/blockcy</a></li>
 </ul>
 
 <h2 id="restful-resources">RESTful Resources</h2>
@@ -204,17 +198,15 @@ If you exceed these limits as a non-registered user, your requests will return a
 </aside>
 
 <p>Please <a href="http://acccounts.blockcypher.com/">register for a user token</a> if your usage exceeds those limits, or if you want to preventively avoid the rate limits. Our future pricing plan will be tiered based on usage and volume. We will have a free tier and an extended free plan for our early users. To request higher limits or SLAs, please <a href="mailto:contact@blockcypher.com">email us.</a></p>
-
-<blockquote>
-<p>Adding your token to requests:</p>
-</blockquote>
-<pre class="highlight shell"><code><span class="gp">$ </span>curl https://api.blockcypher.com/v1/btc/main?token<span class="o">=</span><span class="nv">$YOUR_TOKEN</span>
+<pre class="highlight shell"><code><span class="c"># Adding your token as URL parameter</span>
+<span class="gp">$ </span>curl https://api.blockcypher.com/v1/btc/main?token<span class="o">=</span><span class="nv">$YOUR_TOKEN</span>
 </code></pre>
 
 <p>Once you have your token, you can append it to all your requests like any other URL parameter if you&rsquo;re using cURL, or through the appropriate method in the language SDK you&rsquo;re using.</p>
 
 <h2 id="batching">Batching</h2>
-<pre class="highlight shell"><code><span class="gp">$ </span>curl https://api.blockcypher.com/v1/btc/main/blocks/5;6;7
+<pre class="highlight shell"><code><span class="c"># Batching blocks 5, 6, and 7</span>
+<span class="gp">$ </span>curl https://api.blockcypher.com/v1/btc/main/blocks/5;6;7
 
 <span class="o">[{</span>
 <span class="s2">"hash"</span>: <span class="s2">"000000003031a0e73735690c5a1ff2a4be82553b2a12b776fbd3a215dc8f778d"</span>,
@@ -329,10 +321,6 @@ Objects sometimes contain <b>attributes</b> that are <b><i>optional.</i></b> The
 </aside>
 
 <h2 id="blockchain">Blockchain</h2>
-
-<blockquote>
-<p>An example Blockchain Object</p>
-</blockquote>
 <pre class="highlight shell"><code><span class="o">{</span>
 <span class="s2">"name"</span>: <span class="s2">"BTC.main"</span>,
 <span class="s2">"height"</span>: 355987,
@@ -415,10 +403,6 @@ Objects sometimes contain <b>attributes</b> that are <b><i>optional.</i></b> The
 </tbody></table>
 
 <h2 id="block">Block</h2>
-
-<blockquote>
-<p>An example Block Object</p>
-</blockquote>
 <pre class="highlight shell"><code><span class="o">{</span>
 <span class="s2">"hash"</span>: <span class="s2">"0000000000000000189bba3564a63772107b567..."</span>,
 <span class="s2">"height"</span>: 294322,
@@ -546,10 +530,6 @@ Objects sometimes contain <b>attributes</b> that are <b><i>optional.</i></b> The
 </tbody></table>
 
 <h2 id="transaction">Transaction</h2>
-
-<blockquote>
-<p>An example Transaction Object</p>
-</blockquote>
 <pre class="highlight shell"><code><span class="o">{</span>
 <span class="s2">"block_hash"</span>: <span class="s2">"0000000000000000c504bdea36e531d80..."</span>,
 <span class="s2">"block_height"</span>: 293000,
@@ -736,10 +716,6 @@ Objects sometimes contain <b>attributes</b> that are <b><i>optional.</i></b> The
 </tbody></table>
 
 <h2 id="transactioninput">TransactionInput</h2>
-
-<blockquote>
-<p>An example TransactionInput Object</p>
-</blockquote>
 <pre class="highlight shell"><code><span class="o">{</span>
 <span class="s2">"prev_hash"</span>: <span class="s2">"e5c9be87798b0fa8ad55a22b5d731d6f50d72bffaa6179f9999499e57388cc33"</span>,
 <span class="s2">"output_index"</span>: 1,
@@ -806,10 +782,6 @@ Objects sometimes contain <b>attributes</b> that are <b><i>optional.</i></b> The
 </tbody></table>
 
 <h2 id="transactionoutput">TransactionOutput</h2>
-
-<blockquote>
-<p>An example TransactionOutput Object</p>
-</blockquote>
 <pre class="highlight shell"><code><span class="o">{</span>
 <span class="s2">"value"</span>: 70320221545,
 <span class="s2">"script"</span>: <span class="s2">"76a914e6aad9d712c419ea8febf009a3f3bfdd8d222fac88ac"</span>,
@@ -904,10 +876,6 @@ Objects sometimes contain <b>attributes</b> that are <b><i>optional.</i></b> The
 </tbody></table>
 
 <h2 id="txref">TXRef</h2>
-
-<blockquote>
-<p>An example TXRef Object</p>
-</blockquote>
 <pre class="highlight shell"><code><span class="o">{</span>
 <span class="s2">"tx_hash"</span>: <span class="s2">"14b1052855bbf6561bc4db8aa501762e7cc1e86994dda9e782a6b73b1ce0dc1e"</span>,
 <span class="s2">"block_height"</span>: 302013,
@@ -1008,10 +976,6 @@ Objects sometimes contain <b>attributes</b> that are <b><i>optional.</i></b> The
 </tbody></table>
 
 <h2 id="transactionskeleton">TransactionSkeleton</h2>
-
-<blockquote>
-<p>An example TransactionSkeleton Object</p>
-</blockquote>
 <pre class="highlight shell"><code><span class="o">{</span>
 <span class="s2">"tx"</span>: <span class="o">{</span>
     <span class="s2">"block_height"</span>: -1,
@@ -1080,10 +1044,6 @@ Objects sometimes contain <b>attributes</b> that are <b><i>optional.</i></b> The
 </tbody></table>
 
 <h2 id="microtransaction">Microtransaction</h2>
-
-<blockquote>
-<p>An example Microtransaction object</p>
-</blockquote>
 <pre class="highlight shell"><code><span class="o">{</span>
 <span class="s2">"from_pubkey"</span>: <span class="s2">"03bb318b00de944086fad67ab78a832eb1bf26916053ecd3b14a3f48f9fbe0821f"</span>,
 <span class="s2">"to_address"</span>: <span class="s2">"mrS82nWF3TCfhafSaKnmUUktGNYuTZn1Ap"</span>,
@@ -1181,10 +1141,6 @@ Only one of these three fields is required for the microtransaction endpoint: <b
 </tbody></table>
 
 <h2 id="address">Address</h2>
-
-<blockquote>
-<p>An example Address object</p>
-</blockquote>
 <pre class="highlight shell"><code><span class="o">{</span>
 <span class="s2">"address"</span>: <span class="s2">"1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD"</span>,
 <span class="s2">"total_received"</span>: 4433416,
@@ -1286,10 +1242,6 @@ Only one of these three fields is required for the microtransaction endpoint: <b
 </tbody></table>
 
 <h2 id="addresskeychain">AddressKeychain</h2>
-
-<blockquote>
-<p>An example AddressKeychain object</p>
-</blockquote>
 <pre class="highlight shell"><code><span class="o">{</span>
 <span class="s2">"private"</span>: <span class="s2">"86751cb880a9a1addcc3b67979976158dd800afe9d14b68349921299b20c94dd"</span>,
 <span class="s2">"public"</span>: <span class="s2">"03866586fbe3652eb219c5ed99c3fc72d125472248183f966e0673be08a1c543de"</span>,
@@ -1340,10 +1292,6 @@ Only one of these three fields is required for the microtransaction endpoint: <b
 </tbody></table>
 
 <h2 id="wallet">Wallet</h2>
-
-<blockquote>
-<p>An example Wallet object</p>
-</blockquote>
 <pre class="highlight shell"><code><span class="o">{</span>
 <span class="s2">"name"</span>: <span class="s2">"alice"</span>,
 <span class="s2">"addresses"</span>: <span class="o">[</span><span class="s2">"1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e"</span><span class="o">]</span>
@@ -1377,10 +1325,6 @@ Only one of these three fields is required for the microtransaction endpoint: <b
 </tbody></table>
 
 <h2 id="event">Event</h2>
-
-<blockquote>
-<p>An example Event object</p>
-</blockquote>
 <pre class="highlight shell"><code><span class="o">{</span>
 <span class="s2">"event"</span>: <span class="s2">"unconfirmed-tx"</span>,
 <span class="s2">"address"</span>: <span class="s2">"15qx9ug952GWGTNn7Uiv6vode4RcGrRemh"</span>,
@@ -1446,10 +1390,6 @@ Only one of these three fields is required for the microtransaction endpoint: <b
 </tbody></table>
 
 <h2 id="paymentforward">PaymentForward</h2>
-
-<blockquote>
-<p>An example PaymentForward object</p>
-</blockquote>
 <pre class="highlight shell"><code><span class="o">{</span>
 <span class="s2">"destination"</span>: <span class="s2">"15qx9ug952GWGTNn7Uiv6vode4RcGrRemh"</span>,
 <span class="s2">"callback_url"</span>: <span class="s2">"https://my.domain.com/callbacks/new-pay"</span>
@@ -1526,10 +1466,6 @@ Only one of these three fields is required for the microtransaction endpoint: <b
 </tbody></table>
 
 <h2 id="paymentforwardcallback">PaymentForwardCallback</h2>
-
-<blockquote>
-<p>An example PaymentForwardCallback object</p>
-</blockquote>
 <pre class="highlight shell"><code><span class="o">{</span>
 <span class="s2">"value"</span>: 100000000,
 <span class="s2">"input_address"</span>: <span class="s2">"16uKw7GsQSzfMaVTcT7tpFQkd7Rh9qcXWX"</span>,
