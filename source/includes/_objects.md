@@ -21,17 +21,20 @@ Objects sometimes contain <b>attributes</b> that are <b><i>optional.</i></b> The
 $ curl https://api.blockcypher.com/v1/btc/main
 
 {
-"name": "BTC.main",
-"height": 355987,
-"hash": "00000000000000000571776041a7bbeaa4a0c3e2cd24b782a0bcb12df91ea4c4",
-"time": "2015-05-11T22:50:16.462271831Z",
-"latest_url": "https://api.blockcypher.com/v1/btc/main/blocks/00000000000000000571776041a7bbeaa4a0c3e2cd24b782a0bcb12df91ea4c4",
-"previous_hash": "000000000000000016a6c97a4eeeac1ca238367262831f257d7e7552d211f55c",
-"previous_url": "https://api.blockcypher.com/v1/btc/main/blocks/000000000000000016a6c97a4eeeac1ca238367262831f257d7e7552d211f55c",
-"peer_count": 250,
-"unconfirmed_count": 2135,
-"last_fork_height": 355900,
-"last_fork_hash": "00000000000000000427feb74d5784ec55a9e0f060e0328f7220433477d719bb"
+  "name": "BTC.main",
+  "height": 360060,
+  "hash": "000000000000000000bf56ff4a81e399374a68344a64d6681039412de78366b8",
+  "time": "2015-06-08T22:57:08.260165627Z",
+  "latest_url": "https://api.blockcypher.com/v1/btc/main/blocks/000000000000000000bf56ff4a81e399374a68344a64d6681039412de78366b8",
+  "previous_hash": "000000000000000011c9511ae1265d34d3c16fff6e8f94380425833b3d0ae5d8",
+  "previous_url": "https://api.blockcypher.com/v1/btc/main/blocks/000000000000000011c9511ae1265d34d3c16fff6e8f94380425833b3d0ae5d8",
+  "peer_count": 239,
+  "unconfirmed_count": 617,
+  "high_fee_per_kb": 46086,
+  "medium_fee_per_kb": 29422,
+  "low_fee_per_kb": 12045,
+  "last_fork_height": 359865,
+  "last_fork_hash": "00000000000000000aa6462fd9faf94712ce1b5a944dc666f491101c996beab9"
 }
 ```
 
@@ -47,6 +50,9 @@ Attribute | Type | Description
 **previous_hash** | *string* | The hash of the second-to-latest confirmed block in the blockchain.
 **previous_url** | *url* | The BlockCypher URL to query for more information on the second-to-latest confirmed block; returns a [Block](#block).
 **peer_count** | *integer* | *N/A, will be deprecated soon*.
+**high_fee_per_kb** | *integer* | A rolling average of the fee (in satoshis) paid per kilobyte for transactions to be confirmed within 1 to 2 blocks.
+**medium_fee_per_kb** | *integer* | A rolling average of the fee (in satoshis) paid per kilobyte for transactions to be confirmed within 3 to 6 blocks.
+**low_fee_per_kb** | *integer* | A rolling average of the fee (in satoshis) paid per kilobyte for transactions to be confirmed in 7 or more blocks.
 **unconfirmed_count** | *integer* | Number of unconfirmed transactions in memory pool (likely to be included in next block).
 **last_fork_height** | *integer* | ***Optional*** The current height of the latest fork to the blockchain; when no competing blockchain fork present, not returned with endpoints that return Blockchains.
 **last_fork_hash** | *string* | ***Optional*** The hash of the latest confirmed block in the latest fork of the blockchain; when no competing blockchain fork present, not returned with endpoints that return Blockchains.

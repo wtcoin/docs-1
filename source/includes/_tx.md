@@ -324,9 +324,9 @@ With your [TXSkeleton](#txskeleton) returned from the New Transaction Endpoint, 
 Digital signing can be a difficult process, and is where the majority of issues arise when dealing with cryptocurrency transactions. We are working on integrating client-side signing solutions into our libraries to make this process easier, but you can read more about [signing here.](https://bitcoin.org/en/developer-guide#term-signature) In the mean time, if you want to experiment with client-side signing, consider using our [signer tool](https://github.com/blockcypher/btcutils/tree/master/signer)
 
 <aside class="notice">
-A note on fees: fees in cryptocurrencies can be complex. We provide 2 different ways for you to control the fees included in your transactions:
+<p>A note on fees: fees in cryptocurrencies can be complex. We provide 2 different ways for you to control the fees included in your transactions:</p>
 
-<p>1) Set the <b>preference</b> property in your <a href="#tx">TX</a> within your <a href="#txskeleton">TXSkeleton request object</a> to "high", "medium" or "low". This will calculate and include appropriate fees for your transaction to be included in the next 1-2 blocks, 3-5 blocks or 5 or more blocks respectively. The default fee calculation is based on a "high" <b>preference</b>. A preference set to "zero" will set no fee.</p>
+<p>1) Set the <b>preference</b> property in your <a href="#tx">TX</a> within your <a href="#txskeleton">TXSkeleton request object</a> to "high", "medium" or "low". This will calculate and include appropriate fees for your transaction to be included in the next 1-2 blocks, 3-6 blocks or 7 or more blocks respectively. You can see the explicit estimates per kilobyte for these high, medium, and low ranges by calling your base resource through the <a href="#chain-endpoint">Chain Endpoint.</a> The default fee calculation is based on a "high" <b>preference</b>. A preference set to "zero" will set no fee.</p>
 
 <p>2) Manually set the fee to a desired amount by setting the <b>fees</b> property in your <a href="#tx">TX</a> within your <a href="#TXskeleton">TXSkeleton request object</a>. Note that a fee too low may result in an error for some transactions that would require it.</p>
 

@@ -94,15 +94,20 @@ These client SDKs were made by members of the community, and are not officially 
 $ curl https://api.blockcypher.com/v1/btc/main
 
 {
-"name": "BTC.main",
-"height": 355578,
-"hash": "00000000000000000a0b253f20709b0c77d8a56aa8db632ecbdc7381816504cd",
-"time": "2015-05-08T23:12:55.243311146Z",
-"latest_url": "https://api.blockcypher.com/v1/btc/main/blocks/00000000000000000a0b253f20709b0c77d8a56aa8db632ecbdc7381816504cd",
-"previous_hash": "00000000000000000acef50ef89494493b4a08a8419588e1e3e20cd73bc85a6b",
-"previous_url": "https://api.blockcypher.com/v1/btc/main/blocks/00000000000000000acef50ef89494493b4a08a8419588e1e3e20cd73bc85a6b",
-"peer_count": 250,
-"unconfirmed_count": 637
+  "name": "BTC.main",
+  "height": 360060,
+  "hash": "000000000000000000bf56ff4a81e399374a68344a64d6681039412de78366b8",
+  "time": "2015-06-08T22:57:08.260165627Z",
+  "latest_url": "https://api.blockcypher.com/v1/btc/main/blocks/000000000000000000bf56ff4a81e399374a68344a64d6681039412de78366b8",
+  "previous_hash": "000000000000000011c9511ae1265d34d3c16fff6e8f94380425833b3d0ae5d8",
+  "previous_url": "https://api.blockcypher.com/v1/btc/main/blocks/000000000000000011c9511ae1265d34d3c16fff6e8f94380425833b3d0ae5d8",
+  "peer_count": 239,
+  "unconfirmed_count": 617,
+  "high_fee_per_kb": 46086,
+  "medium_fee_per_kb": 29422,
+  "low_fee_per_kb": 12045,
+  "last_fork_height": 359865,
+  "last_fork_hash": "00000000000000000aa6462fd9faf94712ce1b5a944dc666f491101c996beab9"
 }
 ```
 
