@@ -70,11 +70,14 @@ All API calls are versioned, and the current BlockCypher API is v1. We will neve
 
 BlockCypher has client SDKs for the following languages:
 
-- **Ruby** --- [https://github.com/blockcypher/ruby-client](https://github.com/blockcypher/ruby-client)
-- **Python** --- [https://github.com/blockcypher/blockcypher-python](https://github.com/blockcypher/blockcypher-python)
-- **Java** --- [https://github.com/blockcypher/java-client](https://github.com/blockcypher/java-client)
-- **Node.js** (under development) --- [https://github.com/blockcypher/node-client](https://github.com/blockcypher/node-client)
-- **PHP** (under development) --- [https://github.com/blockcypher/php-client](https://github.com/blockcypher/php-client)
+- **Ruby** [https://github.com/blockcypher/ruby-client](https://github.com/blockcypher/ruby-client)
+- **Python** [https://github.com/blockcypher/blockcypher-python](https://github.com/blockcypher/blockcypher-python)
+- **Java** [https://github.com/blockcypher/java-client](https://github.com/blockcypher/java-client)
+
+These client SDKs are under development, but are still officially supported:
+
+- **Node.js** [https://github.com/blockcypher/node-client](https://github.com/blockcypher/node-client)
+- **PHP** [https://github.com/blockcypher/php-client](https://github.com/blockcypher/php-client)
 
 If you're using these languages, we strongly encourage you to use an official SDK. Of course, all our API calls are standard HTTP endpoints using JSON formatted responses, so any language (or cURL from the command-line) will work just fine.
 
@@ -82,8 +85,8 @@ If you're using these languages, we strongly encourage you to use an official SD
 
 These client SDKs were made by members of the community, and are not officially supported by BlockCypher. As such, BlockCypher cannot guarantee that they're fully up to date, but we hope they will provide a nice jumping-off point for developers using these languages. We'll endeavor to keep this list updated, if any of these prove obsolete. If there's enough support for a particular language, we'll work with the community to turn it into an officially supported SDK.
 
-- **.NET** --- [https://github.com/bscheiman/BlockCypher](https://github.com/bscheiman/BlockCypher)
-- **Go** --- [https://github.com/acityinohio/blockcy](https://github.com/acityinohio/blockcy)
+- **.NET**: [https://github.com/bscheiman/BlockCypher](https://github.com/bscheiman/BlockCypher)
+- **Go**: [https://github.com/acityinohio/blockcy](https://github.com/acityinohio/blockcy)
 
 ## RESTful Resources
 
