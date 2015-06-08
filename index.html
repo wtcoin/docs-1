@@ -119,15 +119,20 @@ Currently, we only have cURL code samples, but are working on adding other offic
 <pre class="highlight shell"><code><span class="gp">$ </span>curl https://api.blockcypher.com/v1/btc/main
 
 <span class="o">{</span>
-<span class="s2">"name"</span>: <span class="s2">"BTC.main"</span>,
-<span class="s2">"height"</span>: 355578,
-<span class="s2">"hash"</span>: <span class="s2">"00000000000000000a0b253f20709b0c77d8a56aa8db632ecbdc7381816504cd"</span>,
-<span class="s2">"time"</span>: <span class="s2">"2015-05-08T23:12:55.243311146Z"</span>,
-<span class="s2">"latest_url"</span>: <span class="s2">"https://api.blockcypher.com/v1/btc/main/blocks/00000000000000000a0b253f20709b0c77d8a56aa8db632ecbdc7381816504cd"</span>,
-<span class="s2">"previous_hash"</span>: <span class="s2">"00000000000000000acef50ef89494493b4a08a8419588e1e3e20cd73bc85a6b"</span>,
-<span class="s2">"previous_url"</span>: <span class="s2">"https://api.blockcypher.com/v1/btc/main/blocks/00000000000000000acef50ef89494493b4a08a8419588e1e3e20cd73bc85a6b"</span>,
-<span class="s2">"peer_count"</span>: 250,
-<span class="s2">"unconfirmed_count"</span>: 637
+  <span class="s2">"name"</span>: <span class="s2">"BTC.main"</span>,
+  <span class="s2">"height"</span>: 360060,
+  <span class="s2">"hash"</span>: <span class="s2">"000000000000000000bf56ff4a81e399374a68344a64d6681039412de78366b8"</span>,
+  <span class="s2">"time"</span>: <span class="s2">"2015-06-08T22:57:08.260165627Z"</span>,
+  <span class="s2">"latest_url"</span>: <span class="s2">"https://api.blockcypher.com/v1/btc/main/blocks/000000000000000000bf56ff4a81e399374a68344a64d6681039412de78366b8"</span>,
+  <span class="s2">"previous_hash"</span>: <span class="s2">"000000000000000011c9511ae1265d34d3c16fff6e8f94380425833b3d0ae5d8"</span>,
+  <span class="s2">"previous_url"</span>: <span class="s2">"https://api.blockcypher.com/v1/btc/main/blocks/000000000000000011c9511ae1265d34d3c16fff6e8f94380425833b3d0ae5d8"</span>,
+  <span class="s2">"peer_count"</span>: 239,
+  <span class="s2">"unconfirmed_count"</span>: 617,
+  <span class="s2">"high_fee_per_kb"</span>: 46086,
+  <span class="s2">"medium_fee_per_kb"</span>: 29422,
+  <span class="s2">"low_fee_per_kb"</span>: 12045,
+  <span class="s2">"last_fork_height"</span>: 359865,
+  <span class="s2">"last_fork_hash"</span>: <span class="s2">"00000000000000000aa6462fd9faf94712ce1b5a944dc666f491101c996beab9"</span>
 <span class="o">}</span>
 </code></pre>
 
@@ -324,17 +329,20 @@ Objects sometimes contain <b>attributes</b> that are <b><i>optional.</i></b> The
 <pre class="highlight shell"><code><span class="gp">$ </span>curl https://api.blockcypher.com/v1/btc/main
 
 <span class="o">{</span>
-<span class="s2">"name"</span>: <span class="s2">"BTC.main"</span>,
-<span class="s2">"height"</span>: 355987,
-<span class="s2">"hash"</span>: <span class="s2">"00000000000000000571776041a7bbeaa4a0c3e2cd24b782a0bcb12df91ea4c4"</span>,
-<span class="s2">"time"</span>: <span class="s2">"2015-05-11T22:50:16.462271831Z"</span>,
-<span class="s2">"latest_url"</span>: <span class="s2">"https://api.blockcypher.com/v1/btc/main/blocks/00000000000000000571776041a7bbeaa4a0c3e2cd24b782a0bcb12df91ea4c4"</span>,
-<span class="s2">"previous_hash"</span>: <span class="s2">"000000000000000016a6c97a4eeeac1ca238367262831f257d7e7552d211f55c"</span>,
-<span class="s2">"previous_url"</span>: <span class="s2">"https://api.blockcypher.com/v1/btc/main/blocks/000000000000000016a6c97a4eeeac1ca238367262831f257d7e7552d211f55c"</span>,
-<span class="s2">"peer_count"</span>: 250,
-<span class="s2">"unconfirmed_count"</span>: 2135,
-<span class="s2">"last_fork_height"</span>: 355900,
-<span class="s2">"last_fork_hash"</span>: <span class="s2">"00000000000000000427feb74d5784ec55a9e0f060e0328f7220433477d719bb"</span>
+  <span class="s2">"name"</span>: <span class="s2">"BTC.main"</span>,
+  <span class="s2">"height"</span>: 360060,
+  <span class="s2">"hash"</span>: <span class="s2">"000000000000000000bf56ff4a81e399374a68344a64d6681039412de78366b8"</span>,
+  <span class="s2">"time"</span>: <span class="s2">"2015-06-08T22:57:08.260165627Z"</span>,
+  <span class="s2">"latest_url"</span>: <span class="s2">"https://api.blockcypher.com/v1/btc/main/blocks/000000000000000000bf56ff4a81e399374a68344a64d6681039412de78366b8"</span>,
+  <span class="s2">"previous_hash"</span>: <span class="s2">"000000000000000011c9511ae1265d34d3c16fff6e8f94380425833b3d0ae5d8"</span>,
+  <span class="s2">"previous_url"</span>: <span class="s2">"https://api.blockcypher.com/v1/btc/main/blocks/000000000000000011c9511ae1265d34d3c16fff6e8f94380425833b3d0ae5d8"</span>,
+  <span class="s2">"peer_count"</span>: 239,
+  <span class="s2">"unconfirmed_count"</span>: 617,
+  <span class="s2">"high_fee_per_kb"</span>: 46086,
+  <span class="s2">"medium_fee_per_kb"</span>: 29422,
+  <span class="s2">"low_fee_per_kb"</span>: 12045,
+  <span class="s2">"last_fork_height"</span>: 359865,
+  <span class="s2">"last_fork_hash"</span>: <span class="s2">"00000000000000000aa6462fd9faf94712ce1b5a944dc666f491101c996beab9"</span>
 <span class="o">}</span>
 </code></pre>
 
@@ -386,6 +394,21 @@ Objects sometimes contain <b>attributes</b> that are <b><i>optional.</i></b> The
 <td><strong>peer_count</strong></td>
 <td><em>integer</em></td>
 <td><em>N/A, will be deprecated soon</em>.</td>
+</tr>
+<tr>
+<td><strong>high_fee_per_kb</strong></td>
+<td><em>integer</em></td>
+<td>A rolling average of the fee (in satoshis) paid per kilobyte for transactions to be confirmed within 1 to 2 blocks.</td>
+</tr>
+<tr>
+<td><strong>medium_fee_per_kb</strong></td>
+<td><em>integer</em></td>
+<td>A rolling average of the fee (in satoshis) paid per kilobyte for transactions to be confirmed within 3 to 6 blocks.</td>
+</tr>
+<tr>
+<td><strong>low_fee_per_kb</strong></td>
+<td><em>integer</em></td>
+<td>A rolling average of the fee (in satoshis) paid per kilobyte for transactions to be confirmed in 7 or more blocks.</td>
 </tr>
 <tr>
 <td><strong>unconfirmed_count</strong></td>
@@ -1544,17 +1567,20 @@ Only one of these three fields is required for the microtransaction endpoint: <b
 <pre class="highlight shell"><code><span class="gp">$ </span>curl https://api.blockcypher.com/v1/btc/main
 
 <span class="o">{</span>
-<span class="s2">"name"</span>: <span class="s2">"BTC.main"</span>,
-<span class="s2">"height"</span>: 355987,
-<span class="s2">"hash"</span>: <span class="s2">"00000000000000000571776041a7bbeaa4a0c3e2cd24b782a0bcb12df91ea4c4"</span>,
-<span class="s2">"time"</span>: <span class="s2">"2015-05-11T22:50:16.462271831Z"</span>,
-<span class="s2">"latest_url"</span>: <span class="s2">"https://api.blockcypher.com/v1/btc/main/blocks/00000000000000000571776041a7bbeaa4a0c3e2cd24b782a0bcb12df91ea4c4"</span>,
-<span class="s2">"previous_hash"</span>: <span class="s2">"000000000000000016a6c97a4eeeac1ca238367262831f257d7e7552d211f55c"</span>,
-<span class="s2">"previous_url"</span>: <span class="s2">"https://api.blockcypher.com/v1/btc/main/blocks/000000000000000016a6c97a4eeeac1ca238367262831f257d7e7552d211f55c"</span>,
-<span class="s2">"peer_count"</span>: 250,
-<span class="s2">"unconfirmed_count"</span>: 2135,
-<span class="s2">"last_fork_height"</span>: 355900,
-<span class="s2">"last_fork_hash"</span>: <span class="s2">"00000000000000000427feb74d5784ec55a9e0f060e0328f7220433477d719bb"</span>
+  <span class="s2">"name"</span>: <span class="s2">"BTC.main"</span>,
+  <span class="s2">"height"</span>: 360060,
+  <span class="s2">"hash"</span>: <span class="s2">"000000000000000000bf56ff4a81e399374a68344a64d6681039412de78366b8"</span>,
+  <span class="s2">"time"</span>: <span class="s2">"2015-06-08T22:57:08.260165627Z"</span>,
+  <span class="s2">"latest_url"</span>: <span class="s2">"https://api.blockcypher.com/v1/btc/main/blocks/000000000000000000bf56ff4a81e399374a68344a64d6681039412de78366b8"</span>,
+  <span class="s2">"previous_hash"</span>: <span class="s2">"000000000000000011c9511ae1265d34d3c16fff6e8f94380425833b3d0ae5d8"</span>,
+  <span class="s2">"previous_url"</span>: <span class="s2">"https://api.blockcypher.com/v1/btc/main/blocks/000000000000000011c9511ae1265d34d3c16fff6e8f94380425833b3d0ae5d8"</span>,
+  <span class="s2">"peer_count"</span>: 239,
+  <span class="s2">"unconfirmed_count"</span>: 617,
+  <span class="s2">"high_fee_per_kb"</span>: 46086,
+  <span class="s2">"medium_fee_per_kb"</span>: 29422,
+  <span class="s2">"low_fee_per_kb"</span>: 12045,
+  <span class="s2">"last_fork_height"</span>: 359865,
+  <span class="s2">"last_fork_hash"</span>: <span class="s2">"00000000000000000aa6462fd9faf94712ce1b5a944dc666f491101c996beab9"</span>
 <span class="o">}</span>
 </code></pre>
 
@@ -2231,7 +2257,7 @@ If the named wallet already exists under your token, attempting to create a new 
 <br /></p>
 
 <h3 id="delete-wallet-endpoint">Delete Wallet Endpoint</h3>
-<pre class="highlight shell"><code><span class="gp">$ </span>curl -X DELETE -d <span class="s1">'{"name":"alice"}'</span> https://api.blockcypher.com/v1/btc/main/wallets/alice?token<span class="o">=</span>USERTOKEN
+<pre class="highlight shell"><code><span class="gp">$ </span>curl -X DELETE https://api.blockcypher.com/v1/btc/main/wallets/alice?token<span class="o">=</span>USERTOKEN
 
 </code></pre>
 
@@ -2251,7 +2277,7 @@ If the named wallet already exists under your token, attempting to create a new 
 </tr>
 </tbody></table>
 
-<p>This endpoint deletes the wallet with $NAME. You are also required to send a partially filled <a href="#wallet">Wallet</a> as a request object; all that&rsquo;s necessary is the <strong>name</strong> attribute in the wallet object. If successful, it will return an HTTP 400 status code, but no return object.</p>
+<p>This endpoint deletes the wallet with $NAME. If successful, it will return an HTTP 400 status code, but no return object.</p>
 
           <h1 id="transaction-api">Transaction API</h1>
 
@@ -2606,9 +2632,9 @@ The <b>hash</b> assigned to <a href="#tx">TX</a> within the return object is onl
 <p>Digital signing can be a difficult process, and is where the majority of issues arise when dealing with cryptocurrency transactions. We are working on integrating client-side signing solutions into our libraries to make this process easier, but you can read more about <a href="https://bitcoin.org/en/developer-guide#term-signature">signing here.</a> In the mean time, if you want to experiment with client-side signing, consider using our <a href="https://github.com/blockcypher/btcutils/tree/master/signer">signer tool</a></p>
 
 <aside class="notice">
-A note on fees: fees in cryptocurrencies can be complex. We provide 2 different ways for you to control the fees included in your transactions:
+<p>A note on fees: fees in cryptocurrencies can be complex. We provide 2 different ways for you to control the fees included in your transactions:</p>
 
-<p>1) Set the <b>preference</b> property in your <a href="#tx">TX</a> within your <a href="#txskeleton">TXSkeleton request object</a> to &ldquo;high&rdquo;, &ldquo;medium&rdquo; or &ldquo;low&rdquo;. This will calculate and include appropriate fees for your transaction to be included in the next 1-2 blocks, 3-5 blocks or 5 or more blocks respectively. The default fee calculation is based on a &ldquo;high&rdquo; <b>preference</b>. A preference set to &ldquo;zero&rdquo; will set no fee.</p>
+<p>1) Set the <b>preference</b> property in your <a href="#tx">TX</a> within your <a href="#txskeleton">TXSkeleton request object</a> to &ldquo;high&rdquo;, &ldquo;medium&rdquo; or &ldquo;low&rdquo;. This will calculate and include appropriate fees for your transaction to be included in the next 1-2 blocks, 3-6 blocks or 7 or more blocks respectively. You can see the explicit estimates per kilobyte for these high, medium, and low ranges by calling your base resource through the <a href="#chain-endpoint">Chain Endpoint.</a> The default fee calculation is based on a &ldquo;high&rdquo; <b>preference</b>. A preference set to &ldquo;zero&rdquo; will set no fee.</p>
 
 <p>2) Manually set the fee to a desired amount by setting the <b>fees</b> property in your <a href="#tx">TX</a> within your <a href="#TXskeleton">TXSkeleton request object</a>. Note that a fee too low may result in an error for some transactions that would require it.</p>
 
