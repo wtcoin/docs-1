@@ -22,14 +22,10 @@ includes:
 # Introduction
 
 ```shell
-#  ______ _            _    _____             _               
-#  | ___ \ |          | |  /  __ \           | |              
-#  | |_/ / | ___   ___| | _| /  \/_   _ _ __ | |__   ___ _ __ 
-#  | ___ \ |/ _ \ / __| |/ / |   | | | | '_ \| '_ \ / _ \ '__|
-#  | |_/ / | (_) | (__|   <| \__/\ |_| | |_) | | | |  __/ |   
-#  \____/|_|\___/ \___|_|\_\\____/\__, | .__/|_| |_|\___|_|   
-#                                  __/ | |                    
-#                                 |___/|_|                    
+#  _               _                  
+# |_) |  _   _ |  /     ._  |_   _  ._
+# |_) | (_) (_ |< \_ \/ |_) | | (/_ | 
+#                    /  |             
 ```
 
 Welcome to [BlockCypher's](http://www.blockcypher.com/) API documentation! BlockCypher is a simple, mostly RESTful JSON API for interacting with blockchains, accessed over HTTP or HTTPS from the [api.blockcypher.com](https://api.blockcypher.com/v1/btc/main) domain. Currently, BlockCypher supports Bitcoin, Bitcoin Testnet3, Litecoin, Dogecoin, Urocoin, and BlockCypher's Test Chain (more about BlockCypher's Test Chain [below](#testing)).
@@ -84,6 +80,7 @@ BlockCypher has client SDKs for the following languages:
 - **Python** --- [https://github.com/blockcypher/blockcypher-python](https://github.com/blockcypher/blockcypher-python)
 - **Java** --- [https://github.com/blockcypher/java-client](https://github.com/blockcypher/java-client)
 - **Node.js** (under development) --- [https://github.com/blockcypher/node-client](https://github.com/blockcypher/node-client)
+- **PHP** (under development) --- [https://github.com/blockcypher/php-client](https://github.com/blockcypher/php-client)
 
 If you're using these languages, we strongly encourage you to use an official SDK. Of course, all our API calls are standard HTTP endpoints using JSON formatted responses, so any language (or cURL from the command-line) will work just fine.
 
