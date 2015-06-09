@@ -44,6 +44,15 @@ $ curl -H "Content-Type: application/json" -d '{ "from_private": "97838249d77bf.
 }
 ```
 
+```python
+>>> import requests, json
+>>> data = {'from_private': '97838249d77bfa65f97be02b63fd1b7bb6a58474c7c22784a0da63993d1c2f90', 'to_address': 'C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn', 'value_satoshis': 10000, 'token': YOUR_TOKEN}
+>>> params = {'token': YOUR_TOKEN}
+>>> r = requests.post('https://api.blockcypher.com/v1/bcy/test/txs/micro', data=json.dumps(data), params=params)
+>>> json.loads(r.text)
+
+```
+
 ### Via Private Keys
 
 The simplest way to send a Microtransaction is by using a private key. Within the request object you must include **from_private** (or the equivalent **from_wif**), **to_address**, **token**, and **value_satoshis**. You can read more descriptions about these fields within [Microtransaction object description](#microtransaction), although they should be self-explanatory.

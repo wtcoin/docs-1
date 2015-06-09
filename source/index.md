@@ -3,6 +3,7 @@ title: BlockCypher Reference
 
 language_tabs:
   - shell: cURL
+  - python: python
 
 toc_footers:
   - <a href='https://accounts.blockcypher.com/'>Register for a Free Token</a>
@@ -106,6 +107,27 @@ $ curl https://api.blockcypher.com/v1/btc/main
 }
 ```
 
+```python
+>>> import requests, json
+>>> r = requests.get('https://api.blockcypher.com/v1/btc/main')
+>>> json.loads(r.text)
+{'high_fee_per_kb': 48419,
+ 'latest_url': 'https://api.blockcypher.com/v1/btc/main/blocks/00000000000000000783cf9ef8177b407976990117d03762efe7d3fdfe44d6a3',
+ 'previous_hash': '0000000000000000097689df71fb60cbbade7cddcaa35b6f4c9cb97b08a7a155',
+ 'last_fork_height': 359865,
+ 'time': '2015-06-08T20:02:59.668542728Z',
+ 'unconfirmed_count': 602,
+ 'peer_count': 250,
+ 'height': 360042,
+ 'previous_url': 'https://api.blockcypher.com/v1/btc/main/blocks/0000000000000000097689df71fb60cbbade7cddcaa35b6f4c9cb97b08a7a155',
+ 'medium_fee_per_kb': 29283,
+ 'hash': '00000000000000000783cf9ef8177b407976990117d03762efe7d3fdfe44d6a3',
+ 'name': 'BTC.main',
+ 'low_fee_per_kb': 12047,
+ 'last_fork_hash': '00000000000000000aa6462fd9faf94712ce1b5a944dc666f491101c996beab9'}
+
+```
+
 Almost all resources exist under a given blockchain, and follow this pattern:
 
 `https://api.blockcypher.com/$API_VERSION/$COIN/$CHAIN/`
@@ -147,6 +169,14 @@ Please [register for a user token](http://acccounts.blockcypher.com/) if your us
 $ curl https://api.blockcypher.com/v1/btc/main?token=$YOUR_TOKEN
 ```
 
+```python
+# Adding your token as URL parameter
+>>> import requests, json
+>>> params = {'token': YOUR_TOKEN}
+>>> r = requests.get('https://api.blockcypher.com/v1/btc/main', params=params)
+>>> json.loads(r.text)
+```
+
 Once you have your token, you can append it to all your requests like any other URL parameter if you're using cURL, or through the appropriate method in the language SDK you're using.
 
 ## Batching
@@ -185,6 +215,68 @@ $ curl https://api.blockcypher.com/v1/btc/main/blocks/5;6;7
 "time": "2009-01-09T03:39:29Z",
 ...,
 }]
+```
+
+```python
+# Batching blocks 5, 6, and 7
+>>> import requests, json
+>>> r = requests.get('https://api.blockcypher.com/v1/btc/main/blocks/5;6;7')
+>>> json.loads(r.text)
+[{'bits': 486604799,
+  'n_tx': 1,
+  'txids': ['8aa673bc752f2851fd645d6a0a92917e967083007d9c1684f9423b100540673f'],
+  'fees': 0,
+  'total': 0,
+  'mrkl_root': '8aa673bc752f2851fd645d6a0a92917e967083007d9c1684f9423b100540673f',
+  'time': '2009-01-09T03:39:29Z',
+  'prev_block_url': 'https://api.blockcypher.com/v1/btc/main/blocks/000000003031a0e73735690c5a1ff2a4be82553b2a12b776fbd3a215dc8f778d',
+  'depth': 360035,
+  'hash': '0000000071966c2b1d065fd446b1e485b2c9d9594acd2007ccbd5441cfc89444',
+  'height': 7,
+  'tx_url': 'https://api.blockcypher.com/v1/btc/main/txs/',
+  'prev_block': '000000003031a0e73735690c5a1ff2a4be82553b2a12b776fbd3a215dc8f778d',
+  'ver': 1,
+  'chain': 'BTC.main',
+  'nonce': 2258412857,
+  'received_time': '2009-01-09T03:39:29Z'},
+ {'bits': 486604799,
+  'n_tx': 1,
+  'txids': ['20251a76e64e920e58291a30d4b212939aae976baca40e70818ceaa596fb9d37'],
+  'fees': 0,
+  'total': 0,
+  'mrkl_root': '20251a76e64e920e58291a30d4b212939aae976baca40e70818ceaa596fb9d37',
+  'time': '2009-01-09T03:29:49Z',
+  'prev_block_url': 'https://api.blockcypher.com/v1/btc/main/blocks/000000009b7262315dbf071787ad3656097b892abffd1f95a1a022f896f533fc',
+  'depth': 360036,
+  'hash': '000000003031a0e73735690c5a1ff2a4be82553b2a12b776fbd3a215dc8f778d',
+  'height': 6,
+  'tx_url': 'https://api.blockcypher.com/v1/btc/main/txs/',
+  'prev_block': '000000009b7262315dbf071787ad3656097b892abffd1f95a1a022f896f533fc',
+  'ver': 1,
+  'chain': 'BTC.main',
+  'nonce': 2538380312,
+  'received_time': '2009-01-09T03:29:49Z'},
+ {'bits': 486604799,
+  'n_tx': 1,
+  'txids': ['63522845d294ee9b0188ae5cac91bf389a0c3723f084ca1025e7d9cdfe481ce1'],
+  'fees': 0,
+  'total': 0,
+  'mrkl_root': '63522845d294ee9b0188ae5cac91bf389a0c3723f084ca1025e7d9cdfe481ce1',
+  'time': '2009-01-09T03:23:48Z',
+  'prev_block_url': 'https://api.blockcypher.com/v1/btc/main/blocks/000000004ebadb55ee9096c9a2f8880e09da59c0d68b1c228da88e48844a1485',
+  'depth': 360037,
+  'hash': '000000009b7262315dbf071787ad3656097b892abffd1f95a1a022f896f533fc',
+  'height': 5,
+  'tx_url': 'https://api.blockcypher.com/v1/btc/main/txs/',
+  'prev_block': '000000004ebadb55ee9096c9a2f8880e09da59c0d68b1c228da88e48844a1485',
+  'ver': 1,
+  'chain': 'BTC.main',
+  'nonce': 2011431709,
+  'received_time': '2009-01-09T03:23:48Z'}]
+
+# Note, when constructing the URL programatically you can use more pythonic syntax:
+base_url = 'https://api.blockcypher.com/v1/btc/main/blocks/'
+full_url = base_url + ';'.join([5,6,7])
 ```
 
 All endpoints that can retrieve a single [Object](#objects) can be batched to return multiple objects. If you're cURLing the API directly, batching simply requires appending each identifier to the previous one using a semicolon (check the code pane for an example). The results are aggregated in a JSON array and may not be ordered, especially for bigger batches. But this shouldn't matter, as the requested identifiers are always present in the returned objects. The other supported client SDKs batch differently, but each idiomatic to their respective language (check the code pane examples in each library).
@@ -238,6 +330,17 @@ $ curl -d '{"address": "CFqoZmZ3ePwK5wnkhxJjJAQKJ82C7RJdmd", "amount": 100000}' 
 {
 "tx_ref": "02dbf5585d438a1cba82a9041dd815635a6b0df684225cb5271e11397a759479"
 }
+```
+
+```python
+# Fund existing address with faucet
+>>> import requests, json
+>>> data = {"address": "CFqoZmZ3ePwK5wnkhxJjJAQKJ82C7RJdmd", "amount": 100000}
+>>> params = {'token': YOUR_TOKEN}
+>>> r = requests.post('http://api.blockcypher.com/v1/bcy/test/faucet', data=json.dumps(data), params=params)
+>>> json.loads(r.text)
+{'tx_ref': 'b2ecfb5e40f3923b07819f1a386a538e86cc6ce59ae7a59533df487f622d1cbb'}
+
 ```
 
 This example shows how to leverage the faucet to programmatically fund addresses, to test your applications. While the example used BlockCypher's Test Chain, the same example could have used Bitcoin Testnet3 and worked the exact same way.
