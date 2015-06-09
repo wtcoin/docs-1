@@ -2997,9 +2997,11 @@ curl -H <span class="s2">"Content-Type: application/json"</span> -d <span class=
 
           <h1 id="confidence-factor">Confidence Factor</h1>
 
-<p>One of the things that makes BlockCypher&rsquo;s API uniquely powerful is our ability to accurately predict confidence intervals for the likelihood of unconfirmed transactions to make it into the next block. As you may have gathered from the frequency of links to this feature in these docs, we&rsquo;re exceptionally proud of the work we&rsquo;ve done to build this feature and provide it to our users.</p>
+<p>One of the things that makes BlockCypher&rsquo;s API uniquely powerful is our ability to accurately predict the likelihood of an attempted double-spend succeeding against a transaction; this percentage probability is automatically included within the <strong>confidence</strong> attribute on any <a href="#tx">unconfirmed transaction</a> returned by our API, in addition to the explicit <a href="#transaction-confidence-endpoint">Transaction Confidence Endpoint</a> detailed below.</p>
 
-<p>And that pride extends to our own confidence in our confidence product. We&rsquo;ve leveraged this product internally on two major features:</p>
+<p>So what does that <strong>confidence</strong> attribute actually mean? In simpler terms, if an unconfirmed transaction returns a <strong>confidence</strong> factor of 99.9%, then our data says there&rsquo;s a 0.1% chance that an attempted double-spend will succeed. By design, we&rsquo;re conservative. Even when we return 90% confidence, the likelihood of a successful double-spend is significantly lower than 10%.</p>
+
+<p>As you may have gathered from the frequency of links to this feature in these docs, we&rsquo;re exceptionally proud of the work we&rsquo;ve done to build this feature and provide it to our users. And that pride extends to our own confidence in our confidence product. We&rsquo;ve leveraged this product internally on two major features:</p>
 
 <ul>
 <li>Our <a href="https://live.blockcypher.com/">live block explorer</a> visually shows confidence intervals on unconfirmed transactions directly. Check out a <a href="https://live.blockcypher.com/btc/">live view of bitcoin</a> and click on one of the most recent unconfirmed transactions. Make sure you pick a very recent transaction: our confidence interval rapidly approaches 99% so quickly that you might miss it!</li>
@@ -3269,7 +3271,7 @@ Testing WebHooks can be tricky; we recommend using <a href="http://requestb.in/"
 </aside>
 
 <h3 id="create-webhook-endpoint">Create WebHook Endpoint</h3>
-<pre class="highlight shell"><code><span class="gp">$ </span>curl -d <span class="o">{</span><span class="s2">"event"</span>: <span class="s2">"unconfirmed-tx"</span>, <span class="s2">"address"</span>: <span class="s2">"15qx9ug952GWGTNn7Uiv6vode4RcGrRemh"</span>, <span class="s2">"token"</span>: <span class="s2">"YOURTOKEN"</span> <span class="s2">"url"</span>: <span class="s2">"https://my.domain.com/callbacks/new-tx"</span><span class="o">}</span> https://api.blockcypher.com/v1/btc/main/hooks
+<pre class="highlight shell"><code><span class="gp">$ </span>curl -d <span class="s1">'{"event": "unconfirmed-tx", "address": "15qx9ug952GWGTNn7Uiv6vode4RcGrRemh", "url": "https://my.domain.com/callbacks/new-tx"}'</span> https://api.blockcypher.com/v1/btc/main/hooks?token<span class="o">=</span>YOURTOKEN
 
 <span class="o">{</span>
 <span class="s2">"id"</span>: <span class="s2">"399d0923-e920-48ee-8928-2051cbfbc369"</span>
@@ -3364,12 +3366,12 @@ Testing WebHooks can be tricky; we recommend using <a href="http://requestb.in/"
 
 <h3 id="delete-webhook-endpoint">Delete WebHook Endpoint</h3>
 <pre class="highlight shell"><code><span class="c"># Piping into grep to get status code</span>
-<span class="gp">$ </span>curl -X DELETE -IsL https://api.blockcypher.com/v1/btc/main/hooks/399d0923-e920-48ee-8928-2051cbfbc369 | grep <span class="s2">"HTTP/1.1"</span>
+<span class="gp">$ </span>curl -X DELETE -IsL https://api.blockcypher.com/v1/btc/main/hooks/399d0923-e920-48ee-8928-2051cbfbc369?token<span class="o">=</span>YOURTOKEN | grep <span class="s2">"HTTP/1.1"</span>
 
 HTTP/1.1 200 OK
 </code></pre>
 
-<p>This resource deletes an active <a href="#event">Event</a> based on its <em>id</em>.</p>
+<p>This resource deletes an active <a href="#event">Event</a> based on its <em>id</em>. Remember to include your token, or the request will fail.</p>
 
 <table><thead>
 <tr>
