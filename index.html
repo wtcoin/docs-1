@@ -2188,7 +2188,7 @@ If the named wallet already exists under your token, attempting to create a new 
 <p><br /></p>
 
 <h3 id="remove-addresses-from-wallet-endpoint">Remove Addresses from Wallet Endpoint</h3>
-<pre class="highlight shell"><code>curl -X DELETE -d <span class="s1">'{"addresses": ["1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e"]}'</span> https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses?token<span class="o">=</span>YOURTOKEN
+<pre class="highlight shell"><code><span class="gp">$ </span>curl -X DELETE <span class="s1">'https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses?token=USERTOKEN&amp;address=1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e'</span>
 
 <span class="o">{</span><span class="s2">"token"</span>: <span class="s2">"YOURTOKEN"</span>,
 <span class="s2">"name"</span>: <span class="s2">"alice"</span>,
@@ -2206,14 +2206,14 @@ If the named wallet already exists under your token, attempting to create a new 
 </tr>
 </thead><tbody>
 <tr>
-<td>/wallets/$NAME/addresses</td>
+<td>/wallets/$NAME/addresses?address=$ADDRESS</td>
 <td>DELETE</td>
-<td><a href="#wallet">Wallet</a></td>
+<td><em>nil</em></td>
 <td><a href="#wallet">Wallet</a></td>
 </tr>
 </tbody></table>
 
-<p>This endpoint allows you to delete an array of addresses associated with the $NAME wallet. If successful, it will return the newly modified <a href="#wallet">Wallet</a>, including an up-to-date, complete listing of addresses.</p>
+<p>This endpoint allows you to delete an $ADDRESS associated with the $NAME wallet. As a reminder, you <a href="#http://dev.blockcypher.com/#batching">can batch</a> multiple addresses by appending them with semicolons within the $ADDRESS URL parameter. If successful, it will return the newly modified <a href="#wallet">Wallet</a>, including an up-to-date, complete listing of addresses.</p>
 
 <p><br /></p>
 
