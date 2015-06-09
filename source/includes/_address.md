@@ -345,7 +345,7 @@ This endpoint returns a list of the addresses associated with the $NAME wallet. 
 ### Remove Addresses from Wallet Endpoint
 
 ```shell
-$ curl -X DELETE -d '{"addresses": ["1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e"]}' https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses?token=USERTOKEN
+$ curl -X DELETE 'https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses?token=USERTOKEN&address=1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e'
 
 {"token": "USERTOKEN",
 "name": "alice",
