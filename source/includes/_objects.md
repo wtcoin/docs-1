@@ -18,7 +18,7 @@ Objects sometimes contain <b>attributes</b> that are <b><i>optional.</i></b> The
 ## Blockchain
 
 ```shell
-$ curl https://api.blockcypher.com/v1/btc/main
+curl https://api.blockcypher.com/v1/btc/main
 
 {
   "name": "BTC.main",
@@ -60,7 +60,7 @@ Attribute | Type | Description
 ## Block
 
 ```shell
-$ curl https://api.blockcypher.com/v1/btc/main/blocks/0000000000000000189bba3564a63772107b5673c940c16f12662b3e8546b412
+curl https://api.blockcypher.com/v1/btc/main/blocks/0000000000000000189bba3564a63772107b5673c940c16f12662b3e8546b412
 
 {
 "hash": "0000000000000000189bba3564a63772107b567...",
@@ -113,7 +113,7 @@ Attribute | Type | Description
 ## TX
 
 ```shell
-$ curl https://api.blockcypher.com/v1/btc/main/txs/f854aebae95150b379cc1187d848d58225f3c4157fe992bcd166f58bd5063449
+curl https://api.blockcypher.com/v1/btc/main/txs/f854aebae95150b379cc1187d848d58225f3c4157fe992bcd166f58bd5063449
 
 {
 "block_hash": "0000000000000000c504bdea36e531d80...",
@@ -255,7 +255,7 @@ Attribute | Type | Description
 ## TXConfidence
 
 ```shell
-$ curl https://api.blockcypher.com/v1/btc/main/txs/43fa951e1bea87c282f6725cf8bdc08bb48761396c3af8dd5a41a085ab62acc9/confidence
+curl https://api.blockcypher.com/v1/btc/main/txs/43fa951e1bea87c282f6725cf8bdc08bb48761396c3af8dd5a41a085ab62acc9/confidence
 
 {
 "age_millis": 12725,
@@ -315,7 +315,7 @@ Attribute | Type | Description
 ## TXSkeleton
 
 ```shell
-$ curl -d '{"inputs":[{"addresses": ["CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"]}],"outputs":[{"addresses": ["C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn"], "value": 1000000}]}' https://api.blockcypher.com/v1/bcy/test/txs/new
+curl -d '{"inputs":[{"addresses": ["CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"]}],"outputs":[{"addresses": ["C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn"], "value": 1000000}]}' https://api.blockcypher.com/v1/bcy/test/txs/new
 
 {
 "tx": {
@@ -398,7 +398,7 @@ Attribute | Type | Description
 ## Address
 
 ```shell
-$ curl http://api.blockcypher.com/v1/btc/main/addrs/1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD
+curl http://api.blockcypher.com/v1/btc/main/addrs/1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD
 
 {
 "address": "1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD",
@@ -441,7 +441,7 @@ Attribute | Type | Description
 ## AddressKeychain
 
 ```shell
-$ curl -X POST http://api.blockcypher.com/v1/btc/test3/addrs
+curl -X POST http://api.blockcypher.com/v1/btc/test3/addrs
 
 {
 "private": "86751cb880a9a1addcc3b67979976158dd800afe9d14b68349921299b20c94dd",
@@ -465,7 +465,7 @@ Attribute | Type | Description
 ## Wallet
 
 ```shell
-$ curl -d '{"name": "alice","addresses": ["1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e"]}' https://api.blockcypher.com/v1/btc/main/wallets?token=USERTOKEN
+curl -d '{"name": "alice","addresses": ["1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e"]}' https://api.blockcypher.com/v1/btc/main/wallets?token=USERTOKEN
 
 {
 "token":"USERTOKEN",
@@ -485,7 +485,7 @@ Attribute | Type | Description
 ## Event
 
 ```shell
-$ curl https://api.blockcypher.com/v1/btc/main/hooks/399d0923-e920-48ee-8928-2051cbfbc369
+curl https://api.blockcypher.com/v1/btc/main/hooks/399d0923-e920-48ee-8928-2051cbfbc369
 
 {
 "id": "399d0923-e920-48ee-8928-2051cbfbc369"
@@ -513,7 +513,7 @@ Attribute | Type | Description
 ## PaymentForward
 
 ```shell
-$ curl -d '{"destination":"15qx9ug952GWGTNn7Uiv6vode4RcGrRemh","callback_url": "https://my.domain.com/callbacks/new-pay","process_fees_address": "1LWw6FdzNUcX8bnekMMZ7eofcGF7SXmbrL", "process_fees_percent": 0.1,"token":"USERTOKEN"}' http://api.blockcypher.com/v1/btc/main/payments
+curl -d '{"destination":"15qx9ug952GWGTNn7Uiv6vode4RcGrRemh","callback_url": "https://my.domain.com/callbacks/new-pay","process_fees_address": "1LWw6FdzNUcX8bnekMMZ7eofcGF7SXmbrL", "process_fees_percent": 0.1,"token":"USERTOKEN"}' http://api.blockcypher.com/v1/btc/main/payments
 
 {
 "input_address": "16uKw7GsQSzfMaVTcT7tpFQkd7Rh9qcXWX",

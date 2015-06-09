@@ -34,7 +34,7 @@ The request object is a partially filled out [MicroTX](#microtx), whose format d
 - If not set, **wait_guarantee** defaults to *true*, which means the API will wait for BlockCypher to guarantee the transaction, using our [Confidence Factor](#confidence-factor). The guarantee usually takes around 8 seconds. If manually set to *false*, the Microtransaction endpoint will return as soon as the transaction is broadcast.
 
 ```shell
-$ curl -H "Content-Type: application/json" -d '{ "from_private": "97838249d77bf...", "to_address": "C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn", "value_satoshis": 10000, "token": "YOURTOKEN" }' https://api.blockcypher.com/v1/bcy/test/txs/micro
+curl -H "Content-Type: application/json" -d '{ "from_private": "97838249d77bf...", "to_address": "C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn", "value_satoshis": 10000, "token": "YOURTOKEN" }' https://api.blockcypher.com/v1/bcy/test/txs/micro
 
 {
 "from_private": "97838249d77bfa65f97be02b63fd1b7bb6a58474c7c22784a0da63993d1c2f90",

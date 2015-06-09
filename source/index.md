@@ -37,7 +37,7 @@ Consequently, if you're familiar with a blockchain's reference implementation, y
 ## Documentation Structure
 
 ```shell
-$ man curl | grep -A 3 "DESCRIPTION"
+man curl | grep -A 3 "DESCRIPTION"
 
 DESCRIPTION
 curl is a tool to transfer data from or to a server, using one of the supported protocols (DICT, FILE, FTP, FTPS, GOPHER, HTTP, HTTPS, IMAP, IMAPS, LDAP, LDAPS, POP3, POP3S, RTMP, RTSP, SCP, SFTP, SMB, SMBS, SMTP, SMTPS, TELNET and TFTP). The command is designed to work without user interaction.
@@ -91,7 +91,7 @@ These client SDKs were made by members of the community, and are not officially 
 ## RESTful Resources
 
 ```shell
-$ curl https://api.blockcypher.com/v1/btc/main
+curl https://api.blockcypher.com/v1/btc/main
 
 {
   "name": "BTC.main",
@@ -149,7 +149,7 @@ Please [register for a user token](http://acccounts.blockcypher.com/) if your us
 
 ```shell
 # Adding your token as URL parameter
-$ curl https://api.blockcypher.com/v1/btc/main?token=$YOUR_TOKEN
+curl https://api.blockcypher.com/v1/btc/main?token=$YOUR_TOKEN
 ```
 
 Once you have your token, you can append it to all your requests like any other URL parameter if you're using cURL, or through the appropriate method in the language SDK you're using.
@@ -158,7 +158,7 @@ Once you have your token, you can append it to all your requests like any other 
 
 ```shell
 # Batching blocks 5, 6, and 7
-$ curl https://api.blockcypher.com/v1/btc/main/blocks/5;6;7
+curl https://api.blockcypher.com/v1/btc/main/blocks/5;6;7
 
 [{
 "hash": "000000003031a0e73735690c5a1ff2a4be82553b2a12b776fbd3a215dc8f778d",
@@ -230,7 +230,7 @@ The faucets can be used from your browser if you want to play with them before a
 
 ```shell
 # Make new address; returns private key/public key/address
-$ curl -X POST http://api.blockcypher.com/v1/bcy/test/addrs?token=$YOUR_TOKEN
+curl -X POST http://api.blockcypher.com/v1/bcy/test/addrs?token=$YOUR_TOKEN
 
 {
 "private": "26415016a2fb49f51aef161cb35bd537be07b75a6ac1e297d3b7a370cc85433b",
@@ -239,7 +239,7 @@ $ curl -X POST http://api.blockcypher.com/v1/bcy/test/addrs?token=$YOUR_TOKEN
 }
 
 # Fund prior address with faucet
-$ curl -d '{"address": "CFqoZmZ3ePwK5wnkhxJjJAQKJ82C7RJdmd", "amount": 100000}' http://api.blockcypher.com/v1/bcy/test/faucet?token=$YOUR_TOKEN
+curl -d '{"address": "CFqoZmZ3ePwK5wnkhxJjJAQKJ82C7RJdmd", "amount": 100000}' http://api.blockcypher.com/v1/bcy/test/faucet?token=$YOUR_TOKEN
 {
 "tx_ref": "02dbf5585d438a1cba82a9041dd815635a6b0df684225cb5271e11397a759479"
 }

@@ -24,7 +24,7 @@ While we stand by our work behind our confidence research, please note that thes
 ## Transaction Confidence Endpoint
 
 ```shell
-$ curl https://api.blockcypher.com/v1/btc/main/txs/43fa951e1bea87c282f6725cf8bdc08bb48761396c3af8dd5a41a085ab62acc9/confidence
+curl https://api.blockcypher.com/v1/btc/main/txs/43fa951e1bea87c282f6725cf8bdc08bb48761396c3af8dd5a41a085ab62acc9/confidence
 
 {
 "age_millis": 12725,
@@ -41,7 +41,7 @@ Resource | Method | Return Object
 -------- | ------ | -------------
 /txs/$TXHASH/confidence | GET | [TXConfidence](#txconfidence)
 
-$TXHASH is a *string* representing the hex-encoded transaction hash you're interested in querying, for example:
+TXHASH is a *string* representing the hex-encoded transaction hash you're interested in querying, for example:
 
 `43fa951e1bea87c282f6725cf8bdc08bb48761396c3af8dd5a41a085ab62acc9`
 

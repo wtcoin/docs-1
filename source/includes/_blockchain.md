@@ -7,7 +7,7 @@ If you're new to blockchains, you can think of the blockchain itself as an immut
 ## Chain Endpoint
 
 ```shell
-$ curl https://api.blockcypher.com/v1/btc/main
+curl https://api.blockcypher.com/v1/btc/main
 
 {
   "name": "BTC.main",
@@ -40,7 +40,7 @@ For more detailed information about the data returned, check the [Blockchain](#b
 ## Block Hash Endpoint
 
 ```shell
-$ curl https://api.blockcypher.com/v1/btc/main/blocks/0000000000000000189bba3564a63772107b5673c940c16f12662b3e8546b412
+curl https://api.blockcypher.com/v1/btc/main/blocks/0000000000000000189bba3564a63772107b5673c940c16f12662b3e8546b412
 
 {
 "hash": "0000000000000000189bba3564a63772107b567...",
@@ -78,7 +78,7 @@ Flag | Type | Effect
 **txstart** | *integer* | Filters response to only include transaction hashes after **txstart** in the block.
 **limit** | *integer* | Filters response to only include a maximum of **limit** transactions hashes in the block. Maximum value allowed is 200.
 
-$BLOCK_HASH is a *string* representing the hash of the block you're interested in querying, for example:
+BLOCK_HASH is a *string* representing the hash of the block you're interested in querying, for example:
 
 `0000000000000000189bba3564a63772107b5673c940c16f12662b3e8546b412`
 
@@ -87,7 +87,7 @@ The returned object contains information about the block, including its height, 
 ## Block Height Endpoint
 
 ```shell
-$ curl https://api.blockcypher.com/v1/btc/main/blocks/294322?txstart=1&limit=1
+curl https://api.blockcypher.com/v1/btc/main/blocks/294322?txstart=1&limit=1
 
 {
 "hash": "0000000000000000189bba3564a63772107b567...",
@@ -122,7 +122,7 @@ Flag | Type | Effect
 **txstart** | *integer* | Filters response to only include transaction hashes after **txstart** in the block.
 **limit** | *integer* | Filters response to only include a maximum of **limit** transactions hashes in the block. Maximum value allowed is 200.
 
-$BLOCK_HEIGHT is an *integer* representing the height of the block you're interested in querying, for example:
+BLOCK_HEIGHT is an *integer* representing the height of the block you're interested in querying, for example:
 
 `294322`
 

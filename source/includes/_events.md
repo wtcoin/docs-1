@@ -81,7 +81,7 @@ Testing WebHooks can be tricky; we recommend using <a href="http://requestb.in/"
 ### Create WebHook Endpoint
 
 ```shell
-$ curl -d '{"event": "unconfirmed-tx", "address": "15qx9ug952GWGTNn7Uiv6vode4RcGrRemh", "url": "https://my.domain.com/callbacks/new-tx"}' https://api.blockcypher.com/v1/btc/main/hooks?token=YOURTOKEN
+curl -d '{"event": "unconfirmed-tx", "address": "15qx9ug952GWGTNn7Uiv6vode4RcGrRemh", "url": "https://my.domain.com/callbacks/new-tx"}' https://api.blockcypher.com/v1/btc/main/hooks?token=YOURTOKEN
 
 {
 "id": "399d0923-e920-48ee-8928-2051cbfbc369"
@@ -103,7 +103,7 @@ If successful, it will return the [Event](#event) with a newly generated **id**.
 ### List WebHooks Endpoint
 
 ```shell
-$ curl https://api.blockcypher.com/v1/btc/main/hooks?token=YOURTOKEN
+curl https://api.blockcypher.com/v1/btc/main/hooks?token=YOURTOKEN
 
 [
 	{
@@ -125,7 +125,7 @@ Resource | Method | Return Object
 ### WebHook ID Endpoint
 
 ```shell
-$ curl https://api.blockcypher.com/v1/btc/main/hooks/399d0923-e920-48ee-8928-2051cbfbc369
+curl https://api.blockcypher.com/v1/btc/main/hooks/399d0923-e920-48ee-8928-2051cbfbc369
 
 {
 "id": "399d0923-e920-48ee-8928-2051cbfbc369"
@@ -142,7 +142,7 @@ Resource | Method | Return Object
 -------- | ------ | -------------
 /hooks/$WEBHOOKID | GET | [Event](#event)
 
-$WEBHOOKID is a string representing the event's generated *id*, for example:
+WEBHOOKID is a string representing the event's generated *id*, for example:
 
 `399d0923-e920-48ee-8928-2051cbfbc369`
 
@@ -150,7 +150,7 @@ $WEBHOOKID is a string representing the event's generated *id*, for example:
 
 ```shell
 # Piping into grep to get status code
-$ curl -X DELETE -IsL https://api.blockcypher.com/v1/btc/main/hooks/399d0923-e920-48ee-8928-2051cbfbc369?token=YOURTOKEN | grep "HTTP/1.1"
+curl -X DELETE -IsL https://api.blockcypher.com/v1/btc/main/hooks/399d0923-e920-48ee-8928-2051cbfbc369?token=YOURTOKEN | grep "HTTP/1.1"
 
 HTTP/1.1 200 OK
 ```
@@ -161,7 +161,7 @@ Resource | Method | Return Object
 -------- | ------ | -------------
 /hooks/$WEBHOOKID | DELETE | *nil*
 
-$WEBHOOKID is a string representing the event's generated *id*, for example:
+WEBHOOKID is a string representing the event's generated *id*, for example:
 
 `399d0923-e920-48ee-8928-2051cbfbc369`
 
