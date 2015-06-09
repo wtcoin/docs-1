@@ -2869,7 +2869,7 @@ If you only need a <i>pay-to-script-hash</i> address corresponding to N-of-M mul
 
 <p>In addition to our normal <a href="#transaction-api">Transaction API</a>, we offer a unique, on-chain microtransaction endpoint that makes it easy to propagate smaller, nearly-instantly guaranteed, more frequent transactions that are still publicly auditable and trusted through their existence on the blockchain. How can we do what others claim require off-chain, centralized services?</p>
 
-<p>Simple. We leverage our own infrastructure; in particular, our <a href="#confidence-factor">Confidence Factor</a>. When we reach 99% confidence that a microtransaction will reach the next block (usually ~8 seconds), we guarantee its value and return the completed microtransaction. As of this writing, we haven&rsquo;t had a single failed mictrotransaction, and we&rsquo;re improving our confidence data all the time.</p>
+<p>Simple. We leverage our own infrastructure; in particular, our <a href="#confidence-factor">Confidence Factor</a>. When we reach 98% confidence that a microtransaction will reach the next block (usually ~8 seconds), we guarantee its value and return the completed microtransaction. As of this writing, we haven&rsquo;t had a single failed mictrotransaction, and we&rsquo;re improving our confidence data all the time.</p>
 
 <p>We also pay for the mining fees on transactions for the first 8,000 microtransactions. After which, we automatically optimize fee structure to achieve a balance between guaranteeing confidence it will be in the next block and minimizing cost. If there isn&rsquo;t enough value for the fee, we&rsquo;ll return an error.</p>
 
@@ -2927,7 +2927,7 @@ As with creating <a href="#creating-transactions">normal Transactions</a>, alway
 
 <p>The simplest way to send a Microtransaction is by using a private key. Within the request object you must include <strong>from_private</strong> (or the equivalent <strong>from_wif</strong>), <strong>to_address</strong>, <strong>token</strong>, and <strong>value_satoshis</strong>. You can read more descriptions about these fields within <a href="#microtx">MicroTX object description</a>, although they should be self-explanatory.</p>
 
-<p>The call will hold until the Confidence Factor reaches 99% (usually about 8 seconds). If successful thereafter, a completed <a href="#microtx">MicroTX object</a> will be returned (which will include the transaction&rsquo;s <strong>hash</strong> for future queries), along with an HTTP Status Code 201.</p>
+<p>The call will hold until the Confidence Factor reaches 98% (usually about 8 seconds). If successful thereafter, a completed <a href="#microtx">MicroTX object</a> will be returned (which will include the transaction&rsquo;s <strong>hash</strong> for future queries), along with an HTTP Status Code 201.</p>
 
 <aside class="warning">
 The private key method doesn&rsquo;t work with <b>uncompressed public addresses</b> as sources. You can still use uncompressed public addresses via the public key method listed below, but if you want to use the private key method, please use compressed public addresses (which has been the predominant standard since Bitcoin 0.6.0). You can read more about the distinction between <a href="https://bitcoin.org/en/developer-guide#public-key-formats">uncompressed and compressed keys here.</a>
@@ -2980,7 +2980,7 @@ curl -H <span class="s2">"Content-Type: application/json"</span> -d <span class=
 
 <p>After POSTing this to <code class="prettyprint">/txs/micro</code> you&rsquo;ll receive another partially filled out <a href="#microtx">MicroTX</a> object, but one containing a <strong>tosign</strong> array. You must then sign the data in this array with your locally-stored private key; signing can be a tricky process, but you can use our <a href="https://github.com/blockcypher/btcutils/tree/master/signer">signer tool</a> as a baseline. Once that data is signed, it must be inserted to a <strong>signatures</strong> within the previously returned <a href="#microtx">MicroTX</a> object. Then, you send this completed <a href="#microtx">MicroTX</a> to <code class="prettyprint">/txs/micro</code>.</p>
 
-<p>As with the private key method, the call will hold until the Confidence Factor reaches 99% (usually about 8 seconds). If successful thereafter, a completed <a href="#microtx">MicroTX object</a> will be returned (which will include the transaction&rsquo;s <strong>hash</strong> for future queries), along with an HTTP Status Code 201.</p>
+<p>As with the private key method, the call will hold until the Confidence Factor reaches 98% (usually about 8 seconds). If successful thereafter, a completed <a href="#microtx">MicroTX object</a> will be returned (which will include the transaction&rsquo;s <strong>hash</strong> for future queries), along with an HTTP Status Code 201.</p>
 
 <h2 id="security-vs-convenience">Security vs Convenience</h2>
 
@@ -3054,7 +3054,7 @@ While we stand by our work behind our confidence research, please note that thes
 
           <h1 id="payment-forwarding">Payment Forwarding</h1>
 
-<p>The of the well-known benefits of cryptocurrency is the ability to allow users to partake in online commerce without necessarily requiring extensive setup barriers, like registering new accounts. In that spirit, our Payment Forwarding API is the easiest way to accept&mdash;and consolidate&mdash;payments securely without forcing your users to create accounts and jump through unnecessary loops. It&rsquo;s also a generic way to automatically transfer value from one address to another. While there are many possible use cases, the two we hear most about are:</p>
+<p>One of the well-known benefits of cryptocurrency is the ability to allow users to partake in online commerce without necessarily requiring extensive setup barriers, like registering new accounts. In that spirit, our Payment Forwarding API is the easiest way to accept&mdash;and consolidate&mdash;payments securely without forcing your users to create accounts and jump through unnecessary loops. It&rsquo;s also a generic way to automatically transfer value from one address to another. While there are many possible use cases, the two we hear most about are:</p>
 
 <ul>
 <li>A way to generate payment-specific addresses for which funds will automatically transfer to a main merchant address. Great for automatic merchandise (whether physical or virtual) processing.</li>
