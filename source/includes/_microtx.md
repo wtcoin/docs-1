@@ -2,7 +2,7 @@
 
 In addition to our normal [Transaction API](#transaction-api), we offer a unique, on-chain microtransaction endpoint that makes it easy to propagate smaller, nearly-instantly guaranteed, more frequent transactions that are still publicly auditable and trusted through their existence on the blockchain. How can we do what others claim require off-chain, centralized services?
 
-Simple. We leverage our own infrastructure; in particular, our [Confidence Factor](#confidence-factor). When we reach 99% confidence that a microtransaction will reach the next block (usually ~8 seconds), we guarantee its value and return the completed microtransaction. As of this writing, we haven't had a single failed mictrotransaction, and we're improving our confidence data all the time.
+Simple. We leverage our own infrastructure; in particular, our [Confidence Factor](#confidence-factor). When we reach 98% confidence that a microtransaction will reach the next block (usually ~8 seconds), we guarantee its value and return the completed microtransaction. As of this writing, we haven't had a single failed mictrotransaction, and we're improving our confidence data all the time.
 
 We also pay for the mining fees on transactions for the first 8,000 microtransactions. After which, we automatically optimize fee structure to achieve a balance between guaranteeing confidence it will be in the next block and minimizing cost. If there isn't enough value for the fee, we'll return an error.
 
@@ -48,7 +48,7 @@ $ curl -H "Content-Type: application/json" -d '{ "from_private": "97838249d77bf.
 
 The simplest way to send a Microtransaction is by using a private key. Within the request object you must include **from_private** (or the equivalent **from_wif**), **to_address**, **token**, and **value_satoshis**. You can read more descriptions about these fields within [MicroTX object description](#microtx), although they should be self-explanatory.
 
-The call will hold until the Confidence Factor reaches 99% (usually about 8 seconds). If successful thereafter, a completed [MicroTX object](#microtx) will be returned (which will include the transaction's **hash** for future queries), along with an HTTP Status Code 201.
+The call will hold until the Confidence Factor reaches 98% (usually about 8 seconds). If successful thereafter, a completed [MicroTX object](#microtx) will be returned (which will include the transaction's **hash** for future queries), along with an HTTP Status Code 201.
 
 <aside class="warning">
 The private key method doesn't work with <b>uncompressed public addresses</b> as sources. You can still use uncompressed public addresses via the public key method listed below, but if you want to use the private key method, please use compressed public addresses (which has been the predominant standard since Bitcoin 0.6.0). You can read more about the distinction between <a href="https://bitcoin.org/en/developer-guide#public-key-formats">uncompressed and compressed keys here.</a>
@@ -102,7 +102,7 @@ If your security/application model allows it, we strongly recommend using public
 
 After POSTing this to `/txs/micro` you'll receive another partially filled out [MicroTX](#microtx) object, but one containing a **tosign** array. You must then sign the data in this array with your locally-stored private key; signing can be a tricky process, but you can use our [signer tool](https://github.com/blockcypher/btcutils/tree/master/signer) as a baseline. Once that data is signed, it must be inserted to a **signatures** within the previously returned [MicroTX](#microtx) object. Then, you send this completed [MicroTX](#microtx) to `/txs/micro`.
 
-As with the private key method, the call will hold until the Confidence Factor reaches 99% (usually about 8 seconds). If successful thereafter, a completed [MicroTX object](#microtx) will be returned (which will include the transaction's **hash** for future queries), along with an HTTP Status Code 201.
+As with the private key method, the call will hold until the Confidence Factor reaches 98% (usually about 8 seconds). If successful thereafter, a completed [MicroTX object](#microtx) will be returned (which will include the transaction's **hash** for future queries), along with an HTTP Status Code 201.
 
 ## Security vs Convenience
 
