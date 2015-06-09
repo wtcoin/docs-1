@@ -81,7 +81,7 @@ Testing WebHooks can be tricky; we recommend using <a href="http://requestb.in/"
 ### Create WebHook Endpoint
 
 ```shell
-$ curl -d {"event": "unconfirmed-tx", "address": "15qx9ug952GWGTNn7Uiv6vode4RcGrRemh", "token": "YOURTOKEN" "url": "https://my.domain.com/callbacks/new-tx"} https://api.blockcypher.com/v1/btc/main/hooks
+$ curl -d '{"event": "unconfirmed-tx", "address": "15qx9ug952GWGTNn7Uiv6vode4RcGrRemh", "url": "https://my.domain.com/callbacks/new-tx"}' https://api.blockcypher.com/v1/btc/main/hooks?token=YOURTOKEN
 
 {
 "id": "399d0923-e920-48ee-8928-2051cbfbc369"
@@ -150,12 +150,12 @@ $WEBHOOKID is a string representing the event's generated *id*, for example:
 
 ```shell
 # Piping into grep to get status code
-$ curl -X DELETE -IsL https://api.blockcypher.com/v1/btc/main/hooks/399d0923-e920-48ee-8928-2051cbfbc369 | grep "HTTP/1.1"
+$ curl -X DELETE -IsL https://api.blockcypher.com/v1/btc/main/hooks/399d0923-e920-48ee-8928-2051cbfbc369?token=YOURTOKEN | grep "HTTP/1.1"
 
 HTTP/1.1 200 OK
 ```
 
-This resource deletes an active [Event](#event) based on its *id*.
+This resource deletes an active [Event](#event) based on its *id*. Remember to include your token, or the request will fail.
 
 Resource | Method | Return Object
 -------- | ------ | -------------
