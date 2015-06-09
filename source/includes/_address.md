@@ -345,7 +345,7 @@ This endpoint returns a list of the addresses associated with the $NAME wallet. 
 ### Remove Addresses from Wallet Endpoint
 
 ```shell
-curl -X DELETE -d '{"addresses": ["1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e"]}' https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses?token=YOURTOKEN
+$ curl -X DELETE 'https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses?token=USERTOKEN&address=1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e'
 
 {"token": "YOURTOKEN",
 "name": "alice",
@@ -355,9 +355,9 @@ curl -X DELETE -d '{"addresses": ["1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e"]}' https:
 ```
 Resource | Method | Request Object | Return Object
 -------- | ------ | -------------- | -------------
-/wallets/$NAME/addresses | DELETE | [Wallet](#wallet) | [Wallet](#wallet)
+/wallets/$NAME/addresses?address=$ADDRESS | DELETE | *nil* | [Wallet](#wallet)
 
-This endpoint allows you to delete an array of addresses associated with the $NAME wallet. If successful, it will return the newly modified [Wallet](#wallet), including an up-to-date, complete listing of addresses.
+This endpoint allows you to delete an $ADDRESS associated with the $NAME wallet. As a reminder, you [can batch](#http://dev.blockcypher.com/#batching) multiple addresses by appending them with semicolons within the $ADDRESS URL parameter. If successful, it will return the newly modified [Wallet](#wallet), including an up-to-date, complete listing of addresses.
 
 <br />
 
