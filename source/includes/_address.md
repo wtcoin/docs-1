@@ -279,9 +279,9 @@ The following code examples should be considered serially; that is to say, the r
 ### Create Wallet Endpoint
 
 ```shell
-curl -d '{"name": "alice","addresses": ["1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e"]}' https://api.blockcypher.com/v1/btc/main/wallets?token=USERTOKEN
+curl -d '{"name": "alice","addresses": ["1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e"]}' https://api.blockcypher.com/v1/btc/main/wallets?token=YOURTOKEN
 
-{"token": "USERTOKEN",
+{"token": "YOURTOKEN",
 "name": "alice",
 "addresses": [
 	"1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e"
@@ -303,9 +303,9 @@ If the named wallet already exists under your token, attempting to create a new 
 ### Add Addresses to Wallet Endpoint
 
 ```shell
-curl -d '{"addresses": ["13cj1QtfW61kQHoqXm3khVRYPJrgQiRM6j"]}' https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses?token=USERTOKEN
+curl -d '{"addresses": ["13cj1QtfW61kQHoqXm3khVRYPJrgQiRM6j"]}' https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses?token=YOURTOKEN
 
-{"token": "USERTOKEN",
+{"token": "YOURTOKEN",
 "name": "alice",
 "addresses": [
 	"1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e",
@@ -324,7 +324,7 @@ This endpoint allows you to add public addresses to an existing wallet, by POSTi
 ### Wallet Addresses Endpoint
 
 ```shell
-curl https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses?token=USERTOKEN
+curl https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses?token=YOURTOKEN
 
 {"token": "",
 "name": "",
@@ -345,9 +345,9 @@ This endpoint returns a list of the addresses associated with the $NAME wallet. 
 ### Remove Addresses from Wallet Endpoint
 
 ```shell
-curl -X DELETE -d '{"addresses": ["1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e"]}' https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses?token=USERTOKEN
+curl -X DELETE -d '{"addresses": ["1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e"]}' https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses?token=YOURTOKEN
 
-{"token": "USERTOKEN",
+{"token": "YOURTOKEN",
 "name": "alice",
 "addresses": [
 	"13cj1QtfW61kQHoqXm3khVRYPJrgQiRM6j"
@@ -364,9 +364,9 @@ This endpoint allows you to delete an array of addresses associated with the $NA
 ### Generate Address in Wallet Endpoint
 
 ```shell
-curl -X POST https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses/generate?token=USERTOKEN
+curl -X POST https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses/generate?token=YOURTOKEN
 
-{"token": "USERTOKEN",
+{"token": "YOURTOKEN",
 "name": "alice",
 "addresses": [
 	"13cj1QtfW61kQHoqXm3khVRYPJrgQiRM6j",
@@ -393,7 +393,7 @@ This endpoint allows you to generate a new address associated with the $NAME wal
 ### Delete Wallet Endpoint
 
 ```shell
-curl -X DELETE https://api.blockcypher.com/v1/btc/main/wallets/alice?token=USERTOKEN
+curl -X DELETE https://api.blockcypher.com/v1/btc/main/wallets/alice?token=YOURTOKEN
 
 ```
 

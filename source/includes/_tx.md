@@ -220,7 +220,7 @@ As you can see from the code example, you only need to provide a single public a
 
 If you'd like, you can even use a [Wallet](#wallet) instead of addresses as your input. You just need to use two non-standard fields (your **wallet_name** and **wallet_token**) within the **inputs** array in your transaction, instead of **addresses**:
 
-`{inputs:[{"wallet_name":"alice", "wallet_token":"YOUR_TOKEN"}], value: 5000000}`
+`{inputs:[{"wallet_name":"alice", "wallet_token":"YOURTOKEN"}], value: 5000000}`
 
 While this particular usage will differ between client libraries, the result is the same: the addresses within your wallet will be used as the **inputs**, as if all of them had been placed within the **addresses** array.
 

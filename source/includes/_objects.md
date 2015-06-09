@@ -465,10 +465,10 @@ Attribute | Type | Description
 ## Wallet
 
 ```shell
-curl -d '{"name": "alice","addresses": ["1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e"]}' https://api.blockcypher.com/v1/btc/main/wallets?token=USERTOKEN
+curl -d '{"name": "alice","addresses": ["1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e"]}' https://api.blockcypher.com/v1/btc/main/wallets?token=YOURTOKEN
 
 {
-"token":"USERTOKEN",
+"token":"YOURTOKEN",
 "name": "alice",
 "addresses": ["1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e"]
 }
@@ -491,7 +491,7 @@ curl https://api.blockcypher.com/v1/btc/main/hooks/399d0923-e920-48ee-8928-2051c
 "id": "399d0923-e920-48ee-8928-2051cbfbc369"
 "event": "unconfirmed-tx",
 "address": "15qx9ug952GWGTNn7Uiv6vode4RcGrRemh",
-"token": "USERTOKEN"
+"token": "YOURTOKEN"
 "url": "https://my.domain.com/callbacks/new-tx"
 }
 ```
@@ -513,7 +513,7 @@ Attribute | Type | Description
 ## PaymentForward
 
 ```shell
-curl -d '{"destination":"15qx9ug952GWGTNn7Uiv6vode4RcGrRemh","callback_url": "https://my.domain.com/callbacks/new-pay","process_fees_address": "1LWw6FdzNUcX8bnekMMZ7eofcGF7SXmbrL", "process_fees_percent": 0.1,"token":"USERTOKEN"}' http://api.blockcypher.com/v1/btc/main/payments
+curl -d '{"destination":"15qx9ug952GWGTNn7Uiv6vode4RcGrRemh","callback_url": "https://my.domain.com/callbacks/new-pay","process_fees_address": "1LWw6FdzNUcX8bnekMMZ7eofcGF7SXmbrL", "process_fees_percent": 0.1,"token":"YOURTOKEN"}' http://api.blockcypher.com/v1/btc/main/payments
 
 {
 "input_address": "16uKw7GsQSzfMaVTcT7tpFQkd7Rh9qcXWX",
@@ -521,7 +521,7 @@ curl -d '{"destination":"15qx9ug952GWGTNn7Uiv6vode4RcGrRemh","callback_url": "ht
 "callback_url": "https://my.domain.com/callbacks/new-pay"
 "process_fees_address": "1LWw6FdzNUcX8bnekMMZ7eofcGF7SXmbrL",
 "process_fees_percent": 0.1,
-"token": "USERTOKEN"
+"token": "YOURTOKEN"
 }
 ```
 
