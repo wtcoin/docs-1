@@ -2188,7 +2188,7 @@ If the named wallet already exists under your token, attempting to create a new 
 <p><br /></p>
 
 <h3 id="remove-addresses-from-wallet-endpoint">Remove Addresses from Wallet Endpoint</h3>
-<pre class="highlight shell"><code><span class="gp">$ </span>curl -X DELETE <span class="s1">'https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses?token=USERTOKEN&amp;address=1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e'</span>
+<pre class="highlight shell"><code><span class="gp">$ </span>curl -X DELETE https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses?token<span class="o">=</span>USERTOKEN&amp;address<span class="o">=</span>1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e
 
 <span class="o">{</span><span class="s2">"token"</span>: <span class="s2">"YOURTOKEN"</span>,
 <span class="s2">"name"</span>: <span class="s2">"alice"</span>,
@@ -2277,7 +2277,7 @@ If the named wallet already exists under your token, attempting to create a new 
 </tr>
 </tbody></table>
 
-<p>This endpoint deletes the wallet with $NAME. If successful, it will return an HTTP 400 status code, but no return object.</p>
+<p>This endpoint deletes the wallet with $NAME. If successful, it will return an HTTP 204 status code with no return object.</p>
 
           <h1 id="transaction-api">Transaction API</h1>
 
@@ -3147,7 +3147,7 @@ If you decide to have a <b>callback_url</b>, you&rsquo;ll receive a payload at t
 <pre class="highlight shell"><code><span class="c"># Piping to grep to just show status code</span>
 curl -X DELETE -IsL http://api.blockcypher.com/v1/btc/main/payments/399d0923-e920-48ee-8928-2051cbfbc369?token<span class="o">=</span>YOURTOKEN | grep <span class="s2">"HTTP/1.1"</span>
 
-HTTP/1.1 200 OK
+HTTP/1.1 204 No Content
 </code></pre>
 
 <p>When you&rsquo;re done with a payment forwarding address, you can delete it via its id.</p>
@@ -3170,7 +3170,7 @@ HTTP/1.1 200 OK
 
 <p><code class="prettyprint">399d0923-e920-48ee-8928-2051cbfbc369</code></p>
 
-<p>This will return no object, but will return an HTTP Status Code 200 if the request was successfully deleted.</p>
+<p>This will return no object, but will return an HTTP Status Code 204 if the request was successfully deleted.</p>
 
           <h1 id="events-and-hooks">Events and Hooks</h1>
 
@@ -3370,7 +3370,7 @@ Testing WebHooks can be tricky; we recommend using <a href="http://requestb.in/"
 <pre class="highlight shell"><code><span class="c"># Piping into grep to get status code</span>
 curl -X DELETE -IsL https://api.blockcypher.com/v1/btc/main/hooks/399d0923-e920-48ee-8928-2051cbfbc369?token<span class="o">=</span>YOURTOKEN | grep <span class="s2">"HTTP/1.1"</span>
 
-HTTP/1.1 200 OK
+HTTP/1.1 204 OK
 </code></pre>
 
 <p>This resource deletes an active <a href="#event">Event</a> based on its <em>id</em>. Remember to include your token, or the request will fail.</p>
@@ -3393,7 +3393,7 @@ HTTP/1.1 200 OK
 
 <p><code class="prettyprint">399d0923-e920-48ee-8928-2051cbfbc369</code></p>
 
-<p>If successful, it won&rsquo;t return any objects, but will respond with an HTTP Status Code 200.</p>
+<p>If successful, it won&rsquo;t return any objects, but will respond with an HTTP Status Code 204.</p>
 
       </div>
       <div class="dark-box">
