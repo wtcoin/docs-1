@@ -500,9 +500,8 @@ $ curl -X DELETE -d '{"addresses": ["1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e"]}' http
 
 ```python
 >>> import requests, json
->>> data = {"addresses": ["1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e", ]}
->>> params = {'token': YOUR_TOKEN}
->>> r = requests.delete('https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses', data=json.dumps(data), params=params)
+>>> data = {'token': YOUR_TOKEN, "address": "1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e"}
+>>> r = requests.delete('https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses', data=json.dumps(data))
 >>> json.loads(r.text)
 {'token': 'YOUR_TOKEN',
  'name': 'alice',
