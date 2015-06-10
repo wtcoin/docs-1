@@ -135,7 +135,7 @@ Due to <a href="https://bitcoin.org/en/glossary/malleability">transaction mallea
 
 ## Creating Transactions
 
-Within BlockCypher's API, you can push transactions to blockchains one of two ways:
+Using BlockCypher's API, you can push transactions to blockchains one of two ways:
 
 - Use a third party library to create your transactions and [push raw transactions](#push-raw-transaction-endpoint)
 - Use our two-endpoint process outlined below, wherein we generate a [TXSkeleton](#txskeleton) based on your input address, output address, and value to transfer.
@@ -152,65 +152,49 @@ Always use HTTPS for creating and pushing transactions.
 curl -d '{"inputs":[{"addresses": ["CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"]}],"outputs":[{"addresses": ["C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn"], "value": 1000000}]}' https://api.blockcypher.com/v1/bcy/test/txs/new
 
 {
-  "tx": {
-    "block_height": -1,
-    "hash": "c2b350b273b3bf04791d8e59fc9c021fd91fa423c50c29473dc079150f5a778a",
-    "addresses": [
-      "CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9",
-      "C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn"
-    ],
-    "total": 4988000,
-    "fees": 12000,
-    "size": 119,
-    "preference": "high",
-    "relayed_by": "208.71.159.84",
-    "received": "2015-05-21T19:04:14.492743867Z",
-    "ver": 1,
-    "lock_time": 0,
-    "double_spend": false,
-    "vin_sz": 1,
-    "vout_sz": 2,
-    "confirmations": 0,
-    "inputs": [
-      {
-        "prev_hash": "c8ea8b221580ebb2f1cabc8b40797bffec742b97c82a329df96d93121db43519",
-        "output_index": 0,
-        "script": "",
-        "output_value": 5000000,
-        "sequence": 4294967295,
-        "addresses": [
-          "CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"
-        ],
-        "script_type": "",
-        "age": 4
-      }
-    ],
-    "outputs": [
-      {
-        "value": 1000000,
-        "script": "76a9145fb1af31edd2aa5a2bbaa24f6043d6ec31f7e63288ac",
-        "addresses": [
-          "C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn"
-        ],
-        "script_type": "pay-to-pubkey-hash"
-      },
-      {
-        "value": 3988000,
-        "script": "76a914efec6de6c253e657a9d5506a78ee48d89762fb3188ac",
-        "addresses": [
-          "CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"
-        ],
-        "script_type": "pay-to-pubkey-hash"
-      }
-    ]
-  },
-  "tosign": [
-    "32b5ea64c253b6b466366647458cfd60de9cd29d7dc542293aa0b8b7300cd827"
-  ]
+"tx": {
+	"block_height": -1,
+	"hash": "c2b350b273b3bf04791d8e59fc9c021fd91fa423c50c29473dc079150f5a778a",
+	"addresses": [
+		"CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9",
+		"C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn"
+	],
+	"total": 4988000,
+	"fees": 12000,
+	"size": 119,
+	"preference": "high",
+	...,
+	"confirmations": 0,
+	"inputs": [
+		{
+		"prev_hash": "c8ea8b221580ebb2f1cabc8b40797bffec742b97c82a329df96d93121db43519",
+		"output_value": 5000000,
+		"addresses": ["CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"],
+		"script": "",
+		"script_type": "",
+		...
+		}
+	],
+	"outputs": [
+		{
+		"value": 1000000,
+		"script": "76a9145fb1af31edd2aa5a2bbaa24f6043d6ec31f7e63288ac",
+		"addresses": ["C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn"],
+		"script_type": "pay-to-pubkey-hash"
+		},
+		{
+		"value": 3988000,
+		"script": "76a914efec6de6c253e657a9d5506a78ee48d89762fb3188ac",
+		"addresses": ["CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"],
+		"script_type": "pay-to-pubkey-hash"
+		}
+	]
+},
+"tosign": ["32b5ea64c253b6b466366647458cfd60de9cd29d7dc542293aa0b8b7300cd827"]
 }
 ```
 
-To use BlockCypher's two-endpoint transaction creation tool, first you need to provide the input address(es), output address, and value to transfer (in satoshis). This is provided in the form of a partially-filled out [TX](#tx) request object.
+To use BlockCypher's two-endpoint transaction creation tool, first you need to provide the input address(es), output address, and value to transfer (in satoshis). Provide this in a partially-filled out [TX](#tx) request object.
 
 Resource | Method | Request Object | Return Object
 -------- | ------ | -------------- | -------------
@@ -224,34 +208,38 @@ If you'd like, you can even use a [Wallet](#wallet) instead of addresses as your
 
 While this particular usage will differ between client libraries, the result is the same: the addresses within your wallet will be used as the **inputs**, as if all of them had been placed within the **addresses** array.
 
+As a return object, you'll receive a [TXSkeleton](#txskeleton) containing a slightly-more complete [TX](#tx) alongside data you need to sign in the **tosign** array. You'll need this object for the next steps of the transaction creation process.
+
 <aside class="notice">
 If you want to automatically empty your input address(es) without knowing their exact value, your <a href="#tx">TX</a> request object's <b>value</b> can be set to -1 to <i>sweep</i> all value from your input address(es) to your output address.
 </aside>
 
 <aside class="notice">
-The BlockCypher API automatically allows unconfirmed UTXOs as inputs when creating transactions. If you only want to allow confirmed UTXOs, set the <b>confirmations</b> value in your <a href="#tx">TX</a> request object to 1.
+There are many manually configurable options available via your <a href="#tx">TX</a> request object. You can read about them in more detail in the <a href="#customizing-transaction-requests">Customizing Transaction Requests</a> section below.
 </aside>
-
-While we demonstrated the simplest use of this endpoint, you can have finer-grain control by modifying the [TX](#tx) request object. Instead of providing **addresses**, you can use **prev_hash** and **output_index** within the **inputs** array, in which case, we'll use the inputs as provided and not attempt to generate them from a list of addresses. We will compute change and fees the same way (you can read more about the fee computation in the next section).
-
-<aside class="notice">
-By default, BlockCypher will set the change address to the first transaction input/address listed in the transaction. To redirect this default behavior, you can set an optional <b>change_address</b> field within the <a href="#tx">TX</a> request object.
-</aside>
-
-For further control, you can also change the **script_type** in the **output** of your partially filled [TX](#tx). You'll notice this used to powerful effect in the section on [Multisig Transactions](#multisig-transactions). These are the possible script types:
-
-1. *pay-to-pubkey-hash* (most common transaction transferring to a public key hash, and the default behavior if no out)
-1. *pay-to-multi-pubkey-hash* (multi-signatures transaction, now actually less used than *pay-to-script-hash* for this purpose)
-1. *pay-to-pubkey* (used for mining transactions)
-1. *pay-to-script-hash* (used for transactions relying on arbitrary scripts, now used primarily for multi-sig transactions)
-1. *null-data* (sometimes called op-return; used to embed small chunks of data in the blockchain)
-1. *empty* (no script present, mostly used for mining transaction inputs)
-1. *unknown* (non-standard script)
-
-As a return object, you'll receive a [TXSkeleton](#txskeleton) containing a slightly-more complete [TX](#tx) alongside data you need to sign (in the **tosign** array). You'll need this object for the next step of the transaction creation process.
 
 <aside class="warning">
 The <b>hash</b> assigned to <a href="#tx">TX</a> within the return object is only temporary. A final <b>hash</b> will be provided after the transaction is sent to the network through the Send Transaction Endpoint.
+</aside>
+
+```shell
+# next, you sign the data returned in the tosign array locally
+# here we're using our signer tool (https://github.com/blockcypher/btcutils/tree/master/signer), but any ECDSA secp256k1 signing tool should work
+# $PRIVATEKEY here is a hex-encoded private key corresponding to the input from address CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9 
+
+./signer 32b5ea64c253b6b466366647458cfd60de9cd29d7dc542293aa0b8b7300cd827 $PRIVATEKEY
+
+3045022100921fc36b911094280f07d8504a80fbab9b823a25f102e2bc69b14bcd369dfc7902200d07067d47f040e724b556e5bc3061af132d5a47bd96e901429d53c41e0f8cca
+```
+
+### Locally Sign Your Transaction
+
+With your [TXSkeleton](#txskeleton) returned from the New Transaction Endpoint, you now need to use your private key(s) to sign the data provided in the **tosign** array.
+
+Digital signing can be a difficult process, and is where the majority of issues arise when dealing with cryptocurrency transactions. We are working on integrating client-side signing solutions into our libraries to make this process easier. You can read more about [signing here.](https://bitcoin.org/en/developer-guide#term-signature) In the mean time, if you want to experiment with client-side signing, consider using our [signer tool](https://github.com/blockcypher/btcutils/tree/master/signer).
+
+<aside class="notice">
+One of the most common errors in the signing process is a data format mismatch. We always return and expect hex-encoded data, but oftentimes, standard signing libraries require byte arrays. Remember to convert your data, and always send hex-encoded signatures to BlockCypher.
 </aside>
 
 ```shell
@@ -259,79 +247,51 @@ The <b>hash</b> assigned to <a href="#tx">TX</a> within the return object is onl
 curl -d '{"tx": {...}, "tosign": [ "32b5ea64c253b6b466366647458cfd60de9cd29d7dc542293aa0b8b7300cd827" ], "signatures": [ "3045022100921fc36b911094280f07d8504a80fbab9b823a25f102e2bc69b14bcd369dfc7902200d07067d47f040e724b556e5bc3061af132d5a47bd96e901429d53c41e0f8cca" ], "pubkeys": [ "02152e2bb5b273561ece7bbe8b1df51a4c44f5ab0bc940c105045e2cc77e618044" ] }' https://api.blockcypher.com/v1/bcy/test/txs/send
 
 {
-  "tx": {
-    "block_height": -1,
-    "hash": "4e6dfb1415b4fba5bd257c129847c70fbd4e45e41828079c4a282680528f3a50",
-    "addresses": [
-      "CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9",
-      "C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn"
-    ],
-    "total": 4988000,
-    "fees": 12000,
-    "size": 226,
-    "preference": "high",
-    "relayed_by": "73.162.198.68",
-    "received": "2015-05-22T04:38:57.470017042Z",
-    "ver": 1,
-    "lock_time": 0,
-    "double_spend": false,
-    "vin_sz": 1,
-    "vout_sz": 2,
-    "confirmations": 0,
-    "inputs": [
-      {
-        "prev_hash": "c8ea8b221580ebb2f1cabc8b40797bffec742b97c82a329df96d93121db43519",
-        "output_index": 0,
-        "script": "483045022100921fc36b911094280f07d8504a80fbab9b823a25f102e2bc69b14bcd369dfc7902200d07067d47f040e724b556e5bc3061af132d5a47bd96e901429d53c41e0f8cca012102152e2bb5b273561ece7bbe8b1df51a4c44f5ab0bc940c105045e2cc77e618044",
-        "output_value": 5000000,
-        "sequence": 4294967295,
-        "addresses": [
-          "CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"
-        ],
-        "script_type": "pay-to-pubkey-hash",
-        "age": 546
-      }
-    ],
-    "outputs": [
-      {
-        "value": 1000000,
-        "script": "76a9145fb1af31edd2aa5a2bbaa24f6043d6ec31f7e63288ac",
-        "addresses": [
-          "C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn"
-        ],
-        "script_type": "pay-to-pubkey-hash"
-      },
-      {
-        "value": 3988000,
-        "script": "76a914efec6de6c253e657a9d5506a78ee48d89762fb3188ac",
-        "addresses": [
-          "CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"
-        ],
-        "script_type": "pay-to-pubkey-hash"
-      }
-    ]
-  },
-  "tosign": [
-    ""
-  ]
+"tx": {
+	"block_height": -1,
+	"hash": "4e6dfb1415b4fba5bd257c129847c70fbd4e45e41828079c4a282680528f3a50",
+	"addresses": [
+		"CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9",
+		"C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn"
+	],
+	"total": 4988000,
+	"fees": 12000,
+	"size": 226,
+	"preference": "high",
+	...,
+	"confirmations": 0,
+	"inputs": [
+		{
+		"prev_hash": "c8ea8b221580ebb2f1cabc8b40797bffec742b97c82a329df96d93121db43519",
+		"output_value": 5000000,
+		"addresses": ["CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"],
+		"script": "483045022100921fc36b911094280f...",
+		"script_type": "pay-to-pubkey-hash",
+		...
+		}
+	],
+	"outputs": [
+		{
+		"value": 1000000,
+		"script": "76a9145fb1af31edd2aa5a2bbaa24f6043d6ec31f7e63288ac",
+		"addresses": ["C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn"],
+		"script_type": "pay-to-pubkey-hash"
+		},
+		{
+		"value": 3988000,
+		"script": "76a914efec6de6c253e657a9d5506a78ee48d89762fb3188ac",
+		"addresses": ["CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"],
+		"script_type": "pay-to-pubkey-hash"
+		}
+	]
+},
+"tosign": [ "" ]
 }
 ```
 
 ### Send Transaction Endpoint
 
-With your [TXSkeleton](#txskeleton) returned from the New Transaction Endpoint, you now need to use your private key(s) to locally sign the data provided in the **tosign** array, and put that (hex-encoded) data into the **signatures** array of the [TXSkeleton](#txskeleton). You also need to include the corresponding (hex-encoded) public key(s) in the **pubkeys** array, in the order of the addresses/inputs provided. Signature and public key order matters, so make sure they are returned in the same order as the inputs you provided.
-
-Digital signing can be a difficult process, and is where the majority of issues arise when dealing with cryptocurrency transactions. We are working on integrating client-side signing solutions into our libraries to make this process easier, but you can read more about [signing here.](https://bitcoin.org/en/developer-guide#term-signature) In the mean time, if you want to experiment with client-side signing, consider using our [signer tool](https://github.com/blockcypher/btcutils/tree/master/signer)
-
-<aside class="notice">
-<p>A note on fees: fees in cryptocurrencies can be complex. We provide 2 different ways for you to control the fees included in your transactions:</p>
-
-<p>1) Set the <b>preference</b> property in your <a href="#tx">TX</a> within your <a href="#txskeleton">TXSkeleton request object</a> to "high", "medium" or "low". This will calculate and include appropriate fees for your transaction to be included in the next 1-2 blocks, 3-6 blocks or 7 or more blocks respectively. You can see the explicit estimates per kilobyte for these high, medium, and low ranges by calling your base resource through the <a href="#chain-endpoint">Chain Endpoint.</a> The default fee calculation is based on a "high" <b>preference</b>. A preference set to "zero" will set no fee.</p>
-
-<p>2) Manually set the fee to a desired amount by setting the <b>fees</b> property in your <a href="#tx">TX</a> within your <a href="#TXskeleton">TXSkeleton request object</a>. Note that a fee too low may result in an error for some transactions that would require it.</p>
-
-To learn more about fees, <a href="http://bitcoinfees.com/">bitcoinfees.com</a> is a good resource.
-</aside>
+Once you've finished signing the **tosign** array locally, put that (hex-encoded) data into the **signatures** array of the [TXSkeleton](#txskeleton). You also need to include the corresponding (hex-encoded) public key(s) in the **pubkeys** array, in the order of the addresses/inputs provided. Signature and public key order matters, so make sure they are returned in the same order as the inputs you provided.
 
 Resource | Method | Request Object | Return Object
 -------- | ------ | -------------- | -------------
@@ -346,6 +306,33 @@ Signing and creating transactions can be one of the trickiest parts of using blo
 <aside class="notice">
 One of the most common errors we see are users who use uncompressed public keys when compressed public keys were used to generate the address; remember to be careful to use the right keys!
 </aside>
+
+## Customizing Transaction Requests
+
+While we demonstrated the simplest use of our [two-endpoint process to create transactions](#creating-transactions), you can have finer-grain control by modifying the [TX](#tx) request object before sending to `/txs/new`.
+
+By default, we allow unconfirmed UTXOs as inputs when creating transactions. If you only want to allow confirmed UTXOs, set the **confirmations** value in your [TX](#tx) request object to 1.
+
+Instead of providing **addresses**, you can use **prev_hash** and **output_index** within the **inputs** array of your request object, in which case, we'll use the inputs as provided and not attempt to generate them from a list of addresses. We will compute change and fees the same way.
+
+BlockCypher will set the change address to the first transaction input/address listed in the transaction. To redirect this default behavior, you can set an optional **change_address** field within the [TX](#tx) request object.
+
+Fees in cryptocurrencies can be complex. We provide 2 different ways for you to control the fees included in your transactions:
+
+1. Set the **preference** property in your [TX](#tx) request object to "high", "medium", or "low". This will calculate and include appropriate fees for your transaction to be included in the next 1-2 blocks, 3-6 blocks or 7 or more blocks respectively. You can see the explicit estimates per kilobyte for these high, medium, and low ranges by calling your base resource through the [Chain Endpoint.](#chain-endpoint) The default fee calculation is based on a "high" **preference**. A preference set to "zero" will set no fee.
+1. Manually set the fee to a desired amount by setting the **fees** property in your [TX](#tx) request object. Note that a fee too low may result in an error for some transactions that would require it.
+
+To learn more about fees, [bitcoinfees.com](http://bitcoinfees.com/) is a good resource.
+
+For even more control, you can also change the **script_type** in the **output** of your partially filled [TX](#tx). You'll notice this used to powerful effect in the section on [Multisig Transactions](#multisig-transactions). These are the possible script types:
+
+1. *pay-to-pubkey-hash* (most common transaction transferring to a public key hash, and the default behavior if no out)
+1. *pay-to-multi-pubkey-hash* (multi-signatures transaction, now actually less used than *pay-to-script-hash* for this purpose)
+1. *pay-to-pubkey* (used for mining transactions)
+1. *pay-to-script-hash* (used for transactions relying on arbitrary scripts, now used primarily for multi-sig transactions)
+1. *null-data* (sometimes called op-return; used to embed small chunks of data in the blockchain)
+1. *empty* (no script present, mostly used for mining transaction inputs)
+1. *unknown* (non-standard script)
 
 ## Push Raw Transaction Endpoint
 
