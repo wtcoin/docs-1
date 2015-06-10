@@ -152,7 +152,7 @@ WEBHOOKID is a string representing the event's generated *id*, for example:
 # Piping into grep to get status code
 curl -X DELETE -IsL https://api.blockcypher.com/v1/btc/main/hooks/399d0923-e920-48ee-8928-2051cbfbc369?token=YOURTOKEN | grep "HTTP/1.1"
 
-HTTP/1.1 200 OK
+HTTP/1.1 204 OK
 ```
 
 This resource deletes an active [Event](#event) based on its *id*. Remember to include your token, or the request will fail.
@@ -165,4 +165,4 @@ WEBHOOKID is a string representing the event's generated *id*, for example:
 
 `399d0923-e920-48ee-8928-2051cbfbc369`
 
-If successful, it won't return any objects, but will respond with an HTTP Status Code 200.
+If successful, it won't return any objects, but will respond with an HTTP Status Code 204.

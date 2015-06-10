@@ -70,7 +70,7 @@ You'll get a full array of your currently active payment forwarding addresses, b
 # Piping to grep to just show status code
 curl -X DELETE -IsL http://api.blockcypher.com/v1/btc/main/payments/399d0923-e920-48ee-8928-2051cbfbc369?token=YOURTOKEN | grep "HTTP/1.1"
 
-HTTP/1.1 200 OK
+HTTP/1.1 204 No Content
 ```
 
 When you're done with a payment forwarding address, you can delete it via its id.
@@ -83,4 +83,4 @@ PAYID is a string representing the payment forwarding request you want to delete
 
 `399d0923-e920-48ee-8928-2051cbfbc369`
 
-This will return no object, but will return an HTTP Status Code 200 if the request was successfully deleted.
+This will return no object, but will return an HTTP Status Code 204 if the request was successfully deleted.
