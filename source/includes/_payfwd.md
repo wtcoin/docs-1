@@ -29,6 +29,19 @@ curl -d '{"destination":"15qx9ug952GWGTNn7Uiv6vode4RcGrRemh","callback_url": "ht
 }
 ```
 
+```python
+>>> import requests, json
+>>> data = {"destination":"15qx9ug952GWGTNn7Uiv6vode4RcGrRemh","callback_url": "https://my.domain.com/callbacks/new-pay"}
+>>> params = {'token': 'YOUR_TOKEN'}
+>>> r = requests.post('http://api.blockcypher.com/v1/btc/main/payments', data=json.dumps(data), params=params)
+>>> r.json()
+{'destination': '15qx9ug952GWGTNn7Uiv6vode4RcGrRemh',
+ 'callback_url': 'https://my.domain.com/callbacks/new-pay',
+ 'input_address': '1CUYiFY3LzEd9dXgR6ubRaYPTq2SMxFFCJ',
+ 'id': 'f35c80c2-3347-410d-b4ac-d049910289ec',
+ 'token': 'YOUR_TOKEN'}
+```
+
 First, to create an payment forwarding address, you need to POST a partially filled [PaymentForward](#paymentforward) object to the payment creation endpoint. You need to include at least a **destination** address and your **token**; optionally, you can add a **callback_url**, processing fees (either percent or fixed) and a **process_fee_address**, and a few other options. You can see more details about these options in the [PaymentForward](#paymentforward) object details.
 
 Resource | Method | Request Object | Return Object
@@ -56,6 +69,19 @@ curl http://api.blockcypher.com/v1/btc/main/payments?token=YOURTOKEN
 	}
 ]
 ```
+
+```python
+>>> import requests
+>>> params = {'token': 'YOUR_TOKEN'}
+>>> r = requests.post('http://api.blockcypher.com/v1/btc/main/payments', params=params)
+>>> r.json()
+[{'destination': '15qx9ug952GWGTNn7Uiv6vode4RcGrRemh',
+  'callback_url': 'https://my.domain.com/callbacks/payments',
+  'input_address': '1CUYiFY3LzEd9dXgR6ubRaYPTq2SMxFFCJ',
+  'id': 'f35c80c2-3347-410d-b4ac-d049910289ec',
+  'token': 'YOUR_TOKEN'}]
+```
+
 To list your currently active payment forwarding addresses, you can use this endpoint.
 
 Resource | Method | Return Object
@@ -71,6 +97,15 @@ You'll get a full array of your currently active payment forwarding addresses, b
 curl -X DELETE -IsL http://api.blockcypher.com/v1/btc/main/payments/399d0923-e920-48ee-8928-2051cbfbc369?token=YOURTOKEN | grep "HTTP/1.1"
 
 HTTP/1.1 204 No Content
+```
+
+```python
+# Fund existing address with faucet
+>>> import requests
+>>> params = {'token': 'YOUR_TOKEN'}
+>>> r = requests.delete('http://api.blockcypher.com/v1/btc/main/payments/f35c80c2-3347-410d-b4ac-d049910289ec', params=params)
+# will return nothing, but we can confirm that delete was succesful via http code
+>>> assert r.status_code == 204
 ```
 
 When you're done with a payment forwarding address, you can delete it via its id.

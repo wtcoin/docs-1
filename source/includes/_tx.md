@@ -68,6 +68,49 @@ curl https://api.blockcypher.com/v1/btc/main/txs/f854aebae95150b379cc1187d848d58
 }
 ```
 
+```python
+>>> import requests
+>>> r = requests.get('https://api.blockcypher.com/v1/btc/main/txs/f854aebae95150b379cc1187d848d58225f3c4157fe992bcd166f58bd5063449')
+>>> r.json()
+{'confirmed': '2014-03-29T01:29:19Z',
+ 'ver': 1,
+ 'double_spend': False,
+ 'outputs': [{'value': 70320221545,
+   'addresses': ['1N2f642sbgCMbNtXFajz9XDACDFnFzdXzV'],
+   'script_type': 'pay-to-pubkey-hash',
+   'script': '76a914e6aad9d712c419ea8febf009a3f3bfdd8d222fac88ac',
+   'spent_by': '35832d6c70b98b54e9a53ab2d51176eb19ad11bc4505d6bb1ea6c51a68cb92ee'}],
+ 'block_height': 293000,
+ 'confidence': 1,
+ 'total': 70320221545,
+ 'block_hash': '0000000000000000c504bdea36e531d8089d324f2d936c86e3274f97f8a44328',
+ 'fees': 0,
+ 'inputs': [{'output_value': 16450000,
+   'sequence': 4294967295,
+   'prev_hash': '583910b7bf90ab802e22e5c25a89b59862b20c8c1aeb24dfb94e7a508a70f121',
+   'script': '4830450220504b1ccfddf508422bdd8b0fcda2b1483e87aee1b486c0130bc29226bbce3b4e022100b5befcfcf0d3bf6ebf0ac2f93badb19e3042c7bed456c398e743b885e782466c012103b1feb40b99e8ff18469484a50e8b52cc478d5f4f773a341fbd920a4ceaedd4bf',
+   'addresses': ['1GbMfYui17L5m6sAy3L3WXAtf1P32bxJXq'],
+   'output_index': 1,
+   'script_type': 'pay-to-pubkey-hash'},
+   ...
+],
+ 'preference': 'low',
+ 'vout_sz': 1,
+ 'vin_sz': 4,
+ 'relayed_by': '',
+ 'received': '2014-03-29T01:29:19Z',
+ 'hash': 'f854aebae95150b379cc1187d848d58225f3c4157fe992bcd166f58bd5063449',
+ 'addresses': ['13XXaBufpMvqRqLkyDty1AXqueZHVe6iyy',
+  '19YtzZdcfs1V2ZCgyRWo8i2wLT8ND1Tu4L',
+  '1BNiazBzCxJacAKo2yL83Wq1VJ18AYzNHy',
+  '1GbMfYui17L5m6sAy3L3WXAtf1P32bxJXq',
+  '1N2f642sbgCMbNtXFajz9XDACDFnFzdXzV'],
+ 'lock_time': 0,
+ 'size': 636,
+ 'confirmations': 67378}
+```
+
+
 The Transaction Hash Endpoint returns detailed information about a given transaction based on its hash.
 
 
@@ -119,6 +162,52 @@ curl http://api.blockcypher.com/v1/btc/main/txs
 	},
 ...
 ]
+```
+
+```python
+# Fund existing address with faucet
+>>> import requests
+>>> r = requests.get('http://api.blockcypher.com/v1/btc/main/txs')
+>>> r.json()
+[{'received': '2015-06-10T23:10:31.534Z',
+  'ver': 1,
+  'double_spend': False,
+  'outputs': [{'value': 131910000,
+    'addresses': ['1Gb4TAU4GD73akvt4V7tg2WdqadcpQSvhH'],
+    'script_type': 'pay-to-pubkey-hash',
+    'script': '76a914aafae908428a1778d0e76f0dca4cb800f731873e88ac'},
+    ...
+    ],
+  'block_height': -1,
+  'confidence': 0.36208077122201,
+  'receive_count': 109,
+  'total': 131940196,
+  'fees': 13754,
+  'inputs': [{'output_value': 9467,
+    'sequence': 4294967295,
+    'prev_hash': '3c65f3bdec16c55fcedec8159ca8b7decf12393e3a7088febbfacfd752534ee0',
+    'script': '47304402207510efc3ff2ed868478ef627c4fd53a27254874e61c1ff1be6fb5221844c08ac02204a8a50c35d3fac8ec0c15f468c98abb629cadf3ac898f7be5e6f464ba9e4fba00121035649100ba29d0b34df8a928c2ed7ab1389d017b4ed206f6df5c212a461a764f2',
+    'age': 38,
+    'addresses': ['1MBuZ5ZxhytsjRZmec5rLr1WhDWm9DgFUJ'],
+    'output_index': 1,
+    'script_type': 'pay-to-pubkey-hash'},
+    ...
+   ],
+  'preference': 'medium',
+  'vout_sz': 2,
+  'vin_sz': 3,
+  'relayed_by': '167.114.118.213:8333',
+  'hash': '97f551c7d200f3acf322160d6ada87830d2ad8d935909630a35a87d61bc8fa74',
+  'addresses': ['1DLDFKuAWGUJqZoYrevG8bHufuZCjCdSFZ',
+   '1Gb4TAU4GD73akvt4V7tg2WdqadcpQSvhH',
+   ...
+   ]
+  'lock_time': 0,
+  'size': 521,
+  'confirmations': 0},
+ ...
+],
+
 ```
 
 The Unconfirmed Transactions Endpoint returns an array of the latest transactions relayed by nodes in a blockchain that haven't been included in any blocks.
@@ -192,6 +281,46 @@ curl -d '{"inputs":[{"addresses": ["CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"]}],"outp
 },
 "tosign": ["32b5ea64c253b6b466366647458cfd60de9cd29d7dc542293aa0b8b7300cd827"]
 }
+```
+
+```python
+>>> import requests, json
+>>> data = {'inputs': [{'addresses': ['CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9',]}], 'outputs': [{'addresses': ['C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn', ], 'value': 1000000}]}
+>>> r = requests.post('https://api.blockcypher.com/v1/bcy/test/txs/new', data=json.dumps(data))
+>>> r.json()
+{'tosign': ['d65bd083f968a2002e6d71044c0aaa601ec45dfdd6dc9168907141bda4f31fbd'],
+ 'tx': {'received': '2015-06-10T23:16:15.28508806Z',
+  'ver': 1,
+  'double_spend': False,
+  'outputs': [{'value': 1000000,
+    'addresses': ['C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn'],
+    'script_type': 'pay-to-pubkey-hash',
+    'script': '76a9145fb1af31edd2aa5a2bbaa24f6043d6ec31f7e63288ac'},
+   {'value': 2856000,
+    'addresses': ['CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9'],
+    'script_type': 'pay-to-pubkey-hash',
+    'script': '76a914efec6de6c253e657a9d5506a78ee48d89762fb3188ac'}],
+  'block_height': -1,
+  'total': 3856000,
+  'fees': 12000,
+  'inputs': [{'output_value': 3868000,
+    'sequence': 4294967295,
+    'prev_hash': '6b1c30cad97df956cfcb47b4cd471bb69112fb726b0fb129575337e3fb9f2c1a',
+    'script': '',
+    'age': 294,
+    'addresses': ['CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9'],
+    'output_index': 2,
+    'script_type': ''}],
+  'preference': 'high',
+  'vout_sz': 2,
+  'vin_sz': 1,
+  'relayed_by': '207.38.134.25',
+  'hash': '4508ebb031af94173c58d3848683308ccb8d67c08952feb3d36406066c030bf5',
+  'addresses': ['CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9',
+   'C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn'],
+  'lock_time': 0,
+  'size': 119,
+  'confirmations': 0}}
 ```
 
 To use BlockCypher's two-endpoint transaction creation tool, first you need to provide the input address(es), output address, and value to transfer (in satoshis). Provide this in a partially-filled out [TX](#tx) request object.
@@ -393,6 +522,66 @@ curl -d '{"tx":"01000000011935b41d12936df99d322ac8972b74ecff7b79408bbccaf1b2eb80
 }
 ```
 
+```python
+>>> import requests, json
+>>> data = {'tx': '01000000011935b41d12936df99d322ac8972b74ecff7b79408bbccaf1b2eb8015228beac8000000006b483045022100921fc36b911094280f07d8504a80fbab9b823a25f102e2bc69b14bcd369dfc7902200d07067d47f040e724b556e5bc3061af132d5a47bd96e901429d53c41e0f8cca012102152e2bb5b273561ece7bbe8b1df51a4c44f5ab0bc940c105045e2cc77e618044ffffffff0240420f00000000001976a9145fb1af31edd2aa5a2bbaa24f6043d6ec31f7e63288ac20da3c00000000001976a914efec6de6c253e657a9d5506a78ee48d89762fb3188ac00000000'}
+>>> r = requests.post('https://api.blockcypher.com/v1/bcy/test/txs/push', data=json.dumps(data))
+>>> r.json()
+{
+  "block_height": -1,
+  "hash": "4e6dfb1415b4fba5bd257c129847c70fbd4e45e41828079c4a282680528f3a50",
+  "addresses": [
+    "CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9",
+    "C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn"
+  ],
+  "total": 4988000,
+  "fees": 12000,
+  "size": 226,
+  "preference": "high",
+  "relayed_by": "73.162.198.68",
+  "received": "2015-05-22T05:10:00.305308666Z",
+  "ver": 1,
+  "lock_time": 0,
+  "double_spend": false,
+  "vin_sz": 1,
+  "vout_sz": 2,
+  "confirmations": 0,
+  "inputs": [
+    {
+      "prev_hash": "c8ea8b221580ebb2f1cabc8b40797bffec742b97c82a329df96d93121db43519",
+      "output_index": 0,
+      "script": "483045022100921fc36b911094280f07d8504a80fbab9b823a25f102e2bc69b14bcd369dfc7902200d07067d47f040e724b556e5bc3061af132d5a47bd96e901429d53c41e0f8cca012102152e2bb5b273561ece7bbe8b1df51a4c44f5ab0bc940c105045e2cc77e618044",
+      "output_value": 5000000,
+      "sequence": 4294967295,
+      "addresses": [
+        "CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"
+      ],
+      "script_type": "pay-to-pubkey-hash",
+      "age": 576
+    }
+  ],
+  "outputs": [
+    {
+      "value": 1000000,
+      "script": "76a9145fb1af31edd2aa5a2bbaa24f6043d6ec31f7e63288ac",
+      "addresses": [
+        "C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn"
+      ],
+      "script_type": "pay-to-pubkey-hash"
+    },
+    {
+      "value": 3988000,
+      "script": "76a914efec6de6c253e657a9d5506a78ee48d89762fb3188ac",
+      "addresses": [
+        "CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"
+      ],
+      "script_type": "pay-to-pubkey-hash"
+    }
+  ]
+}
+
+```
+
 If you'd prefer to use your own transaction library instead of the recommended path of our two-endpoint [transaction generation](#creating-transactions) we're still happy to help you propagate your raw transactions. Simply send your raw hex-encoded transaction to this endpoint and we'll leverage our huge network of nodes to propagate your transaction faster than anywhere else.
 
 Resource | Method | Request Object | Return Object
@@ -462,6 +651,47 @@ curl -d '{"tx":"01000000011935b41d12936df99d322ac8972b74ecff7b79408bbccaf1b2eb80
     }
   ]
 }
+```
+
+```python
+# Fund existing address with faucet
+>>> import requests, json
+>>> data = {'tx': '01000000011935b41d12936df99d322ac8972b74ecff7b79408bbccaf1b2eb8015228beac8000000006b483045022100921fc36b911094280f07d8504a80fbab9b823a25f102e2bc69b14bcd369dfc7902200d07067d47f040e724b556e5bc3061af132d5a47bd96e901429d53c41e0f8cca012102152e2bb5b273561ece7bbe8b1df51a4c44f5ab0bc940c105045e2cc77e618044ffffffff0240420f00000000001976a9145fb1af31edd2aa5a2bbaa24f6043d6ec31f7e63288ac20da3c00000000001976a914efec6de6c253e657a9d5506a78ee48d89762fb3188ac00000000'}
+>>> r = requests.post('https://api.blockcypher.com/v1/bcy/test/txs/decode', data=json.dumps(data))
+>>> r.json()
+{'received': '2015-06-10T23:37:05.211843254Z',
+ 'ver': 1,
+ 'double_spend': False,
+ 'outputs': [{'value': 1000000,
+   'addresses': ['C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn'],
+   'script_type': 'pay-to-pubkey-hash',
+   'script': '76a9145fb1af31edd2aa5a2bbaa24f6043d6ec31f7e63288ac'},
+  {'value': 3988000,
+   'addresses': ['CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9'],
+   'script_type': 'pay-to-pubkey-hash',
+   'script': '76a914efec6de6c253e657a9d5506a78ee48d89762fb3188ac',
+   'spent_by': '892fd7b36c1c3a2e5edb9b4a5d4ffd9ba74d78d3acf3b249991bd8d10a287dbd'}],
+ 'block_height': -1,
+ 'total': 4988000,
+ 'fees': 12000,
+ 'inputs': [{'output_value': 5000000,
+   'sequence': 4294967295,
+   'prev_hash': 'c8ea8b221580ebb2f1cabc8b40797bffec742b97c82a329df96d93121db43519',
+   'script': '483045022100921fc36b911094280f07d8504a80fbab9b823a25f102e2bc69b14bcd369dfc7902200d07067d47f040e724b556e5bc3061af132d5a47bd96e901429d53c41e0f8cca012102152e2bb5b273561ece7bbe8b1df51a4c44f5ab0bc940c105045e2cc77e618044',
+   'age': 28188,
+   'addresses': ['CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9'],
+   'output_index': 0,
+   'script_type': 'pay-to-pubkey-hash'}],
+ 'preference': 'high',
+ 'vout_sz': 2,
+ 'vin_sz': 1,
+ 'relayed_by': '207.38.134.25',
+ 'hash': '4e6dfb1415b4fba5bd257c129847c70fbd4e45e41828079c4a282680528f3a50',
+ 'addresses': ['CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9',
+  'C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn'],
+ 'lock_time': 0,
+ 'size': 226,
+ 'confirmations': 0}
 ```
 
 We also offer the ability to decode raw transactions without sending propagating them to the network; perhaps you want to double-check another client library or confirm that another service is sending proper transactions. 
