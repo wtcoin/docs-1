@@ -520,8 +520,9 @@ The <b>hash</b> assigned to <a href="#tx">TX</a> within the return object is onl
 
 ```javascript
 // next, you sign the data returned in the tosign array locally
-// here we're sing bitcoinjs built to expose bigi, buffer and require or directly:
-//   https://blockcypher.github.io/documentation/js/samples/bitcoinjs-min.js
+// here we're using bitcoinjs built to expose bigi, buffer, and require
+// you can use this library here:
+//   http://dev.blockcypher.com/data/samples/bitcoinjs-min.js
 
 var bitcoin = require("bitcoinjs-lib");
 var bigi    = require("bigi");

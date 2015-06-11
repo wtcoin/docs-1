@@ -4,7 +4,7 @@ title: BlockCypher Reference
 language_tabs:
   - shell: cURL
   - javascript: JavaScript
-  - python: python
+  - python: Python
 
 toc_footers:
   - <a href='https://accounts.blockcypher.com/'>Register for a Free Token</a>
@@ -53,7 +53,7 @@ curl is a tool to transfer data from or to a server, using one of the supported 
 ```
 
 ```javascript
-// JavaScript examples use JQUery and can be run directly in your browser
+// JavaScript examples use JQuery and can be run directly in your browser
 // console (ctrl+shift+i or cmd+shift+i).
 // Porting them to node.js should be trivial, replacing JQuery methods with
 // request.js for example.
@@ -69,7 +69,7 @@ https://github.com/blockcypher/blockcypher-python
 In these docs you'll find everything you need to leverage BlockCypher for your applications. For all officially supported languages, you'll see code samples, in addition to basic cURL requests/responses for every endpoint. You can switch between cURL/language samples via the selector in the upper right. We're working on supporting more languages, but if you're working on your own language library, definitely let us know: we'd love to add more community supported libraries here.
 
 <aside class="notice">
-Currently, we only have cURL and Python code samples on this page, but are working on adding more samples from our <a href="#blockcypher-supported-language-sdks">supported languages</a> soon!
+Currently, we only have cURL, JavaScript, and Python code samples on this page, but are working on adding more samples from our <a href="#blockcypher-supported-language-sdks">supported languages</a> soon!
 </aside>
 
 ### In-Browser Code Examples

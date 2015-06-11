@@ -124,8 +124,9 @@ curl -H "Content-Type: application/json" -d '{ ..., "signatures": ["304502210090
 ```
 
 ```javascript
-// Using bitcoinjs built to expose bigi, buffer and require or directly:
-//   https://blockcypher.github.io/documentation/js/samples/bitcoinjs-min.js
+// here we're using bitcoinjs built to expose bigi, buffer, and require
+// you can use this library here:
+//   http://dev.blockcypher.com/data/samples/bitcoinjs-min.js
 
 var bitcoin = require("bitcoinjs-lib");
 var bigi    = require("bigi");
