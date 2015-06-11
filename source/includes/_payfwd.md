@@ -102,7 +102,7 @@ HTTP/1.1 200 OK
 ```python
 # Fund existing address with faucet
 >>> import requests
->>> params = {'token': YOUR_TOKEN}
+>>> params = {'token': 'YOUR_TOKEN'}
 >>> r = requests.delete('http://api.blockcypher.com/v1/btc/main/payments/f35c80c2-3347-410d-b4ac-d049910289ec', params=params)
 # will return nothing, but we can confirm that delete was succesful via http code
 >>> assert r.status_code == 204

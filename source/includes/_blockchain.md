@@ -158,7 +158,7 @@ $ curl https://api.blockcypher.com/v1/btc/main/blocks/294322?txstart=1&limit=1
 ```python
 # Fund existing address with faucet
 >>> import requests, json
->>> params = {"txstart": 1, "limit": 1}
+>>> params = {'txstart': 1, 'limit': 1}
 >>> r = requests.get('https://api.blockcypher.com/v1/btc/main/blocks/294322', params=params)
 >>> json.loads(r.text)
 {'tx_url': 'https://api.blockcypher.com/v1/btc/main/txs/',

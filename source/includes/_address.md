@@ -221,7 +221,8 @@ $ curl http://api.blockcypher.com/v1/btc/main/addrs/1DEP8i3QJCsomS4BSMY2RpU1upv6
 
 ```python
 >>> import requests, json
->>> r = requests.get('http://api.blockcypher.com/v1/btc/main/addrs/1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD/full?before=300000')
+>>> data = {'before': 300000}
+>>> r = requests.get('http://api.blockcypher.com/v1/btc/main/addrs/1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD/full', data=json.dumps(data))
 >>> json.loads(r.text)
 {'txs': [{'size': 438,
    'double_spend': False,
@@ -344,7 +345,7 @@ $ curl -d '{"pubkeys": ["02c716d071a76cbf0d29c29cacfec76e0ef8116b37389fb7a3e76d6
 
 ```python
 >>> import requests, json
->>> data = {"pubkeys": ["02c716d071a76cbf0d29c29cacfec76e0ef8116b37389fb7a3e76d6d32cf59f4d3", "033ef4d5165637d99b673bcdbb7ead359cee6afd7aaf78d3da9d2392ee4102c8ea", "022b8934cc41e76cb4286b9f3ed57e2d27798395b04dd23711981a77dc216df8ca"], "script_type": "multisig-2-of-3"}
+>>> data = {'pubkeys': ['02c716d071a76cbf0d29c29cacfec76e0ef8116b37389fb7a3e76d6d32cf59f4d3', '033ef4d5165637d99b673bcdbb7ead359cee6afd7aaf78d3da9d2392ee4102c8ea', '022b8934cc41e76cb4286b9f3ed57e2d27798395b04dd23711981a77dc216df8ca'], 'script_type': 'multisig-2-of-3'}
 >>> r = requests.post('https://api.blockcypher.com/v1/btc/main/addrs', data=json.dumps(data))
 >>> json.loads(r.text)
 {'public': '',
@@ -402,8 +403,8 @@ $ curl -d '{"name": "alice","addresses": ["1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e"]}
 
 ```python
 >>> import requests, json
->>> data = {"name": "alice", "addresses": ["1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e", ]}
->>> params = {'token': YOUR_TOKEN}
+>>> data = {'name': 'alice', 'addresses': ['1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e', ]}
+>>> params = {'token': 'YOUR_TOKEN'}
 >>> r = requests.post('https://api.blockcypher.com/v1/btc/main/wallets', data=json.dumps(data), params=params)
 >>> json.loads(r.text)
 {'name': 'alice',
@@ -439,8 +440,8 @@ $ curl -d '{"addresses": ["13cj1QtfW61kQHoqXm3khVRYPJrgQiRM6j"]}' https://api.bl
 
 ```python
 >>> import requests, json
->>> data = {"addresses": ["13cj1QtfW61kQHoqXm3khVRYPJrgQiRM6j", ]}
->>> params = {'token': YOUR_TOKEN}
+>>> data = {'addresses': ['13cj1QtfW61kQHoqXm3khVRYPJrgQiRM6j', ]}
+>>> params = {'token': 'YOUR_TOKEN'}
 >>> r = requests.post('https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses', data=json.dumps(data), params=params)
 >>> json.loads(r.text)
 {'name': 'alice',
@@ -471,7 +472,7 @@ $ curl https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses?token=USE
 
 ```python
 >>> import requests, json
->>> params = {'token': YOUR_TOKEN}
+>>> params = {'token': 'YOUR_TOKEN'}
 >>> r = requests.get('https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses', params=params)
 >>> json.loads(r.text)
 {'addresses': ['13cj1QtfW61kQHoqXm3khVRYPJrgQiRM6j',
@@ -500,7 +501,7 @@ $ curl -X DELETE -d '{"addresses": ["1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e"]}' http
 
 ```python
 >>> import requests, json
->>> data = {'token': YOUR_TOKEN, "address": "1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e"}
+>>> data = {'token': 'YOUR_TOKEN', 'address': '1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e'}
 >>> r = requests.delete('https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses', data=json.dumps(data))
 >>> json.loads(r.text)
 {'token': 'YOUR_TOKEN',
@@ -558,7 +559,7 @@ $ curl -X DELETE -d '{"name":"alice"}' https://api.blockcypher.com/v1/btc/main/w
 
 ```python
 >>> import requests, json
->>> params = {'token': YOUR_TOKEN}
+>>> params = {'token': 'YOUR_TOKEN'}
 >>> r = requests.delete('https://api.blockcypher.com/v1/btc/main/wallets/alice', params=params)
 # returns nothing, let's just check the status code to be sure
 >>> assert r.status_code == 204

@@ -44,10 +44,15 @@ DESCRIPTION
 curl is a tool to transfer data from or to a server, using one of the supported protocols (DICT, FILE, FTP, FTPS, GOPHER, HTTP, HTTPS, IMAP, IMAPS, LDAP, LDAPS, POP3, POP3S, RTMP, RTSP, SCP, SFTP, SMB, SMBS, SMTP, SMTPS, TELNET and TFTP). The command is designed to work without user interaction.
 ```
 
+```python
+To see detailed python code snippets, check the official python repository:
+https://github.com/blockcypher/blockcypher-python
+```
+
 In these docs you'll find everything you need to leverage BlockCypher for your applications. For all officially supported languages, you'll see code samples, in addition to basic cURL requests/responses for every endpoint. You can switch between cURL/language samples via the selector in the upper right. We're working on supporting more languages, but if you're working on your own language library, definitely let us know: we'd love to add more community supported libraries here.
 
 <aside class="notice">
-Currently, we only have cURL code samples, but are working on adding other official SDK samples soon!
+Currently, we only have cURL and python code samples on this page, but are working on adding more samples from our <a href="#blockcypher-supported-language-sdks">supported languages</a> soon!
 </aside>
 
 ### In-Browser Code Examples
@@ -172,7 +177,7 @@ $ curl https://api.blockcypher.com/v1/btc/main?token=$YOUR_TOKEN
 ```python
 # Adding your token as URL parameter
 >>> import requests, json
->>> params = {'token': YOUR_TOKEN}
+>>> params = {'token': 'YOUR_TOKEN'}
 >>> r = requests.get('https://api.blockcypher.com/v1/btc/main', params=params)
 >>> json.loads(r.text)
 ```
@@ -335,8 +340,8 @@ $ curl -d '{"address": "CFqoZmZ3ePwK5wnkhxJjJAQKJ82C7RJdmd", "amount": 100000}' 
 ```python
 # Fund existing address with faucet
 >>> import requests, json
->>> data = {"address": "CFqoZmZ3ePwK5wnkhxJjJAQKJ82C7RJdmd", "amount": 100000}
->>> params = {'token': YOUR_TOKEN}
+>>> data = {'address': 'CFqoZmZ3ePwK5wnkhxJjJAQKJ82C7RJdmd', 'amount': 100000}
+>>> params = {'token': 'YOUR_TOKEN'}
 >>> r = requests.post('http://api.blockcypher.com/v1/bcy/test/faucet', data=json.dumps(data), params=params)
 >>> json.loads(r.text)
 {'tx_ref': 'b2ecfb5e40f3923b07819f1a386a538e86cc6ce59ae7a59533df487f622d1cbb'}

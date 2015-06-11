@@ -95,12 +95,12 @@ $ curl -d {"event": "unconfirmed-tx", "address": "15qx9ug952GWGTNn7Uiv6vode4RcGr
 ```python
 >>> import requests, json
 >>> data = {'event': 'unconfirmed-tx', 'address': '15qx9ug952GWGTNn7Uiv6vode4RcGrRemh', 'url': 'https://my.domain.com/callbacks/new-tx'}
->>> params = {'token': YOUR_TOKEN}
+>>> params = {'token': 'YOUR_TOKEN'}
 >>> r = requests.post('https://api.blockcypher.com/v1/btc/main/hooks', data=json.dumps(data), params=params)
 >>> json.loads(r.text)
 {'filter': 'addr=15qx9ug952GWGTNn7Uiv6vode4RcGrRemh&event=unconfirmed-tx',
  'id': '50d1fb13-2bd4-47d0-8e1b-0695e0322581',
- 'token': YOUR_TOKEN,
+ 'token': 'YOUR_TOKEN',
  'address': '15qx9ug952GWGTNn7Uiv6vode4RcGrRemh',
  'url': 'https://my.domain.com/callbacks/new-tx',
  'event': 'unconfirmed-tx',
@@ -131,14 +131,14 @@ $ curl https://api.blockcypher.com/v1/btc/main/hooks?token=YOURTOKEN
 ]
 ```
 
-```
+```python
 >>> import requests, json
->>> params = {'token': YOUR_TOKEN}
+>>> params = {'token': 'YOUR_TOKEN'}
 >>> r = requests.get('https://api.blockcypher.com/v1/btc/main/hooks', params=params)
 >>> json.loads(r.text)
 [{'filter': 'addr=15qx9ug952GWGTNn7Uiv6vode4RcGrRemh&event=unconfirmed-tx',
   'id': '50d1fb13-2bd4-47d0-8e1b-0695e0322581',
-  'token': YOUR_TOKEN,
+  'token': 'YOUR_TOKEN',
   'address': '15qx9ug952GWGTNn7Uiv6vode4RcGrRemh',
   'url': 'https://my.domain.com/callbacks/new-tx',
   'event': 'unconfirmed-tx',
