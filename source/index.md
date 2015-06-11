@@ -53,10 +53,10 @@ Currently, we only have cURL code samples, but are working on adding other offic
 
 We know many learn more from code examples than specific reference documentation, which is why we have code samples in our official languages. In addition, we have a number of in-browser code examples for particular use cases, which you can see here:
 
-- [Browse the Blockchain](/data/samples/browse-chain.html)
-- [Using WebHooks](/data/samples/nodejs-webhook.html)
-- [Sending a Simple Transaction](/data/samples/create-tx.html)
-- [Create Multisig Transactions](/data/samples/multisig-tx.html)
+- <a href="/data/samples/browse-chain.html" target="_blank">Browse the Blockchain</a>
+- <a href="/data/samples/nodejs-webhook.html" target="_blank">Using WebHooks</a>
+- <a href="/data/samples/create-tx.html" target="_blank">Sending a Simple Transaction</a>
+- <a href="/data/samples/multisig-tx.html" target="_blank">Create Multisig Transactions</a>
 
 ### Changelog and Errors
 

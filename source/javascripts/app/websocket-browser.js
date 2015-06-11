@@ -1,7 +1,6 @@
 (function (global) {
 	$(document).ready(function() {
 	$('button.tryme').click(function(e) {
-	console.log('yo josh stop clicking me');
 	var ws = new WebSocket("wss://socket.blockcypher.com/v1/btc/main");
 	var count = 0;
 	ws.onmessage = function (event) {
