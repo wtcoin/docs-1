@@ -29,6 +29,23 @@ curl -d '{"destination":"15qx9ug952GWGTNn7Uiv6vode4RcGrRemh","callback_url": "ht
 }
 ```
 
+```javascript
+var payment = {
+  "destination":"15qx9ug952GWGTNn7Uiv6vode4RcGrRemh",
+  "callback_url": "https://my.domain.com/callbacks/new-pay"
+}
+var url = 'https://api.blockcypher.com/v1/btc/main/payments?token='+TOKEN;
+$.post(url, JSON.stringify(payment))
+  .then(function(d) {console.log(d)});
+{
+"input_address": "16uKw7GsQSzfMaVTcT7tpFQkd7Rh9qcXWX",
+"destination": "15qx9ug952GWGTNn7Uiv6vode4RcGrRemh",
+"callback_url": "https://my.domain.com/callbacks/payments",
+"id": "399d0923-e920-48ee-8928-2051cbfbc369",
+"token": "YOURTOKEN"
+}
+```
+
 ```python
 >>> import requests, json
 >>> data = {"destination":"15qx9ug952GWGTNn7Uiv6vode4RcGrRemh","callback_url": "https://my.domain.com/callbacks/new-pay"}
@@ -70,6 +87,20 @@ curl http://api.blockcypher.com/v1/btc/main/payments?token=YOURTOKEN
 ]
 ```
 
+```javascript
+$.get('http://api.blockcypher.com/v1/btc/main/payments?token='+TOKEN)
+  .then(function(d) {console.log(d)});
+[
+	{
+	"input_address": "16uKw7GsQSzfMaVTcT7tpFQkd7Rh9qcXWX",
+	"destination": "15qx9ug952GWGTNn7Uiv6vode4RcGrRemh",
+	"callback_url": "https://my.domain.com/callbacks/payments",
+	"id": "399d0923-e920-48ee-8928-2051cbfbc369",
+	"token": "YOURTOKEN"
+	}
+]
+```
+
 ```python
 >>> import requests
 >>> params = {'token': 'YOUR_TOKEN'}
@@ -97,6 +128,14 @@ You'll get a full array of your currently active payment forwarding addresses, b
 curl -X DELETE -IsL http://api.blockcypher.com/v1/btc/main/payments/399d0923-e920-48ee-8928-2051cbfbc369?token=YOURTOKEN | grep "HTTP/1.1"
 
 HTTP/1.1 204 No Content
+```
+
+```javascript
+var url = "https://api.blockcypher.com/v1/btc/main/payments/399d0923-e920-48ee-8928-2051cbfbc369?token="+TOKEN
+$.ajax({
+  url: url,
+  method: "DELETE"
+});
 ```
 
 ```python

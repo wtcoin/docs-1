@@ -27,6 +27,24 @@ curl https://api.blockcypher.com/v1/btc/main
 }
 ```
 
+```javascript
+$.get('https://api.blockcypher.com/v1/btc/main').then(function(d) {console.log(d)});
+> {
+>   "name": "BTC.main",
+>   "height": 355578,
+>   "hash": "00000000000000000a0b253f20709b0c77d8a56aa8db632ecbdc7381816504cd",
+>   "time": "2015-05-08T23:12:55.243311146Z",
+>   "latest_url": "https://api.blockcypher.com/v1/btc/main/blocks/00000000000000000a0b253f20709b0c77d8a56aa8db632ecbdc7381816504cd",
+>   "previous_hash": "00000000000000000acef50ef89494493b4a08a8419588e1e3e20cd73bc85a6b",
+>   "previous_url": "https://api.blockcypher.com/v1/btc/main/blocks/00000000000000000acef50ef89494493b4a08a8419588e1e3e20cd73bc85a6b",
+>   "peer_count": 250,
+>   "unconfirmed_count": 637,
+>   "high_fee_per_kb": 45768,
+>   "medium_fee_per_kb": 29415,
+>   "low_fee_per_kb": 12045
+> }
+```
+
 ```python
 >>> import requests
 >>> r = requests.get('https://api.blockcypher.com/v1/btc/main')
@@ -87,6 +105,34 @@ curl https://api.blockcypher.com/v1/btc/main/blocks/0000000000000000189bba3564a6
 }
 ```
 
+```javascript
+$.get('https://api.blockcypher.com/v1/btc/main/blocks/0000000000000000189bba3564a63772107b5673c940c16f12662b3e8546b412')
+  .then(function(d) {console.log(d)});
+> {
+> "hash": "0000000000000000189bba3564a63772107b567...",
+> "height": 294322,
+> "chain": "BTC.main",
+> "total": 1146652915,
+> "fees": 130999,
+> "ver": 2,
+> "time": "2014-04-05T07:49:18Z",
+> "received_time": "2014-04-05T07:49:18Z",
+> "bits": 419486617,
+> "nonce": 1225187768,
+> "n_tx": 10,
+> "prev_block": "0000000000000000ced0958bd27720b71d3...",
+> "mrkl_root": "359d624d37aee1efa5662b7f5dbc390e996d...",
+> "txids": [
+> 	"32b3b86e40d996b1f281e24e8d4af2ceacbf874c403836...",
+> 	"1579f716359ba1a207f70248135f5e5fadf539be1dcf53...",
+> 	...,
+> ],
+> "depth": 61793,
+> "prev_block_url": "https://api.blockcypher.com/v1/btc/main/blocks/0000000000000000ced0958bd27720b71d32c5847e40660aaca39f33c298abb0",
+> "tx_url": "https://api.blockcypher.com/v1/btc/main/txs/"
+> }
+```
+
 ```python
 >>> import requests
 >>> r = requests.get('https://api.blockcypher.com/v1/btc/main/blocks/0000000000000000189bba3564a63772107b5673c940c16f12662b3e8546b412')
@@ -111,6 +157,7 @@ curl https://api.blockcypher.com/v1/btc/main/blocks/0000000000000000189bba3564a6
  'fees': 130999,
  'bits': 419486617,
  'time': '2014-04-05T07:49:18Z'}
+>>>>>>> master
 ```
 
 If you want more data on a particular block, you can use the Block Hash endpoint.
@@ -156,6 +203,32 @@ curl https://api.blockcypher.com/v1/btc/main/blocks/294322?txstart=1&limit=1
 "prev_block_url": "https://api.blockcypher.com/v1/btc/main/blocks/0000000000000000ced0958bd27720b71d32c5847e40660aaca39f33c298abb0",
 "tx_url": "https://api.blockcypher.com/v1/btc/main/txs/"
 }
+```
+
+```javascript
+$.get('https://api.blockcypher.com/v1/btc/main/blocks/294322?txstart=1&limit=1')
+  .then(function(d) {console.log(d)});
+> {
+> "hash": "0000000000000000189bba3564a63772107b567...",
+> "height": 294322,
+> "chain": "BTC.main",
+> "total": 1146652915,
+> "fees": 130999,
+> "ver": 2,
+> "time": "2014-04-05T07:49:18Z",
+> "received_time": "2014-04-05T07:49:18Z",
+> "bits": 419486617,
+> "nonce": 1225187768,
+> "n_tx": 10,
+> "prev_block": "0000000000000000ced0958bd27720b71d3...",
+> "mrkl_root": "359d624d37aee1efa5662b7f5dbc390e996d...",
+> "txids": [
+> 	"1579f716359ba1a207f70248135f5e5fadf539be1dcf53...",
+> ],
+> "depth": 61793,
+> "prev_block_url": "https://api.blockcypher.com/v1/btc/main/blocks/0000000000000000ced0958bd27720b71d32c5847e40660aaca39f33c298abb0",
+> "tx_url": "https://api.blockcypher.com/v1/btc/main/txs/"
+> }
 ```
 
 ```python

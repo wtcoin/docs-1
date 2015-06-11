@@ -27,8 +27,11 @@ Events like <i>unconfirmed-tx</i> can produce a lot of requests. To avoid rate-l
 ## Using WebSockets
 
 ```shell
-# no websockets via cURL :-( but here's a Javascript example
-# Get latest unconfirmed transactions live
+# no websockets via cURL, check the Javascript example
+```
+
+```javascript
+// Get latest unconfirmed transactions live
 var ws = new WebSocket("wss://socket.blockcypher.com/v1/btc/main");
 var count = 0;
 ws.onmessage = function (event) {
@@ -92,6 +95,24 @@ curl -d '{"event": "unconfirmed-tx", "address": "15qx9ug952GWGTNn7Uiv6vode4RcGrR
 }
 ```
 
+```javascript
+var webhook = {
+  "event": "unconfirmed-tx",
+  "address": "15qx9ug952GWGTNn7Uiv6vode4RcGrRemh",
+  "url": "https://my.domain.com/callbacks/new-tx"
+}
+var url = 'https://api.blockcypher.com/v1/btc/main/hooks?token='+TOKEN;
+$.post(url, JSON.stringify(webhook))
+  .then(function(d) {console.log(d)});
+{
+"id": "399d0923-e920-48ee-8928-2051cbfbc369"
+"event": "unconfirmed-tx",
+"address": "15qx9ug952GWGTNn7Uiv6vode4RcGrRemh",
+"token": "YOURTOKEN"
+"url": "https://my.domain.com/callbacks/new-tx"
+}
+```
+
 ```python
 >>> import requests, json
 >>> data = {'event': 'unconfirmed-tx', 'address': '15qx9ug952GWGTNn7Uiv6vode4RcGrRemh', 'url': 'https://my.domain.com/callbacks/new-tx'}
@@ -120,6 +141,20 @@ If successful, it will return the [Event](#event) with a newly generated **id**.
 ```shell
 curl https://api.blockcypher.com/v1/btc/main/hooks?token=YOURTOKEN
 
+[
+	{
+	"id": "399d0923-e920-48ee-8928-2051cbfbc369"
+	"event": "unconfirmed-tx",
+	"address": "15qx9ug952GWGTNn7Uiv6vode4RcGrRemh",
+	"token": "YOURTOKEN"
+	"url": "https://my.domain.com/callbacks/new-tx"
+	}
+]
+```
+
+```javascript
+$.get('https://api.blockcypher.com/v1/btc/main/hooks?token='+TOKEN)
+  .then(function(d) {console.log(d)});
 [
 	{
 	"id": "399d0923-e920-48ee-8928-2051cbfbc369"
@@ -165,8 +200,19 @@ curl https://api.blockcypher.com/v1/btc/main/hooks/399d0923-e920-48ee-8928-2051c
 }
 ```
 
+```javascript
+$.get('https://api.blockcypher.com/v1/btc/main/hooks/399d0923-e920-48ee-8928-2051cbfbc369')
+  .then(function(d) {console.log(d)});
+{
+"id": "399d0923-e920-48ee-8928-2051cbfbc369"
+"event": "unconfirmed-tx",
+"address": "15qx9ug952GWGTNn7Uiv6vode4RcGrRemh",
+"token": "YOURTOKEN"
+"url": "https://my.domain.com/callbacks/new-tx"
+}
+```
+
 ```python
-# Fund existing address with faucet
 >>> import requests
 >>> r = requests.get('https://api.blockcypher.com/v1/btc/main/hooks/50d1fb13-2bd4-47d0-8e1b-0695e0322581')
 >>> r.json()
@@ -196,6 +242,13 @@ WEBHOOKID is a string representing the event's generated *id*, for example:
 curl -X DELETE -IsL https://api.blockcypher.com/v1/btc/main/hooks/399d0923-e920-48ee-8928-2051cbfbc369?token=YOURTOKEN | grep "HTTP/1.1"
 
 HTTP/1.1 204 OK
+```
+
+```javascript
+$.ajax({
+  url: "https://api.blockcypher.com/v1/btc/main/hooks/399d0923-e920-48ee-8928-2051cbfbc369?token="+TOKEN,
+  method: "DELETE"
+});
 ```
 
 ```python
