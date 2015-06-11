@@ -35,9 +35,9 @@ $ curl https://api.blockcypher.com/v1/btc/main/txs/43fa951e1bea87c282f6725cf8bdc
 
 ```python
 # Fund existing address with faucet
->>> import requests, json
+>>> import requests
 >>> r = requests.get('https://api.blockcypher.com/v1/btc/main/txs/43fa951e1bea87c282f6725cf8bdc08bb48761396c3af8dd5a41a085ab62acc9/confidence')
->>> json.loads(r.text)
+>>> r.json()
 {'age_millis': 12725,
  'txurl': 'https://api.blockcypher.com/v1/btc/main/txs/43fa951e1bea87c282f6725cf8bdc08bb48761396c3af8dd5a41a085ab62acc9',
  'confidence': 0.9901509730004237,

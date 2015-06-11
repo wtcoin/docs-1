@@ -25,9 +25,9 @@ $ curl https://api.blockcypher.com/v1/btc/main
 ```
 
 ```python
->>> import requests, json
+>>> import requests
 >>> r = requests.get('https://api.blockcypher.com/v1/btc/main')
->>> json.loads(r.text)
+>>> r.json()
 {'last_fork_height': 359865,
  'time': '2015-06-08T23:03:49.126001425Z',
  'height': 360061,
@@ -85,9 +85,9 @@ $ curl https://api.blockcypher.com/v1/btc/main/blocks/0000000000000000189bba3564
 ```
 
 ```python
->>> import requests, json
+>>> import requests
 >>> r = requests.get('https://api.blockcypher.com/v1/btc/main/blocks/0000000000000000189bba3564a63772107b5673c940c16f12662b3e8546b412')
->>> json.loads(r.text)
+>>> r.json()
 {'tx_url': 'https://api.blockcypher.com/v1/btc/main/txs/',
  'prev_block': '0000000000000000ced0958bd27720b71d32c5847e40660aaca39f33c298abb0',
  'depth': 65739,
@@ -157,10 +157,10 @@ $ curl https://api.blockcypher.com/v1/btc/main/blocks/294322?txstart=1&limit=1
 
 ```python
 # Fund existing address with faucet
->>> import requests, json
+>>> import requests
 >>> params = {'txstart': 1, 'limit': 1}
 >>> r = requests.get('https://api.blockcypher.com/v1/btc/main/blocks/294322', params=params)
->>> json.loads(r.text)
+>>> r.json()
 {'tx_url': 'https://api.blockcypher.com/v1/btc/main/txs/',
  'prev_block': '0000000000000000ced0958bd27720b71d32c5847e40660aaca39f33c298abb0',
  'depth': 65739,

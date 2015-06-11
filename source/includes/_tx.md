@@ -69,9 +69,9 @@ $ curl https://api.blockcypher.com/v1/btc/main/txs/f854aebae95150b379cc1187d848d
 ```
 
 ```python
->>> import requests, json
+>>> import requests
 >>> r = requests.get('https://api.blockcypher.com/v1/btc/main/txs/f854aebae95150b379cc1187d848d58225f3c4157fe992bcd166f58bd5063449')
->>> json.loads(r.text)
+>>> r.json()
 {'confirmed': '2014-03-29T01:29:19Z',
  'ver': 1,
  'double_spend': False,
@@ -166,9 +166,9 @@ $ curl http://api.blockcypher.com/v1/btc/main/txs
 
 ```python
 # Fund existing address with faucet
->>> import requests, json
+>>> import requests
 >>> r = requests.get('http://api.blockcypher.com/v1/btc/main/txs')
->>> json.loads(r.text)
+>>> r.json()
 [{'received': '2015-06-10T23:10:31.534Z',
   'ver': 1,
   'double_spend': False,
@@ -303,7 +303,7 @@ $ curl -d '{"inputs":[{"addresses": ["CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"]}],"ou
 >>> import requests, json
 >>> data = {'inputs': [{'addresses': ['CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9',]}], 'outputs': [{'addresses': ['C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn', ], 'value': 1000000}]}
 >>> r = requests.post('https://api.blockcypher.com/v1/bcy/test/txs/new', data=json.dumps(data))
->>> json.loads(r.text)
+>>> r.json()
 {'tosign': ['d65bd083f968a2002e6d71044c0aaa601ec45dfdd6dc9168907141bda4f31fbd'],
  'tx': {'received': '2015-06-10T23:16:15.28508806Z',
   'ver': 1,
@@ -539,7 +539,7 @@ $ curl -d '{"tx":"01000000011935b41d12936df99d322ac8972b74ecff7b79408bbccaf1b2eb
 >>> import requests, json
 >>> data = {'tx': '01000000011935b41d12936df99d322ac8972b74ecff7b79408bbccaf1b2eb8015228beac8000000006b483045022100921fc36b911094280f07d8504a80fbab9b823a25f102e2bc69b14bcd369dfc7902200d07067d47f040e724b556e5bc3061af132d5a47bd96e901429d53c41e0f8cca012102152e2bb5b273561ece7bbe8b1df51a4c44f5ab0bc940c105045e2cc77e618044ffffffff0240420f00000000001976a9145fb1af31edd2aa5a2bbaa24f6043d6ec31f7e63288ac20da3c00000000001976a914efec6de6c253e657a9d5506a78ee48d89762fb3188ac00000000'}
 >>> r = requests.post('https://api.blockcypher.com/v1/bcy/test/txs/push', data=json.dumps(data))
->>> json.loads(r.text)
+>>> r.json()
 {
   "block_height": -1,
   "hash": "4e6dfb1415b4fba5bd257c129847c70fbd4e45e41828079c4a282680528f3a50",
@@ -671,7 +671,7 @@ $ curl -d '{"tx":"01000000011935b41d12936df99d322ac8972b74ecff7b79408bbccaf1b2eb
 >>> import requests, json
 >>> data = {'tx': '01000000011935b41d12936df99d322ac8972b74ecff7b79408bbccaf1b2eb8015228beac8000000006b483045022100921fc36b911094280f07d8504a80fbab9b823a25f102e2bc69b14bcd369dfc7902200d07067d47f040e724b556e5bc3061af132d5a47bd96e901429d53c41e0f8cca012102152e2bb5b273561ece7bbe8b1df51a4c44f5ab0bc940c105045e2cc77e618044ffffffff0240420f00000000001976a9145fb1af31edd2aa5a2bbaa24f6043d6ec31f7e63288ac20da3c00000000001976a914efec6de6c253e657a9d5506a78ee48d89762fb3188ac00000000'}
 >>> r = requests.post('https://api.blockcypher.com/v1/bcy/test/txs/decode', data=json.dumps(data))
->>> json.loads(r.text)
+>>> r.json()
 {'received': '2015-06-10T23:37:05.211843254Z',
  'ver': 1,
  'double_spend': False,

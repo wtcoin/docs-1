@@ -34,7 +34,7 @@ $ curl -d '{"destination":"15qx9ug952GWGTNn7Uiv6vode4RcGrRemh","callback_url": "
 >>> data = {"destination":"15qx9ug952GWGTNn7Uiv6vode4RcGrRemh","callback_url": "https://my.domain.com/callbacks/new-pay"}
 >>> params = {'token': 'YOUR_TOKEN'}
 >>> r = requests.post('http://api.blockcypher.com/v1/btc/main/payments', data=json.dumps(data), params=params)
->>> json.loads(r.text)
+>>> r.json()
 {'destination': '15qx9ug952GWGTNn7Uiv6vode4RcGrRemh',
  'callback_url': 'https://my.domain.com/callbacks/new-pay',
  'input_address': '1CUYiFY3LzEd9dXgR6ubRaYPTq2SMxFFCJ',
@@ -71,10 +71,10 @@ $ curl http://api.blockcypher.com/v1/btc/main/payments?token=YOURTOKEN
 ```
 
 ```python
->>> import requests, json
+>>> import requests
 >>> params = {'token': 'YOUR_TOKEN'}
 >>> r = requests.post('http://api.blockcypher.com/v1/btc/main/payments', params=params)
->>> json.loads(r.text)
+>>> r.json()
 [{'destination': '15qx9ug952GWGTNn7Uiv6vode4RcGrRemh',
   'callback_url': 'https://my.domain.com/callbacks/payments',
   'input_address': '1CUYiFY3LzEd9dXgR6ubRaYPTq2SMxFFCJ',

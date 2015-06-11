@@ -113,9 +113,9 @@ $ curl https://api.blockcypher.com/v1/btc/main
 ```
 
 ```python
->>> import requests, json
+>>> import requests
 >>> r = requests.get('https://api.blockcypher.com/v1/btc/main')
->>> json.loads(r.text)
+>>> r.json()
 {'high_fee_per_kb': 48419,
  'latest_url': 'https://api.blockcypher.com/v1/btc/main/blocks/00000000000000000783cf9ef8177b407976990117d03762efe7d3fdfe44d6a3',
  'previous_hash': '0000000000000000097689df71fb60cbbade7cddcaa35b6f4c9cb97b08a7a155',
@@ -176,10 +176,10 @@ $ curl https://api.blockcypher.com/v1/btc/main?token=$YOUR_TOKEN
 
 ```python
 # Adding your token as URL parameter
->>> import requests, json
+>>> import requests
 >>> params = {'token': 'YOUR_TOKEN'}
 >>> r = requests.get('https://api.blockcypher.com/v1/btc/main', params=params)
->>> json.loads(r.text)
+>>> r.json()
 ```
 
 Once you have your token, you can append it to all your requests like any other URL parameter if you're using cURL, or through the appropriate method in the language SDK you're using.
@@ -224,9 +224,9 @@ $ curl https://api.blockcypher.com/v1/btc/main/blocks/5;6;7
 
 ```python
 # Batching blocks 5, 6, and 7
->>> import requests, json
+>>> import requests
 >>> r = requests.get('https://api.blockcypher.com/v1/btc/main/blocks/5;6;7')
->>> json.loads(r.text)
+>>> r.json()
 [{'bits': 486604799,
   'n_tx': 1,
   'txids': ['8aa673bc752f2851fd645d6a0a92917e967083007d9c1684f9423b100540673f'],
@@ -343,7 +343,7 @@ $ curl -d '{"address": "CFqoZmZ3ePwK5wnkhxJjJAQKJ82C7RJdmd", "amount": 100000}' 
 >>> data = {'address': 'CFqoZmZ3ePwK5wnkhxJjJAQKJ82C7RJdmd', 'amount': 100000}
 >>> params = {'token': 'YOUR_TOKEN'}
 >>> r = requests.post('http://api.blockcypher.com/v1/bcy/test/faucet', data=json.dumps(data), params=params)
->>> json.loads(r.text)
+>>> r.json()
 {'tx_ref': 'b2ecfb5e40f3923b07819f1a386a538e86cc6ce59ae7a59533df487f622d1cbb'}
 
 ```
