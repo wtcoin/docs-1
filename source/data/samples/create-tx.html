@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html>
 	<head>
@@ -10,6 +9,7 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	</head>
 
+	<body>
 	<div class="content">
 		<h1>Create Transactions</h1>
 		<p>This sample demonstrates the creation, signature and sending of a simple Bitcoin transaction from the source address, the target address and amount. For more details see the <a href="http://dev.blockcypher.com/#creating_transactions">reference documentation</a>. To run the same sample using the command line (curl), see <a href="https://gist.github.com/matthieu/b07c5ba27bc99188a15f">this gist</a>.</p>
@@ -123,10 +123,11 @@
 <br />
 <br />
 
-<script src="/data/samples/js/bitcoinjs-min.js"></script>
+<script src="/data/samples/bitcoinjs-min.js"></script>
 <script>
   $('button.tryme').click(function(e) {
       eval($('#sample-code').children().text());
   });
 </script>
+</body>
 </html>
