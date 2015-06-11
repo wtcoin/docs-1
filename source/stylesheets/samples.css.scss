@@ -358,6 +358,10 @@ html, body {
     padding-left: $main-padding + 15px;
   }
 
+	&>button, .log {
+		margin-left: $main-padding;
+	}
+
   // the div is the tocify hidden div for placeholding stuff
   &>h1, &>h2, &>div {
     clear:both;
@@ -578,35 +582,16 @@ html, body {
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-// RESPONSIVE DESIGN
+// FORCE MOBILE DESIGN
 ////////////////////////////////////////////////////////////////////////////////
 // These are the styles for phones and tablets
 // There are also a couple styles disperesed
 
-@media (max-width: $tablet-width) {
-  .tocify-wrapper {
-    left: -$nav-width;
-
-    &.open {
-      left: 0;
-    }
-  }
-
-  .page-wrapper {
-    margin-left: 0;
-  }
-
+@media screen {
   #nav-button {
     display: block;
   }
 
-  .tocify-wrapper .tocify-item > a {
-    padding-top: 0.3em;
-    padding-bottom: 0.3em;
-  }
-}
-
-@media (max-width: $phone-width) {
   .dark-box {
     display: none;
   }
@@ -615,6 +600,13 @@ html, body {
     margin-right: 0;
   }
 
+  .tocify-wrapper {
+    left: -$nav-width;
+
+    &.open {
+      left: 0;
+    }
+  }
   .tocify-wrapper .lang-selector {
     display: block;
   }
