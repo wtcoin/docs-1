@@ -1,6 +1,6 @@
 # Payment Forwarding
 
-The of the well-known benefits of cryptocurrency is the ability to allow users to partake in online commerce without necessarily requiring extensive setup barriers, like registering new accounts. In that spirit, our Payment Forwarding API is the easiest way to accept---and consolidate---payments securely without forcing your users to create accounts and jump through unnecessary loops. It's also a generic way to automatically transfer value from one address to another. While there are many possible use cases, the two we hear most about are:
+One of the well-known benefits of cryptocurrency is the ability to allow users to partake in online commerce without necessarily requiring extensive setup barriers, like registering new accounts. In that spirit, our Payment Forwarding API is the easiest way to accept---and consolidate---payments securely without forcing your users to create accounts and jump through unnecessary loops. It's also a generic way to automatically transfer value from one address to another. While there are many possible use cases, the two we hear most about are:
 
 - A way to generate payment-specific addresses for which funds will automatically transfer to a main merchant address. Great for automatic merchandise (whether physical or virtual) processing.
 - A method to easily fund a multisignature address from any wallet by providing a classic address that will automatically transfer to the multisignature/*pay-to-script-hash* address.
@@ -18,7 +18,7 @@ By default, all payments will be debited with a 10,000 satoshis mining fee. The 
 ## Create Payment Endpoint
 
 ```shell
-$ curl -d '{"destination":"15qx9ug952GWGTNn7Uiv6vode4RcGrRemh","callback_url": "https://my.domain.com/callbacks/new-pay","token":"YOURTOKEN"}' http://api.blockcypher.com/v1/btc/main/payments
+curl -d '{"destination":"15qx9ug952GWGTNn7Uiv6vode4RcGrRemh","callback_url": "https://my.domain.com/callbacks/new-pay","token":"YOURTOKEN"}' http://api.blockcypher.com/v1/btc/main/payments
 
 {
 "input_address": "16uKw7GsQSzfMaVTcT7tpFQkd7Rh9qcXWX",
@@ -57,7 +57,7 @@ If you decide to have a <b>callback_url</b>, you'll receive a payload at that ur
 ## List Payments Endpoint
 
 ```shell
-$ curl http://api.blockcypher.com/v1/btc/main/payments?token=YOURTOKEN
+curl http://api.blockcypher.com/v1/btc/main/payments?token=YOURTOKEN
 
 [
 	{
@@ -94,9 +94,9 @@ You'll get a full array of your currently active payment forwarding addresses, b
 
 ```shell
 # Piping to grep to just show status code
-$ curl -X DELETE -IsL http://api.blockcypher.com/v1/btc/main/payments/399d0923-e920-48ee-8928-2051cbfbc369?token=YOURTOKEN | grep "HTTP/1.1"
+curl -X DELETE -IsL http://api.blockcypher.com/v1/btc/main/payments/399d0923-e920-48ee-8928-2051cbfbc369?token=YOURTOKEN | grep "HTTP/1.1"
 
-HTTP/1.1 200 OK
+HTTP/1.1 204 No Content
 ```
 
 ```python
@@ -114,8 +114,8 @@ Resource | Method | Return Object
 -------- | ------ | -------------
 /payments/$PAYID | DELETE |  *nil*
 
-$PAYID is a string representing the payment forwarding request you want to delete, for example:
+PAYID is a string representing the payment forwarding request you want to delete, for example:
 
 `399d0923-e920-48ee-8928-2051cbfbc369`
 
-This will return no object, but will return an HTTP Status Code 200 if the request was successfully deleted.
+This will return no object, but will return an HTTP Status Code 204 if the request was successfully deleted.

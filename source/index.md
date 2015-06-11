@@ -31,14 +31,14 @@ includes:
 
 Welcome to [BlockCypher's](http://www.blockcypher.com/) API documentation! BlockCypher is a simple, mostly RESTful JSON API for interacting with blockchains, accessed over HTTP or HTTPS from the [api.blockcypher.com](https://api.blockcypher.com/v1/btc/main) domain. Currently, BlockCypher supports Bitcoin, Bitcoin Testnet3, Litecoin, Dogecoin, Urocoin, and BlockCypher's Test Chain (more about BlockCypher's Test Chain [below](#testing)).
 
-BlockCypher's API provides a superset of the endpoints you'd find in reference implementations, in addition to some special features that make BlockCypher uniquely powerful, like our unconfirmed transaction [Confidence Factor](#confidence-factor), dependable WebHook or WebSockets-based [Events](#events-and-hooks), [On-Chain Microtransactions](#microtransactions-api), and [Payment Forwarding](#payment-forwarding).
+BlockCypher's API provides a superset of the endpoints you'd find in reference implementations, in addition to some special features that make BlockCypher uniquely powerful, like our unconfirmed transaction [Confidence Factor](#confidence-factor), dependable WebHook or WebSockets-based [Events](#events-and-hooks), [On-Chain Microtransactions](#microtransaction-api), and [Payment Forwarding](#payment-forwarding).
 
 Consequently, if you're familiar with a blockchain's reference implementation, you'll feel at home using BlockCypher, but without worrying about scaling or implementation challenges. And if you're not familiar---with the reference implementations or blockchains in general---BlockCypher's API is a great way to dip your toes into blockchain development, without a lengthy setup process. In either case, BlockCypher has 99.99% up-time, and maintains an expressive, logical API that you'll love.
 
 ## Documentation Structure
 
 ```shell
-$ man curl | grep -A 3 "DESCRIPTION"
+man curl | grep -A 3 "DESCRIPTION"
 
 DESCRIPTION
 curl is a tool to transfer data from or to a server, using one of the supported protocols (DICT, FILE, FTP, FTPS, GOPHER, HTTP, HTTPS, IMAP, IMAPS, LDAP, LDAPS, POP3, POP3S, RTMP, RTSP, SCP, SFTP, SMB, SMBS, SMTP, SMTPS, TELNET and TFTP). The command is designed to work without user interaction.
@@ -97,18 +97,23 @@ These client SDKs were made by members of the community, and are not officially 
 ## RESTful Resources
 
 ```shell
-$ curl https://api.blockcypher.com/v1/btc/main
+curl https://api.blockcypher.com/v1/btc/main
 
 {
-"name": "BTC.main",
-"height": 355578,
-"hash": "00000000000000000a0b253f20709b0c77d8a56aa8db632ecbdc7381816504cd",
-"time": "2015-05-08T23:12:55.243311146Z",
-"latest_url": "https://api.blockcypher.com/v1/btc/main/blocks/00000000000000000a0b253f20709b0c77d8a56aa8db632ecbdc7381816504cd",
-"previous_hash": "00000000000000000acef50ef89494493b4a08a8419588e1e3e20cd73bc85a6b",
-"previous_url": "https://api.blockcypher.com/v1/btc/main/blocks/00000000000000000acef50ef89494493b4a08a8419588e1e3e20cd73bc85a6b",
-"peer_count": 250,
-"unconfirmed_count": 637
+  "name": "BTC.main",
+  "height": 360060,
+  "hash": "000000000000000000bf56ff4a81e399374a68344a64d6681039412de78366b8",
+  "time": "2015-06-08T22:57:08.260165627Z",
+  "latest_url": "https://api.blockcypher.com/v1/btc/main/blocks/000000000000000000bf56ff4a81e399374a68344a64d6681039412de78366b8",
+  "previous_hash": "000000000000000011c9511ae1265d34d3c16fff6e8f94380425833b3d0ae5d8",
+  "previous_url": "https://api.blockcypher.com/v1/btc/main/blocks/000000000000000011c9511ae1265d34d3c16fff6e8f94380425833b3d0ae5d8",
+  "peer_count": 239,
+  "unconfirmed_count": 617,
+  "high_fee_per_kb": 46086,
+  "medium_fee_per_kb": 29422,
+  "low_fee_per_kb": 12045,
+  "last_fork_height": 359865,
+  "last_fork_hash": "00000000000000000aa6462fd9faf94712ce1b5a944dc666f491101c996beab9"
 }
 ```
 
@@ -171,7 +176,7 @@ Please [register for a user token](http://acccounts.blockcypher.com/) if your us
 
 ```shell
 # Adding your token as URL parameter
-$ curl https://api.blockcypher.com/v1/btc/main?token=$YOUR_TOKEN
+curl https://api.blockcypher.com/v1/btc/main?token=$YOURTOKEN
 ```
 
 ```python
@@ -188,7 +193,7 @@ Once you have your token, you can append it to all your requests like any other 
 
 ```shell
 # Batching blocks 5, 6, and 7
-$ curl https://api.blockcypher.com/v1/btc/main/blocks/5;6;7
+curl https://api.blockcypher.com/v1/btc/main/blocks/5;6;7
 
 [{
 "hash": "000000003031a0e73735690c5a1ff2a4be82553b2a12b776fbd3a215dc8f778d",
@@ -322,7 +327,7 @@ The faucets can be used from your browser if you want to play with them before a
 
 ```shell
 # Make new address; returns private key/public key/address
-$ curl -X POST http://api.blockcypher.com/v1/bcy/test/addrs?token=$YOUR_TOKEN
+curl -X POST http://api.blockcypher.com/v1/bcy/test/addrs?token=$YOURTOKEN
 
 {
 "private": "26415016a2fb49f51aef161cb35bd537be07b75a6ac1e297d3b7a370cc85433b",
@@ -331,7 +336,7 @@ $ curl -X POST http://api.blockcypher.com/v1/bcy/test/addrs?token=$YOUR_TOKEN
 }
 
 # Fund prior address with faucet
-$ curl -d '{"address": "CFqoZmZ3ePwK5wnkhxJjJAQKJ82C7RJdmd", "amount": 100000}' http://api.blockcypher.com/v1/bcy/test/faucet?token=$YOUR_TOKEN
+curl -d '{"address": "CFqoZmZ3ePwK5wnkhxJjJAQKJ82C7RJdmd", "amount": 100000}' http://api.blockcypher.com/v1/bcy/test/faucet?token=$YOURTOKEN
 {
 "tx_ref": "02dbf5585d438a1cba82a9041dd815635a6b0df684225cb5271e11397a759479"
 }

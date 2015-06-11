@@ -11,7 +11,7 @@ If you're new to blockchains, you can think of public addresses as similar to ba
 ## Address Balance Endpoint
 
 ```shell
-$ curl http://api.blockcypher.com/v1/btc/main/addrs/1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD/balance
+curl http://api.blockcypher.com/v1/btc/main/addrs/1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD/balance
 
 {
 "address": "1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD",
@@ -47,7 +47,7 @@ Resource | Method | Return Object
 -------- | ------ | -------------
 /addrs/$ADDRESS/balance | GET | [Address](#address)
 
-$ADDRESS is a *string* representing the public address (or wallet name) you're interested in querying, for example:
+ADDRESS is a *string* representing the public address (or wallet name) you're interested in querying, for example:
 
 `1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD`
 
@@ -56,7 +56,7 @@ The returned object contains information about the address, including its balanc
 ## Address Endpoint
 
 ```shell
-$ curl http://api.blockcypher.com/v1/btc/main/addrs/1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD
+curl http://api.blockcypher.com/v1/btc/main/addrs/1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD
 
 {
 "address": "1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD",
@@ -134,7 +134,7 @@ Flag | Type | Effect
 **unspentOnly** | *bool* | If **unspentOnly** is *true*, filters response to only include unspent transaction outputs (UTXOs).
 **before** | *integer* | Filters response to only include transactions below **before** height in the blockchain.
 
-$ADDRESS is a *string* representing the public address (or wallet name) you're interested in querying, for example:
+ADDRESS is a *string* representing the public address (or wallet name) you're interested in querying, for example:
 
 `1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD`
 
@@ -143,7 +143,7 @@ The returned object contains information about the address, including its balanc
 ## Address Full Endpoint
 
 ```shell
-$ curl http://api.blockcypher.com/v1/btc/main/addrs/1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD/full?before=300000
+curl http://api.blockcypher.com/v1/btc/main/addrs/1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD/full?before=300000
 
 {
 "address": "1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD",
@@ -271,7 +271,7 @@ $ curl http://api.blockcypher.com/v1/btc/main/addrs/1DEP8i3QJCsomS4BSMY2RpU1upv6
 ```
 
 
-The Address Full Endpoint returns all information available about a particular address, including an array of complete [Transactions](#transaction) instead of just transaction inputs and outputs. Unfortunately, because of the amount of data returned, it is the slowest of the address endpoints, but it returns the most detailed data record.
+The Address Full Endpoint returns all information available about a particular address, including an array of complete [transactions](#tx) instead of just transaction inputs and outputs. Unfortunately, because of the amount of data returned, it is the slowest of the address endpoints, but it returns the most detailed data record.
 
 Resource | Method | Return Object
 -------- | ------ | -------------
@@ -281,7 +281,7 @@ Flag | Type | Effect
 ---- | ---- | ------
 **before** | *integer* | Filters response to only include transactions before *integer* height in the blockchain.
 
-$ADDRESS is a *string* representing the public address (or wallet name) you're interested in querying, for example:
+ADDRESS is a *string* representing the public address (or wallet name) you're interested in querying, for example:
 
 `1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD`
 
@@ -294,7 +294,7 @@ If your returned <a href="#address">Address</a> object includes the <b>hasMore</
 ## Generate Address Endpoint
 
 ```shell
-$ curl -X POST http://api.blockcypher.com/v1/btc/test3/addrs
+curl -X POST http://api.blockcypher.com/v1/btc/test3/addrs
 
 {
 "private": "81ee75559d37cbe4b7cbbfb9931ab1ba32172c5cdfc3ac2d020259b4c1104198",
@@ -327,7 +327,7 @@ The returned object contains a private key in hex-encoded and wif-encoded format
 ## Generate Multisig Address Endpoint
 
 ```shell
-$ curl -d '{"pubkeys": ["02c716d071a76cbf0d29c29cacfec76e0ef8116b37389fb7a3e76d6d32cf59f4d3", "033ef4d5165637d99b673bcdbb7ead359cee6afd7aaf78d3da9d2392ee4102c8ea", "022b8934cc41e76cb4286b9f3ed57e2d27798395b04dd23711981a77dc216df8ca"], "script_type": "multisig-2-of-3"}' https://api.blockcypher.com/v1/btc/main/addrs
+curl -d '{"pubkeys": ["02c716d071a76cbf0d29c29cacfec76e0ef8116b37389fb7a3e76d6d32cf59f4d3", "033ef4d5165637d99b673bcdbb7ead359cee6afd7aaf78d3da9d2392ee4102c8ea", "022b8934cc41e76cb4286b9f3ed57e2d27798395b04dd23711981a77dc216df8ca"], "script_type": "multisig-2-of-3"}' https://api.blockcypher.com/v1/btc/main/addrs
 
 {
 "private": "",
@@ -378,7 +378,7 @@ Don't be confused: this Wallet API has nothing to do with private key management
 
 A wallet can be created, deleted, and have addresses added and removed. The wallet itself can have any custom name as long as it does not start with the standard address prefix (1 or 3 for Bitcoin).
 
-Wallets can be leveraged by the [Address API](#address-api), just by using their name instead of $ADDRESS. They can also be used with [Events](#events-and-hooks) and with the [Transactions API](#transactions-api). In general, using a wallet instead of an address in an API will have the effect of [batching the set of addresses](#batching) contained in the wallet.
+Wallets can be leveraged by the [Address API](#address-api), just by using their name instead of $ADDRESS. They can also be used with [Events](#events-and-hooks) and with the [Transaction API](#transaction-api). In general, using a wallet instead of an address in an API will have the effect of [batching the set of addresses](#batching) contained in the wallet.
 
 <aside class="warning">
 You are required to authenticate with your <a href="#rate-limits-and-tokens">user token</a> when using a wallet in any API endpoint. You can register <a href="http://accounts.blockcypher.com/">for a token here.</a>
@@ -392,9 +392,9 @@ The following code examples should be considered serially; that is to say, the r
 ### Create Wallet Endpoint
 
 ```shell
-$ curl -d '{"name": "alice","addresses": ["1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e"]}' https://api.blockcypher.com/v1/btc/main/wallets?token=USERTOKEN
+curl -d '{"name": "alice","addresses": ["1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e"]}' https://api.blockcypher.com/v1/btc/main/wallets?token=YOURTOKEN
 
-{"token": "USERTOKEN",
+{"token": "YOURTOKEN",
 "name": "alice",
 "addresses": [
 	"1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e"
@@ -428,9 +428,9 @@ If the named wallet already exists under your token, attempting to create a new 
 ### Add Addresses to Wallet Endpoint
 
 ```shell
-$ curl -d '{"addresses": ["13cj1QtfW61kQHoqXm3khVRYPJrgQiRM6j"]}' https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses?token=USERTOKEN
+curl -d '{"addresses": ["13cj1QtfW61kQHoqXm3khVRYPJrgQiRM6j"]}' https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses?token=YOURTOKEN
 
-{"token": "USERTOKEN",
+{"token": "YOURTOKEN",
 "name": "alice",
 "addresses": [
 	"1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e",
@@ -460,7 +460,7 @@ This endpoint allows you to add public addresses to an existing wallet, by POSTi
 ### Wallet Addresses Endpoint
 
 ```shell
-$ curl https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses?token=USERTOKEN
+curl https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses?token=YOURTOKEN
 
 {"token": "",
 "name": "",
@@ -490,9 +490,9 @@ This endpoint returns a list of the addresses associated with the $NAME wallet. 
 ### Remove Addresses from Wallet Endpoint
 
 ```shell
-$ curl -X DELETE -d '{"addresses": ["1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e"]}' https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses?token=USERTOKEN
+$ curl -X DELETE https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses?token=USERTOKEN&address=1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e
 
-{"token": "USERTOKEN",
+{"token": "YOURTOKEN",
 "name": "alice",
 "addresses": [
 	"13cj1QtfW61kQHoqXm3khVRYPJrgQiRM6j"
@@ -511,18 +511,18 @@ $ curl -X DELETE -d '{"addresses": ["1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e"]}' http
 
 Resource | Method | Request Object | Return Object
 -------- | ------ | -------------- | -------------
-/wallets/$NAME/addresses | DELETE | [Wallet](#wallet) | [Wallet](#wallet)
+/wallets/$NAME/addresses?address=$ADDRESS | DELETE | *nil* | [Wallet](#wallet)
 
-This endpoint allows you to delete an array of addresses associated with the $NAME wallet. If successful, it will return the newly modified [Wallet](#wallet), including an up-to-date, complete listing of addresses.
+This endpoint allows you to delete an $ADDRESS associated with the $NAME wallet. As a reminder, you [can batch](#http://dev.blockcypher.com/#batching) multiple addresses by appending them with semicolons within the $ADDRESS URL parameter. If successful, it will return the newly modified [Wallet](#wallet), including an up-to-date, complete listing of addresses.
 
 <br />
 
 ### Generate Address in Wallet Endpoint
 
 ```shell
-$ curl -X POST https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses/generate?token=USERTOKEN
+curl -X POST https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses/generate?token=YOURTOKEN
 
-{"token": "USERTOKEN",
+{"token": "YOURTOKEN",
 "name": "alice",
 "addresses": [
 	"13cj1QtfW61kQHoqXm3khVRYPJrgQiRM6j",
@@ -553,7 +553,7 @@ This endpoint allows you to generate a new address associated with the $NAME wal
 ### Delete Wallet Endpoint
 
 ```shell
-$ curl -X DELETE -d '{"name":"alice"}' https://api.blockcypher.com/v1/btc/main/wallets/alice?token=USERTOKEN
+curl -X DELETE https://api.blockcypher.com/v1/btc/main/wallets/alice?token=YOURTOKEN
 
 ```
 
@@ -569,4 +569,4 @@ Resource | Method | Request Object | Return Object
 -------- | ------ | -------------- | -------------
 /wallets/$NAME | DELETE | [Wallet](#wallet) | *nil*
 
-This endpoint deletes the wallet with $NAME. You are also required to send a partially filled [Wallet](#wallet) as a request object; all that's necessary is the **name** attribute in the wallet object. If successful, it will return an HTTP 400 status code, but no return object.
+This endpoint deletes the wallet with $NAME. If successful, it will return an HTTP 204 status code with no return object.
