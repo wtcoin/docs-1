@@ -13,7 +13,7 @@
 
       <script>
         $(function() {
-          setupLanguages(["shell","python"]);
+          setupLanguages(["shell","javascript","python"]);
         });
       </script>
   </head>
@@ -31,7 +31,8 @@
 			</a>
         <div class="lang-selector">
               <a href="#" data-language-name="shell">cURL</a>
-              <a href="#" data-language-name="python">python</a>
+              <a href="#" data-language-name="javascript">JavaScript</a>
+              <a href="#" data-language-name="python">Python</a>
         </div>
       <div id="toc">
       </div>
@@ -49,6 +50,11 @@
 <span class="c"># |_) | (_) (_ |&lt; \_ \/ |_) | | (/_ | </span>
 <span class="c">#                    /  |             </span>
 </code></pre>
+<pre class="highlight javascript"><code><span class="c1">//  _               _                  </span>
+<span class="c1">// |_) |  _   _ |  /     ._  |_   _  ._</span>
+<span class="c1">// |_) | (_) (_ |&lt; \_ \/ |_) | | (/_ | </span>
+<span class="c1">//                    /  |             </span>
+</code></pre>
 
 <p>Welcome to <a href="http://www.blockcypher.com/">BlockCypher&rsquo;s</a> API documentation! BlockCypher is a simple, mostly RESTful JSON API for interacting with blockchains, accessed over HTTP or HTTPS from the <a href="https://api.blockcypher.com/v1/btc/main">api.blockcypher.com</a> domain. Currently, BlockCypher supports Bitcoin, Bitcoin Testnet3, Litecoin, Dogecoin, Urocoin, and BlockCypher&rsquo;s Test Chain (more about BlockCypher&rsquo;s Test Chain <a href="#testing">below</a>).</p>
 
@@ -62,6 +68,13 @@
 DESCRIPTION
 curl is a tool to transfer data from or to a server, using one of the supported protocols <span class="o">(</span>DICT, FILE, FTP, FTPS, GOPHER, HTTP, HTTPS, IMAP, IMAPS, LDAP, LDAPS, POP3, POP3S, RTMP, RTSP, SCP, SFTP, SMB, SMBS, SMTP, SMTPS, TELNET and TFTP<span class="o">)</span>. The <span class="nb">command </span>is designed to work without user interaction.
 </code></pre>
+<pre class="highlight javascript"><code><span class="c1">// JavaScript examples use JQuery and can be run directly in your browser</span>
+<span class="c1">// console (ctrl+shift+i or cmd+shift+i).</span>
+<span class="c1">// Porting them to node.js should be trivial, replacing JQuery methods with</span>
+<span class="c1">// request.js for example.</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'Welcome to BlockCypher'</span><span class="p">);</span>
+</code></pre>
 <pre class="highlight python"><code><span class="n">To</span> <span class="n">see</span> <span class="n">detailed</span> <span class="n">python</span> <span class="n">code</span> <span class="n">snippets</span><span class="p">,</span> <span class="n">check</span> <span class="n">the</span> <span class="n">official</span> <span class="n">python</span> <span class="n">repository</span><span class="p">:</span>
 <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">blockcypher</span><span class="o">/</span><span class="n">blockcypher</span><span class="o">-</span><span class="n">python</span>
 </code></pre>
@@ -69,7 +82,7 @@ curl is a tool to transfer data from or to a server, using one of the supported 
 <p>In these docs you&rsquo;ll find everything you need to leverage BlockCypher for your applications. For all officially supported languages, you&rsquo;ll see code samples, in addition to basic cURL requests/responses for every endpoint. You can switch between cURL/language samples via the selector in the upper right. We&rsquo;re working on supporting more languages, but if you&rsquo;re working on your own language library, definitely let us know: we&rsquo;d love to add more community supported libraries here.</p>
 
 <aside class="notice">
-Currently, we only have cURL and Python code samples on this page, but are working on adding more samples from our <a href="#blockcypher-supported-language-sdks">supported languages</a> soon!
+Currently, we only have cURL, JavaScript, and Python code samples on this page, but are working on adding more samples from our <a href="#blockcypher-supported-language-sdks">supported languages</a> soon!
 </aside>
 
 <h3 id="in-browser-code-examples">In-Browser Code Examples</h3>
@@ -139,6 +152,22 @@ Currently, we only have cURL and Python code samples on this page, but are worki
   <span class="s2">"last_fork_hash"</span>: <span class="s2">"00000000000000000aa6462fd9faf94712ce1b5a944dc666f491101c996beab9"</span>
 <span class="o">}</span>
 </code></pre>
+<pre class="highlight javascript"><code><span class="nx">$</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">'https://api.blockcypher.com/v1/btc/main'</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">{</span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">d</span><span class="p">)});</span>
+<span class="o">&gt;</span> <span class="p">{</span>
+<span class="o">&gt;</span>   <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"BTC.main"</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"height"</span><span class="p">:</span> <span class="mi">355578</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"hash"</span><span class="p">:</span> <span class="s2">"00000000000000000a0b253f20709b0c77d8a56aa8db632ecbdc7381816504cd"</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"time"</span><span class="p">:</span> <span class="s2">"2015-05-08T23:12:55.243311146Z"</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"latest_url"</span><span class="p">:</span> <span class="s2">"https://api.blockcypher.com/v1/btc/main/blocks/00000000000000000a0b253f20709b0c77d8a56aa8db632ecbdc7381816504cd"</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"previous_hash"</span><span class="p">:</span> <span class="s2">"00000000000000000acef50ef89494493b4a08a8419588e1e3e20cd73bc85a6b"</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"previous_url"</span><span class="p">:</span> <span class="s2">"https://api.blockcypher.com/v1/btc/main/blocks/00000000000000000acef50ef89494493b4a08a8419588e1e3e20cd73bc85a6b"</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"peer_count"</span><span class="p">:</span> <span class="mi">250</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"unconfirmed_count"</span><span class="p">:</span> <span class="mi">637</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"high_fee_per_kb"</span><span class="p">:</span> <span class="mi">45768</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"medium_fee_per_kb"</span><span class="p">:</span> <span class="mi">29415</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"low_fee_per_kb"</span><span class="p">:</span> <span class="mi">12045</span>
+<span class="o">&gt;</span> <span class="p">}</span>
+</code></pre>
 <pre class="highlight python"><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">requests</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">'https://api.blockcypher.com/v1/btc/main'</span><span class="p">)</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
@@ -156,7 +185,6 @@ Currently, we only have cURL and Python code samples on this page, but are worki
  <span class="s">'name'</span><span class="p">:</span> <span class="s">'BTC.main'</span><span class="p">,</span>
  <span class="s">'low_fee_per_kb'</span><span class="p">:</span> <span class="mi">12047</span><span class="p">,</span>
  <span class="s">'last_fork_hash'</span><span class="p">:</span> <span class="s">'00000000000000000aa6462fd9faf94712ce1b5a944dc666f491101c996beab9'</span><span class="p">}</span>
-
 </code></pre>
 
 <p>Almost all resources exist under a given blockchain, and follow this pattern:</p>
@@ -229,6 +257,10 @@ If you exceed these limits as a non-registered user, your requests will return a
 <pre class="highlight shell"><code><span class="c"># Adding your token as URL parameter</span>
 curl https://api.blockcypher.com/v1/btc/main?token<span class="o">=</span><span class="nv">$YOURTOKEN</span>
 </code></pre>
+<pre class="highlight javascript"><code><span class="c1">// Adding your token as URL parameter</span>
+<span class="kr">const</span> <span class="nx">TOKEN</span> <span class="o">=</span> <span class="s1">'YOUR_TOKEN'</span><span class="p">;</span>
+<span class="nx">$</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">'https://api.blockcypher.com/v1/btc/main?token='</span><span class="o">+</span><span class="nx">TOKEN</span><span class="p">);</span>
+</code></pre>
 <pre class="highlight python"><code><span class="c"># Adding your token as URL parameter</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">requests</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s">'token'</span><span class="p">:</span> <span class="s">'YOUR_TOKEN'</span><span class="p">}</span>
@@ -272,6 +304,41 @@ curl https://api.blockcypher.com/v1/btc/main/blocks/5;6;7
 <span class="s2">"time"</span>: <span class="s2">"2009-01-09T03:39:29Z"</span>,
 ...,
 <span class="o">}]</span>
+</code></pre>
+<pre class="highlight javascript"><code><span class="c1">// Batching blocks 5, 6, and 7</span>
+
+<span class="nx">$</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">'https://api.blockcypher.com/v1/btc/main/blocks/5;6;7'</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">{</span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">d</span><span class="p">);});</span>
+<span class="o">&gt;</span> <span class="p">[{</span>
+<span class="o">&gt;</span> <span class="s2">"hash"</span><span class="p">:</span> <span class="s2">"000000003031a0e73735690c5a1ff2a4be82553b2a12b776fbd3a215dc8f778d"</span><span class="p">,</span>
+<span class="o">&gt;</span> <span class="s2">"height"</span><span class="p">:</span> <span class="mi">6</span><span class="p">,</span>
+<span class="o">&gt;</span> <span class="s2">"chain"</span><span class="p">:</span> <span class="s2">"BTC.main"</span><span class="p">,</span>
+<span class="o">&gt;</span> <span class="s2">"total"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+<span class="o">&gt;</span> <span class="s2">"fees"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+<span class="o">&gt;</span> <span class="s2">"ver"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+<span class="o">&gt;</span> <span class="s2">"time"</span><span class="p">:</span> <span class="s2">"2009-01-09T03:29:49Z"</span><span class="p">,</span>
+<span class="o">&gt;</span> <span class="p">...,</span>
+<span class="o">&gt;</span> <span class="p">},</span>
+<span class="o">&gt;</span> <span class="p">{</span>
+<span class="o">&gt;</span> <span class="s2">"hash"</span><span class="p">:</span> <span class="s2">"000000009b7262315dbf071787ad3656097b892abffd1f95a1a022f896f533fc"</span><span class="p">,</span>
+<span class="o">&gt;</span> <span class="s2">"height"</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+<span class="o">&gt;</span> <span class="s2">"chain"</span><span class="p">:</span> <span class="s2">"BTC.main"</span><span class="p">,</span>
+<span class="o">&gt;</span> <span class="s2">"total"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+<span class="o">&gt;</span> <span class="s2">"fees"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+<span class="o">&gt;</span> <span class="s2">"ver"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+<span class="o">&gt;</span> <span class="s2">"time"</span><span class="p">:</span> <span class="s2">"2009-01-09T03:23:48Z"</span><span class="p">,</span>
+<span class="o">&gt;</span> <span class="p">...,</span>
+<span class="o">&gt;</span> <span class="p">},</span>
+<span class="o">&gt;</span> <span class="p">{</span>
+<span class="o">&gt;</span> <span class="s2">"hash"</span><span class="p">:</span> <span class="s2">"0000000071966c2b1d065fd446b1e485b2c9d9594acd2007ccbd5441cfc89444"</span><span class="p">,</span>
+<span class="o">&gt;</span> <span class="s2">"height"</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span>
+<span class="o">&gt;</span> <span class="s2">"chain"</span><span class="p">:</span> <span class="s2">"BTC.main"</span><span class="p">,</span>
+<span class="o">&gt;</span> <span class="s2">"total"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+<span class="o">&gt;</span> <span class="s2">"fees"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+<span class="o">&gt;</span> <span class="s2">"ver"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+<span class="o">&gt;</span> <span class="s2">"time"</span><span class="p">:</span> <span class="s2">"2009-01-09T03:39:29Z"</span><span class="p">,</span>
+<span class="o">&gt;</span> <span class="p">...,</span>
+<span class="o">&gt;</span> <span class="p">}]</span>
 </code></pre>
 <pre class="highlight python"><code><span class="c"># Batching blocks 5, 6, and 7</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">requests</span>
@@ -387,6 +454,23 @@ curl -d <span class="s1">'{"address": "CFqoZmZ3ePwK5wnkhxJjJAQKJ82C7RJdmd", "amo
 <span class="o">{</span>
 <span class="s2">"tx_ref"</span>: <span class="s2">"02dbf5585d438a1cba82a9041dd815635a6b0df684225cb5271e11397a759479"</span>
 <span class="o">}</span>
+</code></pre>
+<pre class="highlight javascript"><code><span class="c1">// Make new address; returns private key/public key/address</span>
+<span class="nx">$</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="s1">'http://api.blockcypher.com/v1/bcy/test/addrs?token=$YOUR_TOKEN'</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">{</span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">d</span><span class="p">)});</span>
+<span class="o">&gt;</span> <span class="p">{</span>
+<span class="o">&gt;</span> <span class="s2">"private"</span><span class="p">:</span> <span class="s2">"26415016a2fb49f51aef161cb35bd537be07b75a6ac1e297d3b7a370cc85433b"</span><span class="p">,</span>
+<span class="o">&gt;</span> <span class="s2">"public"</span><span class="p">:</span> <span class="s2">"02c572d062fefcc8c3e1bf5016450addcedb89cd7e4507d8a323f327b4ad1018e0"</span><span class="p">,</span>
+<span class="o">&gt;</span> <span class="s2">"address"</span><span class="p">:</span> <span class="s2">"CFqoZmZ3ePwK5wnkhxJjJAQKJ82C7RJdmd"</span>
+<span class="o">&gt;</span> <span class="p">}</span>
+
+<span class="c1">// Fund prior address with faucet</span>
+<span class="kd">var</span> <span class="nx">req</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span><span class="s2">"address"</span><span class="p">:</span> <span class="s2">"CFqoZmZ3ePwK5wnkhxJjJAQKJ82C7RJdmd"</span><span class="p">,</span> <span class="s2">"amount"</span><span class="p">:</span> <span class="mi">100000</span><span class="p">})</span>
+<span class="nx">$</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="s1">'http://api.blockcypher.com/v1/bcy/test/faucet?token=$YOUR_TOKEN'</span><span class="p">,</span> <span class="nx">req</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">{</span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">d</span><span class="p">)});</span>
+<span class="o">&gt;</span> <span class="p">{</span>
+<span class="o">&gt;</span>   <span class="s2">"tx_ref"</span><span class="p">:</span> <span class="s2">"02dbf5585d438a1cba82a9041dd815635a6b0df684225cb5271e11397a759479"</span>
+<span class="o">&gt;</span> <span class="p">}</span>
 </code></pre>
 <pre class="highlight python"><code><span class="c"># Fund existing address with faucet</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">requests</span><span class="o">,</span> <span class="nn">json</span>
@@ -1681,6 +1765,22 @@ Only one of these three fields is required for the microtransaction endpoint: <b
   <span class="s2">"last_fork_hash"</span>: <span class="s2">"00000000000000000aa6462fd9faf94712ce1b5a944dc666f491101c996beab9"</span>
 <span class="o">}</span>
 </code></pre>
+<pre class="highlight javascript"><code><span class="nx">$</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">'https://api.blockcypher.com/v1/btc/main'</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">{</span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">d</span><span class="p">)});</span>
+<span class="o">&gt;</span> <span class="p">{</span>
+<span class="o">&gt;</span>   <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"BTC.main"</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"height"</span><span class="p">:</span> <span class="mi">355578</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"hash"</span><span class="p">:</span> <span class="s2">"00000000000000000a0b253f20709b0c77d8a56aa8db632ecbdc7381816504cd"</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"time"</span><span class="p">:</span> <span class="s2">"2015-05-08T23:12:55.243311146Z"</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"latest_url"</span><span class="p">:</span> <span class="s2">"https://api.blockcypher.com/v1/btc/main/blocks/00000000000000000a0b253f20709b0c77d8a56aa8db632ecbdc7381816504cd"</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"previous_hash"</span><span class="p">:</span> <span class="s2">"00000000000000000acef50ef89494493b4a08a8419588e1e3e20cd73bc85a6b"</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"previous_url"</span><span class="p">:</span> <span class="s2">"https://api.blockcypher.com/v1/btc/main/blocks/00000000000000000acef50ef89494493b4a08a8419588e1e3e20cd73bc85a6b"</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"peer_count"</span><span class="p">:</span> <span class="mi">250</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"unconfirmed_count"</span><span class="p">:</span> <span class="mi">637</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"high_fee_per_kb"</span><span class="p">:</span> <span class="mi">45768</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"medium_fee_per_kb"</span><span class="p">:</span> <span class="mi">29415</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"low_fee_per_kb"</span><span class="p">:</span> <span class="mi">12045</span>
+<span class="o">&gt;</span> <span class="p">}</span>
+</code></pre>
 <pre class="highlight python"><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">requests</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">'https://api.blockcypher.com/v1/btc/main'</span><span class="p">)</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
@@ -1747,6 +1847,32 @@ Only one of these three fields is required for the microtransaction endpoint: <b
 <span class="s2">"tx_url"</span>: <span class="s2">"https://api.blockcypher.com/v1/btc/main/txs/"</span>
 <span class="o">}</span>
 </code></pre>
+<pre class="highlight javascript"><code><span class="nx">$</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">'https://api.blockcypher.com/v1/btc/main/blocks/0000000000000000189bba3564a63772107b5673c940c16f12662b3e8546b412'</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">{</span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">d</span><span class="p">)});</span>
+<span class="o">&gt;</span> <span class="p">{</span>
+<span class="o">&gt;</span> <span class="s2">"hash"</span><span class="p">:</span> <span class="s2">"0000000000000000189bba3564a63772107b567..."</span><span class="p">,</span>
+<span class="o">&gt;</span> <span class="s2">"height"</span><span class="p">:</span> <span class="mi">294322</span><span class="p">,</span>
+<span class="o">&gt;</span> <span class="s2">"chain"</span><span class="p">:</span> <span class="s2">"BTC.main"</span><span class="p">,</span>
+<span class="o">&gt;</span> <span class="s2">"total"</span><span class="p">:</span> <span class="mi">1146652915</span><span class="p">,</span>
+<span class="o">&gt;</span> <span class="s2">"fees"</span><span class="p">:</span> <span class="mi">130999</span><span class="p">,</span>
+<span class="o">&gt;</span> <span class="s2">"ver"</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+<span class="o">&gt;</span> <span class="s2">"time"</span><span class="p">:</span> <span class="s2">"2014-04-05T07:49:18Z"</span><span class="p">,</span>
+<span class="o">&gt;</span> <span class="s2">"received_time"</span><span class="p">:</span> <span class="s2">"2014-04-05T07:49:18Z"</span><span class="p">,</span>
+<span class="o">&gt;</span> <span class="s2">"bits"</span><span class="p">:</span> <span class="mi">419486617</span><span class="p">,</span>
+<span class="o">&gt;</span> <span class="s2">"nonce"</span><span class="p">:</span> <span class="mi">1225187768</span><span class="p">,</span>
+<span class="o">&gt;</span> <span class="s2">"n_tx"</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+<span class="o">&gt;</span> <span class="s2">"prev_block"</span><span class="p">:</span> <span class="s2">"0000000000000000ced0958bd27720b71d3..."</span><span class="p">,</span>
+<span class="o">&gt;</span> <span class="s2">"mrkl_root"</span><span class="p">:</span> <span class="s2">"359d624d37aee1efa5662b7f5dbc390e996d..."</span><span class="p">,</span>
+<span class="o">&gt;</span> <span class="s2">"txids"</span><span class="p">:</span> <span class="p">[</span>
+<span class="o">&gt;</span>   <span class="s2">"32b3b86e40d996b1f281e24e8d4af2ceacbf874c403836..."</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"1579f716359ba1a207f70248135f5e5fadf539be1dcf53..."</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="p">...,</span>
+<span class="o">&gt;</span> <span class="p">],</span>
+<span class="o">&gt;</span> <span class="s2">"depth"</span><span class="p">:</span> <span class="mi">61793</span><span class="p">,</span>
+<span class="o">&gt;</span> <span class="s2">"prev_block_url"</span><span class="p">:</span> <span class="s2">"https://api.blockcypher.com/v1/btc/main/blocks/0000000000000000ced0958bd27720b71d32c5847e40660aaca39f33c298abb0"</span><span class="p">,</span>
+<span class="o">&gt;</span> <span class="s2">"tx_url"</span><span class="p">:</span> <span class="s2">"https://api.blockcypher.com/v1/btc/main/txs/"</span>
+<span class="o">&gt;</span> <span class="p">}</span>
+</code></pre>
 <pre class="highlight python"><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">requests</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">'https://api.blockcypher.com/v1/btc/main/blocks/0000000000000000189bba3564a63772107b5673c940c16f12662b3e8546b412'</span><span class="p">)</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
@@ -1770,6 +1896,7 @@ Only one of these three fields is required for the microtransaction endpoint: <b
  <span class="s">'fees'</span><span class="p">:</span> <span class="mi">130999</span><span class="p">,</span>
  <span class="s">'bits'</span><span class="p">:</span> <span class="mi">419486617</span><span class="p">,</span>
  <span class="s">'time'</span><span class="p">:</span> <span class="s">'2014-04-05T07:49:18Z'</span><span class="p">}</span>
+<span class="o">&gt;&gt;&gt;&gt;&gt;&gt;&gt;</span> <span class="n">master</span>
 </code></pre>
 
 <p>If you want more data on a particular block, you can use the Block Hash endpoint.</p>
@@ -1837,6 +1964,30 @@ Only one of these three fields is required for the microtransaction endpoint: <b
 <span class="s2">"prev_block_url"</span>: <span class="s2">"https://api.blockcypher.com/v1/btc/main/blocks/0000000000000000ced0958bd27720b71d32c5847e40660aaca39f33c298abb0"</span>,
 <span class="s2">"tx_url"</span>: <span class="s2">"https://api.blockcypher.com/v1/btc/main/txs/"</span>
 <span class="o">}</span>
+</code></pre>
+<pre class="highlight javascript"><code><span class="nx">$</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">'https://api.blockcypher.com/v1/btc/main/blocks/294322?txstart=1&amp;limit=1'</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">{</span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">d</span><span class="p">)});</span>
+<span class="o">&gt;</span> <span class="p">{</span>
+<span class="o">&gt;</span> <span class="s2">"hash"</span><span class="p">:</span> <span class="s2">"0000000000000000189bba3564a63772107b567..."</span><span class="p">,</span>
+<span class="o">&gt;</span> <span class="s2">"height"</span><span class="p">:</span> <span class="mi">294322</span><span class="p">,</span>
+<span class="o">&gt;</span> <span class="s2">"chain"</span><span class="p">:</span> <span class="s2">"BTC.main"</span><span class="p">,</span>
+<span class="o">&gt;</span> <span class="s2">"total"</span><span class="p">:</span> <span class="mi">1146652915</span><span class="p">,</span>
+<span class="o">&gt;</span> <span class="s2">"fees"</span><span class="p">:</span> <span class="mi">130999</span><span class="p">,</span>
+<span class="o">&gt;</span> <span class="s2">"ver"</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+<span class="o">&gt;</span> <span class="s2">"time"</span><span class="p">:</span> <span class="s2">"2014-04-05T07:49:18Z"</span><span class="p">,</span>
+<span class="o">&gt;</span> <span class="s2">"received_time"</span><span class="p">:</span> <span class="s2">"2014-04-05T07:49:18Z"</span><span class="p">,</span>
+<span class="o">&gt;</span> <span class="s2">"bits"</span><span class="p">:</span> <span class="mi">419486617</span><span class="p">,</span>
+<span class="o">&gt;</span> <span class="s2">"nonce"</span><span class="p">:</span> <span class="mi">1225187768</span><span class="p">,</span>
+<span class="o">&gt;</span> <span class="s2">"n_tx"</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+<span class="o">&gt;</span> <span class="s2">"prev_block"</span><span class="p">:</span> <span class="s2">"0000000000000000ced0958bd27720b71d3..."</span><span class="p">,</span>
+<span class="o">&gt;</span> <span class="s2">"mrkl_root"</span><span class="p">:</span> <span class="s2">"359d624d37aee1efa5662b7f5dbc390e996d..."</span><span class="p">,</span>
+<span class="o">&gt;</span> <span class="s2">"txids"</span><span class="p">:</span> <span class="p">[</span>
+<span class="o">&gt;</span>   <span class="s2">"1579f716359ba1a207f70248135f5e5fadf539be1dcf53..."</span><span class="p">,</span>
+<span class="o">&gt;</span> <span class="p">],</span>
+<span class="o">&gt;</span> <span class="s2">"depth"</span><span class="p">:</span> <span class="mi">61793</span><span class="p">,</span>
+<span class="o">&gt;</span> <span class="s2">"prev_block_url"</span><span class="p">:</span> <span class="s2">"https://api.blockcypher.com/v1/btc/main/blocks/0000000000000000ced0958bd27720b71d32c5847e40660aaca39f33c298abb0"</span><span class="p">,</span>
+<span class="o">&gt;</span> <span class="s2">"tx_url"</span><span class="p">:</span> <span class="s2">"https://api.blockcypher.com/v1/btc/main/txs/"</span>
+<span class="o">&gt;</span> <span class="p">}</span>
 </code></pre>
 <pre class="highlight python"><code><span class="c"># Fund existing address with faucet</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">requests</span>
@@ -1935,6 +2086,20 @@ With recent blocks, $BLOCK_HEIGHT is not always a unique identifier to a particu
 <span class="s2">"final_n_tx"</span>: 7
 <span class="o">}</span>
 </code></pre>
+<pre class="highlight javascript"><code><span class="nx">$</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">'https://api.blockcypher.com/v1/btc/main/addrs/1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD/balance'</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">{</span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">d</span><span class="p">)});</span>
+<span class="o">&gt;</span> <span class="p">{</span>
+<span class="o">&gt;</span>   <span class="s2">"address"</span><span class="p">:</span> <span class="s2">"1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD"</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"total_received"</span><span class="p">:</span> <span class="mi">4433416</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"total_sent"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"balance"</span><span class="p">:</span> <span class="mi">4433416</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"unconfirmed_balance"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"final_balance"</span><span class="p">:</span> <span class="mi">4433416</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"n_tx"</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"unconfirmed_n_tx"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"final_n_tx"</span><span class="p">:</span> <span class="mi">7</span>
+<span class="o">&gt;</span> <span class="p">}</span>
+</code></pre>
 <pre class="highlight python"><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">requests</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">'http://api.blockcypher.com/v1/btc/main/addrs/1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD/balance'</span><span class="p">)</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
@@ -2011,6 +2176,46 @@ With recent blocks, $BLOCK_HEIGHT is not always a unique identifier to a particu
 <span class="o">]</span>,
 <span class="s2">"tx_url"</span>: <span class="s2">"https://api.blockcypher.com/v1/btc/main/txs/"</span>
 <span class="o">}</span>
+</code></pre>
+<pre class="highlight javascript"><code><span class="nx">$</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">'https://api.blockcypher.com/v1/btc/main/addrs/1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD'</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">{</span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">d</span><span class="p">)});</span>
+<span class="o">&gt;</span> <span class="p">{</span>
+<span class="o">&gt;</span> <span class="s2">"address"</span><span class="p">:</span> <span class="s2">"1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD"</span><span class="p">,</span>
+<span class="o">&gt;</span> <span class="s2">"total_received"</span><span class="p">:</span> <span class="mi">4433416</span><span class="p">,</span>
+<span class="o">&gt;</span> <span class="s2">"total_sent"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+<span class="o">&gt;</span> <span class="s2">"balance"</span><span class="p">:</span> <span class="mi">4433416</span><span class="p">,</span>
+<span class="o">&gt;</span> <span class="s2">"unconfirmed_balance"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+<span class="o">&gt;</span> <span class="s2">"final_balance"</span><span class="p">:</span> <span class="mi">4433416</span><span class="p">,</span>
+<span class="o">&gt;</span> <span class="s2">"n_tx"</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span>
+<span class="o">&gt;</span> <span class="s2">"unconfirmed_n_tx"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+<span class="o">&gt;</span> <span class="s2">"final_n_tx"</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span>
+<span class="o">&gt;</span> <span class="s2">"txrefs"</span><span class="p">:</span> <span class="p">[</span>
+<span class="o">&gt;</span>   <span class="p">{</span>
+<span class="o">&gt;</span>   <span class="s2">"tx_hash"</span><span class="p">:</span> <span class="s2">"14b1052855bbf6561bc4db8aa501762..."</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"block_height"</span><span class="p">:</span> <span class="mi">302013</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"tx_input_n"</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"tx_output_n"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"value"</span><span class="p">:</span> <span class="mi">20213</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"spent"</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"confirmations"</span><span class="p">:</span> <span class="mi">55061</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"confirmed"</span><span class="p">:</span> <span class="s2">"2014-05-22T03:46:25Z"</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"double_spend"</span><span class="p">:</span> <span class="kc">false</span>
+<span class="o">&gt;</span>   <span class="p">},</span>
+<span class="o">&gt;</span>   <span class="p">{</span>
+<span class="o">&gt;</span>   <span class="s2">"tx_hash"</span><span class="p">:</span> <span class="s2">"4cff011ec53022f2ae47197d1a2fd4a6..."</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"block_height"</span><span class="p">:</span> <span class="mi">302002</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"tx_input_n"</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"tx_output_n"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"value"</span><span class="p">:</span> <span class="mi">40596</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"spent"</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"confirmations"</span><span class="p">:</span> <span class="mi">55072</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"confirmed"</span><span class="p">:</span> <span class="s2">"2014-05-22T02:56:08Z"</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"double_spend"</span><span class="p">:</span> <span class="kc">false</span>
+<span class="o">&gt;</span>   <span class="p">},</span>
+<span class="o">&gt;</span> <span class="p">...</span>
+<span class="o">&gt;</span> <span class="p">],</span>
+<span class="o">&gt;</span> <span class="s2">"tx_url"</span><span class="p">:</span> <span class="s2">"https://api.blockcypher.com/v1/btc/main/txs/"</span>
+<span class="o">&gt;</span> <span class="p">}</span>
 </code></pre>
 <pre class="highlight python"><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">requests</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">'http://api.blockcypher.com/v1/btc/main/addrs/1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD'</span><span class="p">)</span>
@@ -2154,6 +2359,81 @@ With recent blocks, $BLOCK_HEIGHT is not always a unique identifier to a particu
 <span class="o">]</span>
 <span class="o">}</span>
 </code></pre>
+<pre class="highlight javascript"><code><span class="nx">$</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">'https://api.blockcypher.com/v1/btc/main/addrs/1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD/full?before=300000'</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">{</span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">d</span><span class="p">)});</span>
+<span class="o">&gt;</span> <span class="p">{</span>
+<span class="o">&gt;</span> <span class="s2">"address"</span><span class="p">:</span> <span class="s2">"1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD"</span><span class="p">,</span>
+<span class="o">&gt;</span> <span class="s2">"total_received"</span><span class="p">:</span> <span class="mi">4433416</span><span class="p">,</span>
+<span class="o">&gt;</span> <span class="s2">"total_sent"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+<span class="o">&gt;</span> <span class="s2">"balance"</span><span class="p">:</span> <span class="mi">4433416</span><span class="p">,</span>
+<span class="o">&gt;</span> <span class="s2">"unconfirmed_balance"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+<span class="o">&gt;</span> <span class="s2">"final_balance"</span><span class="p">:</span> <span class="mi">4433416</span><span class="p">,</span>
+<span class="o">&gt;</span> <span class="s2">"n_tx"</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span>
+<span class="o">&gt;</span> <span class="s2">"unconfirmed_n_tx"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+<span class="o">&gt;</span> <span class="s2">"final_n_tx"</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span>
+<span class="o">&gt;</span> <span class="s2">"txs"</span><span class="p">:</span> <span class="p">[</span>
+<span class="o">&gt;</span>   <span class="p">{</span>
+<span class="o">&gt;</span>   <span class="s2">"block_hash"</span><span class="p">:</span> <span class="s2">"0000000000000000af64802c79..."</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"block_height"</span><span class="p">:</span> <span class="mi">292586</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"hash"</span><span class="p">:</span> <span class="s2">"b4735a0690dab16b8789fceaf81c511f..."</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"addresses"</span><span class="p">:</span> <span class="p">[</span>
+<span class="o">&gt;</span>       <span class="s2">"18KXZzuC3xvz6upUMQpsZzXrBwNPWZjdSa"</span><span class="p">,</span>
+<span class="o">&gt;</span>       <span class="s2">"1AAuRETEcHDqL4VM3R97aZHP8DSUHxpkFV"</span><span class="p">,</span>
+<span class="o">&gt;</span>       <span class="s2">"1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD"</span><span class="p">,</span>
+<span class="o">&gt;</span>       <span class="s2">"1VxsEDjo6ZLMT99dpcLu4RQonMDVEQQTG"</span>
+<span class="o">&gt;</span>   <span class="p">],</span>
+<span class="o">&gt;</span>   <span class="s2">"total"</span><span class="p">:</span> <span class="mi">3537488</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"fees"</span><span class="p">:</span> <span class="mi">20000</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"size"</span><span class="p">:</span> <span class="mi">438</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"preference"</span><span class="p">:</span> <span class="s2">"medium"</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"relayed_by"</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"confirmed"</span><span class="p">:</span> <span class="s2">"2014-03-26T17:08:04Z"</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"received"</span><span class="p">:</span> <span class="s2">"2014-03-26T17:08:04Z"</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"ver"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"lock_time"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"double_spend"</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"vin_sz"</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"vout_sz"</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"confirmations"</span><span class="p">:</span> <span class="mi">64492</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"confidence"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"inputs"</span><span class="p">:</span> <span class="p">[</span>
+<span class="o">&gt;</span>       <span class="p">{</span>
+<span class="o">&gt;</span>       <span class="s2">"prev_hash"</span><span class="p">:</span> <span class="s2">"729f6469b59fea5da7..."</span><span class="p">,</span>
+<span class="o">&gt;</span>       <span class="s2">"output_index"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+<span class="o">&gt;</span>       <span class="s2">"script"</span><span class="p">:</span> <span class="s2">"483045022100d06cdad1a..."</span><span class="p">,</span>
+<span class="o">&gt;</span>       <span class="s2">"output_value"</span><span class="p">:</span> <span class="mi">3500000</span><span class="p">,</span>
+<span class="o">&gt;</span>       <span class="s2">"sequence"</span><span class="p">:</span> <span class="mi">4294967295</span><span class="p">,</span>
+<span class="o">&gt;</span>       <span class="s2">"addresses"</span><span class="p">:</span> <span class="p">[</span>
+<span class="o">&gt;</span>           <span class="s2">"1VxsEDjo6ZLMT99dpcLu4RQonMDVEQQTG"</span>
+<span class="o">&gt;</span>       <span class="p">],</span>
+<span class="o">&gt;</span>       <span class="s2">"script_type"</span><span class="p">:</span> <span class="s2">"pay-to-pubkey-hash"</span>
+<span class="o">&gt;</span>       <span class="p">},</span>
+<span class="o">&gt;</span>       <span class="p">...</span>
+<span class="o">&gt;</span>   <span class="p">],</span>
+<span class="o">&gt;</span>   <span class="s2">"outputs"</span><span class="p">:</span> <span class="p">[</span>
+<span class="o">&gt;</span>       <span class="p">{</span>
+<span class="o">&gt;</span>       <span class="s2">"value"</span><span class="p">:</span> <span class="mi">3500000</span><span class="p">,</span>
+<span class="o">&gt;</span>       <span class="s2">"script"</span><span class="p">:</span> <span class="s2">"76a9148629647bd642a237..."</span><span class="p">,</span>
+<span class="o">&gt;</span>       <span class="s2">"addresses"</span><span class="p">:</span> <span class="p">[</span>
+<span class="o">&gt;</span>           <span class="s2">"1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD"</span>
+<span class="o">&gt;</span>       <span class="p">],</span>
+<span class="o">&gt;</span>       <span class="s2">"script_type"</span><span class="p">:</span> <span class="s2">"pay-to-pubkey-hash"</span>
+<span class="o">&gt;</span>       <span class="p">},</span>
+<span class="o">&gt;</span>       <span class="p">{</span>
+<span class="o">&gt;</span>       <span class="s2">"value"</span><span class="p">:</span> <span class="mi">37488</span><span class="p">,</span>
+<span class="o">&gt;</span>       <span class="s2">"script"</span><span class="p">:</span> <span class="s2">"76a9145049e2ad94ed9c68..."</span><span class="p">,</span>
+<span class="o">&gt;</span>       <span class="s2">"spent_by"</span><span class="p">:</span> <span class="s2">"3ebe4bb294beaed58aca83..."</span><span class="p">,</span>
+<span class="o">&gt;</span>       <span class="s2">"addresses"</span><span class="p">:</span> <span class="p">[</span>
+<span class="o">&gt;</span>           <span class="s2">"18KXZzuC3xvz6upUMQpsZzXrBwNPWZjdSa"</span>
+<span class="o">&gt;</span>       <span class="p">],</span>
+<span class="o">&gt;</span>       <span class="s2">"script_type"</span><span class="p">:</span> <span class="s2">"pay-to-pubkey-hash"</span>
+<span class="o">&gt;</span>       <span class="p">}</span>
+<span class="o">&gt;</span>   <span class="p">]</span>
+<span class="o">&gt;</span>   <span class="p">},</span>
+<span class="o">&gt;</span>   <span class="p">...,</span>
+<span class="o">&gt;</span> <span class="p">]</span>
+<span class="o">&gt;</span> <span class="p">}</span>
+</code></pre>
 <pre class="highlight python"><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">requests</span><span class="o">,</span> <span class="nn">json</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s">'before'</span><span class="p">:</span> <span class="mi">300000</span><span class="p">}</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">'http://api.blockcypher.com/v1/btc/main/addrs/1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD/full'</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
@@ -2254,6 +2534,15 @@ If your returned <a href="#address">Address</a> object includes the <b>hasMore</
 <span class="s2">"wif"</span>: <span class="s2">"cRwGhRjCuuNtPgLcoYd1CuAqjFXCV5YNCQ1LB8RsFCvu61VfSsgR"</span>
 <span class="o">}</span>
 </code></pre>
+<pre class="highlight javascript"><code><span class="nx">$</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="s1">'https://api.blockcypher.com/v1/btc/test3/addrs'</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">{</span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">d</span><span class="p">)});</span>
+<span class="o">&gt;</span> <span class="p">{</span>
+<span class="o">&gt;</span> <span class="s2">"private"</span><span class="p">:</span> <span class="s2">"81ee75559d37cbe4b7cbbfb9931ab1ba32172c5cdfc3ac2d020259b4c1104198"</span><span class="p">,</span>
+<span class="o">&gt;</span> <span class="s2">"public"</span><span class="p">:</span> <span class="s2">"0231ff9ec76820cb36b69061f6ffb125db3793b4aced468a1261b0680e1ef4883a"</span><span class="p">,</span>
+<span class="o">&gt;</span> <span class="s2">"address"</span><span class="p">:</span> <span class="s2">"mvpW7fMSi1nbZhJJDySNS2PUau8ppnu4kY"</span><span class="p">,</span>
+<span class="o">&gt;</span> <span class="s2">"wif"</span><span class="p">:</span> <span class="s2">"cRwGhRjCuuNtPgLcoYd1CuAqjFXCV5YNCQ1LB8RsFCvu61VfSsgR"</span>
+<span class="o">&gt;</span> <span class="p">}</span>
+</code></pre>
 <pre class="highlight python"><code><span class="c"># Please use the python library at https://github.com/blockcypher/blockcypher-python to securely generate an address client-side</span>
 </code></pre>
 
@@ -2300,6 +2589,29 @@ Always use HTTPS for Address Generation requests. Otherwise, your generated priv
 <span class="o">]</span>,
 <span class="s2">"script_type"</span>: <span class="s2">"multisig-2-of-3"</span>
 <span class="o">}</span>
+</code></pre>
+<pre class="highlight javascript"><code><span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s2">"pubkeys"</span><span class="p">:</span> <span class="p">[</span>
+    <span class="s2">"02c716d071a76cbf0d29c29cacfec76e0ef8116b37389fb7a3e76d6d32cf59f4d3"</span><span class="p">,</span>
+    <span class="s2">"033ef4d5165637d99b673bcdbb7ead359cee6afd7aaf78d3da9d2392ee4102c8ea"</span><span class="p">,</span>
+    <span class="s2">"022b8934cc41e76cb4286b9f3ed57e2d27798395b04dd23711981a77dc216df8ca"</span>
+  <span class="p">],</span>
+  <span class="s2">"script_type"</span><span class="p">:</span> <span class="s2">"multisig-2-of-3"</span>
+<span class="p">};</span>
+<span class="nx">$</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="s1">'https://api.blockcypher.com/v1/btc/test3/addrs'</span><span class="p">,</span> <span class="nx">data</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">{</span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">d</span><span class="p">)});</span>
+<span class="o">&gt;</span> <span class="p">{</span>
+<span class="o">&gt;</span> <span class="s2">"private"</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span>
+<span class="o">&gt;</span> <span class="s2">"public"</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span>
+<span class="o">&gt;</span> <span class="s2">"address"</span><span class="p">:</span> <span class="s2">"3BF1M1PnTge94QewuWh3B8mRVw8U4SVnb4"</span><span class="p">,</span>
+<span class="o">&gt;</span> <span class="s2">"wif"</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span>
+<span class="o">&gt;</span> <span class="s2">"pubkeys"</span><span class="p">:</span> <span class="p">[</span>
+<span class="o">&gt;</span>   <span class="s2">"02c716d071a76cbf0d29c29cacfec76e0ef8116b37389fb7a3e76d6d32cf59f4d3"</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"033ef4d5165637d99b673bcdbb7ead359cee6afd7aaf78d3da9d2392ee4102c8ea"</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"022b8934cc41e76cb4286b9f3ed57e2d27798395b04dd23711981a77dc216df8ca"</span>
+<span class="o">&gt;</span> <span class="p">],</span>
+<span class="o">&gt;</span> <span class="s2">"script_type"</span><span class="p">:</span> <span class="s2">"multisig-2-of-3"</span>
+<span class="o">&gt;</span> <span class="p">}</span>
 </code></pre>
 <pre class="highlight python"><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">requests</span><span class="o">,</span> <span class="nn">json</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s">'pubkeys'</span><span class="p">:</span> <span class="p">[</span><span class="s">'02c716d071a76cbf0d29c29cacfec76e0ef8116b37389fb7a3e76d6d32cf59f4d3'</span><span class="p">,</span> <span class="s">'033ef4d5165637d99b673bcdbb7ead359cee6afd7aaf78d3da9d2392ee4102c8ea'</span><span class="p">,</span> <span class="s">'022b8934cc41e76cb4286b9f3ed57e2d27798395b04dd23711981a77dc216df8ca'</span><span class="p">],</span> <span class="s">'script_type'</span><span class="p">:</span> <span class="s">'multisig-2-of-3'</span><span class="p">}</span>
@@ -2367,6 +2679,15 @@ You are required to authenticate with your <a href="#rate-limits-and-tokens">use
     <span class="s2">"1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e"</span>
 <span class="o">]}</span>
 </code></pre>
+<pre class="highlight javascript"><code><span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"name"</span><span class="p">:</span> <span class="s2">"alice"</span><span class="p">,</span><span class="s2">"addresses"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e"</span><span class="p">]};</span>
+<span class="nx">$</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="s1">'https://api.blockcypher.com/v1/btc/main/wallets?token=USERTOKEN'</span><span class="p">,</span> <span class="nx">data</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">{</span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">d</span><span class="p">)});</span>
+<span class="o">&gt;</span> <span class="p">{</span><span class="s2">"token"</span><span class="p">:</span> <span class="s2">"USERTOKEN"</span><span class="p">,</span>
+<span class="o">&gt;</span> <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"alice"</span><span class="p">,</span>
+<span class="o">&gt;</span> <span class="s2">"addresses"</span><span class="p">:</span> <span class="p">[</span>
+<span class="o">&gt;</span>   <span class="s2">"1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e"</span>
+<span class="o">&gt;</span> <span class="p">]}</span>
+</code></pre>
 <pre class="highlight python"><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">requests</span><span class="o">,</span> <span class="nn">json</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s">'name'</span><span class="p">:</span> <span class="s">'alice'</span><span class="p">,</span> <span class="s">'addresses'</span><span class="p">:</span> <span class="p">[</span><span class="s">'1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e'</span><span class="p">,</span> <span class="p">]}</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s">'token'</span><span class="p">:</span> <span class="s">'YOUR_TOKEN'</span><span class="p">}</span>
@@ -2412,6 +2733,17 @@ If the named wallet already exists under your token, attempting to create a new 
     <span class="s2">"13cj1QtfW61kQHoqXm3khVRYPJrgQiRM6j"</span>
 <span class="o">]}</span>
 </code></pre>
+<pre class="highlight javascript"><code><span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"addresses"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"13cj1QtfW61kQHoqXm3khVRYPJrgQiRM6j"</span><span class="p">]};</span>
+<span class="nx">$</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="s1">'https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses?token=USERTOKEN'</span><span class="p">,</span> <span class="nx">data</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">{</span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">d</span><span class="p">)});</span>
+<span class="o">&gt;</span> <span class="p">{</span>
+<span class="o">&gt;</span>   <span class="s2">"token"</span><span class="p">:</span> <span class="s2">"USERTOKEN"</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"alice"</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"addresses"</span><span class="p">:</span> <span class="p">[</span>
+<span class="o">&gt;</span>       <span class="s2">"1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e"</span><span class="p">,</span>
+<span class="o">&gt;</span>       <span class="s2">"13cj1QtfW61kQHoqXm3khVRYPJrgQiRM6j"</span>
+<span class="o">&gt;</span> <span class="p">]}</span>
+</code></pre>
 <pre class="highlight python"><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">requests</span><span class="o">,</span> <span class="nn">json</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s">'addresses'</span><span class="p">:</span> <span class="p">[</span><span class="s">'13cj1QtfW61kQHoqXm3khVRYPJrgQiRM6j'</span><span class="p">,</span> <span class="p">]}</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s">'token'</span><span class="p">:</span> <span class="s">'YOUR_TOKEN'</span><span class="p">}</span>
@@ -2452,6 +2784,14 @@ If the named wallet already exists under your token, attempting to create a new 
     <span class="s2">"1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e"</span>
 <span class="o">]}</span>
 </code></pre>
+<pre class="highlight javascript"><code><span class="nx">$</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">'https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses?token=USERTOKEN'</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">{</span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">d</span><span class="p">)});</span>
+<span class="o">&gt;</span> <span class="p">{</span>
+<span class="o">&gt;</span> <span class="s2">"addresses"</span><span class="p">:</span> <span class="p">[</span>
+<span class="o">&gt;</span>   <span class="s2">"13cj1QtfW61kQHoqXm3khVRYPJrgQiRM6j"</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e"</span>
+<span class="o">&gt;</span> <span class="p">]}</span>
+</code></pre>
 <pre class="highlight python"><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">requests</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s">'token'</span><span class="p">:</span> <span class="s">'YOUR_TOKEN'</span><span class="p">}</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">'https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses'</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
@@ -2486,6 +2826,11 @@ If the named wallet already exists under your token, attempting to create a new 
 <span class="s2">"addresses"</span>: <span class="o">[</span>
     <span class="s2">"13cj1QtfW61kQHoqXm3khVRYPJrgQiRM6j"</span>
 <span class="o">]}</span>
+</code></pre>
+<pre class="highlight javascript"><code><span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span>
+  <span class="na">url</span><span class="p">:</span> <span class="s2">"https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses/1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e?token=USERTOKEN"</span><span class="p">,</span>
+  <span class="na">method</span><span class="p">:</span> <span class="s2">"DELETE"</span>
+<span class="p">})</span>
 </code></pre>
 <pre class="highlight python"><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">requests</span><span class="o">,</span> <span class="nn">json</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s">'token'</span><span class="p">:</span> <span class="s">'YOUR_TOKEN'</span><span class="p">,</span> <span class="s">'address'</span><span class="p">:</span> <span class="s">'1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e'</span><span class="p">}</span>
@@ -2530,6 +2875,21 @@ If the named wallet already exists under your token, attempting to create a new 
 <span class="s2">"address"</span>: <span class="s2">"14LcPtRSGjYb1s8kfxsVDbXvA7VYCmoFho"</span>,
 <span class="s2">"wif"</span>: <span class="s2">"KzWeDL7sysRay7pZUm6hQQLaDVjmN1jUZzeZuq6ru5FtN1RhPrLX"</span><span class="o">}</span>
 </code></pre>
+<pre class="highlight javascript"><code><span class="nx">$</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="s1">'https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses/generate?token=USERTOKEN'</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">{</span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">d</span><span class="p">)});</span>
+<span class="o">&gt;</span> <span class="p">{</span>
+<span class="o">&gt;</span>   <span class="s2">"token"</span><span class="p">:</span> <span class="s2">"USERTOKEN"</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"alice"</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"addresses"</span><span class="p">:</span> <span class="p">[</span>
+<span class="o">&gt;</span>       <span class="s2">"13cj1QtfW61kQHoqXm3khVRYPJrgQiRM6j"</span><span class="p">,</span>
+<span class="o">&gt;</span>       <span class="s2">"14LcPtRSGjYb1s8kfxsVDbXvA7VYCmoFho"</span>
+<span class="o">&gt;</span>   <span class="p">],</span>
+<span class="o">&gt;</span>   <span class="s2">"private"</span><span class="p">:</span> <span class="s2">"6238efeb679d75ec3b1a43e76cc0ed33abdf56e30bb5bb95e4793134a7958609"</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"public"</span><span class="p">:</span> <span class="s2">"03e4f273521a30373a639f60da836f2308a5d53853ec18f903dd235c73e6e26e4a"</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"address"</span><span class="p">:</span> <span class="s2">"14LcPtRSGjYb1s8kfxsVDbXvA7VYCmoFho"</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"wif"</span><span class="p">:</span> <span class="s2">"KzWeDL7sysRay7pZUm6hQQLaDVjmN1jUZzeZuq6ru5FtN1RhPrLX"</span>
+<span class="o">&gt;</span> <span class="p">}</span>
+</code></pre>
 <pre class="highlight python"><code><span class="c"># Please use the python library at https://github.com/blockcypher/blockcypher-python to securely generate an address client-side</span>
 </code></pre>
 
@@ -2560,6 +2920,11 @@ If the named wallet already exists under your token, attempting to create a new 
 <h3 id="delete-wallet-endpoint">Delete Wallet Endpoint</h3>
 <pre class="highlight shell"><code>curl -X DELETE https://api.blockcypher.com/v1/btc/main/wallets/alice?token<span class="o">=</span>YOURTOKEN
 
+</code></pre>
+<pre class="highlight javascript"><code><span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span>
+  <span class="na">url</span><span class="p">:</span> <span class="s2">"https://api.blockcypher.com/v1/btc/main/wallets/alice?token=USERTOKEN"</span><span class="p">,</span>
+  <span class="na">method</span><span class="p">:</span> <span class="s2">"DELETE"</span>
+<span class="p">});</span>
 </code></pre>
 <pre class="highlight python"><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">requests</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s">'token'</span><span class="p">:</span> <span class="s">'YOUR_TOKEN'</span><span class="p">}</span>
@@ -2652,6 +3017,59 @@ Even if you don&rsquo;t use the API to assist in creating transactions, we highl
     <span class="o">}</span>
 <span class="o">]</span>
 <span class="o">}</span>
+</code></pre>
+<pre class="highlight javascript"><code><span class="nx">$</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">'https://api.blockcypher.com/v1/btc/main/txs/f854aebae95150b379cc1187d848d58225f3c4157fe992bcd166f58bd5063449'</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">{</span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">d</span><span class="p">)});</span>
+<span class="o">&gt;</span> <span class="p">{</span>
+<span class="o">&gt;</span> <span class="s2">"block_hash"</span><span class="p">:</span> <span class="s2">"0000000000000000c504bdea36e5..."</span><span class="p">,</span>
+<span class="o">&gt;</span> <span class="s2">"block_height"</span><span class="p">:</span> <span class="mi">293000</span><span class="p">,</span>
+<span class="o">&gt;</span> <span class="s2">"hash"</span><span class="p">:</span> <span class="s2">"f854aebae95150b379cc1187d848d58225f..."</span><span class="p">,</span>
+<span class="o">&gt;</span> <span class="s2">"addresses"</span><span class="p">:</span> <span class="p">[</span>
+<span class="o">&gt;</span>   <span class="s2">"13XXaBufpMvqRqLkyDty1AXqueZHVe6iyy"</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"19YtzZdcfs1V2ZCgyRWo8i2wLT8ND1Tu4L"</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"1BNiazBzCxJacAKo2yL83Wq1VJ18AYzNHy"</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"1GbMfYui17L5m6sAy3L3WXAtf1P32bxJXq"</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"1N2f642sbgCMbNtXFajz9XDACDFnFzdXzV"</span>
+<span class="o">&gt;</span> <span class="p">],</span>
+<span class="o">&gt;</span> <span class="s2">"total"</span><span class="p">:</span> <span class="mi">70320221545</span><span class="p">,</span>
+<span class="o">&gt;</span> <span class="s2">"fees"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+<span class="o">&gt;</span> <span class="s2">"size"</span><span class="p">:</span> <span class="mi">636</span><span class="p">,</span>
+<span class="o">&gt;</span> <span class="s2">"preference"</span><span class="p">:</span> <span class="s2">"low"</span><span class="p">,</span>
+<span class="o">&gt;</span> <span class="s2">"relayed_by"</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span>
+<span class="o">&gt;</span> <span class="s2">"confirmed"</span><span class="p">:</span> <span class="s2">"2014-03-29T01:29:19Z"</span><span class="p">,</span>
+<span class="o">&gt;</span> <span class="s2">"received"</span><span class="p">:</span> <span class="s2">"2014-03-29T01:29:19Z"</span><span class="p">,</span>
+<span class="o">&gt;</span> <span class="s2">"ver"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+<span class="o">&gt;</span> <span class="s2">"lock_time"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+<span class="o">&gt;</span> <span class="s2">"double_spend"</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+<span class="o">&gt;</span> <span class="s2">"vin_sz"</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+<span class="o">&gt;</span> <span class="s2">"vout_sz"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+<span class="o">&gt;</span> <span class="s2">"confirmations"</span><span class="p">:</span> <span class="mi">64373</span><span class="p">,</span>
+<span class="o">&gt;</span> <span class="s2">"confidence"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+<span class="o">&gt;</span> <span class="s2">"inputs"</span><span class="p">:</span> <span class="p">[</span>
+<span class="o">&gt;</span>   <span class="p">{</span>
+<span class="o">&gt;</span>   <span class="s2">"prev_hash"</span><span class="p">:</span> <span class="s2">"583910b7bf90ab802e22e5c25a89b59..."</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"output_index"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"script"</span><span class="p">:</span> <span class="s2">"4830450220504b1ccfddf508422bdd8b0f..."</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"output_value"</span><span class="p">:</span> <span class="mi">16450000</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"sequence"</span><span class="p">:</span> <span class="mi">4294967295</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"addresses"</span><span class="p">:</span> <span class="p">[</span>
+<span class="o">&gt;</span>       <span class="s2">"1GbMfYui17L5m6sAy3L3WXAtf1P32bxJXq"</span>
+<span class="o">&gt;</span>   <span class="p">],</span>
+<span class="o">&gt;</span>   <span class="s2">"script_type"</span><span class="p">:</span> <span class="s2">"pay-to-pubkey-hash"</span>
+<span class="o">&gt;</span>   <span class="p">},</span>
+<span class="o">&gt;</span>   <span class="p">...</span>
+<span class="o">&gt;</span> <span class="p">],</span>
+<span class="o">&gt;</span> <span class="s2">"outputs"</span><span class="p">:</span> <span class="p">[</span>
+<span class="o">&gt;</span>   <span class="p">{</span>
+<span class="o">&gt;</span>   <span class="s2">"value"</span><span class="p">:</span> <span class="mi">70320221545</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"script"</span><span class="p">:</span> <span class="s2">"76a914e6aad9d712c419ea8febf009a3f3..."</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"spent_by"</span><span class="p">:</span> <span class="s2">"35832d6c70b98b54e9a53ab2d51176eb..."</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"addresses"</span><span class="p">:</span> <span class="p">[</span>
+<span class="o">&gt;</span>       <span class="s2">"1N2f642sbgCMbNtXFajz9XDACDFnFzdXzV"</span>
+<span class="o">&gt;</span>   <span class="p">],</span>
+<span class="o">&gt;</span>   <span class="s2">"script_type"</span><span class="p">:</span> <span class="s2">"pay-to-pubkey-hash"</span>
+<span class="o">&gt;</span>   <span class="p">}</span>
+<span class="o">&gt;</span> <span class="p">]</span>
+<span class="o">&gt;</span> <span class="p">}</span>
 </code></pre>
 <pre class="highlight python"><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">requests</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">'https://api.blockcypher.com/v1/btc/main/txs/f854aebae95150b379cc1187d848d58225f3c4157fe992bcd166f58bd5063449'</span><span class="p">)</span>
@@ -2753,6 +3171,41 @@ Even if you don&rsquo;t use the API to assist in creating transactions, we highl
 ...
 <span class="o">]</span>
 </code></pre>
+<pre class="highlight javascript"><code><span class="nx">$</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">'https://api.blockcypher.com/v1/btc/main/txs'</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">{</span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">d</span><span class="p">)});</span>
+<span class="o">&gt;</span> <span class="p">[</span>
+<span class="o">&gt;</span>   <span class="p">{</span>
+<span class="o">&gt;</span>   <span class="s2">"block_height"</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"hash"</span><span class="p">:</span> <span class="s2">"7f3af38d988e479f651520b13b85..."</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"addresses"</span><span class="p">:</span> <span class="p">[</span>
+<span class="o">&gt;</span>       <span class="s2">"19ZZonTmBD3VBhgFSWrtNis6Wo4aNRyjAV"</span><span class="p">,</span>
+<span class="o">&gt;</span>       <span class="s2">"1GD2Gnt3Vk51FpUhZWrFpSa24KE2ZGPaWG"</span><span class="p">,</span>
+<span class="o">&gt;</span>       <span class="s2">"1HEJiW8jxvUvVQ5cuButRmFj6ZzKzM9Fp6"</span>
+<span class="o">&gt;</span>   <span class="p">],</span>
+<span class="o">&gt;</span>   <span class="s2">"total"</span><span class="p">:</span> <span class="mi">46977000</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"fees"</span><span class="p">:</span> <span class="mi">10000</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"size"</span><span class="p">:</span> <span class="mi">225</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"preference"</span><span class="p">:</span> <span class="s2">"medium"</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"relayed_by"</span><span class="p">:</span> <span class="s2">"54.209.56.58:8333"</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="p">...</span>
+<span class="o">&gt;</span>   <span class="p">},</span>
+<span class="o">&gt;</span>   <span class="p">{</span>
+<span class="o">&gt;</span>   <span class="s2">"block_height"</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"hash"</span><span class="p">:</span> <span class="s2">"7e2d8b4e95c8246e81f297539409..."</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"addresses"</span><span class="p">:</span> <span class="p">[</span>
+<span class="o">&gt;</span>       <span class="s2">"12u8EFJR6QJpNYbuQcYt2iMsAtPdnCFwQb"</span><span class="p">,</span>
+<span class="o">&gt;</span>       <span class="s2">"1MUbYoqSadRSEipwcmKnH37NaKakDCmgwW"</span>
+<span class="o">&gt;</span>   <span class="p">],</span>
+<span class="o">&gt;</span>   <span class="s2">"total"</span><span class="p">:</span> <span class="mi">1070000</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"fees"</span><span class="p">:</span> <span class="mi">10000</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"size"</span><span class="p">:</span> <span class="mi">225</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"preference"</span><span class="p">:</span> <span class="s2">"medium"</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"relayed_by"</span><span class="p">:</span> <span class="s2">"52.1.229.213:8333"</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"received"</span><span class="p">:</span> <span class="s2">"2015-05-21T05:44:13.878Z"</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="p">...</span>
+<span class="o">&gt;</span>   <span class="p">},</span>
+<span class="o">&gt;</span> <span class="p">...</span>
+<span class="o">&gt;</span> <span class="p">]</span>
+</code></pre>
 <pre class="highlight python"><code><span class="c"># Fund existing address with faucet</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">requests</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">'http://api.blockcypher.com/v1/btc/main/txs'</span><span class="p">)</span>
@@ -2795,7 +3248,6 @@ Even if you don&rsquo;t use the API to assist in creating transactions, we highl
   <span class="s">'confirmations'</span><span class="p">:</span> <span class="mi">0</span><span class="p">},</span>
  <span class="o">...</span>
 <span class="p">],</span>
-
 </code></pre>
 
 <p>The Unconfirmed Transactions Endpoint returns an array of the latest transactions relayed by nodes in a blockchain that haven&rsquo;t been included in any blocks.</p>
@@ -2879,6 +3331,70 @@ Always use HTTPS for creating and pushing transactions.
 <span class="o">}</span>,
 <span class="s2">"tosign"</span>: <span class="o">[</span><span class="s2">"32b5ea64c253b6b466366647458cfd60de9cd29d7dc542293aa0b8b7300cd827"</span><span class="o">]</span>
 <span class="o">}</span>
+</code></pre>
+<pre class="highlight javascript"><code><span class="kd">var</span> <span class="nx">newtx</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">inputs</span><span class="p">:</span> <span class="p">[{</span><span class="na">addresses</span><span class="p">:</span> <span class="p">[</span><span class="s1">'CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9'</span><span class="p">]}],</span>
+  <span class="na">outputs</span><span class="p">:</span> <span class="p">[{</span><span class="na">addresses</span><span class="p">:</span> <span class="p">[</span><span class="s1">'C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn'</span><span class="p">],</span> <span class="na">value</span><span class="p">:</span> <span class="mi">100000</span><span class="p">}]</span>
+<span class="p">};</span>
+<span class="nx">$</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="s1">'https://api.blockcypher.com/v1/bcy/test/txs/new'</span><span class="p">,</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">newtx</span><span class="p">))</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">{</span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">d</span><span class="p">)});</span>
+<span class="o">&gt;</span> <span class="p">{</span>
+<span class="o">&gt;</span>   <span class="s2">"tx"</span><span class="p">:</span> <span class="p">{</span>
+<span class="o">&gt;</span>     <span class="s2">"block_height"</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
+<span class="o">&gt;</span>     <span class="s2">"hash"</span><span class="p">:</span> <span class="s2">"c2b350b273b3bf04791d8e59fc9c021fd91fa423c50c29473dc079150f5a778a"</span><span class="p">,</span>
+<span class="o">&gt;</span>     <span class="s2">"addresses"</span><span class="p">:</span> <span class="p">[</span>
+<span class="o">&gt;</span>       <span class="s2">"CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"</span><span class="p">,</span>
+<span class="o">&gt;</span>       <span class="s2">"C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn"</span>
+<span class="o">&gt;</span>     <span class="p">],</span>
+<span class="o">&gt;</span>     <span class="s2">"total"</span><span class="p">:</span> <span class="mi">4988000</span><span class="p">,</span>
+<span class="o">&gt;</span>     <span class="s2">"fees"</span><span class="p">:</span> <span class="mi">12000</span><span class="p">,</span>
+<span class="o">&gt;</span>     <span class="s2">"size"</span><span class="p">:</span> <span class="mi">119</span><span class="p">,</span>
+<span class="o">&gt;</span>     <span class="s2">"preference"</span><span class="p">:</span> <span class="s2">"high"</span><span class="p">,</span>
+<span class="o">&gt;</span>     <span class="s2">"relayed_by"</span><span class="p">:</span> <span class="s2">"208.71.159.84"</span><span class="p">,</span>
+<span class="o">&gt;</span>     <span class="s2">"received"</span><span class="p">:</span> <span class="s2">"2015-05-21T19:04:14.492743867Z"</span><span class="p">,</span>
+<span class="o">&gt;</span>     <span class="s2">"ver"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+<span class="o">&gt;</span>     <span class="s2">"lock_time"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+<span class="o">&gt;</span>     <span class="s2">"double_spend"</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+<span class="o">&gt;</span>     <span class="s2">"vin_sz"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+<span class="o">&gt;</span>     <span class="s2">"vout_sz"</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+<span class="o">&gt;</span>     <span class="s2">"confirmations"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+<span class="o">&gt;</span>     <span class="s2">"inputs"</span><span class="p">:</span> <span class="p">[</span>
+<span class="o">&gt;</span>       <span class="p">{</span>
+<span class="o">&gt;</span>         <span class="s2">"prev_hash"</span><span class="p">:</span> <span class="s2">"c8ea8b221580ebb2f1cabc8b40797bffec742b97c82a329df96d93121db43519"</span><span class="p">,</span>
+<span class="o">&gt;</span>         <span class="s2">"output_index"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+<span class="o">&gt;</span>         <span class="s2">"script"</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span>
+<span class="o">&gt;</span>         <span class="s2">"output_value"</span><span class="p">:</span> <span class="mi">5000000</span><span class="p">,</span>
+<span class="o">&gt;</span>         <span class="s2">"sequence"</span><span class="p">:</span> <span class="mi">4294967295</span><span class="p">,</span>
+<span class="o">&gt;</span>         <span class="s2">"addresses"</span><span class="p">:</span> <span class="p">[</span>
+<span class="o">&gt;</span>           <span class="s2">"CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"</span>
+<span class="o">&gt;</span>         <span class="p">],</span>
+<span class="o">&gt;</span>         <span class="s2">"script_type"</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span>
+<span class="o">&gt;</span>         <span class="s2">"age"</span><span class="p">:</span> <span class="mi">4</span>
+<span class="o">&gt;</span>       <span class="p">}</span>
+<span class="o">&gt;</span>     <span class="p">],</span>
+<span class="o">&gt;</span>     <span class="s2">"outputs"</span><span class="p">:</span> <span class="p">[</span>
+<span class="o">&gt;</span>       <span class="p">{</span>
+<span class="o">&gt;</span>         <span class="s2">"value"</span><span class="p">:</span> <span class="mi">1000000</span><span class="p">,</span>
+<span class="o">&gt;</span>         <span class="s2">"script"</span><span class="p">:</span> <span class="s2">"76a9145fb1af31edd2aa5a2bbaa24f6043d6ec31f7e63288ac"</span><span class="p">,</span>
+<span class="o">&gt;</span>         <span class="s2">"addresses"</span><span class="p">:</span> <span class="p">[</span>
+<span class="o">&gt;</span>           <span class="s2">"C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn"</span>
+<span class="o">&gt;</span>         <span class="p">],</span>
+<span class="o">&gt;</span>         <span class="s2">"script_type"</span><span class="p">:</span> <span class="s2">"pay-to-pubkey-hash"</span>
+<span class="o">&gt;</span>       <span class="p">},</span>
+<span class="o">&gt;</span>       <span class="p">{</span>
+<span class="o">&gt;</span>         <span class="s2">"value"</span><span class="p">:</span> <span class="mi">3988000</span><span class="p">,</span>
+<span class="o">&gt;</span>         <span class="s2">"script"</span><span class="p">:</span> <span class="s2">"76a914efec6de6c253e657a9d5506a78ee48d89762fb3188ac"</span><span class="p">,</span>
+<span class="o">&gt;</span>         <span class="s2">"addresses"</span><span class="p">:</span> <span class="p">[</span>
+<span class="o">&gt;</span>           <span class="s2">"CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"</span>
+<span class="o">&gt;</span>         <span class="p">],</span>
+<span class="o">&gt;</span>         <span class="s2">"script_type"</span><span class="p">:</span> <span class="s2">"pay-to-pubkey-hash"</span>
+<span class="o">&gt;</span>       <span class="p">}</span>
+<span class="o">&gt;</span>     <span class="p">]</span>
+<span class="o">&gt;</span>   <span class="p">},</span>
+<span class="o">&gt;</span>   <span class="s2">"tosign"</span><span class="err">:</span> <span class="p">[</span>
+<span class="o">&gt;</span>     <span class="s2">"32b5ea64c253b6b466366647458cfd60de9cd29d7dc542293aa0b8b7300cd827"</span>
+<span class="o">&gt;</span>   <span class="p">]</span>
+<span class="o">&gt;</span> <span class="p">}</span>
 </code></pre>
 <pre class="highlight python"><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">requests</span><span class="o">,</span> <span class="nn">json</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s">'inputs'</span><span class="p">:</span> <span class="p">[{</span><span class="s">'addresses'</span><span class="p">:</span> <span class="p">[</span><span class="s">'CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9'</span><span class="p">,]}],</span> <span class="s">'outputs'</span><span class="p">:</span> <span class="p">[{</span><span class="s">'addresses'</span><span class="p">:</span> <span class="p">[</span><span class="s">'C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn'</span><span class="p">,</span> <span class="p">],</span> <span class="s">'value'</span><span class="p">:</span> <span class="mi">1000000</span><span class="p">}]}</span>
@@ -2966,6 +3482,36 @@ The <b>hash</b> assigned to <a href="#tx">TX</a> within the return object is onl
 
 3045022100921fc36b911094280f07d8504a80fbab9b823a25f102e2bc69b14bcd369dfc7902200d07067d47f040e724b556e5bc3061af132d5a47bd96e901429d53c41e0f8cca
 </code></pre>
+<pre class="highlight javascript"><code><span class="c1">// next, you sign the data returned in the tosign array locally</span>
+<span class="c1">// here we're using bitcoinjs built to expose bigi, buffer, and require</span>
+<span class="c1">// you can use this library here:</span>
+<span class="c1">//   http://dev.blockcypher.com/data/samples/bitcoinjs-min.js</span>
+
+<span class="kd">var</span> <span class="nx">bitcoin</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">"bitcoinjs-lib"</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">bigi</span>    <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">"bigi"</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">buffer</span>  <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'buffer'</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">key</span>     <span class="o">=</span> <span class="k">new</span> <span class="nx">bitcoin</span><span class="p">.</span><span class="nx">ECKey</span><span class="p">(</span><span class="nx">bigi</span><span class="p">.</span><span class="nx">fromHex</span><span class="p">(</span><span class="nx">my_hex_private_key</span><span class="p">),</span> <span class="kc">true</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">newtx</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">inputs</span><span class="p">:</span> <span class="p">[{</span><span class="na">addresses</span><span class="p">:</span> <span class="p">[</span><span class="s1">'CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9'</span><span class="p">]}],</span>
+  <span class="na">outputs</span><span class="p">:</span> <span class="p">[{</span><span class="na">addresses</span><span class="p">:</span> <span class="p">[</span><span class="s1">'C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn'</span><span class="p">],</span> <span class="na">value</span><span class="p">:</span> <span class="mi">100000</span><span class="p">}]</span>
+<span class="p">};</span>
+<span class="c1">// calling the new endpoint, same as above</span>
+<span class="nx">$</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="s1">'https://api.blockcypher.com/v1/bcy/test/txs/new'</span><span class="p">,</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">newtx</span><span class="p">))</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">tmptx</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// signing each of the hex-encoded string required to finalize the transaction</span>
+    <span class="nx">tmptx</span><span class="p">.</span><span class="nx">pubkeys</span> <span class="o">=</span> <span class="p">[];</span>
+    <span class="nx">tmptx</span><span class="p">.</span><span class="nx">signatures</span> <span class="o">=</span> <span class="nx">tmptx</span><span class="p">.</span><span class="nx">tosign</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">tosign</span><span class="p">,</span> <span class="nx">n</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">tmptx</span><span class="p">.</span><span class="nx">pubkeys</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">key</span><span class="p">.</span><span class="nx">pub</span><span class="p">.</span><span class="nx">toHex</span><span class="p">());</span>
+      <span class="k">return</span> <span class="nx">key</span><span class="p">.</span><span class="nx">sign</span><span class="p">(</span><span class="k">new</span> <span class="nx">buffer</span><span class="p">.</span><span class="nx">Buffer</span><span class="p">(</span><span class="nx">tosign</span><span class="p">,</span> <span class="s2">"hex"</span><span class="p">)).</span><span class="nx">toDER</span><span class="p">().</span><span class="nx">toString</span><span class="p">(</span><span class="s2">"hex"</span><span class="p">);</span>
+    <span class="p">});</span>
+    <span class="c1">// sending back the transaction with all the signatures to broadcast</span>
+    <span class="nx">$</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span> <span class="nx">tmptx</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">finaltx</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">finaltx</span><span class="p">);</span>
+    <span class="p">})</span>
+  <span class="p">});</span>
+
+</code></pre>
 
 <h3 id="locally-sign-your-transaction">Locally Sign Your Transaction</h3>
 
@@ -3020,6 +3566,83 @@ curl -d <span class="s1">'{"tx": {...}, "tosign": [ "32b5ea64c253b6b466366647458
 <span class="o">}</span>,
 <span class="s2">"tosign"</span>: <span class="o">[</span> <span class="s2">""</span> <span class="o">]</span>
 <span class="o">}</span>
+</code></pre>
+<pre class="highlight javascript"><code><span class="c1">// this shows just the last step of sending your transaction, see the signing section</span>
+<span class="c1">// for the fully integrated sample</span>
+<span class="c1">// the request body is truncated because it's huge, but it's the same as the returned</span>
+<span class="c1">// object from calling the new endpoint plus the signatures and public keys added in the</span>
+<span class="c1">// signing section</span>
+<span class="kd">var</span> <span class="nx">sendtx</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">tx</span><span class="p">:</span> <span class="p">{...},</span>
+  <span class="na">tosign</span><span class="p">:</span> <span class="p">[</span>
+    <span class="s2">"32b5ea64c253b6b466366647458cfd60de9cd29d7dc542293aa0b8b7300cd827"</span>
+  <span class="p">],</span>
+  <span class="na">signatures</span><span class="p">:</span> <span class="p">[</span>
+    <span class="s2">"3045022100921fc36b911094280f07d8504a80fbab9b823a25f102e2bc69b14bcd369dfc7902200d07067d47f040e724b556e5bc3061af132d5a47bd96e901429d53c41e0f8cca"</span>
+  <span class="p">],</span>
+  <span class="na">pubkeys</span><span class="p">:</span> <span class="p">[</span>
+    <span class="s2">"02152e2bb5b273561ece7bbe8b1df51a4c44f5ab0bc940c105045e2cc77e618044"</span>
+  <span class="p">]</span>
+<span class="p">};</span>
+<span class="nx">$</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="s1">'https://api.blockcypher.com/v1/bcy/test/txs/send'</span><span class="p">,</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">sendtx</span><span class="p">))</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">{</span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">d</span><span class="p">)});</span>
+<span class="o">&gt;</span> <span class="p">{</span>
+<span class="o">&gt;</span>   <span class="s2">"tx"</span><span class="p">:</span> <span class="p">{</span>
+<span class="o">&gt;</span>     <span class="s2">"block_height"</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
+<span class="o">&gt;</span>     <span class="s2">"hash"</span><span class="p">:</span> <span class="s2">"4e6dfb1415b4fba5bd257c129847c70fbd4e45e41828079c4a282680528f3a50"</span><span class="p">,</span>
+<span class="o">&gt;</span>     <span class="s2">"addresses"</span><span class="p">:</span> <span class="p">[</span>
+<span class="o">&gt;</span>       <span class="s2">"CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"</span><span class="p">,</span>
+<span class="o">&gt;</span>       <span class="s2">"C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn"</span>
+<span class="o">&gt;</span>     <span class="p">],</span>
+<span class="o">&gt;</span>     <span class="s2">"total"</span><span class="p">:</span> <span class="mi">4988000</span><span class="p">,</span>
+<span class="o">&gt;</span>     <span class="s2">"fees"</span><span class="p">:</span> <span class="mi">12000</span><span class="p">,</span>
+<span class="o">&gt;</span>     <span class="s2">"size"</span><span class="p">:</span> <span class="mi">226</span><span class="p">,</span>
+<span class="o">&gt;</span>     <span class="s2">"preference"</span><span class="p">:</span> <span class="s2">"high"</span><span class="p">,</span>
+<span class="o">&gt;</span>     <span class="s2">"relayed_by"</span><span class="p">:</span> <span class="s2">"73.162.198.68"</span><span class="p">,</span>
+<span class="o">&gt;</span>     <span class="s2">"received"</span><span class="p">:</span> <span class="s2">"2015-05-22T04:38:57.470017042Z"</span><span class="p">,</span>
+<span class="o">&gt;</span>     <span class="s2">"ver"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+<span class="o">&gt;</span>     <span class="s2">"lock_time"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+<span class="o">&gt;</span>     <span class="s2">"double_spend"</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+<span class="o">&gt;</span>     <span class="s2">"vin_sz"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+<span class="o">&gt;</span>     <span class="s2">"vout_sz"</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+<span class="o">&gt;</span>     <span class="s2">"confirmations"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+<span class="o">&gt;</span>     <span class="s2">"inputs"</span><span class="p">:</span> <span class="p">[</span>
+<span class="o">&gt;</span>       <span class="p">{</span>
+<span class="o">&gt;</span>         <span class="s2">"prev_hash"</span><span class="p">:</span> <span class="s2">"c8ea8b221580ebb2f1cabc8b40797bffec742b97c82a329df96d93121db43519"</span><span class="p">,</span>
+<span class="o">&gt;</span>         <span class="s2">"output_index"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+<span class="o">&gt;</span>         <span class="s2">"script"</span><span class="p">:</span> <span class="s2">"483045022100921fc36b911094280f07d8504a80fbab9b823a25f102e2bc69b14bcd369dfc7902200d07067d47f040e724b556e5bc3061af132d5a47bd96e901429d53c41e0f8cca012102152e2bb5b273561ece7bbe8b1df51a4c44f5ab0bc940c105045e2cc77e618044"</span><span class="p">,</span>
+<span class="o">&gt;</span>         <span class="s2">"output_value"</span><span class="p">:</span> <span class="mi">5000000</span><span class="p">,</span>
+<span class="o">&gt;</span>         <span class="s2">"sequence"</span><span class="p">:</span> <span class="mi">4294967295</span><span class="p">,</span>
+<span class="o">&gt;</span>         <span class="s2">"addresses"</span><span class="p">:</span> <span class="p">[</span>
+<span class="o">&gt;</span>           <span class="s2">"CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"</span>
+<span class="o">&gt;</span>         <span class="p">],</span>
+<span class="o">&gt;</span>         <span class="s2">"script_type"</span><span class="p">:</span> <span class="s2">"pay-to-pubkey-hash"</span><span class="p">,</span>
+<span class="o">&gt;</span>         <span class="s2">"age"</span><span class="p">:</span> <span class="mi">546</span>
+<span class="o">&gt;</span>       <span class="p">}</span>
+<span class="o">&gt;</span>     <span class="p">],</span>
+<span class="o">&gt;</span>     <span class="s2">"outputs"</span><span class="p">:</span> <span class="p">[</span>
+<span class="o">&gt;</span>       <span class="p">{</span>
+<span class="o">&gt;</span>         <span class="s2">"value"</span><span class="p">:</span> <span class="mi">1000000</span><span class="p">,</span>
+<span class="o">&gt;</span>         <span class="s2">"script"</span><span class="p">:</span> <span class="s2">"76a9145fb1af31edd2aa5a2bbaa24f6043d6ec31f7e63288ac"</span><span class="p">,</span>
+<span class="o">&gt;</span>         <span class="s2">"addresses"</span><span class="p">:</span> <span class="p">[</span>
+<span class="o">&gt;</span>           <span class="s2">"C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn"</span>
+<span class="o">&gt;</span>         <span class="p">],</span>
+<span class="o">&gt;</span>         <span class="s2">"script_type"</span><span class="p">:</span> <span class="s2">"pay-to-pubkey-hash"</span>
+<span class="o">&gt;</span>       <span class="p">},</span>
+<span class="o">&gt;</span>       <span class="p">{</span>
+<span class="o">&gt;</span>         <span class="s2">"value"</span><span class="p">:</span> <span class="mi">3988000</span><span class="p">,</span>
+<span class="o">&gt;</span>         <span class="s2">"script"</span><span class="p">:</span> <span class="s2">"76a914efec6de6c253e657a9d5506a78ee48d89762fb3188ac"</span><span class="p">,</span>
+<span class="o">&gt;</span>         <span class="s2">"addresses"</span><span class="p">:</span> <span class="p">[</span>
+<span class="o">&gt;</span>           <span class="s2">"CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"</span>
+<span class="o">&gt;</span>         <span class="p">],</span>
+<span class="o">&gt;</span>         <span class="s2">"script_type"</span><span class="p">:</span> <span class="s2">"pay-to-pubkey-hash"</span>
+<span class="o">&gt;</span>       <span class="p">}</span>
+<span class="o">&gt;</span>     <span class="p">]</span>
+<span class="o">&gt;</span>   <span class="p">},</span>
+<span class="o">&gt;</span>   <span class="s2">"tosign"</span><span class="err">:</span> <span class="p">[</span>
+<span class="o">&gt;</span>     <span class="s2">""</span>
+<span class="o">&gt;</span>   <span class="p">]</span>
+<span class="o">&gt;</span> <span class="p">}</span>
 </code></pre>
 
 <h3 id="send-transaction-endpoint">Send Transaction Endpoint</h3>
@@ -3139,6 +3762,64 @@ One of the most common errors we see are users who use uncompressed public keys 
   <span class="o">]</span>
 <span class="o">}</span>
 </code></pre>
+<pre class="highlight javascript"><code><span class="kd">var</span> <span class="nx">pushtx</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">tx</span><span class="p">:</span> <span class="s2">"01000000011935b41d12936df99d322ac8972b74ecff7b79408bbccaf1b2eb8015228beac8000000006b483045022100921fc36b911094280f07d8504a80fbab9b823a25f102e2bc69b14bcd369dfc7902200d07067d47f040e724b556e5bc3061af132d5a47bd96e901429d53c41e0f8cca012102152e2bb5b273561ece7bbe8b1df51a4c44f5ab0bc940c105045e2cc77e618044ffffffff0240420f00000000001976a9145fb1af31edd2aa5a2bbaa24f6043d6ec31f7e63288ac20da3c00000000001976a914efec6de6c253e657a9d5506a78ee48d89762fb3188ac00000000"</span>
+<span class="p">};</span>
+<span class="nx">$</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="s1">'https://api.blockcypher.com/v1/bcy/test/txs/send'</span><span class="p">,</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">pushtx</span><span class="p">))</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">{</span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">d</span><span class="p">)});</span>
+<span class="o">&gt;</span> <span class="p">{</span>
+<span class="o">&gt;</span>   <span class="s2">"block_height"</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"hash"</span><span class="p">:</span> <span class="s2">"4e6dfb1415b4fba5bd257c129847c70fbd4e45e41828079c4a282680528f3a50"</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"addresses"</span><span class="p">:</span> <span class="p">[</span>
+<span class="o">&gt;</span>     <span class="s2">"CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"</span><span class="p">,</span>
+<span class="o">&gt;</span>     <span class="s2">"C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn"</span>
+<span class="o">&gt;</span>   <span class="p">],</span>
+<span class="o">&gt;</span>   <span class="s2">"total"</span><span class="p">:</span> <span class="mi">4988000</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"fees"</span><span class="p">:</span> <span class="mi">12000</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"size"</span><span class="p">:</span> <span class="mi">226</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"preference"</span><span class="p">:</span> <span class="s2">"high"</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"relayed_by"</span><span class="p">:</span> <span class="s2">"73.162.198.68"</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"received"</span><span class="p">:</span> <span class="s2">"2015-05-22T05:10:00.305308666Z"</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"ver"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"lock_time"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"double_spend"</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"vin_sz"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"vout_sz"</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"confirmations"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"inputs"</span><span class="p">:</span> <span class="p">[</span>
+<span class="o">&gt;</span>     <span class="p">{</span>
+<span class="o">&gt;</span>       <span class="s2">"prev_hash"</span><span class="p">:</span> <span class="s2">"c8ea8b221580ebb2f1cabc8b40797bffec742b97c82a329df96d93121db43519"</span><span class="p">,</span>
+<span class="o">&gt;</span>       <span class="s2">"output_index"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+<span class="o">&gt;</span>       <span class="s2">"script"</span><span class="p">:</span> <span class="s2">"483045022100921fc36b911094280f07d8504a80fbab9b823a25f102e2bc69b14bcd369dfc7902200d07067d47f040e724b556e5bc3061af132d5a47bd96e901429d53c41e0f8cca012102152e2bb5b273561ece7bbe8b1df51a4c44f5ab0bc940c105045e2cc77e618044"</span><span class="p">,</span>
+<span class="o">&gt;</span>       <span class="s2">"output_value"</span><span class="p">:</span> <span class="mi">5000000</span><span class="p">,</span>
+<span class="o">&gt;</span>       <span class="s2">"sequence"</span><span class="p">:</span> <span class="mi">4294967295</span><span class="p">,</span>
+<span class="o">&gt;</span>       <span class="s2">"addresses"</span><span class="p">:</span> <span class="p">[</span>
+<span class="o">&gt;</span>         <span class="s2">"CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"</span>
+<span class="o">&gt;</span>       <span class="p">],</span>
+<span class="o">&gt;</span>       <span class="s2">"script_type"</span><span class="p">:</span> <span class="s2">"pay-to-pubkey-hash"</span><span class="p">,</span>
+<span class="o">&gt;</span>       <span class="s2">"age"</span><span class="p">:</span> <span class="mi">576</span>
+<span class="o">&gt;</span>     <span class="p">}</span>
+<span class="o">&gt;</span>   <span class="p">],</span>
+<span class="o">&gt;</span>   <span class="s2">"outputs"</span><span class="p">:</span> <span class="p">[</span>
+<span class="o">&gt;</span>     <span class="p">{</span>
+<span class="o">&gt;</span>       <span class="s2">"value"</span><span class="p">:</span> <span class="mi">1000000</span><span class="p">,</span>
+<span class="o">&gt;</span>       <span class="s2">"script"</span><span class="p">:</span> <span class="s2">"76a9145fb1af31edd2aa5a2bbaa24f6043d6ec31f7e63288ac"</span><span class="p">,</span>
+<span class="o">&gt;</span>       <span class="s2">"addresses"</span><span class="p">:</span> <span class="p">[</span>
+<span class="o">&gt;</span>         <span class="s2">"C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn"</span>
+<span class="o">&gt;</span>       <span class="p">],</span>
+<span class="o">&gt;</span>       <span class="s2">"script_type"</span><span class="p">:</span> <span class="s2">"pay-to-pubkey-hash"</span>
+<span class="o">&gt;</span>     <span class="p">},</span>
+<span class="o">&gt;</span>     <span class="p">{</span>
+<span class="o">&gt;</span>       <span class="s2">"value"</span><span class="p">:</span> <span class="mi">3988000</span><span class="p">,</span>
+<span class="o">&gt;</span>       <span class="s2">"script"</span><span class="p">:</span> <span class="s2">"76a914efec6de6c253e657a9d5506a78ee48d89762fb3188ac"</span><span class="p">,</span>
+<span class="o">&gt;</span>       <span class="s2">"addresses"</span><span class="p">:</span> <span class="p">[</span>
+<span class="o">&gt;</span>         <span class="s2">"CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"</span>
+<span class="o">&gt;</span>       <span class="p">],</span>
+<span class="o">&gt;</span>       <span class="s2">"script_type"</span><span class="p">:</span> <span class="s2">"pay-to-pubkey-hash"</span>
+<span class="o">&gt;</span>     <span class="p">}</span>
+<span class="o">&gt;</span>   <span class="p">]</span>
+<span class="o">&gt;</span> <span class="p">}</span>
+</code></pre>
 <pre class="highlight python"><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">requests</span><span class="o">,</span> <span class="nn">json</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s">'tx'</span><span class="p">:</span> <span class="s">'01000000011935b41d12936df99d322ac8972b74ecff7b79408bbccaf1b2eb8015228beac8000000006b483045022100921fc36b911094280f07d8504a80fbab9b823a25f102e2bc69b14bcd369dfc7902200d07067d47f040e724b556e5bc3061af132d5a47bd96e901429d53c41e0f8cca012102152e2bb5b273561ece7bbe8b1df51a4c44f5ab0bc940c105045e2cc77e618044ffffffff0240420f00000000001976a9145fb1af31edd2aa5a2bbaa24f6043d6ec31f7e63288ac20da3c00000000001976a914efec6de6c253e657a9d5506a78ee48d89762fb3188ac00000000'</span><span class="p">}</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s">'https://api.blockcypher.com/v1/bcy/test/txs/push'</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
@@ -3195,7 +3876,6 @@ One of the most common errors we see are users who use uncompressed public keys 
     <span class="p">}</span>
   <span class="p">]</span>
 <span class="p">}</span>
-
 </code></pre>
 
 <p>If you&rsquo;d prefer to use your own transaction library instead of the recommended path of our two-endpoint <a href="#creating-transactions">transaction generation</a> we&rsquo;re still happy to help you propagate your raw transactions. Simply send your raw hex-encoded transaction to this endpoint and we&rsquo;ll leverage our huge network of nodes to propagate your transaction faster than anywhere else.</p>
@@ -3278,6 +3958,64 @@ One of the most common errors we see are users who use uncompressed public keys 
   <span class="o">]</span>
 <span class="o">}</span>
 </code></pre>
+<pre class="highlight javascript"><code><span class="kd">var</span> <span class="nx">decodetx</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">tx</span><span class="p">:</span> <span class="s2">"01000000011935b41d12936df99d322ac8972b74ecff7b79408bbccaf1b2eb8015228beac8000000006b483045022100921fc36b911094280f07d8504a80fbab9b823a25f102e2bc69b14bcd369dfc7902200d07067d47f040e724b556e5bc3061af132d5a47bd96e901429d53c41e0f8cca012102152e2bb5b273561ece7bbe8b1df51a4c44f5ab0bc940c105045e2cc77e618044ffffffff0240420f00000000001976a9145fb1af31edd2aa5a2bbaa24f6043d6ec31f7e63288ac20da3c00000000001976a914efec6de6c253e657a9d5506a78ee48d89762fb3188ac00000000"</span>
+<span class="p">};</span>
+<span class="nx">$</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="s1">'https://api.blockcypher.com/v1/bcy/test/txs/decode'</span><span class="p">,</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">decodetx</span><span class="p">))</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">{</span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">d</span><span class="p">)});</span>
+<span class="o">&gt;</span> <span class="p">{</span>
+<span class="o">&gt;</span>   <span class="s2">"block_height"</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"hash"</span><span class="p">:</span> <span class="s2">"4e6dfb1415b4fba5bd257c129847c70fbd4e45e41828079c4a282680528f3a50"</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"addresses"</span><span class="p">:</span> <span class="p">[</span>
+<span class="o">&gt;</span>     <span class="s2">"CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"</span><span class="p">,</span>
+<span class="o">&gt;</span>     <span class="s2">"C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn"</span>
+<span class="o">&gt;</span>   <span class="p">],</span>
+<span class="o">&gt;</span>   <span class="s2">"total"</span><span class="p">:</span> <span class="mi">4988000</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"fees"</span><span class="p">:</span> <span class="mi">12000</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"size"</span><span class="p">:</span> <span class="mi">226</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"preference"</span><span class="p">:</span> <span class="s2">"high"</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"relayed_by"</span><span class="p">:</span> <span class="s2">"73.162.198.68"</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"received"</span><span class="p">:</span> <span class="s2">"2015-05-22T05:10:00.305308666Z"</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"ver"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"lock_time"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"double_spend"</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"vin_sz"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"vout_sz"</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"confirmations"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"inputs"</span><span class="p">:</span> <span class="p">[</span>
+<span class="o">&gt;</span>     <span class="p">{</span>
+<span class="o">&gt;</span>       <span class="s2">"prev_hash"</span><span class="p">:</span> <span class="s2">"c8ea8b221580ebb2f1cabc8b40797bffec742b97c82a329df96d93121db43519"</span><span class="p">,</span>
+<span class="o">&gt;</span>       <span class="s2">"output_index"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+<span class="o">&gt;</span>       <span class="s2">"script"</span><span class="p">:</span> <span class="s2">"483045022100921fc36b911094280f07d8504a80fbab9b823a25f102e2bc69b14bcd369dfc7902200d07067d47f040e724b556e5bc3061af132d5a47bd96e901429d53c41e0f8cca012102152e2bb5b273561ece7bbe8b1df51a4c44f5ab0bc940c105045e2cc77e618044"</span><span class="p">,</span>
+<span class="o">&gt;</span>       <span class="s2">"output_value"</span><span class="p">:</span> <span class="mi">5000000</span><span class="p">,</span>
+<span class="o">&gt;</span>       <span class="s2">"sequence"</span><span class="p">:</span> <span class="mi">4294967295</span><span class="p">,</span>
+<span class="o">&gt;</span>       <span class="s2">"addresses"</span><span class="p">:</span> <span class="p">[</span>
+<span class="o">&gt;</span>         <span class="s2">"CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"</span>
+<span class="o">&gt;</span>       <span class="p">],</span>
+<span class="o">&gt;</span>       <span class="s2">"script_type"</span><span class="p">:</span> <span class="s2">"pay-to-pubkey-hash"</span><span class="p">,</span>
+<span class="o">&gt;</span>       <span class="s2">"age"</span><span class="p">:</span> <span class="mi">576</span>
+<span class="o">&gt;</span>     <span class="p">}</span>
+<span class="o">&gt;</span>   <span class="p">],</span>
+<span class="o">&gt;</span>   <span class="s2">"outputs"</span><span class="p">:</span> <span class="p">[</span>
+<span class="o">&gt;</span>     <span class="p">{</span>
+<span class="o">&gt;</span>       <span class="s2">"value"</span><span class="p">:</span> <span class="mi">1000000</span><span class="p">,</span>
+<span class="o">&gt;</span>       <span class="s2">"script"</span><span class="p">:</span> <span class="s2">"76a9145fb1af31edd2aa5a2bbaa24f6043d6ec31f7e63288ac"</span><span class="p">,</span>
+<span class="o">&gt;</span>       <span class="s2">"addresses"</span><span class="p">:</span> <span class="p">[</span>
+<span class="o">&gt;</span>         <span class="s2">"C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn"</span>
+<span class="o">&gt;</span>       <span class="p">],</span>
+<span class="o">&gt;</span>       <span class="s2">"script_type"</span><span class="p">:</span> <span class="s2">"pay-to-pubkey-hash"</span>
+<span class="o">&gt;</span>     <span class="p">},</span>
+<span class="o">&gt;</span>     <span class="p">{</span>
+<span class="o">&gt;</span>       <span class="s2">"value"</span><span class="p">:</span> <span class="mi">3988000</span><span class="p">,</span>
+<span class="o">&gt;</span>       <span class="s2">"script"</span><span class="p">:</span> <span class="s2">"76a914efec6de6c253e657a9d5506a78ee48d89762fb3188ac"</span><span class="p">,</span>
+<span class="o">&gt;</span>       <span class="s2">"addresses"</span><span class="p">:</span> <span class="p">[</span>
+<span class="o">&gt;</span>         <span class="s2">"CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"</span>
+<span class="o">&gt;</span>       <span class="p">],</span>
+<span class="o">&gt;</span>       <span class="s2">"script_type"</span><span class="p">:</span> <span class="s2">"pay-to-pubkey-hash"</span>
+<span class="o">&gt;</span>     <span class="p">}</span>
+<span class="o">&gt;</span>   <span class="p">]</span>
+<span class="o">&gt;</span> <span class="p">}</span>
+</code></pre>
 <pre class="highlight python"><code><span class="c"># Fund existing address with faucet</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">requests</span><span class="o">,</span> <span class="nn">json</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s">'tx'</span><span class="p">:</span> <span class="s">'01000000011935b41d12936df99d322ac8972b74ecff7b79408bbccaf1b2eb8015228beac8000000006b483045022100921fc36b911094280f07d8504a80fbab9b823a25f102e2bc69b14bcd369dfc7902200d07067d47f040e724b556e5bc3061af132d5a47bd96e901429d53c41e0f8cca012102152e2bb5b273561ece7bbe8b1df51a4c44f5ab0bc940c105045e2cc77e618044ffffffff0240420f00000000001976a9145fb1af31edd2aa5a2bbaa24f6043d6ec31f7e63288ac20da3c00000000001976a914efec6de6c253e657a9d5506a78ee48d89762fb3188ac00000000'</span><span class="p">}</span>
@@ -3352,6 +4090,15 @@ One of the most common errors we see are users who use uncompressed public keys 
     <span class="o">}]</span>
 <span class="o">}</span>
 </code></pre>
+<pre class="highlight javascript"><code><span class="p">{</span>
+    <span class="s2">"inputs"</span><span class="err">:</span> <span class="p">[{</span><span class="s2">"addresses"</span><span class="p">:</span> <span class="p">[</span><span class="nx">sourceAddr</span><span class="p">]}],</span>
+    <span class="s2">"outputs"</span><span class="err">:</span> <span class="p">[{</span>
+        <span class="s2">"addresses"</span>   <span class="p">:</span> <span class="p">[</span><span class="nx">pubkey1</span><span class="p">,</span> <span class="nx">pubkey2</span><span class="p">,</span> <span class="nx">pubkey3</span><span class="p">],</span>
+        <span class="s2">"script_type"</span> <span class="p">:</span> <span class="s2">"multisig-2-of-3"</span><span class="p">,</span>
+        <span class="s2">"value"</span>       <span class="p">:</span> <span class="mi">250000</span><span class="p">,</span>
+    <span class="p">}]</span>
+<span class="p">}</span>
+</code></pre>
 
 <p>Multisignature transactions are made simple by the method described in the <a href="#creating-transactions">Creating Transactions</a> section, but they deserve special mention. In order to use them, you first need to fund a multisignature address. You use the <code class="prettyprint">/txs/new</code> endpoint as before, but instead of the <strong>outputs</strong> <strong>addresses</strong> array containing public addresses, it instead contains the public keys associated with the new address. In addition, you must select a <strong>script_type</strong> of <em>mutlisig-n-of-m</em>, where <em>n</em> and <em>m</em> are numbers (e.g., <em>multisig-2-of-3</em>). The code example demonstrates how the partially filled <a href="#tx">TX request object</a> would appear.</p>
 
@@ -3372,6 +4119,17 @@ If you only need a <i>pay-to-script-hash</i> address corresponding to N-of-M mul
         <span class="s2">"value"</span>     : 150000
     <span class="o">}]</span>
 <span class="o">}</span>
+</code></pre>
+<pre class="highlight javascript"><code><span class="p">{</span>
+    <span class="s2">"inputs"</span><span class="err">:</span> <span class="p">[{</span>
+        <span class="s2">"addresses"</span>   <span class="p">:</span> <span class="p">[</span><span class="nx">pubkey1</span><span class="p">,</span> <span class="nx">pubkey2</span><span class="p">,</span> <span class="nx">pubkey3</span><span class="p">],</span>
+        <span class="s2">"script_type"</span> <span class="p">:</span> <span class="s2">"multisig-2-of-3"</span>
+    <span class="p">}],</span>
+    <span class="s2">"outputs"</span><span class="err">:</span> <span class="p">[{</span>
+        <span class="s2">"addresses"</span> <span class="p">:</span> <span class="p">[</span><span class="nx">destAddr</span><span class="p">],</span>
+        <span class="s2">"value"</span>     <span class="p">:</span> <span class="mi">150000</span>
+    <span class="p">}]</span>
+<span class="p">}</span>
 </code></pre>
 
 <p>Once funded, you might want to programmatically spend the money in the address at some point. Here the process is similar, but with the inputs and outputs reversed. As you can see in the code sample, you need to provide the public keys within the <strong>inputs</strong> <strong>addresses</strong> array, and the corresponding <strong>script_type</strong> of <em>multisig-n-of-m</em> (e.g., <em>multisig-2-of-3</em>). Then you follow the same process of sending to <code class="prettyprint">/txs/new</code> and getting an array of data to be signed.</p>
@@ -3435,12 +4193,27 @@ As with creating <a href="#creating-transactions">normal Transactions</a>, alway
 <span class="s2">"hash"</span>: <span class="s2">"892fd7b36c1c3a2e5edb9b4a5d4ffd9ba74d78d3acf3b249991bd8d10a287dbd"</span>
 <span class="o">}</span>
 </code></pre>
+<pre class="highlight javascript"><code><span class="kd">var</span> <span class="nx">microtx</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">from_private</span><span class="p">:</span> <span class="s2">"97838249d77bfa65f97be02b63fd1b7bb6a58474c7c22784a0da63993d1c2f90"</span><span class="p">,</span>
+  <span class="na">to_address</span><span class="p">:</span> <span class="s2">"C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn"</span><span class="p">,</span>
+  <span class="na">value_satoshis</span><span class="p">:</span> <span class="mi">10000</span><span class="p">,</span>
+  <span class="na">token</span><span class="p">:</span> <span class="nx">TOKEN</span>
+<span class="p">}</span>
+<span class="kd">var</span> <span class="nx">url</span> <span class="o">=</span> <span class="s1">'https://api.blockcypher.com/v1/bcy/test/txs/micro?token='</span><span class="o">+</span><span class="nx">TOKEN</span><span class="p">;</span>
+<span class="nx">$</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">microtx</span><span class="p">))</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">{</span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">d</span><span class="p">)});</span>
+<span class="o">&gt;</span> <span class="p">{</span>
+<span class="o">&gt;</span> <span class="s2">"from_private"</span><span class="p">:</span> <span class="s2">"97838249d77bfa65f97be02b63fd1b7bb6a58474c7c22784a0da63993d1c2f90"</span><span class="p">,</span>
+<span class="o">&gt;</span> <span class="s2">"to_address"</span><span class="p">:</span> <span class="s2">"C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn"</span><span class="p">,</span>
+<span class="o">&gt;</span> <span class="s2">"value_satoshis"</span><span class="p">:</span> <span class="mi">10000</span><span class="p">,</span>
+<span class="o">&gt;</span> <span class="s2">"hash"</span><span class="p">:</span> <span class="s2">"892fd7b36c1c3a2e5edb9b4a5d4ffd9ba74d78d3acf3b249991bd8d10a287dbd"</span>
+<span class="o">&gt;</span> <span class="p">}</span>
+</code></pre>
 <pre class="highlight python"><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">requests</span><span class="o">,</span> <span class="nn">json</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s">'from_private'</span><span class="p">:</span> <span class="s">'97838249d77bfa65f97be02b63fd1b7bb6a58474c7c22784a0da63993d1c2f90'</span><span class="p">,</span> <span class="s">'to_address'</span><span class="p">:</span> <span class="s">'C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn'</span><span class="p">,</span> <span class="s">'value_satoshis'</span><span class="p">:</span> <span class="mi">10000</span><span class="p">,</span> <span class="s">'token'</span><span class="p">:</span> <span class="s">'YOUR_TOKEN'</span><span class="p">}</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s">'token'</span><span class="p">:</span> <span class="s">'YOUR_TOKEN'</span><span class="p">}</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s">'https://api.blockcypher.com/v1/bcy/test/txs/micro'</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
-
 </code></pre>
 
 <h3 id="via-private-keys">Via Private Keys</h3>
@@ -3492,6 +4265,48 @@ curl -H <span class="s2">"Content-Type: application/json"</span> -d <span class=
   <span class="o">]</span>,
   <span class="s2">"fees"</span>: 735
 <span class="o">}</span>
+</code></pre>
+<pre class="highlight javascript"><code><span class="c1">// here we're using bitcoinjs built to expose bigi, buffer, and require</span>
+<span class="c1">// you can use this library here:</span>
+<span class="c1">//   http://dev.blockcypher.com/data/samples/bitcoinjs-min.js</span>
+
+<span class="kd">var</span> <span class="nx">bitcoin</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">"bitcoinjs-lib"</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">bigi</span>    <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">"bigi"</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">buffer</span>  <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'buffer'</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">key</span>     <span class="o">=</span> <span class="k">new</span> <span class="nx">bitcoin</span><span class="p">.</span><span class="nx">ECKey</span><span class="p">(</span><span class="nx">bigi</span><span class="p">.</span><span class="nx">fromHex</span><span class="p">(</span><span class="nx">my_hex_private_key</span><span class="p">),</span> <span class="kc">true</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">microtx</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">from_pubkey</span><span class="p">:</span> <span class="s2">"02152e2bb5b273561ece7bbe..."</span><span class="p">,</span>
+  <span class="na">to_address</span><span class="p">:</span> <span class="s2">"C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn"</span><span class="p">,</span>
+  <span class="na">value_satoshis</span><span class="p">:</span> <span class="mi">20000</span><span class="p">,</span>
+  <span class="na">token</span><span class="p">:</span> <span class="nx">TOKEN</span>
+<span class="p">}</span>
+<span class="kd">var</span> <span class="nx">url</span> <span class="o">=</span> <span class="s1">'https://api.blockcypher.com/v1/bcy/test/txs/micro?token='</span><span class="o">+</span><span class="nx">TOKEN</span><span class="p">;</span>
+
+<span class="nx">$</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">microtx</span><span class="p">)).</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">tmptx</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// signing each of the hex-encoded string required to finalize the transaction</span>
+  <span class="nx">tmptx</span><span class="p">.</span><span class="nx">signatures</span> <span class="o">=</span> <span class="nx">tmptx</span><span class="p">.</span><span class="nx">tosign</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">tosign</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">key</span><span class="p">.</span><span class="nx">sign</span><span class="p">(</span><span class="k">new</span> <span class="nx">buffer</span><span class="p">.</span><span class="nx">Buffer</span><span class="p">(</span><span class="nx">tosign</span><span class="p">,</span> <span class="s2">"hex"</span><span class="p">)).</span><span class="nx">toDER</span><span class="p">().</span><span class="nx">toString</span><span class="p">(</span><span class="s2">"hex"</span><span class="p">);</span>
+  <span class="p">});</span>
+  <span class="c1">// sending back the transaction with all the signatures to broadcast</span>
+  <span class="nx">$</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span> <span class="nx">tmptx</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">finaltx</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">finaltx</span><span class="p">);</span>
+  <span class="p">})</span>
+<span class="p">});</span>
+
+<span class="o">&gt;</span> <span class="p">{</span>
+<span class="o">&gt;</span>   <span class="s2">"from_pubkey"</span><span class="p">:</span> <span class="s2">"02152e2bb5b273561ece7bbe8b1..."</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"to_address"</span><span class="p">:</span> <span class="s2">"C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn"</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"value_satoshis"</span><span class="p">:</span> <span class="mi">20000</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"hash"</span><span class="p">:</span> <span class="s2">"ce8b3a2d5bb1f552c9d526559dd892b4ee..."</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"inputs"</span><span class="p">:</span> <span class="p">[</span>
+<span class="o">&gt;</span>   <span class="p">...</span>
+<span class="o">&gt;</span>   <span class="p">],</span>
+<span class="o">&gt;</span>   <span class="s2">"outputs"</span><span class="p">:</span> <span class="p">[</span>
+<span class="o">&gt;</span>   <span class="p">...</span>
+<span class="o">&gt;</span>   <span class="p">],</span>
+<span class="o">&gt;</span>   <span class="s2">"fees"</span><span class="p">:</span> <span class="mi">735</span>
+<span class="o">&gt;</span> <span class="p">}</span>
 </code></pre>
 
 <h3 id="via-public-keys-and-client-side-signing">Via Public Keys and Client-side Signing</h3>
@@ -3616,6 +4431,21 @@ By default, all payments will be debited with a 10,000 satoshis mining fee. The 
 <span class="s2">"token"</span>: <span class="s2">"YOURTOKEN"</span>
 <span class="o">}</span>
 </code></pre>
+<pre class="highlight javascript"><code><span class="kd">var</span> <span class="nx">payment</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s2">"destination"</span><span class="p">:</span><span class="s2">"15qx9ug952GWGTNn7Uiv6vode4RcGrRemh"</span><span class="p">,</span>
+  <span class="s2">"callback_url"</span><span class="p">:</span> <span class="s2">"https://my.domain.com/callbacks/new-pay"</span>
+<span class="p">}</span>
+<span class="kd">var</span> <span class="nx">url</span> <span class="o">=</span> <span class="s1">'https://api.blockcypher.com/v1/btc/main/payments?token='</span><span class="o">+</span><span class="nx">TOKEN</span><span class="p">;</span>
+<span class="nx">$</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">payment</span><span class="p">))</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">{</span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">d</span><span class="p">)});</span>
+<span class="p">{</span>
+<span class="s2">"input_address"</span><span class="err">:</span> <span class="s2">"16uKw7GsQSzfMaVTcT7tpFQkd7Rh9qcXWX"</span><span class="p">,</span>
+<span class="s2">"destination"</span><span class="err">:</span> <span class="s2">"15qx9ug952GWGTNn7Uiv6vode4RcGrRemh"</span><span class="p">,</span>
+<span class="s2">"callback_url"</span><span class="err">:</span> <span class="s2">"https://my.domain.com/callbacks/payments"</span><span class="p">,</span>
+<span class="s2">"id"</span><span class="err">:</span> <span class="s2">"399d0923-e920-48ee-8928-2051cbfbc369"</span><span class="p">,</span>
+<span class="s2">"token"</span><span class="err">:</span> <span class="s2">"YOURTOKEN"</span>
+<span class="p">}</span>
+</code></pre>
 <pre class="highlight python"><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">requests</span><span class="o">,</span> <span class="nn">json</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s">"destination"</span><span class="p">:</span><span class="s">"15qx9ug952GWGTNn7Uiv6vode4RcGrRemh"</span><span class="p">,</span><span class="s">"callback_url"</span><span class="p">:</span> <span class="s">"https://my.domain.com/callbacks/new-pay"</span><span class="p">}</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s">'token'</span><span class="p">:</span> <span class="s">'YOUR_TOKEN'</span><span class="p">}</span>
@@ -3665,6 +4495,18 @@ If you decide to have a <b>callback_url</b>, you&rsquo;ll receive a payload at t
     <span class="o">}</span>
 <span class="o">]</span>
 </code></pre>
+<pre class="highlight javascript"><code><span class="nx">$</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">'http://api.blockcypher.com/v1/btc/main/payments?token='</span><span class="o">+</span><span class="nx">TOKEN</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">{</span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">d</span><span class="p">)});</span>
+<span class="p">[</span>
+    <span class="p">{</span>
+    <span class="s2">"input_address"</span><span class="p">:</span> <span class="s2">"16uKw7GsQSzfMaVTcT7tpFQkd7Rh9qcXWX"</span><span class="p">,</span>
+    <span class="s2">"destination"</span><span class="p">:</span> <span class="s2">"15qx9ug952GWGTNn7Uiv6vode4RcGrRemh"</span><span class="p">,</span>
+    <span class="s2">"callback_url"</span><span class="p">:</span> <span class="s2">"https://my.domain.com/callbacks/payments"</span><span class="p">,</span>
+    <span class="s2">"id"</span><span class="p">:</span> <span class="s2">"399d0923-e920-48ee-8928-2051cbfbc369"</span><span class="p">,</span>
+    <span class="s2">"token"</span><span class="p">:</span> <span class="s2">"YOURTOKEN"</span>
+    <span class="p">}</span>
+<span class="p">]</span>
+</code></pre>
 <pre class="highlight python"><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">requests</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s">'token'</span><span class="p">:</span> <span class="s">'YOUR_TOKEN'</span><span class="p">}</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s">'http://api.blockcypher.com/v1/btc/main/payments'</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
@@ -3699,6 +4541,12 @@ If you decide to have a <b>callback_url</b>, you&rsquo;ll receive a payload at t
 curl -X DELETE -IsL http://api.blockcypher.com/v1/btc/main/payments/399d0923-e920-48ee-8928-2051cbfbc369?token<span class="o">=</span>YOURTOKEN | grep <span class="s2">"HTTP/1.1"</span>
 
 HTTP/1.1 204 No Content
+</code></pre>
+<pre class="highlight javascript"><code><span class="kd">var</span> <span class="nx">url</span> <span class="o">=</span> <span class="s2">"https://api.blockcypher.com/v1/btc/main/payments/399d0923-e920-48ee-8928-2051cbfbc369?token="</span><span class="o">+</span><span class="nx">TOKEN</span>
+<span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span>
+  <span class="na">url</span><span class="p">:</span> <span class="nx">url</span><span class="p">,</span>
+  <span class="na">method</span><span class="p">:</span> <span class="s2">"DELETE"</span>
+<span class="p">});</span>
 </code></pre>
 <pre class="highlight python"><code><span class="c"># Fund existing address with faucet</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">requests</span>
@@ -3777,22 +4625,23 @@ Events like <i>unconfirmed-tx</i> can produce a lot of requests. To avoid rate-l
 </aside>
 
 <h2 id="using-websockets">Using WebSockets</h2>
-<pre class="highlight shell"><code><span class="c"># no websockets via cURL :-( but here's a Javascript example</span>
-<span class="c"># Get latest unconfirmed transactions live</span>
-var ws <span class="o">=</span> new WebSocket<span class="o">(</span><span class="s2">"wss://socket.blockcypher.com/v1/btc/main"</span><span class="o">)</span>;
-var count <span class="o">=</span> 0;
-ws.onmessage <span class="o">=</span> <span class="k">function</span> <span class="o">(</span>event<span class="o">)</span> <span class="o">{</span>
-  var tx <span class="o">=</span> JSON.parse<span class="o">(</span>event.data<span class="o">)</span>;
-  var shortHash <span class="o">=</span> tx.hash.substring<span class="o">(</span>0, 6<span class="o">)</span> + <span class="s2">"..."</span>;
-  var total <span class="o">=</span> tx.total / 100000000;
-  var addrs <span class="o">=</span> tx.addresses.join<span class="o">(</span><span class="s2">", "</span><span class="o">)</span>;
-  <span class="k">$(</span><span class="s1">'#browser-websocket'</span><span class="k">)</span>.before<span class="o">(</span><span class="s2">"&lt;div&gt;Unconfirmed transaction "</span> + shortHash + <span class="s2">" totalling "</span> + total + <span class="s2">"BTC involving addresses "</span> + addrs + <span class="s2">"&lt;/div&gt;"</span><span class="o">)</span>;
-  count++;
-  <span class="k">if</span> <span class="o">(</span>count &gt; 10<span class="o">)</span> ws.close<span class="o">()</span>;
-<span class="o">}</span>
-ws.onopen <span class="o">=</span> <span class="k">function</span><span class="o">(</span>event<span class="o">)</span> <span class="o">{</span>
-  ws.send<span class="o">(</span>JSON.stringify<span class="o">({</span>filter: <span class="s2">"event=unconfirmed-tx"</span><span class="o">}))</span>;
-<span class="o">}</span>
+<pre class="highlight shell"><code><span class="c"># no websockets via cURL, check the Javascript example</span>
+</code></pre>
+<pre class="highlight javascript"><code><span class="c1">// Get latest unconfirmed transactions live</span>
+<span class="kd">var</span> <span class="nx">ws</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">WebSocket</span><span class="p">(</span><span class="s2">"wss://socket.blockcypher.com/v1/btc/main"</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">count</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="nx">ws</span><span class="p">.</span><span class="nx">onmessage</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">tx</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">data</span><span class="p">);</span>
+  <span class="kd">var</span> <span class="nx">shortHash</span> <span class="o">=</span> <span class="nx">tx</span><span class="p">.</span><span class="nx">hash</span><span class="p">.</span><span class="nx">substring</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span> <span class="o">+</span> <span class="s2">"..."</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">total</span> <span class="o">=</span> <span class="nx">tx</span><span class="p">.</span><span class="nx">total</span> <span class="o">/</span> <span class="mi">100000000</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">addrs</span> <span class="o">=</span> <span class="nx">tx</span><span class="p">.</span><span class="nx">addresses</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="s2">", "</span><span class="p">);</span>
+  <span class="nx">$</span><span class="p">(</span><span class="s1">'#browser-websocket'</span><span class="p">).</span><span class="nx">before</span><span class="p">(</span><span class="s2">"&lt;div&gt;Unconfirmed transaction "</span> <span class="o">+</span> <span class="nx">shortHash</span> <span class="o">+</span> <span class="s2">" totalling "</span> <span class="o">+</span> <span class="nx">total</span> <span class="o">+</span> <span class="s2">"BTC involving addresses "</span> <span class="o">+</span> <span class="nx">addrs</span> <span class="o">+</span> <span class="s2">"&lt;/div&gt;"</span><span class="p">);</span>
+  <span class="nx">count</span><span class="o">++</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">count</span> <span class="o">&gt;</span> <span class="mi">10</span><span class="p">)</span> <span class="nx">ws</span><span class="p">.</span><span class="nx">close</span><span class="p">();</span>
+<span class="p">}</span>
+<span class="nx">ws</span><span class="p">.</span><span class="nx">onopen</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">ws</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span><span class="na">filter</span><span class="p">:</span> <span class="s2">"event=unconfirmed-tx"</span><span class="p">}));</span>
+<span class="p">}</span>
 </code></pre>
 
 <p>Opening a WebSocket to listen to our feeds is easy, like so in Javascript:</p>
@@ -3841,6 +4690,22 @@ Testing WebHooks can be tricky; we recommend using <a href="http://requestb.in/"
 <span class="s2">"url"</span>: <span class="s2">"https://my.domain.com/callbacks/new-tx"</span>
 <span class="o">}</span>
 </code></pre>
+<pre class="highlight javascript"><code><span class="kd">var</span> <span class="nx">webhook</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s2">"event"</span><span class="p">:</span> <span class="s2">"unconfirmed-tx"</span><span class="p">,</span>
+  <span class="s2">"address"</span><span class="p">:</span> <span class="s2">"15qx9ug952GWGTNn7Uiv6vode4RcGrRemh"</span><span class="p">,</span>
+  <span class="s2">"url"</span><span class="p">:</span> <span class="s2">"https://my.domain.com/callbacks/new-tx"</span>
+<span class="p">}</span>
+<span class="kd">var</span> <span class="nx">url</span> <span class="o">=</span> <span class="s1">'https://api.blockcypher.com/v1/btc/main/hooks?token='</span><span class="o">+</span><span class="nx">TOKEN</span><span class="p">;</span>
+<span class="nx">$</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">webhook</span><span class="p">))</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">{</span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">d</span><span class="p">)});</span>
+<span class="p">{</span>
+<span class="s2">"id"</span><span class="err">:</span> <span class="s2">"399d0923-e920-48ee-8928-2051cbfbc369"</span>
+<span class="s2">"event"</span><span class="err">:</span> <span class="s2">"unconfirmed-tx"</span><span class="p">,</span>
+<span class="s2">"address"</span><span class="err">:</span> <span class="s2">"15qx9ug952GWGTNn7Uiv6vode4RcGrRemh"</span><span class="p">,</span>
+<span class="s2">"token"</span><span class="err">:</span> <span class="s2">"YOURTOKEN"</span>
+<span class="s2">"url"</span><span class="err">:</span> <span class="s2">"https://my.domain.com/callbacks/new-tx"</span>
+<span class="p">}</span>
+</code></pre>
 <pre class="highlight python"><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">requests</span><span class="o">,</span> <span class="nn">json</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s">'event'</span><span class="p">:</span> <span class="s">'unconfirmed-tx'</span><span class="p">,</span> <span class="s">'address'</span><span class="p">:</span> <span class="s">'15qx9ug952GWGTNn7Uiv6vode4RcGrRemh'</span><span class="p">,</span> <span class="s">'url'</span><span class="p">:</span> <span class="s">'https://my.domain.com/callbacks/new-tx'</span><span class="p">}</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s">'token'</span><span class="p">:</span> <span class="s">'YOUR_TOKEN'</span><span class="p">}</span>
@@ -3888,6 +4753,18 @@ Testing WebHooks can be tricky; we recommend using <a href="http://requestb.in/"
     <span class="o">}</span>
 <span class="o">]</span>
 </code></pre>
+<pre class="highlight javascript"><code><span class="nx">$</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">'https://api.blockcypher.com/v1/btc/main/hooks?token='</span><span class="o">+</span><span class="nx">TOKEN</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">{</span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">d</span><span class="p">)});</span>
+<span class="p">[</span>
+    <span class="p">{</span>
+    <span class="s2">"id"</span><span class="p">:</span> <span class="s2">"399d0923-e920-48ee-8928-2051cbfbc369"</span>
+    <span class="s2">"event"</span><span class="p">:</span> <span class="s2">"unconfirmed-tx"</span><span class="p">,</span>
+    <span class="s2">"address"</span><span class="p">:</span> <span class="s2">"15qx9ug952GWGTNn7Uiv6vode4RcGrRemh"</span><span class="p">,</span>
+    <span class="s2">"token"</span><span class="p">:</span> <span class="s2">"YOURTOKEN"</span>
+    <span class="s2">"url"</span><span class="p">:</span> <span class="s2">"https://my.domain.com/callbacks/new-tx"</span>
+    <span class="p">}</span>
+<span class="p">]</span>
+</code></pre>
 <pre class="highlight python"><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">requests</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s">'token'</span><span class="p">:</span> <span class="s">'YOUR_TOKEN'</span><span class="p">}</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">'https://api.blockcypher.com/v1/btc/main/hooks'</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
@@ -3928,8 +4805,17 @@ Testing WebHooks can be tricky; we recommend using <a href="http://requestb.in/"
 <span class="s2">"url"</span>: <span class="s2">"https://my.domain.com/callbacks/new-tx"</span>
 <span class="o">}</span>
 </code></pre>
-<pre class="highlight python"><code><span class="c"># Fund existing address with faucet</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">requests</span>
+<pre class="highlight javascript"><code><span class="nx">$</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">'https://api.blockcypher.com/v1/btc/main/hooks/399d0923-e920-48ee-8928-2051cbfbc369'</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">{</span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">d</span><span class="p">)});</span>
+<span class="p">{</span>
+<span class="s2">"id"</span><span class="err">:</span> <span class="s2">"399d0923-e920-48ee-8928-2051cbfbc369"</span>
+<span class="s2">"event"</span><span class="err">:</span> <span class="s2">"unconfirmed-tx"</span><span class="p">,</span>
+<span class="s2">"address"</span><span class="err">:</span> <span class="s2">"15qx9ug952GWGTNn7Uiv6vode4RcGrRemh"</span><span class="p">,</span>
+<span class="s2">"token"</span><span class="err">:</span> <span class="s2">"YOURTOKEN"</span>
+<span class="s2">"url"</span><span class="err">:</span> <span class="s2">"https://my.domain.com/callbacks/new-tx"</span>
+<span class="p">}</span>
+</code></pre>
+<pre class="highlight python"><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">requests</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">'https://api.blockcypher.com/v1/btc/main/hooks/50d1fb13-2bd4-47d0-8e1b-0695e0322581'</span><span class="p">)</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
 <span class="p">{</span><span class="s">'filter'</span><span class="p">:</span> <span class="s">'addr=15qx9ug952GWGTNn7Uiv6vode4RcGrRemh&amp;event=unconfirmed-tx'</span><span class="p">,</span>
@@ -3967,6 +4853,11 @@ curl -X DELETE -IsL https://api.blockcypher.com/v1/btc/main/hooks/399d0923-e920-
 
 HTTP/1.1 204 OK
 </code></pre>
+<pre class="highlight javascript"><code><span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span>
+  <span class="na">url</span><span class="p">:</span> <span class="s2">"https://api.blockcypher.com/v1/btc/main/hooks/399d0923-e920-48ee-8928-2051cbfbc369?token="</span><span class="o">+</span><span class="nx">TOKEN</span><span class="p">,</span>
+  <span class="na">method</span><span class="p">:</span> <span class="s2">"DELETE"</span>
+<span class="p">});</span>
+</code></pre>
 <pre class="highlight python"><code><span class="c"># Fund existing address with faucet</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">requests</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="s">'https://api.blockcypher.com/v1/btc/main/hooks/50d1fb13-2bd4-47d0-8e1b-0695e0322581'</span><span class="p">)</span>
@@ -4000,7 +4891,8 @@ HTTP/1.1 204 OK
       <div class="dark-box">
           <div class="lang-selector">
                 <a href="#" data-language-name="shell">cURL</a>
-                <a href="#" data-language-name="python">python</a>
+                <a href="#" data-language-name="javascript">JavaScript</a>
+                <a href="#" data-language-name="python">Python</a>
           </div>
       </div>
     </div>
