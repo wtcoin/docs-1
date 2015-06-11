@@ -55,7 +55,6 @@ $.get('https://api.blockcypher.com/v1/btc/main/addrs/1DEP8i3QJCsomS4BSMY2RpU1upv
  'unconfirmed_balance': 0,
  'address': '1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD',
  'unconfirmed_n_tx': 0}
->>>>>>> master
 ```
 
 The Address Balance Endpoint is the simplest---and fastest---method to get a subset of information on a public address.
