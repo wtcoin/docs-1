@@ -44,6 +44,24 @@ $ curl -H "Content-Type: application/json" -d '{ "from_private": "97838249d77bf.
 }
 ```
 
+```javascript
+var microtx = {
+  from_private: "97838249d77bfa65f97be02b63fd1b7bb6a58474c7c22784a0da63993d1c2f90",
+  to_address: "C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn",
+  value_satoshis: 10000,
+  token: TOKEN
+}
+var url = 'https://api.blockcypher.com/v1/bcy/test/txs/micro?token='+TOKEN;
+$.post(url, JSON.stringify(microtx))
+  .then(function(d) {console.log(d)});
+> {
+> "from_private": "97838249d77bfa65f97be02b63fd1b7bb6a58474c7c22784a0da63993d1c2f90",
+> "to_address": "C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn",
+> "value_satoshis": 10000,
+> "hash": "892fd7b36c1c3a2e5edb9b4a5d4ffd9ba74d78d3acf3b249991bd8d10a287dbd"
+> }
+```
+
 ### Via Private Keys
 
 The simplest way to send a Microtransaction is by using a private key. Within the request object you must include **from_private** (or the equivalent **from_wif**), **to_address**, **token**, and **value_satoshis**. You can read more descriptions about these fields within [MicroTX object description](#microtx), although they should be self-explanatory.
@@ -96,6 +114,50 @@ curl -H "Content-Type: application/json" -d '{ ..., "signatures": ["304502210090
   "fees": 735
 }
 ```
+
+```javascript
+// Using bitcoinjs built to expose bigi, buffer and require or directly:
+//   https://blockcypher.github.io/documentation/js/samples/bitcoinjs-min.js
+
+var bitcoin = require("bitcoinjs-lib");
+var bigi    = require("bigi");
+var buffer  = require('buffer');
+var key     = new bitcoin.ECKey(bigi.fromHex(my_hex_private_key), true);
+
+var microtx = {
+  from_pubkey: "02152e2bb5b273561ece7bbe...",
+  to_address: "C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn",
+  value_satoshis: 20000,
+  token: TOKEN
+}
+var url = 'https://api.blockcypher.com/v1/bcy/test/txs/micro?token='+TOKEN;
+
+$.post(url, JSON.stringify(microtx)).then(function(tmptx) {
+  // signing each of the hex-encoded string required to finalize the transaction
+  tmptx.signatures = tmptx.tosign.map(function(tosign) {
+    return key.sign(new buffer.Buffer(tosign, "hex")).toDER().toString("hex");
+  });
+  // sending back the transaction with all the signatures to broadcast
+  $.post(url, tmptx).then(function(finaltx) {
+    console.log(finaltx);
+  })
+});
+
+> {
+>   "from_pubkey": "02152e2bb5b273561ece7bbe8b1...",
+>   "to_address": "C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn",
+>   "value_satoshis": 20000,
+>   "hash": "ce8b3a2d5bb1f552c9d526559dd892b4ee...",
+>   "inputs": [
+> 	...
+>   ],
+>   "outputs": [
+> 	...
+>   ],
+>   "fees": 735
+> }
+```
+
 ### Via Public Keys and Client-side Signing
 
 If your security/application model allows it, we strongly recommend using public keys instead. Much like [creating normal transactions](#creating-transactions) the process requires two endpoint calls; the first is similar to the private key method, but with public keys. E.g., your required object must contain **from_pubkey** (instead of private keys), **to_address**, **token**, and **value_satoshis**.

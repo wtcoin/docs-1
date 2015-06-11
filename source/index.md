@@ -3,6 +3,7 @@ title: BlockCypher Reference
 
 language_tabs:
   - shell: cURL
+  - javascript: JavaScript
 
 toc_footers:
   - <a href='https://accounts.blockcypher.com/'>Register for a Free Token</a>
@@ -28,6 +29,13 @@ includes:
 #                    /  |             
 ```
 
+```javascript
+//  _               _                  
+// |_) |  _   _ |  /     ._  |_   _  ._
+// |_) | (_) (_ |< \_ \/ |_) | | (/_ | 
+//                    /  |             
+```
+
 Welcome to [BlockCypher's](http://www.blockcypher.com/) API documentation! BlockCypher is a simple, mostly RESTful JSON API for interacting with blockchains, accessed over HTTP or HTTPS from the [api.blockcypher.com](https://api.blockcypher.com/v1/btc/main) domain. Currently, BlockCypher supports Bitcoin, Bitcoin Testnet3, Litecoin, Dogecoin, Urocoin, and BlockCypher's Test Chain (more about BlockCypher's Test Chain [below](#testing)).
 
 BlockCypher's API provides a superset of the endpoints you'd find in reference implementations, in addition to some special features that make BlockCypher uniquely powerful, like our unconfirmed transaction [Confidence Factor](#confidence-factor), dependable WebHook or WebSockets-based [Events](#events-and-hooks), [On-Chain Microtransactions](#microtransaction-api), and [Payment Forwarding](#payment-forwarding).
@@ -41,6 +49,16 @@ $ man curl | grep -A 3 "DESCRIPTION"
 
 DESCRIPTION
 curl is a tool to transfer data from or to a server, using one of the supported protocols (DICT, FILE, FTP, FTPS, GOPHER, HTTP, HTTPS, IMAP, IMAPS, LDAP, LDAPS, POP3, POP3S, RTMP, RTSP, SCP, SFTP, SMB, SMBS, SMTP, SMTPS, TELNET and TFTP). The command is designed to work without user interaction.
+```
+
+```javascript
+// JavaScript examples use JQUery and can be run directly in your browser
+// console (ctrl+shift+i or cmd+shift+i).
+// Porting them to node.js should be trivial, replacing JQuery methods with
+// request.js for example.
+
+console.log('Welcome to BlockCypher');
+> Welcome to BlockCypher
 ```
 
 In these docs you'll find everything you need to leverage BlockCypher for your applications. For all officially supported languages, you'll see code samples, in addition to basic cURL requests/responses for every endpoint. You can switch between cURL/language samples via the selector in the upper right. We're working on supporting more languages, but if you're working on your own language library, definitely let us know: we'd love to add more community supported libraries here.
@@ -106,6 +124,24 @@ $ curl https://api.blockcypher.com/v1/btc/main
 }
 ```
 
+```javascript
+$.get('https://api.blockcypher.com/v1/btc/main').then(function(d) {console.log(d)});
+> {
+>   "name": "BTC.main",
+>   "height": 355578,
+>   "hash": "00000000000000000a0b253f20709b0c77d8a56aa8db632ecbdc7381816504cd",
+>   "time": "2015-05-08T23:12:55.243311146Z",
+>   "latest_url": "https://api.blockcypher.com/v1/btc/main/blocks/00000000000000000a0b253f20709b0c77d8a56aa8db632ecbdc7381816504cd",
+>   "previous_hash": "00000000000000000acef50ef89494493b4a08a8419588e1e3e20cd73bc85a6b",
+>   "previous_url": "https://api.blockcypher.com/v1/btc/main/blocks/00000000000000000acef50ef89494493b4a08a8419588e1e3e20cd73bc85a6b",
+>   "peer_count": 250,
+>   "unconfirmed_count": 637,
+>   "high_fee_per_kb": 45768,
+>   "medium_fee_per_kb": 29415,
+>   "low_fee_per_kb": 12045
+> }
+```
+
 Almost all resources exist under a given blockchain, and follow this pattern:
 
 `https://api.blockcypher.com/$API_VERSION/$COIN/$CHAIN/`
@@ -147,6 +183,12 @@ Please [register for a user token](http://acccounts.blockcypher.com/) if your us
 $ curl https://api.blockcypher.com/v1/btc/main?token=$YOUR_TOKEN
 ```
 
+```javascript
+// Adding your token as URL parameter
+const TOKEN = 'YOUR_TOKEN';
+$.get('https://api.blockcypher.com/v1/btc/main?token='+TOKEN);
+```
+
 Once you have your token, you can append it to all your requests like any other URL parameter if you're using cURL, or through the appropriate method in the language SDK you're using.
 
 ## Batching
@@ -185,6 +227,43 @@ $ curl https://api.blockcypher.com/v1/btc/main/blocks/5;6;7
 "time": "2009-01-09T03:39:29Z",
 ...,
 }]
+```
+
+```javascript
+// Batching blocks 5, 6, and 7
+
+$.get('https://api.blockcypher.com/v1/btc/main/blocks/5;6;7')
+  .then(function(d) {console.log(d);});
+> [{
+> "hash": "000000003031a0e73735690c5a1ff2a4be82553b2a12b776fbd3a215dc8f778d",
+> "height": 6,
+> "chain": "BTC.main",
+> "total": 0,
+> "fees": 0,
+> "ver": 1,
+> "time": "2009-01-09T03:29:49Z",
+> ...,
+> },
+> {
+> "hash": "000000009b7262315dbf071787ad3656097b892abffd1f95a1a022f896f533fc",
+> "height": 5,
+> "chain": "BTC.main",
+> "total": 0,
+> "fees": 0,
+> "ver": 1,
+> "time": "2009-01-09T03:23:48Z",
+> ...,
+> },
+> {
+> "hash": "0000000071966c2b1d065fd446b1e485b2c9d9594acd2007ccbd5441cfc89444",
+> "height": 7,
+> "chain": "BTC.main",
+> "total": 0,
+> "fees": 0,
+> "ver": 1,
+> "time": "2009-01-09T03:39:29Z",
+> ...,
+> }]
 ```
 
 All endpoints that can retrieve a single [Object](#objects) can be batched to return multiple objects. If you're cURLing the API directly, batching simply requires appending each identifier to the previous one using a semicolon (check the code pane for an example). The results are aggregated in a JSON array and may not be ordered, especially for bigger batches. But this shouldn't matter, as the requested identifiers are always present in the returned objects. The other supported client SDKs batch differently, but each idiomatic to their respective language (check the code pane examples in each library).
@@ -238,6 +317,25 @@ $ curl -d '{"address": "CFqoZmZ3ePwK5wnkhxJjJAQKJ82C7RJdmd", "amount": 100000}' 
 {
 "tx_ref": "02dbf5585d438a1cba82a9041dd815635a6b0df684225cb5271e11397a759479"
 }
+```
+
+```javascript
+// Make new address; returns private key/public key/address
+$.post('http://api.blockcypher.com/v1/bcy/test/addrs?token=$YOUR_TOKEN')
+  .then(function(d) {console.log(d)});
+> {
+> "private": "26415016a2fb49f51aef161cb35bd537be07b75a6ac1e297d3b7a370cc85433b",
+> "public": "02c572d062fefcc8c3e1bf5016450addcedb89cd7e4507d8a323f327b4ad1018e0",
+> "address": "CFqoZmZ3ePwK5wnkhxJjJAQKJ82C7RJdmd"
+> }
+
+// Fund prior address with faucet
+var req = JSON.stringify({"address": "CFqoZmZ3ePwK5wnkhxJjJAQKJ82C7RJdmd", "amount": 100000})
+$.post('http://api.blockcypher.com/v1/bcy/test/faucet?token=$YOUR_TOKEN', req)
+  .then(function(d) {console.log(d)});
+> {
+>   "tx_ref": "02dbf5585d438a1cba82a9041dd815635a6b0df684225cb5271e11397a759479"
+> }
 ```
 
 This example shows how to leverage the faucet to programmatically fund addresses, to test your applications. While the example used BlockCypher's Test Chain, the same example could have used Bitcoin Testnet3 and worked the exact same way.

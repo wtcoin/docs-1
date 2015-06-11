@@ -26,6 +26,22 @@ $ curl http://api.blockcypher.com/v1/btc/main/addrs/1DEP8i3QJCsomS4BSMY2RpU1upv6
 }
 ```
 
+```javascript
+$.get('https://api.blockcypher.com/v1/btc/main/addrs/1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD/balance')
+  .then(function(d) {console.log(d)});
+> {
+>   "address": "1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD",
+>   "total_received": 4433416,
+>   "total_sent": 0,
+>   "balance": 4433416,
+>   "unconfirmed_balance": 0,
+>   "final_balance": 4433416,
+>   "n_tx": 7,
+>   "unconfirmed_n_tx": 0,
+>   "final_n_tx": 7
+> }
+```
+
 The Address Balance Endpoint is the simplest---and fastest---method to get a subset of information on a public address.
 
 Resource | Method | Return Object
@@ -80,6 +96,48 @@ $ curl http://api.blockcypher.com/v1/btc/main/addrs/1DEP8i3QJCsomS4BSMY2RpU1upv6
 ],
 "tx_url": "https://api.blockcypher.com/v1/btc/main/txs/"
 }
+```
+
+```javascript
+$.get('https://api.blockcypher.com/v1/btc/main/addrs/1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD')
+  .then(function(d) {console.log(d)});
+> {
+> "address": "1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD",
+> "total_received": 4433416,
+> "total_sent": 0,
+> "balance": 4433416,
+> "unconfirmed_balance": 0,
+> "final_balance": 4433416,
+> "n_tx": 7,
+> "unconfirmed_n_tx": 0,
+> "final_n_tx": 7,
+> "txrefs": [
+> 	{
+> 	"tx_hash": "14b1052855bbf6561bc4db8aa501762...",
+> 	"block_height": 302013,
+> 	"tx_input_n": -1,
+> 	"tx_output_n": 0,
+> 	"value": 20213,
+> 	"spent": false,
+> 	"confirmations": 55061,
+> 	"confirmed": "2014-05-22T03:46:25Z",
+> 	"double_spend": false
+> 	},
+> 	{
+> 	"tx_hash": "4cff011ec53022f2ae47197d1a2fd4a6...",
+> 	"block_height": 302002,
+> 	"tx_input_n": -1,
+> 	"tx_output_n": 0,
+> 	"value": 40596,
+> 	"spent": false,
+> 	"confirmations": 55072,
+> 	"confirmed": "2014-05-22T02:56:08Z",
+> 	"double_spend": false
+> 	},
+> ...
+> ],
+> "tx_url": "https://api.blockcypher.com/v1/btc/main/txs/"
+> }
 ```
 
 The default Address Endpoint strikes a balance between speed of response and data on Addresses. It returns more information about an address' transactions than the [Address Balance Endpoint](#address-balance-endpoint) but doesn't return full transaction information (like the [Address Full Endpoint](#address-full-endpoint)).
@@ -178,6 +236,83 @@ $ curl http://api.blockcypher.com/v1/btc/main/addrs/1DEP8i3QJCsomS4BSMY2RpU1upv6
 }
 ```
 
+```javascript
+$.get('https://api.blockcypher.com/v1/btc/main/addrs/1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD/full?before=300000')
+  .then(function(d) {console.log(d)});
+> {
+> "address": "1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD",
+> "total_received": 4433416,
+> "total_sent": 0,
+> "balance": 4433416,
+> "unconfirmed_balance": 0,
+> "final_balance": 4433416,
+> "n_tx": 7,
+> "unconfirmed_n_tx": 0,
+> "final_n_tx": 7,
+> "txs": [
+> 	{
+> 	"block_hash": "0000000000000000af64802c79...",
+> 	"block_height": 292586,
+> 	"hash": "b4735a0690dab16b8789fceaf81c511f...",
+> 	"addresses": [
+> 		"18KXZzuC3xvz6upUMQpsZzXrBwNPWZjdSa",
+> 		"1AAuRETEcHDqL4VM3R97aZHP8DSUHxpkFV",
+> 		"1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD",
+> 		"1VxsEDjo6ZLMT99dpcLu4RQonMDVEQQTG"
+> 	],
+> 	"total": 3537488,
+> 	"fees": 20000,
+> 	"size": 438,
+> 	"preference": "medium",
+> 	"relayed_by": "",
+> 	"confirmed": "2014-03-26T17:08:04Z",
+> 	"received": "2014-03-26T17:08:04Z",
+> 	"ver": 1,
+> 	"lock_time": 0,
+> 	"double_spend": false,
+> 	"vin_sz": 2,
+> 	"vout_sz": 2,
+> 	"confirmations": 64492,
+> 	"confidence": 1,
+> 	"inputs": [
+> 		{
+> 		"prev_hash": "729f6469b59fea5da7...",
+> 		"output_index": 0,
+> 		"script": "483045022100d06cdad1a...",
+> 		"output_value": 3500000,
+> 		"sequence": 4294967295,
+> 		"addresses": [
+> 			"1VxsEDjo6ZLMT99dpcLu4RQonMDVEQQTG"
+> 		],
+> 		"script_type": "pay-to-pubkey-hash"
+> 		},
+> 		...
+> 	],
+> 	"outputs": [
+> 		{
+> 		"value": 3500000,
+> 		"script": "76a9148629647bd642a237...",
+> 		"addresses": [
+> 			"1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD"
+> 		],
+> 		"script_type": "pay-to-pubkey-hash"
+> 		},
+> 		{
+> 		"value": 37488,
+> 		"script": "76a9145049e2ad94ed9c68...",
+> 		"spent_by": "3ebe4bb294beaed58aca83...",
+> 		"addresses": [
+> 			"18KXZzuC3xvz6upUMQpsZzXrBwNPWZjdSa"
+> 		],
+> 		"script_type": "pay-to-pubkey-hash"
+> 		}
+> 	]
+> 	},
+> 	...,
+> ]
+> }
+```
+
 The Address Full Endpoint returns all information available about a particular address, including an array of complete [transactions](#tx) instead of just transaction inputs and outputs. Unfortunately, because of the amount of data returned, it is the slowest of the address endpoints, but it returns the most detailed data record.
 
 Resource | Method | Return Object
@@ -209,6 +344,17 @@ $ curl -X POST http://api.blockcypher.com/v1/btc/test3/addrs
 "address": "mvpW7fMSi1nbZhJJDySNS2PUau8ppnu4kY",
 "wif": "cRwGhRjCuuNtPgLcoYd1CuAqjFXCV5YNCQ1LB8RsFCvu61VfSsgR"
 }
+```
+
+```javascript
+$.post('https://api.blockcypher.com/v1/btc/test3/addrs')
+  .then(function(d) {console.log(d)});
+> {
+> "private": "81ee75559d37cbe4b7cbbfb9931ab1ba32172c5cdfc3ac2d020259b4c1104198",
+> "public": "0231ff9ec76820cb36b69061f6ffb125db3793b4aced468a1261b0680e1ef4883a",
+> "address": "mvpW7fMSi1nbZhJJDySNS2PUau8ppnu4kY",
+> "wif": "cRwGhRjCuuNtPgLcoYd1CuAqjFXCV5YNCQ1LB8RsFCvu61VfSsgR"
+> }
 ```
 
 The Generate Address endpoint allows you to generate private-public key-pairs along with an associated public address. No information is required with this POST request.
@@ -245,6 +391,32 @@ $ curl -d '{"pubkeys": ["02c716d071a76cbf0d29c29cacfec76e0ef8116b37389fb7a3e76d6
 "script_type": "multisig-2-of-3"
 }
 ```
+
+```javascript
+var data = {
+  "pubkeys": [
+    "02c716d071a76cbf0d29c29cacfec76e0ef8116b37389fb7a3e76d6d32cf59f4d3",
+    "033ef4d5165637d99b673bcdbb7ead359cee6afd7aaf78d3da9d2392ee4102c8ea",
+    "022b8934cc41e76cb4286b9f3ed57e2d27798395b04dd23711981a77dc216df8ca"
+  ],
+  "script_type": "multisig-2-of-3"
+};
+$.post('https://api.blockcypher.com/v1/btc/test3/addrs', data)
+  .then(function(d) {console.log(d)});
+> {
+> "private": "",
+> "public": "",
+> "address": "3BF1M1PnTge94QewuWh3B8mRVw8U4SVnb4",
+> "wif": "",
+> "pubkeys": [
+> 	"02c716d071a76cbf0d29c29cacfec76e0ef8116b37389fb7a3e76d6d32cf59f4d3",
+> 	"033ef4d5165637d99b673bcdbb7ead359cee6afd7aaf78d3da9d2392ee4102c8ea",
+> 	"022b8934cc41e76cb4286b9f3ed57e2d27798395b04dd23711981a77dc216df8ca"
+> ],
+> "script_type": "multisig-2-of-3"
+> }
+```
+
 The Generate Multisig Address Endpoint is a convenience method to help you generate multisig addresses from multiple public keys. After supplying a partially filled-out [AddressKeychain](#addresskeychain) object (including only an array of hex-encoded public keys and the script type), the returned object includes the computed public address.
 
 <aside class="notice">
@@ -288,6 +460,17 @@ $ curl -d '{"name": "alice","addresses": ["1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e"]}
 ]}
 ```
 
+```javascript
+var data = {"name": "alice","addresses": ["1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e"]};
+$.post('https://api.blockcypher.com/v1/btc/main/wallets?token=USERTOKEN', data)
+  .then(function(d) {console.log(d)});
+> {"token": "USERTOKEN",
+> "name": "alice",
+> "addresses": [
+> 	"1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e"
+> ]}
+```
+
 Resource | Method | Request Object | Return Object
 -------- | ------ | -------------- | -------------
 /wallets | POST | [Wallet](#wallet) | [Wallet](#wallet)
@@ -313,6 +496,19 @@ $ curl -d '{"addresses": ["13cj1QtfW61kQHoqXm3khVRYPJrgQiRM6j"]}' https://api.bl
 ]}
 ```
 
+```javascript
+var data = {"addresses": ["13cj1QtfW61kQHoqXm3khVRYPJrgQiRM6j"]};
+$.post('https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses?token=USERTOKEN', data)
+  .then(function(d) {console.log(d)});
+> {
+>   "token": "USERTOKEN",
+>   "name": "alice",
+>   "addresses": [
+>   	"1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e",
+>   	"13cj1QtfW61kQHoqXm3khVRYPJrgQiRM6j"
+> ]}
+```
+
 Resource | Method | Request Object | Return Object
 -------- | ------ | -------------- | -------------
 /wallets/$NAME/addresses | POST | [Wallet](#wallet) | [Wallet](#wallet)
@@ -334,6 +530,16 @@ $ curl https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses?token=USE
 ]}
 ```
 
+```javascript
+$.get('https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses?token=USERTOKEN')
+  .then(function(d) {console.log(d)});
+> {
+> "addresses": [
+> 	"13cj1QtfW61kQHoqXm3khVRYPJrgQiRM6j",
+> 	"1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e"
+> ]}
+```
+
 Resource | Method | Return Object
 -------- | ------ | -------------
 /wallets/$NAME/addresses | GET | [Wallet](#wallet)
@@ -353,6 +559,14 @@ $ curl -X DELETE -d '{"addresses": ["1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e"]}' http
 	"13cj1QtfW61kQHoqXm3khVRYPJrgQiRM6j"
 ]}
 ```
+
+```javascript
+$.ajax({
+  url: "https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses/1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e?token=USERTOKEN",
+  method: "DELETE"
+})
+```
+
 Resource | Method | Request Object | Return Object
 -------- | ------ | -------------- | -------------
 /wallets/$NAME/addresses | DELETE | [Wallet](#wallet) | [Wallet](#wallet)
@@ -378,6 +592,23 @@ $ curl -X POST https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses/g
 "wif": "KzWeDL7sysRay7pZUm6hQQLaDVjmN1jUZzeZuq6ru5FtN1RhPrLX"}
 ```
 
+```javascript
+$.post('https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses/generate?token=USERTOKEN')
+  .then(function(d) {console.log(d)});
+> {
+>   "token": "USERTOKEN",
+>   "name": "alice",
+>   "addresses": [
+>   	"13cj1QtfW61kQHoqXm3khVRYPJrgQiRM6j",
+>   	"14LcPtRSGjYb1s8kfxsVDbXvA7VYCmoFho"
+>   ],
+>   "private": "6238efeb679d75ec3b1a43e76cc0ed33abdf56e30bb5bb95e4793134a7958609",
+>   "public": "03e4f273521a30373a639f60da836f2308a5d53853ec18f903dd235c73e6e26e4a",
+>   "address": "14LcPtRSGjYb1s8kfxsVDbXvA7VYCmoFho",
+>   "wif": "KzWeDL7sysRay7pZUm6hQQLaDVjmN1jUZzeZuq6ru5FtN1RhPrLX"
+> }
+```
+
 Resource | Method | Request Object | Return Object
 -------- | ------ | -------------- | -------------
 /wallets/$NAME/addresses/generate | POST | *nil* | [Wallet](#Wallet) + [AddressKeychain](#AddressKeychain)
@@ -395,6 +626,13 @@ This endpoint allows you to generate a new address associated with the $NAME wal
 ```shell
 $ curl -X DELETE -d '{"name":"alice"}' https://api.blockcypher.com/v1/btc/main/wallets/alice?token=USERTOKEN
 
+```
+
+```javascript
+$.ajax({
+  url: "https://api.blockcypher.com/v1/btc/main/wallets/alice?token=USERTOKEN",
+  method: "DELETE"
+});
 ```
 
 Resource | Method | Request Object | Return Object

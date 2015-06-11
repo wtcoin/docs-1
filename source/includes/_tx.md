@@ -68,6 +68,61 @@ $ curl https://api.blockcypher.com/v1/btc/main/txs/f854aebae95150b379cc1187d848d
 }
 ```
 
+```javascript
+$.get('https://api.blockcypher.com/v1/btc/main/txs/f854aebae95150b379cc1187d848d58225f3c4157fe992bcd166f58bd5063449').then(function(d) {console.log(d)});
+> {
+> "block_hash": "0000000000000000c504bdea36e5...",
+> "block_height": 293000,
+> "hash": "f854aebae95150b379cc1187d848d58225f...",
+> "addresses": [
+> 	"13XXaBufpMvqRqLkyDty1AXqueZHVe6iyy",
+> 	"19YtzZdcfs1V2ZCgyRWo8i2wLT8ND1Tu4L",
+> 	"1BNiazBzCxJacAKo2yL83Wq1VJ18AYzNHy",
+> 	"1GbMfYui17L5m6sAy3L3WXAtf1P32bxJXq",
+> 	"1N2f642sbgCMbNtXFajz9XDACDFnFzdXzV"
+> ],
+> "total": 70320221545,
+> "fees": 0,
+> "size": 636,
+> "preference": "low",
+> "relayed_by": "",
+> "confirmed": "2014-03-29T01:29:19Z",
+> "received": "2014-03-29T01:29:19Z",
+> "ver": 1,
+> "lock_time": 0,
+> "double_spend": false,
+> "vin_sz": 4,
+> "vout_sz": 1,
+> "confirmations": 64373,
+> "confidence": 1,
+> "inputs": [
+> 	{
+> 	"prev_hash": "583910b7bf90ab802e22e5c25a89b59...",
+> 	"output_index": 1,
+> 	"script": "4830450220504b1ccfddf508422bdd8b0f...",
+> 	"output_value": 16450000,
+> 	"sequence": 4294967295,
+> 	"addresses": [
+> 		"1GbMfYui17L5m6sAy3L3WXAtf1P32bxJXq"
+> 	],
+> 	"script_type": "pay-to-pubkey-hash"
+> 	},
+> 	...
+> ],
+> "outputs": [
+> 	{
+> 	"value": 70320221545,
+> 	"script": "76a914e6aad9d712c419ea8febf009a3f3...",
+> 	"spent_by": "35832d6c70b98b54e9a53ab2d51176eb...",
+> 	"addresses": [
+> 		"1N2f642sbgCMbNtXFajz9XDACDFnFzdXzV"
+> 	],
+> 	"script_type": "pay-to-pubkey-hash"
+> 	}
+> ]
+> }
+```
+
 The Transaction Hash Endpoint returns detailed information about a given transaction based on its hash.
 
 
@@ -119,6 +174,43 @@ $ curl http://api.blockcypher.com/v1/btc/main/txs
 	},
 ...
 ]
+```
+
+```javascript
+$.get('https://api.blockcypher.com/v1/btc/main/txs').then(function(d) {console.log(d)});
+> [
+> 	{
+> 	"block_height": -1,
+> 	"hash": "7f3af38d988e479f651520b13b85...",
+> 	"addresses": [
+> 		"19ZZonTmBD3VBhgFSWrtNis6Wo4aNRyjAV",
+> 		"1GD2Gnt3Vk51FpUhZWrFpSa24KE2ZGPaWG",
+> 		"1HEJiW8jxvUvVQ5cuButRmFj6ZzKzM9Fp6"
+> 	],
+> 	"total": 46977000,
+> 	"fees": 10000,
+> 	"size": 225,
+> 	"preference": "medium",
+> 	"relayed_by": "54.209.56.58:8333",
+> 	...
+> 	},
+> 	{
+> 	"block_height": -1,
+> 	"hash": "7e2d8b4e95c8246e81f297539409...",
+> 	"addresses": [
+> 		"12u8EFJR6QJpNYbuQcYt2iMsAtPdnCFwQb",
+> 		"1MUbYoqSadRSEipwcmKnH37NaKakDCmgwW"
+> 	],
+> 	"total": 1070000,
+> 	"fees": 10000,
+> 	"size": 225,
+> 	"preference": "medium",
+> 	"relayed_by": "52.1.229.213:8333",
+> 	"received": "2015-05-21T05:44:13.878Z",
+> 	...
+> 	},
+> ...
+> ]
 ```
 
 The Unconfirmed Transactions Endpoint returns an array of the latest transactions relayed by nodes in a blockchain that haven't been included in any blocks.
@@ -208,6 +300,72 @@ $ curl -d '{"inputs":[{"addresses": ["CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"]}],"ou
     "32b5ea64c253b6b466366647458cfd60de9cd29d7dc542293aa0b8b7300cd827"
   ]
 }
+```
+
+```javascript
+var newtx = {
+  inputs: [{addresses: ['CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9']}],
+  outputs: [{addresses: ['C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn'], value: 100000}]
+};
+$.post('https://api.blockcypher.com/v1/bcy/test/txs/new', JSON.stringify(newtx))
+  .then(function(d) {console.log(d)});
+> {
+>   "tx": {
+>     "block_height": -1,
+>     "hash": "c2b350b273b3bf04791d8e59fc9c021fd91fa423c50c29473dc079150f5a778a",
+>     "addresses": [
+>       "CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9",
+>       "C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn"
+>     ],
+>     "total": 4988000,
+>     "fees": 12000,
+>     "size": 119,
+>     "preference": "high",
+>     "relayed_by": "208.71.159.84",
+>     "received": "2015-05-21T19:04:14.492743867Z",
+>     "ver": 1,
+>     "lock_time": 0,
+>     "double_spend": false,
+>     "vin_sz": 1,
+>     "vout_sz": 2,
+>     "confirmations": 0,
+>     "inputs": [
+>       {
+>         "prev_hash": "c8ea8b221580ebb2f1cabc8b40797bffec742b97c82a329df96d93121db43519",
+>         "output_index": 0,
+>         "script": "",
+>         "output_value": 5000000,
+>         "sequence": 4294967295,
+>         "addresses": [
+>           "CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"
+>         ],
+>         "script_type": "",
+>         "age": 4
+>       }
+>     ],
+>     "outputs": [
+>       {
+>         "value": 1000000,
+>         "script": "76a9145fb1af31edd2aa5a2bbaa24f6043d6ec31f7e63288ac",
+>         "addresses": [
+>           "C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn"
+>         ],
+>         "script_type": "pay-to-pubkey-hash"
+>       },
+>       {
+>         "value": 3988000,
+>         "script": "76a914efec6de6c253e657a9d5506a78ee48d89762fb3188ac",
+>         "addresses": [
+>           "CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"
+>         ],
+>         "script_type": "pay-to-pubkey-hash"
+>       }
+>     ]
+>   },
+>   "tosign": [
+>     "32b5ea64c253b6b466366647458cfd60de9cd29d7dc542293aa0b8b7300cd827"
+>   ]
+> }
 ```
 
 To use BlockCypher's two-endpoint transaction creation tool, first you need to provide the input address(es), output address, and value to transfer (in satoshis). This is provided in the form of a partially-filled out [TX](#tx) request object.
@@ -317,6 +475,82 @@ $ curl -d '{"tx": {...}, "tosign": [ "32b5ea64c253b6b466366647458cfd60de9cd29d7d
 }
 ```
 
+```javascript
+// the request body is truncated because it's huge, but it's the same as the returned
+// object from above plus the signatures and public keys
+var sendtx = {
+  tx: {...},
+  tosign: [
+    "32b5ea64c253b6b466366647458cfd60de9cd29d7dc542293aa0b8b7300cd827"
+  ],
+  signatures: [
+    "3045022100921fc36b911094280f07d8504a80fbab9b823a25f102e2bc69b14bcd369dfc7902200d07067d47f040e724b556e5bc3061af132d5a47bd96e901429d53c41e0f8cca"
+  ],
+  pubkeys: [
+    "02152e2bb5b273561ece7bbe8b1df51a4c44f5ab0bc940c105045e2cc77e618044"
+  ]
+};
+$.post('https://api.blockcypher.com/v1/bcy/test/txs/send', JSON.stringify(sendtx))
+  .then(function(d) {console.log(d)});
+> {
+>   "tx": {
+>     "block_height": -1,
+>     "hash": "4e6dfb1415b4fba5bd257c129847c70fbd4e45e41828079c4a282680528f3a50",
+>     "addresses": [
+>       "CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9",
+>       "C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn"
+>     ],
+>     "total": 4988000,
+>     "fees": 12000,
+>     "size": 226,
+>     "preference": "high",
+>     "relayed_by": "73.162.198.68",
+>     "received": "2015-05-22T04:38:57.470017042Z",
+>     "ver": 1,
+>     "lock_time": 0,
+>     "double_spend": false,
+>     "vin_sz": 1,
+>     "vout_sz": 2,
+>     "confirmations": 0,
+>     "inputs": [
+>       {
+>         "prev_hash": "c8ea8b221580ebb2f1cabc8b40797bffec742b97c82a329df96d93121db43519",
+>         "output_index": 0,
+>         "script": "483045022100921fc36b911094280f07d8504a80fbab9b823a25f102e2bc69b14bcd369dfc7902200d07067d47f040e724b556e5bc3061af132d5a47bd96e901429d53c41e0f8cca012102152e2bb5b273561ece7bbe8b1df51a4c44f5ab0bc940c105045e2cc77e618044",
+>         "output_value": 5000000,
+>         "sequence": 4294967295,
+>         "addresses": [
+>           "CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"
+>         ],
+>         "script_type": "pay-to-pubkey-hash",
+>         "age": 546
+>       }
+>     ],
+>     "outputs": [
+>       {
+>         "value": 1000000,
+>         "script": "76a9145fb1af31edd2aa5a2bbaa24f6043d6ec31f7e63288ac",
+>         "addresses": [
+>           "C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn"
+>         ],
+>         "script_type": "pay-to-pubkey-hash"
+>       },
+>       {
+>         "value": 3988000,
+>         "script": "76a914efec6de6c253e657a9d5506a78ee48d89762fb3188ac",
+>         "addresses": [
+>           "CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"
+>         ],
+>         "script_type": "pay-to-pubkey-hash"
+>       }
+>     ]
+>   },
+>   "tosign": [
+>     ""
+>   ]
+> }
+```
+
 ### Send Transaction Endpoint
 
 With your [TXSkeleton](#txskeleton) returned from the New Transaction Endpoint, you now need to use your private key(s) to locally sign the data provided in the **tosign** array, and put that (hex-encoded) data into the **signatures** array of the [TXSkeleton](#txskeleton). You also need to include the corresponding (hex-encoded) public key(s) in the **pubkeys** array, in the order of the addresses/inputs provided. Signature and public key order matters, so make sure they are returned in the same order as the inputs you provided.
@@ -406,6 +640,66 @@ $ curl -d '{"tx":"01000000011935b41d12936df99d322ac8972b74ecff7b79408bbccaf1b2eb
 }
 ```
 
+```javascript
+var pushtx = {
+  tx: "01000000011935b41d12936df99d322ac8972b74ecff7b79408bbccaf1b2eb8015228beac8000000006b483045022100921fc36b911094280f07d8504a80fbab9b823a25f102e2bc69b14bcd369dfc7902200d07067d47f040e724b556e5bc3061af132d5a47bd96e901429d53c41e0f8cca012102152e2bb5b273561ece7bbe8b1df51a4c44f5ab0bc940c105045e2cc77e618044ffffffff0240420f00000000001976a9145fb1af31edd2aa5a2bbaa24f6043d6ec31f7e63288ac20da3c00000000001976a914efec6de6c253e657a9d5506a78ee48d89762fb3188ac00000000"
+};
+$.post('https://api.blockcypher.com/v1/bcy/test/txs/send', JSON.stringify(pushtx))
+  .then(function(d) {console.log(d)});
+> {
+>   "block_height": -1,
+>   "hash": "4e6dfb1415b4fba5bd257c129847c70fbd4e45e41828079c4a282680528f3a50",
+>   "addresses": [
+>     "CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9",
+>     "C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn"
+>   ],
+>   "total": 4988000,
+>   "fees": 12000,
+>   "size": 226,
+>   "preference": "high",
+>   "relayed_by": "73.162.198.68",
+>   "received": "2015-05-22T05:10:00.305308666Z",
+>   "ver": 1,
+>   "lock_time": 0,
+>   "double_spend": false,
+>   "vin_sz": 1,
+>   "vout_sz": 2,
+>   "confirmations": 0,
+>   "inputs": [
+>     {
+>       "prev_hash": "c8ea8b221580ebb2f1cabc8b40797bffec742b97c82a329df96d93121db43519",
+>       "output_index": 0,
+>       "script": "483045022100921fc36b911094280f07d8504a80fbab9b823a25f102e2bc69b14bcd369dfc7902200d07067d47f040e724b556e5bc3061af132d5a47bd96e901429d53c41e0f8cca012102152e2bb5b273561ece7bbe8b1df51a4c44f5ab0bc940c105045e2cc77e618044",
+>       "output_value": 5000000,
+>       "sequence": 4294967295,
+>       "addresses": [
+>         "CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"
+>       ],
+>       "script_type": "pay-to-pubkey-hash",
+>       "age": 576
+>     }
+>   ],
+>   "outputs": [
+>     {
+>       "value": 1000000,
+>       "script": "76a9145fb1af31edd2aa5a2bbaa24f6043d6ec31f7e63288ac",
+>       "addresses": [
+>         "C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn"
+>       ],
+>       "script_type": "pay-to-pubkey-hash"
+>     },
+>     {
+>       "value": 3988000,
+>       "script": "76a914efec6de6c253e657a9d5506a78ee48d89762fb3188ac",
+>       "addresses": [
+>         "CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"
+>       ],
+>       "script_type": "pay-to-pubkey-hash"
+>     }
+>   ]
+> }
+```
+
 If you'd prefer to use your own transaction library instead of the recommended path of our two-endpoint [transaction generation](#creating-transactions) we're still happy to help you propagate your raw transactions. Simply send your raw hex-encoded transaction to this endpoint and we'll leverage our huge network of nodes to propagate your transaction faster than anywhere else.
 
 Resource | Method | Request Object | Return Object
@@ -477,6 +771,66 @@ $ curl -d '{"tx":"01000000011935b41d12936df99d322ac8972b74ecff7b79408bbccaf1b2eb
 }
 ```
 
+```javascript
+var decodetx = {
+  tx: "01000000011935b41d12936df99d322ac8972b74ecff7b79408bbccaf1b2eb8015228beac8000000006b483045022100921fc36b911094280f07d8504a80fbab9b823a25f102e2bc69b14bcd369dfc7902200d07067d47f040e724b556e5bc3061af132d5a47bd96e901429d53c41e0f8cca012102152e2bb5b273561ece7bbe8b1df51a4c44f5ab0bc940c105045e2cc77e618044ffffffff0240420f00000000001976a9145fb1af31edd2aa5a2bbaa24f6043d6ec31f7e63288ac20da3c00000000001976a914efec6de6c253e657a9d5506a78ee48d89762fb3188ac00000000"
+};
+$.post('https://api.blockcypher.com/v1/bcy/test/txs/decode', JSON.stringify(decodetx))
+  .then(function(d) {console.log(d)});
+> {
+>   "block_height": -1,
+>   "hash": "4e6dfb1415b4fba5bd257c129847c70fbd4e45e41828079c4a282680528f3a50",
+>   "addresses": [
+>     "CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9",
+>     "C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn"
+>   ],
+>   "total": 4988000,
+>   "fees": 12000,
+>   "size": 226,
+>   "preference": "high",
+>   "relayed_by": "73.162.198.68",
+>   "received": "2015-05-22T05:10:00.305308666Z",
+>   "ver": 1,
+>   "lock_time": 0,
+>   "double_spend": false,
+>   "vin_sz": 1,
+>   "vout_sz": 2,
+>   "confirmations": 0,
+>   "inputs": [
+>     {
+>       "prev_hash": "c8ea8b221580ebb2f1cabc8b40797bffec742b97c82a329df96d93121db43519",
+>       "output_index": 0,
+>       "script": "483045022100921fc36b911094280f07d8504a80fbab9b823a25f102e2bc69b14bcd369dfc7902200d07067d47f040e724b556e5bc3061af132d5a47bd96e901429d53c41e0f8cca012102152e2bb5b273561ece7bbe8b1df51a4c44f5ab0bc940c105045e2cc77e618044",
+>       "output_value": 5000000,
+>       "sequence": 4294967295,
+>       "addresses": [
+>         "CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"
+>       ],
+>       "script_type": "pay-to-pubkey-hash",
+>       "age": 576
+>     }
+>   ],
+>   "outputs": [
+>     {
+>       "value": 1000000,
+>       "script": "76a9145fb1af31edd2aa5a2bbaa24f6043d6ec31f7e63288ac",
+>       "addresses": [
+>         "C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn"
+>       ],
+>       "script_type": "pay-to-pubkey-hash"
+>     },
+>     {
+>       "value": 3988000,
+>       "script": "76a914efec6de6c253e657a9d5506a78ee48d89762fb3188ac",
+>       "addresses": [
+>         "CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"
+>       ],
+>       "script_type": "pay-to-pubkey-hash"
+>     }
+>   ]
+> }
+```
+
 We also offer the ability to decode raw transactions without sending propagating them to the network; perhaps you want to double-check another client library or confirm that another service is sending proper transactions. 
 
 Resource | Method | Request Object | Return Object
@@ -502,6 +856,17 @@ If it succeeds, you'll receive your decoded [TX](#tx) object.
 }
 ```
 
+```javascript
+{
+	"inputs": [{"addresses": [sourceAddr]}],
+	"outputs": [{
+		"addresses"   : [pubkey1, pubkey2, pubkey3],
+		"script_type" : "multisig-2-of-3",
+		"value"       : 250000,
+	}]
+}
+```
+
 Multisignature transactions are made simple by the method described in the [Creating Transactions](#creating-transactions) section, but they deserve special mention. In order to use them, you first need to fund a multisignature address. You use the `/txs/new` endpoint as before, but instead of the **outputs** **addresses** array containing public addresses, it instead contains the public keys associated with the new address. In addition, you must select a **script_type** of *mutlisig-n-of-m*, where *n* and *m* are numbers (e.g., *multisig-2-of-3*). The code example demonstrates how the partially filled [TX request object](#tx) would appear.
 
 After you've set up your request object, you send to `/txs/new` and receive a partially filled [TXSkeleton](#txskeleton) as before, but with data to sign from the source address. Sign this data and include the public key(s) of the source address---as demonstrated in the [Creating Transactions](#creating-transactions)---then send along to the `/txs/send` endpoint. If it returns with an HTTP Status Code 201, then your multisignature address (via a *pay-to-script-hash* address) is funded.
@@ -513,6 +878,19 @@ If you only need a <i>pay-to-script-hash</i> address corresponding to N-of-M mul
 ### Spending Multisig Funds
 
 ```shell
+{
+	"inputs": [{
+		"addresses"   : [pubkey1, pubkey2, pubkey3],
+		"script_type" : "multisig-2-of-3"
+	}],
+	"outputs": [{
+		"addresses" : [destAddr],
+		"value"     : 150000
+	}]
+}
+```
+
+```javascript
 {
 	"inputs": [{
 		"addresses"   : [pubkey1, pubkey2, pubkey3],
