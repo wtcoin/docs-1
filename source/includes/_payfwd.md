@@ -1,6 +1,6 @@
 # Payment Forwarding
 
-The of the well-known benefits of cryptocurrency is the ability to allow users to partake in online commerce without necessarily requiring extensive setup barriers, like registering new accounts. In that spirit, our Payment Forwarding API is the easiest way to accept---and consolidate---payments securely without forcing your users to create accounts and jump through unnecessary loops. It's also a generic way to automatically transfer value from one address to another. While there are many possible use cases, the two we hear most about are:
+One of the well-known benefits of cryptocurrency is the ability to allow users to partake in online commerce without necessarily requiring extensive setup barriers, like registering new accounts. In that spirit, our Payment Forwarding API is the easiest way to accept---and consolidate---payments securely without forcing your users to create accounts and jump through unnecessary loops. It's also a generic way to automatically transfer value from one address to another. While there are many possible use cases, the two we hear most about are:
 
 - A way to generate payment-specific addresses for which funds will automatically transfer to a main merchant address. Great for automatic merchandise (whether physical or virtual) processing.
 - A method to easily fund a multisignature address from any wallet by providing a classic address that will automatically transfer to the multisignature/*pay-to-script-hash* address.
@@ -18,7 +18,7 @@ By default, all payments will be debited with a 10,000 satoshis mining fee. The 
 ## Create Payment Endpoint
 
 ```shell
-$ curl -d '{"destination":"15qx9ug952GWGTNn7Uiv6vode4RcGrRemh","callback_url": "https://my.domain.com/callbacks/new-pay","token":"YOURTOKEN"}' http://api.blockcypher.com/v1/btc/main/payments
+curl -d '{"destination":"15qx9ug952GWGTNn7Uiv6vode4RcGrRemh","callback_url": "https://my.domain.com/callbacks/new-pay","token":"YOURTOKEN"}' http://api.blockcypher.com/v1/btc/main/payments
 
 {
 "input_address": "16uKw7GsQSzfMaVTcT7tpFQkd7Rh9qcXWX",
@@ -27,6 +27,36 @@ $ curl -d '{"destination":"15qx9ug952GWGTNn7Uiv6vode4RcGrRemh","callback_url": "
 "id": "399d0923-e920-48ee-8928-2051cbfbc369",
 "token": "YOURTOKEN"
 }
+```
+
+```javascript
+var payment = {
+  "destination":"15qx9ug952GWGTNn7Uiv6vode4RcGrRemh",
+  "callback_url": "https://my.domain.com/callbacks/new-pay"
+}
+var url = 'https://api.blockcypher.com/v1/btc/main/payments?token='+TOKEN;
+$.post(url, JSON.stringify(payment))
+  .then(function(d) {console.log(d)});
+{
+"input_address": "16uKw7GsQSzfMaVTcT7tpFQkd7Rh9qcXWX",
+"destination": "15qx9ug952GWGTNn7Uiv6vode4RcGrRemh",
+"callback_url": "https://my.domain.com/callbacks/payments",
+"id": "399d0923-e920-48ee-8928-2051cbfbc369",
+"token": "YOURTOKEN"
+}
+```
+
+```python
+>>> import requests, json
+>>> data = {"destination":"15qx9ug952GWGTNn7Uiv6vode4RcGrRemh","callback_url": "https://my.domain.com/callbacks/new-pay"}
+>>> params = {'token': 'YOUR_TOKEN'}
+>>> r = requests.post('http://api.blockcypher.com/v1/btc/main/payments', data=json.dumps(data), params=params)
+>>> r.json()
+{'destination': '15qx9ug952GWGTNn7Uiv6vode4RcGrRemh',
+ 'callback_url': 'https://my.domain.com/callbacks/new-pay',
+ 'input_address': '1CUYiFY3LzEd9dXgR6ubRaYPTq2SMxFFCJ',
+ 'id': 'f35c80c2-3347-410d-b4ac-d049910289ec',
+ 'token': 'YOUR_TOKEN'}
 ```
 
 First, to create an payment forwarding address, you need to POST a partially filled [PaymentForward](#paymentforward) object to the payment creation endpoint. You need to include at least a **destination** address and your **token**; optionally, you can add a **callback_url**, processing fees (either percent or fixed) and a **process_fee_address**, and a few other options. You can see more details about these options in the [PaymentForward](#paymentforward) object details.
@@ -44,7 +74,7 @@ If you decide to have a <b>callback_url</b>, you'll receive a payload at that ur
 ## List Payments Endpoint
 
 ```shell
-$ curl http://api.blockcypher.com/v1/btc/main/payments?token=YOURTOKEN
+curl http://api.blockcypher.com/v1/btc/main/payments?token=YOURTOKEN
 
 [
 	{
@@ -56,6 +86,33 @@ $ curl http://api.blockcypher.com/v1/btc/main/payments?token=YOURTOKEN
 	}
 ]
 ```
+
+```javascript
+$.get('http://api.blockcypher.com/v1/btc/main/payments?token='+TOKEN)
+  .then(function(d) {console.log(d)});
+[
+	{
+	"input_address": "16uKw7GsQSzfMaVTcT7tpFQkd7Rh9qcXWX",
+	"destination": "15qx9ug952GWGTNn7Uiv6vode4RcGrRemh",
+	"callback_url": "https://my.domain.com/callbacks/payments",
+	"id": "399d0923-e920-48ee-8928-2051cbfbc369",
+	"token": "YOURTOKEN"
+	}
+]
+```
+
+```python
+>>> import requests
+>>> params = {'token': 'YOUR_TOKEN'}
+>>> r = requests.post('http://api.blockcypher.com/v1/btc/main/payments', params=params)
+>>> r.json()
+[{'destination': '15qx9ug952GWGTNn7Uiv6vode4RcGrRemh',
+  'callback_url': 'https://my.domain.com/callbacks/payments',
+  'input_address': '1CUYiFY3LzEd9dXgR6ubRaYPTq2SMxFFCJ',
+  'id': 'f35c80c2-3347-410d-b4ac-d049910289ec',
+  'token': 'YOUR_TOKEN'}]
+```
+
 To list your currently active payment forwarding addresses, you can use this endpoint.
 
 Resource | Method | Return Object
@@ -68,9 +125,26 @@ You'll get a full array of your currently active payment forwarding addresses, b
 
 ```shell
 # Piping to grep to just show status code
-$ curl -X DELETE -IsL http://api.blockcypher.com/v1/btc/main/payments/399d0923-e920-48ee-8928-2051cbfbc369?token=YOURTOKEN | grep "HTTP/1.1"
+curl -X DELETE -IsL http://api.blockcypher.com/v1/btc/main/payments/399d0923-e920-48ee-8928-2051cbfbc369?token=YOURTOKEN | grep "HTTP/1.1"
 
-HTTP/1.1 200 OK
+HTTP/1.1 204 No Content
+```
+
+```javascript
+var url = "https://api.blockcypher.com/v1/btc/main/payments/399d0923-e920-48ee-8928-2051cbfbc369?token="+TOKEN
+$.ajax({
+  url: url,
+  method: "DELETE"
+});
+```
+
+```python
+# Fund existing address with faucet
+>>> import requests
+>>> params = {'token': 'YOUR_TOKEN'}
+>>> r = requests.delete('http://api.blockcypher.com/v1/btc/main/payments/f35c80c2-3347-410d-b4ac-d049910289ec', params=params)
+# will return nothing, but we can confirm that delete was succesful via http code
+>>> assert r.status_code == 204
 ```
 
 When you're done with a payment forwarding address, you can delete it via its id.
@@ -79,8 +153,8 @@ Resource | Method | Return Object
 -------- | ------ | -------------
 /payments/$PAYID | DELETE |  *nil*
 
-$PAYID is a string representing the payment forwarding request you want to delete, for example:
+PAYID is a string representing the payment forwarding request you want to delete, for example:
 
 `399d0923-e920-48ee-8928-2051cbfbc369`
 
-This will return no object, but will return an HTTP Status Code 200 if the request was successfully deleted.
+This will return no object, but will return an HTTP Status Code 204 if the request was successfully deleted.

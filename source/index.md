@@ -4,6 +4,7 @@ title: BlockCypher Reference
 language_tabs:
   - shell: cURL
   - javascript: JavaScript
+  - python: python
 
 toc_footers:
   - <a href='https://accounts.blockcypher.com/'>Register for a Free Token</a>
@@ -45,7 +46,7 @@ Consequently, if you're familiar with a blockchain's reference implementation, y
 ## Documentation Structure
 
 ```shell
-$ man curl | grep -A 3 "DESCRIPTION"
+man curl | grep -A 3 "DESCRIPTION"
 
 DESCRIPTION
 curl is a tool to transfer data from or to a server, using one of the supported protocols (DICT, FILE, FTP, FTPS, GOPHER, HTTP, HTTPS, IMAP, IMAPS, LDAP, LDAPS, POP3, POP3S, RTMP, RTSP, SCP, SFTP, SMB, SMBS, SMTP, SMTPS, TELNET and TFTP). The command is designed to work without user interaction.
@@ -58,13 +59,17 @@ curl is a tool to transfer data from or to a server, using one of the supported 
 // request.js for example.
 
 console.log('Welcome to BlockCypher');
-> Welcome to BlockCypher
+```
+
+```python
+To see detailed python code snippets, check the official python repository:
+https://github.com/blockcypher/blockcypher-python
 ```
 
 In these docs you'll find everything you need to leverage BlockCypher for your applications. For all officially supported languages, you'll see code samples, in addition to basic cURL requests/responses for every endpoint. You can switch between cURL/language samples via the selector in the upper right. We're working on supporting more languages, but if you're working on your own language library, definitely let us know: we'd love to add more community supported libraries here.
 
 <aside class="notice">
-Currently, we only have cURL code samples, but are working on adding other official SDK samples soon!
+Currently, we only have cURL and Python code samples on this page, but are working on adding more samples from our <a href="#blockcypher-supported-language-sdks">supported languages</a> soon!
 </aside>
 
 ### In-Browser Code Examples
@@ -109,18 +114,23 @@ These client SDKs were made by members of the community, and are not officially 
 ## RESTful Resources
 
 ```shell
-$ curl https://api.blockcypher.com/v1/btc/main
+curl https://api.blockcypher.com/v1/btc/main
 
 {
-"name": "BTC.main",
-"height": 355578,
-"hash": "00000000000000000a0b253f20709b0c77d8a56aa8db632ecbdc7381816504cd",
-"time": "2015-05-08T23:12:55.243311146Z",
-"latest_url": "https://api.blockcypher.com/v1/btc/main/blocks/00000000000000000a0b253f20709b0c77d8a56aa8db632ecbdc7381816504cd",
-"previous_hash": "00000000000000000acef50ef89494493b4a08a8419588e1e3e20cd73bc85a6b",
-"previous_url": "https://api.blockcypher.com/v1/btc/main/blocks/00000000000000000acef50ef89494493b4a08a8419588e1e3e20cd73bc85a6b",
-"peer_count": 250,
-"unconfirmed_count": 637
+  "name": "BTC.main",
+  "height": 360060,
+  "hash": "000000000000000000bf56ff4a81e399374a68344a64d6681039412de78366b8",
+  "time": "2015-06-08T22:57:08.260165627Z",
+  "latest_url": "https://api.blockcypher.com/v1/btc/main/blocks/000000000000000000bf56ff4a81e399374a68344a64d6681039412de78366b8",
+  "previous_hash": "000000000000000011c9511ae1265d34d3c16fff6e8f94380425833b3d0ae5d8",
+  "previous_url": "https://api.blockcypher.com/v1/btc/main/blocks/000000000000000011c9511ae1265d34d3c16fff6e8f94380425833b3d0ae5d8",
+  "peer_count": 239,
+  "unconfirmed_count": 617,
+  "high_fee_per_kb": 46086,
+  "medium_fee_per_kb": 29422,
+  "low_fee_per_kb": 12045,
+  "last_fork_height": 359865,
+  "last_fork_hash": "00000000000000000aa6462fd9faf94712ce1b5a944dc666f491101c996beab9"
 }
 ```
 
@@ -140,6 +150,26 @@ $.get('https://api.blockcypher.com/v1/btc/main').then(function(d) {console.log(d
 >   "medium_fee_per_kb": 29415,
 >   "low_fee_per_kb": 12045
 > }
+```
+
+```python
+>>> import requests
+>>> r = requests.get('https://api.blockcypher.com/v1/btc/main')
+>>> r.json()
+{'high_fee_per_kb': 48419,
+ 'latest_url': 'https://api.blockcypher.com/v1/btc/main/blocks/00000000000000000783cf9ef8177b407976990117d03762efe7d3fdfe44d6a3',
+ 'previous_hash': '0000000000000000097689df71fb60cbbade7cddcaa35b6f4c9cb97b08a7a155',
+ 'last_fork_height': 359865,
+ 'time': '2015-06-08T20:02:59.668542728Z',
+ 'unconfirmed_count': 602,
+ 'peer_count': 250,
+ 'height': 360042,
+ 'previous_url': 'https://api.blockcypher.com/v1/btc/main/blocks/0000000000000000097689df71fb60cbbade7cddcaa35b6f4c9cb97b08a7a155',
+ 'medium_fee_per_kb': 29283,
+ 'hash': '00000000000000000783cf9ef8177b407976990117d03762efe7d3fdfe44d6a3',
+ 'name': 'BTC.main',
+ 'low_fee_per_kb': 12047,
+ 'last_fork_hash': '00000000000000000aa6462fd9faf94712ce1b5a944dc666f491101c996beab9'}
 ```
 
 Almost all resources exist under a given blockchain, and follow this pattern:
@@ -180,7 +210,7 @@ Please [register for a user token](http://acccounts.blockcypher.com/) if your us
 
 ```shell
 # Adding your token as URL parameter
-$ curl https://api.blockcypher.com/v1/btc/main?token=$YOUR_TOKEN
+curl https://api.blockcypher.com/v1/btc/main?token=$YOURTOKEN
 ```
 
 ```javascript
@@ -189,13 +219,21 @@ const TOKEN = 'YOUR_TOKEN';
 $.get('https://api.blockcypher.com/v1/btc/main?token='+TOKEN);
 ```
 
+```python
+# Adding your token as URL parameter
+>>> import requests
+>>> params = {'token': 'YOUR_TOKEN'}
+>>> r = requests.get('https://api.blockcypher.com/v1/btc/main', params=params)
+>>> r.json()
+```
+
 Once you have your token, you can append it to all your requests like any other URL parameter if you're using cURL, or through the appropriate method in the language SDK you're using.
 
 ## Batching
 
 ```shell
 # Batching blocks 5, 6, and 7
-$ curl https://api.blockcypher.com/v1/btc/main/blocks/5;6;7
+curl https://api.blockcypher.com/v1/btc/main/blocks/5;6;7
 
 [{
 "hash": "000000003031a0e73735690c5a1ff2a4be82553b2a12b776fbd3a215dc8f778d",
@@ -266,6 +304,68 @@ $.get('https://api.blockcypher.com/v1/btc/main/blocks/5;6;7')
 > }]
 ```
 
+```python
+# Batching blocks 5, 6, and 7
+>>> import requests
+>>> r = requests.get('https://api.blockcypher.com/v1/btc/main/blocks/5;6;7')
+>>> r.json()
+[{'bits': 486604799,
+  'n_tx': 1,
+  'txids': ['8aa673bc752f2851fd645d6a0a92917e967083007d9c1684f9423b100540673f'],
+  'fees': 0,
+  'total': 0,
+  'mrkl_root': '8aa673bc752f2851fd645d6a0a92917e967083007d9c1684f9423b100540673f',
+  'time': '2009-01-09T03:39:29Z',
+  'prev_block_url': 'https://api.blockcypher.com/v1/btc/main/blocks/000000003031a0e73735690c5a1ff2a4be82553b2a12b776fbd3a215dc8f778d',
+  'depth': 360035,
+  'hash': '0000000071966c2b1d065fd446b1e485b2c9d9594acd2007ccbd5441cfc89444',
+  'height': 7,
+  'tx_url': 'https://api.blockcypher.com/v1/btc/main/txs/',
+  'prev_block': '000000003031a0e73735690c5a1ff2a4be82553b2a12b776fbd3a215dc8f778d',
+  'ver': 1,
+  'chain': 'BTC.main',
+  'nonce': 2258412857,
+  'received_time': '2009-01-09T03:39:29Z'},
+ {'bits': 486604799,
+  'n_tx': 1,
+  'txids': ['20251a76e64e920e58291a30d4b212939aae976baca40e70818ceaa596fb9d37'],
+  'fees': 0,
+  'total': 0,
+  'mrkl_root': '20251a76e64e920e58291a30d4b212939aae976baca40e70818ceaa596fb9d37',
+  'time': '2009-01-09T03:29:49Z',
+  'prev_block_url': 'https://api.blockcypher.com/v1/btc/main/blocks/000000009b7262315dbf071787ad3656097b892abffd1f95a1a022f896f533fc',
+  'depth': 360036,
+  'hash': '000000003031a0e73735690c5a1ff2a4be82553b2a12b776fbd3a215dc8f778d',
+  'height': 6,
+  'tx_url': 'https://api.blockcypher.com/v1/btc/main/txs/',
+  'prev_block': '000000009b7262315dbf071787ad3656097b892abffd1f95a1a022f896f533fc',
+  'ver': 1,
+  'chain': 'BTC.main',
+  'nonce': 2538380312,
+  'received_time': '2009-01-09T03:29:49Z'},
+ {'bits': 486604799,
+  'n_tx': 1,
+  'txids': ['63522845d294ee9b0188ae5cac91bf389a0c3723f084ca1025e7d9cdfe481ce1'],
+  'fees': 0,
+  'total': 0,
+  'mrkl_root': '63522845d294ee9b0188ae5cac91bf389a0c3723f084ca1025e7d9cdfe481ce1',
+  'time': '2009-01-09T03:23:48Z',
+  'prev_block_url': 'https://api.blockcypher.com/v1/btc/main/blocks/000000004ebadb55ee9096c9a2f8880e09da59c0d68b1c228da88e48844a1485',
+  'depth': 360037,
+  'hash': '000000009b7262315dbf071787ad3656097b892abffd1f95a1a022f896f533fc',
+  'height': 5,
+  'tx_url': 'https://api.blockcypher.com/v1/btc/main/txs/',
+  'prev_block': '000000004ebadb55ee9096c9a2f8880e09da59c0d68b1c228da88e48844a1485',
+  'ver': 1,
+  'chain': 'BTC.main',
+  'nonce': 2011431709,
+  'received_time': '2009-01-09T03:23:48Z'}]
+
+# Note, when constructing the URL programatically you can use more pythonic syntax:
+base_url = 'https://api.blockcypher.com/v1/btc/main/blocks/'
+full_url = base_url + ';'.join([5,6,7])
+```
+
 All endpoints that can retrieve a single [Object](#objects) can be batched to return multiple objects. If you're cURLing the API directly, batching simply requires appending each identifier to the previous one using a semicolon (check the code pane for an example). The results are aggregated in a JSON array and may not be ordered, especially for bigger batches. But this shouldn't matter, as the requested identifiers are always present in the returned objects. The other supported client SDKs batch differently, but each idiomatic to their respective language (check the code pane examples in each library).
 
 <aside class="notice">
@@ -304,7 +404,7 @@ The faucets can be used from your browser if you want to play with them before a
 
 ```shell
 # Make new address; returns private key/public key/address
-$ curl -X POST http://api.blockcypher.com/v1/bcy/test/addrs?token=$YOUR_TOKEN
+curl -X POST http://api.blockcypher.com/v1/bcy/test/addrs?token=$YOURTOKEN
 
 {
 "private": "26415016a2fb49f51aef161cb35bd537be07b75a6ac1e297d3b7a370cc85433b",
@@ -313,7 +413,7 @@ $ curl -X POST http://api.blockcypher.com/v1/bcy/test/addrs?token=$YOUR_TOKEN
 }
 
 # Fund prior address with faucet
-$ curl -d '{"address": "CFqoZmZ3ePwK5wnkhxJjJAQKJ82C7RJdmd", "amount": 100000}' http://api.blockcypher.com/v1/bcy/test/faucet?token=$YOUR_TOKEN
+curl -d '{"address": "CFqoZmZ3ePwK5wnkhxJjJAQKJ82C7RJdmd", "amount": 100000}' http://api.blockcypher.com/v1/bcy/test/faucet?token=$YOURTOKEN
 {
 "tx_ref": "02dbf5585d438a1cba82a9041dd815635a6b0df684225cb5271e11397a759479"
 }
@@ -336,6 +436,17 @@ $.post('http://api.blockcypher.com/v1/bcy/test/faucet?token=$YOUR_TOKEN', req)
 > {
 >   "tx_ref": "02dbf5585d438a1cba82a9041dd815635a6b0df684225cb5271e11397a759479"
 > }
+```
+
+```python
+# Fund existing address with faucet
+>>> import requests, json
+>>> data = {'address': 'CFqoZmZ3ePwK5wnkhxJjJAQKJ82C7RJdmd', 'amount': 100000}
+>>> params = {'token': 'YOUR_TOKEN'}
+>>> r = requests.post('http://api.blockcypher.com/v1/bcy/test/faucet', data=json.dumps(data), params=params)
+>>> r.json()
+{'tx_ref': 'b2ecfb5e40f3923b07819f1a386a538e86cc6ce59ae7a59533df487f622d1cbb'}
+
 ```
 
 This example shows how to leverage the faucet to programmatically fund addresses, to test your applications. While the example used BlockCypher's Test Chain, the same example could have used Bitcoin Testnet3 and worked the exact same way.

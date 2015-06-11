@@ -11,7 +11,7 @@ If you're new to blockchains, you can think of public addresses as similar to ba
 ## Address Balance Endpoint
 
 ```shell
-$ curl http://api.blockcypher.com/v1/btc/main/addrs/1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD/balance
+curl http://api.blockcypher.com/v1/btc/main/addrs/1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD/balance
 
 {
 "address": "1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD",
@@ -42,13 +42,29 @@ $.get('https://api.blockcypher.com/v1/btc/main/addrs/1DEP8i3QJCsomS4BSMY2RpU1upv
 > }
 ```
 
+```python
+>>> import requests
+>>> r = requests.get('http://api.blockcypher.com/v1/btc/main/addrs/1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD/balance')
+>>> r.json()
+{'n_tx': 7,
+ 'total_received': 4433416,
+ 'final_n_tx': 7,
+ 'total_sent': 0,
+ 'balance': 4433416,
+ 'final_balance': 4433416,
+ 'unconfirmed_balance': 0,
+ 'address': '1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD',
+ 'unconfirmed_n_tx': 0}
+>>>>>>> master
+```
+
 The Address Balance Endpoint is the simplest---and fastest---method to get a subset of information on a public address.
 
 Resource | Method | Return Object
 -------- | ------ | -------------
 /addrs/$ADDRESS/balance | GET | [Address](#address)
 
-$ADDRESS is a *string* representing the public address (or wallet name) you're interested in querying, for example:
+ADDRESS is a *string* representing the public address (or wallet name) you're interested in querying, for example:
 
 `1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD`
 
@@ -57,7 +73,7 @@ The returned object contains information about the address, including its balanc
 ## Address Endpoint
 
 ```shell
-$ curl http://api.blockcypher.com/v1/btc/main/addrs/1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD
+curl http://api.blockcypher.com/v1/btc/main/addrs/1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD
 
 {
 "address": "1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD",
@@ -140,6 +156,32 @@ $.get('https://api.blockcypher.com/v1/btc/main/addrs/1DEP8i3QJCsomS4BSMY2RpU1upv
 > }
 ```
 
+```python
+>>> import requests
+>>> r = requests.get('http://api.blockcypher.com/v1/btc/main/addrs/1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD')
+>>> r.json()
+{'txrefs': [{'spent': False,
+   'value': 20213,
+   'block_height': 302013,
+   'tx_output_n': 0,
+   'double_spend': False,
+   'tx_input_n': -1,
+   'tx_hash': '14b1052855bbf6561bc4db8aa501762e7cc1e86994dda9e782a6b73b1ce0dc1e',
+   'confirmed': '2014-05-22T03:46:25Z',
+   'confirmations': 58033},
+   ..., ],
+ 'n_tx': 7,
+ 'total_received': 4433416,
+ 'final_n_tx': 7,
+ 'total_sent': 0,
+ 'balance': 4433416,
+ 'final_balance': 4433416,
+ 'tx_url': 'https://api.blockcypher.com/v1/btc/main/txs/',
+ 'unconfirmed_balance': 0,
+ 'address': '1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD',
+ 'unconfirmed_n_tx': 0}
+```
+
 The default Address Endpoint strikes a balance between speed of response and data on Addresses. It returns more information about an address' transactions than the [Address Balance Endpoint](#address-balance-endpoint) but doesn't return full transaction information (like the [Address Full Endpoint](#address-full-endpoint)).
 
 Resource | Method | Return Object
@@ -151,7 +193,7 @@ Flag | Type | Effect
 **unspentOnly** | *bool* | If **unspentOnly** is *true*, filters response to only include unspent transaction outputs (UTXOs).
 **before** | *integer* | Filters response to only include transactions below **before** height in the blockchain.
 
-$ADDRESS is a *string* representing the public address (or wallet name) you're interested in querying, for example:
+ADDRESS is a *string* representing the public address (or wallet name) you're interested in querying, for example:
 
 `1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD`
 
@@ -160,7 +202,7 @@ The returned object contains information about the address, including its balanc
 ## Address Full Endpoint
 
 ```shell
-$ curl http://api.blockcypher.com/v1/btc/main/addrs/1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD/full?before=300000
+curl http://api.blockcypher.com/v1/btc/main/addrs/1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD/full?before=300000
 
 {
 "address": "1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD",
@@ -313,6 +355,57 @@ $.get('https://api.blockcypher.com/v1/btc/main/addrs/1DEP8i3QJCsomS4BSMY2RpU1upv
 > }
 ```
 
+```python
+>>> import requests, json
+>>> data = {'before': 300000}
+>>> r = requests.get('http://api.blockcypher.com/v1/btc/main/addrs/1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD/full', data=json.dumps(data))
+>>> r.json()
+{'txs': [{'size': 438,
+   'double_spend': False,
+   'total': 3537488,
+   'preference': 'medium',
+   'confidence': 1,
+   'fees': 20000,
+   'block_hash': '0000000000000000af64802c79f9b22e9091eb5548b4b662d5e444e61885923b',
+   'vin_sz': 2,
+   'ver': 1,
+   'relayed_by': '',
+   'block_height': 292586,
+   'lock_time': 0,
+   'vout_sz': 2,
+   'hash': 'b4735a0690dab16b8789fceaf81c511f3be484e319f684cc214380eaa2851030',
+   'addresses': ['18KXZzuC3xvz6upUMQpsZzXrBwNPWZjdSa',
+    '1AAuRETEcHDqL4VM3R97aZHP8DSUHxpkFV',
+    '1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD',
+    '1VxsEDjo6ZLMT99dpcLu4RQonMDVEQQTG'],
+   'inputs': [{'script_type': 'pay-to-pubkey-hash',
+     'prev_hash': '729f6469b59fea5da77457f3291e2623c2516e3e8e7afc782687c6d59f4c5e41',
+     'script': '483045022100d06cdad1a54081e8499a4117f9f52d7fbc83c679dda7e3c22c08e964915b7354022010a2d6af1601d28d33a456dab2bccf3fbde35b2f3a9db82f72d675c90d015571014104672a00c8ee6fa23d68094dd98188ea1491848498554a10e13194851b614168b225b28b7f5a1c6ba98b5463438ef030c48b60533031ff2de84104e549d8d06ea9',
+     'addresses': ['1VxsEDjo6ZLMT99dpcLu4RQonMDVEQQTG'],
+     'sequence': 4294967295,
+     'output_value': 3500000,
+     'output_index': 0},
+     ...],
+   'confirmations': 67460,
+   'received': '2014-03-26T17:08:04Z',
+   'confirmed': '2014-03-26T17:08:04Z',
+   'outputs': [{'addresses': ['1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD'],
+     'value': 3500000,
+     'script': '76a9148629647bd642a2372d846a7660e210c8414f047c88ac',
+     'script_type': 'pay-to-pubkey-hash'},
+     ...]},
+   ...,],
+ 'n_tx': 7,
+ 'total_received': 4433416,
+ 'final_n_tx': 7,
+ 'total_sent': 0,
+ 'balance': 4433416,
+ 'final_balance': 4433416,
+ 'unconfirmed_balance': 0,
+ 'address': '1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD',
+ 'unconfirmed_n_tx': 0}
+```
+
 The Address Full Endpoint returns all information available about a particular address, including an array of complete [transactions](#tx) instead of just transaction inputs and outputs. Unfortunately, because of the amount of data returned, it is the slowest of the address endpoints, but it returns the most detailed data record.
 
 Resource | Method | Return Object
@@ -323,7 +416,7 @@ Flag | Type | Effect
 ---- | ---- | ------
 **before** | *integer* | Filters response to only include transactions before *integer* height in the blockchain.
 
-$ADDRESS is a *string* representing the public address (or wallet name) you're interested in querying, for example:
+ADDRESS is a *string* representing the public address (or wallet name) you're interested in querying, for example:
 
 `1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD`
 
@@ -336,7 +429,7 @@ If your returned <a href="#address">Address</a> object includes the <b>hasMore</
 ## Generate Address Endpoint
 
 ```shell
-$ curl -X POST http://api.blockcypher.com/v1/btc/test3/addrs
+curl -X POST http://api.blockcypher.com/v1/btc/test3/addrs
 
 {
 "private": "81ee75559d37cbe4b7cbbfb9931ab1ba32172c5cdfc3ac2d020259b4c1104198",
@@ -355,6 +448,10 @@ $.post('https://api.blockcypher.com/v1/btc/test3/addrs')
 > "address": "mvpW7fMSi1nbZhJJDySNS2PUau8ppnu4kY",
 > "wif": "cRwGhRjCuuNtPgLcoYd1CuAqjFXCV5YNCQ1LB8RsFCvu61VfSsgR"
 > }
+```
+
+```python
+# Please use the python library at https://github.com/blockcypher/blockcypher-python to securely generate an address client-side
 ```
 
 The Generate Address endpoint allows you to generate private-public key-pairs along with an associated public address. No information is required with this POST request.
@@ -376,7 +473,7 @@ The returned object contains a private key in hex-encoded and wif-encoded format
 ## Generate Multisig Address Endpoint
 
 ```shell
-$ curl -d '{"pubkeys": ["02c716d071a76cbf0d29c29cacfec76e0ef8116b37389fb7a3e76d6d32cf59f4d3", "033ef4d5165637d99b673bcdbb7ead359cee6afd7aaf78d3da9d2392ee4102c8ea", "022b8934cc41e76cb4286b9f3ed57e2d27798395b04dd23711981a77dc216df8ca"], "script_type": "multisig-2-of-3"}' https://api.blockcypher.com/v1/btc/main/addrs
+curl -d '{"pubkeys": ["02c716d071a76cbf0d29c29cacfec76e0ef8116b37389fb7a3e76d6d32cf59f4d3", "033ef4d5165637d99b673bcdbb7ead359cee6afd7aaf78d3da9d2392ee4102c8ea", "022b8934cc41e76cb4286b9f3ed57e2d27798395b04dd23711981a77dc216df8ca"], "script_type": "multisig-2-of-3"}' https://api.blockcypher.com/v1/btc/main/addrs
 
 {
 "private": "",
@@ -417,6 +514,21 @@ $.post('https://api.blockcypher.com/v1/btc/test3/addrs', data)
 > }
 ```
 
+```python
+>>> import requests, json
+>>> data = {'pubkeys': ['02c716d071a76cbf0d29c29cacfec76e0ef8116b37389fb7a3e76d6d32cf59f4d3', '033ef4d5165637d99b673bcdbb7ead359cee6afd7aaf78d3da9d2392ee4102c8ea', '022b8934cc41e76cb4286b9f3ed57e2d27798395b04dd23711981a77dc216df8ca'], 'script_type': 'multisig-2-of-3'}
+>>> r = requests.post('https://api.blockcypher.com/v1/btc/main/addrs', data=json.dumps(data))
+>>> r.json()
+{'public': '',
+ 'private': '',
+ 'script_type': 'multisig-2-of-3',
+ 'pubkeys': ['02c716d071a76cbf0d29c29cacfec76e0ef8116b37389fb7a3e76d6d32cf59f4d3',
+  '033ef4d5165637d99b673bcdbb7ead359cee6afd7aaf78d3da9d2392ee4102c8ea',
+  '022b8934cc41e76cb4286b9f3ed57e2d27798395b04dd23711981a77dc216df8ca'],
+ 'address': '3BF1M1PnTge94QewuWh3B8mRVw8U4SVnb4',
+ 'wif': ''}
+```
+
 The Generate Multisig Address Endpoint is a convenience method to help you generate multisig addresses from multiple public keys. After supplying a partially filled-out [AddressKeychain](#addresskeychain) object (including only an array of hex-encoded public keys and the script type), the returned object includes the computed public address.
 
 <aside class="notice">
@@ -451,9 +563,9 @@ The following code examples should be considered serially; that is to say, the r
 ### Create Wallet Endpoint
 
 ```shell
-$ curl -d '{"name": "alice","addresses": ["1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e"]}' https://api.blockcypher.com/v1/btc/main/wallets?token=USERTOKEN
+curl -d '{"name": "alice","addresses": ["1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e"]}' https://api.blockcypher.com/v1/btc/main/wallets?token=YOURTOKEN
 
-{"token": "USERTOKEN",
+{"token": "YOURTOKEN",
 "name": "alice",
 "addresses": [
 	"1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e"
@@ -471,6 +583,18 @@ $.post('https://api.blockcypher.com/v1/btc/main/wallets?token=USERTOKEN', data)
 > ]}
 ```
 
+```python
+>>> import requests, json
+>>> data = {'name': 'alice', 'addresses': ['1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e', ]}
+>>> params = {'token': 'YOUR_TOKEN'}
+>>> r = requests.post('https://api.blockcypher.com/v1/btc/main/wallets', data=json.dumps(data), params=params)
+>>> r.json()
+{'name': 'alice',
+ 'token': 'YOUR_TOKEN',
+ 'addresses': ['1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e']}
+
+```
+
 Resource | Method | Request Object | Return Object
 -------- | ------ | -------------- | -------------
 /wallets | POST | [Wallet](#wallet) | [Wallet](#wallet)
@@ -486,9 +610,9 @@ If the named wallet already exists under your token, attempting to create a new 
 ### Add Addresses to Wallet Endpoint
 
 ```shell
-$ curl -d '{"addresses": ["13cj1QtfW61kQHoqXm3khVRYPJrgQiRM6j"]}' https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses?token=USERTOKEN
+curl -d '{"addresses": ["13cj1QtfW61kQHoqXm3khVRYPJrgQiRM6j"]}' https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses?token=YOURTOKEN
 
-{"token": "USERTOKEN",
+{"token": "YOURTOKEN",
 "name": "alice",
 "addresses": [
 	"1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e",
@@ -509,6 +633,17 @@ $.post('https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses?token=US
 > ]}
 ```
 
+```python
+>>> import requests, json
+>>> data = {'addresses': ['13cj1QtfW61kQHoqXm3khVRYPJrgQiRM6j', ]}
+>>> params = {'token': 'YOUR_TOKEN'}
+>>> r = requests.post('https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses', data=json.dumps(data), params=params)
+>>> r.json()
+{'name': 'alice',
+ 'token': 'YOUR_TOKEN',
+ 'addresses': ['1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e', '13cj1QtfW61kQHoqXm3khVRYPJrgQiRM6j']}
+```
+
 Resource | Method | Request Object | Return Object
 -------- | ------ | -------------- | -------------
 /wallets/$NAME/addresses | POST | [Wallet](#wallet) | [Wallet](#wallet)
@@ -520,7 +655,7 @@ This endpoint allows you to add public addresses to an existing wallet, by POSTi
 ### Wallet Addresses Endpoint
 
 ```shell
-$ curl https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses?token=USERTOKEN
+curl https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses?token=YOURTOKEN
 
 {"token": "",
 "name": "",
@@ -540,6 +675,15 @@ $.get('https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses?token=USE
 > ]}
 ```
 
+```python
+>>> import requests
+>>> params = {'token': 'YOUR_TOKEN'}
+>>> r = requests.get('https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses', params=params)
+>>> r.json()
+{'addresses': ['13cj1QtfW61kQHoqXm3khVRYPJrgQiRM6j',
+  '1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e']}
+```
+
 Resource | Method | Return Object
 -------- | ------ | -------------
 /wallets/$NAME/addresses | GET | [Wallet](#wallet)
@@ -551,9 +695,9 @@ This endpoint returns a list of the addresses associated with the $NAME wallet. 
 ### Remove Addresses from Wallet Endpoint
 
 ```shell
-$ curl -X DELETE -d '{"addresses": ["1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e"]}' https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses?token=USERTOKEN
+$ curl -X DELETE https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses?token=USERTOKEN&address=1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e
 
-{"token": "USERTOKEN",
+{"token": "YOURTOKEN",
 "name": "alice",
 "addresses": [
 	"13cj1QtfW61kQHoqXm3khVRYPJrgQiRM6j"
@@ -567,20 +711,30 @@ $.ajax({
 })
 ```
 
+```python
+>>> import requests, json
+>>> data = {'token': 'YOUR_TOKEN', 'address': '1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e'}
+>>> r = requests.delete('https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses', data=json.dumps(data))
+>>> r.json()
+{'token': 'YOUR_TOKEN',
+ 'name': 'alice',
+ 'addresses': ['13cj1QtfW61kQHoqXm3khVRYPJrgQiRM6j']}
+```
+
 Resource | Method | Request Object | Return Object
 -------- | ------ | -------------- | -------------
-/wallets/$NAME/addresses | DELETE | [Wallet](#wallet) | [Wallet](#wallet)
+/wallets/$NAME/addresses?address=$ADDRESS | DELETE | *nil* | [Wallet](#wallet)
 
-This endpoint allows you to delete an array of addresses associated with the $NAME wallet. If successful, it will return the newly modified [Wallet](#wallet), including an up-to-date, complete listing of addresses.
+This endpoint allows you to delete an $ADDRESS associated with the $NAME wallet. As a reminder, you [can batch](#http://dev.blockcypher.com/#batching) multiple addresses by appending them with semicolons within the $ADDRESS URL parameter. If successful, it will return the newly modified [Wallet](#wallet), including an up-to-date, complete listing of addresses.
 
 <br />
 
 ### Generate Address in Wallet Endpoint
 
 ```shell
-$ curl -X POST https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses/generate?token=USERTOKEN
+curl -X POST https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses/generate?token=YOURTOKEN
 
-{"token": "USERTOKEN",
+{"token": "YOURTOKEN",
 "name": "alice",
 "addresses": [
 	"13cj1QtfW61kQHoqXm3khVRYPJrgQiRM6j",
@@ -609,6 +763,10 @@ $.post('https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses/generate
 > }
 ```
 
+```python
+# Please use the python library at https://github.com/blockcypher/blockcypher-python to securely generate an address client-side
+```
+
 Resource | Method | Request Object | Return Object
 -------- | ------ | -------------- | -------------
 /wallets/$NAME/addresses/generate | POST | *nil* | [Wallet](#Wallet) + [AddressKeychain](#AddressKeychain)
@@ -624,7 +782,7 @@ This endpoint allows you to generate a new address associated with the $NAME wal
 ### Delete Wallet Endpoint
 
 ```shell
-$ curl -X DELETE -d '{"name":"alice"}' https://api.blockcypher.com/v1/btc/main/wallets/alice?token=USERTOKEN
+curl -X DELETE https://api.blockcypher.com/v1/btc/main/wallets/alice?token=YOURTOKEN
 
 ```
 
@@ -635,8 +793,16 @@ $.ajax({
 });
 ```
 
+```python
+>>> import requests
+>>> params = {'token': 'YOUR_TOKEN'}
+>>> r = requests.delete('https://api.blockcypher.com/v1/btc/main/wallets/alice', params=params)
+# returns nothing, let's just check the status code to be sure
+>>> assert r.status_code == 204
+```
+
 Resource | Method | Request Object | Return Object
 -------- | ------ | -------------- | -------------
 /wallets/$NAME | DELETE | [Wallet](#wallet) | *nil*
 
-This endpoint deletes the wallet with $NAME. You are also required to send a partially filled [Wallet](#wallet) as a request object; all that's necessary is the **name** attribute in the wallet object. If successful, it will return an HTTP 400 status code, but no return object.
+This endpoint deletes the wallet with $NAME. If successful, it will return an HTTP 204 status code with no return object.

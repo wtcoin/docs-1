@@ -27,8 +27,11 @@ Events like <i>unconfirmed-tx</i> can produce a lot of requests. To avoid rate-l
 ## Using WebSockets
 
 ```shell
-# no websockets via cURL :-( but here's a Javascript example
-# Get latest unconfirmed transactions live
+# no websockets via cURL, check the Javascript example
+```
+
+```javascript
+// Get latest unconfirmed transactions live
 var ws = new WebSocket("wss://socket.blockcypher.com/v1/btc/main");
 var count = 0;
 ws.onmessage = function (event) {
@@ -81,7 +84,7 @@ Testing WebHooks can be tricky; we recommend using <a href="http://requestb.in/"
 ### Create WebHook Endpoint
 
 ```shell
-$ curl -d {"event": "unconfirmed-tx", "address": "15qx9ug952GWGTNn7Uiv6vode4RcGrRemh", "token": "YOURTOKEN" "url": "https://my.domain.com/callbacks/new-tx"} https://api.blockcypher.com/v1/btc/main/hooks
+curl -d '{"event": "unconfirmed-tx", "address": "15qx9ug952GWGTNn7Uiv6vode4RcGrRemh", "url": "https://my.domain.com/callbacks/new-tx"}' https://api.blockcypher.com/v1/btc/main/hooks?token=YOURTOKEN
 
 {
 "id": "399d0923-e920-48ee-8928-2051cbfbc369"
@@ -90,6 +93,39 @@ $ curl -d {"event": "unconfirmed-tx", "address": "15qx9ug952GWGTNn7Uiv6vode4RcGr
 "token": "YOURTOKEN"
 "url": "https://my.domain.com/callbacks/new-tx"
 }
+```
+
+```javascript
+var webhook = {
+  "event": "unconfirmed-tx",
+  "address": "15qx9ug952GWGTNn7Uiv6vode4RcGrRemh",
+  "url": "https://my.domain.com/callbacks/new-tx"
+}
+var url = 'https://api.blockcypher.com/v1/btc/main/hooks?token='+TOKEN;
+$.post(url, JSON.stringify(webhook))
+  .then(function(d) {console.log(d)});
+{
+"id": "399d0923-e920-48ee-8928-2051cbfbc369"
+"event": "unconfirmed-tx",
+"address": "15qx9ug952GWGTNn7Uiv6vode4RcGrRemh",
+"token": "YOURTOKEN"
+"url": "https://my.domain.com/callbacks/new-tx"
+}
+```
+
+```python
+>>> import requests, json
+>>> data = {'event': 'unconfirmed-tx', 'address': '15qx9ug952GWGTNn7Uiv6vode4RcGrRemh', 'url': 'https://my.domain.com/callbacks/new-tx'}
+>>> params = {'token': 'YOUR_TOKEN'}
+>>> r = requests.post('https://api.blockcypher.com/v1/btc/main/hooks', data=json.dumps(data), params=params)
+>>> r.json()
+{'filter': 'addr=15qx9ug952GWGTNn7Uiv6vode4RcGrRemh&event=unconfirmed-tx',
+ 'id': '50d1fb13-2bd4-47d0-8e1b-0695e0322581',
+ 'token': 'YOUR_TOKEN',
+ 'address': '15qx9ug952GWGTNn7Uiv6vode4RcGrRemh',
+ 'url': 'https://my.domain.com/callbacks/new-tx',
+ 'event': 'unconfirmed-tx',
+ 'callback_errors': 0}
 ```
 
 Using a partially filled out [Event](#event), you can create a WebHook using this resource. Check the [Event object description](#event) and [types of events](#types-of-events) to understand the options available for your events.
@@ -103,7 +139,7 @@ If successful, it will return the [Event](#event) with a newly generated **id**.
 ### List WebHooks Endpoint
 
 ```shell
-$ curl https://api.blockcypher.com/v1/btc/main/hooks?token=YOURTOKEN
+curl https://api.blockcypher.com/v1/btc/main/hooks?token=YOURTOKEN
 
 [
 	{
@@ -116,6 +152,34 @@ $ curl https://api.blockcypher.com/v1/btc/main/hooks?token=YOURTOKEN
 ]
 ```
 
+```javascript
+$.get('https://api.blockcypher.com/v1/btc/main/hooks?token='+TOKEN)
+  .then(function(d) {console.log(d)});
+[
+	{
+	"id": "399d0923-e920-48ee-8928-2051cbfbc369"
+	"event": "unconfirmed-tx",
+	"address": "15qx9ug952GWGTNn7Uiv6vode4RcGrRemh",
+	"token": "YOURTOKEN"
+	"url": "https://my.domain.com/callbacks/new-tx"
+	}
+]
+```
+
+```python
+>>> import requests
+>>> params = {'token': 'YOUR_TOKEN'}
+>>> r = requests.get('https://api.blockcypher.com/v1/btc/main/hooks', params=params)
+>>> r.json()
+[{'filter': 'addr=15qx9ug952GWGTNn7Uiv6vode4RcGrRemh&event=unconfirmed-tx',
+  'id': '50d1fb13-2bd4-47d0-8e1b-0695e0322581',
+  'token': 'YOUR_TOKEN',
+  'address': '15qx9ug952GWGTNn7Uiv6vode4RcGrRemh',
+  'url': 'https://my.domain.com/callbacks/new-tx',
+  'event': 'unconfirmed-tx',
+  'callback_errors': 0}]
+```
+
 This resource lists your currently active events, according the base resource and $YOURTOKEN.
 
 Resource | Method | Return Object
@@ -125,7 +189,7 @@ Resource | Method | Return Object
 ### WebHook ID Endpoint
 
 ```shell
-$ curl https://api.blockcypher.com/v1/btc/main/hooks/399d0923-e920-48ee-8928-2051cbfbc369
+curl https://api.blockcypher.com/v1/btc/main/hooks/399d0923-e920-48ee-8928-2051cbfbc369
 
 {
 "id": "399d0923-e920-48ee-8928-2051cbfbc369"
@@ -136,13 +200,38 @@ $ curl https://api.blockcypher.com/v1/btc/main/hooks/399d0923-e920-48ee-8928-205
 }
 ```
 
+```javascript
+$.get('https://api.blockcypher.com/v1/btc/main/hooks/399d0923-e920-48ee-8928-2051cbfbc369')
+  .then(function(d) {console.log(d)});
+{
+"id": "399d0923-e920-48ee-8928-2051cbfbc369"
+"event": "unconfirmed-tx",
+"address": "15qx9ug952GWGTNn7Uiv6vode4RcGrRemh",
+"token": "YOURTOKEN"
+"url": "https://my.domain.com/callbacks/new-tx"
+}
+```
+
+```python
+>>> import requests
+>>> r = requests.get('https://api.blockcypher.com/v1/btc/main/hooks/50d1fb13-2bd4-47d0-8e1b-0695e0322581')
+>>> r.json()
+{'filter': 'addr=15qx9ug952GWGTNn7Uiv6vode4RcGrRemh&event=unconfirmed-tx',
+ 'id': '50d1fb13-2bd4-47d0-8e1b-0695e0322581',
+ 'token': 'YOUR_TOKEN',
+ 'address': '15qx9ug952GWGTNn7Uiv6vode4RcGrRemh',
+ 'url': 'https://my.domain.com/callbacks/new-tx',
+ 'event': 'unconfirmed-tx',
+ 'callback_errors': 0}
+```
+
 This resource returns an [Event](#event) based on its generated *id*.
 
 Resource | Method | Return Object
 -------- | ------ | -------------
 /hooks/$WEBHOOKID | GET | [Event](#event)
 
-$WEBHOOKID is a string representing the event's generated *id*, for example:
+WEBHOOKID is a string representing the event's generated *id*, for example:
 
 `399d0923-e920-48ee-8928-2051cbfbc369`
 
@@ -150,19 +239,34 @@ $WEBHOOKID is a string representing the event's generated *id*, for example:
 
 ```shell
 # Piping into grep to get status code
-$ curl -X DELETE -IsL https://api.blockcypher.com/v1/btc/main/hooks/399d0923-e920-48ee-8928-2051cbfbc369 | grep "HTTP/1.1"
+curl -X DELETE -IsL https://api.blockcypher.com/v1/btc/main/hooks/399d0923-e920-48ee-8928-2051cbfbc369?token=YOURTOKEN | grep "HTTP/1.1"
 
-HTTP/1.1 200 OK
+HTTP/1.1 204 OK
 ```
 
-This resource deletes an active [Event](#event) based on its *id*.
+```javascript
+$.ajax({
+  url: "https://api.blockcypher.com/v1/btc/main/hooks/399d0923-e920-48ee-8928-2051cbfbc369?token="+TOKEN,
+  method: "DELETE"
+});
+```
+
+```python
+# Fund existing address with faucet
+>>> import requests
+>>> r = requests.delete('https://api.blockcypher.com/v1/btc/main/hooks/50d1fb13-2bd4-47d0-8e1b-0695e0322581')
+# Will return nothing, but we can confirm the status code to be sure
+>>> assert r.status_code == 204
+```
+
+This resource deletes an active [Event](#event) based on its *id*. Remember to include your token, or the request will fail.
 
 Resource | Method | Return Object
 -------- | ------ | -------------
 /hooks/$WEBHOOKID | DELETE | *nil*
 
-$WEBHOOKID is a string representing the event's generated *id*, for example:
+WEBHOOKID is a string representing the event's generated *id*, for example:
 
 `399d0923-e920-48ee-8928-2051cbfbc369`
 
-If successful, it won't return any objects, but will respond with an HTTP Status Code 200.
+If successful, it won't return any objects, but will respond with an HTTP Status Code 204.
