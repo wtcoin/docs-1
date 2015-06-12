@@ -57,6 +57,34 @@ $.get('https://api.blockcypher.com/v1/btc/main/addrs/1DEP8i3QJCsomS4BSMY2RpU1upv
  'unconfirmed_n_tx': 0}
 ```
 
+```php
+<?php
+require __DIR__ . '/../../bootstrap.php';
+
+use BlockCypher\Api\Address;
+use BlockCypher\Auth\SimpleTokenCredential;
+use BlockCypher\Rest\ApiContext;
+
+$apiContext = ApiContext::create(
+    'main', 'btc', 'v1',
+    new SimpleTokenCredential('c0afcccdde5081d6429de37d16166ead')
+);
+
+$addressBalance = Address::getOnlyBalance('1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD', array(), $apiContext);
+
+{
+  "address":"1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD",
+  "total_received":4433416,
+  "total_sent":0,
+  "balance":4433416,
+  "unconfirmed_balance":0,
+  "final_balance":4433416,
+  "n_tx":7,
+  "unconfirmed_n_tx":0,
+  "final_n_tx":7
+}
+```
+
 The Address Balance Endpoint is the simplest---and fastest---method to get a subset of information on a public address.
 
 Resource | Method | Return Object
@@ -179,6 +207,49 @@ $.get('https://api.blockcypher.com/v1/btc/main/addrs/1DEP8i3QJCsomS4BSMY2RpU1upv
  'unconfirmed_balance': 0,
  'address': '1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD',
  'unconfirmed_n_tx': 0}
+```
+
+```php
+<?php
+require __DIR__ . '/../../bootstrap.php';
+
+use BlockCypher\Api\Address;
+use BlockCypher\Auth\SimpleTokenCredential;
+use BlockCypher\Rest\ApiContext;
+
+$apiContext = ApiContext::create(
+    'main', 'btc', 'v1',
+    new SimpleTokenCredential('c0afcccdde5081d6429de37d16166ead')
+);
+
+$address = Address::get('1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD', array(), $apiContext);
+
+{
+  "address":"1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD",
+  "total_received":4433416,
+  "total_sent":0,
+  "balance":4433416,
+  "unconfirmed_balance":0,
+  "final_balance":4433416,
+  "n_tx":7,
+  "unconfirmed_n_tx":0,
+  "final_n_tx":7,
+  "txrefs":[
+    {
+      "tx_hash":"14b1052855bbf6561bc4db8aa501762e7cc1e86994dda9e782a6b73b1ce0dc1e",
+      "block_height":302013,
+      "tx_input_n":-1,
+      "tx_output_n":0,
+      "value":20213,
+      "spent":false,
+      "confirmations":58584,
+      "confirmed":"2014-05-22T03:46:25Z",
+      "double_spend":false
+    },
+    ...
+  ],
+  "tx_url":"https://api.blockcypher.com/v1/btc/main/txs/"
+}
 ```
 
 The default Address Endpoint strikes a balance between speed of response and data on Addresses. It returns more information about an address' transactions than the [Address Balance Endpoint](#address-balance-endpoint) but doesn't return full transaction information (like the [Address Full Endpoint](#address-full-endpoint)).
@@ -405,6 +476,93 @@ $.get('https://api.blockcypher.com/v1/btc/main/addrs/1DEP8i3QJCsomS4BSMY2RpU1upv
  'unconfirmed_n_tx': 0}
 ```
 
+```php
+<?php
+
+require __DIR__ . '/../../bootstrap.php';
+
+use BlockCypher\Api\Address;
+use BlockCypher\Auth\SimpleTokenCredential;
+use BlockCypher\Rest\ApiContext;
+
+$apiContext = ApiContext::create(
+    'main', 'btc', 'v1',
+    new SimpleTokenCredential('c0afcccdde5081d6429de37d16166ead')
+);
+
+$fullAddress = Address::getFullAddress('1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD', array(), $apiContext);
+
+{
+  "address":"1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD",
+  "total_received":4433416,
+  "total_sent":0,
+  "balance":4433416,
+  "unconfirmed_balance":0,
+  "final_balance":4433416,
+  "n_tx":7,
+  "unconfirmed_n_tx":0,
+  "final_n_tx":7,
+  "txs":[
+    {
+      "block_hash":"00000000000000006548ac8dc283c97e8165023dc1fdbbca2eaa75f0143f4a8c",
+      "block_height":302013,
+      "hash":"14b1052855bbf6561bc4db8aa501762e7cc1e86994dda9e782a6b73b1ce0dc1e",
+      "addresses":[
+        "17astdTmG8zzVmry8mV8A7atAr3XefEgRX",
+        "1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD"
+      ],
+      "total":8835413,
+      "fees":10000,
+      "size":258,
+      "preference":"medium",
+      "relayed_by":"",
+      "confirmed":"2014-05-22T03:46:25Z",
+      "received":"2014-05-22T03:46:25Z",
+      "ver":1,
+      "lock_time":0,
+      "double_spend":false,
+      "vin_sz":1,
+      "vout_sz":2,
+      "confirmations":58588,
+      "confidence":1,
+      "inputs":[
+        {
+          "prev_hash":"4cff011ec53022f2ae47197d1a2fd4a6ac2a80139f4d0131c1fed625ed5dc869",
+          "output_index":1,
+          "script":"483045022035695e3b237733c70a56286eccd8df41b4d22cd103ed9b2df44010caa3bc71430221008f58461c937e8fe6cc6d37a9aaee3927762cce4565a4c386bbcd9d82915acfc50141047b1d511b8559a2003ca88715bc8331f057fa4ebf11f411142509a8ffd2f2d36d5a5e4b6019d6eb3e16878f24fd8d55676050c28b4bc5e4c44f39245beedae100",
+          "output_value":8845413,
+          "sequence":4294967295,
+          "addresses":[
+            "17astdTmG8zzVmry8mV8A7atAr3XefEgRX"
+          ],
+          "script_type":"pay-to-pubkey-hash"
+        }
+      ],
+      "outputs":[
+        {
+          "value":20213,
+          "script":"76a9148629647bd642a2372d846a7660e210c8414f047c88ac",
+          "addresses":[
+            "1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD"
+          ],
+          "script_type":"pay-to-pubkey-hash"
+        },
+        {
+          "value":8815200,
+          "script":"76a9144838f65fc4e06c644423ad0430de11ca5785dcd088ac",
+          "spent_by":"582a50f3a756c3261f8f085185e5975a762e239e95a30bcf1a4f2e31e0f834ab",
+          "addresses":[
+            "17astdTmG8zzVmry8mV8A7atAr3XefEgRX"
+          ],
+          "script_type":"pay-to-pubkey-hash"
+        }
+      ]
+    },
+    ...
+  ]
+}
+```
+
 The Address Full Endpoint returns all information available about a particular address, including an array of complete [transactions](#tx) instead of just transaction inputs and outputs. Unfortunately, because of the amount of data returned, it is the slowest of the address endpoints, but it returns the most detailed data record.
 
 Resource | Method | Return Object
@@ -451,6 +609,29 @@ $.post('https://api.blockcypher.com/v1/btc/test3/addrs')
 
 ```python
 # Please use the python library at https://github.com/blockcypher/blockcypher-python to securely generate an address client-side
+```
+
+```php
+<?php
+require __DIR__ . '/../../bootstrap.php';
+
+use BlockCypher\Api\Address;
+use BlockCypher\Auth\SimpleTokenCredential;
+use BlockCypher\Rest\ApiContext;
+
+$apiContext = ApiContext::create(
+    'main', 'btc', 'v1',
+    new SimpleTokenCredential('c0afcccdde5081d6429de37d16166ead')
+);
+
+$address = Address::create($apiContext);
+
+{
+  "private":"3f3cea5a7373011d6f51844bf986abe6950d7a30eaaab247fc951c3ea9f13705",
+  "public":"02d1c8ccc7131a3c39b9e7001741f68d339e5d6941caf31fe9f43b15d6cf09dcb9",
+  "address":"1rA7AB93qziWzHfTFXn5n3GYJ1mhkG8tn",
+  "wif":"KyLdumvGqB86v3D9sKqAMGhNXB1UtYSsxb9deH1nxpooskVF7Rgz"
+}
 ```
 
 The Generate Address endpoint allows you to generate private-public key-pairs along with an associated public address. No information is required with this POST request.

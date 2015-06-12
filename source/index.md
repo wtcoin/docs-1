@@ -5,6 +5,7 @@ language_tabs:
   - shell: cURL
   - javascript: JavaScript
   - python: Python
+  - php: PHP
 
 toc_footers:
   - <a href='https://accounts.blockcypher.com/'>Register for a Free Token</a>

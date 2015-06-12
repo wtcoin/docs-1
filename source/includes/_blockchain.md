@@ -65,6 +65,39 @@ $.get('https://api.blockcypher.com/v1/btc/main').then(function(d) {console.log(d
  'medium_fee_per_kb': 29422}
 ```
 
+```php
+<?php
+require __DIR__ . '/../../bootstrap.php';
+
+use BlockCypher\Api\Chain;
+use BlockCypher\Auth\SimpleTokenCredential;
+use BlockCypher\Rest\ApiContext;
+
+$apiContext = ApiContext::create(
+    'main', 'btc', 'v1',
+    new SimpleTokenCredential('c0afcccdde5081d6429de37d16166ead')
+);
+
+$chain = Chain::get('BTC.main', array(), $apiContext);
+
+{
+  "name":"BTC.main",
+  "height":360602,
+  "hash":"00000000000000000a1268afd1eb419817106a37c9a87852228cadb752a64f2a",
+  "time":"2015-06-12T13:09:56.69966089Z",
+  "latest_url":"https://api.blockcypher.com/v1/btc/main/blocks/00000000000000000a1268afd1eb419817106a37c9a87852228cadb752a64f2a",
+  "previous_hash":"00000000000000000cea706491da61bc755a1250d7260becff5aafc9d26613f2",
+  "previous_url":"https://api.blockcypher.com/v1/btc/main/blocks/00000000000000000cea706491da61bc755a1250d7260becff5aafc9d26613f2",
+  "peer_count":250,
+  "unconfirmed_count":1794,
+  "high_fee_per_kb":40018,
+  "medium_fee_per_kb":26652,
+  "low_fee_per_kb":12299,
+  "last_fork_height":360362,
+  "last_fork_hash":"000000000000000002d5cf67bfaa92ba5b371c1590eb48d25031c669ef6233a0"
+}
+```
+
 General information about a blockchain is available by GET-ing the [base resource](#restful-resources).
 
 Resource | Method | Return Object
@@ -158,6 +191,47 @@ $.get('https://api.blockcypher.com/v1/btc/main/blocks/0000000000000000189bba3564
  'bits': 419486617,
  'time': '2014-04-05T07:49:18Z'}
 >>>>>>> master
+```
+
+```php
+<?php
+require __DIR__ . '/../../bootstrap.php';
+
+use BlockCypher\Api\Block;
+use BlockCypher\Auth\SimpleTokenCredential;
+use BlockCypher\Rest\ApiContext;
+
+$apiContext = ApiContext::create(
+    'main', 'btc', 'v1',
+    new SimpleTokenCredential('c0afcccdde5081d6429de37d16166ead')
+);
+
+$block = Block::get('0000000000000000c504bdea36e531d8089d324f2d936c86e3274f97f8a44328', array(), $apiContext);
+
+{
+  "hash":"0000000000000000c504bdea36e531d8089d324f2d936c86e3274f97f8a44328",
+  "height":293000,
+  "chain":"BTC.main",
+  "total":288801092067,
+  "fees":6635337,
+  "ver":2,
+  "time":"2014-03-29T01:29:19Z",
+  "received_time":"2014-03-29T01:29:19Z",
+  "bits":419486617,
+  "nonce":704197304,
+  "n_tx":373,
+  "prev_block":"0000000000000000b358b3b54788547080f49ed52392c2ed32a241951e2c9d5f",
+  "mrkl_root":"5edf6a7e92e65d32843a79227042c215b875675fb92ff9613c90d6964fb069cd",
+  "txids":[
+    "7f00b52d075b3596cbd37ba5418640ace14a22ed6c5d154c4db5dd80e049b800",
+    "a90d9bc04a4e6be53e0ddc47b043625a0bdc849ef3bc05f551bc05336de3a87c",
+    ...
+  ],
+  "depth":67602,
+  "prev_block_url":"https://api.blockcypher.com/v1/btc/main/blocks/0000000000000000b358b3b54788547080f49ed52392c2ed32a241951e2c9d5f",
+  "tx_url":"https://api.blockcypher.com/v1/btc/main/txs/",
+  "next_txids":"https://api.blockcypher.com/v1/btc/main/blocks/0000000000000000c504bdea36e531d8089d324f2d936c86e3274f97f8a44328?txstart=20\u0026limit=20"
+}
 ```
 
 If you want more data on a particular block, you can use the Block Hash endpoint.
@@ -255,6 +329,50 @@ $.get('https://api.blockcypher.com/v1/btc/main/blocks/294322?txstart=1&limit=1')
  'fees': 130999,
  'bits': 419486617,
  'time': '2014-04-05T07:49:18Z'}
+```
+
+```php
+<?php
+require __DIR__ . '/../../bootstrap.php';
+
+use BlockCypher\Api\Block;
+use BlockCypher\Auth\SimpleTokenCredential;
+use BlockCypher\Rest\ApiContext;
+
+$apiContext = ApiContext::create(
+    'main', 'btc', 'v1',
+    new SimpleTokenCredential('c0afcccdde5081d6429de37d16166ead')
+);
+
+$params = array(
+    'txstart' => 1,
+    'limit' => 1,
+);
+
+$block = \BlockCypher\Api\Block::get('293000', $params, $apiContext);
+
+{
+  "hash":"0000000000000000c504bdea36e531d8089d324f2d936c86e3274f97f8a44328",
+  "height":293000,
+  "chain":"BTC.main",
+  "total":288801092067,
+  "fees":6635337,
+  "ver":2,
+  "time":"2014-03-29T01:29:19Z",
+  "received_time":"2014-03-29T01:29:19Z",
+  "bits":419486617,
+  "nonce":704197304,
+  "n_tx":373,
+  "prev_block":"0000000000000000b358b3b54788547080f49ed52392c2ed32a241951e2c9d5f",
+  "mrkl_root":"5edf6a7e92e65d32843a79227042c215b875675fb92ff9613c90d6964fb069cd",
+  "txids":[
+    "a90d9bc04a4e6be53e0ddc47b043625a0bdc849ef3bc05f551bc05336de3a87c"
+  ],
+  "depth":67602,
+  "prev_block_url":"https://api.blockcypher.com/v1/btc/main/blocks/0000000000000000b358b3b54788547080f49ed52392c2ed32a241951e2c9d5f",
+  "tx_url":"https://api.blockcypher.com/v1/btc/main/txs/",
+  "next_txids":"https://api.blockcypher.com/v1/btc/main/blocks/0000000000000000c504bdea36e531d8089d324f2d936c86e3274f97f8a44328?txstart=2\u0026limit=1"
+}
 ```
 
 You can also query for information on a block using its height, using the same resource but with a different variable type.
