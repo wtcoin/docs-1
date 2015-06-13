@@ -4198,7 +4198,18 @@ If you only need a <i>pay-to-script-hash</i> address corresponding to N-of-M mul
 <p>Each party can send their signed data individually to <code class="prettyprint">/txs/send</code> and we can correlate the signatures to the public keys; once we have enough signatures we&rsquo;ll propagate the transaction. Or you can send all needed signatures alongside ordered public keys with a single call to <code class="prettyprint">/txs/send</code>.</p>
 
 <h2 id="data-endpoint">Data Endpoint</h2>
-<pre class="highlight shell"><code>curl -d <span class="s1">'{"data":"I am the walrus", "encoding":"string"}'</span> https://api.blockcypher.com/v1/btc/main/txs/data?token<span class="o">=</span>YOURTOKEN
+<pre class="highlight shell"><code><span class="c"># Embedding (Hash) Data</span>
+curl -d <span class="s1">'{"data":"6cbe5d6c75bc36879b5fd32e29b325e288599d31edc76327c7889d407985e2aa"}'</span> https://api.blockcypher.com/v1/btc/main/txs/data?token<span class="o">=</span>YOURTOKEN
+
+<span class="o">{</span>
+  <span class="s2">"data"</span>: <span class="s2">"6cbe5d6c75bc36879b5fd32e29b325e288599d31edc76327c7889d407985e2aa"</span>,
+  <span class="s2">"encoding"</span>: <span class="s2">"hex"</span>,
+  <span class="s2">"token"</span>: <span class="s2">"YOURTOKEN"</span>,
+  <span class="s2">"hash"</span>: <span class="s2">"87d494918559a14ea6238ba0e25fb07bffb08716f4a55e25f32ea95a148c85d1"</span>
+<span class="o">}</span>
+
+<span class="c"># Embedding String Data</span>
+curl -d <span class="s1">'{"data":"I am the walrus", "encoding":"string"}'</span> https://api.blockcypher.com/v1/btc/main/txs/data?token<span class="o">=</span>YOURTOKEN
 
 <span class="o">{</span>
   <span class="s2">"data"</span>: <span class="s2">"I am the walrus"</span>,
