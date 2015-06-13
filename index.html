@@ -1277,6 +1277,48 @@ Objects sometimes contain <b>attributes</b> that are <b><i>optional.</i></b> The
 </tr>
 </tbody></table>
 
+<h2 id="nulldata">NullData</h2>
+<pre class="highlight shell"><code>curl -d <span class="s1">'{"data":"I am the walrus", "encoding":"string"}'</span> https://api.blockcypher.com/v1/btc/main/txs/data?token<span class="o">=</span>YOURTOKEN
+
+<span class="o">{</span>
+  <span class="s2">"data"</span>: <span class="s2">"I am the walrus"</span>,
+  <span class="s2">"encoding"</span>: <span class="s2">"string"</span>,
+  <span class="s2">"token"</span>: <span class="s2">"YOURTOKEN"</span>,
+  <span class="s2">"hash"</span>: <span class="s2">"cb6974e0fd57c91b70403e85ef48c840eecdca4804dfc4897b1321d5328e4f18"</span>
+<span class="o">}</span>
+</code></pre>
+
+<p>A NullData Object is used exclusively by our <a href="#data-endpoint">Data Endpoint</a> to embed small pieces of data on the blockchain. If your data is over 40 bytes, it cannot be embedded into the blockchain and will return an error</p>
+
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>data</strong></td>
+<td><em>string</em></td>
+<td>The string representing the data to embed, can be either hex-encoded or plaintext.</td>
+</tr>
+<tr>
+<td><strong>token</strong></td>
+<td><em>string</em></td>
+<td><strong><em>Optional</em></strong> Your BlockCypher API token, can either be included here or as a URL Parameter in your request.</td>
+</tr>
+<tr>
+<td><strong>encoding</strong></td>
+<td><em>string</em></td>
+<td><strong><em>Optional</em></strong> The encoding of your data, can be either <em>string</em> (for plaintext) or <em>hex</em> (for hex-encoded). If not set, defaults to hex.</td>
+</tr>
+<tr>
+<td><strong>hash</strong></td>
+<td><em>string</em></td>
+<td><strong><em>Optional</em></strong> The hash of the transaction containing your data; only part of return object.</td>
+</tr>
+</tbody></table>
+
 <h2 id="microtx">MicroTX</h2>
 <pre class="highlight shell"><code><span class="o">{</span>
 <span class="s2">"from_pubkey"</span>: <span class="s2">"03bb318b00de944086fad67ab78a832eb1bf26916053ecd3b14a3f48f9fbe0821f"</span>,
@@ -2972,7 +3014,7 @@ If the named wallet already exists under your token, attempting to create a new 
 
           <h1 id="transaction-api">Transaction API</h1>
 
-<p>BlockCypher&rsquo;s Transaction API allows you to look up information about unconfirmed transactions, query transactions based on hash, and create and propagate your own transactions, including multisignature transactions&mdash;all <a href="#restful-resources">based on the coin/chain resource</a> you&rsquo;ve selected for your endpoints.</p>
+<p>BlockCypher&rsquo;s Transaction API allows you to look up information about unconfirmed transactions, query transactions based on hash, create and propagate your own transactions, including multisignature transactions, and embed data on the blockchain&mdash;all <a href="#restful-resources">based on the coin/chain resource</a> you&rsquo;ve selected for your endpoints.</p>
 
 <p>If you&rsquo;re new to blockchains, the idea of transactions is relatively self-explanatory. Here&rsquo;s what&rsquo;s going on underneath the hood: a transaction takes previous &ldquo;unspent transaction outputs&rdquo; (also known as <a href="https://bitcoin.org/en/glossary/unspent-transaction-output">UTXOs</a>) as &ldquo;transaction inputs&rdquo; and creates new &ldquo;locking scripts&rdquo; on those inputs such that they are &ldquo;sent&rdquo; to new addresses (to become new UTXOs). While most of these public addresses are reference points for single private keys that can &ldquo;unlock&rdquo; the newly created UTXOs, occasionally they are sent to more exotic addresses through <em>pay-to-script-hash</em>, typically multisignature addresses.</p>
 
@@ -4154,6 +4196,47 @@ If you only need a <i>pay-to-script-hash</i> address corresponding to N-of-M mul
 <p>Once funded, you might want to programmatically spend the money in the address at some point. Here the process is similar, but with the inputs and outputs reversed. As you can see in the code sample, you need to provide the public keys within the <strong>inputs</strong> <strong>addresses</strong> array, and the corresponding <strong>script_type</strong> of <em>multisig-n-of-m</em> (e.g., <em>multisig-2-of-3</em>). Then you follow the same process of sending to <code class="prettyprint">/txs/new</code> and getting an array of data to be signed.</p>
 
 <p>Each party can send their signed data individually to <code class="prettyprint">/txs/send</code> and we can correlate the signatures to the public keys; once we have enough signatures we&rsquo;ll propagate the transaction. Or you can send all needed signatures alongside ordered public keys with a single call to <code class="prettyprint">/txs/send</code>.</p>
+
+<h2 id="data-endpoint">Data Endpoint</h2>
+<pre class="highlight shell"><code>curl -d <span class="s1">'{"data":"I am the walrus", "encoding":"string"}'</span> https://api.blockcypher.com/v1/btc/main/txs/data?token<span class="o">=</span>YOURTOKEN
+
+<span class="o">{</span>
+  <span class="s2">"data"</span>: <span class="s2">"I am the walrus"</span>,
+  <span class="s2">"encoding"</span>: <span class="s2">"string"</span>,
+  <span class="s2">"token"</span>: <span class="s2">"YOURTOKEN"</span>,
+  <span class="s2">"hash"</span>: <span class="s2">"cb6974e0fd57c91b70403e85ef48c840eecdca4804dfc4897b1321d5328e4f18"</span>
+<span class="o">}</span>
+</code></pre>
+
+<p>Some of the most interesting blockchain applications involve embedding data through <em>null-data</em> (also known as OP_RETURN) output scripts with transactions. While you can certainly use our <a href="#creating-transactions">guided transaction process</a> and customize your script output, there&rsquo;s a simpler way: through our Data Endpoint. All you need is the data you want to embed (up to 40 bytes, inclusive) and we&rsquo;ll handle the rest.</p>
+
+<aside class="notice">
+Embedding data into a blockchain is not free, but we&rsquo;re covering the cost for now, leveraging our <a href="#microtransaction-api">Microtransaction</a> infrastructure. Consequently, in order for us to keep track of fees, we require that all calls to the Data Endpoint use a token. You can <a href="http://accounts.blockcypher.com/">register for one here.</a>
+</aside>
+
+<table><thead>
+<tr>
+<th>Resource</th>
+<th>Method</th>
+<th>Request Object</th>
+<th>Return Object</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>/txs/data</td>
+<td>POST</td>
+<td><a href="#nulldata">NullData</a></td>
+<td><a href="#nulldata">NullData</a></td>
+</tr>
+</tbody></table>
+
+<p>In your request object, simply include the <strong>data</strong> you want to embed. By default, you needn&rsquo;t set an <strong>encoding</strong> if your data is hex-encoded (like a hash, the typical use case for <em>null-data</em>). That said, if you want to embed plaintext messages in the blockchain, you can set <strong>encoding</strong> to <em>string</em>. If successful, the return object will include your original request along with the <strong>hash</strong> of the transaction containing your <strong>data</strong> as a <em>null-data</em> output.</p>
+
+<aside class="warning">
+While some miners have a patch allowing 80 byte <i>null-data</i> outputs on Bitcoin&rsquo;s blockchain, it is not yet ubiquitous. The 40 byte limit is a hard ceiling for now; pay special attention if you&rsquo;re embedding special characters with plaintext encoding. If your <b>data</b> is over 40 bytes, the endpoint will return an error.
+</aside>
+
+<p>To view the data output on the blockchain, simply <a href="#transaction-hash-endpoint">query the transaction</a> via the <strong>hash</strong> returned, and check the <em>null-data</em> <a href="#txoutput">output</a> within the returned transaction. Please keep in mind that it will always be represented by hex-encoding on the blockchain, even if you selected <em>string</em> as your data <strong>encoding</strong>; to see it as your original plaintext, you have to convert it client-side.</p>
 
           <h1 id="microtransaction-api">Microtransaction API</h1>
 
