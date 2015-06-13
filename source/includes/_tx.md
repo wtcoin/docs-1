@@ -1160,6 +1160,17 @@ Each party can send their signed data individually to `/txs/send` and we can cor
 ## Data Endpoint
 
 ```shell
+# Embedding (Hash) Data
+curl -d '{"data":"6cbe5d6c75bc36879b5fd32e29b325e288599d31edc76327c7889d407985e2aa"}' https://api.blockcypher.com/v1/btc/main/txs/data?token=YOURTOKEN
+
+{
+  "data": "6cbe5d6c75bc36879b5fd32e29b325e288599d31edc76327c7889d407985e2aa",
+  "encoding": "hex",
+  "token": "YOURTOKEN",
+  "hash": "87d494918559a14ea6238ba0e25fb07bffb08716f4a55e25f32ea95a148c85d1"
+}
+
+# Embedding String Data
 curl -d '{"data":"I am the walrus", "encoding":"string"}' https://api.blockcypher.com/v1/btc/main/txs/data?token=YOURTOKEN
 
 {
