@@ -481,7 +481,7 @@ Attribute | Type | Description
 **private**	| *string* | Hex-encoded Private key.
 **wif**	| *string* | [Wallet import format](https://en.bitcoin.it/wiki/Wallet_import_format), a common encoding for the private key.
 **pubkeys**	| *array[string]* | ***Optional*** Array of public keys to provide to generate a multisig address.
-**script_type**	| *array[string]* | ***Optional*** If generating a multisig address, the type of multisig script; typically "multisig-n-of-m", where n and m are integers.
+**script_type**	| *string* | ***Optional*** If generating a multisig address, the type of multisig script; typically "multisig-n-of-m", where n and m are integers.
 
 ## Wallet
 
