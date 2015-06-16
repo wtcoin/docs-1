@@ -72,9 +72,14 @@ console.log('Welcome to BlockCypher');
 ```ruby
 # Ruby examples use irb, and our official ruby sdk:
 # https://github.com/blockcypher/ruby-client
+
 # Remember to require the library after installing
 > require 'blockcypher'
 => true
+
+# Unless otherwise noted, all requests assume an initialized API 'block_cypher' API object
+> block_cypher = BlockCypher::Api.new(api_token:"YOURTOKEN")
+=> #<BlockCypher::Api:0x000000010e4060 @api_token="YOURTOKEN", @currency="btc", @network="main", @version="v1">
 ```
 
 ```python
