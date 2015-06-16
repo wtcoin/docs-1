@@ -9,6 +9,14 @@
 }
 ```
 
+```python
+```
+
+```php
+// All PHP client Objects are listed in:
+// https://github.com/blockcypher/php-client/tree/master/lib/BlockCypher/Api
+```
+
 Before diving into BlockCypher's endpoints, this section details all the Objects exposed and expected by the API. Some of you might be more interested in the endpoints themselves, in which case, feel free to [skip to the next section.](#blockchain-api) But for others, a section dedicated to all of BlockCypher's Objects might prove a useful overview, especially if you're new to Blockchain development in general. And in either case, this section provides a comprehensive reference for Objects in the API. For each Object there's a description and a link to a germane API endpoint.
 
 <aside class="notice">
@@ -36,6 +44,15 @@ curl https://api.blockcypher.com/v1/btc/main
   "last_fork_height": 359865,
   "last_fork_hash": "00000000000000000aa6462fd9faf94712ce1b5a944dc666f491101c996beab9"
 }
+```
+
+```javascript
+```
+
+```python
+```
+
+```php
 ```
 
 A Blockchain represents the current state of a particular blockchain from the [Coin/Chain resources](#restful-resources) that BlockCypher supports. Typically returned from the [Chain API endpoint](#chain-endpoint).
@@ -85,6 +102,15 @@ curl https://api.blockcypher.com/v1/btc/main/blocks/0000000000000000189bba3564a6
 "prev_block_url": "https://api.blockcypher.com/v1/btc/main/blocks/0000000000000000ced0958bd27720b71d32c5847e40660aaca39f33c298abb0",
 "tx_url": "https://api.blockcypher.com/v1/btc/main/txs/"
 }
+```
+
+```javascript
+```
+
+```python
+```
+
+```php
 ```
 
 A Block represents the current state of a particular block from a [Blockchain](#blockchain). Typically returned from the [Block Hash](#block-hash-endpoint) and [Block Height](#block-height-endpoint) endpoints.
@@ -169,6 +195,15 @@ curl https://api.blockcypher.com/v1/btc/main/txs/f854aebae95150b379cc1187d848d58
 }
 ```
 
+```javascript
+```
+
+```python
+```
+
+```php
+```
+
 A TX represents the current state of a particular transaction from either a [Block](#block) within a [Blockchain](#blockchain), or an unconfirmed transaction that has yet to be included in a [Block](#block). Typically returned from the [Unconfirmed Transactions](#unconfirmed-transactions-endpoint) and [Transaction Hash](#transaction-hash) endpoints.
 
 Attribute | Type | Description
@@ -215,6 +250,15 @@ Attribute | Type | Description
 }
 ```
 
+```javascript
+```
+
+```python
+```
+
+```php
+```
+
 A TXInput represents an input consumed within a transaction. Typically found within an array in a [TX](#tx). In most cases, TXInputs are from previous [UTXOs](https://bitcoin.org/en/glossary/unspent-transaction-output), with the most prominent exceptions being attempted double-spend and [coinbase](https://bitcoin.org/en/glossary/coinbase) inputs.
 
 Attribute | Type | Description
@@ -242,6 +286,15 @@ Attribute | Type | Description
 }
 ```
 
+```javascript
+```
+
+```python
+```
+
+```php
+```
+
 A TXOutput represents an output created by a transaction. Typically found within an array in a [TX](#tx).
 
 Attribute | Type | Description
@@ -264,6 +317,15 @@ curl https://api.blockcypher.com/v1/btc/main/txs/43fa951e1bea87c282f6725cf8bdc08
 "txhash": "43fa951e1bea87c282f6725cf8bdc08bb48761396c3af8dd5a41a085ab62acc9",
 "txurl": "https://api.blockcypher.com/v1/btc/main/txs/43fa951e1bea87c282f6725cf8bdc08bb48761396c3af8dd5a41a085ab62acc9"
 }
+```
+
+```javascript
+```
+
+```python
+```
+
+```php
 ```
 
 A TXConfidence represents information about the confidence that an unconfirmed transaction will make it into the next block. Typically used as a return object from the [Transaction Confidence Endpoint.](#transaction-confidence-endpoint)
@@ -290,6 +352,15 @@ Attribute | Type | Description
 "confirmed": "2014-05-22T03:46:25Z",
 "double_spend": false
 }
+```
+
+```javascript
+```
+
+```python
+```
+
+```php
 ```
 
 A TXRef object represents summarized data about a transaction input or output. Typically found in an array within an [Address](#address) object, which is usually returned from the standard [Address Endpoint](#address-endpoint).
@@ -348,6 +419,15 @@ curl -d '{"inputs":[{"addresses": ["CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"]}],"outp
 }
 ```
 
+```javascript
+```
+
+```python
+```
+
+```php
+```
+
 A TXSkeleton is a convenience/wrapper Object that's used primarily when [Creating Transactions](#creating-transactions) through the [New](#new-transaction-endpoint) and [Send](#send-transaction-endpoint) endpoints.
 
 Attribute | Type | Description
@@ -370,6 +450,15 @@ Attribute | Type | Description
 	"3045022100..."
 ]
 }
+```
+
+```javascript
+```
+
+```python
+```
+
+```php
 ```
 
 A MicroTX represents a streamlined---and typically much lower value---microtransaction, one which BlockCypher can sign for you if you send your private key. MicroTXs can also be signed on the client-side without ever sending your private key. You'll find these objects used in the [Microtransaction API.](#microtransaction-api)
@@ -419,6 +508,15 @@ curl http://api.blockcypher.com/v1/btc/main/addrs/1DEP8i3QJCsomS4BSMY2RpU1upv62a
 }
 ```
 
+```javascript
+```
+
+```python
+```
+
+```php
+```
+
 An Address represents a public address on a blockchain, and contains information about the state of balances and transactions related to this address. Typically returned from the [Address Balance](#address-balance-endpoint), [Address](#address-endpoint), and [Address Detail Endpoint](#address-detail-endpoint).
 
 Attribute | Type | Description
@@ -451,6 +549,15 @@ curl -X POST http://api.blockcypher.com/v1/btc/test3/addrs
 }
 ```
 
+```javascript
+```
+
+```python
+```
+
+```php
+```
+
 An AddressKeychain represents an associated collection of public and private keys alongside their respective public address. Generally returned and used with the [Generate Address Endpoint](#generate-address-endpoint).
 
 Attribute | Type | Description
@@ -474,6 +581,15 @@ curl -d '{"name": "alice","addresses": ["1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e"]}' 
 }
 ```
 
+```javascript
+```
+
+```python
+```
+
+```php
+```
+
 A Wallet represents a list of addresses, and can be used interchangeably with all the [Address API](#address-api) endpoints.
 
 Attribute | Type | Description
@@ -491,9 +607,18 @@ curl https://api.blockcypher.com/v1/btc/main/hooks/399d0923-e920-48ee-8928-2051c
 "id": "399d0923-e920-48ee-8928-2051cbfbc369"
 "event": "unconfirmed-tx",
 "address": "15qx9ug952GWGTNn7Uiv6vode4RcGrRemh",
-"token": "YOURTOKEN"
+"token": "YOURTOKEN",
 "url": "https://my.domain.com/callbacks/new-tx"
 }
+```
+
+```javascript
+```
+
+```python
+```
+
+```php
 ```
 
 An Event represents a WebHooks or WebSockets-based notification request, as detailed in the [Events & Hooks](#events-and-hooks) section of the documentation.
@@ -525,6 +650,15 @@ curl -d '{"destination":"15qx9ug952GWGTNn7Uiv6vode4RcGrRemh","callback_url": "ht
 }
 ```
 
+```javascript
+```
+
+```python
+```
+
+```php
+```
+
 A PaymentForward object represents a request set up through the [Payment Forwarding](#payment-forwarding) service.
 
 Attribute | Type | Description
@@ -551,6 +685,15 @@ Attribute | Type | Description
 "input_transaction_hash": "39bed5d...",
 "transaction_hash": "1aa6103..."
 }
+```
+
+```javascript
+```
+
+```python
+```
+
+```php
 ```
 
 A PaymentForwardCallback object represents the payload delivered to the optional **callback_url** in a [PaymentForward](#payment-forward) request.
