@@ -42,6 +42,24 @@ $.get('https://api.blockcypher.com/v1/btc/main/addrs/1DEP8i3QJCsomS4BSMY2RpU1upv
 > }
 ```
 
+```ruby
+# Full balance
+> block_cypher.address_balance("1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD")
+=> {"address"=>"1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD",
+ "total_received"=>4433416,
+ "total_sent"=>0,
+ "balance"=>4433416,
+ "unconfirmed_balance"=>0,
+ "final_balance"=>4433416,
+ "n_tx"=>7,
+ "unconfirmed_n_tx"=>0,
+ "final_n_tx"=>7}
+
+# Just final balance
+> block_cypher.address_final_balance("1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD")
+=> 4433416
+```
+
 ```python
 >>> import requests
 >>> r = requests.get('http://api.blockcypher.com/v1/btc/main/addrs/1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD/balance')
@@ -153,6 +171,41 @@ $.get('https://api.blockcypher.com/v1/btc/main/addrs/1DEP8i3QJCsomS4BSMY2RpU1upv
 > ],
 > "tx_url": "https://api.blockcypher.com/v1/btc/main/txs/"
 > }
+```
+
+```ruby
+> block_cypher.address_details("1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD")
+=> {"address"=>"1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD", 
+ "total_received"=>4433416,
+ "total_sent"=>0,
+ "balance"=>4433416,
+ "unconfirmed_balance"=>0,
+ "final_balance"=>4433416,
+ "n_tx"=>7,
+ "unconfirmed_n_tx"=>0,
+ "final_n_tx"=>7,
+ "txrefs"=> [
+  {"tx_hash"=>"14b1052855bbf6561bc4db8aa501762e7cc1e86994dda9e782a6b73b1ce0dc1e",
+	 "block_height"=>302013,
+	 "tx_input_n"=>-1,
+	 "tx_output_n"=>0,
+	 "value"=>20213,
+	 "spent"=>false,
+	 "confirmations"=>59220,
+	 "confirmed"=>"2014-05-22T03:46:25Z",
+	 "double_spend"=>false},
+	{"tx_hash"=>"4cff011ec53022f2ae47197d1a2fd4a6ac2a80139f4d0131c1fed625ed5dc869",
+	 "block_height"=>302002,
+	 "tx_input_n"=>-1,
+	 "tx_output_n"=>0,
+	 "value"=>40596,
+	 "spent"=>false,
+	 "confirmations"=>59231,
+	 "confirmed"=>"2014-05-22T02:56:08Z",
+	 "double_spend"=>false},
+	...
+	],
+	"tx_url"=>"https://api.blockcypher.com/v1/btc/main/txs/"}
 ```
 
 ```python
@@ -354,6 +407,54 @@ $.get('https://api.blockcypher.com/v1/btc/main/addrs/1DEP8i3QJCsomS4BSMY2RpU1upv
 > }
 ```
 
+```ruby
+> block_cypher.address_full_txs("1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD")
+=> {"address"=>"1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD",
+ "total_received"=>4433416,
+ "total_sent"=>0,
+ "balance"=>4433416,
+ "unconfirmed_balance"=>0,
+ "final_balance"=>4433416,
+ "n_tx"=>7,
+ "unconfirmed_n_tx"=>0,
+ "final_n_tx"=>7,
+ "txs"=>[
+  {"block_hash"=>"00000000000000006548ac8dc283c97e8165023dc1fdbbca2eaa75f0143f4a8c",
+  "block_height"=>302013,
+  "hash"=>"14b1052855bbf6561bc4db8aa501762e7cc1e86994dda9e782a6b73b1ce0dc1e",
+  "addresses"=>["17astdTmG8zzVmry8mV8A7at Ar3XefEgRX", "1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD"],
+  "total"=>8835413,
+  "fees"=>10000, 
+  "size"=>258,
+  "preference"=>"medium",
+  "relayed_by"=>"",
+  "confirmed"=>"2014-05-22T03:46:25Z",
+  "received"=>"2014-05-22T03:46:25Z",
+  "ver"=>1,
+  "lock_time"=>0,
+  "double_spend"=>false,
+	"vin_sz"=>1,
+	"vout_sz"=>2,
+	"confirmations"=>59221,
+	"confidence"=>1,
+	"inputs"=>[
+	 {"prev_hash"=>"4cff011ec53022f2ae47197d1a2fd4a6ac2a80139f4d0131c1fed625ed5dc869",
+	 "output_index"=>1,
+	 "script" =>"483045022035695e3b237733c70a5...",
+	 "output_value"=> 8845413,
+	 "sequence"=>4294967295,
+	 "addresses"=>["17astdTmG8zzVmry8mV8A7atAr3XefEgRX"],
+	 "script_type"=>"pay-to-pubkey-hash"}],
+	"outputs"=>[
+	 {"value"=>20213,
+	 "script"=>"76a9148629647bd642a2372d846a7660e210c8414f047c88ac",
+	 "addresses"=>["1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD"],
+	 "script_type"=>"pay-to-pubkey-hash"},
+	 ... ]}, 
+	 ...
+	]}
+```
+
 ```python
 >>> import requests, json
 >>> data = {'before': 300000}
@@ -449,6 +550,14 @@ $.post('https://api.blockcypher.com/v1/btc/test3/addrs')
 > }
 ```
 
+```ruby
+> block_cypher.address_generate
+=> {"private"=>"39c8788ef9815d061a2a4528817b3c23730b1129e5ca60032138061f35483951",
+ "public"=>"039dc801dd76a7fa03789e0fe8efdd7e0857e73fa4ae38a294a60002ef949e83c4",
+ "address"=>"1FdQDEnHXibwMMMKaaNGrhrcujJNZyszUN",
+ "wif"=>"KyA2uUUMZkiRcSTx3PE1pBeMFgyifpxswcJu3Q7fVwXXZmvh48JA"}
+```
+
 ```python
 # Please use the python library at https://github.com/blockcypher/blockcypher-python to securely generate an address client-side
 ```
@@ -511,6 +620,19 @@ $.post('https://api.blockcypher.com/v1/btc/test3/addrs', data)
 > ],
 > "script_type": "multisig-2-of-3"
 > }
+```
+
+```ruby
+> block_cypher.address_generate_multi(["02c716d071a76cbf0d29c29cacfec76e0ef8116b37389fb7a3e76d6d32cf59f4d3", "033ef4d5165637d99b673bcdbb7ead359cee6afd7aaf78d3da9d2392ee4102c8ea", "022b8934cc41e76cb4286b9f3ed57e2d27798395b04dd23711981a77dc216df8ca"], "multisig-2-of-3")
+=> {"private"=>"",
+ "public"=>"",
+ "address"=>"3BF1M1PnTge94QewuWh3B8mRVw8U4SVnb4",
+ "wif"=>"",
+ "pubkeys"=>
+  ["02c716d071a76cbf0d29c29cacfec76e0ef8116b37389fb7a3e76d6d32cf59f4d3",
+   "033ef4d5165637d99b673bcdbb7ead359cee6afd7aaf78d3da9d2392ee4102c8ea",
+   "022b8934cc41e76cb4286b9f3ed57e2d27798395b04dd23711981a77dc216df8ca"],
+ "script_type"=>"multisig-2-of-3"}
 ```
 
 ```python
