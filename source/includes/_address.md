@@ -696,16 +696,11 @@ This endpoint returns a list of the addresses associated with the $NAME wallet. 
 ```shell
 $ curl -X DELETE https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses?token=USERTOKEN&address=1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e
 
-{"token": "YOURTOKEN",
-"name": "alice",
-"addresses": [
-	"13cj1QtfW61kQHoqXm3khVRYPJrgQiRM6j"
-]}
 ```
 
 ```javascript
 $.ajax({
-  url: "https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses/1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e?token=USERTOKEN",
+  url: "https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses?token=USERTOKEN&address=1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e",
   method: "DELETE"
 })
 ```
@@ -714,17 +709,15 @@ $.ajax({
 >>> import requests, json
 >>> data = {'token': 'YOUR_TOKEN', 'address': '1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e'}
 >>> r = requests.delete('https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses', data=json.dumps(data))
->>> r.json()
-{'token': 'YOUR_TOKEN',
- 'name': 'alice',
- 'addresses': ['13cj1QtfW61kQHoqXm3khVRYPJrgQiRM6j']}
+# returns nothing, let's just check the status code to be sure
+>>> assert r.status_code == 204
 ```
 
 Resource | Method | Request Object | Return Object
 -------- | ------ | -------------- | -------------
-/wallets/$NAME/addresses?address=$ADDRESS | DELETE | *nil* | [Wallet](#wallet)
+/wallets/$NAME/addresses?address=$ADDRESS | DELETE | *nil* | *nil*
 
-This endpoint allows you to delete an $ADDRESS associated with the $NAME wallet. As a reminder, you [can batch](#http://dev.blockcypher.com/#batching) multiple addresses by appending them with semicolons within the $ADDRESS URL parameter. If successful, it will return the newly modified [Wallet](#wallet), including an up-to-date, complete listing of addresses.
+This endpoint allows you to delete an $ADDRESS associated with the $NAME wallet. As a reminder, you [can batch](#http://dev.blockcypher.com/#batching) multiple addresses by appending them with semicolons within the $ADDRESS URL parameter. If successful, it will return an HTTP 204 status code with no return object.
 
 <br />
 
