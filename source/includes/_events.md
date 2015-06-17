@@ -384,7 +384,13 @@ $apiContext = ApiContext::create(
     array('log.LogEnabled' => true, 'log.FileName' => 'BlockCypher.log', 'log.LogLevel' => 'DEBUG')
 );
 
-$webHook = WebHook::get('d5ca3bd3-5dfb-477d-9fb4-ac3510af258d', array(), $apiContext);
+// Option 1: get the object before removing it
+//$webHook = WebHook::get('d5ca3bd3-5dfb-477d-9fb4-ac3510af258d', array(), $apiContext);
+
+// Option 2: create a new empty object only with its ID. You save one API request
+$webHook = new WebHook();
+$webHook->setId('d5ca3bd3-5dfb-477d-9fb4-ac3510af258d');
+
 $webHook->delete($apiContext);
 
 HTTP/1.1 204 OK
