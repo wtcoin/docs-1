@@ -203,9 +203,8 @@ $.get('https://api.blockcypher.com/v1/btc/main/addrs/1DEP8i3QJCsomS4BSMY2RpU1upv
 	 "confirmations"=>59231,
 	 "confirmed"=>"2014-05-22T02:56:08Z",
 	 "double_spend"=>false},
-	...
-	],
-	"tx_url"=>"https://api.blockcypher.com/v1/btc/main/txs/"}
+	...],
+ "tx_url"=>"https://api.blockcypher.com/v1/btc/main/txs/"}
 ```
 
 ```python
@@ -451,8 +450,8 @@ $.get('https://api.blockcypher.com/v1/btc/main/addrs/1DEP8i3QJCsomS4BSMY2RpU1upv
 	 "addresses"=>["1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD"],
 	 "script_type"=>"pay-to-pubkey-hash"},
 	 ... ]}, 
-	 ...
-	]}
+  ...
+ ]}
 ```
 
 ```python
