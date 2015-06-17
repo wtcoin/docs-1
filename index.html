@@ -2757,7 +2757,6 @@ You are required to authenticate with your <a href="#rate-limits-and-tokens">use
 <span class="p">{</span><span class="s">'name'</span><span class="p">:</span> <span class="s">'alice'</span><span class="p">,</span>
  <span class="s">'token'</span><span class="p">:</span> <span class="s">'YOUR_TOKEN'</span><span class="p">,</span>
  <span class="s">'addresses'</span><span class="p">:</span> <span class="p">[</span><span class="s">'1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e'</span><span class="p">]}</span>
-
 </code></pre>
 
 <table><thead>
@@ -2783,6 +2782,47 @@ If the named wallet already exists under your token, attempting to create a new 
 </aside>
 
 <p><br /></p>
+
+<h3 id="get-wallet-endpoint">Get Wallet Endpoint</h3>
+<pre class="highlight shell"><code>curl https://api.blockcypher.com/v1/btc/main/wallets/alice?token<span class="o">=</span>YOURTOKEN
+
+<span class="o">{</span><span class="s2">"token"</span>:<span class="s2">"YOURTOKEN"</span>,
+<span class="s2">"name"</span>:<span class="s2">"alice"</span>,
+<span class="s2">"addresses"</span>: <span class="o">[</span> <span class="s2">"1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e"</span><span class="o">]}</span>
+</code></pre>
+<pre class="highlight javascript"><code><span class="nx">$</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">'https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses?token=YOURTOKEN'</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">{</span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">d</span><span class="p">)});</span>
+<span class="o">&gt;</span> <span class="p">{</span>
+<span class="o">&gt;</span> <span class="s2">"token"</span><span class="p">:</span><span class="s2">"YOURTOKEN"</span><span class="p">,</span>
+<span class="o">&gt;</span> <span class="s2">"name"</span><span class="p">:</span><span class="s2">"alice"</span><span class="p">,</span>
+<span class="o">&gt;</span> <span class="s2">"addresses"</span><span class="p">:</span> <span class="p">[</span>
+<span class="o">&gt;</span>   <span class="s2">"1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e"</span>
+<span class="o">&gt;</span> <span class="p">]}</span>
+</code></pre>
+<pre class="highlight python"><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">requests</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s">'token'</span><span class="p">:</span> <span class="s">'YOURTOKEN'</span><span class="p">}</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">'https://api.blockcypher.com/v1/btc/main/wallets/alice'</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+<span class="p">{</span><span class="s">'name'</span><span class="p">:</span> <span class="s">'alice'</span><span class="p">,</span>
+ <span class="s">'token'</span><span class="p">:</span> <span class="s">'YOURTOKEN'</span><span class="p">,</span>
+ <span class="s">'addresses'</span><span class="p">:</span> <span class="p">[</span><span class="s">'1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e'</span><span class="p">]}</span>
+</code></pre>
+
+<table><thead>
+<tr>
+<th>Resource</th>
+<th>Method</th>
+<th>Return Object</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>/wallets/$NAME</td>
+<td>GET</td>
+<td><a href="#wallet">Wallet</a></td>
+</tr>
+</tbody></table>
+
+<p>This endpoint returns a <a href="#wallet">Wallet</a> based on its $NAME.</p>
 
 <h3 id="add-addresses-to-wallet-endpoint">Add Addresses to Wallet Endpoint</h3>
 <pre class="highlight shell"><code>curl -d <span class="s1">'{"addresses": ["13cj1QtfW61kQHoqXm3khVRYPJrgQiRM6j"]}'</span> https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses?token<span class="o">=</span>YOURTOKEN
@@ -2831,16 +2871,14 @@ If the named wallet already exists under your token, attempting to create a new 
 </tr>
 </tbody></table>
 
-<p>This endpoint allows you to add public addresses to an existing wallet, by POSTing a partially filled out <a href="#wallet">Wallet</a> object. You only need to include the additional addresses in a new <strong>addresses</strong> array in the object. If successful, it will return the newly modified <a href="#wallet">Wallet</a>, including an up-to-date, complete listing of addresses.</p>
+<p>This endpoint allows you to add public addresses to the $NAME wallet, by POSTing a partially filled out <a href="#wallet">Wallet</a> object. You only need to include the additional addresses in a new <strong>addresses</strong> array in the object. If successful, it will return the newly modified <a href="#wallet">Wallet</a>, including an up-to-date, complete listing of addresses.</p>
 
 <p><br /></p>
 
-<h3 id="wallet-addresses-endpoint">Wallet Addresses Endpoint</h3>
+<h3 id="get-wallet-addresses-endpoint">Get Wallet Addresses Endpoint</h3>
 <pre class="highlight shell"><code>curl https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses?token<span class="o">=</span>YOURTOKEN
 
-<span class="o">{</span><span class="s2">"token"</span>: <span class="s2">""</span>,
-<span class="s2">"name"</span>: <span class="s2">""</span>,
-<span class="s2">"addresses"</span>: <span class="o">[</span>
+<span class="o">{</span><span class="s2">"addresses"</span>: <span class="o">[</span>
     <span class="s2">"13cj1QtfW61kQHoqXm3khVRYPJrgQiRM6j"</span>,
     <span class="s2">"1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e"</span>
 <span class="o">]}</span>
@@ -2882,24 +2920,17 @@ If the named wallet already exists under your token, attempting to create a new 
 <h3 id="remove-addresses-from-wallet-endpoint">Remove Addresses from Wallet Endpoint</h3>
 <pre class="highlight shell"><code><span class="gp">$ </span>curl -X DELETE https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses?token<span class="o">=</span>USERTOKEN&amp;address<span class="o">=</span>1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e
 
-<span class="o">{</span><span class="s2">"token"</span>: <span class="s2">"YOURTOKEN"</span>,
-<span class="s2">"name"</span>: <span class="s2">"alice"</span>,
-<span class="s2">"addresses"</span>: <span class="o">[</span>
-    <span class="s2">"13cj1QtfW61kQHoqXm3khVRYPJrgQiRM6j"</span>
-<span class="o">]}</span>
 </code></pre>
 <pre class="highlight javascript"><code><span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span>
-  <span class="na">url</span><span class="p">:</span> <span class="s2">"https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses/1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e?token=USERTOKEN"</span><span class="p">,</span>
+  <span class="na">url</span><span class="p">:</span> <span class="s2">"https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses?token=USERTOKEN&amp;address=1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e"</span><span class="p">,</span>
   <span class="na">method</span><span class="p">:</span> <span class="s2">"DELETE"</span>
 <span class="p">})</span>
 </code></pre>
 <pre class="highlight python"><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">requests</span><span class="o">,</span> <span class="nn">json</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s">'token'</span><span class="p">:</span> <span class="s">'YOUR_TOKEN'</span><span class="p">,</span> <span class="s">'address'</span><span class="p">:</span> <span class="s">'1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e'</span><span class="p">}</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="s">'https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses'</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
-<span class="p">{</span><span class="s">'token'</span><span class="p">:</span> <span class="s">'YOUR_TOKEN'</span><span class="p">,</span>
- <span class="s">'name'</span><span class="p">:</span> <span class="s">'alice'</span><span class="p">,</span>
- <span class="s">'addresses'</span><span class="p">:</span> <span class="p">[</span><span class="s">'13cj1QtfW61kQHoqXm3khVRYPJrgQiRM6j'</span><span class="p">]}</span>
+<span class="c"># returns nothing, let's just check the status code to be sure</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">assert</span> <span class="n">r</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">204</span>
 </code></pre>
 
 <table><thead>
@@ -2914,11 +2945,11 @@ If the named wallet already exists under your token, attempting to create a new 
 <td>/wallets/$NAME/addresses?address=$ADDRESS</td>
 <td>DELETE</td>
 <td><em>nil</em></td>
-<td><a href="#wallet">Wallet</a></td>
+<td><em>nil</em></td>
 </tr>
 </tbody></table>
 
-<p>This endpoint allows you to delete an $ADDRESS associated with the $NAME wallet. As a reminder, you <a href="#http://dev.blockcypher.com/#batching">can batch</a> multiple addresses by appending them with semicolons within the $ADDRESS URL parameter. If successful, it will return the newly modified <a href="#wallet">Wallet</a>, including an up-to-date, complete listing of addresses.</p>
+<p>This endpoint allows you to delete an $ADDRESS associated with the $NAME wallet. As a reminder, you <a href="#http://dev.blockcypher.com/#batching">can batch</a> multiple addresses by appending them with semicolons within the $ADDRESS URL parameter. If successful, it will return an HTTP 204 status code with no return object.</p>
 
 <p><br /></p>
 
