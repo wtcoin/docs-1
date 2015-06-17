@@ -62,6 +62,14 @@ $.post(url, JSON.stringify(microtx))
 > }
 ```
 
+```ruby
+> bc_test.microtx_from_priv("97838249d77bfa65f97be02b63fd1b7bb6a58474c7c22784a0da63993d1c2f90", "C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn", 20000)
+=> {"from_private"=>"97838249d77bfa65f97be02b63fd1b7bb6a58474c7c22784a0da63993d1c2f90",
+ "to_address"=>"C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn",
+ "value_satoshis"=>20000,
+ "hash"=>"5d618233bccbeaa570072d719ff4718ae02eebffb748210166d9b6180ea8da59"}
+```
+
 ```python
 >>> import requests, json
 >>> data = {'from_private': '97838249d77bfa65f97be02b63fd1b7bb6a58474c7c22784a0da63993d1c2f90', 'to_address': 'C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn', 'value_satoshis': 10000, 'token': 'YOUR_TOKEN'}
@@ -165,6 +173,24 @@ $.post(url, JSON.stringify(microtx)).then(function(tmptx) {
 >   ],
 >   "fees": 735
 > }
+```
+
+```ruby
+# Our official Ruby SDK can generate the public key from your private key
+# But this function signs locally instead of sending to the server
+> bc_test.microtx_from_pub("97838249d77bfa65f97be02b63fd1b7bb6a58474c7c22784a0da63993d1c2f90", "C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn", 20000)
+=> {"from_pubkey"=>"02152e2bb5b273561ece7bbe8b1df51a4c44f5ab0bc940c105045e2cc77e618044",
+ "to_address"=>"C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn",
+ "value_satoshis"=>20000,
+ "hash"=>"52330171c634e9094bb919e7e5bdaf73ca615d317fb5243224bec30b0f125eb4",
+ "inputs"=>
+  [{"prev_hash"=>"5d618233bccbeaa570072d719ff4718ae02eebffb748210166d9b6180ea8da59", "output_index"=>2},
+   {"prev_hash"=>"ce8b3a2d5bb1f552c9d526559dd892b4eeee9a694fe885bf03c660fb304cd828", "output_index"=>1}],
+ "outputs"=>
+  [{"address"=>"C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn", "value"=>20000},
+   {"address"=>"CEyQhiXPtWk8q7hMkv2Kg728i4PYDM9qxf", "value"=>9997795},
+   {"address"=>"CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9", "value"=>3716000}],
+ "fees"=>735}
 ```
 
 ### Via Public Keys and Client-side Signing
