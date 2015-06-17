@@ -703,6 +703,11 @@ $.post('https://api.blockcypher.com/v1/btc/main/wallets?token=USERTOKEN', data)
 > ]}
 ```
 
+```ruby
+> block_cypher.wallet_create("alice",["1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e"])
+=> {"token"=>"YOURTOKEN", "name"=>"alice", "addresses"=>["1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e"]}
+```
+
 ```python
 >>> import requests, json
 >>> data = {'name': 'alice', 'addresses': ['1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e', ]}
@@ -747,6 +752,11 @@ $.get('https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses?token=YOU
 > ]}
 ```
 
+```ruby
+> block_cypher.wallet_get("alice")
+=> {"token"=>"YOURTOKEN", "name"=>"alice", "addresses"=>["1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e"]}
+```
+
 ```python
 >>> import requests
 >>> params = {'token': 'YOURTOKEN'}
@@ -789,6 +799,11 @@ $.post('https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses?token=US
 > ]}
 ```
 
+```ruby
+> block_cypher.wallet_add_addr("alice",["13cj1QtfW61kQHoqXm3khVRYPJrgQiRM6j"])
+=> {"token"=>"YOURTOKEN", "name"=>"alice", "addresses"=>["1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e", "13cj1QtfW61kQHoqXm3khVRYPJrgQiRM6j"]}
+```
+
 ```python
 >>> import requests, json
 >>> data = {'addresses': ['13cj1QtfW61kQHoqXm3khVRYPJrgQiRM6j', ]}
@@ -829,6 +844,11 @@ $.get('https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses?token=USE
 > ]}
 ```
 
+```ruby
+> block_cypher.wallet_get_addr("alice")
+=> {"addresses"=>["13cj1QtfW61kQHoqXm3khVRYPJrgQiRM6j", "1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e"]}
+```
+
 ```python
 >>> import requests
 >>> params = {'token': 'YOUR_TOKEN'}
@@ -858,6 +878,11 @@ $.ajax({
   url: "https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses?token=USERTOKEN&address=1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e",
   method: "DELETE"
 })
+```
+
+```ruby
+> block_cypher.wallet_delete_addr("alice",["1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e"])
+=> nil
 ```
 
 ```python
@@ -910,6 +935,17 @@ $.post('https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses/generate
 > }
 ```
 
+```ruby
+> block_cypher.wallet_gen_addr("alice")
+=> {"token"=>"YOURTOKEN",
+ "name"=>"alice",
+ "addresses"=>["13cj1QtfW61kQHoqXm3khVRYPJrgQiRM6j", "1Bq7QRwfa36p5DGSe6UBy4PYmsEtQhpqC8"],
+ "private"=>"f371f0a43f46a09ec2351fb1fc23450167d6031dbadef56f7174dc1e0285fed9",
+ "public"=>"037318b43fc83f3af24b5d88c8e4e33ebbdea62c3a3f6eb3a9830e2bb1f6682108",
+ "address"=>"1Bq7QRwfa36p5DGSe6UBy4PYmsEtQhpqC8",
+ "wif"=>"L5NwFyFdHqfBYhaQDttym6b3tXeaKaH7cepgAJunWrkKY24NUCjb"}
+```
+
 ```python
 # Please use the python library at https://github.com/blockcypher/blockcypher-python to securely generate an address client-side
 ```
@@ -938,6 +974,11 @@ $.ajax({
   url: "https://api.blockcypher.com/v1/btc/main/wallets/alice?token=USERTOKEN",
   method: "DELETE"
 });
+```
+
+```ruby
+> block_cypher.wallet_delete("alice")
+=> nil
 ```
 
 ```python
