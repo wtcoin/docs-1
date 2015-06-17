@@ -49,6 +49,35 @@ curl https://api.blockcypher.com/v1/btc/main/txs/43fa951e1bea87c282f6725cf8bdc08
  'txhash': '43fa951e1bea87c282f6725cf8bdc08bb48761396c3af8dd5a41a085ab62acc9'}
 ```
 
+```php
+<?php
+
+// Run on console:
+// php -f .\sample\confidence-factor\TransactionConfidenceEndpoint.php
+
+require __DIR__ . '/../bootstrap.php';
+
+use BlockCypher\Api\TransactionConfidence;
+use BlockCypher\Auth\SimpleTokenCredential;
+use BlockCypher\Rest\ApiContext;
+
+$apiContext = ApiContext::create(
+    'main', 'btc', 'v1',
+    new SimpleTokenCredential('c0afcccdde5081d6429de37d16166ead'),
+    array('log.LogEnabled' => true, 'log.FileName' => 'BlockCypher.log', 'log.LogLevel' => 'DEBUG')
+);
+
+$txConfidence = TransactionConfidence::get('43fa951e1bea87c282f6725cf8bdc08bb48761396c3af8dd5a41a085ab62acc9', array(), $apiContext);
+
+{
+  "age_millis":2188284017,
+  "receive_count":-1,
+  "confidence":1,
+  "txhash":"43fa951e1bea87c282f6725cf8bdc08bb48761396c3af8dd5a41a085ab62acc9",
+  "txurl":"https://api.blockcypher.com/v1/btc/main/txs/43fa951e1bea87c282f6725cf8bdc08bb48761396c3af8dd5a41a085ab62acc9"
+}
+```
+
 Our confidence interval is automatically included in any [unconfirmed transaction](#tx), but you can retrieve it through a specific endpoint too.
 
 Resource | Method | Return Object

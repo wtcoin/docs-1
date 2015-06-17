@@ -67,7 +67,11 @@ $.get('https://api.blockcypher.com/v1/btc/main').then(function(d) {console.log(d
 
 ```php
 <?php
-require __DIR__ . '/../../bootstrap.php';
+
+// Run on console:
+// php -f .\sample\chain-api\ChainEndpoint.php
+
+require __DIR__ . '/../bootstrap.php';
 
 use BlockCypher\Api\Chain;
 use BlockCypher\Auth\SimpleTokenCredential;
@@ -75,7 +79,8 @@ use BlockCypher\Rest\ApiContext;
 
 $apiContext = ApiContext::create(
     'main', 'btc', 'v1',
-    new SimpleTokenCredential('c0afcccdde5081d6429de37d16166ead')
+    new SimpleTokenCredential('c0afcccdde5081d6429de37d16166ead'),
+    array('log.LogEnabled' => true, 'log.FileName' => 'BlockCypher.log', 'log.LogLevel' => 'DEBUG')
 );
 
 $chain = Chain::get('BTC.main', array(), $apiContext);
@@ -195,7 +200,11 @@ $.get('https://api.blockcypher.com/v1/btc/main/blocks/0000000000000000189bba3564
 
 ```php
 <?php
-require __DIR__ . '/../../bootstrap.php';
+
+// Run on console:
+// php -f .\sample\block-api\BlockHashEndpoint.php
+
+require __DIR__ . '/../bootstrap.php';
 
 use BlockCypher\Api\Block;
 use BlockCypher\Auth\SimpleTokenCredential;
@@ -203,10 +212,11 @@ use BlockCypher\Rest\ApiContext;
 
 $apiContext = ApiContext::create(
     'main', 'btc', 'v1',
-    new SimpleTokenCredential('c0afcccdde5081d6429de37d16166ead')
+    new SimpleTokenCredential('c0afcccdde5081d6429de37d16166ead'),
+    array('log.LogEnabled' => true, 'log.FileName' => 'BlockCypher.log', 'log.LogLevel' => 'DEBUG')
 );
 
-$block = Block::get('0000000000000000c504bdea36e531d8089d324f2d936c86e3274f97f8a44328', array(), $apiContext);
+$block = Block::get('0000000000000000189bba3564a63772107b5673c940c16f12662b3e8546b412', array(), $apiContext);
 
 {
   "hash":"0000000000000000c504bdea36e531d8089d324f2d936c86e3274f97f8a44328",
@@ -333,7 +343,11 @@ $.get('https://api.blockcypher.com/v1/btc/main/blocks/294322?txstart=1&limit=1')
 
 ```php
 <?php
-require __DIR__ . '/../../bootstrap.php';
+
+// Run on console:
+// php -f .\sample\block-api\BlockHeightEndpoint.php
+
+require __DIR__ . '/../bootstrap.php';
 
 use BlockCypher\Api\Block;
 use BlockCypher\Auth\SimpleTokenCredential;
@@ -341,7 +355,8 @@ use BlockCypher\Rest\ApiContext;
 
 $apiContext = ApiContext::create(
     'main', 'btc', 'v1',
-    new SimpleTokenCredential('c0afcccdde5081d6429de37d16166ead')
+    new SimpleTokenCredential('c0afcccdde5081d6429de37d16166ead'),
+    array('log.LogEnabled' => true, 'log.FileName' => 'BlockCypher.log', 'log.LogLevel' => 'DEBUG')
 );
 
 $params = array(
@@ -349,7 +364,7 @@ $params = array(
     'limit' => 1,
 );
 
-$block = \BlockCypher\Api\Block::get('293000', $params, $apiContext);
+$block = Block::get('293000', $params, $apiContext);
 
 {
   "hash":"0000000000000000c504bdea36e531d8089d324f2d936c86e3274f97f8a44328",

@@ -165,6 +165,79 @@ $.get('https://api.blockcypher.com/v1/btc/main/txs/f854aebae95150b379cc1187d848d
  'confirmations': 67378}
 ```
 
+```php
+<?php
+
+// Run on console:
+// php -f .\sample\transaction-api\TransactionHashEndpoint.php
+
+require __DIR__ . '/../bootstrap.php';
+
+use BlockCypher\Api\Transaction;
+use BlockCypher\Auth\SimpleTokenCredential;
+use BlockCypher\Rest\ApiContext;
+
+$apiContext = ApiContext::create(
+    'main', 'btc', 'v1',
+    new SimpleTokenCredential('c0afcccdde5081d6429de37d16166ead'),
+    array('log.LogEnabled' => true, 'log.FileName' => 'BlockCypher.log', 'log.LogLevel' => 'DEBUG')
+);
+
+$transaction = Transaction::get('f854aebae95150b379cc1187d848d58225f3c4157fe992bcd166f58bd5063449', array(), $apiContext);
+
+{
+"block_hash": "0000000000000000c504bdea36e531d80...",
+"block_height": 293000,
+"hash": "f854aebae95150b379cc1187d848d58225f3c41...",
+"addresses": [
+	"13XXaBufpMvqRqLkyDty1AXqueZHVe6iyy",
+	"19YtzZdcfs1V2ZCgyRWo8i2wLT8ND1Tu4L",
+	"1BNiazBzCxJacAKo2yL83Wq1VJ18AYzNHy",
+	"1GbMfYui17L5m6sAy3L3WXAtf1P32bxJXq",
+	"1N2f642sbgCMbNtXFajz9XDACDFnFzdXzV"
+],
+"total": 70320221545,
+"fees": 0,
+"size": 636,
+"preference": "low",
+"relayed_by": "",
+"confirmed": "2014-03-29T01:29:19Z",
+"received": "2014-03-29T01:29:19Z",
+"ver": 1,
+"lock_time": 0,
+"double_spend": false,
+"vin_sz": 4,
+"vout_sz": 1,
+"confirmations": 63171,
+"confidence": 1,
+"inputs": [
+	{
+		"prev_hash": "583910b7bf90ab802e22e5c25a89...",
+		"output_index": 1,
+		"script": "4830450220504b1ccfddf508422bdd8...",
+		"output_value": 16450000,
+		"sequence": 4294967295,
+		"addresses": [
+			"1GbMfYui17L5m6sAy3L3WXAtf1P32bxJXq"
+		],
+		"script_type": "pay-to-pubkey-hash"
+	},
+	...,
+	...,
+],
+"outputs": [
+	{
+		"value": 70320221545,
+		"script": "76a914e6aad9d712c419ea8febf009a...",
+		"spent_by": "35832d6c70b98b54e9a53ab2d5117...",
+		"addresses": [
+			"1N2f642sbgCMbNtXFajz9XDACDFnFzdXzV"
+		],
+		"script_type": "pay-to-pubkey-hash"
+	}
+]
+}
+```
 
 The Transaction Hash Endpoint returns detailed information about a given transaction based on its hash.
 
@@ -478,6 +551,103 @@ $.post('https://api.blockcypher.com/v1/bcy/test/txs/new', JSON.stringify(newtx))
   'lock_time': 0,
   'size': 119,
   'confirmations': 0}}
+```
+
+```php
+<?php
+
+// Run on console:
+// php -f .\sample\transaction-api\NewTransactionEndpoint.php
+
+require __DIR__ . '/../bootstrap.php';
+
+use BlockCypher\Api\Transaction;
+use BlockCypher\Auth\SimpleTokenCredential;
+use BlockCypher\Rest\ApiContext;
+
+$apiContext = ApiContext::create(
+    'test', 'bcy', 'v1',
+    new SimpleTokenCredential('c0afcccdde5081d6429de37d16166ead'),
+    array('log.LogEnabled' => true, 'log.FileName' => 'BlockCypher.log', 'log.LogLevel' => 'DEBUG')
+);
+
+// Create a new instance of Transaction object
+$tx = new Transaction();
+
+// Tx inputs
+$input = new \BlockCypher\Api\Input();
+$input->addAddress("C5vqMGme4FThKnCY44gx1PLgWr86uxRbDm");
+$tx->addInput($input);
+// Tx outputs
+$output = new \BlockCypher\Api\Output();
+$output->addAddress("C4MYFr4EAdqEeUKxTnPUF3d3whWcPMz1Fi");
+$tx->addOutput($output);
+// Tx amount
+$output->setValue(1000); // Satoshis
+
+// For Sample Purposes Only.
+$request = clone $tx;
+
+// ### Create New Transaction
+$output = $tx->create($apiContext);
+
+{
+  "tx":{
+    "block_height":-1,
+    "hash":"edb785c310ea58c70245c9a89130efca8fb0a02d4bee47b18542986e7bf95806",
+    "addresses":[
+      "C5vqMGme4FThKnCY44gx1PLgWr86uxRbDm",
+      "C4MYFr4EAdqEeUKxTnPUF3d3whWcPMz1Fi"
+    ],
+    "total":5420100,
+    "fees":12000,
+    "size":119,
+    "preference":"high",
+    "relayed_by":"88.7.90.149",
+    "received":"2015-06-17T10:23:02.475392139Z",
+    "ver":1,
+    "lock_time":0,
+    "double_spend":false,
+    "vin_sz":1,
+    "vout_sz":2,
+    "confirmations":0,
+    "inputs":[
+      {
+        "prev_hash":"64e39fa5322ee604ad548dc5d4ae1a61b0a575278724d0df7e53dd334f5f13e3",
+        "output_index":0,
+        "script":"",
+        "output_value":5432100,
+        "sequence":4294967295,
+        "addresses":[
+          "C5vqMGme4FThKnCY44gx1PLgWr86uxRbDm"
+        ],
+        "script_type":"",
+        "age":0
+      }
+    ],
+    "outputs":[
+      {
+        "value":1000,
+        "script":"76a9147b2b09ad46d95e177df6969a275db321c66cecf388ac",
+        "addresses":[
+          "C4MYFr4EAdqEeUKxTnPUF3d3whWcPMz1Fi"
+        ],
+        "script_type":"pay-to-pubkey-hash"
+      },
+      {
+        "value":5419100,
+        "script":"76a9148c6f28c814116f1ae3d0940b2fb05a68a9507e8a88ac",
+        "addresses":[
+          "C5vqMGme4FThKnCY44gx1PLgWr86uxRbDm"
+        ],
+        "script_type":"pay-to-pubkey-hash"
+      }
+    ]
+  },
+  "tosign":[
+    "770af2c9a9b7b8b1998e36d4c1ce2b8fa3b9d4d6575679a513722d9f478177d2"
+  ]
+}
 ```
 
 To use BlockCypher's two-endpoint transaction creation tool, first you need to provide the input address(es), output address, and value to transfer (in satoshis). Provide this in a partially-filled out [TX](#tx) request object.
