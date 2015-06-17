@@ -591,7 +591,6 @@ $.post('https://api.blockcypher.com/v1/btc/main/wallets?token=USERTOKEN', data)
 {'name': 'alice',
  'token': 'YOUR_TOKEN',
  'addresses': ['1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e']}
-
 ```
 
 Resource | Method | Request Object | Return Object
@@ -605,6 +604,43 @@ If the named wallet already exists under your token, attempting to create a new 
 </aside>
 
 <br />
+
+### Get Wallet Endpoint
+
+```shell
+curl https://api.blockcypher.com/v1/btc/main/wallets/alice?token=YOURTOKEN
+
+{"token":"YOURTOKEN",
+"name":"alice",
+"addresses": [ "1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e"]}
+```
+
+```javascript
+$.get('https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses?token=YOURTOKEN')
+  .then(function(d) {console.log(d)});
+> {
+> "token":"YOURTOKEN",
+> "name":"alice",
+> "addresses": [
+> 	"1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e"
+> ]}
+```
+
+```python
+>>> import requests
+>>> params = {'token': 'YOURTOKEN'}
+>>> r = requests.get('https://api.blockcypher.com/v1/btc/main/wallets/alice', params=params)
+>>> r.json()
+{'name': 'alice',
+ 'token': 'YOURTOKEN',
+ 'addresses': ['1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e']}
+```
+
+Resource | Method | Return Object
+-------- | ------ | -------------
+/wallets/$NAME | GET | [Wallet](#wallet)
+
+This endpoint returns a [Wallet](#wallet) based on its $NAME.
 
 ### Add Addresses to Wallet Endpoint
 
@@ -647,18 +683,16 @@ Resource | Method | Request Object | Return Object
 -------- | ------ | -------------- | -------------
 /wallets/$NAME/addresses | POST | [Wallet](#wallet) | [Wallet](#wallet)
 
-This endpoint allows you to add public addresses to an existing wallet, by POSTing a partially filled out [Wallet](#wallet) object. You only need to include the additional addresses in a new **addresses** array in the object. If successful, it will return the newly modified [Wallet](#wallet), including an up-to-date, complete listing of addresses.
+This endpoint allows you to add public addresses to the $NAME wallet, by POSTing a partially filled out [Wallet](#wallet) object. You only need to include the additional addresses in a new **addresses** array in the object. If successful, it will return the newly modified [Wallet](#wallet), including an up-to-date, complete listing of addresses.
 
 <br />
 
-### Wallet Addresses Endpoint
+### Get Wallet Addresses Endpoint
 
 ```shell
 curl https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses?token=YOURTOKEN
 
-{"token": "",
-"name": "",
-"addresses": [
+{"addresses": [
 	"13cj1QtfW61kQHoqXm3khVRYPJrgQiRM6j",
 	"1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e"
 ]}
