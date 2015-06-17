@@ -37,6 +37,15 @@ curl https://api.blockcypher.com/v1/btc/main/txs/43fa951e1bea87c282f6725cf8bdc08
 }
 ```
 
+```ruby
+> block_cypher.tx_confidence("4153fddf43c5fd6aa7834bda643619e6dd7d8bf55206bcedb216296881a07830")
+=> {"age_millis"=>114659,
+ "receive_count"=>783,
+ "confidence"=>0.9999808966243114,
+ "txhash"=>"4153fddf43c5fd6aa7834bda643619e6dd7d8bf55206bcedb216296881a07830",
+ "txurl"=>"https://api.blockcypher.com/v1/btc/main/txs/4153fddf43c5fd6aa7834bda643619e6dd7d8bf55206bcedb216296881a07830"}
+```
+
 ```python
 # Fund existing address with faucet
 >>> import requests
