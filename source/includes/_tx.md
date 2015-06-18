@@ -1,6 +1,6 @@
 # Transaction API
 
-BlockCypher's Transaction API allows you to look up information about unconfirmed transactions, query transactions based on hash, and create and propagate your own transactions, including multisignature transactions---all [based on the coin/chain resource](#restful-resources) you've selected for your endpoints.
+BlockCypher's Transaction API allows you to look up information about unconfirmed transactions, query transactions based on hash, create and propagate your own transactions, including multisignature transactions, and embed data on the blockchain---all [based on the coin/chain resource](#restful-resources) you've selected for your endpoints.
 
 If you're new to blockchains, the idea of transactions is relatively self-explanatory. Here's what's going on underneath the hood: a transaction takes previous "unspent transaction outputs" (also known as [UTXOs](https://bitcoin.org/en/glossary/unspent-transaction-output)) as "transaction inputs" and creates new "locking scripts" on those inputs such that they are "sent" to new addresses (to become new UTXOs). While most of these public addresses are reference points for single private keys that can "unlock" the newly created UTXOs, occasionally they are sent to more exotic addresses through *pay-to-script-hash*, typically multisignature addresses.
 
@@ -1386,3 +1386,45 @@ If you only need a <i>pay-to-script-hash</i> address corresponding to N-of-M mul
 Once funded, you might want to programmatically spend the money in the address at some point. Here the process is similar, but with the inputs and outputs reversed. As you can see in the code sample, you need to provide the public keys within the **inputs** **addresses** array, and the corresponding **script_type** of *multisig-n-of-m* (e.g., *multisig-2-of-3*). Then you follow the same process of sending to `/txs/new` and getting an array of data to be signed.
 
 Each party can send their signed data individually to `/txs/send` and we can correlate the signatures to the public keys; once we have enough signatures we'll propagate the transaction. Or you can send all needed signatures alongside ordered public keys with a single call to `/txs/send`.
+
+## Data Endpoint
+
+```shell
+# Embedding (Hash) Data
+curl -d '{"data":"6cbe5d6c75bc36879b5fd32e29b325e288599d31edc76327c7889d407985e2aa"}' https://api.blockcypher.com/v1/btc/main/txs/data?token=YOURTOKEN
+
+{
+  "data": "6cbe5d6c75bc36879b5fd32e29b325e288599d31edc76327c7889d407985e2aa",
+  "encoding": "hex",
+  "token": "YOURTOKEN",
+  "hash": "87d494918559a14ea6238ba0e25fb07bffb08716f4a55e25f32ea95a148c85d1"
+}
+
+# Embedding String Data
+curl -d '{"data":"I am the walrus", "encoding":"string"}' https://api.blockcypher.com/v1/btc/main/txs/data?token=YOURTOKEN
+
+{
+  "data": "I am the walrus",
+  "encoding": "string",
+  "token": "YOURTOKEN",
+  "hash": "cb6974e0fd57c91b70403e85ef48c840eecdca4804dfc4897b1321d5328e4f18"
+}
+```
+
+Some of the most interesting blockchain applications involve embedding data through *null-data* (also known as OP_RETURN) output scripts with transactions. While you can certainly use our [guided transaction process](#creating-transactions) and customize your script output, there's a simpler way: through our Data Endpoint. All you need is the data you want to embed (up to 40 bytes, inclusive) and we'll handle the rest.
+
+<aside class="notice">
+Embedding data into a blockchain is not free, but we're covering the cost for now, leveraging our <a href="#microtransaction-api">Microtransaction</a> infrastructure. Consequently, in order for us to keep track of fees, we require that all calls to the Data Endpoint use a token. You can <a href="http://accounts.blockcypher.com/">register for one here.</a>
+</aside>
+
+Resource | Method | Request Object | Return Object
+-------- | ------ | -------------- | -------------
+/txs/data | POST | [NullData](#nulldata) | [NullData](#nulldata)
+
+In your request object, simply include the **data** you want to embed. By default, you needn't set an **encoding** if your data is hex-encoded (like a hash, the typical use case for *null-data*). That said, if you want to embed plaintext messages in the blockchain, you can set **encoding** to *string*. If successful, the return object will include your original request along with the **hash** of the transaction containing your **data** as a *null-data* output.
+
+<aside class="warning">
+While some miners have a patch allowing 80 byte <i>null-data</i> outputs on Bitcoin's blockchain, it is not yet ubiquitous. The 40 byte limit is a hard ceiling for now; pay special attention if you're embedding special characters with plaintext encoding. If your <b>data</b> is over 40 bytes, the endpoint will return an error.
+</aside>
+
+To view the data output on the blockchain, simply [query the transaction](#transaction-hash-endpoint) via the **hash** returned, and check the *null-data* [output](#txoutput) within the returned transaction. Please keep in mind that it will always be represented by hex-encoding on the blockchain, even if you selected *string* as your data **encoding**; to see it as your original plaintext, you have to convert it client-side.

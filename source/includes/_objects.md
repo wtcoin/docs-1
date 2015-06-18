@@ -738,6 +738,27 @@ Attribute | Type | Description
 **pubkeys** | *array[string]* | Array of public keys corresponding to each signature. In general, these are provided by you, and correspond to the signatures you provide.
 **errors** | *array["error":string]* | ***Optional*** Array of errors in the form *"error":"description-of-error"*. This is only returned if there was an error in any stage of transaction generation, and is usually accompanied by a HTTP 400 code.
 
+## NullData
+
+```shell
+curl -d '{"data":"I am the walrus", "encoding":"string"}' https://api.blockcypher.com/v1/btc/main/txs/data?token=YOURTOKEN
+
+{
+  "data": "I am the walrus",
+  "encoding": "string",
+  "token": "YOURTOKEN",
+  "hash": "cb6974e0fd57c91b70403e85ef48c840eecdca4804dfc4897b1321d5328e4f18"
+}
+```
+A NullData Object is used exclusively by our [Data Endpoint](#data-endpoint) to embed small pieces of data on the blockchain. If your data is over 40 bytes, it cannot be embedded into the blockchain and will return an error
+
+Attribute | Type | Description
+--------- | ---- | -----------
+**data** | *string* | The string representing the data to embed, can be either hex-encoded or plaintext.
+**token** | *string* | ***Optional*** Your BlockCypher API token, can either be included here or as a URL Parameter in your request.
+**encoding** | *string* | ***Optional*** The encoding of your data, can be either *string* (for plaintext) or *hex* (for hex-encoded). If not set, defaults to hex. 
+**hash** | *string* | ***Optional*** The hash of the transaction containing your data; only part of return object.
+
 ## MicroTX
 
 ```shell
@@ -942,7 +963,7 @@ Attribute | Type | Description
 **private**	| *string* | Hex-encoded Private key.
 **wif**	| *string* | [Wallet import format](https://en.bitcoin.it/wiki/Wallet_import_format), a common encoding for the private key.
 **pubkeys**	| *array[string]* | ***Optional*** Array of public keys to provide to generate a multisig address.
-**script_type**	| *array[string]* | ***Optional*** If generating a multisig address, the type of multisig script; typically "multisig-n-of-m", where n and m are integers.
+**script_type**	| *string* | ***Optional*** If generating a multisig address, the type of multisig script; typically "multisig-n-of-m", where n and m are integers.
 
 ## Wallet
 
