@@ -1411,6 +1411,41 @@ curl -d '{"data":"I am the walrus", "encoding":"string"}' https://api.blockcyphe
 }
 ```
 
+```php
+<?php
+
+// Run on console:
+// php -f .\sample\transaction-api\DataEndpoint.php
+
+require __DIR__ . '/../bootstrap.php';
+
+use BlockCypher\Api\NullData;
+use BlockCypher\Auth\SimpleTokenCredential;
+use BlockCypher\Rest\ApiContext;
+
+$apiContext = ApiContext::create(
+    'main', 'btc', 'v1',
+    new SimpleTokenCredential('c0afcccdde5081d6429de37d16166ead'),
+    array('log.LogEnabled' => true, 'log.FileName' => 'BlockCypher.log', 'log.LogLevel' => 'DEBUG')
+);
+
+$nullData =  new NullData();
+$nullData->setEncoding('string');
+$nullData->setData('***BlockCypher Data Endpoint Test***'); // max 40 bytes
+
+// For Sample Purposes Only.
+$request = clone $nullData;
+
+$nullData->create(array(), $apiContext);
+
+{
+  "data": "***BlockCypher Data Endpoint Test***",
+  "encoding": "string",
+  "token": "c0afcccdde5081d6429de37d16166ead",
+  "hash": "cb6974e0fd57c91b70403e85ef48c840eecdca4804dfc4897b1321d5328e4f18"
+}
+```
+
 Some of the most interesting blockchain applications involve embedding data through *null-data* (also known as OP_RETURN) output scripts with transactions. While you can certainly use our [guided transaction process](#creating-transactions) and customize your script output, there's a simpler way: through our Data Endpoint. All you need is the data you want to embed (up to 40 bytes, inclusive) and we'll handle the rest.
 
 <aside class="notice">
