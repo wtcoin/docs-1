@@ -374,6 +374,66 @@ $.get('https://api.blockcypher.com/v1/btc/main/txs').then(function(d) {console.l
 ],
 ```
 
+```php
+<?php
+
+// Run on console:
+// php -f .\sample\transaction-api\UnconfirmedTransactionsEndpoint.php
+
+require __DIR__ . '/../bootstrap.php';
+
+use BlockCypher\Api\TX;
+use BlockCypher\Auth\SimpleTokenCredential;
+use BlockCypher\Rest\ApiContext;
+
+$apiContext = ApiContext::create(
+    'main', 'btc', 'v1',
+    new SimpleTokenCredential('c0afcccdde5081d6429de37d16166ead'),
+    array('log.LogEnabled' => true, 'log.FileName' => 'BlockCypher.log', 'log.LogLevel' => 'DEBUG')
+);
+
+$txs = TX::getUnconfirmed(array(), $apiContext);
+
+[{'received': '2015-06-10T23:10:31.534Z',
+  'ver': 1,
+  'double_spend': False,
+  'outputs': [{'value': 131910000,
+    'addresses': ['1Gb4TAU4GD73akvt4V7tg2WdqadcpQSvhH'],
+    'script_type': 'pay-to-pubkey-hash',
+    'script': '76a914aafae908428a1778d0e76f0dca4cb800f731873e88ac'},
+    ...
+    ],
+  'block_height': -1,
+  'confidence': 0.36208077122201,
+  'receive_count': 109,
+  'total': 131940196,
+  'fees': 13754,
+  'inputs': [{'output_value': 9467,
+    'sequence': 4294967295,
+    'prev_hash': '3c65f3bdec16c55fcedec8159ca8b7decf12393e3a7088febbfacfd752534ee0',
+    'script': '47304402207510efc3ff2ed868478ef627c4fd53a27254874e61c1ff1be6fb5221844c08ac02204a8a50c35d3fac8ec0c15f468c98abb629cadf3ac898f7be5e6f464ba9e4fba00121035649100ba29d0b34df8a928c2ed7ab1389d017b4ed206f6df5c212a461a764f2',
+    'age': 38,
+    'addresses': ['1MBuZ5ZxhytsjRZmec5rLr1WhDWm9DgFUJ'],
+    'output_index': 1,
+    'script_type': 'pay-to-pubkey-hash'},
+    ...
+   ],
+  'preference': 'medium',
+  'vout_sz': 2,
+  'vin_sz': 3,
+  'relayed_by': '167.114.118.213:8333',
+  'hash': '97f551c7d200f3acf322160d6ada87830d2ad8d935909630a35a87d61bc8fa74',
+  'addresses': ['1DLDFKuAWGUJqZoYrevG8bHufuZCjCdSFZ',
+   '1Gb4TAU4GD73akvt4V7tg2WdqadcpQSvhH',
+   ...
+   ]
+  'lock_time': 0,
+  'size': 521,
+  'confirmations': 0},
+ ...
+]
+```
+
 The Unconfirmed Transactions Endpoint returns an array of the latest transactions relayed by nodes in a blockchain that haven't been included in any blocks.
 
 Resource | Method | Return Object
