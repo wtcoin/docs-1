@@ -45,6 +45,13 @@ includes:
 #                    /  |             
 ```
 
+```python
+//  _               _                  
+// |_) |  _   _ |  /     ._  |_   _  ._
+// |_) | (_) (_ |< \_ \/ |_) | | (/_ | 
+//                    /  |             
+```
+
 Welcome to [BlockCypher's](http://www.blockcypher.com/) API documentation! BlockCypher is a simple, mostly RESTful JSON API for interacting with blockchains, accessed over HTTP or HTTPS from the [api.blockcypher.com](https://api.blockcypher.com/v1/btc/main) domain. Currently, BlockCypher supports Bitcoin, Bitcoin Testnet3, Litecoin, Dogecoin, Urocoin, and BlockCypher's Test Chain (more about BlockCypher's Test Chain [below](#testing)).
 
 BlockCypher's API provides a superset of the endpoints you'd find in reference implementations, in addition to some special features that make BlockCypher uniquely powerful, like our unconfirmed transaction [Confidence Factor](#confidence-factor), dependable WebHook or WebSockets-based [Events](#events-and-hooks), [On-Chain Microtransactions](#microtransaction-api), and [Payment Forwarding](#payment-forwarding).
@@ -277,6 +284,7 @@ curl https://api.blockcypher.com/v1/btc/main?token=$YOURTOKEN
 const TOKEN = 'YOUR_TOKEN';
 $.get('https://api.blockcypher.com/v1/btc/main?token='+TOKEN);
 ```
+
 ```ruby
 # Import Ruby SDK
 > require 'blockcypher'
