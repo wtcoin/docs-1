@@ -113,6 +113,17 @@ $.post(url, JSON.stringify(webhook))
 }
 ```
 
+```ruby
+> block_cypher.event_webhook_subscribe("https://my.domain.com/callbacks/new-tx", "unconfirmed-tx", address:"15qx9ug952GWGTNn7Uiv6vode4RcGrRemh")
+=> {"id"=>"85883de4-2b01-4f27-a7d4-4400856e124a",
+ "token"=>"YOURTOKEN",
+ "url"=>"https://my.domain.com/callbacks/new-tx",
+ "callback_errors"=>0,
+ "address"=>"15qx9ug952GWGTNn7Uiv6vode4RcGrRemh",
+ "event"=>"unconfirmed-tx",
+ "filter"=>"addr=15qx9ug952GWGTNn7Uiv6vode4RcGrRemh&event=unconfirmed-tx"}
+```
+
 ```python
 >>> import requests, json
 >>> data = {'event': 'unconfirmed-tx', 'address': '15qx9ug952GWGTNn7Uiv6vode4RcGrRemh', 'url': 'https://my.domain.com/callbacks/new-tx'}
@@ -166,6 +177,17 @@ $.get('https://api.blockcypher.com/v1/btc/main/hooks?token='+TOKEN)
 ]
 ```
 
+```ruby
+> block_cypher.event_webhook_listall
+=> [{"id"=>"85883de4-2b01-4f27-a7d4-4400856e124a",
+  "token"=>"YOURTOKEN",
+  "url"=>"https://my.domain.com/callbacks/new-tx",
+  "callback_errors"=>0,
+  "address"=>"15qx9ug952GWGTNn7Uiv6vode4RcGrRemh",
+  "event"=>"unconfirmed-tx",
+  "filter"=>"addr=15qx9ug952GWGTNn7Uiv6vode4RcGrRemh&event=unconfirmed-tx"}]
+```
+
 ```python
 >>> import requests
 >>> params = {'token': 'YOUR_TOKEN'}
@@ -212,6 +234,17 @@ $.get('https://api.blockcypher.com/v1/btc/main/hooks/399d0923-e920-48ee-8928-205
 }
 ```
 
+```ruby
+> block_cypher.event_webhook_get("85883de4-2b01-4f27-a7d4-4400856e124a")
+=> {"id"=>"85883de4-2b01-4f27-a7d4-4400856e124a",
+ "token"=>"YOURTOKEN",
+ "url"=>"https://my.domain.com/callbacks/new-tx",
+ "callback_errors"=>0,
+ "address"=>"15qx9ug952GWGTNn7Uiv6vode4RcGrRemh",
+ "event"=>"unconfirmed-tx",
+ "filter"=>"addr=15qx9ug952GWGTNn7Uiv6vode4RcGrRemh&event=unconfirmed-tx"}
+```
+
 ```python
 >>> import requests
 >>> r = requests.get('https://api.blockcypher.com/v1/btc/main/hooks/50d1fb13-2bd4-47d0-8e1b-0695e0322581')
@@ -251,8 +284,12 @@ $.ajax({
 });
 ```
 
+```ruby
+> block_cypher.event_webhook_delete("85883de4-2b01-4f27-a7d4-4400856e124a")
+=> nil
+```
+
 ```python
-# Fund existing address with faucet
 >>> import requests
 >>> r = requests.delete('https://api.blockcypher.com/v1/btc/main/hooks/50d1fb13-2bd4-47d0-8e1b-0695e0322581')
 # Will return nothing, but we can confirm the status code to be sure
