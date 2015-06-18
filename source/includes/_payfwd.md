@@ -68,7 +68,7 @@ Resource | Method | Request Object | Return Object
 In return, you'll get a more complete [PaymentForward](#PaymentForward) object, including an **input_address** and **id**.
 
 <aside class="notice">
-If you decide to have a <b>callback_url</b>, you'll receive a payload at that url whenever a payment is made to the <b>input_address</b>. The payload will come in the form of a <a href="paymentforwardcallback">PaymentForwardCallback</a> object.
+If you decide to have a <b>callback_url</b>, you'll receive a payload at that url whenever a payment is made to the <b>input_address</b>. The payload will come in the form of a <a href="#paymentforwardcallback">PaymentForwardCallback</a> object.
 </aside>
 
 ## List Payments Endpoint
