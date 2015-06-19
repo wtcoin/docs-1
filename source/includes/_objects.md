@@ -147,7 +147,6 @@ curl https://api.blockcypher.com/v1/btc/main/blocks/0000000000000000189bba3564a6
 
 ```php
 <?php
-
 // Run on console:
 // php -f .\sample\block-api\BlockHashEndpoint.php
 
@@ -496,7 +495,6 @@ curl https://api.blockcypher.com/v1/btc/main/txs/43fa951e1bea87c282f6725cf8bdc08
 
 ```php
 <?php
-
 // Run on console:
 // php -f .\sample\confidence-factor\TransactionConfidenceEndpoint.php
 
@@ -633,7 +631,6 @@ curl -d '{"inputs":[{"addresses": ["CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"]}],"outp
 
 ```php
 <?php
-
 // Run on console:
 // php -f .\sample\transaction-api\NewTransactionEndpoint.php
 
@@ -837,7 +834,6 @@ curl http://api.blockcypher.com/v1/btc/main/addrs/1DEP8i3QJCsomS4BSMY2RpU1upv62a
 
 ```php
 <?php
-
 // Run on console:
 // php -f .\sample\address-api\AddressEndpoint.php
 
@@ -1117,6 +1113,38 @@ curl -d '{"destination":"15qx9ug952GWGTNn7Uiv6vode4RcGrRemh","callback_url": "ht
 ```
 
 ```php
+<?php
+// Run on console:
+// php -f .\sample\payment-api\CreatePaymentEndpoint.php
+
+require __DIR__ . '/../bootstrap.php';
+
+use BlockCypher\Api\PaymentForward;
+use BlockCypher\Auth\SimpleTokenCredential;
+use BlockCypher\Rest\ApiContext;
+
+$apiContext = ApiContext::create(
+    'main', 'btc', 'v1',
+    new SimpleTokenCredential('c0afcccdde5081d6429de37d16166ead'),
+    array('log.LogEnabled' => true, 'log.FileName' => 'BlockCypher.log', 'log.LogLevel' => 'DEBUG')
+);
+
+$paymentForward = new PaymentForward();
+$paymentForward->setDestination('15qx9ug952GWGTNn7Uiv6vode4RcGrRemh');
+$paymentForward->setCallbackUrl("http://requestb.in/rwp6jirw?uniqid=" . uniqid());
+
+// For Sample Purposes Only.
+$request = clone $paymentForward;
+
+$paymentForward->create($apiContext);
+
+{
+  "destination":"15qx9ug952GWGTNn7Uiv6vode4RcGrRemh",
+  "callback_url":"http://requestb.in/rwp6jirw?uniqid=5583de7d87288",
+  "id":"ec2b4b4f-eeb2-4824-b528-7d78a6f52492",
+  "token":"c0afcccdde5081d6429de37d16166ead",
+  "input_address":"17h2S1KtX7AqS9DJexqqSTNFCgwCoqqxhU"
+}
 ```
 
 A PaymentForward object represents a request set up through the [Payment Forwarding](#payment-forwarding) service.
@@ -1154,6 +1182,13 @@ Attribute | Type | Description
 ```
 
 ```php
+{
+  "value": 100000000,
+  "input_address": "16uKw7GsQSzfMaVTcT7tpFQkd7Rh9qcXWX",
+  "destination": "15qx9ug952GWGTNn7Uiv6vode4RcGrRemh",
+  "input_transaction_hash": "39bed5d...",
+  "transaction_hash": "1aa6103..."
+}
 ```
 
 A PaymentForwardCallback object represents the payload delivered to the optional **callback_url** in a [PaymentForward](#payment-forward) request.

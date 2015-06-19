@@ -167,7 +167,6 @@ $.get('https://api.blockcypher.com/v1/btc/main/txs/f854aebae95150b379cc1187d848d
 
 ```php
 <?php
-
 // Run on console:
 // php -f .\sample\transaction-api\TransactionHashEndpoint.php
 
@@ -376,7 +375,6 @@ $.get('https://api.blockcypher.com/v1/btc/main/txs').then(function(d) {console.l
 
 ```php
 <?php
-
 // Run on console:
 // php -f .\sample\transaction-api\UnconfirmedTransactionsEndpoint.php
 
@@ -615,7 +613,6 @@ $.post('https://api.blockcypher.com/v1/bcy/test/txs/new', JSON.stringify(newtx))
 
 ```php
 <?php
-
 // Run on console:
 // php -f .\sample\transaction-api\NewTransactionEndpoint.php
 
@@ -1413,7 +1410,6 @@ curl -d '{"data":"I am the walrus", "encoding":"string"}' https://api.blockcyphe
 
 ```php
 <?php
-
 // Run on console:
 // php -f .\sample\transaction-api\DataEndpoint.php
 

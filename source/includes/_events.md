@@ -134,21 +134,8 @@ $.post(url, JSON.stringify(webhook))
 
 ```php
 <?php
-
 // Run on console:
 // php -f .\sample\hook-api\CreateWebHookEndpoint.php
-
-require __DIR__ . '/../bootstrap.php';
-
-use BlockCypher\Api\WebHook;
-use BlockCypher\Auth\SimpleTokenCredential;
-use BlockCypher\Rest\ApiContext;
-
-$apiContext = ApiContext::create(
-    'main', 'btc', 'v1',
-    new SimpleTokenCredential('c0afcccdde5081d6429de37d16166ead'),
-    array('log.LogEnabled' => true, 'log.FileName' => 'BlockCypher.log', 'log.LogLevel' => 'DEBUG')
-);
 
 $webHook = new WebHook();
 $webHook->setUrl("http://requestb.in/rwp6jirw?uniqid=" . uniqid());
@@ -225,21 +212,8 @@ $.get('https://api.blockcypher.com/v1/btc/main/hooks?token='+TOKEN)
 
 ```php
 <?php
-
 // Run on console:
 // php -f .\sample\hook-api\ListWebHooksEndpoint.php
-
-require __DIR__ . '/../bootstrap.php';
-
-use BlockCypher\Api\WebHook;
-use BlockCypher\Auth\SimpleTokenCredential;
-use BlockCypher\Rest\ApiContext;
-
-$apiContext = ApiContext::create(
-    'main', 'btc', 'v1',
-    new SimpleTokenCredential('c0afcccdde5081d6429de37d16166ead'),
-    array('log.LogEnabled' => true, 'log.FileName' => 'BlockCypher.log', 'log.LogLevel' => 'DEBUG')
-);
 
 $webHooks = WebHook::getAll(array(), $apiContext);
 
@@ -303,21 +277,8 @@ $.get('https://api.blockcypher.com/v1/btc/main/hooks/399d0923-e920-48ee-8928-205
 
 ```php
 <?php
-
 // Run on console:
 // php -f .\sample\hook-api\WebHookIdEndpoint.php
-
-require __DIR__ . '/../bootstrap.php';
-
-use BlockCypher\Api\WebHook;
-use BlockCypher\Auth\SimpleTokenCredential;
-use BlockCypher\Rest\ApiContext;
-
-$apiContext = ApiContext::create(
-    'main', 'btc', 'v1',
-    new SimpleTokenCredential('c0afcccdde5081d6429de37d16166ead'),
-    array('log.LogEnabled' => true, 'log.FileName' => 'BlockCypher.log', 'log.LogLevel' => 'DEBUG')
-);
 
 $webHook = WebHook::get('d5ca3bd3-5dfb-477d-9fb4-ac3510af258d', array(), $apiContext);
 
@@ -368,21 +329,8 @@ $.ajax({
 
 ```php
 <?php
-
 // Run on console:
 // php -f .\sample\hook-api\DeleteWebHookEndpoint.php
-
-require __DIR__ . '/../bootstrap.php';
-
-use BlockCypher\Api\WebHook;
-use BlockCypher\Auth\SimpleTokenCredential;
-use BlockCypher\Rest\ApiContext;
-
-$apiContext = ApiContext::create(
-    'main', 'btc', 'v1',
-    new SimpleTokenCredential('c0afcccdde5081d6429de37d16166ead'),
-    array('log.LogEnabled' => true, 'log.FileName' => 'BlockCypher.log', 'log.LogLevel' => 'DEBUG')
-);
 
 // Option 1: get the object before removing it
 //$webHook = WebHook::get('d5ca3bd3-5dfb-477d-9fb4-ac3510af258d', array(), $apiContext);

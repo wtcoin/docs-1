@@ -67,7 +67,6 @@ $.get('https://api.blockcypher.com/v1/btc/main').then(function(d) {console.log(d
 
 ```php
 <?php
-
 // Run on console:
 // php -f .\sample\chain-api\ChainEndpoint.php
 
@@ -200,7 +199,6 @@ $.get('https://api.blockcypher.com/v1/btc/main/blocks/0000000000000000189bba3564
 
 ```php
 <?php
-
 // Run on console:
 // php -f .\sample\block-api\BlockHashEndpoint.php
 
@@ -343,7 +341,6 @@ $.get('https://api.blockcypher.com/v1/btc/main/blocks/294322?txstart=1&limit=1')
 
 ```php
 <?php
-
 // Run on console:
 // php -f .\sample\block-api\BlockHeightEndpoint.php
 

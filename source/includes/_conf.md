@@ -51,7 +51,6 @@ curl https://api.blockcypher.com/v1/btc/main/txs/43fa951e1bea87c282f6725cf8bdc08
 
 ```php
 <?php
-
 // Run on console:
 // php -f .\sample\confidence-factor\TransactionConfidenceEndpoint.php
 

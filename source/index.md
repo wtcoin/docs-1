@@ -98,9 +98,25 @@ RUNNING SAMPLES ON CONSOLE
 php -f .\sample\docs-sample\address-api\address-endpoint.php
 Log file is generate in the folder when you run the command
 
-
 To see detailed PHP client info, check the official PHP repository:
 https://github.com/blockcypher/php-client
+
+Irrelevant code is not shown in samples. You can get the full sample version from:
+https://github.com/blockcypher/php-client/tree/master/sample
+
+Most samples begin with this header (sometimes omitted):
+<?php
+require __DIR__ . '/../bootstrap.php';
+
+use BlockCypher\Auth\SimpleTokenCredential;
+use BlockCypher\Rest\ApiContext;
+// ... other classes
+
+$apiContext = ApiContext::create(
+    'main', 'btc', 'v1',
+    new SimpleTokenCredential('c0afcccdde5081d6429de37d16166ead'),
+    array('log.LogEnabled' => true, 'log.FileName' => 'BlockCypher.log', 'log.LogLevel' => 'DEBUG')
+);
 ```
 
 In these docs you'll find everything you need to leverage BlockCypher for your applications. For all officially supported languages, you'll see code samples, in addition to basic cURL requests/responses for every endpoint. You can switch between cURL/language samples via the selector in the upper right. We're working on supporting more languages, but if you're working on your own language library, definitely let us know: we'd love to add more community supported libraries here.
@@ -222,7 +238,6 @@ $.get('https://api.blockcypher.com/v1/btc/main').then(function(d) {console.log(d
 
 ```php
 <?php
-
 // Run on console:
 // php -f .\sample\chain-api\ChainEndpoint.php
 
@@ -472,7 +487,6 @@ full_url = base_url + ';'.join([5,6,7])
 
 ```php
 <?php
-
 // Run on console:
 // php -f .\sample\introduction\Batching.php
 // Batching blocks 5, 6, and 7
@@ -612,7 +626,6 @@ $.post('http://api.blockcypher.com/v1/bcy/test/faucet?token=$YOUR_TOKEN', req)
 
 ```php
 <?php
-
 // Make new address; returns private key/public key/address
 // Run on console:
 // php -f .\sample\introduction\GenerateBcyAddress.php

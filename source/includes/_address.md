@@ -59,7 +59,6 @@ $.get('https://api.blockcypher.com/v1/btc/main/addrs/1DEP8i3QJCsomS4BSMY2RpU1upv
 
 ```php
 <?php
-
 // Run on console:
 // php -f .\sample\address-api\AddressBalanceEndpoint.php
 
@@ -488,7 +487,6 @@ $.get('https://api.blockcypher.com/v1/btc/main/addrs/1DEP8i3QJCsomS4BSMY2RpU1upv
 
 ```php
 <?php
-
 // Run on console:
 // php -f .\sample\address-api\AddressFullEndpoint.php
 
@@ -627,7 +625,6 @@ $.post('https://api.blockcypher.com/v1/btc/test3/addrs')
 
 ```php
 <?php
-
 // Run on console:
 // php -f .\sample\address-api\GenerateAddressEndpoint.php
 
@@ -735,7 +732,6 @@ $.post('https://api.blockcypher.com/v1/btc/test3/addrs', data)
 
 ```php
 <?php
-
 // Run on console:
 // php -f .\sample\address-api\GenerateMultisignAddressEndpoint.php
 
@@ -846,7 +842,6 @@ $.post('https://api.blockcypher.com/v1/btc/main/wallets?token=USERTOKEN', data)
 
 ```php
 <?php
-
 // Run on console:
 // php -f .\sample\wallet-api\CreateWalletEndpoint.php
 
@@ -1186,7 +1181,6 @@ $.post('https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses/generate
 
 ```php
 <?php
-
 // Run on console:
 // php -f .\sample\wallet-api\GenerateAddressInWalletEndpoint.php
 
@@ -1255,7 +1249,6 @@ $.ajax({
 
 ```php
 <?php
-
 // Run on console:
 // php -f .\sample\wallet-api\DeleteWalletEndpoint.php
 
