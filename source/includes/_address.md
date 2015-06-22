@@ -972,7 +972,7 @@ $.post('https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses?token=US
 
 require __DIR__ . '/../bootstrap.php';
 
-use BlockCypher\Api\AddressesList;
+use BlockCypher\Api\AddressList;
 use BlockCypher\Api\Wallet;
 use BlockCypher\Auth\SimpleTokenCredential;
 use BlockCypher\Rest\ApiContext;
@@ -984,7 +984,7 @@ $apiContext = ApiContext::create(
 );
 
 $wallet = Wallet::get('alice', array(), $apiContext);
-$addressesList = AddressesList::fromAddressesArray(array(
+$addressesList = AddressList::fromAddressesArray(array(
     "13cj1QtfW61kQHoqXm3khVRYPJrgQiRM6j"
 ));
 $wallet->addAddresses($addressesList, array(), $apiContext);

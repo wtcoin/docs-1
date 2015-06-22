@@ -60,7 +60,7 @@ curl https://api.blockcypher.com/v1/btc/main
 
 require __DIR__ . '/../bootstrap.php';
 
-use BlockCypher\Api\Chain;
+use BlockCypher\Api\Blockchain;
 use BlockCypher\Auth\SimpleTokenCredential;
 use BlockCypher\Rest\ApiContext;
 
@@ -70,7 +70,7 @@ $apiContext = ApiContext::create(
     array('log.LogEnabled' => true, 'log.FileName' => 'BlockCypher.log', 'log.LogLevel' => 'DEBUG')
 );
 
-$chain = Chain::get('BTC.main', array(), $apiContext);
+$chain = Blockchain::get('BTC.main', array(), $apiContext);
 
 {
   "name":"BTC.main",
@@ -285,7 +285,7 @@ curl https://api.blockcypher.com/v1/btc/main/txs/f854aebae95150b379cc1187d848d58
 
 require __DIR__ . '/../bootstrap.php';
 
-use BlockCypher\Api\Transaction;
+use BlockCypher\Api\TX;
 use BlockCypher\Auth\SimpleTokenCredential;
 use BlockCypher\Rest\ApiContext;
 
@@ -295,7 +295,7 @@ $apiContext = ApiContext::create(
     array('log.LogEnabled' => true, 'log.FileName' => 'BlockCypher.log', 'log.LogLevel' => 'DEBUG')
 );
 
-$transaction = Transaction::get('f854aebae95150b379cc1187d848d58225f3c4157fe992bcd166f58bd5063449', array(), $apiContext);
+$transaction = TX::get('f854aebae95150b379cc1187d848d58225f3c4157fe992bcd166f58bd5063449', array(), $apiContext);
 
 {
 "block_hash": "0000000000000000c504bdea36e531d80...",
@@ -500,7 +500,7 @@ curl https://api.blockcypher.com/v1/btc/main/txs/43fa951e1bea87c282f6725cf8bdc08
 
 require __DIR__ . '/../bootstrap.php';
 
-use BlockCypher\Api\TransactionConfidence;
+use BlockCypher\Api\TXConfidence;
 use BlockCypher\Auth\SimpleTokenCredential;
 use BlockCypher\Rest\ApiContext;
 
@@ -510,7 +510,7 @@ $apiContext = ApiContext::create(
     array('log.LogEnabled' => true, 'log.FileName' => 'BlockCypher.log', 'log.LogLevel' => 'DEBUG')
 );
 
-$txConfidence = TransactionConfidence::get('43fa951e1bea87c282f6725cf8bdc08bb48761396c3af8dd5a41a085ab62acc9', array(), $apiContext);
+$txConfidence = TXConfidence::get('43fa951e1bea87c282f6725cf8bdc08bb48761396c3af8dd5a41a085ab62acc9', array(), $apiContext);
 
 {
   "age_millis":2188284017,

@@ -243,7 +243,7 @@ $.get('https://api.blockcypher.com/v1/btc/main').then(function(d) {console.log(d
 
 require __DIR__ . '/../../bootstrap.php';
 
-use BlockCypher\Api\Chain;
+use BlockCypher\Api\Blockchain;
 use BlockCypher\Auth\SimpleTokenCredential;
 use BlockCypher\Rest\ApiContext;
 
@@ -253,7 +253,7 @@ $apiContext = ApiContext::create(
     array('log.LogEnabled' => true, 'log.FileName' => 'BlockCypher.log', 'log.LogLevel' => 'DEBUG')
 );
 
-$chain = Chain::get('BTC.main', array(), $apiContext);
+$chain = Blockchain::get('BTC.main', array(), $apiContext);
 
 {
   "name":"BTC.main",

@@ -56,7 +56,7 @@ curl https://api.blockcypher.com/v1/btc/main/txs/43fa951e1bea87c282f6725cf8bdc08
 
 require __DIR__ . '/../bootstrap.php';
 
-use BlockCypher\Api\TransactionConfidence;
+use BlockCypher\Api\TXConfidence;
 use BlockCypher\Auth\SimpleTokenCredential;
 use BlockCypher\Rest\ApiContext;
 
@@ -66,7 +66,7 @@ $apiContext = ApiContext::create(
     array('log.LogEnabled' => true, 'log.FileName' => 'BlockCypher.log', 'log.LogLevel' => 'DEBUG')
 );
 
-$txConfidence = TransactionConfidence::get('43fa951e1bea87c282f6725cf8bdc08bb48761396c3af8dd5a41a085ab62acc9', array(), $apiContext);
+$txConfidence = TXConfidence::get('43fa951e1bea87c282f6725cf8bdc08bb48761396c3af8dd5a41a085ab62acc9', array(), $apiContext);
 
 {
   "age_millis":2188284017,
