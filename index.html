@@ -19,7 +19,7 @@
 
       <script>
         $(function() {
-          setupLanguages(["shell","javascript","python"]);
+          setupLanguages(["shell","javascript","ruby","python"]);
         });
       </script>
   </head>
@@ -38,6 +38,7 @@
         <div class="lang-selector">
               <a href="#" data-language-name="shell">cURL</a>
               <a href="#" data-language-name="javascript">JavaScript</a>
+              <a href="#" data-language-name="ruby">Ruby</a>
               <a href="#" data-language-name="python">Python</a>
         </div>
       <div id="toc">
@@ -61,6 +62,16 @@
 <span class="c1">// |_) | (_) (_ |&lt; \_ \/ |_) | | (/_ | </span>
 <span class="c1">//                    /  |             </span>
 </code></pre>
+<pre class="highlight ruby"><code><span class="c1">#  _               _                  </span>
+<span class="c1"># |_) |  _   _ |  /     ._  |_   _  ._</span>
+<span class="c1"># |_) | (_) (_ |&lt; \_ \/ |_) | | (/_ | </span>
+<span class="c1">#                    /  |             </span>
+</code></pre>
+<pre class="highlight python"><code><span class="o">//</span>  <span class="n">_</span>               <span class="n">_</span>                  
+<span class="o">//</span> <span class="o">|</span><span class="n">_</span><span class="p">)</span> <span class="o">|</span>  <span class="n">_</span>   <span class="n">_</span> <span class="o">|</span>  <span class="o">/</span>     <span class="o">.</span><span class="n">_</span>  <span class="o">|</span><span class="n">_</span>   <span class="n">_</span>  <span class="o">.</span><span class="n">_</span>
+<span class="o">//</span> <span class="o">|</span><span class="n">_</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">_</span><span class="p">)</span> <span class="p">(</span><span class="n">_</span> <span class="o">|&lt;</span> \<span class="n">_</span> \<span class="o">/</span> <span class="o">|</span><span class="n">_</span><span class="p">)</span> <span class="o">|</span> <span class="o">|</span> <span class="p">(</span><span class="o">/</span><span class="n">_</span> <span class="o">|</span> 
+<span class="o">//</span>                    <span class="o">/</span>  <span class="o">|</span>             
+</code></pre>
 
 <p>Welcome to <a href="http://www.blockcypher.com/">BlockCypher&rsquo;s</a> API documentation! BlockCypher is a simple, mostly RESTful JSON API for interacting with blockchains, accessed over HTTP or HTTPS from the <a href="https://api.blockcypher.com/v1/btc/main">api.blockcypher.com</a> domain. Currently, BlockCypher supports Bitcoin, Bitcoin Testnet3, Litecoin, Dogecoin, Urocoin, and BlockCypher&rsquo;s Test Chain (more about BlockCypher&rsquo;s Test Chain <a href="#testing">below</a>).</p>
 
@@ -80,6 +91,17 @@ curl is a tool to transfer data from or to a server, using one of the supported 
 <span class="c1">// request.js for example.</span>
 
 <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'Welcome to BlockCypher'</span><span class="p">);</span>
+</code></pre>
+<pre class="highlight ruby"><code><span class="c1"># Ruby examples use irb, and our official ruby sdk:</span>
+<span class="c1"># https://github.com/blockcypher/ruby-client</span>
+
+<span class="c1"># Remember to require the library after installing</span>
+<span class="o">&gt;</span> <span class="nb">require</span> <span class="s1">'blockcypher'</span>
+<span class="o">=&gt;</span> <span class="kp">true</span>
+
+<span class="c1"># Unless otherwise noted, all requests assume an initialized API 'block_cypher' API object</span>
+<span class="o">&gt;</span> <span class="n">block_cypher</span> <span class="o">=</span> <span class="no">BlockCypher</span><span class="o">::</span><span class="no">Api</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="n">api_token</span><span class="ss">:"YOURTOKEN"</span><span class="p">)</span>
+<span class="o">=&gt;</span> <span class="c1">#&lt;BlockCypher::Api:0x000000010e4060 @api_token="YOURTOKEN", @currency="btc", @network="main", @version="v1"&gt;</span>
 </code></pre>
 <pre class="highlight python"><code><span class="n">To</span> <span class="n">see</span> <span class="n">detailed</span> <span class="n">python</span> <span class="n">code</span> <span class="n">snippets</span><span class="p">,</span> <span class="n">check</span> <span class="n">the</span> <span class="n">official</span> <span class="n">python</span> <span class="n">repository</span><span class="p">:</span>
 <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">blockcypher</span><span class="o">/</span><span class="n">blockcypher</span><span class="o">-</span><span class="n">python</span>
@@ -187,6 +209,31 @@ Currently, we only have cURL, JavaScript, and Python code samples on this page, 
 <span class="o">&gt;</span>   <span class="s2">"low_fee_per_kb"</span><span class="p">:</span> <span class="mi">12045</span>
 <span class="o">&gt;</span> <span class="p">}</span>
 </code></pre>
+<pre class="highlight ruby"><code><span class="c1"># Import Ruby SDK</span>
+<span class="o">&gt;</span> <span class="nb">require</span> <span class="s1">'blockcypher'</span>
+<span class="o">=&gt;</span> <span class="kp">true</span>
+
+<span class="c1"># Make new Api object, intialize with your token</span>
+<span class="o">&gt;</span> <span class="n">block_cypher</span> <span class="o">=</span> <span class="no">BlockCypher</span><span class="o">::</span><span class="no">Api</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="n">api_token</span><span class="ss">:"YOURTOKEN"</span><span class="p">)</span>
+<span class="o">=&gt;</span> <span class="c1">#&lt;BlockCypher::Api:0x000000010e4060 @api_token="YOURTOKEN", @currency="btc", @network="main", @version="v1"&gt;</span>
+
+<span class="c1"># Query base resource</span>
+<span class="o">&gt;</span> <span class="n">block_cypher</span><span class="p">.</span><span class="nf">blockchain</span>
+<span class="o">=&gt;</span> <span class="p">{</span><span class="s2">"name"</span><span class="o">=&gt;</span><span class="s2">"BTC.main"</span><span class="p">,</span>
+ <span class="s2">"height"</span><span class="o">=&gt;</span><span class="mi">361218</span><span class="p">,</span>
+ <span class="s2">"hash"</span><span class="o">=&gt;</span><span class="s2">"00000000000000000be2dca8e5336b01454fa032635a6f92d6adf0b98cdc6324"</span><span class="p">,</span>
+ <span class="s2">"time"</span><span class="o">=&gt;</span><span class="s2">"2015-06-16T19:53:57.157318741Z"</span><span class="p">,</span>
+ <span class="s2">"latest_url"</span><span class="o">=&gt;</span><span class="s2">"https://api.blockcypher.com/v1/btc/main/blocks/00000000000000000be2dca8e5336b01454fa032635a6f92d6adf0b98cdc6324"</span><span class="p">,</span>
+ <span class="s2">"previous_hash"</span><span class="o">=&gt;</span><span class="s2">"00000000000000000c2f3f4b87214d1791289820f9f7b696d7484987a073f567"</span><span class="p">,</span>
+ <span class="s2">"previous_url"</span><span class="o">=&gt;</span><span class="s2">"https://api.blockcypher.com/v1/btc/main/blocks/00000000000000000c2f3f4b87214d1791289820f9f7b696d7484987a073f567"</span><span class="p">,</span>
+ <span class="s2">"peer_count"</span><span class="o">=&gt;</span><span class="mi">260</span><span class="p">,</span>
+ <span class="s2">"unconfirmed_count"</span><span class="o">=&gt;</span><span class="mi">4442</span><span class="p">,</span>
+ <span class="s2">"high_fee_per_kb"</span><span class="o">=&gt;</span><span class="mi">45494</span><span class="p">,</span>
+ <span class="s2">"medium_fee_per_kb"</span><span class="o">=&gt;</span><span class="mi">24444</span><span class="p">,</span>
+ <span class="s2">"low_fee_per_kb"</span><span class="o">=&gt;</span><span class="mi">12301</span><span class="p">,</span>
+ <span class="s2">"last_fork_height"</span><span class="o">=&gt;</span><span class="mi">360362</span><span class="p">,</span>
+ <span class="s2">"last_fork_hash"</span><span class="o">=&gt;</span><span class="s2">"000000000000000002d5cf67bfaa92ba5b371c1590eb48d25031c669ef6233a0"</span><span class="p">}</span>
+</code></pre>
 <pre class="highlight python"><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">requests</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">'https://api.blockcypher.com/v1/btc/main'</span><span class="p">)</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
@@ -280,6 +327,14 @@ curl https://api.blockcypher.com/v1/btc/main?token<span class="o">=</span><span 
 <span class="kr">const</span> <span class="nx">TOKEN</span> <span class="o">=</span> <span class="s1">'YOUR_TOKEN'</span><span class="p">;</span>
 <span class="nx">$</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">'https://api.blockcypher.com/v1/btc/main?token='</span><span class="o">+</span><span class="nx">TOKEN</span><span class="p">);</span>
 </code></pre>
+<pre class="highlight ruby"><code><span class="c1"># Import Ruby SDK</span>
+<span class="o">&gt;</span> <span class="nb">require</span> <span class="s1">'blockcypher'</span>
+<span class="o">=&gt;</span> <span class="kp">true</span>
+
+<span class="c1"># Make new Api object, intialize with your token</span>
+<span class="o">&gt;</span> <span class="n">block_cypher</span> <span class="o">=</span> <span class="no">BlockCypher</span><span class="o">::</span><span class="no">Api</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="n">api_token</span><span class="ss">:"YOURTOKEN"</span><span class="p">)</span>
+<span class="o">=&gt;</span> <span class="c1">#&lt;BlockCypher::Api:0x000000010e4060 @api_token="YOURTOKEN", @currency="btc", @network="main", @version="v1"&gt;</span>
+</code></pre>
 <pre class="highlight python"><code><span class="c"># Adding your token as URL parameter</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">requests</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s">'token'</span><span class="p">:</span> <span class="s">'YOUR_TOKEN'</span><span class="p">}</span>
@@ -358,6 +413,33 @@ curl https://api.blockcypher.com/v1/btc/main/blocks/5;6;7
 <span class="o">&gt;</span> <span class="s2">"time"</span><span class="p">:</span> <span class="s2">"2009-01-09T03:39:29Z"</span><span class="p">,</span>
 <span class="o">&gt;</span> <span class="p">...,</span>
 <span class="o">&gt;</span> <span class="p">}]</span>
+</code></pre>
+<pre class="highlight ruby"><code><span class="c1"># Batching blocks 5, 6, and 7</span>
+<span class="o">&gt;</span> <span class="n">block_cypher</span><span class="p">.</span><span class="nf">blockchain_block</span><span class="p">(</span><span class="s1">'5;6;7'</span><span class="p">)</span>
+<span class="o">=&gt;</span> <span class="p">[{</span><span class="s2">"hash"</span><span class="o">=&gt;</span><span class="s2">"0000000071966c2b1d065fd446b1e485b2c9d9594acd2007ccbd5441cfc89444"</span><span class="p">,</span>
+  <span class="s2">"height"</span><span class="o">=&gt;</span><span class="mi">7</span><span class="p">,</span>
+  <span class="s2">"chain"</span><span class="o">=&gt;</span><span class="s2">"BTC.main"</span><span class="p">,</span>
+  <span class="s2">"total"</span><span class="o">=&gt;</span><span class="mi">0</span><span class="p">,</span>
+  <span class="s2">"fees"</span><span class="o">=&gt;</span><span class="mi">0</span><span class="p">,</span>
+  <span class="s2">"ver"</span><span class="o">=&gt;</span><span class="mi">1</span><span class="p">,</span>
+  <span class="s2">"time"</span><span class="o">=&gt;</span><span class="s2">"2009-01-09T03:39:29Z"</span><span class="p">,</span>
+  <span class="p">.</span><span class="nf">.</span><span class="o">.</span><span class="p">},</span>
+ <span class="p">{</span><span class="s2">"hash"</span><span class="o">=&gt;</span><span class="s2">"000000003031a0e73735690c5a1ff2a4be82553b2a12b776fbd3a215dc8f778d"</span><span class="p">,</span>
+  <span class="s2">"height"</span><span class="o">=&gt;</span><span class="mi">6</span><span class="p">,</span>
+  <span class="s2">"chain"</span><span class="o">=&gt;</span><span class="s2">"BTC.main"</span><span class="p">,</span>
+  <span class="s2">"total"</span><span class="o">=&gt;</span><span class="mi">0</span><span class="p">,</span>
+  <span class="s2">"fees"</span><span class="o">=&gt;</span><span class="mi">0</span><span class="p">,</span>
+  <span class="s2">"ver"</span><span class="o">=&gt;</span><span class="mi">1</span><span class="p">,</span>
+  <span class="s2">"time"</span><span class="o">=&gt;</span><span class="s2">"2009-01-09T03:29:49Z"</span><span class="p">,</span>
+  <span class="p">.</span><span class="nf">.</span><span class="o">.</span><span class="p">},</span>
+ <span class="p">{</span><span class="s2">"hash"</span><span class="o">=&gt;</span><span class="s2">"000000009b7262315dbf071787ad3656097b892abffd1f95a1a022f896f533fc"</span><span class="p">,</span>
+  <span class="s2">"height"</span><span class="o">=&gt;</span><span class="mi">5</span><span class="p">,</span>
+  <span class="s2">"chain"</span><span class="o">=&gt;</span><span class="s2">"BTC.main"</span><span class="p">,</span>
+  <span class="s2">"total"</span><span class="o">=&gt;</span><span class="mi">0</span><span class="p">,</span>
+  <span class="s2">"fees"</span><span class="o">=&gt;</span><span class="mi">0</span><span class="p">,</span>
+  <span class="s2">"ver"</span><span class="o">=&gt;</span><span class="mi">1</span><span class="p">,</span>
+  <span class="s2">"time"</span><span class="o">=&gt;</span><span class="s2">"2009-01-09T03:23:48Z"</span><span class="p">,</span>
+  <span class="p">.</span><span class="nf">.</span><span class="o">.</span><span class="p">}]</span>
 </code></pre>
 <pre class="highlight python"><code><span class="c"># Batching blocks 5, 6, and 7</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">requests</span>
@@ -490,6 +572,21 @@ curl -d <span class="s1">'{"address": "CFqoZmZ3ePwK5wnkhxJjJAQKJ82C7RJdmd", "amo
 <span class="o">&gt;</span> <span class="p">{</span>
 <span class="o">&gt;</span>   <span class="s2">"tx_ref"</span><span class="p">:</span> <span class="s2">"02dbf5585d438a1cba82a9041dd815635a6b0df684225cb5271e11397a759479"</span>
 <span class="o">&gt;</span> <span class="p">}</span>
+</code></pre>
+<pre class="highlight ruby"><code><span class="c1"># Create new api object on BlockCypher Testnet</span>
+<span class="o">&gt;</span> <span class="n">bc_test</span> <span class="o">=</span> <span class="no">BlockCypher</span><span class="o">::</span><span class="no">Api</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="n">currency</span><span class="ss">:BlockCypher</span><span class="o">::</span><span class="no">BCY</span><span class="p">,</span> <span class="n">network</span><span class="ss">:BlockCypher</span><span class="o">::</span><span class="no">TEST_NET</span><span class="p">,</span> <span class="n">api_token</span><span class="ss">:"YOURTOKEN"</span><span class="p">)</span>
+<span class="o">=&gt;</span> <span class="c1">#&lt;BlockCypher::Api:0x000000030169b0 @api_token="YOURTOKEN", @currency="bcy", @network="test", @version="v1"&gt;</span>
+
+<span class="c1"># Generate new test address</span>
+<span class="o">&gt;</span> <span class="n">bc_test</span><span class="p">.</span><span class="nf">address_generate</span>
+<span class="o">=&gt;</span> <span class="p">{</span><span class="s2">"private"</span><span class="o">=&gt;</span><span class="s2">"5a3675bbc7e24e63224bff60a3850a77d5a494419735e3b94173eac5379437c9"</span><span class="p">,</span>
+ <span class="s2">"public"</span><span class="o">=&gt;</span><span class="s2">"0311ab9780760dd8c5d2d9319f1eee9c9328eddd503d0b86e3af253b1665638b8a"</span><span class="p">,</span>
+ <span class="s2">"address"</span><span class="o">=&gt;</span><span class="s2">"Bv6rJzFmSg41nhibjfEfqSeeb2Te1Hh3FG"</span><span class="p">,</span>
+ <span class="s2">"wif"</span><span class="o">=&gt;</span><span class="s2">"BrMPimGAWyUUuGduxHZi1Q9n9Nveunton8sC5ouZeJp6EhKNaAcZ"</span><span class="p">}</span>
+
+<span class="c1"># Fund with faucet</span>
+<span class="o">&gt;</span> <span class="n">bc_test</span><span class="p">.</span><span class="nf">faucet</span><span class="p">(</span><span class="s2">"Bv6rJzFmSg41nhibjfEfqSeeb2Te1Hh3FG"</span><span class="p">,</span> <span class="mi">1000000</span><span class="p">)</span>
+<span class="o">=&gt;</span> <span class="p">{</span><span class="s2">"tx_ref"</span><span class="o">=&gt;</span><span class="s2">"59ddf03d9e292da5b3160e6ac341c9773873b693203c799a4ba8a4e05ef5a0d7"</span><span class="p">}</span>
 </code></pre>
 <pre class="highlight python"><code><span class="c"># Fund existing address with faucet</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">requests</span><span class="o">,</span> <span class="nn">json</span>
@@ -1842,6 +1939,22 @@ Only one of these three fields is required for the microtransaction endpoint: <b
 <span class="o">&gt;</span>   <span class="s2">"low_fee_per_kb"</span><span class="p">:</span> <span class="mi">12045</span>
 <span class="o">&gt;</span> <span class="p">}</span>
 </code></pre>
+<pre class="highlight ruby"><code><span class="o">&gt;</span> <span class="n">block_cypher</span><span class="p">.</span><span class="nf">blockchain</span>
+<span class="o">=&gt;</span> <span class="p">{</span><span class="s2">"name"</span><span class="o">=&gt;</span><span class="s2">"BTC.main"</span><span class="p">,</span>
+ <span class="s2">"height"</span><span class="o">=&gt;</span><span class="mi">361218</span><span class="p">,</span>
+ <span class="s2">"hash"</span><span class="o">=&gt;</span><span class="s2">"00000000000000000be2dca8e5336b01454fa032635a6f92d6adf0b98cdc6324"</span><span class="p">,</span>
+ <span class="s2">"time"</span><span class="o">=&gt;</span><span class="s2">"2015-06-16T19:53:57.157318741Z"</span><span class="p">,</span>
+ <span class="s2">"latest_url"</span><span class="o">=&gt;</span><span class="s2">"https://api.blockcypher.com/v1/btc/main/blocks/00000000000000000be2dca8e5336b01454fa032635a6f92d6adf0b98cdc6324"</span><span class="p">,</span>
+ <span class="s2">"previous_hash"</span><span class="o">=&gt;</span><span class="s2">"00000000000000000c2f3f4b87214d1791289820f9f7b696d7484987a073f567"</span><span class="p">,</span>
+ <span class="s2">"previous_url"</span><span class="o">=&gt;</span><span class="s2">"https://api.blockcypher.com/v1/btc/main/blocks/00000000000000000c2f3f4b87214d1791289820f9f7b696d7484987a073f567"</span><span class="p">,</span>
+ <span class="s2">"peer_count"</span><span class="o">=&gt;</span><span class="mi">260</span><span class="p">,</span>
+ <span class="s2">"unconfirmed_count"</span><span class="o">=&gt;</span><span class="mi">4442</span><span class="p">,</span>
+ <span class="s2">"high_fee_per_kb"</span><span class="o">=&gt;</span><span class="mi">45494</span><span class="p">,</span>
+ <span class="s2">"medium_fee_per_kb"</span><span class="o">=&gt;</span><span class="mi">24444</span><span class="p">,</span>
+ <span class="s2">"low_fee_per_kb"</span><span class="o">=&gt;</span><span class="mi">12301</span><span class="p">,</span>
+ <span class="s2">"last_fork_height"</span><span class="o">=&gt;</span><span class="mi">360362</span><span class="p">,</span>
+ <span class="s2">"last_fork_hash"</span><span class="o">=&gt;</span><span class="s2">"000000000000000002d5cf67bfaa92ba5b371c1590eb48d25031c669ef6233a0"</span><span class="p">}</span>
+</code></pre>
 <pre class="highlight python"><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">requests</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">'https://api.blockcypher.com/v1/btc/main'</span><span class="p">)</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
@@ -1934,6 +2047,35 @@ Only one of these three fields is required for the microtransaction endpoint: <b
 <span class="o">&gt;</span> <span class="s2">"tx_url"</span><span class="p">:</span> <span class="s2">"https://api.blockcypher.com/v1/btc/main/txs/"</span>
 <span class="o">&gt;</span> <span class="p">}</span>
 </code></pre>
+<pre class="highlight ruby"><code><span class="o">&gt;</span> <span class="n">block_cypher</span><span class="p">.</span><span class="nf">blockchain_block</span><span class="p">(</span><span class="s2">"0000000000000000189bba3564a63772107b5673c940c16f12662b3e8546b412"</span><span class="p">)</span>
+<span class="o">=&gt;</span> <span class="p">{</span><span class="s2">"hash"</span><span class="o">=&gt;</span><span class="s2">"0000000000000000189bba3564a63772107b5673c940c16f12662b3e8546b412"</span><span class="p">,</span>
+ <span class="s2">"height"</span><span class="o">=&gt;</span><span class="mi">294322</span><span class="p">,</span>
+ <span class="s2">"chain"</span><span class="o">=&gt;</span><span class="s2">"BTC.main"</span><span class="p">,</span>
+ <span class="s2">"total"</span><span class="o">=&gt;</span><span class="mi">1146652915</span><span class="p">,</span>
+ <span class="s2">"fees"</span><span class="o">=&gt;</span><span class="mi">130999</span><span class="p">,</span>
+ <span class="s2">"ver"</span><span class="o">=&gt;</span><span class="mi">2</span><span class="p">,</span>
+ <span class="s2">"time"</span><span class="o">=&gt;</span><span class="s2">"2014-04-05T07:49:18Z"</span><span class="p">,</span>
+ <span class="s2">"received_time"</span><span class="o">=&gt;</span><span class="s2">"2014-04-05T07:49:18Z"</span><span class="p">,</span>
+ <span class="s2">"bits"</span><span class="o">=&gt;</span><span class="mi">419486617</span><span class="p">,</span>
+ <span class="s2">"nonce"</span><span class="o">=&gt;</span><span class="mi">1225187768</span><span class="p">,</span>
+ <span class="s2">"n_tx"</span><span class="o">=&gt;</span><span class="mi">10</span><span class="p">,</span>
+ <span class="s2">"prev_block"</span><span class="o">=&gt;</span><span class="s2">"0000000000000000ced0958bd27720b71d32c5847e40660aaca39f33c298abb0"</span><span class="p">,</span>
+ <span class="s2">"mrkl_root"</span><span class="o">=&gt;</span><span class="s2">"359d624d37aee1efa5662b7f5dbc390e996d561afc8148e8d716cf6ad765a952"</span><span class="p">,</span>
+ <span class="s2">"txids"</span><span class="o">=&gt;</span>
+  <span class="p">[</span><span class="s2">"32b3b86e40d996b1f281e24e8d4af2ceacbf874c4038369cc21baa807409b277"</span><span class="p">,</span>
+   <span class="s2">"1579f716359ba1a207f70248135f5e5fadf539be1dcf5300613aedcb6577d287"</span><span class="p">,</span>
+   <span class="s2">"dd1f183348eb41eaaa9ecf8012f9cca3ecbae41a6349f0cc4bfd2b1a497fa3d0"</span><span class="p">,</span>
+   <span class="s2">"749d12ccd180968b82aef4c271ca4effdf981d9b5d12523264457c9d4e6fa78e"</span><span class="p">,</span>
+   <span class="s2">"c4fe2ee16b8e3067d3d95caf7944011f4959781288b807df8bf853b7f80ed97c"</span><span class="p">,</span>
+   <span class="s2">"5a2114675265522d2b7ce8a7874cfa7a22ccc3fb6566a8599d6432c6805b1b5f"</span><span class="p">,</span>
+   <span class="s2">"077d851c8240671de80caa8be9f5285201c08a70edc5a45a9cd35fe7eaebf5e1"</span><span class="p">,</span>
+   <span class="s2">"6202cc55fbd9130e065c9294a5b2e061c26f3d2c8df56c32da605d9f183103f9"</span><span class="p">,</span>
+   <span class="s2">"ad3e7aa1c33f1d3e1c105d94f7b1542808da07bbe66b9621b050104a85dbf650"</span><span class="p">,</span>
+   <span class="s2">"36cc61016b9d1bd69768666f287db1edaa9b292fb442f152af7099305677230e"</span><span class="p">],</span>
+ <span class="s2">"depth"</span><span class="o">=&gt;</span><span class="mi">66905</span><span class="p">,</span>
+ <span class="s2">"prev_block_url"</span><span class="o">=&gt;</span><span class="s2">"https://api.blockcypher.com/v1/btc/main/blocks/0000000000000000ced0958bd27720b71d32c5847e40660aaca39f33c298abb0"</span><span class="p">,</span>
+ <span class="s2">"tx_url"</span><span class="o">=&gt;</span><span class="s2">"https://api.blockcypher.com/v1/btc/main/txs/"</span><span class="p">}</span>
+</code></pre>
 <pre class="highlight python"><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">requests</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">'https://api.blockcypher.com/v1/btc/main/blocks/0000000000000000189bba3564a63772107b5673c940c16f12662b3e8546b412'</span><span class="p">)</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
@@ -1957,7 +2099,6 @@ Only one of these three fields is required for the microtransaction endpoint: <b
  <span class="s">'fees'</span><span class="p">:</span> <span class="mi">130999</span><span class="p">,</span>
  <span class="s">'bits'</span><span class="p">:</span> <span class="mi">419486617</span><span class="p">,</span>
  <span class="s">'time'</span><span class="p">:</span> <span class="s">'2014-04-05T07:49:18Z'</span><span class="p">}</span>
-<span class="o">&gt;&gt;&gt;&gt;&gt;&gt;&gt;</span> <span class="n">master</span>
 </code></pre>
 
 <p>If you want more data on a particular block, you can use the Block Hash endpoint.</p>
@@ -2050,8 +2191,27 @@ Only one of these three fields is required for the microtransaction endpoint: <b
 <span class="o">&gt;</span> <span class="s2">"tx_url"</span><span class="p">:</span> <span class="s2">"https://api.blockcypher.com/v1/btc/main/txs/"</span>
 <span class="o">&gt;</span> <span class="p">}</span>
 </code></pre>
-<pre class="highlight python"><code><span class="c"># Fund existing address with faucet</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">requests</span>
+<pre class="highlight ruby"><code><span class="o">&gt;</span> <span class="n">block_cypher</span><span class="p">.</span><span class="nf">blockchain_block</span><span class="p">(</span><span class="s2">"294322"</span><span class="p">,</span> <span class="p">{</span><span class="s2">"txstart"</span><span class="o">=&gt;</span><span class="mi">1</span><span class="p">,</span><span class="s2">"limit"</span><span class="o">=&gt;</span><span class="mi">1</span><span class="p">})</span>
+<span class="o">=&gt;</span> <span class="p">{</span><span class="s2">"hash"</span><span class="o">=&gt;</span><span class="s2">"0000000000000000189bba3564a63772107b5673c940c16f12662b3e8546b412"</span><span class="p">,</span>
+ <span class="s2">"height"</span><span class="o">=&gt;</span><span class="mi">294322</span><span class="p">,</span>
+ <span class="s2">"chain"</span><span class="o">=&gt;</span><span class="s2">"BTC.main"</span><span class="p">,</span>
+ <span class="s2">"total"</span><span class="o">=&gt;</span><span class="mi">1146652915</span><span class="p">,</span>
+ <span class="s2">"fees"</span><span class="o">=&gt;</span><span class="mi">130999</span><span class="p">,</span>
+ <span class="s2">"ver"</span><span class="o">=&gt;</span><span class="mi">2</span><span class="p">,</span>
+ <span class="s2">"time"</span><span class="o">=&gt;</span><span class="s2">"2014-04-05T07:49:18Z"</span><span class="p">,</span>
+ <span class="s2">"received_time"</span><span class="o">=&gt;</span><span class="s2">"2014-04-05T07:49:18Z"</span><span class="p">,</span>
+ <span class="s2">"bits"</span><span class="o">=&gt;</span><span class="mi">419486617</span><span class="p">,</span>
+ <span class="s2">"nonce"</span><span class="o">=&gt;</span><span class="mi">1225187768</span><span class="p">,</span>
+ <span class="s2">"n_tx"</span><span class="o">=&gt;</span><span class="mi">10</span><span class="p">,</span>
+ <span class="s2">"prev_block"</span><span class="o">=&gt;</span><span class="s2">"0000000000000000ced0958bd27720b71d32c5847e40660aaca39f33c298abb0"</span><span class="p">,</span>
+ <span class="s2">"mrkl_root"</span><span class="o">=&gt;</span><span class="s2">"359d624d37aee1efa5662b7f5dbc390e996d561afc8148e8d716cf6ad765a952"</span><span class="p">,</span>
+ <span class="s2">"txids"</span><span class="o">=&gt;</span><span class="p">[</span><span class="s2">"1579f716359ba1a207f70248135f5e5fadf539be1dcf5300613aedcb6577d287"</span><span class="p">],</span>
+ <span class="s2">"depth"</span><span class="o">=&gt;</span><span class="mi">66905</span><span class="p">,</span>
+ <span class="s2">"prev_block_url"</span><span class="o">=&gt;</span><span class="s2">"https://api.blockcypher.com/v1/btc/main/blocks/0000000000000000ced0958bd27720b71d32c5847e40660aaca39f33c298abb0"</span><span class="p">,</span>
+ <span class="s2">"tx_url"</span><span class="o">=&gt;</span><span class="s2">"https://api.blockcypher.com/v1/btc/main/txs/"</span><span class="p">,</span>
+ <span class="s2">"next_txids"</span><span class="o">=&gt;</span><span class="s2">"https://api.blockcypher.com/v1/btc/main/blocks/0000000000000000189bba3564a63772107b5673c940c16f12662b3e8546b412?txstart=2&amp;limit=1"</span><span class="p">}</span>
+</code></pre>
+<pre class="highlight python"><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">requests</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s">'txstart'</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s">'limit'</span><span class="p">:</span> <span class="mi">1</span><span class="p">}</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">'https://api.blockcypher.com/v1/btc/main/blocks/294322'</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
@@ -2160,6 +2320,22 @@ With recent blocks, $BLOCK_HEIGHT is not always a unique identifier, due to the 
 <span class="o">&gt;</span>   <span class="s2">"unconfirmed_n_tx"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
 <span class="o">&gt;</span>   <span class="s2">"final_n_tx"</span><span class="p">:</span> <span class="mi">7</span>
 <span class="o">&gt;</span> <span class="p">}</span>
+</code></pre>
+<pre class="highlight ruby"><code><span class="c1"># Full balance</span>
+<span class="o">&gt;</span> <span class="n">block_cypher</span><span class="p">.</span><span class="nf">address_balance</span><span class="p">(</span><span class="s2">"1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD"</span><span class="p">)</span>
+<span class="o">=&gt;</span> <span class="p">{</span><span class="s2">"address"</span><span class="o">=&gt;</span><span class="s2">"1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD"</span><span class="p">,</span>
+ <span class="s2">"total_received"</span><span class="o">=&gt;</span><span class="mi">4433416</span><span class="p">,</span>
+ <span class="s2">"total_sent"</span><span class="o">=&gt;</span><span class="mi">0</span><span class="p">,</span>
+ <span class="s2">"balance"</span><span class="o">=&gt;</span><span class="mi">4433416</span><span class="p">,</span>
+ <span class="s2">"unconfirmed_balance"</span><span class="o">=&gt;</span><span class="mi">0</span><span class="p">,</span>
+ <span class="s2">"final_balance"</span><span class="o">=&gt;</span><span class="mi">4433416</span><span class="p">,</span>
+ <span class="s2">"n_tx"</span><span class="o">=&gt;</span><span class="mi">7</span><span class="p">,</span>
+ <span class="s2">"unconfirmed_n_tx"</span><span class="o">=&gt;</span><span class="mi">0</span><span class="p">,</span>
+ <span class="s2">"final_n_tx"</span><span class="o">=&gt;</span><span class="mi">7</span><span class="p">}</span>
+
+<span class="c1"># Just final balance</span>
+<span class="o">&gt;</span> <span class="n">block_cypher</span><span class="p">.</span><span class="nf">address_final_balance</span><span class="p">(</span><span class="s2">"1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD"</span><span class="p">)</span>
+<span class="o">=&gt;</span> <span class="mi">4433416</span>
 </code></pre>
 <pre class="highlight python"><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">requests</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">'http://api.blockcypher.com/v1/btc/main/addrs/1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD/balance'</span><span class="p">)</span>
@@ -2277,6 +2453,38 @@ With recent blocks, $BLOCK_HEIGHT is not always a unique identifier, due to the 
 <span class="o">&gt;</span> <span class="p">],</span>
 <span class="o">&gt;</span> <span class="s2">"tx_url"</span><span class="p">:</span> <span class="s2">"https://api.blockcypher.com/v1/btc/main/txs/"</span>
 <span class="o">&gt;</span> <span class="p">}</span>
+</code></pre>
+<pre class="highlight ruby"><code><span class="o">&gt;</span> <span class="n">block_cypher</span><span class="p">.</span><span class="nf">address_details</span><span class="p">(</span><span class="s2">"1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD"</span><span class="p">)</span>
+<span class="o">=&gt;</span> <span class="p">{</span><span class="s2">"address"</span><span class="o">=&gt;</span><span class="s2">"1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD"</span><span class="p">,</span> 
+ <span class="s2">"total_received"</span><span class="o">=&gt;</span><span class="mi">4433416</span><span class="p">,</span>
+ <span class="s2">"total_sent"</span><span class="o">=&gt;</span><span class="mi">0</span><span class="p">,</span>
+ <span class="s2">"balance"</span><span class="o">=&gt;</span><span class="mi">4433416</span><span class="p">,</span>
+ <span class="s2">"unconfirmed_balance"</span><span class="o">=&gt;</span><span class="mi">0</span><span class="p">,</span>
+ <span class="s2">"final_balance"</span><span class="o">=&gt;</span><span class="mi">4433416</span><span class="p">,</span>
+ <span class="s2">"n_tx"</span><span class="o">=&gt;</span><span class="mi">7</span><span class="p">,</span>
+ <span class="s2">"unconfirmed_n_tx"</span><span class="o">=&gt;</span><span class="mi">0</span><span class="p">,</span>
+ <span class="s2">"final_n_tx"</span><span class="o">=&gt;</span><span class="mi">7</span><span class="p">,</span>
+ <span class="s2">"txrefs"</span><span class="o">=&gt;</span> <span class="p">[</span>
+  <span class="p">{</span><span class="s2">"tx_hash"</span><span class="o">=&gt;</span><span class="s2">"14b1052855bbf6561bc4db8aa501762e7cc1e86994dda9e782a6b73b1ce0dc1e"</span><span class="p">,</span>
+     <span class="s2">"block_height"</span><span class="o">=&gt;</span><span class="mi">302013</span><span class="p">,</span>
+     <span class="s2">"tx_input_n"</span><span class="o">=&gt;-</span><span class="mi">1</span><span class="p">,</span>
+     <span class="s2">"tx_output_n"</span><span class="o">=&gt;</span><span class="mi">0</span><span class="p">,</span>
+     <span class="s2">"value"</span><span class="o">=&gt;</span><span class="mi">20213</span><span class="p">,</span>
+     <span class="s2">"spent"</span><span class="o">=&gt;</span><span class="kp">false</span><span class="p">,</span>
+     <span class="s2">"confirmations"</span><span class="o">=&gt;</span><span class="mi">59220</span><span class="p">,</span>
+     <span class="s2">"confirmed"</span><span class="o">=&gt;</span><span class="s2">"2014-05-22T03:46:25Z"</span><span class="p">,</span>
+     <span class="s2">"double_spend"</span><span class="o">=&gt;</span><span class="kp">false</span><span class="p">},</span>
+    <span class="p">{</span><span class="s2">"tx_hash"</span><span class="o">=&gt;</span><span class="s2">"4cff011ec53022f2ae47197d1a2fd4a6ac2a80139f4d0131c1fed625ed5dc869"</span><span class="p">,</span>
+     <span class="s2">"block_height"</span><span class="o">=&gt;</span><span class="mi">302002</span><span class="p">,</span>
+     <span class="s2">"tx_input_n"</span><span class="o">=&gt;-</span><span class="mi">1</span><span class="p">,</span>
+     <span class="s2">"tx_output_n"</span><span class="o">=&gt;</span><span class="mi">0</span><span class="p">,</span>
+     <span class="s2">"value"</span><span class="o">=&gt;</span><span class="mi">40596</span><span class="p">,</span>
+     <span class="s2">"spent"</span><span class="o">=&gt;</span><span class="kp">false</span><span class="p">,</span>
+     <span class="s2">"confirmations"</span><span class="o">=&gt;</span><span class="mi">59231</span><span class="p">,</span>
+     <span class="s2">"confirmed"</span><span class="o">=&gt;</span><span class="s2">"2014-05-22T02:56:08Z"</span><span class="p">,</span>
+     <span class="s2">"double_spend"</span><span class="o">=&gt;</span><span class="kp">false</span><span class="p">},</span>
+    <span class="p">.</span><span class="nf">.</span><span class="o">.</span><span class="p">],</span>
+ <span class="s2">"tx_url"</span><span class="o">=&gt;</span><span class="s2">"https://api.blockcypher.com/v1/btc/main/txs/"</span><span class="p">}</span>
 </code></pre>
 <pre class="highlight python"><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">requests</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">'http://api.blockcypher.com/v1/btc/main/addrs/1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD'</span><span class="p">)</span>
@@ -2495,6 +2703,52 @@ With recent blocks, $BLOCK_HEIGHT is not always a unique identifier, due to the 
 <span class="o">&gt;</span> <span class="p">]</span>
 <span class="o">&gt;</span> <span class="p">}</span>
 </code></pre>
+<pre class="highlight ruby"><code><span class="o">&gt;</span> <span class="n">block_cypher</span><span class="p">.</span><span class="nf">address_full_txs</span><span class="p">(</span><span class="s2">"1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD"</span><span class="p">)</span>
+<span class="o">=&gt;</span> <span class="p">{</span><span class="s2">"address"</span><span class="o">=&gt;</span><span class="s2">"1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD"</span><span class="p">,</span>
+ <span class="s2">"total_received"</span><span class="o">=&gt;</span><span class="mi">4433416</span><span class="p">,</span>
+ <span class="s2">"total_sent"</span><span class="o">=&gt;</span><span class="mi">0</span><span class="p">,</span>
+ <span class="s2">"balance"</span><span class="o">=&gt;</span><span class="mi">4433416</span><span class="p">,</span>
+ <span class="s2">"unconfirmed_balance"</span><span class="o">=&gt;</span><span class="mi">0</span><span class="p">,</span>
+ <span class="s2">"final_balance"</span><span class="o">=&gt;</span><span class="mi">4433416</span><span class="p">,</span>
+ <span class="s2">"n_tx"</span><span class="o">=&gt;</span><span class="mi">7</span><span class="p">,</span>
+ <span class="s2">"unconfirmed_n_tx"</span><span class="o">=&gt;</span><span class="mi">0</span><span class="p">,</span>
+ <span class="s2">"final_n_tx"</span><span class="o">=&gt;</span><span class="mi">7</span><span class="p">,</span>
+ <span class="s2">"txs"</span><span class="o">=&gt;</span><span class="p">[</span>
+  <span class="p">{</span><span class="s2">"block_hash"</span><span class="o">=&gt;</span><span class="s2">"00000000000000006548ac8dc283c97e8165023dc1fdbbca2eaa75f0143f4a8c"</span><span class="p">,</span>
+  <span class="s2">"block_height"</span><span class="o">=&gt;</span><span class="mi">302013</span><span class="p">,</span>
+  <span class="s2">"hash"</span><span class="o">=&gt;</span><span class="s2">"14b1052855bbf6561bc4db8aa501762e7cc1e86994dda9e782a6b73b1ce0dc1e"</span><span class="p">,</span>
+  <span class="s2">"addresses"</span><span class="o">=&gt;</span><span class="p">[</span><span class="s2">"17astdTmG8zzVmry8mV8A7at Ar3XefEgRX"</span><span class="p">,</span> <span class="s2">"1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD"</span><span class="p">],</span>
+  <span class="s2">"total"</span><span class="o">=&gt;</span><span class="mi">8835413</span><span class="p">,</span>
+  <span class="s2">"fees"</span><span class="o">=&gt;</span><span class="mi">10000</span><span class="p">,</span> 
+  <span class="s2">"size"</span><span class="o">=&gt;</span><span class="mi">258</span><span class="p">,</span>
+  <span class="s2">"preference"</span><span class="o">=&gt;</span><span class="s2">"medium"</span><span class="p">,</span>
+  <span class="s2">"relayed_by"</span><span class="o">=&gt;</span><span class="s2">""</span><span class="p">,</span>
+  <span class="s2">"confirmed"</span><span class="o">=&gt;</span><span class="s2">"2014-05-22T03:46:25Z"</span><span class="p">,</span>
+  <span class="s2">"received"</span><span class="o">=&gt;</span><span class="s2">"2014-05-22T03:46:25Z"</span><span class="p">,</span>
+  <span class="s2">"ver"</span><span class="o">=&gt;</span><span class="mi">1</span><span class="p">,</span>
+  <span class="s2">"lock_time"</span><span class="o">=&gt;</span><span class="mi">0</span><span class="p">,</span>
+  <span class="s2">"double_spend"</span><span class="o">=&gt;</span><span class="kp">false</span><span class="p">,</span>
+    <span class="s2">"vin_sz"</span><span class="o">=&gt;</span><span class="mi">1</span><span class="p">,</span>
+    <span class="s2">"vout_sz"</span><span class="o">=&gt;</span><span class="mi">2</span><span class="p">,</span>
+    <span class="s2">"confirmations"</span><span class="o">=&gt;</span><span class="mi">59221</span><span class="p">,</span>
+    <span class="s2">"confidence"</span><span class="o">=&gt;</span><span class="mi">1</span><span class="p">,</span>
+    <span class="s2">"inputs"</span><span class="o">=&gt;</span><span class="p">[</span>
+     <span class="p">{</span><span class="s2">"prev_hash"</span><span class="o">=&gt;</span><span class="s2">"4cff011ec53022f2ae47197d1a2fd4a6ac2a80139f4d0131c1fed625ed5dc869"</span><span class="p">,</span>
+     <span class="s2">"output_index"</span><span class="o">=&gt;</span><span class="mi">1</span><span class="p">,</span>
+     <span class="s2">"script"</span> <span class="o">=&gt;</span><span class="s2">"483045022035695e3b237733c70a5..."</span><span class="p">,</span>
+     <span class="s2">"output_value"</span><span class="o">=&gt;</span> <span class="mi">8845413</span><span class="p">,</span>
+     <span class="s2">"sequence"</span><span class="o">=&gt;</span><span class="mi">4294967295</span><span class="p">,</span>
+     <span class="s2">"addresses"</span><span class="o">=&gt;</span><span class="p">[</span><span class="s2">"17astdTmG8zzVmry8mV8A7atAr3XefEgRX"</span><span class="p">],</span>
+     <span class="s2">"script_type"</span><span class="o">=&gt;</span><span class="s2">"pay-to-pubkey-hash"</span><span class="p">}],</span>
+    <span class="s2">"outputs"</span><span class="o">=&gt;</span><span class="p">[</span>
+     <span class="p">{</span><span class="s2">"value"</span><span class="o">=&gt;</span><span class="mi">20213</span><span class="p">,</span>
+     <span class="s2">"script"</span><span class="o">=&gt;</span><span class="s2">"76a9148629647bd642a2372d846a7660e210c8414f047c88ac"</span><span class="p">,</span>
+     <span class="s2">"addresses"</span><span class="o">=&gt;</span><span class="p">[</span><span class="s2">"1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD"</span><span class="p">],</span>
+     <span class="s2">"script_type"</span><span class="o">=&gt;</span><span class="s2">"pay-to-pubkey-hash"</span><span class="p">},</span>
+     <span class="p">.</span><span class="nf">.</span><span class="o">.</span> <span class="p">]},</span> 
+  <span class="p">.</span><span class="nf">.</span><span class="o">.</span>
+ <span class="p">]}</span>
+</code></pre>
 <pre class="highlight python"><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">requests</span><span class="o">,</span> <span class="nn">json</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s">'before'</span><span class="p">:</span> <span class="mi">300000</span><span class="p">}</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">'http://api.blockcypher.com/v1/btc/main/addrs/1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD/full'</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
@@ -2604,6 +2858,12 @@ If your returned <a href="#address">Address</a> object includes the <b>hasMore</
 <span class="o">&gt;</span> <span class="s2">"wif"</span><span class="p">:</span> <span class="s2">"cRwGhRjCuuNtPgLcoYd1CuAqjFXCV5YNCQ1LB8RsFCvu61VfSsgR"</span>
 <span class="o">&gt;</span> <span class="p">}</span>
 </code></pre>
+<pre class="highlight ruby"><code><span class="o">&gt;</span> <span class="n">block_cypher</span><span class="p">.</span><span class="nf">address_generate</span>
+<span class="o">=&gt;</span> <span class="p">{</span><span class="s2">"private"</span><span class="o">=&gt;</span><span class="s2">"39c8788ef9815d061a2a4528817b3c23730b1129e5ca60032138061f35483951"</span><span class="p">,</span>
+ <span class="s2">"public"</span><span class="o">=&gt;</span><span class="s2">"039dc801dd76a7fa03789e0fe8efdd7e0857e73fa4ae38a294a60002ef949e83c4"</span><span class="p">,</span>
+ <span class="s2">"address"</span><span class="o">=&gt;</span><span class="s2">"1FdQDEnHXibwMMMKaaNGrhrcujJNZyszUN"</span><span class="p">,</span>
+ <span class="s2">"wif"</span><span class="o">=&gt;</span><span class="s2">"KyA2uUUMZkiRcSTx3PE1pBeMFgyifpxswcJu3Q7fVwXXZmvh48JA"</span><span class="p">}</span>
+</code></pre>
 <pre class="highlight python"><code><span class="c"># Please use the python library at https://github.com/blockcypher/blockcypher-python to securely generate an address client-side</span>
 </code></pre>
 
@@ -2673,6 +2933,17 @@ Always use HTTPS for Address Generation requests. Otherwise, your generated priv
 <span class="o">&gt;</span> <span class="p">],</span>
 <span class="o">&gt;</span> <span class="s2">"script_type"</span><span class="p">:</span> <span class="s2">"multisig-2-of-3"</span>
 <span class="o">&gt;</span> <span class="p">}</span>
+</code></pre>
+<pre class="highlight ruby"><code><span class="o">&gt;</span> <span class="n">block_cypher</span><span class="p">.</span><span class="nf">address_generate_multi</span><span class="p">([</span><span class="s2">"02c716d071a76cbf0d29c29cacfec76e0ef8116b37389fb7a3e76d6d32cf59f4d3"</span><span class="p">,</span> <span class="s2">"033ef4d5165637d99b673bcdbb7ead359cee6afd7aaf78d3da9d2392ee4102c8ea"</span><span class="p">,</span> <span class="s2">"022b8934cc41e76cb4286b9f3ed57e2d27798395b04dd23711981a77dc216df8ca"</span><span class="p">],</span> <span class="s2">"multisig-2-of-3"</span><span class="p">)</span>
+<span class="o">=&gt;</span> <span class="p">{</span><span class="s2">"private"</span><span class="o">=&gt;</span><span class="s2">""</span><span class="p">,</span>
+ <span class="s2">"public"</span><span class="o">=&gt;</span><span class="s2">""</span><span class="p">,</span>
+ <span class="s2">"address"</span><span class="o">=&gt;</span><span class="s2">"3BF1M1PnTge94QewuWh3B8mRVw8U4SVnb4"</span><span class="p">,</span>
+ <span class="s2">"wif"</span><span class="o">=&gt;</span><span class="s2">""</span><span class="p">,</span>
+ <span class="s2">"pubkeys"</span><span class="o">=&gt;</span>
+  <span class="p">[</span><span class="s2">"02c716d071a76cbf0d29c29cacfec76e0ef8116b37389fb7a3e76d6d32cf59f4d3"</span><span class="p">,</span>
+   <span class="s2">"033ef4d5165637d99b673bcdbb7ead359cee6afd7aaf78d3da9d2392ee4102c8ea"</span><span class="p">,</span>
+   <span class="s2">"022b8934cc41e76cb4286b9f3ed57e2d27798395b04dd23711981a77dc216df8ca"</span><span class="p">],</span>
+ <span class="s2">"script_type"</span><span class="o">=&gt;</span><span class="s2">"multisig-2-of-3"</span><span class="p">}</span>
 </code></pre>
 <pre class="highlight python"><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">requests</span><span class="o">,</span> <span class="nn">json</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s">'pubkeys'</span><span class="p">:</span> <span class="p">[</span><span class="s">'02c716d071a76cbf0d29c29cacfec76e0ef8116b37389fb7a3e76d6d32cf59f4d3'</span><span class="p">,</span> <span class="s">'033ef4d5165637d99b673bcdbb7ead359cee6afd7aaf78d3da9d2392ee4102c8ea'</span><span class="p">,</span> <span class="s">'022b8934cc41e76cb4286b9f3ed57e2d27798395b04dd23711981a77dc216df8ca'</span><span class="p">],</span> <span class="s">'script_type'</span><span class="p">:</span> <span class="s">'multisig-2-of-3'</span><span class="p">}</span>
@@ -2749,6 +3020,9 @@ You are required to authenticate with your <a href="#rate-limits-and-tokens">use
 <span class="o">&gt;</span>   <span class="s2">"1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e"</span>
 <span class="o">&gt;</span> <span class="p">]}</span>
 </code></pre>
+<pre class="highlight ruby"><code><span class="o">&gt;</span> <span class="n">block_cypher</span><span class="p">.</span><span class="nf">wallet_create</span><span class="p">(</span><span class="s2">"alice"</span><span class="p">,[</span><span class="s2">"1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e"</span><span class="p">])</span>
+<span class="o">=&gt;</span> <span class="p">{</span><span class="s2">"token"</span><span class="o">=&gt;</span><span class="s2">"YOURTOKEN"</span><span class="p">,</span> <span class="s2">"name"</span><span class="o">=&gt;</span><span class="s2">"alice"</span><span class="p">,</span> <span class="s2">"addresses"</span><span class="o">=&gt;</span><span class="p">[</span><span class="s2">"1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e"</span><span class="p">]}</span>
+</code></pre>
 <pre class="highlight python"><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">requests</span><span class="o">,</span> <span class="nn">json</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s">'name'</span><span class="p">:</span> <span class="s">'alice'</span><span class="p">,</span> <span class="s">'addresses'</span><span class="p">:</span> <span class="p">[</span><span class="s">'1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e'</span><span class="p">,</span> <span class="p">]}</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s">'token'</span><span class="p">:</span> <span class="s">'YOUR_TOKEN'</span><span class="p">}</span>
@@ -2799,6 +3073,9 @@ If the named wallet already exists under your token, attempting to create a new 
 <span class="o">&gt;</span>   <span class="s2">"1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e"</span>
 <span class="o">&gt;</span> <span class="p">]}</span>
 </code></pre>
+<pre class="highlight ruby"><code><span class="o">&gt;</span> <span class="n">block_cypher</span><span class="p">.</span><span class="nf">wallet_get</span><span class="p">(</span><span class="s2">"alice"</span><span class="p">)</span>
+<span class="o">=&gt;</span> <span class="p">{</span><span class="s2">"token"</span><span class="o">=&gt;</span><span class="s2">"YOURTOKEN"</span><span class="p">,</span> <span class="s2">"name"</span><span class="o">=&gt;</span><span class="s2">"alice"</span><span class="p">,</span> <span class="s2">"addresses"</span><span class="o">=&gt;</span><span class="p">[</span><span class="s2">"1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e"</span><span class="p">]}</span>
+</code></pre>
 <pre class="highlight python"><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">requests</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s">'token'</span><span class="p">:</span> <span class="s">'YOURTOKEN'</span><span class="p">}</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">'https://api.blockcypher.com/v1/btc/main/wallets/alice'</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
@@ -2844,6 +3121,9 @@ If the named wallet already exists under your token, attempting to create a new 
 <span class="o">&gt;</span>       <span class="s2">"1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e"</span><span class="p">,</span>
 <span class="o">&gt;</span>       <span class="s2">"13cj1QtfW61kQHoqXm3khVRYPJrgQiRM6j"</span>
 <span class="o">&gt;</span> <span class="p">]}</span>
+</code></pre>
+<pre class="highlight ruby"><code><span class="o">&gt;</span> <span class="n">block_cypher</span><span class="p">.</span><span class="nf">wallet_add_addr</span><span class="p">(</span><span class="s2">"alice"</span><span class="p">,[</span><span class="s2">"13cj1QtfW61kQHoqXm3khVRYPJrgQiRM6j"</span><span class="p">])</span>
+<span class="o">=&gt;</span> <span class="p">{</span><span class="s2">"token"</span><span class="o">=&gt;</span><span class="s2">"YOURTOKEN"</span><span class="p">,</span> <span class="s2">"name"</span><span class="o">=&gt;</span><span class="s2">"alice"</span><span class="p">,</span> <span class="s2">"addresses"</span><span class="o">=&gt;</span><span class="p">[</span><span class="s2">"1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e"</span><span class="p">,</span> <span class="s2">"13cj1QtfW61kQHoqXm3khVRYPJrgQiRM6j"</span><span class="p">]}</span>
 </code></pre>
 <pre class="highlight python"><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">requests</span><span class="o">,</span> <span class="nn">json</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s">'addresses'</span><span class="p">:</span> <span class="p">[</span><span class="s">'13cj1QtfW61kQHoqXm3khVRYPJrgQiRM6j'</span><span class="p">,</span> <span class="p">]}</span>
@@ -2891,6 +3171,9 @@ If the named wallet already exists under your token, attempting to create a new 
 <span class="o">&gt;</span>   <span class="s2">"1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e"</span>
 <span class="o">&gt;</span> <span class="p">]}</span>
 </code></pre>
+<pre class="highlight ruby"><code><span class="o">&gt;</span> <span class="n">block_cypher</span><span class="p">.</span><span class="nf">wallet_get_addr</span><span class="p">(</span><span class="s2">"alice"</span><span class="p">)</span>
+<span class="o">=&gt;</span> <span class="p">{</span><span class="s2">"addresses"</span><span class="o">=&gt;</span><span class="p">[</span><span class="s2">"13cj1QtfW61kQHoqXm3khVRYPJrgQiRM6j"</span><span class="p">,</span> <span class="s2">"1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e"</span><span class="p">]}</span>
+</code></pre>
 <pre class="highlight python"><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">requests</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s">'token'</span><span class="p">:</span> <span class="s">'YOUR_TOKEN'</span><span class="p">}</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">'https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses'</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
@@ -2925,6 +3208,9 @@ If the named wallet already exists under your token, attempting to create a new 
   <span class="na">url</span><span class="p">:</span> <span class="s2">"https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses?token=USERTOKEN&amp;address=1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e"</span><span class="p">,</span>
   <span class="na">method</span><span class="p">:</span> <span class="s2">"DELETE"</span>
 <span class="p">})</span>
+</code></pre>
+<pre class="highlight ruby"><code><span class="o">&gt;</span> <span class="n">block_cypher</span><span class="p">.</span><span class="nf">wallet_delete_addr</span><span class="p">(</span><span class="s2">"alice"</span><span class="p">,[</span><span class="s2">"1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e"</span><span class="p">])</span>
+<span class="o">=&gt;</span> <span class="kp">nil</span>
 </code></pre>
 <pre class="highlight python"><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">requests</span><span class="o">,</span> <span class="nn">json</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s">'token'</span><span class="p">:</span> <span class="s">'YOUR_TOKEN'</span><span class="p">,</span> <span class="s">'address'</span><span class="p">:</span> <span class="s">'1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e'</span><span class="p">}</span>
@@ -2982,6 +3268,15 @@ If the named wallet already exists under your token, attempting to create a new 
 <span class="o">&gt;</span>   <span class="s2">"wif"</span><span class="p">:</span> <span class="s2">"KzWeDL7sysRay7pZUm6hQQLaDVjmN1jUZzeZuq6ru5FtN1RhPrLX"</span>
 <span class="o">&gt;</span> <span class="p">}</span>
 </code></pre>
+<pre class="highlight ruby"><code><span class="o">&gt;</span> <span class="n">block_cypher</span><span class="p">.</span><span class="nf">wallet_gen_addr</span><span class="p">(</span><span class="s2">"alice"</span><span class="p">)</span>
+<span class="o">=&gt;</span> <span class="p">{</span><span class="s2">"token"</span><span class="o">=&gt;</span><span class="s2">"YOURTOKEN"</span><span class="p">,</span>
+ <span class="s2">"name"</span><span class="o">=&gt;</span><span class="s2">"alice"</span><span class="p">,</span>
+ <span class="s2">"addresses"</span><span class="o">=&gt;</span><span class="p">[</span><span class="s2">"13cj1QtfW61kQHoqXm3khVRYPJrgQiRM6j"</span><span class="p">,</span> <span class="s2">"1Bq7QRwfa36p5DGSe6UBy4PYmsEtQhpqC8"</span><span class="p">],</span>
+ <span class="s2">"private"</span><span class="o">=&gt;</span><span class="s2">"f371f0a43f46a09ec2351fb1fc23450167d6031dbadef56f7174dc1e0285fed9"</span><span class="p">,</span>
+ <span class="s2">"public"</span><span class="o">=&gt;</span><span class="s2">"037318b43fc83f3af24b5d88c8e4e33ebbdea62c3a3f6eb3a9830e2bb1f6682108"</span><span class="p">,</span>
+ <span class="s2">"address"</span><span class="o">=&gt;</span><span class="s2">"1Bq7QRwfa36p5DGSe6UBy4PYmsEtQhpqC8"</span><span class="p">,</span>
+ <span class="s2">"wif"</span><span class="o">=&gt;</span><span class="s2">"L5NwFyFdHqfBYhaQDttym6b3tXeaKaH7cepgAJunWrkKY24NUCjb"</span><span class="p">}</span>
+</code></pre>
 <pre class="highlight python"><code><span class="c"># Please use the python library at https://github.com/blockcypher/blockcypher-python to securely generate an address client-side</span>
 </code></pre>
 
@@ -3017,6 +3312,9 @@ If the named wallet already exists under your token, attempting to create a new 
   <span class="na">url</span><span class="p">:</span> <span class="s2">"https://api.blockcypher.com/v1/btc/main/wallets/alice?token=USERTOKEN"</span><span class="p">,</span>
   <span class="na">method</span><span class="p">:</span> <span class="s2">"DELETE"</span>
 <span class="p">});</span>
+</code></pre>
+<pre class="highlight ruby"><code><span class="o">&gt;</span> <span class="n">block_cypher</span><span class="p">.</span><span class="nf">wallet_delete</span><span class="p">(</span><span class="s2">"alice"</span><span class="p">)</span>
+<span class="o">=&gt;</span> <span class="kp">nil</span>
 </code></pre>
 <pre class="highlight python"><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">requests</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s">'token'</span><span class="p">:</span> <span class="s">'YOUR_TOKEN'</span><span class="p">}</span>
@@ -3163,6 +3461,46 @@ Even if you don&rsquo;t use the API to assist in creating transactions, we highl
 <span class="o">&gt;</span> <span class="p">]</span>
 <span class="o">&gt;</span> <span class="p">}</span>
 </code></pre>
+<pre class="highlight ruby"><code><span class="o">&gt;</span> <span class="n">block_cypher</span><span class="p">.</span><span class="nf">blockchain_transaction</span><span class="p">(</span><span class="s2">"f854aebae95150b379cc1187d848d58225f3c4157fe992bcd166f58bd5063449"</span><span class="p">)</span>
+<span class="o">=&gt;</span> <span class="p">{</span><span class="s2">"block_hash"</span><span class="o">=&gt;</span><span class="s2">"0000000000000000c504bdea36e531d8089d324f2d936c86e3274f97f8a44328"</span><span class="p">,</span>
+ <span class="s2">"block_height"</span><span class="o">=&gt;</span><span class="mi">293000</span><span class="p">,</span>
+ <span class="s2">"hash"</span><span class="o">=&gt;</span><span class="s2">"f854aebae95150b379cc1187d848d58225f3c4157fe992bcd166f58bd5063449"</span><span class="p">,</span>
+ <span class="s2">"addresses"</span><span class="o">=&gt;</span>
+  <span class="p">[</span><span class="s2">"13XXaBufpMvqRqLkyDty1AXqueZHVe6iyy"</span><span class="p">,</span>
+   <span class="s2">"19YtzZdcfs1V2ZCgyRWo8i2wLT8ND1Tu4L"</span><span class="p">,</span>
+   <span class="s2">"1BNiazBzCxJacAKo2yL83Wq1VJ18AYzNHy"</span><span class="p">,</span>
+   <span class="s2">"1GbMfYui17L5m6sAy3L3WXAtf1P32bxJXq"</span><span class="p">,</span>
+   <span class="s2">"1N2f642sbgCMbNtXFajz9XDACDFnFzdXzV"</span><span class="p">],</span>
+ <span class="s2">"total"</span><span class="o">=&gt;</span><span class="mi">70320221545</span><span class="p">,</span>
+ <span class="s2">"fees"</span><span class="o">=&gt;</span><span class="mi">0</span><span class="p">,</span>
+ <span class="s2">"size"</span><span class="o">=&gt;</span><span class="mi">636</span><span class="p">,</span>
+ <span class="s2">"preference"</span><span class="o">=&gt;</span><span class="s2">"low"</span><span class="p">,</span>
+ <span class="s2">"relayed_by"</span><span class="o">=&gt;</span><span class="s2">""</span><span class="p">,</span>
+ <span class="s2">"confirmed"</span><span class="o">=&gt;</span><span class="s2">"2014-03-29T01:29:19Z"</span><span class="p">,</span>
+ <span class="s2">"received"</span><span class="o">=&gt;</span><span class="s2">"2014-03-29T01:29:19Z"</span><span class="p">,</span>
+ <span class="s2">"ver"</span><span class="o">=&gt;</span><span class="mi">1</span><span class="p">,</span>
+ <span class="s2">"lock_time"</span><span class="o">=&gt;</span><span class="mi">0</span><span class="p">,</span>
+ <span class="s2">"double_spend"</span><span class="o">=&gt;</span><span class="kp">false</span><span class="p">,</span>
+ <span class="s2">"vin_sz"</span><span class="o">=&gt;</span><span class="mi">4</span><span class="p">,</span>
+ <span class="s2">"vout_sz"</span><span class="o">=&gt;</span><span class="mi">1</span><span class="p">,</span>
+ <span class="s2">"confirmations"</span><span class="o">=&gt;</span><span class="mi">68362</span><span class="p">,</span>
+ <span class="s2">"confidence"</span><span class="o">=&gt;</span><span class="mi">1</span><span class="p">,</span>
+ <span class="s2">"inputs"</span><span class="o">=&gt;</span>
+  <span class="p">[{</span><span class="s2">"prev_hash"</span><span class="o">=&gt;</span><span class="s2">"583910b7bf90ab802e22e5c25a89b59862b20c8c1aeb24dfb94e7a508a70f121"</span><span class="p">,</span>
+    <span class="s2">"output_index"</span><span class="o">=&gt;</span><span class="mi">1</span><span class="p">,</span>
+    <span class="s2">"script"</span><span class="o">=&gt;</span>
+     <span class="s2">"4830450220504b1ccfddf508422bdd8b0fcda2b148..."</span><span class="p">,</span>
+    <span class="s2">"output_value"</span><span class="o">=&gt;</span><span class="mi">16450000</span><span class="p">,</span>
+    <span class="s2">"sequence"</span><span class="o">=&gt;</span><span class="mi">4294967295</span><span class="p">,</span>
+    <span class="s2">"addresses"</span><span class="o">=&gt;</span><span class="p">[</span><span class="s2">"1GbMfYui17L5m6sAy3L3WXAtf1P32bxJXq"</span><span class="p">],</span>
+    <span class="s2">"script_type"</span><span class="o">=&gt;</span><span class="s2">"pay-to-pubkey-hash"</span><span class="p">},.</span><span class="nf">.</span><span class="o">.</span><span class="p">],</span>
+ <span class="s2">"outputs"</span><span class="o">=&gt;</span>
+  <span class="p">[{</span><span class="s2">"value"</span><span class="o">=&gt;</span><span class="mi">70320221545</span><span class="p">,</span>
+    <span class="s2">"script"</span><span class="o">=&gt;</span><span class="s2">"76a914e6aad9d712c419ea8febf009a3f3bfdd8d222fac88ac"</span><span class="p">,</span>
+    <span class="s2">"spent_by"</span><span class="o">=&gt;</span><span class="s2">"35832d6c70b98b54e9a53ab2d51176eb19ad11bc4505d6bb1ea6c51a68cb92ee"</span><span class="p">,</span>
+    <span class="s2">"addresses"</span><span class="o">=&gt;</span><span class="p">[</span><span class="s2">"1N2f642sbgCMbNtXFajz9XDACDFnFzdXzV"</span><span class="p">],</span>
+    <span class="s2">"script_type"</span><span class="o">=&gt;</span><span class="s2">"pay-to-pubkey-hash"</span><span class="p">}]}</span>
+</code></pre>
 <pre class="highlight python"><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">requests</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">'https://api.blockcypher.com/v1/btc/main/txs/f854aebae95150b379cc1187d848d58225f3c4157fe992bcd166f58bd5063449'</span><span class="p">)</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
@@ -3298,8 +3636,29 @@ Even if you don&rsquo;t use the API to assist in creating transactions, we highl
 <span class="o">&gt;</span> <span class="p">...</span>
 <span class="o">&gt;</span> <span class="p">]</span>
 </code></pre>
-<pre class="highlight python"><code><span class="c"># Fund existing address with faucet</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">requests</span>
+<pre class="highlight ruby"><code><span class="o">&gt;</span> <span class="n">block_cypher</span><span class="p">.</span><span class="nf">blockchain_unconfirmed_tx</span>
+<span class="o">=&gt;</span> <span class="p">[{</span><span class="s2">"block_height"</span><span class="o">=&gt;-</span><span class="mi">1</span><span class="p">,</span>
+  <span class="s2">"hash"</span><span class="o">=&gt;</span><span class="s2">"125abd75941fb8fd499d514979a764b9bf4bf0b0208dcff2790a6b4d7c165911"</span><span class="p">,</span>
+  <span class="s2">"addresses"</span><span class="o">=&gt;</span>
+   <span class="p">[</span><span class="s2">"137REkr34fuwZY6Fu5Numz7DDNt14y4eNr"</span><span class="p">,</span>
+    <span class="s2">"1LoveUTs984niMqTqTZyDoRUuqpZV5VQ1K"</span><span class="p">,</span>
+    <span class="s2">"1PSGAQAHS5fE745a4pwD7NSxJ3Gt5e1vSU"</span><span class="p">,</span>
+    <span class="s2">"3FaskXUYNSdeczUt1e9c6eGnWj1ifEwm94"</span><span class="p">],</span>
+  <span class="s2">"total"</span><span class="o">=&gt;</span><span class="mi">11357528</span><span class="p">,</span>
+  <span class="s2">"fees"</span><span class="o">=&gt;</span><span class="mi">10000</span><span class="p">,</span>
+  <span class="s2">"size"</span><span class="o">=&gt;</span><span class="mi">699</span><span class="p">,</span>
+  <span class="s2">"preference"</span><span class="o">=&gt;</span><span class="s2">"low"</span><span class="p">,</span>
+  <span class="s2">"relayed_by"</span><span class="o">=&gt;</span><span class="s2">"198.27.97.172:8333"</span><span class="p">,</span>
+  <span class="s2">"received"</span><span class="o">=&gt;</span><span class="s2">"2015-06-17T20:28:04.298Z"</span><span class="p">,</span>
+  <span class="s2">"ver"</span><span class="o">=&gt;</span><span class="mi">1</span><span class="p">,</span>
+  <span class="s2">"lock_time"</span><span class="o">=&gt;</span><span class="mi">0</span><span class="p">,</span>
+  <span class="s2">"double_spend"</span><span class="o">=&gt;</span><span class="kp">false</span><span class="p">,.</span><span class="nf">.</span><span class="o">.</span><span class="p">},</span>
+  <span class="p">{</span><span class="s2">"block_height"</span><span class="o">=&gt;-</span><span class="mi">1</span><span class="p">,</span>
+     <span class="s2">"hash"</span><span class="o">=&gt;</span><span class="s2">"125abd7..."</span><span class="p">,</span>
+   <span class="p">.</span><span class="nf">.</span><span class="o">.</span><span class="p">},</span>
+  <span class="p">.</span><span class="nf">.</span><span class="o">.</span><span class="p">]</span>
+</code></pre>
+<pre class="highlight python"><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">requests</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">'http://api.blockcypher.com/v1/btc/main/txs'</span><span class="p">)</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
 <span class="p">[{</span><span class="s">'received'</span><span class="p">:</span> <span class="s">'2015-06-10T23:10:31.534Z'</span><span class="p">,</span>
@@ -3488,6 +3847,47 @@ Always use HTTPS for creating and pushing transactions.
 <span class="o">&gt;</span>   <span class="p">]</span>
 <span class="o">&gt;</span> <span class="p">}</span>
 </code></pre>
+<pre class="highlight ruby"><code><span class="c1"># Using BlockCypher's Internal Testnet</span>
+<span class="o">&gt;</span> <span class="n">bc_test</span> <span class="o">=</span> <span class="no">BlockCypher</span><span class="o">::</span><span class="no">Api</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="n">api_token</span><span class="ss">:"YOURTOKEN"</span><span class="p">,</span> <span class="n">currency</span><span class="ss">:BlockCypher</span><span class="o">::</span><span class="no">BCY</span><span class="p">,</span> <span class="n">network</span><span class="ss">:BlockCypher</span><span class="o">::</span><span class="no">TEST_NET</span><span class="p">)</span>
+<span class="o">=&gt;</span> <span class="c1">#&lt;BlockCypher::Api:0x00000001a9ebf0 @api_token="YOURTOKEN", @currency="bcy", @network="test", @version="v1"&gt;</span>
+
+<span class="o">&gt;</span> <span class="n">txskel</span> <span class="o">=</span> <span class="n">bc_test</span><span class="p">.</span><span class="nf">transaction_new</span><span class="p">([</span><span class="s2">"CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"</span><span class="p">],</span> <span class="p">[</span><span class="s2">"C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn"</span><span class="p">],</span> <span class="mi">100000</span><span class="p">)</span>
+<span class="o">=&gt;</span> <span class="p">{</span><span class="s2">"tx"</span><span class="o">=&gt;</span>
+  <span class="p">{</span><span class="s2">"block_height"</span><span class="o">=&gt;-</span><span class="mi">1</span><span class="p">,</span>
+   <span class="s2">"hash"</span><span class="o">=&gt;</span><span class="s2">"2094c09f880f88dea1a1ff3a6e19c6af4892b4b26f8e6315fd76c6ddc369ffbf"</span><span class="p">,</span>
+   <span class="s2">"addresses"</span><span class="o">=&gt;</span><span class="p">[</span><span class="s2">"C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn"</span><span class="p">,</span> <span class="s2">"CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"</span><span class="p">],</span>
+   <span class="s2">"total"</span><span class="o">=&gt;</span><span class="mi">3856000</span><span class="p">,</span>
+   <span class="s2">"fees"</span><span class="o">=&gt;</span><span class="mi">12000</span><span class="p">,</span>
+   <span class="s2">"size"</span><span class="o">=&gt;</span><span class="mi">119</span><span class="p">,</span>
+   <span class="s2">"preference"</span><span class="o">=&gt;</span><span class="s2">"high"</span><span class="p">,</span>
+   <span class="s2">"relayed_by"</span><span class="o">=&gt;</span><span class="s2">"199.83.221.11"</span><span class="p">,</span>
+   <span class="s2">"received"</span><span class="o">=&gt;</span><span class="s2">"2015-06-17T20:41:22.818882286Z"</span><span class="p">,</span>
+   <span class="s2">"ver"</span><span class="o">=&gt;</span><span class="mi">1</span><span class="p">,</span>
+   <span class="s2">"lock_time"</span><span class="o">=&gt;</span><span class="mi">0</span><span class="p">,</span>
+   <span class="s2">"double_spend"</span><span class="o">=&gt;</span><span class="kp">false</span><span class="p">,</span>
+   <span class="s2">"vin_sz"</span><span class="o">=&gt;</span><span class="mi">1</span><span class="p">,</span>
+   <span class="s2">"vout_sz"</span><span class="o">=&gt;</span><span class="mi">2</span><span class="p">,</span>
+   <span class="s2">"confirmations"</span><span class="o">=&gt;</span><span class="mi">0</span><span class="p">,</span>
+   <span class="s2">"inputs"</span><span class="o">=&gt;</span>
+    <span class="p">[{</span><span class="s2">"prev_hash"</span><span class="o">=&gt;</span><span class="s2">"6b1c30cad97df956cfcb47b4cd471bb69112fb726b0fb129575337e3fb9f2c1a"</span><span class="p">,</span>
+      <span class="s2">"output_index"</span><span class="o">=&gt;</span><span class="mi">2</span><span class="p">,</span>
+      <span class="s2">"script"</span><span class="o">=&gt;</span><span class="s2">""</span><span class="p">,</span>
+      <span class="s2">"output_value"</span><span class="o">=&gt;</span><span class="mi">3868000</span><span class="p">,</span>
+      <span class="s2">"sequence"</span><span class="o">=&gt;</span><span class="mi">4294967295</span><span class="p">,</span>
+      <span class="s2">"addresses"</span><span class="o">=&gt;</span><span class="p">[</span><span class="s2">"CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"</span><span class="p">],</span>
+      <span class="s2">"script_type"</span><span class="o">=&gt;</span><span class="s2">""</span><span class="p">,</span>
+      <span class="s2">"age"</span><span class="o">=&gt;</span><span class="mi">9739</span><span class="p">}],</span>
+   <span class="s2">"outputs"</span><span class="o">=&gt;</span>
+    <span class="p">[{</span><span class="s2">"value"</span><span class="o">=&gt;</span><span class="mi">100000</span><span class="p">,</span>
+      <span class="s2">"script"</span><span class="o">=&gt;</span><span class="s2">"76a9145fb1af31edd2aa5a2bbaa24f6043d6ec31f7e63288ac"</span><span class="p">,</span>
+      <span class="s2">"addresses"</span><span class="o">=&gt;</span><span class="p">[</span><span class="s2">"C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn"</span><span class="p">],</span>
+      <span class="s2">"script_type"</span><span class="o">=&gt;</span><span class="s2">"pay-to-pubkey-hash"</span><span class="p">},</span>
+     <span class="p">{</span><span class="s2">"value"</span><span class="o">=&gt;</span><span class="mi">3756000</span><span class="p">,</span>
+      <span class="s2">"script"</span><span class="o">=&gt;</span><span class="s2">"76a914efec6de6c253e657a9d5506a78ee48d89762fb3188ac"</span><span class="p">,</span>
+      <span class="s2">"addresses"</span><span class="o">=&gt;</span><span class="p">[</span><span class="s2">"CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"</span><span class="p">],</span>
+      <span class="s2">"script_type"</span><span class="o">=&gt;</span><span class="s2">"pay-to-pubkey-hash"</span><span class="p">}]},</span>
+ <span class="s2">"tosign"</span><span class="o">=&gt;</span><span class="p">[</span><span class="s2">"c24150bea2d3b50c852d1c5eaccd3b6e286623b516e255f876d2b7c0d93f200b"</span><span class="p">]}</span>
+</code></pre>
 <pre class="highlight python"><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">requests</span><span class="o">,</span> <span class="nn">json</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s">'inputs'</span><span class="p">:</span> <span class="p">[{</span><span class="s">'addresses'</span><span class="p">:</span> <span class="p">[</span><span class="s">'CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9'</span><span class="p">,]}],</span> <span class="s">'outputs'</span><span class="p">:</span> <span class="p">[{</span><span class="s">'addresses'</span><span class="p">:</span> <span class="p">[</span><span class="s">'C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn'</span><span class="p">,</span> <span class="p">],</span> <span class="s">'value'</span><span class="p">:</span> <span class="mi">1000000</span><span class="p">}]}</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s">'https://api.blockcypher.com/v1/bcy/test/txs/new'</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
@@ -3602,7 +4002,8 @@ The <b>hash</b> assigned to <a href="#tx">TX</a> within the return object is onl
       <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">finaltx</span><span class="p">);</span>
     <span class="p">})</span>
   <span class="p">});</span>
-
+</code></pre>
+<pre class="highlight ruby"><code><span class="c1"># Signing is handled by our SDK in the next step</span>
 </code></pre>
 
 <h3 id="locally-sign-your-transaction">Locally Sign Your Transaction</h3>
@@ -3735,6 +4136,44 @@ curl -d <span class="s1">'{"tx": {...}, "tosign": [ "32b5ea64c253b6b466366647458
 <span class="o">&gt;</span>     <span class="s2">""</span>
 <span class="o">&gt;</span>   <span class="p">]</span>
 <span class="o">&gt;</span> <span class="p">}</span>
+</code></pre>
+<pre class="highlight ruby"><code><span class="o">&gt;</span> <span class="n">bc_test</span><span class="p">.</span><span class="nf">transaction_sign_and_send</span><span class="p">(</span><span class="n">txskel</span><span class="p">,</span> <span class="s2">"YOURCOMPRESSEDPRIVATEKEYINHEX"</span><span class="p">)</span>
+<span class="o">=&gt;</span> <span class="p">{</span><span class="s2">"tx"</span><span class="o">=&gt;</span>
+  <span class="p">{</span><span class="s2">"block_height"</span><span class="o">=&gt;-</span><span class="mi">1</span><span class="p">,</span>
+   <span class="s2">"hash"</span><span class="o">=&gt;</span><span class="s2">"620f484194eca649ccd48501bff1c8046fed4a1b28bee9f6b0db8c93ced672be"</span><span class="p">,</span>
+   <span class="s2">"addresses"</span><span class="o">=&gt;</span><span class="p">[</span><span class="s2">"CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"</span><span class="p">,</span> <span class="s2">"C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn"</span><span class="p">],</span>
+   <span class="s2">"total"</span><span class="o">=&gt;</span><span class="mi">3856000</span><span class="p">,</span>
+   <span class="s2">"fees"</span><span class="o">=&gt;</span><span class="mi">12000</span><span class="p">,</span>
+   <span class="s2">"size"</span><span class="o">=&gt;</span><span class="mi">226</span><span class="p">,</span>
+   <span class="s2">"preference"</span><span class="o">=&gt;</span><span class="s2">"high"</span><span class="p">,</span>
+   <span class="s2">"relayed_by"</span><span class="o">=&gt;</span><span class="s2">"199.83.221.11"</span><span class="p">,</span>
+   <span class="s2">"received"</span><span class="o">=&gt;</span><span class="s2">"2015-06-17T20:47:36.092834184Z"</span><span class="p">,</span>
+   <span class="s2">"ver"</span><span class="o">=&gt;</span><span class="mi">1</span><span class="p">,</span>
+   <span class="s2">"lock_time"</span><span class="o">=&gt;</span><span class="mi">0</span><span class="p">,</span>
+   <span class="s2">"double_spend"</span><span class="o">=&gt;</span><span class="kp">false</span><span class="p">,</span>
+   <span class="s2">"vin_sz"</span><span class="o">=&gt;</span><span class="mi">1</span><span class="p">,</span>
+   <span class="s2">"vout_sz"</span><span class="o">=&gt;</span><span class="mi">2</span><span class="p">,</span>
+   <span class="s2">"confirmations"</span><span class="o">=&gt;</span><span class="mi">0</span><span class="p">,</span>
+   <span class="s2">"inputs"</span><span class="o">=&gt;</span>
+    <span class="p">[{</span><span class="s2">"prev_hash"</span><span class="o">=&gt;</span><span class="s2">"6b1c30cad97df956cfcb47b4cd471bb69112fb726b0fb129575337e3fb9f2c1a"</span><span class="p">,</span>
+      <span class="s2">"output_index"</span><span class="o">=&gt;</span><span class="mi">2</span><span class="p">,</span>
+      <span class="s2">"script"</span><span class="o">=&gt;</span>
+       <span class="s2">"483045022100803c8b097d0653cc094362f772e687da00aa263f22ccc6a203b0e0234e096fbd022068d3a0ef0306ee9698313bdac044cfb32f2cf63b7c29dbf43568721f040c7b80012102152e2bb5b273561ece7bbe8b1df51a4c44f5ab0bc940c105045e2cc77e618044"</span><span class="p">,</span>
+      <span class="s2">"output_value"</span><span class="o">=&gt;</span><span class="mi">3868000</span><span class="p">,</span>
+      <span class="s2">"sequence"</span><span class="o">=&gt;</span><span class="mi">4294967295</span><span class="p">,</span>
+      <span class="s2">"addresses"</span><span class="o">=&gt;</span><span class="p">[</span><span class="s2">"CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"</span><span class="p">],</span>
+      <span class="s2">"script_type"</span><span class="o">=&gt;</span><span class="s2">"pay-to-pubkey-hash"</span><span class="p">,</span>
+      <span class="s2">"age"</span><span class="o">=&gt;</span><span class="mi">9745</span><span class="p">}],</span>
+   <span class="s2">"outputs"</span><span class="o">=&gt;</span>
+    <span class="p">[{</span><span class="s2">"value"</span><span class="o">=&gt;</span><span class="mi">100000</span><span class="p">,</span>
+      <span class="s2">"script"</span><span class="o">=&gt;</span><span class="s2">"76a9145fb1af31edd2aa5a2bbaa24f6043d6ec31f7e63288ac"</span><span class="p">,</span>
+      <span class="s2">"addresses"</span><span class="o">=&gt;</span><span class="p">[</span><span class="s2">"C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn"</span><span class="p">],</span>
+      <span class="s2">"script_type"</span><span class="o">=&gt;</span><span class="s2">"pay-to-pubkey-hash"</span><span class="p">},</span>
+     <span class="p">{</span><span class="s2">"value"</span><span class="o">=&gt;</span><span class="mi">3756000</span><span class="p">,</span>
+      <span class="s2">"script"</span><span class="o">=&gt;</span><span class="s2">"76a914efec6de6c253e657a9d5506a78ee48d89762fb3188ac"</span><span class="p">,</span>
+      <span class="s2">"addresses"</span><span class="o">=&gt;</span><span class="p">[</span><span class="s2">"CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"</span><span class="p">],</span>
+      <span class="s2">"script_type"</span><span class="o">=&gt;</span><span class="s2">"pay-to-pubkey-hash"</span><span class="p">}]},</span>
+ <span class="s2">"tosign"</span><span class="o">=&gt;</span><span class="p">[</span><span class="s2">""</span><span class="p">]}</span>
 </code></pre>
 
 <h3 id="send-transaction-endpoint">Send Transaction Endpoint</h3>
@@ -3911,6 +4350,43 @@ One of the most common errors we see are users who use uncompressed public keys 
 <span class="o">&gt;</span>     <span class="p">}</span>
 <span class="o">&gt;</span>   <span class="p">]</span>
 <span class="o">&gt;</span> <span class="p">}</span>
+</code></pre>
+<pre class="highlight ruby"><code><span class="o">&gt;</span> <span class="n">bc_test</span><span class="p">.</span><span class="nf">push_hex</span><span class="p">(</span><span class="s2">"01000000011935b41d12936df99d322ac8972b74ecff7b79408bbccaf1b2eb8015228beac8000000006b483045022100921fc36b911094280f07d8504a80fbab9b823a25f102e2bc69b14bcd369dfc7902200d07067d47f040e724b556e5bc3061af132d5a47bd96e901429d53c41e0f8cca012102152e2bb5b273561ece7bbe8b1df51a4c44f5ab0bc940c105045e2cc77e618044ffffffff0240420f00000000001976a9145fb1af31edd2aa5a2bbaa24f6043d6ec31f7e63288ac20da3c00000000001976a914efec6de6c253e657a9d5506a78ee48d89762fb3188ac00000000"</span><span class="p">)</span>
+<span class="o">=&gt;</span> <span class="p">{</span><span class="s2">"block_height"</span><span class="o">=&gt;-</span><span class="mi">1</span><span class="p">,</span>
+ <span class="s2">"hash"</span><span class="o">=&gt;</span><span class="s2">"4e6dfb1415b4fba5bd257c129847c70fbd4e45e41828079c4a282680528f3a50"</span><span class="p">,</span>
+ <span class="s2">"addresses"</span><span class="o">=&gt;</span><span class="p">[</span><span class="s2">"C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn"</span><span class="p">,</span> <span class="s2">"CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"</span><span class="p">],</span>
+ <span class="s2">"total"</span><span class="o">=&gt;</span><span class="mi">4988000</span><span class="p">,</span>
+ <span class="s2">"fees"</span><span class="o">=&gt;</span><span class="mi">12000</span><span class="p">,</span>
+ <span class="s2">"size"</span><span class="o">=&gt;</span><span class="mi">226</span><span class="p">,</span>
+ <span class="s2">"preference"</span><span class="o">=&gt;</span><span class="s2">"high"</span><span class="p">,</span>
+ <span class="s2">"relayed_by"</span><span class="o">=&gt;</span><span class="s2">"199.83.221.11"</span><span class="p">,</span>
+ <span class="s2">"received"</span><span class="o">=&gt;</span><span class="s2">"2015-06-17T21:01:54.319930181Z"</span><span class="p">,</span>
+ <span class="s2">"ver"</span><span class="o">=&gt;</span><span class="mi">1</span><span class="p">,</span>
+ <span class="s2">"lock_time"</span><span class="o">=&gt;</span><span class="mi">0</span><span class="p">,</span>
+ <span class="s2">"double_spend"</span><span class="o">=&gt;</span><span class="kp">false</span><span class="p">,</span>
+ <span class="s2">"vin_sz"</span><span class="o">=&gt;</span><span class="mi">1</span><span class="p">,</span>
+ <span class="s2">"vout_sz"</span><span class="o">=&gt;</span><span class="mi">2</span><span class="p">,</span>
+ <span class="s2">"confirmations"</span><span class="o">=&gt;</span><span class="mi">0</span><span class="p">,</span>
+ <span class="s2">"inputs"</span><span class="o">=&gt;</span>
+  <span class="p">[{</span><span class="s2">"prev_hash"</span><span class="o">=&gt;</span><span class="s2">"c8ea8b221580ebb2f1cabc8b40797bffec742b97c82a329df96d93121db43519"</span><span class="p">,</span>
+    <span class="s2">"output_index"</span><span class="o">=&gt;</span><span class="mi">0</span><span class="p">,</span>
+    <span class="s2">"script"</span><span class="o">=&gt;</span>
+     <span class="s2">"483045022100921fc36b911094280f07d8504a80fbab9b823a25f102e2bc69b14bcd369dfc7902200d07067d47f040e724b556e5bc3061af132d5a47bd96e901429d53c41e0f8cca012102152e2bb5b273561ece7bbe8b1df51a4c44f5ab0bc940c105045e2cc77e618044"</span><span class="p">,</span>                                                                              
+    <span class="s2">"output_value"</span><span class="o">=&gt;</span><span class="mi">5000000</span><span class="p">,</span>
+    <span class="s2">"sequence"</span><span class="o">=&gt;</span><span class="mi">4294967295</span><span class="p">,</span>
+    <span class="s2">"addresses"</span><span class="o">=&gt;</span><span class="p">[</span><span class="s2">"CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"</span><span class="p">],</span>
+    <span class="s2">"script_type"</span><span class="o">=&gt;</span><span class="s2">"pay-to-pubkey-hash"</span><span class="p">,</span>
+    <span class="s2">"age"</span><span class="o">=&gt;</span><span class="mi">37633</span><span class="p">}],</span>
+ <span class="s2">"outputs"</span><span class="o">=&gt;</span>
+  <span class="p">[{</span><span class="s2">"value"</span><span class="o">=&gt;</span><span class="mi">1000000</span><span class="p">,</span>
+    <span class="s2">"script"</span><span class="o">=&gt;</span><span class="s2">"76a9145fb1af31edd2aa5a2bbaa24f6043d6ec31f7e63288ac"</span><span class="p">,</span>
+    <span class="s2">"addresses"</span><span class="o">=&gt;</span><span class="p">[</span><span class="s2">"C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn"</span><span class="p">],</span>
+    <span class="s2">"script_type"</span><span class="o">=&gt;</span><span class="s2">"pay-to-pubkey-hash"</span><span class="p">},</span>
+   <span class="p">{</span><span class="s2">"value"</span><span class="o">=&gt;</span><span class="mi">3988000</span><span class="p">,</span>
+    <span class="s2">"script"</span><span class="o">=&gt;</span><span class="s2">"76a914efec6de6c253e657a9d5506a78ee48d89762fb3188ac"</span><span class="p">,</span>
+    <span class="s2">"spent_by"</span><span class="o">=&gt;</span><span class="s2">"892fd7b36c1c3a2e5edb9b4a5d4ffd9ba74d78d3acf3b249991bd8d10a287dbd"</span><span class="p">,</span>
+    <span class="s2">"addresses"</span><span class="o">=&gt;</span><span class="p">[</span><span class="s2">"CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"</span><span class="p">],</span>
+    <span class="s2">"script_type"</span><span class="o">=&gt;</span><span class="s2">"pay-to-pubkey-hash"</span><span class="p">}]}</span>
 </code></pre>
 <pre class="highlight python"><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">requests</span><span class="o">,</span> <span class="nn">json</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s">'tx'</span><span class="p">:</span> <span class="s">'01000000011935b41d12936df99d322ac8972b74ecff7b79408bbccaf1b2eb8015228beac8000000006b483045022100921fc36b911094280f07d8504a80fbab9b823a25f102e2bc69b14bcd369dfc7902200d07067d47f040e724b556e5bc3061af132d5a47bd96e901429d53c41e0f8cca012102152e2bb5b273561ece7bbe8b1df51a4c44f5ab0bc940c105045e2cc77e618044ffffffff0240420f00000000001976a9145fb1af31edd2aa5a2bbaa24f6043d6ec31f7e63288ac20da3c00000000001976a914efec6de6c253e657a9d5506a78ee48d89762fb3188ac00000000'</span><span class="p">}</span>
@@ -4108,8 +4584,44 @@ One of the most common errors we see are users who use uncompressed public keys 
 <span class="o">&gt;</span>   <span class="p">]</span>
 <span class="o">&gt;</span> <span class="p">}</span>
 </code></pre>
-<pre class="highlight python"><code><span class="c"># Fund existing address with faucet</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">requests</span><span class="o">,</span> <span class="nn">json</span>
+<pre class="highlight ruby"><code><span class="o">&gt;</span> <span class="n">bc_test</span><span class="p">.</span><span class="nf">decode_hex</span><span class="p">(</span><span class="s2">"01000000011935b41d12936df99d322ac8972b74ecff7b79408bbccaf1b2eb8015228beac8000000006b483045022100921fc36b911094280f07d8504a80fbab9b823a25f102e2bc69b14bcd369dfc7902200d07067d47f040e724b556e5bc3061af132d5a47bd96e901429d53c41e0f8cca012102152e2bb5b273561ece7bbe8b1df51a4c44f5ab0bc940c105045e2cc77e618044ffffffff0240420f00000000001976a9145fb1af31edd2aa5a2bbaa24f6043d6ec31f7e63288ac20da3c00000000001976a914efec6de6c253e657a9d5506a78ee48d89762fb3188ac00000000"</span><span class="p">)</span>
+<span class="o">=&gt;</span> <span class="p">{</span><span class="s2">"block_height"</span><span class="o">=&gt;-</span><span class="mi">1</span><span class="p">,</span>
+ <span class="s2">"hash"</span><span class="o">=&gt;</span><span class="s2">"4e6dfb1415b4fba5bd257c129847c70fbd4e45e41828079c4a282680528f3a50"</span><span class="p">,</span>
+ <span class="s2">"addresses"</span><span class="o">=&gt;</span><span class="p">[</span><span class="s2">"C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn"</span><span class="p">,</span> <span class="s2">"CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"</span><span class="p">],</span>
+ <span class="s2">"total"</span><span class="o">=&gt;</span><span class="mi">4988000</span><span class="p">,</span>
+ <span class="s2">"fees"</span><span class="o">=&gt;</span><span class="mi">12000</span><span class="p">,</span>
+ <span class="s2">"size"</span><span class="o">=&gt;</span><span class="mi">226</span><span class="p">,</span>
+ <span class="s2">"preference"</span><span class="o">=&gt;</span><span class="s2">"high"</span><span class="p">,</span>
+ <span class="s2">"relayed_by"</span><span class="o">=&gt;</span><span class="s2">"199.83.221.11"</span><span class="p">,</span>
+ <span class="s2">"received"</span><span class="o">=&gt;</span><span class="s2">"2015-06-17T21:01:54.319930181Z"</span><span class="p">,</span>
+ <span class="s2">"ver"</span><span class="o">=&gt;</span><span class="mi">1</span><span class="p">,</span>
+ <span class="s2">"lock_time"</span><span class="o">=&gt;</span><span class="mi">0</span><span class="p">,</span>
+ <span class="s2">"double_spend"</span><span class="o">=&gt;</span><span class="kp">false</span><span class="p">,</span>
+ <span class="s2">"vin_sz"</span><span class="o">=&gt;</span><span class="mi">1</span><span class="p">,</span>
+ <span class="s2">"vout_sz"</span><span class="o">=&gt;</span><span class="mi">2</span><span class="p">,</span>
+ <span class="s2">"confirmations"</span><span class="o">=&gt;</span><span class="mi">0</span><span class="p">,</span>
+ <span class="s2">"inputs"</span><span class="o">=&gt;</span>
+  <span class="p">[{</span><span class="s2">"prev_hash"</span><span class="o">=&gt;</span><span class="s2">"c8ea8b221580ebb2f1cabc8b40797bffec742b97c82a329df96d93121db43519"</span><span class="p">,</span>
+    <span class="s2">"output_index"</span><span class="o">=&gt;</span><span class="mi">0</span><span class="p">,</span>
+    <span class="s2">"script"</span><span class="o">=&gt;</span>
+     <span class="s2">"483045022100921fc36b911094280f07d8504a80fbab9b823a25f102e2bc69b14bcd369dfc7902200d07067d47f040e724b556e5bc3061af132d5a47bd96e901429d53c41e0f8cca012102152e2bb5b273561ece7bbe8b1df51a4c44f5ab0bc940c105045e2cc77e618044"</span><span class="p">,</span>                                                                              
+    <span class="s2">"output_value"</span><span class="o">=&gt;</span><span class="mi">5000000</span><span class="p">,</span>
+    <span class="s2">"sequence"</span><span class="o">=&gt;</span><span class="mi">4294967295</span><span class="p">,</span>
+    <span class="s2">"addresses"</span><span class="o">=&gt;</span><span class="p">[</span><span class="s2">"CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"</span><span class="p">],</span>
+    <span class="s2">"script_type"</span><span class="o">=&gt;</span><span class="s2">"pay-to-pubkey-hash"</span><span class="p">,</span>
+    <span class="s2">"age"</span><span class="o">=&gt;</span><span class="mi">37633</span><span class="p">}],</span>
+ <span class="s2">"outputs"</span><span class="o">=&gt;</span>
+  <span class="p">[{</span><span class="s2">"value"</span><span class="o">=&gt;</span><span class="mi">1000000</span><span class="p">,</span>
+    <span class="s2">"script"</span><span class="o">=&gt;</span><span class="s2">"76a9145fb1af31edd2aa5a2bbaa24f6043d6ec31f7e63288ac"</span><span class="p">,</span>
+    <span class="s2">"addresses"</span><span class="o">=&gt;</span><span class="p">[</span><span class="s2">"C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn"</span><span class="p">],</span>
+    <span class="s2">"script_type"</span><span class="o">=&gt;</span><span class="s2">"pay-to-pubkey-hash"</span><span class="p">},</span>
+   <span class="p">{</span><span class="s2">"value"</span><span class="o">=&gt;</span><span class="mi">3988000</span><span class="p">,</span>
+    <span class="s2">"script"</span><span class="o">=&gt;</span><span class="s2">"76a914efec6de6c253e657a9d5506a78ee48d89762fb3188ac"</span><span class="p">,</span>
+    <span class="s2">"spent_by"</span><span class="o">=&gt;</span><span class="s2">"892fd7b36c1c3a2e5edb9b4a5d4ffd9ba74d78d3acf3b249991bd8d10a287dbd"</span><span class="p">,</span>
+    <span class="s2">"addresses"</span><span class="o">=&gt;</span><span class="p">[</span><span class="s2">"CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"</span><span class="p">],</span>
+    <span class="s2">"script_type"</span><span class="o">=&gt;</span><span class="s2">"pay-to-pubkey-hash"</span><span class="p">}]}</span>
+</code></pre>
+<pre class="highlight python"><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">requests</span><span class="o">,</span> <span class="nn">json</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s">'tx'</span><span class="p">:</span> <span class="s">'01000000011935b41d12936df99d322ac8972b74ecff7b79408bbccaf1b2eb8015228beac8000000006b483045022100921fc36b911094280f07d8504a80fbab9b823a25f102e2bc69b14bcd369dfc7902200d07067d47f040e724b556e5bc3061af132d5a47bd96e901429d53c41e0f8cca012102152e2bb5b273561ece7bbe8b1df51a4c44f5ab0bc940c105045e2cc77e618044ffffffff0240420f00000000001976a9145fb1af31edd2aa5a2bbaa24f6043d6ec31f7e63288ac20da3c00000000001976a914efec6de6c253e657a9d5506a78ee48d89762fb3188ac00000000'</span><span class="p">}</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s">'https://api.blockcypher.com/v1/bcy/test/txs/decode'</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
@@ -4191,6 +4703,19 @@ One of the most common errors we see are users who use uncompressed public keys 
     <span class="p">}]</span>
 <span class="p">}</span>
 </code></pre>
+<pre class="highlight ruby"><code><span class="c1"># Create a custom payload, then use the function:</span>
+<span class="c1"># BlockCypher.transaction_new_custom(payload)</span>
+<span class="c1"># Sign your data in the returned TXSkeleton, then use:</span>
+<span class="c1"># BlockCypher.transaction_send_custom(your_signed_tx_skeleton)</span>
+<span class="nb">require</span> <span class="s1">'JSON'</span>
+<span class="n">payload</span> <span class="o">=</span> <span class="no">JSON</span><span class="p">.</span><span class="nf">parse</span><span class="p">(</span><span class="s1">'{ "inputs": [{"addresses": [sourceAddr]}],
+    "outputs": [{
+        "addresses"   : [pubkey1, pubkey2, pubkey3],
+        "script_type" : "multisig-2-of-3",
+        "value"       : 250000,
+    }]
+}'</span><span class="p">)</span>
+</code></pre>
 
 <p>Multisignature transactions are made simple by the method described in the <a href="#creating-transactions">Creating Transactions</a> section, but they deserve special mention. In order to use them, you first need to fund a multisignature address. You use the <code class="prettyprint">/txs/new</code> endpoint as before, but instead of the <strong>outputs</strong> <strong>addresses</strong> array containing public addresses, it instead contains the public keys associated with the new address. In addition, you must select a <strong>script_type</strong> of <em>mutlisig-n-of-m</em>, where <em>n</em> and <em>m</em> are numbers (e.g., <em>multisig-2-of-3</em>). The code example demonstrates how the partially filled <a href="#tx">TX request object</a> would appear.</p>
 
@@ -4222,6 +4747,20 @@ If you only need a <i>pay-to-script-hash</i> address corresponding to N-of-M mul
         <span class="s2">"value"</span>     <span class="p">:</span> <span class="mi">150000</span>
     <span class="p">}]</span>
 <span class="p">}</span>
+</code></pre>
+<pre class="highlight ruby"><code><span class="c1"># Create a custom payload, then use the function:</span>
+<span class="c1"># BlockCypher.transaction_new_custom(payload)</span>
+<span class="c1"># Sign your data in the returned TXSkeleton, then use:</span>
+<span class="c1"># BlockCypher.transaction_send_custom(your_signed_tx_skeleton)</span>
+<span class="nb">require</span> <span class="s1">'JSON'</span>
+<span class="n">payload</span> <span class="o">=</span> <span class="no">JSON</span><span class="p">.</span><span class="nf">parse</span><span class="p">(</span><span class="s1">'{ "inputs": [{
+        "addresses"   : [pubkey1, pubkey2, pubkey3],
+        "script_type" : "multisig-2-of-3"
+    }],
+    "outputs": [{
+        "addresses" : [destAddr],
+        "value"     : 150000
+    }] }'</span><span class="p">)</span>
 </code></pre>
 
 <p>Once funded, you might want to programmatically spend the money in the address at some point. Here the process is similar, but with the inputs and outputs reversed. As you can see in the code sample, you need to provide the public keys within the <strong>inputs</strong> <strong>addresses</strong> array, and the corresponding <strong>script_type</strong> of <em>multisig-n-of-m</em> (e.g., <em>multisig-2-of-3</em>). Then you follow the same process of sending to <code class="prettyprint">/txs/new</code> and getting an array of data to be signed.</p>
@@ -4353,6 +4892,12 @@ As with creating <a href="#creating-transactions">normal Transactions</a>, alway
 <span class="o">&gt;</span> <span class="s2">"hash"</span><span class="p">:</span> <span class="s2">"892fd7b36c1c3a2e5edb9b4a5d4ffd9ba74d78d3acf3b249991bd8d10a287dbd"</span>
 <span class="o">&gt;</span> <span class="p">}</span>
 </code></pre>
+<pre class="highlight ruby"><code><span class="o">&gt;</span> <span class="n">bc_test</span><span class="p">.</span><span class="nf">microtx_from_priv</span><span class="p">(</span><span class="s2">"97838249d77bfa65f97be02b63fd1b7bb6a58474c7c22784a0da63993d1c2f90"</span><span class="p">,</span> <span class="s2">"C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn"</span><span class="p">,</span> <span class="mi">20000</span><span class="p">)</span>
+<span class="o">=&gt;</span> <span class="p">{</span><span class="s2">"from_private"</span><span class="o">=&gt;</span><span class="s2">"97838249d77bfa65f97be02b63fd1b7bb6a58474c7c22784a0da63993d1c2f90"</span><span class="p">,</span>
+ <span class="s2">"to_address"</span><span class="o">=&gt;</span><span class="s2">"C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn"</span><span class="p">,</span>
+ <span class="s2">"value_satoshis"</span><span class="o">=&gt;</span><span class="mi">20000</span><span class="p">,</span>
+ <span class="s2">"hash"</span><span class="o">=&gt;</span><span class="s2">"5d618233bccbeaa570072d719ff4718ae02eebffb748210166d9b6180ea8da59"</span><span class="p">}</span>
+</code></pre>
 <pre class="highlight python"><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">requests</span><span class="o">,</span> <span class="nn">json</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s">'from_private'</span><span class="p">:</span> <span class="s">'97838249d77bfa65f97be02b63fd1b7bb6a58474c7c22784a0da63993d1c2f90'</span><span class="p">,</span> <span class="s">'to_address'</span><span class="p">:</span> <span class="s">'C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn'</span><span class="p">,</span> <span class="s">'value_satoshis'</span><span class="p">:</span> <span class="mi">10000</span><span class="p">,</span> <span class="s">'token'</span><span class="p">:</span> <span class="s">'YOUR_TOKEN'</span><span class="p">}</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s">'token'</span><span class="p">:</span> <span class="s">'YOUR_TOKEN'</span><span class="p">}</span>
@@ -4452,6 +4997,22 @@ curl -H <span class="s2">"Content-Type: application/json"</span> -d <span class=
 <span class="o">&gt;</span>   <span class="s2">"fees"</span><span class="p">:</span> <span class="mi">735</span>
 <span class="o">&gt;</span> <span class="p">}</span>
 </code></pre>
+<pre class="highlight ruby"><code><span class="c1"># Our official Ruby SDK can generate the public key from your private key</span>
+<span class="c1"># But this function signs locally instead of sending to the server</span>
+<span class="o">&gt;</span> <span class="n">bc_test</span><span class="p">.</span><span class="nf">microtx_from_pub</span><span class="p">(</span><span class="s2">"97838249d77bfa65f97be02b63fd1b7bb6a58474c7c22784a0da63993d1c2f90"</span><span class="p">,</span> <span class="s2">"C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn"</span><span class="p">,</span> <span class="mi">20000</span><span class="p">)</span>
+<span class="o">=&gt;</span> <span class="p">{</span><span class="s2">"from_pubkey"</span><span class="o">=&gt;</span><span class="s2">"02152e2bb5b273561ece7bbe8b1df51a4c44f5ab0bc940c105045e2cc77e618044"</span><span class="p">,</span>
+ <span class="s2">"to_address"</span><span class="o">=&gt;</span><span class="s2">"C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn"</span><span class="p">,</span>
+ <span class="s2">"value_satoshis"</span><span class="o">=&gt;</span><span class="mi">20000</span><span class="p">,</span>
+ <span class="s2">"hash"</span><span class="o">=&gt;</span><span class="s2">"52330171c634e9094bb919e7e5bdaf73ca615d317fb5243224bec30b0f125eb4"</span><span class="p">,</span>
+ <span class="s2">"inputs"</span><span class="o">=&gt;</span>
+  <span class="p">[{</span><span class="s2">"prev_hash"</span><span class="o">=&gt;</span><span class="s2">"5d618233bccbeaa570072d719ff4718ae02eebffb748210166d9b6180ea8da59"</span><span class="p">,</span> <span class="s2">"output_index"</span><span class="o">=&gt;</span><span class="mi">2</span><span class="p">},</span>
+   <span class="p">{</span><span class="s2">"prev_hash"</span><span class="o">=&gt;</span><span class="s2">"ce8b3a2d5bb1f552c9d526559dd892b4eeee9a694fe885bf03c660fb304cd828"</span><span class="p">,</span> <span class="s2">"output_index"</span><span class="o">=&gt;</span><span class="mi">1</span><span class="p">}],</span>
+ <span class="s2">"outputs"</span><span class="o">=&gt;</span>
+  <span class="p">[{</span><span class="s2">"address"</span><span class="o">=&gt;</span><span class="s2">"C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn"</span><span class="p">,</span> <span class="s2">"value"</span><span class="o">=&gt;</span><span class="mi">20000</span><span class="p">},</span>
+   <span class="p">{</span><span class="s2">"address"</span><span class="o">=&gt;</span><span class="s2">"CEyQhiXPtWk8q7hMkv2Kg728i4PYDM9qxf"</span><span class="p">,</span> <span class="s2">"value"</span><span class="o">=&gt;</span><span class="mi">9997795</span><span class="p">},</span>
+   <span class="p">{</span><span class="s2">"address"</span><span class="o">=&gt;</span><span class="s2">"CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"</span><span class="p">,</span> <span class="s2">"value"</span><span class="o">=&gt;</span><span class="mi">3716000</span><span class="p">}],</span>
+ <span class="s2">"fees"</span><span class="o">=&gt;</span><span class="mi">735</span><span class="p">}</span>
+</code></pre>
 
 <h3 id="via-public-keys-and-client-side-signing">Via Public Keys and Client-side Signing</h3>
 
@@ -4511,6 +5072,13 @@ While we stand by our work behind our confidence research, please note that thes
 <span class="s2">"txhash"</span>: <span class="s2">"43fa951e1bea87c282f6725cf8bdc08bb48761396c3af8dd5a41a085ab62acc9"</span>,
 <span class="s2">"txurl"</span>: <span class="s2">"https://api.blockcypher.com/v1/btc/main/txs/43fa951e1bea87c282f6725cf8bdc08bb48761396c3af8dd5a41a085ab62acc9"</span>
 <span class="o">}</span>
+</code></pre>
+<pre class="highlight ruby"><code><span class="o">&gt;</span> <span class="n">block_cypher</span><span class="p">.</span><span class="nf">tx_confidence</span><span class="p">(</span><span class="s2">"4153fddf43c5fd6aa7834bda643619e6dd7d8bf55206bcedb216296881a07830"</span><span class="p">)</span>
+<span class="o">=&gt;</span> <span class="p">{</span><span class="s2">"age_millis"</span><span class="o">=&gt;</span><span class="mi">114659</span><span class="p">,</span>
+ <span class="s2">"receive_count"</span><span class="o">=&gt;</span><span class="mi">783</span><span class="p">,</span>
+ <span class="s2">"confidence"</span><span class="o">=&gt;</span><span class="mi">0</span><span class="o">.</span><span class="mi">9999808966243114</span><span class="p">,</span>
+ <span class="s2">"txhash"</span><span class="o">=&gt;</span><span class="s2">"4153fddf43c5fd6aa7834bda643619e6dd7d8bf55206bcedb216296881a07830"</span><span class="p">,</span>
+ <span class="s2">"txurl"</span><span class="o">=&gt;</span><span class="s2">"https://api.blockcypher.com/v1/btc/main/txs/4153fddf43c5fd6aa7834bda643619e6dd7d8bf55206bcedb216296881a07830"</span><span class="p">}</span>
 </code></pre>
 <pre class="highlight python"><code><span class="c"># Fund existing address with faucet</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">requests</span>
@@ -4590,6 +5158,13 @@ By default, all payments will be debited with a 10,000 satoshis mining fee. The 
 <span class="s2">"token"</span><span class="err">:</span> <span class="s2">"YOURTOKEN"</span>
 <span class="p">}</span>
 </code></pre>
+<pre class="highlight ruby"><code><span class="o">&gt;</span> <span class="n">block_cypher</span><span class="p">.</span><span class="nf">create_forwarding_address</span><span class="p">(</span><span class="s2">"15qx9ug952GWGTNn7Uiv6vode4RcGrRemh"</span><span class="p">,</span> <span class="ss">callback_url: </span><span class="s2">"https://my.domain.com/callbacks/new-pay"</span><span class="p">)</span>
+<span class="o">=&gt;</span> <span class="p">{</span><span class="s2">"id"</span><span class="o">=&gt;</span><span class="s2">"72811fff-7826-4b04-8f99-4f492e84aeaa"</span><span class="p">,</span>
+ <span class="s2">"token"</span><span class="o">=&gt;</span><span class="s2">"YOURTOKEN"</span><span class="p">,</span>
+ <span class="s2">"destination"</span><span class="o">=&gt;</span><span class="s2">"15qx9ug952GWGTNn7Uiv6vode4RcGrRemh"</span><span class="p">,</span>
+ <span class="s2">"input_address"</span><span class="o">=&gt;</span><span class="s2">"1Php2ZGrEtm5gUaEZNmTtUabmBei6zj9nP"</span><span class="p">,</span>
+ <span class="s2">"callback_url"</span><span class="o">=&gt;</span><span class="s2">"https://my.domain.com/callbacks/new-pay"</span><span class="p">}</span>
+</code></pre>
 <pre class="highlight python"><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">requests</span><span class="o">,</span> <span class="nn">json</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s">"destination"</span><span class="p">:</span><span class="s">"15qx9ug952GWGTNn7Uiv6vode4RcGrRemh"</span><span class="p">,</span><span class="s">"callback_url"</span><span class="p">:</span> <span class="s">"https://my.domain.com/callbacks/new-pay"</span><span class="p">}</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s">'token'</span><span class="p">:</span> <span class="s">'YOUR_TOKEN'</span><span class="p">}</span>
@@ -4651,6 +5226,13 @@ If you decide to have a <b>callback_url</b>, you&rsquo;ll receive a payload at t
     <span class="p">}</span>
 <span class="p">]</span>
 </code></pre>
+<pre class="highlight ruby"><code><span class="o">&gt;</span> <span class="n">block_cypher</span><span class="p">.</span><span class="nf">list_forwarding_addresses</span>
+<span class="o">=&gt;</span> <span class="p">[{</span><span class="s2">"id"</span><span class="o">=&gt;</span><span class="s2">"72811fff-7826-4b04-8f99-4f492e84aeaa"</span><span class="p">,</span>
+  <span class="s2">"token"</span><span class="o">=&gt;</span><span class="s2">"YOURTOKEN"</span><span class="p">,</span>
+  <span class="s2">"destination"</span><span class="o">=&gt;</span><span class="s2">"15qx9ug952GWGTNn7Uiv6vode4RcGrRemh"</span><span class="p">,</span>
+  <span class="s2">"input_address"</span><span class="o">=&gt;</span><span class="s2">"1Php2ZGrEtm5gUaEZNmTtUabmBei6zj9nP"</span><span class="p">,</span>
+  <span class="s2">"callback_url"</span><span class="o">=&gt;</span><span class="s2">"https://my.domain.com/callbacks/new-pay"</span><span class="p">}]</span>
+</code></pre>
 <pre class="highlight python"><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">requests</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s">'token'</span><span class="p">:</span> <span class="s">'YOUR_TOKEN'</span><span class="p">}</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s">'http://api.blockcypher.com/v1/btc/main/payments'</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
@@ -4692,8 +5274,10 @@ HTTP/1.1 204 No Content
   <span class="na">method</span><span class="p">:</span> <span class="s2">"DELETE"</span>
 <span class="p">});</span>
 </code></pre>
-<pre class="highlight python"><code><span class="c"># Fund existing address with faucet</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">requests</span>
+<pre class="highlight ruby"><code><span class="o">&gt;</span> <span class="n">block_cypher</span><span class="p">.</span><span class="nf">delete_forwarding_address</span><span class="p">(</span><span class="s2">"72811fff-7826-4b04-8f99-4f492e84aeaa"</span><span class="p">)</span>
+<span class="o">=&gt;</span> <span class="kp">nil</span>
+</code></pre>
+<pre class="highlight python"><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">requests</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s">'token'</span><span class="p">:</span> <span class="s">'YOUR_TOKEN'</span><span class="p">}</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="s">'http://api.blockcypher.com/v1/btc/main/payments/f35c80c2-3347-410d-b4ac-d049910289ec'</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
 <span class="c"># will return nothing, but we can confirm that delete was succesful via http code</span>
@@ -4850,6 +5434,15 @@ Testing WebHooks can be tricky; we recommend using <a href="http://requestb.in/"
 <span class="s2">"url"</span><span class="err">:</span> <span class="s2">"https://my.domain.com/callbacks/new-tx"</span>
 <span class="p">}</span>
 </code></pre>
+<pre class="highlight ruby"><code><span class="o">&gt;</span> <span class="n">block_cypher</span><span class="p">.</span><span class="nf">event_webhook_subscribe</span><span class="p">(</span><span class="s2">"https://my.domain.com/callbacks/new-tx"</span><span class="p">,</span> <span class="s2">"unconfirmed-tx"</span><span class="p">,</span> <span class="n">address</span><span class="ss">:"15qx9ug952GWGTNn7Uiv6vode4RcGrRemh"</span><span class="p">)</span>
+<span class="o">=&gt;</span> <span class="p">{</span><span class="s2">"id"</span><span class="o">=&gt;</span><span class="s2">"85883de4-2b01-4f27-a7d4-4400856e124a"</span><span class="p">,</span>
+ <span class="s2">"token"</span><span class="o">=&gt;</span><span class="s2">"YOURTOKEN"</span><span class="p">,</span>
+ <span class="s2">"url"</span><span class="o">=&gt;</span><span class="s2">"https://my.domain.com/callbacks/new-tx"</span><span class="p">,</span>
+ <span class="s2">"callback_errors"</span><span class="o">=&gt;</span><span class="mi">0</span><span class="p">,</span>
+ <span class="s2">"address"</span><span class="o">=&gt;</span><span class="s2">"15qx9ug952GWGTNn7Uiv6vode4RcGrRemh"</span><span class="p">,</span>
+ <span class="s2">"event"</span><span class="o">=&gt;</span><span class="s2">"unconfirmed-tx"</span><span class="p">,</span>
+ <span class="s2">"filter"</span><span class="o">=&gt;</span><span class="s2">"addr=15qx9ug952GWGTNn7Uiv6vode4RcGrRemh&amp;event=unconfirmed-tx"</span><span class="p">}</span>
+</code></pre>
 <pre class="highlight python"><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">requests</span><span class="o">,</span> <span class="nn">json</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s">'event'</span><span class="p">:</span> <span class="s">'unconfirmed-tx'</span><span class="p">,</span> <span class="s">'address'</span><span class="p">:</span> <span class="s">'15qx9ug952GWGTNn7Uiv6vode4RcGrRemh'</span><span class="p">,</span> <span class="s">'url'</span><span class="p">:</span> <span class="s">'https://my.domain.com/callbacks/new-tx'</span><span class="p">}</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s">'token'</span><span class="p">:</span> <span class="s">'YOUR_TOKEN'</span><span class="p">}</span>
@@ -4909,6 +5502,15 @@ Testing WebHooks can be tricky; we recommend using <a href="http://requestb.in/"
     <span class="p">}</span>
 <span class="p">]</span>
 </code></pre>
+<pre class="highlight ruby"><code><span class="o">&gt;</span> <span class="n">block_cypher</span><span class="p">.</span><span class="nf">event_webhook_listall</span>
+<span class="o">=&gt;</span> <span class="p">[{</span><span class="s2">"id"</span><span class="o">=&gt;</span><span class="s2">"85883de4-2b01-4f27-a7d4-4400856e124a"</span><span class="p">,</span>
+  <span class="s2">"token"</span><span class="o">=&gt;</span><span class="s2">"YOURTOKEN"</span><span class="p">,</span>
+  <span class="s2">"url"</span><span class="o">=&gt;</span><span class="s2">"https://my.domain.com/callbacks/new-tx"</span><span class="p">,</span>
+  <span class="s2">"callback_errors"</span><span class="o">=&gt;</span><span class="mi">0</span><span class="p">,</span>
+  <span class="s2">"address"</span><span class="o">=&gt;</span><span class="s2">"15qx9ug952GWGTNn7Uiv6vode4RcGrRemh"</span><span class="p">,</span>
+  <span class="s2">"event"</span><span class="o">=&gt;</span><span class="s2">"unconfirmed-tx"</span><span class="p">,</span>
+  <span class="s2">"filter"</span><span class="o">=&gt;</span><span class="s2">"addr=15qx9ug952GWGTNn7Uiv6vode4RcGrRemh&amp;event=unconfirmed-tx"</span><span class="p">}]</span>
+</code></pre>
 <pre class="highlight python"><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">requests</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s">'token'</span><span class="p">:</span> <span class="s">'YOUR_TOKEN'</span><span class="p">}</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">'https://api.blockcypher.com/v1/btc/main/hooks'</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
@@ -4959,6 +5561,15 @@ Testing WebHooks can be tricky; we recommend using <a href="http://requestb.in/"
 <span class="s2">"url"</span><span class="err">:</span> <span class="s2">"https://my.domain.com/callbacks/new-tx"</span>
 <span class="p">}</span>
 </code></pre>
+<pre class="highlight ruby"><code><span class="o">&gt;</span> <span class="n">block_cypher</span><span class="p">.</span><span class="nf">event_webhook_get</span><span class="p">(</span><span class="s2">"85883de4-2b01-4f27-a7d4-4400856e124a"</span><span class="p">)</span>
+<span class="o">=&gt;</span> <span class="p">{</span><span class="s2">"id"</span><span class="o">=&gt;</span><span class="s2">"85883de4-2b01-4f27-a7d4-4400856e124a"</span><span class="p">,</span>
+ <span class="s2">"token"</span><span class="o">=&gt;</span><span class="s2">"YOURTOKEN"</span><span class="p">,</span>
+ <span class="s2">"url"</span><span class="o">=&gt;</span><span class="s2">"https://my.domain.com/callbacks/new-tx"</span><span class="p">,</span>
+ <span class="s2">"callback_errors"</span><span class="o">=&gt;</span><span class="mi">0</span><span class="p">,</span>
+ <span class="s2">"address"</span><span class="o">=&gt;</span><span class="s2">"15qx9ug952GWGTNn7Uiv6vode4RcGrRemh"</span><span class="p">,</span>
+ <span class="s2">"event"</span><span class="o">=&gt;</span><span class="s2">"unconfirmed-tx"</span><span class="p">,</span>
+ <span class="s2">"filter"</span><span class="o">=&gt;</span><span class="s2">"addr=15qx9ug952GWGTNn7Uiv6vode4RcGrRemh&amp;event=unconfirmed-tx"</span><span class="p">}</span>
+</code></pre>
 <pre class="highlight python"><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">requests</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">'https://api.blockcypher.com/v1/btc/main/hooks/50d1fb13-2bd4-47d0-8e1b-0695e0322581'</span><span class="p">)</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
@@ -5002,8 +5613,10 @@ HTTP/1.1 204 OK
   <span class="na">method</span><span class="p">:</span> <span class="s2">"DELETE"</span>
 <span class="p">});</span>
 </code></pre>
-<pre class="highlight python"><code><span class="c"># Fund existing address with faucet</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">requests</span>
+<pre class="highlight ruby"><code><span class="o">&gt;</span> <span class="n">block_cypher</span><span class="p">.</span><span class="nf">event_webhook_delete</span><span class="p">(</span><span class="s2">"85883de4-2b01-4f27-a7d4-4400856e124a"</span><span class="p">)</span>
+<span class="o">=&gt;</span> <span class="kp">nil</span>
+</code></pre>
+<pre class="highlight python"><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">requests</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="s">'https://api.blockcypher.com/v1/btc/main/hooks/50d1fb13-2bd4-47d0-8e1b-0695e0322581'</span><span class="p">)</span>
 <span class="c"># Will return nothing, but we can confirm the status code to be sure</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="k">assert</span> <span class="n">r</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">204</span>
@@ -5036,6 +5649,7 @@ HTTP/1.1 204 OK
           <div class="lang-selector">
                 <a href="#" data-language-name="shell">cURL</a>
                 <a href="#" data-language-name="javascript">JavaScript</a>
+                <a href="#" data-language-name="ruby">Ruby</a>
                 <a href="#" data-language-name="python">Python</a>
           </div>
       </div>
