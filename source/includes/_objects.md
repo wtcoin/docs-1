@@ -777,6 +777,15 @@ Attribute | Type | Description
 ```
 
 ```php
+{
+  "from_pubkey": "03bb318b00de944086fad67ab78a832eb1bf26916053ecd3b14a3f48f9fbe0821f",
+  "to_address": "mrS82nWF3TCfhafSaKnmUUktGNYuTZn1Ap",
+  "value_satoshis": 5000,
+  "token": "477a17a15d55b408038404a46c059ef9",
+  "signatures": [
+    "3045022100..."
+  ]
+}
 ```
 
 A MicroTX represents a streamlined---and typically much lower value---microtransaction, one which BlockCypher can sign for you if you send your private key. MicroTXs can also be signed on the client-side without ever sending your private key. You'll find these objects used in the [Microtransaction API.](#microtransaction-api)
