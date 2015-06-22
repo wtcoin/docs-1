@@ -123,6 +123,48 @@ $.get('https://api.blockcypher.com/v1/btc/main/txs/f854aebae95150b379cc1187d848d
 > }
 ```
 
+```ruby
+> block_cypher.blockchain_transaction("f854aebae95150b379cc1187d848d58225f3c4157fe992bcd166f58bd5063449")
+=> {"block_hash"=>"0000000000000000c504bdea36e531d8089d324f2d936c86e3274f97f8a44328",
+ "block_height"=>293000,
+ "hash"=>"f854aebae95150b379cc1187d848d58225f3c4157fe992bcd166f58bd5063449",
+ "addresses"=>
+  ["13XXaBufpMvqRqLkyDty1AXqueZHVe6iyy",
+   "19YtzZdcfs1V2ZCgyRWo8i2wLT8ND1Tu4L",
+   "1BNiazBzCxJacAKo2yL83Wq1VJ18AYzNHy",
+   "1GbMfYui17L5m6sAy3L3WXAtf1P32bxJXq",
+   "1N2f642sbgCMbNtXFajz9XDACDFnFzdXzV"],
+ "total"=>70320221545,
+ "fees"=>0,
+ "size"=>636,
+ "preference"=>"low",
+ "relayed_by"=>"",
+ "confirmed"=>"2014-03-29T01:29:19Z",
+ "received"=>"2014-03-29T01:29:19Z",
+ "ver"=>1,
+ "lock_time"=>0,
+ "double_spend"=>false,
+ "vin_sz"=>4,
+ "vout_sz"=>1,
+ "confirmations"=>68362,
+ "confidence"=>1,
+ "inputs"=>
+  [{"prev_hash"=>"583910b7bf90ab802e22e5c25a89b59862b20c8c1aeb24dfb94e7a508a70f121",
+    "output_index"=>1,
+    "script"=>
+     "4830450220504b1ccfddf508422bdd8b0fcda2b148...",
+    "output_value"=>16450000,
+    "sequence"=>4294967295,
+    "addresses"=>["1GbMfYui17L5m6sAy3L3WXAtf1P32bxJXq"],
+    "script_type"=>"pay-to-pubkey-hash"},...],
+ "outputs"=>
+  [{"value"=>70320221545,
+    "script"=>"76a914e6aad9d712c419ea8febf009a3f3bfdd8d222fac88ac",
+    "spent_by"=>"35832d6c70b98b54e9a53ab2d51176eb19ad11bc4505d6bb1ea6c51a68cb92ee",
+    "addresses"=>["1N2f642sbgCMbNtXFajz9XDACDFnFzdXzV"],
+    "script_type"=>"pay-to-pubkey-hash"}]}
+```
+
 ```python
 >>> import requests
 >>> r = requests.get('https://api.blockcypher.com/v1/btc/main/txs/f854aebae95150b379cc1187d848d58225f3c4157fe992bcd166f58bd5063449')
@@ -165,9 +207,7 @@ $.get('https://api.blockcypher.com/v1/btc/main/txs/f854aebae95150b379cc1187d848d
  'confirmations': 67378}
 ```
 
-
 The Transaction Hash Endpoint returns detailed information about a given transaction based on its hash.
-
 
 Resource | Method | Return Object
 -------- | ------ | -------------
@@ -256,8 +296,31 @@ $.get('https://api.blockcypher.com/v1/btc/main/txs').then(function(d) {console.l
 > ]
 ```
 
+```ruby
+> block_cypher.blockchain_unconfirmed_tx
+=> [{"block_height"=>-1,
+  "hash"=>"125abd75941fb8fd499d514979a764b9bf4bf0b0208dcff2790a6b4d7c165911",
+  "addresses"=>
+   ["137REkr34fuwZY6Fu5Numz7DDNt14y4eNr",
+    "1LoveUTs984niMqTqTZyDoRUuqpZV5VQ1K",
+    "1PSGAQAHS5fE745a4pwD7NSxJ3Gt5e1vSU",
+    "3FaskXUYNSdeczUt1e9c6eGnWj1ifEwm94"],
+  "total"=>11357528,
+  "fees"=>10000,
+  "size"=>699,
+  "preference"=>"low",
+  "relayed_by"=>"198.27.97.172:8333",
+  "received"=>"2015-06-17T20:28:04.298Z",
+  "ver"=>1,
+  "lock_time"=>0,
+  "double_spend"=>false,...},
+  {"block_height"=>-1,
+	 "hash"=>"125abd7...",
+   ...},
+  ...]
+```
+
 ```python
-# Fund existing address with faucet
 >>> import requests
 >>> r = requests.get('http://api.blockcypher.com/v1/btc/main/txs')
 >>> r.json()
@@ -440,6 +503,49 @@ $.post('https://api.blockcypher.com/v1/bcy/test/txs/new', JSON.stringify(newtx))
 > }
 ```
 
+```ruby
+# Using BlockCypher's Internal Testnet
+> bc_test = BlockCypher::Api.new(api_token:"YOURTOKEN", currency:BlockCypher::BCY, network:BlockCypher::TEST_NET)
+=> #<BlockCypher::Api:0x00000001a9ebf0 @api_token="YOURTOKEN", @currency="bcy", @network="test", @version="v1">
+
+> txskel = bc_test.transaction_new(["CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"], ["C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn"], 100000)
+=> {"tx"=>
+  {"block_height"=>-1,
+   "hash"=>"2094c09f880f88dea1a1ff3a6e19c6af4892b4b26f8e6315fd76c6ddc369ffbf",
+   "addresses"=>["C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn", "CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"],
+   "total"=>3856000,
+   "fees"=>12000,
+   "size"=>119,
+   "preference"=>"high",
+   "relayed_by"=>"199.83.221.11",
+   "received"=>"2015-06-17T20:41:22.818882286Z",
+   "ver"=>1,
+   "lock_time"=>0,
+   "double_spend"=>false,
+   "vin_sz"=>1,
+   "vout_sz"=>2,
+   "confirmations"=>0,
+   "inputs"=>
+    [{"prev_hash"=>"6b1c30cad97df956cfcb47b4cd471bb69112fb726b0fb129575337e3fb9f2c1a",
+      "output_index"=>2,
+      "script"=>"",
+      "output_value"=>3868000,
+      "sequence"=>4294967295,
+      "addresses"=>["CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"],
+      "script_type"=>"",
+      "age"=>9739}],
+   "outputs"=>
+    [{"value"=>100000,
+      "script"=>"76a9145fb1af31edd2aa5a2bbaa24f6043d6ec31f7e63288ac",
+      "addresses"=>["C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn"],
+      "script_type"=>"pay-to-pubkey-hash"},
+     {"value"=>3756000,
+      "script"=>"76a914efec6de6c253e657a9d5506a78ee48d89762fb3188ac",
+      "addresses"=>["CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"],
+      "script_type"=>"pay-to-pubkey-hash"}]},
+ "tosign"=>["c24150bea2d3b50c852d1c5eaccd3b6e286623b516e255f876d2b7c0d93f200b"]}
+```
+
 ```python
 >>> import requests, json
 >>> data = {'inputs': [{'addresses': ['CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9',]}], 'outputs': [{'addresses': ['C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn', ], 'value': 1000000}]}
@@ -547,7 +653,10 @@ $.post('https://api.blockcypher.com/v1/bcy/test/txs/new', JSON.stringify(newtx))
       console.log(finaltx);
     })
   });
+```
 
+```ruby
+# Signing is handled by our SDK in the next step
 ```
 
 ### Locally Sign Your Transaction
@@ -684,6 +793,46 @@ $.post('https://api.blockcypher.com/v1/bcy/test/txs/send', JSON.stringify(sendtx
 >     ""
 >   ]
 > }
+```
+
+```ruby
+> bc_test.transaction_sign_and_send(txskel, "YOURCOMPRESSEDPRIVATEKEYINHEX")
+=> {"tx"=>
+  {"block_height"=>-1,
+   "hash"=>"620f484194eca649ccd48501bff1c8046fed4a1b28bee9f6b0db8c93ced672be",
+   "addresses"=>["CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9", "C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn"],
+   "total"=>3856000,
+   "fees"=>12000,
+   "size"=>226,
+   "preference"=>"high",
+   "relayed_by"=>"199.83.221.11",
+   "received"=>"2015-06-17T20:47:36.092834184Z",
+   "ver"=>1,
+   "lock_time"=>0,
+   "double_spend"=>false,
+   "vin_sz"=>1,
+   "vout_sz"=>2,
+   "confirmations"=>0,
+   "inputs"=>
+    [{"prev_hash"=>"6b1c30cad97df956cfcb47b4cd471bb69112fb726b0fb129575337e3fb9f2c1a",
+      "output_index"=>2,
+      "script"=>
+       "483045022100803c8b097d0653cc094362f772e687da00aa263f22ccc6a203b0e0234e096fbd022068d3a0ef0306ee9698313bdac044cfb32f2cf63b7c29dbf43568721f040c7b80012102152e2bb5b273561ece7bbe8b1df51a4c44f5ab0bc940c105045e2cc77e618044",
+      "output_value"=>3868000,
+      "sequence"=>4294967295,
+      "addresses"=>["CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"],
+      "script_type"=>"pay-to-pubkey-hash",
+      "age"=>9745}],
+   "outputs"=>
+    [{"value"=>100000,
+      "script"=>"76a9145fb1af31edd2aa5a2bbaa24f6043d6ec31f7e63288ac",
+      "addresses"=>["C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn"],
+      "script_type"=>"pay-to-pubkey-hash"},
+     {"value"=>3756000,
+      "script"=>"76a914efec6de6c253e657a9d5506a78ee48d89762fb3188ac",
+      "addresses"=>["CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"],
+      "script_type"=>"pay-to-pubkey-hash"}]},
+ "tosign"=>[""]}
 ```
 
 ### Send Transaction Endpoint
@@ -848,6 +997,45 @@ $.post('https://api.blockcypher.com/v1/bcy/test/txs/send', JSON.stringify(pushtx
 >     }
 >   ]
 > }
+```
+
+```ruby
+> bc_test.push_hex("01000000011935b41d12936df99d322ac8972b74ecff7b79408bbccaf1b2eb8015228beac8000000006b483045022100921fc36b911094280f07d8504a80fbab9b823a25f102e2bc69b14bcd369dfc7902200d07067d47f040e724b556e5bc3061af132d5a47bd96e901429d53c41e0f8cca012102152e2bb5b273561ece7bbe8b1df51a4c44f5ab0bc940c105045e2cc77e618044ffffffff0240420f00000000001976a9145fb1af31edd2aa5a2bbaa24f6043d6ec31f7e63288ac20da3c00000000001976a914efec6de6c253e657a9d5506a78ee48d89762fb3188ac00000000")
+=> {"block_height"=>-1,
+ "hash"=>"4e6dfb1415b4fba5bd257c129847c70fbd4e45e41828079c4a282680528f3a50",
+ "addresses"=>["C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn", "CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"],
+ "total"=>4988000,
+ "fees"=>12000,
+ "size"=>226,
+ "preference"=>"high",
+ "relayed_by"=>"199.83.221.11",
+ "received"=>"2015-06-17T21:01:54.319930181Z",
+ "ver"=>1,
+ "lock_time"=>0,
+ "double_spend"=>false,
+ "vin_sz"=>1,
+ "vout_sz"=>2,
+ "confirmations"=>0,
+ "inputs"=>
+  [{"prev_hash"=>"c8ea8b221580ebb2f1cabc8b40797bffec742b97c82a329df96d93121db43519",
+    "output_index"=>0,
+    "script"=>
+     "483045022100921fc36b911094280f07d8504a80fbab9b823a25f102e2bc69b14bcd369dfc7902200d07067d47f040e724b556e5bc3061af132d5a47bd96e901429d53c41e0f8cca012102152e2bb5b273561ece7bbe8b1df51a4c44f5ab0bc940c105045e2cc77e618044",                                                                              
+    "output_value"=>5000000,
+    "sequence"=>4294967295,
+    "addresses"=>["CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"],
+    "script_type"=>"pay-to-pubkey-hash",
+    "age"=>37633}],
+ "outputs"=>
+  [{"value"=>1000000,
+    "script"=>"76a9145fb1af31edd2aa5a2bbaa24f6043d6ec31f7e63288ac",
+    "addresses"=>["C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn"],
+    "script_type"=>"pay-to-pubkey-hash"},
+   {"value"=>3988000,
+    "script"=>"76a914efec6de6c253e657a9d5506a78ee48d89762fb3188ac",
+    "spent_by"=>"892fd7b36c1c3a2e5edb9b4a5d4ffd9ba74d78d3acf3b249991bd8d10a287dbd",
+    "addresses"=>["CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"],
+    "script_type"=>"pay-to-pubkey-hash"}]}
 ```
 
 ```python
@@ -1040,8 +1228,46 @@ $.post('https://api.blockcypher.com/v1/bcy/test/txs/decode', JSON.stringify(deco
 > }
 ```
 
+```ruby
+> bc_test.decode_hex("01000000011935b41d12936df99d322ac8972b74ecff7b79408bbccaf1b2eb8015228beac8000000006b483045022100921fc36b911094280f07d8504a80fbab9b823a25f102e2bc69b14bcd369dfc7902200d07067d47f040e724b556e5bc3061af132d5a47bd96e901429d53c41e0f8cca012102152e2bb5b273561ece7bbe8b1df51a4c44f5ab0bc940c105045e2cc77e618044ffffffff0240420f00000000001976a9145fb1af31edd2aa5a2bbaa24f6043d6ec31f7e63288ac20da3c00000000001976a914efec6de6c253e657a9d5506a78ee48d89762fb3188ac00000000")
+=> {"block_height"=>-1,
+ "hash"=>"4e6dfb1415b4fba5bd257c129847c70fbd4e45e41828079c4a282680528f3a50",
+ "addresses"=>["C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn", "CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"],
+ "total"=>4988000,
+ "fees"=>12000,
+ "size"=>226,
+ "preference"=>"high",
+ "relayed_by"=>"199.83.221.11",
+ "received"=>"2015-06-17T21:01:54.319930181Z",
+ "ver"=>1,
+ "lock_time"=>0,
+ "double_spend"=>false,
+ "vin_sz"=>1,
+ "vout_sz"=>2,
+ "confirmations"=>0,
+ "inputs"=>
+  [{"prev_hash"=>"c8ea8b221580ebb2f1cabc8b40797bffec742b97c82a329df96d93121db43519",
+    "output_index"=>0,
+    "script"=>
+     "483045022100921fc36b911094280f07d8504a80fbab9b823a25f102e2bc69b14bcd369dfc7902200d07067d47f040e724b556e5bc3061af132d5a47bd96e901429d53c41e0f8cca012102152e2bb5b273561ece7bbe8b1df51a4c44f5ab0bc940c105045e2cc77e618044",                                                                              
+    "output_value"=>5000000,
+    "sequence"=>4294967295,
+    "addresses"=>["CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"],
+    "script_type"=>"pay-to-pubkey-hash",
+    "age"=>37633}],
+ "outputs"=>
+  [{"value"=>1000000,
+    "script"=>"76a9145fb1af31edd2aa5a2bbaa24f6043d6ec31f7e63288ac",
+    "addresses"=>["C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn"],
+    "script_type"=>"pay-to-pubkey-hash"},
+   {"value"=>3988000,
+    "script"=>"76a914efec6de6c253e657a9d5506a78ee48d89762fb3188ac",
+    "spent_by"=>"892fd7b36c1c3a2e5edb9b4a5d4ffd9ba74d78d3acf3b249991bd8d10a287dbd",
+    "addresses"=>["CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"],
+    "script_type"=>"pay-to-pubkey-hash"}]}
+```
+
 ```python
-# Fund existing address with faucet
 >>> import requests, json
 >>> data = {'tx': '01000000011935b41d12936df99d322ac8972b74ecff7b79408bbccaf1b2eb8015228beac8000000006b483045022100921fc36b911094280f07d8504a80fbab9b823a25f102e2bc69b14bcd369dfc7902200d07067d47f040e724b556e5bc3061af132d5a47bd96e901429d53c41e0f8cca012102152e2bb5b273561ece7bbe8b1df51a4c44f5ab0bc940c105045e2cc77e618044ffffffff0240420f00000000001976a9145fb1af31edd2aa5a2bbaa24f6043d6ec31f7e63288ac20da3c00000000001976a914efec6de6c253e657a9d5506a78ee48d89762fb3188ac00000000'}
 >>> r = requests.post('https://api.blockcypher.com/v1/bcy/test/txs/decode', data=json.dumps(data))
@@ -1117,6 +1343,21 @@ If it succeeds, you'll receive your decoded [TX](#tx) object.
 }
 ```
 
+```ruby
+# Create a custom payload, then use the function:
+# BlockCypher.transaction_new_custom(payload)
+# Sign your data in the returned TXSkeleton, then use:
+# BlockCypher.transaction_send_custom(your_signed_tx_skeleton)
+require 'JSON'
+payload = JSON.parse('{ "inputs": [{"addresses": [sourceAddr]}],
+	"outputs": [{
+		"addresses"   : [pubkey1, pubkey2, pubkey3],
+		"script_type" : "multisig-2-of-3",
+		"value"       : 250000,
+	}]
+}')
+```
+
 Multisignature transactions are made simple by the method described in the [Creating Transactions](#creating-transactions) section, but they deserve special mention. In order to use them, you first need to fund a multisignature address. You use the `/txs/new` endpoint as before, but instead of the **outputs** **addresses** array containing public addresses, it instead contains the public keys associated with the new address. In addition, you must select a **script_type** of *mutlisig-n-of-m*, where *n* and *m* are numbers (e.g., *multisig-2-of-3*). The code example demonstrates how the partially filled [TX request object](#tx) would appear.
 
 After you've set up your request object, you send to `/txs/new` and receive a partially filled [TXSkeleton](#txskeleton) as before, but with data to sign from the source address. Sign this data and include the public key(s) of the source address---as demonstrated in the [Creating Transactions](#creating-transactions)---then send along to the `/txs/send` endpoint. If it returns with an HTTP Status Code 201, then your multisignature address (via a *pay-to-script-hash* address) is funded.
@@ -1151,6 +1392,22 @@ If you only need a <i>pay-to-script-hash</i> address corresponding to N-of-M mul
 		"value"     : 150000
 	}]
 }
+```
+
+```ruby
+# Create a custom payload, then use the function:
+# BlockCypher.transaction_new_custom(payload)
+# Sign your data in the returned TXSkeleton, then use:
+# BlockCypher.transaction_send_custom(your_signed_tx_skeleton)
+require 'JSON'
+payload = JSON.parse('{ "inputs": [{
+		"addresses"   : [pubkey1, pubkey2, pubkey3],
+		"script_type" : "multisig-2-of-3"
+	}],
+	"outputs": [{
+		"addresses" : [destAddr],
+		"value"     : 150000
+	}] }')
 ```
 
 Once funded, you might want to programmatically spend the money in the address at some point. Here the process is similar, but with the inputs and outputs reversed. As you can see in the code sample, you need to provide the public keys within the **inputs** **addresses** array, and the corresponding **script_type** of *multisig-n-of-m* (e.g., *multisig-2-of-3*). Then you follow the same process of sending to `/txs/new` and getting an array of data to be signed.
