@@ -70,6 +70,26 @@ $.post(url, JSON.stringify(microtx))
 >>> r.json()
 ```
 
+```php
+<?php
+// Run on console:
+// php -f .\sample\microtransaction-api\MicroTransactionViaPrivateKeyEndpoint.php
+
+$microTX = new MicroTX();
+$microTX->setFromPrivate("2c2cc015519b79782bd9c5af66f442e808f573714e3c4dc6df7d79c183963cff");
+$microTX->setToAddress("C4MYFr4EAdqEeUKxTnPUF3d3whWcPMz1Fi");
+$microTX->setValueSatoshis(10000);
+
+$microTX->create($apiContext);
+
+{
+  "from_private":"2c2cc015519b79782bd9c5af66f442e808f573714e3c4dc6df7d79c183963cff",
+  "to_address":"C4MYFr4EAdqEeUKxTnPUF3d3whWcPMz1Fi",
+  "value_satoshis":10000,
+  "hash":"6886c3b2f48e410d83eb0ea4ef18396a699aba453a3210bc39bc7af99f061854"
+}
+```
+
 ### Via Private Keys
 
 The simplest way to send a Microtransaction is by using a private key. Within the request object you must include **from_private** (or the equivalent **from_wif**), **to_address**, **token**, and **value_satoshis**. You can read more descriptions about these fields within [MicroTX object description](#microtx), although they should be self-explanatory.
@@ -165,6 +185,42 @@ $.post(url, JSON.stringify(microtx)).then(function(tmptx) {
 >   ],
 >   "fees": 735
 > }
+```
+
+
+```php
+<?php
+// Run on console:
+// php -f .\sample\microtransaction-api\CreateSignAndSendMicrotransactionEndpoint.php
+
+$microTX = new MicroTX();
+$microTX->setFromPubkey("02d4e3404e175923adf89c932fab96758716f6a0a896890f2494c5d9141eb3f543")
+    ->setToAddress("C4MYFr4EAdqEeUKxTnPUF3d3whWcPMz1Fi")
+    ->setValueSatoshis(10000)
+    ->create($apiContext)
+    ->sign("2c2cc015519b79782bd9c5af66f442e808f573714e3c4dc6df7d79c183963cff")
+    ->send($apiContext);
+
+{
+  "from_pubkey":"02d4e3404e175923adf89c932fab96758716f6a0a896890f2494c5d9141eb3f543",
+  "to_address":"C4MYFr4EAdqEeUKxTnPUF3d3whWcPMz1Fi",
+  "value_satoshis":10000,
+  "tosign":[
+    "488e6defc3f3d26a20505730a1c64b8a3499e225f1bbd8a0e1b51b38251eed0a"
+  ],
+  "token":"c0afcccdde5081d6429de37d16166ead",
+  "inputs":[
+    ...
+  ],
+  "outputs":[
+    ...
+  ],
+  "fees":735,
+  "signatures":[
+    "3045022100f99bef2add7d1fd9c...d6d64d8ae19ec090373"
+  ],
+  "hash":"7fc9e41e6ef29486bc4478ff063934ea9a1ecd08bbfb0a207b39ad92fe55bebf"
+}
 ```
 
 ### Via Public Keys and Client-side Signing
