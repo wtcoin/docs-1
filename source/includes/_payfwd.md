@@ -46,6 +46,15 @@ $.post(url, JSON.stringify(payment))
 }
 ```
 
+```ruby
+> block_cypher.create_forwarding_address("15qx9ug952GWGTNn7Uiv6vode4RcGrRemh", callback_url: "https://my.domain.com/callbacks/new-pay")
+=> {"id"=>"72811fff-7826-4b04-8f99-4f492e84aeaa",
+ "token"=>"YOURTOKEN",
+ "destination"=>"15qx9ug952GWGTNn7Uiv6vode4RcGrRemh",
+ "input_address"=>"1Php2ZGrEtm5gUaEZNmTtUabmBei6zj9nP",
+ "callback_url"=>"https://my.domain.com/callbacks/new-pay"}
+```
+
 ```python
 >>> import requests, json
 >>> data = {"destination":"15qx9ug952GWGTNn7Uiv6vode4RcGrRemh","callback_url": "https://my.domain.com/callbacks/new-pay"}
@@ -88,7 +97,7 @@ Resource | Method | Request Object | Return Object
 In return, you'll get a more complete [PaymentForward](#PaymentForward) object, including an **input_address** and **id**.
 
 <aside class="notice">
-If you decide to have a <b>callback_url</b>, you'll receive a payload at that url whenever a payment is made to the <b>input_address</b>. The payload will come in the form of a <a href="paymentforwardcallback">PaymentForwardCallback</a> object.
+If you decide to have a <b>callback_url</b>, you'll receive a payload at that url whenever a payment is made to the <b>input_address</b>. The payload will come in the form of a <a href="#paymentforwardcallback">PaymentForwardCallback</a> object.
 </aside>
 
 ## List Payments Endpoint
@@ -119,6 +128,15 @@ $.get('http://api.blockcypher.com/v1/btc/main/payments?token='+TOKEN)
 	"token": "YOURTOKEN"
 	}
 ]
+```
+
+```ruby
+> block_cypher.list_forwarding_addresses
+=> [{"id"=>"72811fff-7826-4b04-8f99-4f492e84aeaa",
+  "token"=>"YOURTOKEN",
+  "destination"=>"15qx9ug952GWGTNn7Uiv6vode4RcGrRemh",
+  "input_address"=>"1Php2ZGrEtm5gUaEZNmTtUabmBei6zj9nP",
+  "callback_url"=>"https://my.domain.com/callbacks/new-pay"}]
 ```
 
 ```python
@@ -176,8 +194,12 @@ $.ajax({
 });
 ```
 
+```ruby
+> block_cypher.delete_forwarding_address("72811fff-7826-4b04-8f99-4f492e84aeaa")
+=> nil
+```
+
 ```python
-# Fund existing address with faucet
 >>> import requests
 >>> params = {'token': 'YOUR_TOKEN'}
 >>> r = requests.delete('http://api.blockcypher.com/v1/btc/main/payments/f35c80c2-3347-410d-b4ac-d049910289ec', params=params)

@@ -45,6 +45,24 @@ $.get('https://api.blockcypher.com/v1/btc/main').then(function(d) {console.log(d
 > }
 ```
 
+```ruby
+> block_cypher.blockchain
+=> {"name"=>"BTC.main",
+ "height"=>361218,
+ "hash"=>"00000000000000000be2dca8e5336b01454fa032635a6f92d6adf0b98cdc6324",
+ "time"=>"2015-06-16T19:53:57.157318741Z",
+ "latest_url"=>"https://api.blockcypher.com/v1/btc/main/blocks/00000000000000000be2dca8e5336b01454fa032635a6f92d6adf0b98cdc6324",
+ "previous_hash"=>"00000000000000000c2f3f4b87214d1791289820f9f7b696d7484987a073f567",
+ "previous_url"=>"https://api.blockcypher.com/v1/btc/main/blocks/00000000000000000c2f3f4b87214d1791289820f9f7b696d7484987a073f567",
+ "peer_count"=>260,
+ "unconfirmed_count"=>4442,
+ "high_fee_per_kb"=>45494,
+ "medium_fee_per_kb"=>24444,
+ "low_fee_per_kb"=>12301,
+ "last_fork_height"=>360362,
+ "last_fork_hash"=>"000000000000000002d5cf67bfaa92ba5b371c1590eb48d25031c669ef6233a0"}
+```
+
 ```python
 >>> import requests
 >>> r = requests.get('https://api.blockcypher.com/v1/btc/main')
@@ -170,6 +188,37 @@ $.get('https://api.blockcypher.com/v1/btc/main/blocks/0000000000000000189bba3564
 > }
 ```
 
+```ruby
+> block_cypher.blockchain_block("0000000000000000189bba3564a63772107b5673c940c16f12662b3e8546b412")
+=> {"hash"=>"0000000000000000189bba3564a63772107b5673c940c16f12662b3e8546b412",
+ "height"=>294322,
+ "chain"=>"BTC.main",
+ "total"=>1146652915,
+ "fees"=>130999,
+ "ver"=>2,
+ "time"=>"2014-04-05T07:49:18Z",
+ "received_time"=>"2014-04-05T07:49:18Z",
+ "bits"=>419486617,
+ "nonce"=>1225187768,
+ "n_tx"=>10,
+ "prev_block"=>"0000000000000000ced0958bd27720b71d32c5847e40660aaca39f33c298abb0",
+ "mrkl_root"=>"359d624d37aee1efa5662b7f5dbc390e996d561afc8148e8d716cf6ad765a952",
+ "txids"=>
+  ["32b3b86e40d996b1f281e24e8d4af2ceacbf874c4038369cc21baa807409b277",
+   "1579f716359ba1a207f70248135f5e5fadf539be1dcf5300613aedcb6577d287",
+   "dd1f183348eb41eaaa9ecf8012f9cca3ecbae41a6349f0cc4bfd2b1a497fa3d0",
+   "749d12ccd180968b82aef4c271ca4effdf981d9b5d12523264457c9d4e6fa78e",
+   "c4fe2ee16b8e3067d3d95caf7944011f4959781288b807df8bf853b7f80ed97c",
+   "5a2114675265522d2b7ce8a7874cfa7a22ccc3fb6566a8599d6432c6805b1b5f",
+   "077d851c8240671de80caa8be9f5285201c08a70edc5a45a9cd35fe7eaebf5e1",
+   "6202cc55fbd9130e065c9294a5b2e061c26f3d2c8df56c32da605d9f183103f9",
+   "ad3e7aa1c33f1d3e1c105d94f7b1542808da07bbe66b9621b050104a85dbf650",
+   "36cc61016b9d1bd69768666f287db1edaa9b292fb442f152af7099305677230e"],
+ "depth"=>66905,
+ "prev_block_url"=>"https://api.blockcypher.com/v1/btc/main/blocks/0000000000000000ced0958bd27720b71d32c5847e40660aaca39f33c298abb0",
+ "tx_url"=>"https://api.blockcypher.com/v1/btc/main/txs/"}
+```
+
 ```python
 >>> import requests
 >>> r = requests.get('https://api.blockcypher.com/v1/btc/main/blocks/0000000000000000189bba3564a63772107b5673c940c16f12662b3e8546b412')
@@ -194,7 +243,6 @@ $.get('https://api.blockcypher.com/v1/btc/main/blocks/0000000000000000189bba3564
  'fees': 130999,
  'bits': 419486617,
  'time': '2014-04-05T07:49:18Z'}
->>>>>>> master
 ```
 
 ```php
@@ -313,8 +361,29 @@ $.get('https://api.blockcypher.com/v1/btc/main/blocks/294322?txstart=1&limit=1')
 > }
 ```
 
+```ruby
+> block_cypher.blockchain_block("294322", {"txstart"=>1,"limit"=>1})
+=> {"hash"=>"0000000000000000189bba3564a63772107b5673c940c16f12662b3e8546b412",
+ "height"=>294322,
+ "chain"=>"BTC.main",
+ "total"=>1146652915,
+ "fees"=>130999,
+ "ver"=>2,
+ "time"=>"2014-04-05T07:49:18Z",
+ "received_time"=>"2014-04-05T07:49:18Z",
+ "bits"=>419486617,
+ "nonce"=>1225187768,
+ "n_tx"=>10,
+ "prev_block"=>"0000000000000000ced0958bd27720b71d32c5847e40660aaca39f33c298abb0",
+ "mrkl_root"=>"359d624d37aee1efa5662b7f5dbc390e996d561afc8148e8d716cf6ad765a952",
+ "txids"=>["1579f716359ba1a207f70248135f5e5fadf539be1dcf5300613aedcb6577d287"],
+ "depth"=>66905,
+ "prev_block_url"=>"https://api.blockcypher.com/v1/btc/main/blocks/0000000000000000ced0958bd27720b71d32c5847e40660aaca39f33c298abb0",
+ "tx_url"=>"https://api.blockcypher.com/v1/btc/main/txs/",
+ "next_txids"=>"https://api.blockcypher.com/v1/btc/main/blocks/0000000000000000189bba3564a63772107b5673c940c16f12662b3e8546b412?txstart=2&limit=1"}
+```
+
 ```python
-# Fund existing address with faucet
 >>> import requests
 >>> params = {'txstart': 1, 'limit': 1}
 >>> r = requests.get('https://api.blockcypher.com/v1/btc/main/blocks/294322', params=params)

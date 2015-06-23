@@ -4,6 +4,7 @@ title: BlockCypher Reference
 language_tabs:
   - shell: cURL
   - javascript: JavaScript
+  - ruby: Ruby
   - python: Python
   - php: PHP
 
@@ -38,6 +39,20 @@ includes:
 //                    /  |             
 ```
 
+```ruby
+#  _               _                  
+# |_) |  _   _ |  /     ._  |_   _  ._
+# |_) | (_) (_ |< \_ \/ |_) | | (/_ | 
+#                    /  |             
+```
+
+```python
+//  _               _                  
+// |_) |  _   _ |  /     ._  |_   _  ._
+// |_) | (_) (_ |< \_ \/ |_) | | (/_ | 
+//                    /  |             
+```
+
 ```php
 <?php
 /**
@@ -46,7 +61,6 @@ includes:
  * |_) | (_) (_ |< \_ \/ |_) | | (/_ |
  *                    /  |
  */
-
 ```
 
 Welcome to [BlockCypher's](http://www.blockcypher.com/) API documentation! BlockCypher is a simple, mostly RESTful JSON API for interacting with blockchains, accessed over HTTP or HTTPS from the [api.blockcypher.com](https://api.blockcypher.com/v1/btc/main) domain. Currently, BlockCypher supports Bitcoin, Bitcoin Testnet3, Litecoin, Dogecoin, Urocoin, and BlockCypher's Test Chain (more about BlockCypher's Test Chain [below](#testing)).
@@ -71,6 +85,19 @@ curl is a tool to transfer data from or to a server, using one of the supported 
 // request.js for example.
 
 console.log('Welcome to BlockCypher');
+```
+
+```ruby
+# Ruby examples use irb, and our official ruby sdk:
+# https://github.com/blockcypher/ruby-client
+
+# Remember to require the library after installing
+> require 'blockcypher'
+=> true
+
+# Unless otherwise noted, all requests assume an initialized API 'block_cypher' API object
+> block_cypher = BlockCypher::Api.new(api_token:"YOURTOKEN")
+=> #<BlockCypher::Api:0x000000010e4060 @api_token="YOURTOKEN", @currency="btc", @network="main", @version="v1">
 ```
 
 ```python
@@ -216,6 +243,33 @@ $.get('https://api.blockcypher.com/v1/btc/main').then(function(d) {console.log(d
 > }
 ```
 
+```ruby
+# Import Ruby SDK
+> require 'blockcypher'
+=> true
+
+# Make new Api object, intialize with your token
+> block_cypher = BlockCypher::Api.new(api_token:"YOURTOKEN")
+=> #<BlockCypher::Api:0x000000010e4060 @api_token="YOURTOKEN", @currency="btc", @network="main", @version="v1">
+
+# Query base resource
+> block_cypher.blockchain
+=> {"name"=>"BTC.main",
+ "height"=>361218,
+ "hash"=>"00000000000000000be2dca8e5336b01454fa032635a6f92d6adf0b98cdc6324",
+ "time"=>"2015-06-16T19:53:57.157318741Z",
+ "latest_url"=>"https://api.blockcypher.com/v1/btc/main/blocks/00000000000000000be2dca8e5336b01454fa032635a6f92d6adf0b98cdc6324",
+ "previous_hash"=>"00000000000000000c2f3f4b87214d1791289820f9f7b696d7484987a073f567",
+ "previous_url"=>"https://api.blockcypher.com/v1/btc/main/blocks/00000000000000000c2f3f4b87214d1791289820f9f7b696d7484987a073f567",
+ "peer_count"=>260,
+ "unconfirmed_count"=>4442,
+ "high_fee_per_kb"=>45494,
+ "medium_fee_per_kb"=>24444,
+ "low_fee_per_kb"=>12301,
+ "last_fork_height"=>360362,
+ "last_fork_hash"=>"000000000000000002d5cf67bfaa92ba5b371c1590eb48d25031c669ef6233a0"}
+```
+
 ```python
 >>> import requests
 >>> r = requests.get('https://api.blockcypher.com/v1/btc/main')
@@ -320,6 +374,16 @@ const TOKEN = 'YOUR_TOKEN';
 $.get('https://api.blockcypher.com/v1/btc/main?token='+TOKEN);
 ```
 
+```ruby
+# Import Ruby SDK
+> require 'blockcypher'
+=> true
+
+# Make new Api object, intialize with your token
+> block_cypher = BlockCypher::Api.new(api_token:"YOURTOKEN")
+=> #<BlockCypher::Api:0x000000010e4060 @api_token="YOURTOKEN", @currency="btc", @network="main", @version="v1">
+```
+
 ```python
 # Adding your token as URL parameter
 >>> import requests
@@ -421,6 +485,35 @@ $.get('https://api.blockcypher.com/v1/btc/main/blocks/5;6;7')
 > "time": "2009-01-09T03:39:29Z",
 > ...,
 > }]
+```
+
+```ruby
+# Batching blocks 5, 6, and 7
+> block_cypher.blockchain_block('5;6;7')
+=> [{"hash"=>"0000000071966c2b1d065fd446b1e485b2c9d9594acd2007ccbd5441cfc89444",
+  "height"=>7,
+  "chain"=>"BTC.main",
+  "total"=>0,
+  "fees"=>0,
+  "ver"=>1,
+  "time"=>"2009-01-09T03:39:29Z",
+  ...},
+ {"hash"=>"000000003031a0e73735690c5a1ff2a4be82553b2a12b776fbd3a215dc8f778d",
+  "height"=>6,
+  "chain"=>"BTC.main",
+  "total"=>0,
+  "fees"=>0,
+  "ver"=>1,
+  "time"=>"2009-01-09T03:29:49Z",
+  ...},
+ {"hash"=>"000000009b7262315dbf071787ad3656097b892abffd1f95a1a022f896f533fc",
+  "height"=>5,
+  "chain"=>"BTC.main",
+  "total"=>0,
+  "fees"=>0,
+  "ver"=>1,
+  "time"=>"2009-01-09T03:23:48Z",
+  ...}]
 ```
 
 ```python
@@ -611,6 +704,23 @@ $.post('http://api.blockcypher.com/v1/bcy/test/faucet?token=$YOUR_TOKEN', req)
 > {
 >   "tx_ref": "02dbf5585d438a1cba82a9041dd815635a6b0df684225cb5271e11397a759479"
 > }
+```
+
+```ruby
+# Create new api object on BlockCypher Testnet
+> bc_test = BlockCypher::Api.new(currency:BlockCypher::BCY, network:BlockCypher::TEST_NET, api_token:"YOURTOKEN")
+=> #<BlockCypher::Api:0x000000030169b0 @api_token="YOURTOKEN", @currency="bcy", @network="test", @version="v1">
+
+# Generate new test address
+> bc_test.address_generate
+=> {"private"=>"5a3675bbc7e24e63224bff60a3850a77d5a494419735e3b94173eac5379437c9",
+ "public"=>"0311ab9780760dd8c5d2d9319f1eee9c9328eddd503d0b86e3af253b1665638b8a",
+ "address"=>"Bv6rJzFmSg41nhibjfEfqSeeb2Te1Hh3FG",
+ "wif"=>"BrMPimGAWyUUuGduxHZi1Q9n9Nveunton8sC5ouZeJp6EhKNaAcZ"}
+
+# Fund with faucet
+> bc_test.faucet("Bv6rJzFmSg41nhibjfEfqSeeb2Te1Hh3FG", 1000000)
+=> {"tx_ref"=>"59ddf03d9e292da5b3160e6ac341c9773873b693203c799a4ba8a4e05ef5a0d7"}
 ```
 
 ```python
