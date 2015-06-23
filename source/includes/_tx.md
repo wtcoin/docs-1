@@ -1535,6 +1535,66 @@ $.post('https://api.blockcypher.com/v1/bcy/test/txs/decode', JSON.stringify(deco
  'confirmations': 0}
 ```
 
+```php
+<?php
+// Run on console:
+// php -f .\sample\transaction-api\DecodeRawTransactionEndpoint.php
+
+$hexRawTx = "01000000011935b41d12936df99d322ac8972b74ecff7b79408bbccaf1b2eb8015228beac8000000006b483045022100921fc36b911094280f07d8504a80fbab9b823a25f102e2bc69b14bcd369dfc7902200d07067d47f040e724b556e5bc3061af132d5a47bd96e901429d53c41e0f8cca012102152e2bb5b273561ece7bbe8b1df51a4c44f5ab0bc940c105045e2cc77e618044ffffffff0240420f00000000001976a9145fb1af31edd2aa5a2bbaa24f6043d6ec31f7e63288ac20da3c00000000001976a914efec6de6c253e657a9d5506a78ee48d89762fb3188ac00000000";
+
+$tx = TX::decode($hexRawTx, array(), $apiContext);
+
+{
+  "block_height":-1,
+  "hash":"4e6dfb1415b4fba5bd257c129847c70fbd4e45e41828079c4a282680528f3a50",
+  "addresses":[
+    "1NsbjF7mCvxa9sdCwRyeZ8qqvWMWuAyjtg",
+    "19iz3x4d4Wm4rgav33KmbuRjots6r1K9Wg"
+  ],
+  "total":4988000,
+  "fees":0,
+  "size":226,
+  "preference":"low",
+  "relayed_by":"",
+  "received":"0001-01-01T00:00:00Z",
+  "ver":1,
+  "lock_time":0,
+  "double_spend":false,
+  "vin_sz":1,
+  "vout_sz":2,
+  "confirmations":0,
+  "inputs":[
+    {
+      "prev_hash":"c8ea8b221580ebb2f1cabc8b40797bffec742b97c82a329df96d93121db43519",
+      "output_index":0,
+      "script":"483045022100921fc36b9110942...44f5ab0bc940c105045e2cc77e618044",
+      "output_value":0,
+      "sequence":4294967295,
+      "script_type":"empty",
+      "age":0
+    }
+  ],
+  "outputs":[
+    {
+      "value":1000000,
+      "script":"76a9145fb1af31edd2aa5a2bbaa24f6043d6ec31f7e63288ac",
+      "addresses":[
+        "19iz3x4d4Wm4rgav33KmbuRjots6r1K9Wg"
+      ],
+      "script_type":"pay-to-pubkey-hash"
+    },
+    {
+      "value":3988000,
+      "script":"76a914efec6de6c253e657a9d5506a78ee48d89762fb3188ac",
+      "addresses":[
+        "1NsbjF7mCvxa9sdCwRyeZ8qqvWMWuAyjtg"
+      ],
+      "script_type":"pay-to-pubkey-hash"
+    }
+  ]
+}
+```
+
 We also offer the ability to decode raw transactions without sending propagating them to the network; perhaps you want to double-check another client library or confirm that another service is sending proper transactions. 
 
 Resource | Method | Request Object | Return Object
