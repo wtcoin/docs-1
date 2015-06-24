@@ -1325,6 +1325,69 @@ $.post('https://api.blockcypher.com/v1/bcy/test/txs/send', JSON.stringify(pushtx
 }
 ```
 
+```php
+<?php
+// Run on console:
+// php -f .\sample\transaction-api\PushRawTransactionEndpoint.php
+
+$hexRawTx = "01000000011935b41d12936df99d322ac8972b74ecff7b79408bbccaf1b2eb8015228beac8000000006b483045022100921fc36b911094280f07d8504a80fbab9b823a25f102e2bc69b14bcd369dfc7902200d07067d47f040e724b556e5bc3061af132d5a47bd96e901429d53c41e0f8cca012102152e2bb5b273561ece7bbe8b1df51a4c44f5ab0bc940c105045e2cc77e618044ffffffff0240420f00000000001976a9145fb1af31edd2aa5a2bbaa24f6043d6ec31f7e63288ac20da3c00000000001976a914efec6de6c253e657a9d5506a78ee48d89762fb3188ac00000000";
+
+$tx = TX::push($hexRawTx, array(), $apiContext);
+
+{
+  "block_height": -1,
+  "hash": "4e6dfb1415b4fba5bd257c129847c70fbd4e45e41828079c4a282680528f3a50",
+  "addresses": [
+    "CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9",
+    "C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn"
+  ],
+  "total": 4988000,
+  "fees": 12000,
+  "size": 226,
+  "preference": "high",
+  "relayed_by": "73.162.198.68",
+  "received": "2015-05-22T05:10:00.305308666Z",
+  "ver": 1,
+  "lock_time": 0,
+  "double_spend": false,
+  "vin_sz": 1,
+  "vout_sz": 2,
+  "confirmations": 0,
+  "inputs": [
+    {
+      "prev_hash": "c8ea8b221580ebb2f1cabc8b40797bffec742b97c82a329df96d93121db43519",
+      "output_index": 0,
+      "script": "483045022100921fc36b911094280f07d8504a80fbab9b823a25f102e2bc69b14bcd369dfc7902200d07067d47f040e724b556e5bc3061af132d5a47bd96e901429d53c41e0f8cca012102152e2bb5b273561ece7bbe8b1df51a4c44f5ab0bc940c105045e2cc77e618044",
+      "output_value": 5000000,
+      "sequence": 4294967295,
+      "addresses": [
+        "CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"
+      ],
+      "script_type": "pay-to-pubkey-hash",
+      "age": 576
+    }
+  ],
+  "outputs": [
+    {
+      "value": 1000000,
+      "script": "76a9145fb1af31edd2aa5a2bbaa24f6043d6ec31f7e63288ac",
+      "addresses": [
+        "C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn"
+      ],
+      "script_type": "pay-to-pubkey-hash"
+    },
+    {
+      "value": 3988000,
+      "script": "76a914efec6de6c253e657a9d5506a78ee48d89762fb3188ac",
+      "addresses": [
+        "CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"
+      ],
+      "script_type": "pay-to-pubkey-hash"
+    }
+  ]
+}
+```
+
 If you'd prefer to use your own transaction library instead of the recommended path of our two-endpoint [transaction generation](#creating-transactions) we're still happy to help you propagate your raw transactions. Simply send your raw hex-encoded transaction to this endpoint and we'll leverage our huge network of nodes to propagate your transaction faster than anywhere else.
 
 Resource | Method | Request Object | Return Object
