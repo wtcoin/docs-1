@@ -272,7 +272,7 @@ We want everyone to try BlockCypher with as little friction as possible, which i
 If you exceed these limits as a non-registered user, your requests will return an HTTP Status Code 429!
 </aside>
 
-Please [register for a user token](http://acccounts.blockcypher.com/) if your usage exceeds those limits, or if you want to preventively avoid the rate limits. Our future pricing plan will be tiered based on usage and volume. We will have a free tier and an extended free plan for our early users. To request higher limits or SLAs, please [email us.](mailto:contact@blockcypher.com)
+Please [register for a user token](http://accounts.blockcypher.com/) if your usage exceeds those limits, or if you want to preventively avoid the rate limits. Our future pricing plan will be tiered based on usage and volume. We will have a free tier and an extended free plan for our early users. To request higher limits or SLAs, please [email us.](mailto:contact@blockcypher.com)
 
 ```shell
 # Adding your token as URL parameter
