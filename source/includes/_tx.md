@@ -1709,6 +1709,32 @@ payload = JSON.parse('{ "inputs": [{"addresses": [sourceAddr]}],
 }')
 ```
 
+```php
+<?php
+// Run on console:
+// php -f .\sample\transaction-api\CreateTxToFundMultisignAddrWithBuilderEndpoint.php
+// Builder classes are optional, see CreateTxToFundMultisignAddrEndpoint.php to see a sample using only base API classes.
+
+$input = TXInputBuilder::aTXInput()
+    ->addAddress("n3D2YXwvpoPg8FhcWpzJiS3SvKKGD8AXZ4")
+    ->build();
+
+$output = TXOutputBuilder::aTXOutput()
+    ->withScryptType("multisig-2-of-3")
+    ->withValue(1000)
+    ->addAddress("03798be8162d7d6bc5c4e3b236100fcc0dfee899130f84c97d3a49faf83450fd81")
+    ->addAddress("03dd9f1d4a39951013b4305bf61887ada66439ab84a9a2f8aca9dc736041f815f1")
+    ->addAddress("03c8e6e99c1d0b42120d5cf40c963e5e8048fd2d2a184758784a041a9d101f1f02")
+    ->build();
+
+$tx = TXBuilder::aTX()
+    ->addTXInput($input)
+    ->addTXOutput($output)
+    ->build();
+
+$txSkeleton = $tx->create($apiContext);
+```
+
 Multisignature transactions are made simple by the method described in the [Creating Transactions](#creating-transactions) section, but they deserve special mention. In order to use them, you first need to fund a multisignature address. You use the `/txs/new` endpoint as before, but instead of the **outputs** **addresses** array containing public addresses, it instead contains the public keys associated with the new address. In addition, you must select a **script_type** of *mutlisig-n-of-m*, where *n* and *m* are numbers (e.g., *multisig-2-of-3*). The code example demonstrates how the partially filled [TX request object](#tx) would appear.
 
 After you've set up your request object, you send to `/txs/new` and receive a partially filled [TXSkeleton](#txskeleton) as before, but with data to sign from the source address. Sign this data and include the public key(s) of the source address---as demonstrated in the [Creating Transactions](#creating-transactions)---then send along to the `/txs/send` endpoint. If it returns with an HTTP Status Code 201, then your multisignature address (via a *pay-to-script-hash* address) is funded.
@@ -1759,6 +1785,32 @@ payload = JSON.parse('{ "inputs": [{
 		"addresses" : [destAddr],
 		"value"     : 150000
 	}] }')
+```
+
+```php
+<?php
+// Run on console:
+// php -f .\sample\transaction-api\CreateTxToSpendMultisignFundsWithBuilderEndpoint.php
+// Builder classes are optional, see CreateTxToSpendMultisignFunds.php to see a sample using only base API classes.
+
+$input = TXInputBuilder::aTXInput()
+    ->addAddress("03798be8162d7d6bc5c4e3b236100fcc0dfee899130f84c97d3a49faf83450fd81")
+    ->addAddress("03dd9f1d4a39951013b4305bf61887ada66439ab84a9a2f8aca9dc736041f815f1")
+    ->addAddress("03c8e6e99c1d0b42120d5cf40c963e5e8048fd2d2a184758784a041a9d101f1f02")
+    ->withScryptType("multisig-2-of-3")
+    ->build();
+
+$output = TXOutputBuilder::aTXOutput()
+    ->addAddress("n3D2YXwvpoPg8FhcWpzJiS3SvKKGD8AXZ4")
+    ->withValue(1000)
+    ->build();
+
+$tx = TXBuilder::aTX()
+    ->addTXInput($input)
+    ->addTXOutput($output)
+    ->build();
+
+$txSkeleton = $tx->create($apiContext);
 ```
 
 Once funded, you might want to programmatically spend the money in the address at some point. Here the process is similar, but with the inputs and outputs reversed. As you can see in the code sample, you need to provide the public keys within the **inputs** **addresses** array, and the corresponding **script_type** of *multisig-n-of-m* (e.g., *multisig-2-of-3*). Then you follow the same process of sending to `/txs/new` and getting an array of data to be signed.
