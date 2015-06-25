@@ -154,23 +154,23 @@ Currently, we only have cURL, JavaScript, and Python code samples on this page, 
 
 ### Section Summaries
 
-- [Objects](#objects): An overview of all the objects in the API, alongside detailed descriptions of every field.
-- [Blockchain API](#blockchain-api): Endpoints to query general information about a blockchain and its blocks.
-- [Address API](#address-api): Query information about addresses, generate addresses, and build/query multiple-address-watching wallets.
-- [Transaction API](#transaction-api): Information about transactions, how to generate/send your own, and how to embed data into the blockchain.
-- [Microtransaction API](#microtransaction-api): Send on-chain microtransactions while BlockCypher covers your initial mining fees, and low computed fees afterwards.
-- [Confidence Factor](#confidence-factor): Get an accurate measure of the likelihood of a successful double-spend against your unconfirmed transactions.
-- [Payment Forwarding](#payment-forwarding): Create one-time addresses that will automatically forward to an address of your choosing, while optionally adding processing fees.
-- [Events and Hooks](#events-and-hooks): Reliable notifications system for a wide variety of events on blockchains, available through WebHooks or WebSockets.
+- [Objects:](#objects) An overview of all the objects in the API, alongside detailed descriptions of every field.
+- [Blockchain API:](#blockchain-api) Endpoints to query general information about a blockchain and its blocks.
+- [Address API:](#address-api) Query information about addresses, generate addresses, and build/query multiple-address-watching wallets.
+- [Transaction API:](#transaction-api) Information about transactions, how to generate/send your own, and how to embed data into the blockchain.
+- [Microtransaction API:](#microtransaction-api) Send on-chain microtransactions while BlockCypher covers your initial mining fees, and low computed fees afterwards.
+- [Confidence Factor:](#confidence-factor) Get an accurate measure of the likelihood of a successful double-spend against your unconfirmed transactions.
+- [Payment Forwarding:](#payment-forwarding) Create one-time addresses that will automatically forward to an address of your choosing, while optionally adding processing fees.
+- [Events and Hooks:](#events-and-hooks) Reliable notifications system for a wide variety of events on blockchains, available through WebHooks or WebSockets.
 
 ### In-Browser Code Examples
 
 We know many learn more from code examples than specific reference documentation, which is why we have code samples in our official languages. In addition, we have a number of in-browser code examples for particular use cases, which you can see here:
 
-- <a href="/data/samples/browse-chain.html" target="_blank">Browse the Blockchain</a>
-- <a href="/data/samples/nodejs-webhook.html" target="_blank">Using WebHooks</a>
-- <a href="/data/samples/create-tx.html" target="_blank">Sending a Simple Transaction</a>
-- <a href="/data/samples/multisig-tx.html" target="_blank">Create Multisig Transactions</a>
+- [Browse the Blockchain](/data/samples/browse-chain.html)
+- [Using WebHooks](/data/samples/nodejs-webhook.html)
+- [Sending a Simple Transaction](/data/samples/create-tx.html)
+- [Create Multisig Transactions](/data/samples/multisig-tx.html)
 
 ### Changelog and Errors
 
@@ -199,8 +199,8 @@ If you're using these languages, we strongly encourage you to use an official SD
 
 These client SDKs were made by members of the community, and are not officially supported by BlockCypher. As such, BlockCypher cannot guarantee that they're fully up to date, but we hope they will provide a nice jumping-off point for developers using these languages. We'll endeavor to keep this list updated, if any of these prove obsolete. If there's enough support for a particular language, we'll work with the community to turn it into an officially supported SDK.
 
-- **.NET**: [https://github.com/bscheiman/BlockCypher](https://github.com/bscheiman/BlockCypher)
-- **Go**: [https://github.com/acityinohio/blockcy](https://github.com/acityinohio/blockcy)
+- **.NET** [https://github.com/bscheiman/BlockCypher](https://github.com/bscheiman/BlockCypher)
+- **Go** [https://github.com/acityinohio/blockcy](https://github.com/acityinohio/blockcy)
 
 ## RESTful Resources
 
@@ -361,7 +361,7 @@ We want everyone to try BlockCypher with as little friction as possible, which i
 If you exceed these limits as a non-registered user, your requests will return an HTTP Status Code 429!
 </aside>
 
-Please [register for a user token](http://acccounts.blockcypher.com/) if your usage exceeds those limits, or if you want to preventively avoid the rate limits. Our future pricing plan will be tiered based on usage and volume. We will have a free tier and an extended free plan for our early users. To request higher limits or SLAs, please [email us.](mailto:contact@blockcypher.com)
+Please [register for a user token](http://accounts.blockcypher.com/) if your usage exceeds those limits, or if you want to preventively avoid the rate limits. Our future pricing plan will be tiered based on usage and volume. We will have a free tier and an extended free plan for our early users. To request higher limits or SLAs, please [email us.](mailto:contact@blockcypher.com)
 
 ```shell
 # Adding your token as URL parameter
@@ -731,7 +731,6 @@ $.post('http://api.blockcypher.com/v1/bcy/test/faucet?token=$YOUR_TOKEN', req)
 >>> r = requests.post('http://api.blockcypher.com/v1/bcy/test/faucet', data=json.dumps(data), params=params)
 >>> r.json()
 {'tx_ref': 'b2ecfb5e40f3923b07819f1a386a538e86cc6ce59ae7a59533df487f622d1cbb'}
-
 ```
 
 ```php
@@ -800,3 +799,4 @@ You need <a href="https://accounts.blockcypher.com/">a token</a> to use test fau
 <aside class="warning">
 On the BlockCypher Test Chain, the faucet will refuse to fund an address with more than 50 billion BlockCypher satoshis and will not fund more than 10 million BlockCypher satoshis at a time. On Bitcoin Testnet3 those numbers are adjusted to 10 million and 500,000 testnet satoshis respectively.
 </aside>
+
