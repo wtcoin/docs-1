@@ -80,6 +80,10 @@ console.log('Welcome to BlockCypher');
 # Ruby examples use irb, and our official ruby sdk:
 # https://github.com/blockcypher/ruby-client
 
+# You can install it easily from rubygems.org:
+# https://rubygems.org/gems/blockcypher-ruby
+gem install blockcypher-ruby
+
 # Remember to require the library after installing
 > require 'blockcypher'
 => true
