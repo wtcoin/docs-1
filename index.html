@@ -116,14 +116,14 @@ Currently, we only have cURL, JavaScript, and Python code samples on this page, 
 <h3 id="section-summaries">Section Summaries</h3>
 
 <ul>
-<li><a href="#objects">Objects</a>: An overview of all the objects in the API, alongside detailed descriptions of every field.</li>
-<li><a href="#blockchain-api">Blockchain API</a>: Endpoints to query general information about a blockchain and its blocks.</li>
-<li><a href="#address-api">Address API</a>: Query information about addresses, generate addresses, and build/query multiple-address-watching wallets.</li>
-<li><a href="#transaction-api">Transaction API</a>: Information about transactions, how to generate/send your own, and how to embed data into the blockchain.</li>
-<li><a href="#microtransaction-api">Microtransaction API</a>: Send on-chain microtransactions while BlockCypher covers your initial mining fees, and low computed fees afterwards.</li>
-<li><a href="#confidence-factor">Confidence Factor</a>: Get an accurate measure of the likelihood of a successful double-spend against your unconfirmed transactions.</li>
-<li><a href="#payment-forwarding">Payment Forwarding</a>: Create one-time addresses that will automatically forward to an address of your choosing, while optionally adding processing fees.</li>
-<li><a href="#events-and-hooks">Events and Hooks</a>: Reliable notifications system for a wide variety of events on blockchains, available through WebHooks or WebSockets.</li>
+<li><a href="#objects">Objects:</a> An overview of all the objects in the API, alongside detailed descriptions of every field.</li>
+<li><a href="#blockchain-api">Blockchain API:</a> Endpoints to query general information about a blockchain and its blocks.</li>
+<li><a href="#address-api">Address API:</a> Query information about addresses, generate addresses, and build/query multiple-address-watching wallets.</li>
+<li><a href="#transaction-api">Transaction API:</a> Information about transactions, how to generate/send your own, and how to embed data into the blockchain.</li>
+<li><a href="#microtransaction-api">Microtransaction API:</a> Send on-chain microtransactions while BlockCypher covers your initial mining fees, and low computed fees afterwards.</li>
+<li><a href="#confidence-factor">Confidence Factor:</a> Get an accurate measure of the likelihood of a successful double-spend against your unconfirmed transactions.</li>
+<li><a href="#payment-forwarding">Payment Forwarding:</a> Create one-time addresses that will automatically forward to an address of your choosing, while optionally adding processing fees.</li>
+<li><a href="#events-and-hooks">Events and Hooks:</a> Reliable notifications system for a wide variety of events on blockchains, available through WebHooks or WebSockets.</li>
 </ul>
 
 <h3 id="in-browser-code-examples">In-Browser Code Examples</h3>
@@ -131,10 +131,10 @@ Currently, we only have cURL, JavaScript, and Python code samples on this page, 
 <p>We know many learn more from code examples than specific reference documentation, which is why we have code samples in our official languages. In addition, we have a number of in-browser code examples for particular use cases, which you can see here:</p>
 
 <ul>
-<li><a href="/data/samples/browse-chain.html" target="_blank">Browse the Blockchain</a></li>
-<li><a href="/data/samples/nodejs-webhook.html" target="_blank">Using WebHooks</a></li>
-<li><a href="/data/samples/create-tx.html" target="_blank">Sending a Simple Transaction</a></li>
-<li><a href="/data/samples/multisig-tx.html" target="_blank">Create Multisig Transactions</a></li>
+<li><a href="data/samples/browse-chain.html">Browse the Blockchain</a></li>
+<li><a href="data/samples/nodejs-webhook.html">Using WebHooks</a></li>
+<li><a href="data/samples/create-tx.html">Sending a Simple Transaction</a></li>
+<li><a href="data/samples/multisig-tx.html">Create Multisig Transactions</a></li>
 </ul>
 
 <h3 id="changelog-and-errors">Changelog and Errors</h3>
@@ -169,8 +169,8 @@ Currently, we only have cURL, JavaScript, and Python code samples on this page, 
 <p>These client SDKs were made by members of the community, and are not officially supported by BlockCypher. As such, BlockCypher cannot guarantee that they&rsquo;re fully up to date, but we hope they will provide a nice jumping-off point for developers using these languages. We&rsquo;ll endeavor to keep this list updated, if any of these prove obsolete. If there&rsquo;s enough support for a particular language, we&rsquo;ll work with the community to turn it into an officially supported SDK.</p>
 
 <ul>
-<li><strong>.NET</strong>: <a href="https://github.com/bscheiman/BlockCypher">https://github.com/bscheiman/BlockCypher</a></li>
-<li><strong>Go</strong>: <a href="https://github.com/acityinohio/blockcy">https://github.com/acityinohio/blockcy</a></li>
+<li><strong>.NET</strong> <a href="https://github.com/bscheiman/BlockCypher">https://github.com/bscheiman/BlockCypher</a></li>
+<li><strong>Go</strong> <a href="https://github.com/acityinohio/blockcy">https://github.com/acityinohio/blockcy</a></li>
 </ul>
 
 <h2 id="restful-resources">RESTful Resources</h2>
@@ -595,7 +595,6 @@ curl -d <span class="s1">'{"address": "CFqoZmZ3ePwK5wnkhxJjJAQKJ82C7RJdmd", "amo
 <span class="o">&gt;&gt;&gt;</span> <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s">'http://api.blockcypher.com/v1/bcy/test/faucet'</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
 <span class="p">{</span><span class="s">'tx_ref'</span><span class="p">:</span> <span class="s">'b2ecfb5e40f3923b07819f1a386a538e86cc6ce59ae7a59533df487f622d1cbb'</span><span class="p">}</span>
-
 </code></pre>
 
 <p>This example shows how to leverage the faucet to programmatically fund addresses, to test your applications. While the example used BlockCypher&rsquo;s Test Chain, the same example could have used Bitcoin Testnet3 and worked the exact same way.</p>
