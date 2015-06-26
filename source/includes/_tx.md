@@ -848,6 +848,7 @@ $.post('https://api.blockcypher.com/v1/bcy/test/txs/new', JSON.stringify(newtx))
 ```
 
 ```php
+<?php
 $privateKeys = array(
     "1551558c3b75f46b71ec068f9e341bf35ee6df361f7b805deb487d8a4d5f055e" // Address: n3D2YXwvpoPg8FhcWpzJiS3SvKKGD8AXZ4
 );
@@ -1033,6 +1034,7 @@ $.post('https://api.blockcypher.com/v1/bcy/test/txs/send', JSON.stringify(sendtx
 ```
 
 ```php
+<?php
 $txSkeleton = $txSkeleton->send();
 
 {
