@@ -735,42 +735,28 @@ $txSkeleton = $tx->create();
     "vin_sz":1,
     "vout_sz":2,
     "confirmations":0,
-    "inputs":[
-      {
-        "prev_hash":"64e39fa5322ee604ad548dc5d4ae1a61b0a575278724d0df7e53dd334f5f13e3",
+    "inputs":[{ "prev_hash":"64e39fa5322ee604ad548dc5d4ae1a61b0a575278724d0df7e53dd334f5f13e3",
         "output_index":0,
         "script":"",
         "output_value":5432100,
         "sequence":4294967295,
-        "addresses":[
-          "C5vqMGme4FThKnCY44gx1PLgWr86uxRbDm"
-        ],
+        "addresses":["C5vqMGme4FThKnCY44gx1PLgWr86uxRbDm"],
         "script_type":"",
         "age":0
       }
     ],
-    "outputs":[
-      {
-        "value":1000,
+    "outputs":[{ "value":1000,
         "script":"76a9147b2b09ad46d95e177df6969a275db321c66cecf388ac",
-        "addresses":[
-          "C4MYFr4EAdqEeUKxTnPUF3d3whWcPMz1Fi"
-        ],
+        "addresses":["C4MYFr4EAdqEeUKxTnPUF3d3whWcPMz1Fi"],
         "script_type":"pay-to-pubkey-hash"
       },
-      {
-        "value":5419100,
+      { "value":5419100,
         "script":"76a9148c6f28c814116f1ae3d0940b2fb05a68a9507e8a88ac",
-        "addresses":[
-          "C5vqMGme4FThKnCY44gx1PLgWr86uxRbDm"
-        ],
+        "addresses":["C5vqMGme4FThKnCY44gx1PLgWr86uxRbDm"],
         "script_type":"pay-to-pubkey-hash"
-      }
-    ]
+      }]
   },
-  "tosign":[
-    "770af2c9a9b7b8b1998e36d4c1ce2b8fa3b9d4d6575679a513722d9f478177d2"
-  ]
+  "tosign":["770af2c9a9b7b8b1998e36d4c1ce2b8fa3b9d4d6575679a513722d9f478177d2"]
 }
 ```
 
@@ -849,11 +835,9 @@ $.post('https://api.blockcypher.com/v1/bcy/test/txs/new', JSON.stringify(newtx))
 
 ```php
 <?php
-$privateKeys = array(
-    "1551558c3b75f46b71ec068f9e341bf35ee6df361f7b805deb487d8a4d5f055e" // Address: n3D2YXwvpoPg8FhcWpzJiS3SvKKGD8AXZ4
-);
-
 // Sign the transaction
+// Private key for address: C5vqMGme4FThKnCY44gx1PLgWr86uxRbDm
+$privateKeys = array("2c2cc015519b79782bd9c5af66f442e808f573714e3c4dc6df7d79c183963cff");
 $txSkeleton->sign($privateKeys);
 ```
 
@@ -1035,6 +1019,7 @@ $.post('https://api.blockcypher.com/v1/bcy/test/txs/send', JSON.stringify(sendtx
 
 ```php
 <?php
+// Send the transaction
 $txSkeleton = $txSkeleton->send();
 
 {
@@ -1057,38 +1042,28 @@ $txSkeleton = $txSkeleton->send();
     "vin_sz":1,
     "vout_sz":2,
     "confirmations":0,
-    "inputs":[
-      {
+    "inputs":[{
         "prev_hash":"64e39fa5322ee604ad548dc5d4ae1a61b0a575278724d0df7e53dd334f5f13e3",
         "output_index":0,
         "script":"",
         "output_value":5432100,
         "sequence":4294967295,
-        "addresses":[
-          "C5vqMGme4FThKnCY44gx1PLgWr86uxRbDm"
-        ],
+        "addresses":["C5vqMGme4FThKnCY44gx1PLgWr86uxRbDm"],
         "script_type":"",
         "age":0
       }
     ],
     "outputs":[
-      {
-        "value":1000,
+      {"value":1000,
         "script":"76a9147b2b09ad46d95e177df6969a275db321c66cecf388ac",
-        "addresses":[
-          "C4MYFr4EAdqEeUKxTnPUF3d3whWcPMz1Fi"
-        ],
+        "addresses":["C4MYFr4EAdqEeUKxTnPUF3d3whWcPMz1Fi"],
         "script_type":"pay-to-pubkey-hash"
       },
-      {
-        "value":5419100,
+      { "value":5419100,
         "script":"76a9148c6f28c814116f1ae3d0940b2fb05a68a9507e8a88ac",
-        "addresses":[
-          "C5vqMGme4FThKnCY44gx1PLgWr86uxRbDm"
-        ],
+        "addresses":["C5vqMGme4FThKnCY44gx1PLgWr86uxRbDm"],
         "script_type":"pay-to-pubkey-hash"
-      }
-    ]
+      }]
   },
   "tosign":[]
 }
