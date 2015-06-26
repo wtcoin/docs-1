@@ -80,19 +80,7 @@ $.get('https://api.blockcypher.com/v1/btc/main/addrs/1DEP8i3QJCsomS4BSMY2RpU1upv
 // Run on console:
 // php -f .\sample\address-api\AddressBalanceEndpoint.php
 
-require __DIR__ . '/../bootstrap.php';
-
-use BlockCypher\Api\Address;
-use BlockCypher\Auth\SimpleTokenCredential;
-use BlockCypher\Rest\ApiContext;
-
-$apiContext = ApiContext::create(
-    'main', 'btc', 'v1',
-    new SimpleTokenCredential('c0afcccdde5081d6429de37d16166ead'),
-    array('log.LogEnabled' => true, 'log.FileName' => 'BlockCypher.log', 'log.LogLevel' => 'DEBUG')
-);
-
-$addressBalance = Address::getOnlyBalance('1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD', array(), $apiContext);
+$addressBalance = Address::getOnlyBalance('1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD');
 
 {
   "address":"1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD",
@@ -271,19 +259,7 @@ $.get('https://api.blockcypher.com/v1/btc/main/addrs/1DEP8i3QJCsomS4BSMY2RpU1upv
 // Run on console:
 // php -f .\sample\address-api\AddressEndpoint.php
 
-require __DIR__ . '/../bootstrap.php';
-
-use BlockCypher\Api\Address;
-use BlockCypher\Auth\SimpleTokenCredential;
-use BlockCypher\Rest\ApiContext;
-
-$apiContext = ApiContext::create(
-    'main', 'btc', 'v1',
-    new SimpleTokenCredential('c0afcccdde5081d6429de37d16166ead'),
-    array('log.LogEnabled' => true, 'log.FileName' => 'BlockCypher.log', 'log.LogLevel' => 'DEBUG')
-);
-
-$address = Address::get('1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD', array(), $apiContext);
+$address = Address::get('1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD');
 
 {
   "address":"1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD",
@@ -590,19 +566,7 @@ $.get('https://api.blockcypher.com/v1/btc/main/addrs/1DEP8i3QJCsomS4BSMY2RpU1upv
 // Run on console:
 // php -f .\sample\address-api\AddressFullEndpoint.php
 
-require __DIR__ . '/../bootstrap.php';
-
-use BlockCypher\Api\Address;
-use BlockCypher\Auth\SimpleTokenCredential;
-use BlockCypher\Rest\ApiContext;
-
-$apiContext = ApiContext::create(
-    'main', 'btc', 'v1',
-    new SimpleTokenCredential('c0afcccdde5081d6429de37d16166ead'),
-    array('log.LogEnabled' => true, 'log.FileName' => 'BlockCypher.log', 'log.LogLevel' => 'DEBUG')
-);
-
-$fullAddress = Address::getFullAddress('1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD', array(), $apiContext);
+$fullAddress = Address::getFullAddress('1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD');
 
 {
   "address":"1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD",
@@ -736,23 +700,7 @@ $.post('https://api.blockcypher.com/v1/btc/test3/addrs')
 // Run on console:
 // php -f .\sample\address-api\GenerateAddressEndpoint.php
 
-require __DIR__ . '/../bootstrap.php';
-
-use BlockCypher\Api\AddressKeyChain;
-use BlockCypher\Auth\SimpleTokenCredential;
-use BlockCypher\Rest\ApiContext;
-
-$apiContext = ApiContext::create(
-    'main', 'btc', 'v1',
-    new SimpleTokenCredential('c0afcccdde5081d6429de37d16166ead'),
-    array('log.LogEnabled' => true, 'log.FileName' => 'BlockCypher.log', 'log.LogLevel' => 'DEBUG')
-);
-
 $addressKeyChain = new AddressKeyChain();
-
-// For Sample Purposes Only.
-$request = clone $addressKeyChain;
-
 $addressKeyChain->create($apiContexts['BTC.main']);
 
 {
@@ -856,18 +804,6 @@ $.post('https://api.blockcypher.com/v1/btc/test3/addrs', data)
 // Run on console:
 // php -f .\sample\address-api\GenerateMultisignAddressEndpoint.php
 
-require __DIR__ . '/../bootstrap.php';
-
-use BlockCypher\Api\AddressKeyChain;
-use BlockCypher\Auth\SimpleTokenCredential;
-use BlockCypher\Rest\ApiContext;
-
-$apiContext = ApiContext::create(
-    'main', 'btc', 'v1',
-    new SimpleTokenCredential('c0afcccdde5081d6429de37d16166ead'),
-    array('log.LogEnabled' => true, 'log.FileName' => 'BlockCypher.log', 'log.LogLevel' => 'DEBUG')
-);
-
 $addressKeyChain = new AddressKeyChain();
 $pubkeys = array(
     "02c716d071a76cbf0d29c29cacfec76e0ef8116b37389fb7a3e76d6d32cf59f4d3",
@@ -880,7 +816,7 @@ $addressKeyChain->setScriptType('multisig-2-of-3');
 // For Sample Purposes Only.
 $request = clone $addressKeyChain;
 
-$addressKeyChain->create($apiContext);
+$addressKeyChain->create();
 
 {
   "pubkeys":[
@@ -971,29 +907,13 @@ $.post('https://api.blockcypher.com/v1/btc/main/wallets?token=USERTOKEN', data)
 // Run on console:
 // php -f .\sample\wallet-api\CreateWalletEndpoint.php
 
-require __DIR__ . '/../bootstrap.php';
-
-use BlockCypher\Api\Wallet;
-use BlockCypher\Auth\SimpleTokenCredential;
-use BlockCypher\Rest\ApiContext;
-
-$apiContext = ApiContext::create(
-    'main', 'btc', 'v1',
-    new SimpleTokenCredential('c0afcccdde5081d6429de37d16166ead'),
-    array('log.LogEnabled' => true, 'log.FileName' => 'BlockCypher.log', 'log.LogLevel' => 'DEBUG')
-);
-
 // Create a new instance of Wallet object
 $wallet = new Wallet();
 $wallet->setName('alice');
 $wallet->setAddresses(array(
     "1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e"
 ));
-
-// For Sample Purposes Only.
-$request = clone $wallet;
-
-$wallet->create(array(), $apiContext);
+$wallet->create();
 
 {
   "token":"c0afcccdde5081d6429de37d16166ead",
@@ -1102,28 +1022,14 @@ $.post('https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses?token=US
 
 ```php
 <?php
-
 // Run on console:
 // php -f .\sample\wallet-api\AddAddressesToWalletEndpoint.php
 
-require __DIR__ . '/../bootstrap.php';
-
-use BlockCypher\Api\AddressList;
-use BlockCypher\Api\Wallet;
-use BlockCypher\Auth\SimpleTokenCredential;
-use BlockCypher\Rest\ApiContext;
-
-$apiContext = ApiContext::create(
-    'main', 'btc', 'v1',
-    new SimpleTokenCredential('c0afcccdde5081d6429de37d16166ead'),
-    array('log.LogEnabled' => true, 'log.FileName' => 'BlockCypher.log', 'log.LogLevel' => 'DEBUG')
-);
-
-$wallet = Wallet::get('alice', array(), $apiContext);
+$wallet = Wallet::get('alice');
 $addressesList = AddressList::fromAddressesArray(array(
     "13cj1QtfW61kQHoqXm3khVRYPJrgQiRM6j"
 ));
-$wallet->addAddresses($addressesList, array(), $apiContext);
+$wallet->addAddresses($addressesList);
 
 {
   "token":"c0afcccdde5081d6429de37d16166ead",
@@ -1184,19 +1090,7 @@ $.get('https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses?token=USE
 // Run on console:
 // php -f .\sample\wallet-api\WalletAddressesEndpoint.php
 
-require __DIR__ . '/../bootstrap.php';
-
-use BlockCypher\Api\Wallet;
-use BlockCypher\Auth\SimpleTokenCredential;
-use BlockCypher\Rest\ApiContext;
-
-$apiContext = ApiContext::create(
-    'main', 'btc', 'v1',
-    new SimpleTokenCredential('c0afcccdde5081d6429de37d16166ead'),
-    array('log.LogEnabled' => true, 'log.FileName' => 'BlockCypher.log', 'log.LogLevel' => 'DEBUG')
-);
-
-$wallet = Wallet::getOnlyAddresses('alice', array(), $apiContext);
+$wallet = Wallet::getOnlyAddresses('alice');
 
 {
   "token":"c0afcccdde5081d6429de37d16166ead",
@@ -1245,30 +1139,16 @@ $.ajax({
 
 ```php
 <?php
-
 // Run on console:
 // php -f .\sample\wallet-api\RemoveAddressesFromWalletEndpoint.php
-
-require __DIR__ . '/../bootstrap.php';
-
-use BlockCypher\Api\AddressesList;
-use BlockCypher\Api\Wallet;
-use BlockCypher\Auth\SimpleTokenCredential;
-use BlockCypher\Rest\ApiContext;
-
-$apiContext = ApiContext::create(
-    'main', 'btc', 'v1',
-    new SimpleTokenCredential('c0afcccdde5081d6429de37d16166ead'),
-    array('log.LogEnabled' => true, 'log.FileName' => 'BlockCypher.log', 'log.LogLevel' => 'DEBUG')
-);
 
 // List of addresses to be removed from the wallet
 $addressesList = AddressesList::fromAddressesArray(array(
     "13cj1QtfW61kQHoqXm3khVRYPJrgQiRM6j"
 ));
 
-$wallet = Wallet::get('alice', array(), $apiContext);
-$wallet->removeAddresses($addressesList, array(), $apiContext);
+$wallet = Wallet::get('alice');
+$wallet->removeAddresses($addressesList);
 
 {
   "token":"c0afcccdde5081d6429de37d16166ead",
@@ -1341,20 +1221,8 @@ $.post('https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses/generate
 // Run on console:
 // php -f .\sample\wallet-api\GenerateAddressInWalletEndpoint.php
 
-require __DIR__ . '/../bootstrap.php';
-
-use BlockCypher\Api\Wallet;
-use BlockCypher\Auth\SimpleTokenCredential;
-use BlockCypher\Rest\ApiContext;
-
-$apiContext = ApiContext::create(
-    'main', 'btc', 'v1',
-    new SimpleTokenCredential('c0afcccdde5081d6429de37d16166ead'),
-    array('log.LogEnabled' => true, 'log.FileName' => 'BlockCypher.log', 'log.LogLevel' => 'DEBUG')
-);
-
-$wallet = Wallet::get('alice', array(), $apiContext);
-$walletGenerateAddressResponse = $wallet->generateAddress(array(), $apiContext);
+$wallet = Wallet::get('alice');
+$walletGenerateAddressResponse = $wallet->generateAddress();
 
 {
   "token":"c0afcccdde5081d6429de37d16166ead",
@@ -1414,20 +1282,8 @@ $.ajax({
 // Run on console:
 // php -f .\sample\wallet-api\DeleteWalletEndpoint.php
 
-require __DIR__ . '/../bootstrap.php';
-
-use BlockCypher\Api\Wallet;
-use BlockCypher\Auth\SimpleTokenCredential;
-use BlockCypher\Rest\ApiContext;
-
-$apiContext = ApiContext::create(
-    'main', 'btc', 'v1',
-    new SimpleTokenCredential('c0afcccdde5081d6429de37d16166ead'),
-    array('log.LogEnabled' => true, 'log.FileName' => 'BlockCypher.log', 'log.LogLevel' => 'DEBUG')
-);
-
-$wallet = Wallet::get('alice', array(), $apiContext);
-$result = $wallet->delete(array(), $apiContext);
+$wallet = Wallet::get('alice');
+$result = $wallet->delete();
 ```
 
 Resource | Method | Request Object | Return Object

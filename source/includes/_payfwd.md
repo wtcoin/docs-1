@@ -77,7 +77,7 @@ $paymentForward = new PaymentForward();
 $paymentForward->setDestination('15qx9ug952GWGTNn7Uiv6vode4RcGrRemh');
 $paymentForward->setCallbackUrl("http://requestb.in/rwp6jirw?uniqid=" . uniqid());
 
-$paymentForward->create($apiContext);
+$paymentForward->create();
 
 {
   "destination":"15qx9ug952GWGTNn7Uiv6vode4RcGrRemh",
@@ -156,7 +156,7 @@ $.get('http://api.blockcypher.com/v1/btc/main/payments?token='+TOKEN)
 // Run on console:
 // php -f .\sample\payment-api\ListPaymentsEndpoint.php
 
-$paymentForwardArray = PaymentForward::getAll(array(), $apiContext);
+$paymentForwardArray = PaymentForward::getAll();
 
 [
   {
@@ -214,7 +214,7 @@ $.ajax({
 
 $webHook = new PaymentForward();
 $webHook->setId('ec2b4b4f-eeb2-4824-b528-7d78a6f52492');
-$webHook->delete($apiContext);
+$webHook->delete();
 
 HTTP/1.1 204 No Content
 ```

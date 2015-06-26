@@ -212,19 +212,7 @@ $.get('https://api.blockcypher.com/v1/btc/main/txs/f854aebae95150b379cc1187d848d
 // Run on console:
 // php -f .\sample\transaction-api\TransactionHashEndpoint.php
 
-require __DIR__ . '/../bootstrap.php';
-
-use BlockCypher\Api\TX;
-use BlockCypher\Auth\SimpleTokenCredential;
-use BlockCypher\Rest\ApiContext;
-
-$apiContext = ApiContext::create(
-    'main', 'btc', 'v1',
-    new SimpleTokenCredential('c0afcccdde5081d6429de37d16166ead'),
-    array('log.LogEnabled' => true, 'log.FileName' => 'BlockCypher.log', 'log.LogLevel' => 'DEBUG')
-);
-
-$transaction = TX::get('f854aebae95150b379cc1187d848d58225f3c4157fe992bcd166f58bd5063449', array(), $apiContext);
+$transaction = TX::get('f854aebae95150b379cc1187d848d58225f3c4157fe992bcd166f58bd5063449');
 
 {
 "block_hash": "0000000000000000c504bdea36e531d80...",
@@ -442,19 +430,7 @@ $.get('https://api.blockcypher.com/v1/btc/main/txs').then(function(d) {console.l
 // Run on console:
 // php -f .\sample\transaction-api\UnconfirmedTransactionsEndpoint.php
 
-require __DIR__ . '/../bootstrap.php';
-
-use BlockCypher\Api\TX;
-use BlockCypher\Auth\SimpleTokenCredential;
-use BlockCypher\Rest\ApiContext;
-
-$apiContext = ApiContext::create(
-    'main', 'btc', 'v1',
-    new SimpleTokenCredential('c0afcccdde5081d6429de37d16166ead'),
-    array('log.LogEnabled' => true, 'log.FileName' => 'BlockCypher.log', 'log.LogLevel' => 'DEBUG')
-);
-
-$txs = TX::getUnconfirmed(array(), $apiContext);
+$txs = TX::getUnconfirmed();
 
 [{'received': '2015-06-10T23:10:31.534Z',
   'ver': 1,
@@ -723,18 +699,6 @@ $.post('https://api.blockcypher.com/v1/bcy/test/txs/new', JSON.stringify(newtx))
 // Run on console:
 // php -f .\sample\transaction-api\NewTransactionEndpoint.php
 
-require __DIR__ . '/../bootstrap.php';
-
-use BlockCypher\Api\Transaction;
-use BlockCypher\Auth\SimpleTokenCredential;
-use BlockCypher\Rest\ApiContext;
-
-$apiContext = ApiContext::create(
-    'test', 'bcy', 'v1',
-    new SimpleTokenCredential('c0afcccdde5081d6429de37d16166ead'),
-    array('log.LogEnabled' => true, 'log.FileName' => 'BlockCypher.log', 'log.LogLevel' => 'DEBUG')
-);
-
 // Create a new instance of Transaction object
 $tx = new Transaction();
 
@@ -749,11 +713,7 @@ $tx->addOutput($output);
 // Tx amount
 $output->setValue(1000); // Satoshis
 
-// For Sample Purposes Only.
-$request = clone $tx;
-
-// ### Create New Transaction
-$output = $tx->create($apiContext);
+$txSkeleton = $tx->create();
 
 {
   "tx":{
@@ -1332,7 +1292,7 @@ $.post('https://api.blockcypher.com/v1/bcy/test/txs/send', JSON.stringify(pushtx
 
 $hexRawTx = "01000000011935b41d12936df99d322ac8972b74ecff7b79408bbccaf1b2eb8015228beac8000000006b483045022100921fc36b911094280f07d8504a80fbab9b823a25f102e2bc69b14bcd369dfc7902200d07067d47f040e724b556e5bc3061af132d5a47bd96e901429d53c41e0f8cca012102152e2bb5b273561ece7bbe8b1df51a4c44f5ab0bc940c105045e2cc77e618044ffffffff0240420f00000000001976a9145fb1af31edd2aa5a2bbaa24f6043d6ec31f7e63288ac20da3c00000000001976a914efec6de6c253e657a9d5506a78ee48d89762fb3188ac00000000";
 
-$tx = TX::push($hexRawTx, array(), $apiContext);
+$tx = TX::push($hexRawTx);
 
 {
   "block_height": -1,
@@ -1605,7 +1565,7 @@ $.post('https://api.blockcypher.com/v1/bcy/test/txs/decode', JSON.stringify(deco
 
 $hexRawTx = "01000000011935b41d12936df99d322ac8972b74ecff7b79408bbccaf1b2eb8015228beac8000000006b483045022100921fc36b911094280f07d8504a80fbab9b823a25f102e2bc69b14bcd369dfc7902200d07067d47f040e724b556e5bc3061af132d5a47bd96e901429d53c41e0f8cca012102152e2bb5b273561ece7bbe8b1df51a4c44f5ab0bc940c105045e2cc77e618044ffffffff0240420f00000000001976a9145fb1af31edd2aa5a2bbaa24f6043d6ec31f7e63288ac20da3c00000000001976a914efec6de6c253e657a9d5506a78ee48d89762fb3188ac00000000";
 
-$tx = TX::decode($hexRawTx, array(), $apiContext);
+$tx = TX::decode($hexRawTx);
 
 {
   "block_height":-1,
@@ -1732,7 +1692,7 @@ $tx = TXBuilder::aTX()
     ->addTXOutput($output)
     ->build();
 
-$txSkeleton = $tx->create($apiContext);
+$txSkeleton = $tx->create();
 ```
 
 Multisignature transactions are made simple by the method described in the [Creating Transactions](#creating-transactions) section, but they deserve special mention. In order to use them, you first need to fund a multisignature address. You use the `/txs/new` endpoint as before, but instead of the **outputs** **addresses** array containing public addresses, it instead contains the public keys associated with the new address. In addition, you must select a **script_type** of *mutlisig-n-of-m*, where *n* and *m* are numbers (e.g., *multisig-2-of-3*). The code example demonstrates how the partially filled [TX request object](#tx) would appear.
@@ -1810,7 +1770,7 @@ $tx = TXBuilder::aTX()
     ->addTXOutput($output)
     ->build();
 
-$txSkeleton = $tx->create($apiContext);
+$txSkeleton = $tx->create();
 ```
 
 Once funded, you might want to programmatically spend the money in the address at some point. Here the process is similar, but with the inputs and outputs reversed. As you can see in the code sample, you need to provide the public keys within the **inputs** **addresses** array, and the corresponding **script_type** of *multisig-n-of-m* (e.g., *multisig-2-of-3*). Then you follow the same process of sending to `/txs/new` and getting an array of data to be signed.
@@ -1846,26 +1806,11 @@ curl -d '{"data":"I am the walrus", "encoding":"string"}' https://api.blockcyphe
 // Run on console:
 // php -f .\sample\transaction-api\DataEndpoint.php
 
-require __DIR__ . '/../bootstrap.php';
-
-use BlockCypher\Api\NullData;
-use BlockCypher\Auth\SimpleTokenCredential;
-use BlockCypher\Rest\ApiContext;
-
-$apiContext = ApiContext::create(
-    'main', 'btc', 'v1',
-    new SimpleTokenCredential('c0afcccdde5081d6429de37d16166ead'),
-    array('log.LogEnabled' => true, 'log.FileName' => 'BlockCypher.log', 'log.LogLevel' => 'DEBUG')
-);
-
 $nullData =  new NullData();
 $nullData->setEncoding('string');
 $nullData->setData('***BlockCypher Data Endpoint Test***'); // max 40 bytes
 
-// For Sample Purposes Only.
-$request = clone $nullData;
-
-$nullData->create(array(), $apiContext);
+$nullData->create();
 
 {
   "data": "***BlockCypher Data Endpoint Test***",

@@ -135,7 +135,7 @@ https://github.com/blockcypher/php-client
 Irrelevant code is not shown in samples. You can get the full sample version from:
 https://github.com/blockcypher/php-client/tree/master/sample
 
-Most samples begin with this header (sometimes omitted):
+All samples begin with something like this (but omitted in docs site):
 <?php
 require __DIR__ . '/../bootstrap.php';
 
@@ -145,7 +145,7 @@ use BlockCypher\Rest\ApiContext;
 
 $apiContext = ApiContext::create(
     'main', 'btc', 'v1',
-    new SimpleTokenCredential('c0afcccdde5081d6429de37d16166ead'),
+    new SimpleTokenCredential('$YOUR_TOKEN'),
     array('log.LogEnabled' => true, 'log.FileName' => 'BlockCypher.log', 'log.LogLevel' => 'DEBUG')
 );
 ```
@@ -299,19 +299,7 @@ $.get('https://api.blockcypher.com/v1/btc/main').then(function(d) {console.log(d
 // Run on console:
 // php -f .\sample\chain-api\ChainEndpoint.php
 
-require __DIR__ . '/../../bootstrap.php';
-
-use BlockCypher\Api\Blockchain;
-use BlockCypher\Auth\SimpleTokenCredential;
-use BlockCypher\Rest\ApiContext;
-
-$apiContext = ApiContext::create(
-    'main', 'btc', 'v1',
-    new SimpleTokenCredential('c0afcccdde5081d6429de37d16166ead'),
-    array('log.LogEnabled' => true, 'log.FileName' => 'BlockCypher.log', 'log.LogLevel' => 'DEBUG')
-);
-
-$chain = Blockchain::get('BTC.main', array(), $apiContext);
+$chain = Blockchain::get('BTC.main');
 
 {
   "name":"BTC.main",
@@ -398,12 +386,6 @@ $.get('https://api.blockcypher.com/v1/btc/main?token='+TOKEN);
 
 ```php
 <?php
-require __DIR__ . '/../../bootstrap.php';
-
-use BlockCypher\Api\Chain;
-use BlockCypher\Auth\SimpleTokenCredential;
-use BlockCypher\Rest\ApiContext;
-
 # Adding your token as client credential to API context
 $apiContext = ApiContext::create(
     'main', 'btc', 'v1',
@@ -588,17 +570,6 @@ full_url = base_url + ';'.join([5,6,7])
 // php -f .\sample\introduction\Batching.php
 // Batching blocks 5, 6, and 7
 
-require __DIR__ . '/../../bootstrap.php';
-
-use BlockCypher\Auth\SimpleTokenCredential;
-use BlockCypher\Rest\ApiContext;
-
-$apiContext = ApiContext::create(
-    'main', 'btc', 'v1',
-    new SimpleTokenCredential('c0afcccdde5081d6429de37d16166ead'),
-    array('log.LogEnabled' => true, 'log.FileName' => 'BlockCypher.log', 'log.LogLevel' => 'DEBUG')
-);
-
 $blocks = \BlockCypher\Api\Block::getMultiple(array('5', '6', '7'), array(), $apiContexts['BTC.main']);
 
 [{
@@ -743,24 +714,8 @@ $.post('http://api.blockcypher.com/v1/bcy/test/faucet?token=$YOUR_TOKEN', req)
 // Run on console:
 // php -f .\sample\introduction\GenerateBcyAddress.php
 
-require __DIR__ . '/../bootstrap.php';
-
-use BlockCypher\Api\AddressKeyChain;
-use BlockCypher\Auth\SimpleTokenCredential;
-use BlockCypher\Rest\ApiContext;
-
-$apiContext = ApiContext::create(
-    'test', 'bcy', 'v1',
-    new SimpleTokenCredential('c0afcccdde5081d6429de37d16166ead'),
-    array('log.LogEnabled' => true, 'log.FileName' => 'BlockCypher.log', 'log.LogLevel' => 'DEBUG')
-);
-
 $addressKeyChain = new AddressKeyChain();
-
-// For Sample Purposes Only.
-$request = clone $addressKeyChain;
-
-$addressKeyChain->create($apiContext);
+$addressKeyChain->create();
 
 {
   "private":"40e0d6e6210307b9b9d0113bceb9b8c5be6b9e010a03e07f25f75f462ed00a90",
@@ -770,24 +725,11 @@ $addressKeyChain->create($apiContext);
 }
 
 <?php
-
 // Fund prior address with faucet
 // Run on console:
 // php -f .\sample\introduction\FundBcyAddressWithFaucetShortVersion.php
 
-require __DIR__ . '/../bootstrap.php';
-
-use BlockCypher\Api\Faucet;
-use BlockCypher\Auth\SimpleTokenCredential;
-use BlockCypher\Rest\ApiContext;
-
-$apiContext = ApiContext::create(
-    'test', 'bcy', 'v1',
-    new SimpleTokenCredential('c0afcccdde5081d6429de37d16166ead'),
-    array('log.LogEnabled' => true, 'log.FileName' => 'BlockCypher.log', 'log.LogLevel' => 'DEBUG')
-);
-
-$faucetResponse = Faucet::fundAddress('Bxi1GmU6xgqgyBEzugcqFZRLyJd1cpEv2S', 100000, $apiContext);
+$faucetResponse = Faucet::fundAddress('Bxi1GmU6xgqgyBEzugcqFZRLyJd1cpEv2S', 100000);
 
 {
   "tx_ref":"0fa68cf5c39dbd918a5ca49fc092be36b8bcece83cbfed919ad6c77b5f24cceb"
