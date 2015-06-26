@@ -81,14 +81,14 @@ $.post(url, JSON.stringify(microtx))
 ```php
 <?php
 // Run on console:
-// php -f .\sample\microtransaction-api\MicroTransactionViaPrivateKeyEndpoint.php
+// php -f .\sample\microtransaction-api\CreateMicroTXFromPrivateDocsSample.php
 
-$microTX = new MicroTX();
-$microTX->setFromPrivate("2c2cc015519b79782bd9c5af66f442e808f573714e3c4dc6df7d79c183963cff");
-$microTX->setToAddress("C4MYFr4EAdqEeUKxTnPUF3d3whWcPMz1Fi");
-$microTX->setValueSatoshis(10000);
-
-$microTX->create($apiContext);
+$microTX = MicroTX::fromPrivate(
+    "2c2cc015519b79782bd9c5af66f442e808f573714e3c4dc6df7d79c183963cff", // private key
+    "C4MYFr4EAdqEeUKxTnPUF3d3whWcPMz1Fi", // to address
+    10000, // value (satoshis)
+    $apiContext
+);
 
 {
   "from_private":"2c2cc015519b79782bd9c5af66f442e808f573714e3c4dc6df7d79c183963cff",
@@ -216,15 +216,14 @@ $.post(url, JSON.stringify(microtx)).then(function(tmptx) {
 ```php
 <?php
 // Run on console:
-// php -f .\sample\microtransaction-api\CreateSignAndSendMicrotransactionEndpoint.php
+// php -f .\sample\microtransaction-api\CreateMicroTXFromPubkeyDocsSample.php
 
-$microTX = new MicroTX();
-$microTX->setFromPubkey("02d4e3404e175923adf89c932fab96758716f6a0a896890f2494c5d9141eb3f543")
-    ->setToAddress("C4MYFr4EAdqEeUKxTnPUF3d3whWcPMz1Fi")
-    ->setValueSatoshis(10000)
-    ->create($apiContext)
-    ->sign("2c2cc015519b79782bd9c5af66f442e808f573714e3c4dc6df7d79c183963cff")
-    ->send($apiContext);
+$microTX = \BlockCypher\Api\MicroTX::fromPubkey(
+    "2c2cc015519b79782bd9c5af66f442e808f573714e3c4dc6df7d79c183963cff", // private key
+    "C4MYFr4EAdqEeUKxTnPUF3d3whWcPMz1Fi", // to address
+    10000, // value (satoshis)
+    $apiContext
+);
 
 {
   "from_pubkey":"02d4e3404e175923adf89c932fab96758716f6a0a896890f2494c5d9141eb3f543",
