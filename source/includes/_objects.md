@@ -13,8 +13,6 @@
 ```
 
 ```php
-// All PHP client Objects are listed in:
-// https://github.com/blockcypher/php-client/tree/master/lib/BlockCypher/Api
 ```
 
 Before diving into BlockCypher's endpoints, this section details all the Objects exposed and expected by the API. Some of you might be more interested in the endpoints themselves, in which case, feel free to [skip to the next section.](#blockchain-api) But for others, a section dedicated to all of BlockCypher's Objects might prove a useful overview, especially if you're new to Blockchain development in general. And in either case, this section provides a comprehensive reference for Objects in the API. For each Object there's a description and a link to a germane API endpoint.
@@ -53,41 +51,6 @@ curl https://api.blockcypher.com/v1/btc/main
 ```
 
 ```php
-<?php
-
-// Run on console:
-// php -f .\sample\chain-api\ChainEndpoint.php
-
-require __DIR__ . '/../bootstrap.php';
-
-use BlockCypher\Api\Blockchain;
-use BlockCypher\Auth\SimpleTokenCredential;
-use BlockCypher\Rest\ApiContext;
-
-$apiContext = ApiContext::create(
-    'main', 'btc', 'v1',
-    new SimpleTokenCredential('c0afcccdde5081d6429de37d16166ead'),
-    array('log.LogEnabled' => true, 'log.FileName' => 'BlockCypher.log', 'log.LogLevel' => 'DEBUG')
-);
-
-$chain = Blockchain::get('BTC.main', array(), $apiContext);
-
-{
-  "name":"BTC.main",
-  "height":361290,
-  "hash":"0000000000000000152195979e99e62bcd9366e7d32653a343501aae119bfaf8",
-  "time":"2015-06-17T09:13:23.000955233Z",
-  "latest_url":"https://api.blockcypher.com/v1/btc/main/blocks/0000000000000000152195979e99e62bcd9366e7d32653a343501aae119bfaf8",
-  "previous_hash":"00000000000000000c077eebd15261811bd9ea7c9784ae5482636b5e529ce932",
-  "previous_url":"https://api.blockcypher.com/v1/btc/main/blocks/00000000000000000c077eebd15261811bd9ea7c9784ae5482636b5e529ce932",
-  "peer_count":250,
-  "unconfirmed_count":733,
-  "high_fee_per_kb":45024,
-  "medium_fee_per_kb":26134,
-  "low_fee_per_kb":12490,
-  "last_fork_height":360362,
-  "last_fork_hash":"000000000000000002d5cf67bfaa92ba5b371c1590eb48d25031c669ef6233a0"
-}
 ```
 
 A Blockchain represents the current state of a particular blockchain from the [Coin/Chain resources](#restful-resources) that BlockCypher supports. Typically returned from the [Chain API endpoint](#chain-endpoint).
@@ -146,47 +109,6 @@ curl https://api.blockcypher.com/v1/btc/main/blocks/0000000000000000189bba3564a6
 ```
 
 ```php
-<?php
-// Run on console:
-// php -f .\sample\block-api\BlockHashEndpoint.php
-
-require __DIR__ . '/../bootstrap.php';
-
-use BlockCypher\Api\Block;
-use BlockCypher\Auth\SimpleTokenCredential;
-use BlockCypher\Rest\ApiContext;
-
-$apiContext = ApiContext::create(
-    'main', 'btc', 'v1',
-    new SimpleTokenCredential('c0afcccdde5081d6429de37d16166ead'),
-    array('log.LogEnabled' => true, 'log.FileName' => 'BlockCypher.log', 'log.LogLevel' => 'DEBUG')
-);
-
-$block = Block::get('0000000000000000189bba3564a63772107b5673c940c16f12662b3e8546b412', array(), $apiContext);
-
-{
-  "hash":"0000000000000000189bba3564a63772107b5673c940c16f12662b3e8546b412",
-  "height":294322,
-  "chain":"BTC.main",
-  "total":1146652915,
-  "fees":130999,
-  "ver":2,
-  "time":"2014-04-05T07:49:18Z",
-  "received_time":"2014-04-05T07:49:18Z",
-  "bits":419486617,
-  "nonce":1225187768,
-  "n_tx":10,
-  "prev_block":"0000000000000000ced0958bd27720b71d32c5847e40660aaca39f33c298abb0",
-  "mrkl_root":"359d624d37aee1efa5662b7f5dbc390e996d561afc8148e8d716cf6ad765a952",
-  "txids":[
-    "32b3b86e40d996b1f281e24e8d4af2ceacbf874c4038369cc21baa807409b277",
-    "1579f716359ba1a207f70248135f5e5fadf539be1dcf5300613aedcb6577d287",
-    ...
-  ],
-  "depth":66968,
-  "prev_block_url":"https://api.blockcypher.com/v1/btc/main/blocks/0000000000000000ced0958bd27720b71d32c5847e40660aaca39f33c298abb0",
-  "tx_url":"https://api.blockcypher.com/v1/btc/main/txs/"
-}
 ```
 
 A Block represents the current state of a particular block from a [Blockchain](#blockchain). Typically returned from the [Block Hash](#block-hash-endpoint) and [Block Height](#block-height-endpoint) endpoints.
@@ -278,77 +200,6 @@ curl https://api.blockcypher.com/v1/btc/main/txs/f854aebae95150b379cc1187d848d58
 ```
 
 ```php
-<?php
-
-// Run on console:
-// php -f .\sample\transaction-api\TransactionHashEndpoint.php
-
-require __DIR__ . '/../bootstrap.php';
-
-use BlockCypher\Api\TX;
-use BlockCypher\Auth\SimpleTokenCredential;
-use BlockCypher\Rest\ApiContext;
-
-$apiContext = ApiContext::create(
-    'main', 'btc', 'v1',
-    new SimpleTokenCredential('c0afcccdde5081d6429de37d16166ead'),
-    array('log.LogEnabled' => true, 'log.FileName' => 'BlockCypher.log', 'log.LogLevel' => 'DEBUG')
-);
-
-$transaction = TX::get('f854aebae95150b379cc1187d848d58225f3c4157fe992bcd166f58bd5063449', array(), $apiContext);
-
-{
-"block_hash": "0000000000000000c504bdea36e531d80...",
-"block_height": 293000,
-"hash": "f854aebae95150b379cc1187d848d58225f3c41...",
-"addresses": [
-	"13XXaBufpMvqRqLkyDty1AXqueZHVe6iyy",
-	"19YtzZdcfs1V2ZCgyRWo8i2wLT8ND1Tu4L",
-	"1BNiazBzCxJacAKo2yL83Wq1VJ18AYzNHy",
-	"1GbMfYui17L5m6sAy3L3WXAtf1P32bxJXq",
-	"1N2f642sbgCMbNtXFajz9XDACDFnFzdXzV"
-],
-"total": 70320221545,
-"fees": 0,
-"size": 636,
-"preference": "low",
-"relayed_by": "",
-"confirmed": "2014-03-29T01:29:19Z",
-"received": "2014-03-29T01:29:19Z",
-"ver": 1,
-"lock_time": 0,
-"double_spend": false,
-"vin_sz": 4,
-"vout_sz": 1,
-"confirmations": 63171,
-"confidence": 1,
-"inputs": [
-	{
-		"prev_hash": "583910b7bf90ab802e22e5c25a89...",
-		"output_index": 1,
-		"script": "4830450220504b1ccfddf508422bdd8...",
-		"output_value": 16450000,
-		"sequence": 4294967295,
-		"addresses": [
-			"1GbMfYui17L5m6sAy3L3WXAtf1P32bxJXq"
-		],
-		"script_type": "pay-to-pubkey-hash"
-	},
-	...,
-	...,
-],
-"outputs": [
-	{
-		"value": 70320221545,
-		"script": "76a914e6aad9d712c419ea8febf009a...",
-		"spent_by": "35832d6c70b98b54e9a53ab2d5117...",
-		"addresses": [
-			"1N2f642sbgCMbNtXFajz9XDACDFnFzdXzV"
-		],
-		"script_type": "pay-to-pubkey-hash"
-	}
-]
-}
 ```
 
 A TX represents the current state of a particular transaction from either a [Block](#block) within a [Blockchain](#blockchain), or an unconfirmed transaction that has yet to be included in a [Block](#block). Typically returned from the [Unconfirmed Transactions](#unconfirmed-transactions-endpoint) and [Transaction Hash](#transaction-hash) endpoints.
@@ -404,18 +255,6 @@ Attribute | Type | Description
 ```
 
 ```php
-{
-"prev_hash": "e5c9be87798b0fa8ad55a22b5d731d6f50d72bffaa6179f9999499e57388cc33",
-"output_index": 1,
-"script": "004730440220689409a16c98fa1659cae4c20...",
-"output_value": 2450698356,
-"sequence": 4294967295,
-"addresses": [
-	"34ch2jrhYXDFsLK1FZQ3SjqgFRnX8mGC5W"
-],
-"script_type": "pay-to-script-hash",
-"age": 5
-}
 ```
 
 A TXInput represents an input consumed within a transaction. Typically found within an array in a [TX](#tx). In most cases, TXInputs are from previous [UTXOs](https://bitcoin.org/en/glossary/unspent-transaction-output), with the most prominent exceptions being attempted double-spend and [coinbase](https://bitcoin.org/en/glossary/coinbase) inputs.
@@ -452,15 +291,6 @@ Attribute | Type | Description
 ```
 
 ```php
-{
-"value": 70320221545,
-"script": "76a914e6aad9d712c419ea8febf009a3f3bfdd8d222fac88ac",
-"spent_by": "35832d6c70b98b54e9a53ab2d51176eb19ad11bc4505d6bb1ea6c51a68cb92ee",
-"addresses": [
-	"1N2f642sbgCMbNtXFajz9XDACDFnFzdXzV"
-],
-"script_type": "pay-to-pubkey-hash"
-}
 ```
 
 A TXOutput represents an output created by a transaction. Typically found within an array in a [TX](#tx).
@@ -494,31 +324,6 @@ curl https://api.blockcypher.com/v1/btc/main/txs/43fa951e1bea87c282f6725cf8bdc08
 ```
 
 ```php
-<?php
-// Run on console:
-// php -f .\sample\confidence-factor\TransactionConfidenceEndpoint.php
-
-require __DIR__ . '/../bootstrap.php';
-
-use BlockCypher\Api\TXConfidence;
-use BlockCypher\Auth\SimpleTokenCredential;
-use BlockCypher\Rest\ApiContext;
-
-$apiContext = ApiContext::create(
-    'main', 'btc', 'v1',
-    new SimpleTokenCredential('c0afcccdde5081d6429de37d16166ead'),
-    array('log.LogEnabled' => true, 'log.FileName' => 'BlockCypher.log', 'log.LogLevel' => 'DEBUG')
-);
-
-$txConfidence = TXConfidence::get('43fa951e1bea87c282f6725cf8bdc08bb48761396c3af8dd5a41a085ab62acc9', array(), $apiContext);
-
-{
-  "age_millis":2188284017,
-  "receive_count":-1,
-  "confidence":1,
-  "txhash":"43fa951e1bea87c282f6725cf8bdc08bb48761396c3af8dd5a41a085ab62acc9",
-  "txurl":"https://api.blockcypher.com/v1/btc/main/txs/43fa951e1bea87c282f6725cf8bdc08bb48761396c3af8dd5a41a085ab62acc9"
-}
 ```
 
 A TXConfidence represents information about the confidence that an unconfirmed transaction will make it into the next block. Typically used as a return object from the [Transaction Confidence Endpoint.](#transaction-confidence-endpoint)
@@ -554,17 +359,6 @@ Attribute | Type | Description
 ```
 
 ```php
-{
-  "tx_hash": "14b1052855bbf6561bc4db8aa501762e7cc1e86994dda9e782a6b73b1ce0dc1e",
-  "block_height": 302013,
-  "tx_input_n": -1,
-  "tx_output_n": 0,
-  "value": 20213,
-  "spent": false,
-  "confirmations": 54405,
-  "confirmed": "2014-05-22T03:46:25Z",
-  "double_spend": false
-}
 ```
 
 A TXRef object represents summarized data about a transaction input or output. Typically found in an array within an [Address](#address) object, which is usually returned from the standard [Address Endpoint](#address-endpoint).
@@ -630,99 +424,6 @@ curl -d '{"inputs":[{"addresses": ["CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"]}],"outp
 ```
 
 ```php
-<?php
-// Run on console:
-// php -f .\sample\transaction-api\NewTransactionEndpoint.php
-
-require __DIR__ . '/../bootstrap.php';
-
-use BlockCypher\Api\Transaction;
-use BlockCypher\Auth\SimpleTokenCredential;
-use BlockCypher\Rest\ApiContext;
-
-$apiContext = ApiContext::create(
-    'test', 'bcy', 'v1',
-    new SimpleTokenCredential('c0afcccdde5081d6429de37d16166ead'),
-    array('log.LogEnabled' => true, 'log.FileName' => 'BlockCypher.log', 'log.LogLevel' => 'DEBUG')
-);
-
-// Create a new instance of Transaction object
-$tx = new Transaction();
-
-// Tx inputs
-$input = new \BlockCypher\Api\Input();
-$input->addAddress("C5vqMGme4FThKnCY44gx1PLgWr86uxRbDm");
-$tx->addInput($input);
-// Tx outputs
-$output = new \BlockCypher\Api\Output();
-$output->addAddress("C4MYFr4EAdqEeUKxTnPUF3d3whWcPMz1Fi");
-$tx->addOutput($output);
-// Tx amount
-$output->setValue(1000); // Satoshis
-
-// For Sample Purposes Only.
-$request = clone $tx;
-
-// ### Create New Transaction
-$output = $tx->create($apiContext);
-
-{
-  "tx":{
-    "block_height":-1,
-    "hash":"edb785c310ea58c70245c9a89130efca8fb0a02d4bee47b18542986e7bf95806",
-    "addresses":[
-      "C5vqMGme4FThKnCY44gx1PLgWr86uxRbDm",
-      "C4MYFr4EAdqEeUKxTnPUF3d3whWcPMz1Fi"
-    ],
-    "total":5420100,
-    "fees":12000,
-    "size":119,
-    "preference":"high",
-    "relayed_by":"88.7.90.149",
-    "received":"2015-06-17T10:23:02.475392139Z",
-    "ver":1,
-    "lock_time":0,
-    "double_spend":false,
-    "vin_sz":1,
-    "vout_sz":2,
-    "confirmations":0,
-    "inputs":[
-      {
-        "prev_hash":"64e39fa5322ee604ad548dc5d4ae1a61b0a575278724d0df7e53dd334f5f13e3",
-        "output_index":0,
-        "script":"",
-        "output_value":5432100,
-        "sequence":4294967295,
-        "addresses":[
-          "C5vqMGme4FThKnCY44gx1PLgWr86uxRbDm"
-        ],
-        "script_type":"",
-        "age":0
-      }
-    ],
-    "outputs":[
-      {
-        "value":1000,
-        "script":"76a9147b2b09ad46d95e177df6969a275db321c66cecf388ac",
-        "addresses":[
-          "C4MYFr4EAdqEeUKxTnPUF3d3whWcPMz1Fi"
-        ],
-        "script_type":"pay-to-pubkey-hash"
-      },
-      {
-        "value":5419100,
-        "script":"76a9148c6f28c814116f1ae3d0940b2fb05a68a9507e8a88ac",
-        "addresses":[
-          "C5vqMGme4FThKnCY44gx1PLgWr86uxRbDm"
-        ],
-        "script_type":"pay-to-pubkey-hash"
-      }
-    ]
-  },
-  "tosign":[
-    "770af2c9a9b7b8b1998e36d4c1ce2b8fa3b9d4d6575679a513722d9f478177d2"
-  ]
-}
 ```
 
 A TXSkeleton is a convenience/wrapper Object that's used primarily when [Creating Transactions](#creating-transactions) through the [New](#new-transaction-endpoint) and [Send](#send-transaction-endpoint) endpoints.
@@ -777,15 +478,6 @@ Attribute | Type | Description
 ```
 
 ```php
-{
-  "from_pubkey": "03bb318b00de944086fad67ab78a832eb1bf26916053ecd3b14a3f48f9fbe0821f",
-  "to_address": "mrS82nWF3TCfhafSaKnmUUktGNYuTZn1Ap",
-  "value_satoshis": 5000,
-  "token": "477a17a15d55b408038404a46c059ef9",
-  "signatures": [
-    "3045022100..."
-  ]
-}
 ```
 
 A MicroTX represents a streamlined---and typically much lower value---microtransaction, one which BlockCypher can sign for you if you send your private key. MicroTXs can also be signed on the client-side without ever sending your private key. You'll find these objects used in the [Microtransaction API.](#microtransaction-api)
@@ -842,50 +534,6 @@ curl http://api.blockcypher.com/v1/btc/main/addrs/1DEP8i3QJCsomS4BSMY2RpU1upv62a
 ```
 
 ```php
-<?php
-// Run on console:
-// php -f .\sample\address-api\AddressEndpoint.php
-
-require __DIR__ . '/../bootstrap.php';
-
-use BlockCypher\Api\Address;
-use BlockCypher\Auth\SimpleTokenCredential;
-use BlockCypher\Rest\ApiContext;
-
-$apiContext = ApiContext::create(
-    'main', 'btc', 'v1',
-    new SimpleTokenCredential('c0afcccdde5081d6429de37d16166ead'),
-    array('log.LogEnabled' => true, 'log.FileName' => 'BlockCypher.log', 'log.LogLevel' => 'DEBUG')
-);
-
-$address = Address::get('1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD', array(), $apiContext);
-
-{
-  "address":"1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD",
-  "total_received":4433416,
-  "total_sent":0,
-  "balance":4433416,
-  "unconfirmed_balance":0,
-  "final_balance":4433416,
-  "n_tx":7,
-  "unconfirmed_n_tx":0,
-  "final_n_tx":7,
-  "txrefs":[
-    {
-      "tx_hash":"14b1052855bbf6561bc4db8aa501762e7cc1e86994dda9e782a6b73b1ce0dc1e",
-      "block_height":302013,
-      "tx_input_n":-1,
-      "tx_output_n":0,
-      "value":20213,
-      "spent":false,
-      "confirmations":58584,
-      "confirmed":"2014-05-22T03:46:25Z",
-      "double_spend":false
-    },
-    ...
-  ],
-  "tx_url":"https://api.blockcypher.com/v1/btc/main/txs/"
-}
 ```
 
 An Address represents a public address on a blockchain, and contains information about the state of balances and transactions related to this address. Typically returned from the [Address Balance](#address-balance-endpoint), [Address](#address-endpoint), and [Address Detail Endpoint](#address-detail-endpoint).
@@ -927,36 +575,6 @@ curl -X POST http://api.blockcypher.com/v1/btc/test3/addrs
 ```
 
 ```php
-<?php
-
-// Run on console:
-// php -f .\sample\address-api\GenerateAddressEndpoint.php
-
-require __DIR__ . '/../bootstrap.php';
-
-use BlockCypher\Api\AddressKeyChain;
-use BlockCypher\Auth\SimpleTokenCredential;
-use BlockCypher\Rest\ApiContext;
-
-$apiContext = ApiContext::create(
-    'main', 'btc', 'v1',
-    new SimpleTokenCredential('c0afcccdde5081d6429de37d16166ead'),
-    array('log.LogEnabled' => true, 'log.FileName' => 'BlockCypher.log', 'log.LogLevel' => 'DEBUG')
-);
-
-$addressKeyChain = new AddressKeyChain();
-
-// For Sample Purposes Only.
-$request = clone $addressKeyChain;
-
-$addressKeyChain->create($apiContexts['BTC.main']);
-
-{
-  "private":"3f3cea5a7373011d6f51844bf986abe6950d7a30eaaab247fc951c3ea9f13705",
-  "public":"02d1c8ccc7131a3c39b9e7001741f68d339e5d6941caf31fe9f43b15d6cf09dcb9",
-  "address":"1rA7AB93qziWzHfTFXn5n3GYJ1mhkG8tn",
-  "wif":"KyLdumvGqB86v3D9sKqAMGhNXB1UtYSsxb9deH1nxpooskVF7Rgz"
-}
 ```
 
 An AddressKeychain represents an associated collection of public and private keys alongside their respective public address. Generally returned and used with the [Generate Address Endpoint](#generate-address-endpoint).
@@ -989,42 +607,6 @@ curl -d '{"name": "alice","addresses": ["1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e"]}' 
 ```
 
 ```php
-<?php
-
-// Run on console:
-// php -f .\sample\wallet-api\CreateWalletEndpoint.php
-
-require __DIR__ . '/../bootstrap.php';
-
-use BlockCypher\Api\Wallet;
-use BlockCypher\Auth\SimpleTokenCredential;
-use BlockCypher\Rest\ApiContext;
-
-$apiContext = ApiContext::create(
-    'main', 'btc', 'v1',
-    new SimpleTokenCredential('c0afcccdde5081d6429de37d16166ead'),
-    array('log.LogEnabled' => true, 'log.FileName' => 'BlockCypher.log', 'log.LogLevel' => 'DEBUG')
-);
-
-// Create a new instance of Wallet object
-$wallet = new Wallet();
-$wallet->setName('alice');
-$wallet->setAddresses(array(
-    "1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e"
-));
-
-// For Sample Purposes Only.
-$request = clone $wallet;
-
-$wallet->create(array(), $apiContext);
-
-{
-  "token":"c0afcccdde5081d6429de37d16166ead",
-  "name":"alice",
-  "addresses":[
-    "1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e"
-  ]
-}
 ```
 
 A Wallet represents a list of addresses, and can be used interchangeably with all the [Address API](#address-api) endpoints.
@@ -1056,34 +638,6 @@ curl https://api.blockcypher.com/v1/btc/main/hooks/399d0923-e920-48ee-8928-2051c
 ```
 
 ```php
-<?php
-
-// Run on console:
-// php -f .\sample\hook-api\WebHookIdEndpoint.php
-
-require __DIR__ . '/../bootstrap.php';
-
-use BlockCypher\Api\WebHook;
-use BlockCypher\Auth\SimpleTokenCredential;
-use BlockCypher\Rest\ApiContext;
-
-$apiContext = ApiContext::create(
-    'main', 'btc', 'v1',
-    new SimpleTokenCredential('c0afcccdde5081d6429de37d16166ead'),
-    array('log.LogEnabled' => true, 'log.FileName' => 'BlockCypher.log', 'log.LogLevel' => 'DEBUG')
-);
-
-$webHook = WebHook::get('d5ca3bd3-5dfb-477d-9fb4-ac3510af258d', array(), $apiContext);
-
-{
-  "id":"d5ca3bd3-5dfb-477d-9fb4-ac3510af258d",
-  "token":"c0afcccdde5081d6429de37d16166ead",
-  "url":"http://requestb.in/rwp6jirw?uniqid=5581998e19114",
-  "callback_errors":0,
-  "event":"unconfirmed-tx",
-  "hash":"2b17f5589528f97436b5d563635b4b27ca8980aa20c300abdc538f2a8bfa871b",
-  "filter":"event=unconfirmed-tx\u0026hash=2b17f5589528f97436b5d563635b4b27ca8980aa20c300abdc538f2a8bfa871b"
-}
 ```
 
 An Event represents a WebHooks or WebSockets-based notification request, as detailed in the [Events & Hooks](#events-and-hooks) section of the documentation.
@@ -1122,38 +676,6 @@ curl -d '{"destination":"15qx9ug952GWGTNn7Uiv6vode4RcGrRemh","callback_url": "ht
 ```
 
 ```php
-<?php
-// Run on console:
-// php -f .\sample\payment-api\CreatePaymentEndpoint.php
-
-require __DIR__ . '/../bootstrap.php';
-
-use BlockCypher\Api\PaymentForward;
-use BlockCypher\Auth\SimpleTokenCredential;
-use BlockCypher\Rest\ApiContext;
-
-$apiContext = ApiContext::create(
-    'main', 'btc', 'v1',
-    new SimpleTokenCredential('c0afcccdde5081d6429de37d16166ead'),
-    array('log.LogEnabled' => true, 'log.FileName' => 'BlockCypher.log', 'log.LogLevel' => 'DEBUG')
-);
-
-$paymentForward = new PaymentForward();
-$paymentForward->setDestination('15qx9ug952GWGTNn7Uiv6vode4RcGrRemh');
-$paymentForward->setCallbackUrl("http://requestb.in/rwp6jirw?uniqid=" . uniqid());
-
-// For Sample Purposes Only.
-$request = clone $paymentForward;
-
-$paymentForward->create($apiContext);
-
-{
-  "destination":"15qx9ug952GWGTNn7Uiv6vode4RcGrRemh",
-  "callback_url":"http://requestb.in/rwp6jirw?uniqid=5583de7d87288",
-  "id":"ec2b4b4f-eeb2-4824-b528-7d78a6f52492",
-  "token":"c0afcccdde5081d6429de37d16166ead",
-  "input_address":"17h2S1KtX7AqS9DJexqqSTNFCgwCoqqxhU"
-}
 ```
 
 A PaymentForward object represents a request set up through the [Payment Forwarding](#payment-forwarding) service.
@@ -1191,13 +713,6 @@ Attribute | Type | Description
 ```
 
 ```php
-{
-  "value": 100000000,
-  "input_address": "16uKw7GsQSzfMaVTcT7tpFQkd7Rh9qcXWX",
-  "destination": "15qx9ug952GWGTNn7Uiv6vode4RcGrRemh",
-  "input_transaction_hash": "39bed5d...",
-  "transaction_hash": "1aa6103..."
-}
 ```
 
 A PaymentForwardCallback object represents the payload delivered to the optional **callback_url** in a [PaymentForward](#payment-forward) request.
