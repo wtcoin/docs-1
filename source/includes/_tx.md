@@ -847,6 +847,15 @@ $.post('https://api.blockcypher.com/v1/bcy/test/txs/new', JSON.stringify(newtx))
 # Signing is handled by our SDK in the next step
 ```
 
+```php
+$privateKeys = array(
+    "1551558c3b75f46b71ec068f9e341bf35ee6df361f7b805deb487d8a4d5f055e" // Address: n3D2YXwvpoPg8FhcWpzJiS3SvKKGD8AXZ4
+);
+
+// Sign the transaction
+$txSkeleton->sign($privateKeys);
+```
+
 ### Locally Sign Your Transaction
 
 With your [TXSkeleton](#txskeleton) returned from the New Transaction Endpoint, you now need to use your private key(s) to sign the data provided in the **tosign** array.
@@ -1021,6 +1030,66 @@ $.post('https://api.blockcypher.com/v1/bcy/test/txs/send', JSON.stringify(sendtx
       "addresses"=>["CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"],
       "script_type"=>"pay-to-pubkey-hash"}]},
  "tosign"=>[""]}
+```
+
+```php
+$txSkeleton = $txSkeleton->send();
+
+{
+  "tx":{
+    "block_height":-1,
+    "hash":"edb785c310ea58c70245c9a89130efca8fb0a02d4bee47b18542986e7bf95806",
+    "addresses":[
+      "C5vqMGme4FThKnCY44gx1PLgWr86uxRbDm",
+      "C4MYFr4EAdqEeUKxTnPUF3d3whWcPMz1Fi"
+    ],
+    "total":5420100,
+    "fees":12000,
+    "size":119,
+    "preference":"high",
+    "relayed_by":"88.7.90.149",
+    "received":"2015-06-17T10:23:02.475392139Z",
+    "ver":1,
+    "lock_time":0,
+    "double_spend":false,
+    "vin_sz":1,
+    "vout_sz":2,
+    "confirmations":0,
+    "inputs":[
+      {
+        "prev_hash":"64e39fa5322ee604ad548dc5d4ae1a61b0a575278724d0df7e53dd334f5f13e3",
+        "output_index":0,
+        "script":"",
+        "output_value":5432100,
+        "sequence":4294967295,
+        "addresses":[
+          "C5vqMGme4FThKnCY44gx1PLgWr86uxRbDm"
+        ],
+        "script_type":"",
+        "age":0
+      }
+    ],
+    "outputs":[
+      {
+        "value":1000,
+        "script":"76a9147b2b09ad46d95e177df6969a275db321c66cecf388ac",
+        "addresses":[
+          "C4MYFr4EAdqEeUKxTnPUF3d3whWcPMz1Fi"
+        ],
+        "script_type":"pay-to-pubkey-hash"
+      },
+      {
+        "value":5419100,
+        "script":"76a9148c6f28c814116f1ae3d0940b2fb05a68a9507e8a88ac",
+        "addresses":[
+          "C5vqMGme4FThKnCY44gx1PLgWr86uxRbDm"
+        ],
+        "script_type":"pay-to-pubkey-hash"
+      }
+    ]
+  },
+  "tosign":[]
+}
 ```
 
 ### Send Transaction Endpoint
