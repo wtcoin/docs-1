@@ -213,6 +213,13 @@ Resource | Method | Return Object
 -------- | ------ | -------------
 /txs/$TXHASH | GET | [TX](#tx)
 
+Flag | Type | Effect
+---- | ---- | ------
+**limit** | *integer* | Filters TXInputs/TXOutputs, if unset, default is 20.
+**inStart** | *integer* | Filters TX to only include TXInputs after this input index.
+**outStart** | *integer* | Filters TX to only include TXOutputs after this output index.
+**includeHex** | *bool* | If *true*, includes hex-encoded raw transaction; false by default.
+
 TXHASH is a *string* representing the hex-encoded transaction hash you're interested in querying, for example:
 
 `f854aebae95150b379cc1187d848d58225f3c4157fe992bcd166f58bd5063449`
