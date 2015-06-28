@@ -1437,7 +1437,30 @@ Objects sometimes contain <b>attributes</b> that are <b><i>optional.</i></b> The
 <span class="s2">"token"</span>: <span class="s2">"477a17a15d55b408038404a46c059ef9"</span>,
 <span class="s2">"signatures"</span>: <span class="o">[</span>
     <span class="s2">"3045022100..."</span>
-<span class="o">]</span>
+<span class="o">]</span>,
+<span class="s2">"tosign"</span> : <span class="o">[</span>
+    <span class="s2">"cbac3d3105..."</span>
+<span class="o">]</span>,
+<span class="s2">"inputs"</span>: <span class="o">[</span>
+    <span class="o">{</span>
+    <span class="s2">"prev_hash"</span>: <span class="s2">"88e6f4fa0dea77e..."</span>,
+    <span class="s2">"output_index"</span>: 2
+    <span class="o">}</span>,
+    <span class="o">{</span>
+    <span class="s2">"prev_hash"</span>: <span class="s2">"a02ccb59238178e..."</span>,
+    <span class="s2">"output_index"</span>: 1
+    <span class="o">}</span>
+<span class="o">]</span>,
+<span class="s2">"outputs"</span>: <span class="o">[</span>
+    <span class="o">{</span>
+    <span class="s2">"address"</span>: <span class="s2">"13My..."</span>,
+    <span class="s2">"value"</span>: 10000
+    <span class="o">}</span>,
+    <span class="o">{</span>
+    <span class="s2">"address"</span>: <span class="s2">"1bs15..."</span>,
+    <span class="s2">"value"</span>: 9995590
+    <span class="o">}</span>,
+<span class="s2">"fees"</span>: 735
 <span class="o">}</span>
 </code></pre>
 
@@ -1507,12 +1530,12 @@ Only one of these three fields is required for the microtransaction endpoint: <b
 <tr>
 <td><strong>inputs</strong></td>
 <td><em>array[<a href="#txinput">TXInput</a>]</em></td>
-<td><strong><em>Optional</em></strong> Partial list of inputs that will be used with this transaction. Only returned when using <strong>from_pubkey</strong>.</td>
+<td><strong><em>Optional</em></strong> Partial list of inputs that will be used with this transaction. Inputs themsleves are heavily pared down, see cURL sample. Only returned when using <strong>from_pubkey</strong>.</td>
 </tr>
 <tr>
 <td><strong>outputs</strong></td>
 <td><em>array[<a href="#txoutput">TXOutput</a>]</em></td>
-<td><strong><em>Optional</em></strong> Partial list of outputs that will be used with this transaction. Only returned when using <strong>from_pubkey</strong>.</td>
+<td><strong><em>Optional</em></strong> Partial list of outputs that will be used with this transaction. Outputs themselves are heavily pared down, see cURL sample. Only returned when using <strong>from_pubkey</strong>.</td>
 </tr>
 <tr>
 <td><strong>fees</strong></td>
