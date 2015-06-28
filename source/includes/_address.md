@@ -243,6 +243,7 @@ Flag | Type | Effect
 ---- | ---- | ------
 **unspentOnly** | *bool* | If **unspentOnly** is *true*, filters response to only include unspent transaction outputs (UTXOs).
 **before** | *integer* | Filters response to only include transactions below **before** height in the blockchain.
+**limit** | *integer* | Only includes **limit** number of TXRefs; if unset, default is 50, while the maximum is 200.
 
 ADDRESS is a *string* representing the public address (or wallet name) you're interested in querying, for example:
 
@@ -513,7 +514,8 @@ Resource | Method | Return Object
 
 Flag | Type | Effect
 ---- | ---- | ------
-**before** | *integer* | Filters response to only include transactions before *integer* height in the blockchain.
+**before** | *integer* | Filters response to only include transactions below **before** height in the blockchain.
+**limit** | *integer* | Only includes **limit** number of TXs; if unset, default is 10, while the maximum is 50.
 
 ADDRESS is a *string* representing the public address (or wallet name) you're interested in querying, for example:
 
