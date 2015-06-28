@@ -391,7 +391,30 @@ Attribute | Type | Description
 "token": "477a17a15d55b408038404a46c059ef9",
 "signatures": [
 	"3045022100..."
-]
+],
+"tosign" : [
+	"cbac3d3105..."
+],
+"inputs": [
+	{
+	"prev_hash": "88e6f4fa0dea77e...",
+	"output_index": 2
+	},
+	{
+	"prev_hash": "a02ccb59238178e...",
+	"output_index": 1
+	}
+],
+"outputs": [
+	{
+	"address": "13My...",
+	"value": 10000
+	},
+	{
+	"address": "1bs15...",
+	"value": 9995590
+	},
+"fees": 735
 }
 ```
 
@@ -413,8 +436,8 @@ Attribute | Type | Description
 **wait_guarantee** | *bool* | ***Optional*** If not set, defaults to *true*, which means the API will wait for BlockCypher to guarantee the transaction, using our [Confidence Factor](#confidence-factor). The guarantee usually takes around 8 seconds. If manually set to *false*, the Microtransaction endpoint will return as soon as the transaction is broadcast.
 **tosign** | *array[string]* | ***Optional*** Hex-encoded data for you to sign after initiating the microtransaction. Sent in reply to a microtransaction generated using **from_pubkey**/a public key.
 **signatures** | *array[string]* | ***Optional*** Hex-encoded signatures for you to send back after having received (and signed) **tosign**.
-**inputs** | *array[[TXInput](#txinput)]* | ***Optional*** Partial list of inputs that will be used with this transaction. Only returned when using **from_pubkey**.
-**outputs** | *array[[TXOutput](#txoutput)]* | ***Optional*** Partial list of outputs that will be used with this transaction. Only returned when using **from_pubkey**.
+**inputs** | *array[[TXInput](#txinput)]* | ***Optional*** Partial list of inputs that will be used with this transaction. Inputs themsleves are heavily pared down, see cURL sample. Only returned when using **from_pubkey**.
+**outputs** | *array[[TXOutput](#txoutput)]* | ***Optional*** Partial list of outputs that will be used with this transaction. Outputs themselves are heavily pared down, see cURL sample. Only returned when using **from_pubkey**.
 **fees** | *integer* | ***Optional*** BlockCypher's optimally calculated fees for this MicroTX to guarantee swift 99% confirmation, only returned when using **from_pubkey**. BlockCypher pays these fees for the first 8,000 microtransactions, but like regular transactions, it is deducted from the source address thereafter.
 **hash** | *string* | ***Optional*** The hash of the finalized transaction, once sent.
 
