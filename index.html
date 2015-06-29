@@ -5123,7 +5123,7 @@ curl -H <span class="s2">"Content-Type: application/json"</span> -d <span class=
 <li>Our <a href="#microtransaction-api">Microtransaction API</a> is possible because of our Confidence Factor. Normally, you&rsquo;d have to wait ~10 minutes for a block confirmation, which makes immediate, frequent, small on-chain transactions impossible. But since we believe in our confidence product&mdash;and have done the work necessary to validate this belief&mdash;we can guarantee microtransactions up to ~$9 each.</li>
 </ul>
 
-<h3 id="how-does-it-work?">How does it work?</h3>
+<h3 id="how-does-it-work">How does it work?</h3>
 
 <p>There are a host of factors that go into our confidence calculation, but you can broadly organize them into two categories. The <em>shape</em> of transactions refers to aspects of transactions that <em>don&rsquo;t</em> vary with time (time-invariant) in our model. The <em>behavior</em> of transactions refers to aspects of transactions that <em>do</em> vary with time (time-variant) in our model.</p>
 
@@ -5385,7 +5385,7 @@ HTTP/1.1 204 No Content
 
 <p>Blockchains are highly transactional systems. Many usage patterns require knowing when an event occurs: i.e., when a transaction is included into a block, or when an unconfirmed transaction is relayed through the network. Instead of requiring you to continuously poll resources, we provide push APIs to facilitate those use cases, and support both WebSockets and WebHooks.</p>
 
-<h3 id="which-should-i-use?">Which Should I Use?</h3>
+<h3 id="which-should-i-use">Which Should I Use?</h3>
 
 <p><strong><a href="https://developer.mozilla.org/en-US/docs/WebSockets">WebSockets</a></strong> are typically used in client applications when a server is not already running: e.g., a web page displaying the most recent transactions or a wallet app updating its UI when a transaction has been confirmed. Websockets are less reliable in longer interactions (&gt; 1 hour) because they require a connection to stay open.</p>
 
