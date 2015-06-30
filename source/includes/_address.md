@@ -75,6 +75,26 @@ $.get('https://api.blockcypher.com/v1/btc/main/addrs/1DEP8i3QJCsomS4BSMY2RpU1upv
  'unconfirmed_n_tx': 0}
 ```
 
+```php
+<?php
+// Run on console:
+// php -f .\sample\address-api\AddressBalanceEndpoint.php
+
+$addressBalance = Address::getOnlyBalance('1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD');
+
+{
+  "address":"1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD",
+  "total_received":4433416,
+  "total_sent":0,
+  "balance":4433416,
+  "unconfirmed_balance":0,
+  "final_balance":4433416,
+  "n_tx":7,
+  "unconfirmed_n_tx":0,
+  "final_n_tx":7
+}
+```
+
 The Address Balance Endpoint is the simplest---and fastest---method to get a subset of information on a public address.
 
 Resource | Method | Return Object
@@ -231,6 +251,42 @@ $.get('https://api.blockcypher.com/v1/btc/main/addrs/1DEP8i3QJCsomS4BSMY2RpU1upv
  'unconfirmed_balance': 0,
  'address': '1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD',
  'unconfirmed_n_tx': 0}
+```
+
+```php
+<?php
+
+// Run on console:
+// php -f .\sample\address-api\AddressEndpoint.php
+
+$address = Address::get('1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD');
+
+{
+  "address":"1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD",
+  "total_received":4433416,
+  "total_sent":0,
+  "balance":4433416,
+  "unconfirmed_balance":0,
+  "final_balance":4433416,
+  "n_tx":7,
+  "unconfirmed_n_tx":0,
+  "final_n_tx":7,
+  "txrefs":[
+    {
+      "tx_hash":"14b1052855bbf6561bc4db8aa501762e7cc1e86994dda9e782a6b73b1ce0dc1e",
+      "block_height":302013,
+      "tx_input_n":-1,
+      "tx_output_n":0,
+      "value":20213,
+      "spent":false,
+      "confirmations":58584,
+      "confirmed":"2014-05-22T03:46:25Z",
+      "double_spend":false
+    },
+    ...
+  ],
+  "tx_url":"https://api.blockcypher.com/v1/btc/main/txs/"
+}
 ```
 
 The default Address Endpoint strikes a balance between speed of response and data on Addresses. It returns more information about an address' transactions than the [Address Balance Endpoint](#address-balance-endpoint) but doesn't return full transaction information (like the [Address Full Endpoint](#address-full-endpoint)).
@@ -506,6 +562,84 @@ $.get('https://api.blockcypher.com/v1/btc/main/addrs/1DEP8i3QJCsomS4BSMY2RpU1upv
  'unconfirmed_n_tx': 0}
 ```
 
+```php
+<?php
+// Run on console:
+// php -f .\sample\address-api\AddressFullEndpoint.php
+
+$fullAddress = Address::getFullAddress('1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD');
+
+{
+  "address":"1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD",
+  "total_received":4433416,
+  "total_sent":0,
+  "balance":4433416,
+  "unconfirmed_balance":0,
+  "final_balance":4433416,
+  "n_tx":7,
+  "unconfirmed_n_tx":0,
+  "final_n_tx":7,
+  "txs":[
+    {
+      "block_hash":"00000000000000006548ac8dc283c97e8165023dc1fdbbca2eaa75f0143f4a8c",
+      "block_height":302013,
+      "hash":"14b1052855bbf6561bc4db8aa501762e7cc1e86994dda9e782a6b73b1ce0dc1e",
+      "addresses":[
+        "17astdTmG8zzVmry8mV8A7atAr3XefEgRX",
+        "1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD"
+      ],
+      "total":8835413,
+      "fees":10000,
+      "size":258,
+      "preference":"medium",
+      "relayed_by":"",
+      "confirmed":"2014-05-22T03:46:25Z",
+      "received":"2014-05-22T03:46:25Z",
+      "ver":1,
+      "lock_time":0,
+      "double_spend":false,
+      "vin_sz":1,
+      "vout_sz":2,
+      "confirmations":58588,
+      "confidence":1,
+      "inputs":[
+        {
+          "prev_hash":"4cff011ec53022f2ae47197d1a2fd4a6ac2a80139f4d0131c1fed625ed5dc869",
+          "output_index":1,
+          "script":"483045022035695e3b237733c70a56286eccd8df41b4d22cd103ed9b2df44010caa3bc71430221008f58461c937e8fe6cc6d37a9aaee3927762cce4565a4c386bbcd9d82915acfc50141047b1d511b8559a2003ca88715bc8331f057fa4ebf11f411142509a8ffd2f2d36d5a5e4b6019d6eb3e16878f24fd8d55676050c28b4bc5e4c44f39245beedae100",
+          "output_value":8845413,
+          "sequence":4294967295,
+          "addresses":[
+            "17astdTmG8zzVmry8mV8A7atAr3XefEgRX"
+          ],
+          "script_type":"pay-to-pubkey-hash"
+        }
+      ],
+      "outputs":[
+        {
+          "value":20213,
+          "script":"76a9148629647bd642a2372d846a7660e210c8414f047c88ac",
+          "addresses":[
+            "1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD"
+          ],
+          "script_type":"pay-to-pubkey-hash"
+        },
+        {
+          "value":8815200,
+          "script":"76a9144838f65fc4e06c644423ad0430de11ca5785dcd088ac",
+          "spent_by":"582a50f3a756c3261f8f085185e5975a762e239e95a30bcf1a4f2e31e0f834ab",
+          "addresses":[
+            "17astdTmG8zzVmry8mV8A7atAr3XefEgRX"
+          ],
+          "script_type":"pay-to-pubkey-hash"
+        }
+      ]
+    },
+    ...
+  ]
+}
+```
+
 The Address Full Endpoint returns all information available about a particular address, including an array of complete [transactions](#tx) instead of just transaction inputs and outputs. Unfortunately, because of the amount of data returned, it is the slowest of the address endpoints, but it returns the most detailed data record.
 
 Resource | Method | Return Object
@@ -561,6 +695,22 @@ $.post('https://api.blockcypher.com/v1/btc/test3/addrs')
 
 ```python
 # Please use the python library at https://github.com/blockcypher/blockcypher-python to securely generate an address client-side
+```
+
+```php
+<?php
+// Run on console:
+// php -f .\sample\address-api\GenerateAddressEndpoint.php
+
+$addressKeyChain = new AddressKeyChain();
+$addressKeyChain->create($apiContexts['BTC.main']);
+
+{
+  "private":"3f3cea5a7373011d6f51844bf986abe6950d7a30eaaab247fc951c3ea9f13705",
+  "public":"02d1c8ccc7131a3c39b9e7001741f68d339e5d6941caf31fe9f43b15d6cf09dcb9",
+  "address":"1rA7AB93qziWzHfTFXn5n3GYJ1mhkG8tn",
+  "wif":"KyLdumvGqB86v3D9sKqAMGhNXB1UtYSsxb9deH1nxpooskVF7Rgz"
+}
 ```
 
 The Generate Address endpoint allows you to generate private-public key-pairs along with an associated public address. No information is required with this POST request.
@@ -651,6 +801,39 @@ $.post('https://api.blockcypher.com/v1/btc/test3/addrs', data)
  'wif': ''}
 ```
 
+```php
+<?php
+// Run on console:
+// php -f .\sample\address-api\GenerateMultisignAddressEndpoint.php
+
+$addressKeyChain = new AddressKeyChain();
+$pubkeys = array(
+    "02c716d071a76cbf0d29c29cacfec76e0ef8116b37389fb7a3e76d6d32cf59f4d3",
+    "033ef4d5165637d99b673bcdbb7ead359cee6afd7aaf78d3da9d2392ee4102c8ea",
+    "022b8934cc41e76cb4286b9f3ed57e2d27798395b04dd23711981a77dc216df8ca"
+);
+$addressKeyChain->setPubkeys($pubkeys);
+$addressKeyChain->setScriptType('multisig-2-of-3');
+
+// For Sample Purposes Only.
+$request = clone $addressKeyChain;
+
+$addressKeyChain->create();
+
+{
+  "pubkeys":[
+    "02c716d071a76cbf0d29c29cacfec76e0ef8116b37389fb7a3e76d6d32cf59f4d3",
+    "033ef4d5165637d99b673bcdbb7ead359cee6afd7aaf78d3da9d2392ee4102c8ea",
+    "022b8934cc41e76cb4286b9f3ed57e2d27798395b04dd23711981a77dc216df8ca"
+  ],
+  "script_type":"multisig-2-of-3",
+  "private":"",
+  "public":"",
+  "address":"3BF1M1PnTge94QewuWh3B8mRVw8U4SVnb4",
+  "wif":""
+}
+```
+
 The Generate Multisig Address Endpoint is a convenience method to help you generate multisig addresses from multiple public keys. After supplying a partially filled-out [AddressKeychain](#addresskeychain) object (including only an array of hex-encoded public keys and the script type), the returned object includes the computed public address.
 
 <aside class="notice">
@@ -719,6 +902,28 @@ $.post('https://api.blockcypher.com/v1/btc/main/wallets?token=USERTOKEN', data)
 {'name': 'alice',
  'token': 'YOUR_TOKEN',
  'addresses': ['1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e']}
+```
+
+```php
+<?php
+// Run on console:
+// php -f .\sample\wallet-api\CreateWalletEndpoint.php
+
+// Create a new instance of Wallet object
+$wallet = new Wallet();
+$wallet->setName('alice');
+$wallet->setAddresses(array(
+    "1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e"
+));
+$wallet->create();
+
+{
+  "token":"c0afcccdde5081d6429de37d16166ead",
+  "name":"alice",
+  "addresses":[
+    "1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e"
+  ]
+}
 ```
 
 Resource | Method | Request Object | Return Object
@@ -817,6 +1022,27 @@ $.post('https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses?token=US
  'addresses': ['1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e', '13cj1QtfW61kQHoqXm3khVRYPJrgQiRM6j']}
 ```
 
+```php
+<?php
+// Run on console:
+// php -f .\sample\wallet-api\AddAddressesToWalletEndpoint.php
+
+$wallet = Wallet::get('alice');
+$addressesList = AddressList::fromAddressesArray(array(
+    "13cj1QtfW61kQHoqXm3khVRYPJrgQiRM6j"
+));
+$wallet->addAddresses($addressesList);
+
+{
+  "token":"c0afcccdde5081d6429de37d16166ead",
+  "name":"alice",
+  "addresses":[
+    "1jr1rHMthQVMNSYswB9ExSvYn339fWMzn",
+    "13cj1QtfW61kQHoqXm3khVRYPJrgQiRM6j"
+  ]
+}
+```
+
 Resource | Method | Request Object | Return Object
 -------- | ------ | -------------- | -------------
 /wallets/$NAME/addresses | POST | [Wallet](#wallet) | [Wallet](#wallet)
@@ -860,6 +1086,24 @@ $.get('https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses?token=USE
   '1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e']}
 ```
 
+```php
+<?php
+
+// Run on console:
+// php -f .\sample\wallet-api\WalletAddressesEndpoint.php
+
+$wallet = Wallet::getOnlyAddresses('alice');
+
+{
+  "token":"c0afcccdde5081d6429de37d16166ead",
+  "name":"alice",
+  "addresses":[
+    "13cj1QtfW61kQHoqXm3khVRYPJrgQiRM6j",
+    "1jr1rHMthQVMNSYswB9ExSvYn339fWMzn"
+  ]
+}
+```
+
 Resource | Method | Return Object
 -------- | ------ | -------------
 /wallets/$NAME/addresses | GET | [Wallet](#wallet)
@@ -893,6 +1137,28 @@ $.ajax({
 >>> r = requests.delete('https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses', data=json.dumps(data))
 # returns nothing, let's just check the status code to be sure
 >>> assert r.status_code == 204
+```
+
+```php
+<?php
+// Run on console:
+// php -f .\sample\wallet-api\RemoveAddressesFromWalletEndpoint.php
+
+// List of addresses to be removed from the wallet
+$addressesList = AddressesList::fromAddressesArray(array(
+    "13cj1QtfW61kQHoqXm3khVRYPJrgQiRM6j"
+));
+
+$wallet = Wallet::get('alice');
+$wallet->removeAddresses($addressesList);
+
+{
+  "token":"c0afcccdde5081d6429de37d16166ead",
+  "name":"alice",
+  "addresses":[
+    "1jr1rHMthQVMNSYswB9ExSvYn339fWMzn"
+  ]
+}
 ```
 
 Resource | Method | Request Object | Return Object
@@ -952,6 +1218,28 @@ $.post('https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses/generate
 # Please use the python library at https://github.com/blockcypher/blockcypher-python to securely generate an address client-side
 ```
 
+```php
+<?php
+// Run on console:
+// php -f .\sample\wallet-api\GenerateAddressInWalletEndpoint.php
+
+$wallet = Wallet::get('alice');
+$walletGenerateAddressResponse = $wallet->generateAddress();
+
+{
+  "token":"c0afcccdde5081d6429de37d16166ead",
+  "name":"alice",
+  "addresses":[
+    "1jr1rHMthQVMNSYswB9ExSvYn339fWMzn",
+    "13cj1QtfW61kQHoqXm3khVRYPJrgQiRM6j"
+  ],
+  "private":"0d42eb9fa80301aa3a5c4e91d2a5c892b4fb99b10bc1f0d636d46ecba32d37e6",
+  "public":"030b4780c12784456291191318b231dcce64c93f8eb211fa78eb7e95663009e414",
+  "address":"1GuPv187EEUi3BDypdpMS7cmMuaVpWy6PM",
+  "wif":"KwfVLLsRSgSC6pkDLkEmMn8fH5VFceaYT9B58Cu8QHZtZzJvnpYZ"
+}
+```
+
 Resource | Method | Request Object | Return Object
 -------- | ------ | -------------- | -------------
 /wallets/$NAME/addresses/generate | POST | *nil* | [Wallet](#Wallet) + [AddressKeychain](#AddressKeychain)
@@ -989,6 +1277,15 @@ $.ajax({
 >>> r = requests.delete('https://api.blockcypher.com/v1/btc/main/wallets/alice', params=params)
 # returns nothing, let's just check the status code to be sure
 >>> assert r.status_code == 204
+```
+
+```php
+<?php
+// Run on console:
+// php -f .\sample\wallet-api\DeleteWalletEndpoint.php
+
+$wallet = Wallet::get('alice');
+$result = $wallet->delete();
 ```
 
 Resource | Method | Request Object | Return Object

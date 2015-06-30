@@ -6,6 +6,7 @@ language_tabs:
   - javascript: JavaScript
   - ruby: Ruby
   - python: Python
+  - php: PHP
 
 toc_footers:
   - <a href='https://accounts.blockcypher.com/'>Register for a Free Token</a>
@@ -50,6 +51,16 @@ includes:
 // |_) |  _   _ |  /     ._  |_   _  ._
 // |_) | (_) (_ |< \_ \/ |_) | | (/_ | 
 //                    /  |             
+```
+
+```php
+<?php
+/**
+ *  _               _
+ * |_) |  _   _ |  /     ._  |_   _  ._
+ * |_) | (_) (_ |< \_ \/ |_) | | (/_ |
+ *                    /  |
+ */
 ```
 
 Welcome to [BlockCypher's](http://www.blockcypher.com/) API documentation! BlockCypher is a simple, mostly RESTful JSON API for interacting with blockchains, accessed over HTTP or HTTPS from the [api.blockcypher.com](https://api.blockcypher.com/v1/btc/main) domain. Currently, BlockCypher supports Bitcoin, Bitcoin Testnet3, Litecoin, Dogecoin, Urocoin, and BlockCypher's Test Chain (more about BlockCypher's Test Chain [below](#testing)).
@@ -98,6 +109,47 @@ To see detailed python code snippets, check the official python repository:
 https://github.com/blockcypher/blockcypher-python
 ```
 
+```php
+PHP Client
+----------
+
+REQUIREMENTS
+- PHP 5.4+
+- ext-curl
+- ext-gmp
+- ext-mcrypt
+- Composer
+- Git
+
+INSTALL SAMPLES
+git clone https://github.com/blockcypher/php-client.git
+cd php-client
+
+RUNNING SAMPLES ON CONSOLE
+php -f .\sample\docs-sample\address-api\address-endpoint.php
+Log file is generate in the folder when you run the command
+
+To see detailed PHP client info, check the official PHP repository:
+https://github.com/blockcypher/php-client
+
+Irrelevant code is not shown in samples. You can get the full sample version from:
+https://github.com/blockcypher/php-client/tree/master/sample
+
+All samples begin with something like this (but omitted in docs site):
+<?php
+require __DIR__ . '/../bootstrap.php';
+
+use BlockCypher\Auth\SimpleTokenCredential;
+use BlockCypher\Rest\ApiContext;
+// ... other classes
+
+$apiContext = ApiContext::create(
+    'main', 'btc', 'v1',
+    new SimpleTokenCredential('$YOUR_TOKEN'),
+    array('log.LogEnabled' => true, 'log.FileName' => 'BlockCypher.log', 'log.LogLevel' => 'DEBUG')
+);
+```
+
 In these docs you'll find everything you need to leverage BlockCypher for your applications. For all officially supported languages, you'll see code samples, in addition to basic cURL requests/responses for every endpoint. You can switch between cURL/language samples via the selector in the upper right. We're working on supporting more languages, but if you're working on your own language library, definitely let us know: we'd love to add more community supported libraries here.
 
 <aside class="notice">
@@ -139,11 +191,11 @@ BlockCypher has client SDKs for the following languages:
 - **Ruby** [https://github.com/blockcypher/ruby-client](https://github.com/blockcypher/ruby-client)
 - **Python** [https://github.com/blockcypher/blockcypher-python](https://github.com/blockcypher/blockcypher-python)
 - **Java** [https://github.com/blockcypher/java-client](https://github.com/blockcypher/java-client)
+- **PHP** [https://github.com/blockcypher/php-client](https://github.com/blockcypher/php-client)
 
 These client SDKs are under development, but are still officially supported:
 
 - **Node.js** [https://github.com/blockcypher/node-client](https://github.com/blockcypher/node-client)
-- **PHP** [https://github.com/blockcypher/php-client](https://github.com/blockcypher/php-client)
 
 If you're using these languages, we strongly encourage you to use an official SDK. Of course, all our API calls are standard HTTP endpoints using JSON formatted responses, so any language (or cURL from the command-line) will work just fine.
 
@@ -242,6 +294,31 @@ $.get('https://api.blockcypher.com/v1/btc/main').then(function(d) {console.log(d
  'last_fork_hash': '00000000000000000aa6462fd9faf94712ce1b5a944dc666f491101c996beab9'}
 ```
 
+```php
+<?php
+// Run on console:
+// php -f .\sample\chain-api\ChainEndpoint.php
+
+$chain = Blockchain::get('BTC.main');
+
+{
+  "name":"BTC.main",
+  "height":360602,
+  "hash":"00000000000000000a1268afd1eb419817106a37c9a87852228cadb752a64f2a",
+  "time":"2015-06-12T13:09:56.69966089Z",
+  "latest_url":"https://api.blockcypher.com/v1/btc/main/blocks/00000000000000000a1268afd1eb419817106a37c9a87852228cadb752a64f2a",
+  "previous_hash":"00000000000000000cea706491da61bc755a1250d7260becff5aafc9d26613f2",
+  "previous_url":"https://api.blockcypher.com/v1/btc/main/blocks/00000000000000000cea706491da61bc755a1250d7260becff5aafc9d26613f2",
+  "peer_count":250,
+  "unconfirmed_count":1794,
+  "high_fee_per_kb":40018,
+  "medium_fee_per_kb":26652,
+  "low_fee_per_kb":12299,
+  "last_fork_height":360362,
+  "last_fork_hash":"000000000000000002d5cf67bfaa92ba5b371c1590eb48d25031c669ef6233a0"
+}
+```
+
 Almost all resources exist under a given blockchain, and follow this pattern:
 
 `https://api.blockcypher.com/$API_VERSION/$COIN/$CHAIN/`
@@ -305,6 +382,18 @@ $.get('https://api.blockcypher.com/v1/btc/main?token='+TOKEN);
 >>> params = {'token': 'YOUR_TOKEN'}
 >>> r = requests.get('https://api.blockcypher.com/v1/btc/main', params=params)
 >>> r.json()
+```
+
+```php
+<?php
+# Adding your token as client credential to API context
+$apiContext = ApiContext::create(
+    'main', 'btc', 'v1',
+    new SimpleTokenCredential('c0afcccdde5081d6429de37d16166ead'),
+    array('log.LogEnabled' => true, 'log.FileName' => 'BlockCypher.log', 'log.LogLevel' => 'DEBUG')
+);
+
+# Use $apiContext as function param or set as default ApiContext 
 ```
 
 Once you have your token, you can append it to all your requests like any other URL parameter if you're using cURL, or through the appropriate method in the language SDK you're using.
@@ -475,6 +564,51 @@ base_url = 'https://api.blockcypher.com/v1/btc/main/blocks/'
 full_url = base_url + ';'.join([5,6,7])
 ```
 
+```php
+<?php
+// Run on console:
+// php -f .\sample\introduction\Batching.php
+// Batching blocks 5, 6, and 7
+
+$blocks = \BlockCypher\Api\Block::getMultiple(array('5', '6', '7'), array(), $apiContexts['BTC.main']);
+
+[{
+"hash": "000000003031a0e73735690c5a1ff2a4be82553b2a12b776fbd3a215dc8f778d",
+"height": 6,
+"chain": "BTC.main",
+"total": 0,
+"fees": 0,
+"ver": 1,
+"time": "2009-01-09T03:29:49Z",
+...,
+},
+{
+"hash": "000000009b7262315dbf071787ad3656097b892abffd1f95a1a022f896f533fc",
+"height": 5,
+"chain": "BTC.main",
+"total": 0,
+"fees": 0,
+"ver": 1,
+"time": "2009-01-09T03:23:48Z",
+...,
+},
+{
+"hash": "0000000071966c2b1d065fd446b1e485b2c9d9594acd2007ccbd5441cfc89444",
+"height": 7,
+"chain": "BTC.main",
+"total": 0,
+"fees": 0,
+"ver": 1,
+"time": "2009-01-09T03:39:29Z",
+...,
+}]
+
+# Note, when constructing the block array (first param) programatically you can use alternative syntax like:
+$blockList = array('5', '6', '7');
+$blockList = explode(";", "5;6;7");
+$blockList = [5,6,7]; // PHP 5.4
+```
+
 All endpoints that can retrieve a single [Object](#objects) can be batched to return multiple objects. If you're cURLing the API directly, batching simply requires appending each identifier to the previous one using a semicolon (check the code pane for an example). The results are aggregated in a JSON array and may not be ordered, especially for bigger batches. But this shouldn't matter, as the requested identifiers are always present in the returned objects. The other supported client SDKs batch differently, but each idiomatic to their respective language (check the code pane examples in each library).
 
 <aside class="notice">
@@ -572,6 +706,34 @@ $.post('http://api.blockcypher.com/v1/bcy/test/faucet?token=$YOUR_TOKEN', req)
 >>> r = requests.post('http://api.blockcypher.com/v1/bcy/test/faucet', data=json.dumps(data), params=params)
 >>> r.json()
 {'tx_ref': 'b2ecfb5e40f3923b07819f1a386a538e86cc6ce59ae7a59533df487f622d1cbb'}
+```
+
+```php
+<?php
+// Make new address; returns private key/public key/address
+// Run on console:
+// php -f .\sample\introduction\GenerateBcyAddress.php
+
+$addressKeyChain = new AddressKeyChain();
+$addressKeyChain->create();
+
+{
+  "private":"40e0d6e6210307b9b9d0113bceb9b8c5be6b9e010a03e07f25f75f462ed00a90",
+  "public":"03bd50fc57b1cdf3badbdf0662a4bb54b4d7a0b96eb27cc216b01503b8bf29b29e",
+  "address":"Bxi1GmU6xgqgyBEzugcqFZRLyJd1cpEv2S",
+  "wif":"BqW9QJ24VFcEvDp8UvYvLTnDxn1SjpxsvTeysPAjBW6BX9NggYfr"
+}
+
+<?php
+// Fund prior address with faucet
+// Run on console:
+// php -f .\sample\introduction\FundBcyAddressWithFaucetShortVersion.php
+
+$faucetResponse = Faucet::fundAddress('Bxi1GmU6xgqgyBEzugcqFZRLyJd1cpEv2S', 100000);
+
+{
+  "tx_ref":"0fa68cf5c39dbd918a5ca49fc092be36b8bcece83cbfed919ad6c77b5f24cceb"
+}
 ```
 
 This example shows how to leverage the faucet to programmatically fund addresses, to test your applications. While the example used BlockCypher's Test Chain, the same example could have used Bitcoin Testnet3 and worked the exact same way.

@@ -68,6 +68,26 @@ $.post(url, JSON.stringify(payment))
  'token': 'YOUR_TOKEN'}
 ```
 
+```php
+<?php
+// Run on console:
+// php -f .\sample\payment-api\CreatePaymentEndpoint.php
+
+$paymentForward = new PaymentForward();
+$paymentForward->setDestination('15qx9ug952GWGTNn7Uiv6vode4RcGrRemh');
+$paymentForward->setCallbackUrl("http://requestb.in/rwp6jirw?uniqid=" . uniqid());
+
+$paymentForward->create();
+
+{
+  "destination":"15qx9ug952GWGTNn7Uiv6vode4RcGrRemh",
+  "callback_url":"http://requestb.in/rwp6jirw?uniqid=5583de7d87288",
+  "id":"ec2b4b4f-eeb2-4824-b528-7d78a6f52492",
+  "token":"c0afcccdde5081d6429de37d16166ead",
+  "input_address":"17h2S1KtX7AqS9DJexqqSTNFCgwCoqqxhU"
+}
+```
+
 First, to create an payment forwarding address, you need to POST a partially filled [PaymentForward](#paymentforward) object to the payment creation endpoint. You need to include at least a **destination** address and your **token**; optionally, you can add a **callback_url**, processing fees (either percent or fixed) and a **process_fee_address**, and a few other options. You can see more details about these options in the [PaymentForward](#paymentforward) object details.
 
 Resource | Method | Request Object | Return Object
@@ -131,6 +151,24 @@ $.get('http://api.blockcypher.com/v1/btc/main/payments?token='+TOKEN)
   'token': 'YOUR_TOKEN'}]
 ```
 
+```php
+<?php
+// Run on console:
+// php -f .\sample\payment-api\ListPaymentsEndpoint.php
+
+$paymentForwardArray = PaymentForward::getAll();
+
+[
+  {
+    "id":"ec2b4b4f-eeb2-4824-b528-7d78a6f52492",
+    "token":"c0afcccdde5081d6429de37d16166ead",
+    "destination":"15qx9ug952GWGTNn7Uiv6vode4RcGrRemh",
+    "input_address":"17h2S1KtX7AqS9DJexqqSTNFCgwCoqqxhU",
+    "callback_url":"http://requestb.in/rwp6jirw?uniqid=5583de7d87288"
+  }
+]
+```
+
 To list your currently active payment forwarding addresses, you can use this endpoint.
 
 Resource | Method | Return Object
@@ -167,6 +205,18 @@ $.ajax({
 >>> r = requests.delete('http://api.blockcypher.com/v1/btc/main/payments/f35c80c2-3347-410d-b4ac-d049910289ec', params=params)
 # will return nothing, but we can confirm that delete was succesful via http code
 >>> assert r.status_code == 204
+```
+
+```php
+<?php
+// Run on console:
+// php -f .\sample\payment-api\DeletePaymentEndpoint.php
+
+$webHook = new PaymentForward();
+$webHook->setId('ec2b4b4f-eeb2-4824-b528-7d78a6f52492');
+$webHook->delete();
+
+HTTP/1.1 204 No Content
 ```
 
 When you're done with a payment forwarding address, you can delete it via its id.

@@ -413,7 +413,8 @@ Attribute | Type | Description
 	{
 	"address": "1bs15...",
 	"value": 9995590
-	},
+	}
+],
 "fees": 735
 }
 ```
@@ -537,7 +538,7 @@ curl https://api.blockcypher.com/v1/btc/main/hooks/399d0923-e920-48ee-8928-2051c
 "id": "399d0923-e920-48ee-8928-2051cbfbc369"
 "event": "unconfirmed-tx",
 "address": "15qx9ug952GWGTNn7Uiv6vode4RcGrRemh",
-"token": "YOURTOKEN"
+"token": "YOURTOKEN",
 "url": "https://my.domain.com/callbacks/new-tx"
 }
 ```
@@ -608,3 +609,4 @@ Attribute | Type | Description
 **destination** | *string* |The final destination address to which the payment will eventually be sent.
 **input_transaction_hash** | *string* | The transaction hash representing the initial payment to the **input_address**.
 **transaction_hash** | *string* | The transaction hash of the generated transaction that forwards the payment from the **input_address** to the **destination.**
+

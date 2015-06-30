@@ -207,6 +207,67 @@ $.get('https://api.blockcypher.com/v1/btc/main/txs/f854aebae95150b379cc1187d848d
  'confirmations': 67378}
 ```
 
+```php
+<?php
+// Run on console:
+// php -f .\sample\transaction-api\TransactionHashEndpoint.php
+
+$transaction = TX::get('f854aebae95150b379cc1187d848d58225f3c4157fe992bcd166f58bd5063449');
+
+{
+"block_hash": "0000000000000000c504bdea36e531d80...",
+"block_height": 293000,
+"hash": "f854aebae95150b379cc1187d848d58225f3c41...",
+"addresses": [
+	"13XXaBufpMvqRqLkyDty1AXqueZHVe6iyy",
+	"19YtzZdcfs1V2ZCgyRWo8i2wLT8ND1Tu4L",
+	"1BNiazBzCxJacAKo2yL83Wq1VJ18AYzNHy",
+	"1GbMfYui17L5m6sAy3L3WXAtf1P32bxJXq",
+	"1N2f642sbgCMbNtXFajz9XDACDFnFzdXzV"
+],
+"total": 70320221545,
+"fees": 0,
+"size": 636,
+"preference": "low",
+"relayed_by": "",
+"confirmed": "2014-03-29T01:29:19Z",
+"received": "2014-03-29T01:29:19Z",
+"ver": 1,
+"lock_time": 0,
+"double_spend": false,
+"vin_sz": 4,
+"vout_sz": 1,
+"confirmations": 63171,
+"confidence": 1,
+"inputs": [
+	{
+		"prev_hash": "583910b7bf90ab802e22e5c25a89...",
+		"output_index": 1,
+		"script": "4830450220504b1ccfddf508422bdd8...",
+		"output_value": 16450000,
+		"sequence": 4294967295,
+		"addresses": [
+			"1GbMfYui17L5m6sAy3L3WXAtf1P32bxJXq"
+		],
+		"script_type": "pay-to-pubkey-hash"
+	},
+	...,
+	...,
+],
+"outputs": [
+	{
+		"value": 70320221545,
+		"script": "76a914e6aad9d712c419ea8febf009a...",
+		"spent_by": "35832d6c70b98b54e9a53ab2d5117...",
+		"addresses": [
+			"1N2f642sbgCMbNtXFajz9XDACDFnFzdXzV"
+		],
+		"script_type": "pay-to-pubkey-hash"
+	}
+]
+}
+```
+
 The Transaction Hash Endpoint returns detailed information about a given transaction based on its hash.
 
 Resource | Method | Return Object
@@ -369,6 +430,53 @@ $.get('https://api.blockcypher.com/v1/btc/main/txs').then(function(d) {console.l
   'confirmations': 0},
  ...
 ],
+```
+
+```php
+<?php
+// Run on console:
+// php -f .\sample\transaction-api\UnconfirmedTransactionsEndpoint.php
+
+$txs = TX::getUnconfirmed();
+
+[{'received': '2015-06-10T23:10:31.534Z',
+  'ver': 1,
+  'double_spend': False,
+  'outputs': [{'value': 131910000,
+    'addresses': ['1Gb4TAU4GD73akvt4V7tg2WdqadcpQSvhH'],
+    'script_type': 'pay-to-pubkey-hash',
+    'script': '76a914aafae908428a1778d0e76f0dca4cb800f731873e88ac'},
+    ...
+    ],
+  'block_height': -1,
+  'confidence': 0.36208077122201,
+  'receive_count': 109,
+  'total': 131940196,
+  'fees': 13754,
+  'inputs': [{'output_value': 9467,
+    'sequence': 4294967295,
+    'prev_hash': '3c65f3bdec16c55fcedec8159ca8b7decf12393e3a7088febbfacfd752534ee0',
+    'script': '47304402207510efc3ff2ed868478ef627c4fd53a27254874e61c1ff1be6fb5221844c08ac02204a8a50c35d3fac8ec0c15f468c98abb629cadf3ac898f7be5e6f464ba9e4fba00121035649100ba29d0b34df8a928c2ed7ab1389d017b4ed206f6df5c212a461a764f2',
+    'age': 38,
+    'addresses': ['1MBuZ5ZxhytsjRZmec5rLr1WhDWm9DgFUJ'],
+    'output_index': 1,
+    'script_type': 'pay-to-pubkey-hash'},
+    ...
+   ],
+  'preference': 'medium',
+  'vout_sz': 2,
+  'vin_sz': 3,
+  'relayed_by': '167.114.118.213:8333',
+  'hash': '97f551c7d200f3acf322160d6ada87830d2ad8d935909630a35a87d61bc8fa74',
+  'addresses': ['1DLDFKuAWGUJqZoYrevG8bHufuZCjCdSFZ',
+   '1Gb4TAU4GD73akvt4V7tg2WdqadcpQSvhH',
+   ...
+   ]
+  'lock_time': 0,
+  'size': 521,
+  'confirmations': 0},
+ ...
+]
 ```
 
 The Unconfirmed Transactions Endpoint returns an array of the latest transactions relayed by nodes in a blockchain that haven't been included in any blocks.
@@ -593,6 +701,72 @@ $.post('https://api.blockcypher.com/v1/bcy/test/txs/new', JSON.stringify(newtx))
   'confirmations': 0}}
 ```
 
+```php
+<?php
+// Run on console:
+// php -f .\sample\transaction-api\NewTransactionEndpoint.php
+
+// Create a new instance of Transaction object
+$tx = new Transaction();
+
+// Tx inputs
+$input = new \BlockCypher\Api\Input();
+$input->addAddress("C5vqMGme4FThKnCY44gx1PLgWr86uxRbDm");
+$tx->addInput($input);
+// Tx outputs
+$output = new \BlockCypher\Api\Output();
+$output->addAddress("C4MYFr4EAdqEeUKxTnPUF3d3whWcPMz1Fi");
+$tx->addOutput($output);
+// Tx amount
+$output->setValue(1000); // Satoshis
+
+$txSkeleton = $tx->create();
+
+{
+  "tx":{
+    "block_height":-1,
+    "hash":"edb785c310ea58c70245c9a89130efca8fb0a02d4bee47b18542986e7bf95806",
+    "addresses":[
+      "C5vqMGme4FThKnCY44gx1PLgWr86uxRbDm",
+      "C4MYFr4EAdqEeUKxTnPUF3d3whWcPMz1Fi"
+    ],
+    "total":5420100,
+    "fees":12000,
+    "size":119,
+    "preference":"high",
+    "relayed_by":"88.7.90.149",
+    "received":"2015-06-17T10:23:02.475392139Z",
+    "ver":1,
+    "lock_time":0,
+    "double_spend":false,
+    "vin_sz":1,
+    "vout_sz":2,
+    "confirmations":0,
+    "inputs":[{ "prev_hash":"64e39fa5322ee604ad548dc5d4ae1a61b0a575278724d0df7e53dd334f5f13e3",
+        "output_index":0,
+        "script":"",
+        "output_value":5432100,
+        "sequence":4294967295,
+        "addresses":["C5vqMGme4FThKnCY44gx1PLgWr86uxRbDm"],
+        "script_type":"",
+        "age":0
+      }
+    ],
+    "outputs":[{ "value":1000,
+        "script":"76a9147b2b09ad46d95e177df6969a275db321c66cecf388ac",
+        "addresses":["C4MYFr4EAdqEeUKxTnPUF3d3whWcPMz1Fi"],
+        "script_type":"pay-to-pubkey-hash"
+      },
+      { "value":5419100,
+        "script":"76a9148c6f28c814116f1ae3d0940b2fb05a68a9507e8a88ac",
+        "addresses":["C5vqMGme4FThKnCY44gx1PLgWr86uxRbDm"],
+        "script_type":"pay-to-pubkey-hash"
+      }]
+  },
+  "tosign":["770af2c9a9b7b8b1998e36d4c1ce2b8fa3b9d4d6575679a513722d9f478177d2"]
+}
+```
+
 To use BlockCypher's two-endpoint transaction creation tool, first you need to provide the input address(es), output address, and value to transfer (in satoshis). Provide this in a partially-filled out [TX](#tx) request object.
 
 Resource | Method | Request Object | Return Object
@@ -664,6 +838,14 @@ $.post('https://api.blockcypher.com/v1/bcy/test/txs/new', JSON.stringify(newtx))
 
 ```ruby
 # Signing is handled by our SDK in the next step
+```
+
+```php
+<?php
+// Sign the transaction
+// Private key for address: C5vqMGme4FThKnCY44gx1PLgWr86uxRbDm
+$privateKeys = array("2c2cc015519b79782bd9c5af66f442e808f573714e3c4dc6df7d79c183963cff");
+$txSkeleton->sign($privateKeys);
 ```
 
 ### Locally Sign Your Transaction
@@ -840,6 +1022,58 @@ $.post('https://api.blockcypher.com/v1/bcy/test/txs/send', JSON.stringify(sendtx
       "addresses"=>["CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"],
       "script_type"=>"pay-to-pubkey-hash"}]},
  "tosign"=>[""]}
+```
+
+```php
+<?php
+// Send the transaction
+$txSkeleton = $txSkeleton->send();
+
+{
+  "tx":{
+    "block_height":-1,
+    "hash":"edb785c310ea58c70245c9a89130efca8fb0a02d4bee47b18542986e7bf95806",
+    "addresses":[
+      "C5vqMGme4FThKnCY44gx1PLgWr86uxRbDm",
+      "C4MYFr4EAdqEeUKxTnPUF3d3whWcPMz1Fi"
+    ],
+    "total":5420100,
+    "fees":12000,
+    "size":119,
+    "preference":"high",
+    "relayed_by":"88.7.90.149",
+    "received":"2015-06-17T10:23:02.475392139Z",
+    "ver":1,
+    "lock_time":0,
+    "double_spend":false,
+    "vin_sz":1,
+    "vout_sz":2,
+    "confirmations":0,
+    "inputs":[{
+        "prev_hash":"64e39fa5322ee604ad548dc5d4ae1a61b0a575278724d0df7e53dd334f5f13e3",
+        "output_index":0,
+        "script":"",
+        "output_value":5432100,
+        "sequence":4294967295,
+        "addresses":["C5vqMGme4FThKnCY44gx1PLgWr86uxRbDm"],
+        "script_type":"",
+        "age":0
+      }
+    ],
+    "outputs":[
+      {"value":1000,
+        "script":"76a9147b2b09ad46d95e177df6969a275db321c66cecf388ac",
+        "addresses":["C4MYFr4EAdqEeUKxTnPUF3d3whWcPMz1Fi"],
+        "script_type":"pay-to-pubkey-hash"
+      },
+      { "value":5419100,
+        "script":"76a9148c6f28c814116f1ae3d0940b2fb05a68a9507e8a88ac",
+        "addresses":["C5vqMGme4FThKnCY44gx1PLgWr86uxRbDm"],
+        "script_type":"pay-to-pubkey-hash"
+      }]
+  },
+  "tosign":[]
+}
 ```
 
 ### Send Transaction Endpoint
@@ -1104,6 +1338,69 @@ $.post('https://api.blockcypher.com/v1/bcy/test/txs/send', JSON.stringify(pushtx
 }
 ```
 
+```php
+<?php
+// Run on console:
+// php -f .\sample\transaction-api\PushRawTransactionEndpoint.php
+
+$hexRawTx = "01000000011935b41d12936df99d322ac8972b74ecff7b79408bbccaf1b2eb8015228beac8000000006b483045022100921fc36b911094280f07d8504a80fbab9b823a25f102e2bc69b14bcd369dfc7902200d07067d47f040e724b556e5bc3061af132d5a47bd96e901429d53c41e0f8cca012102152e2bb5b273561ece7bbe8b1df51a4c44f5ab0bc940c105045e2cc77e618044ffffffff0240420f00000000001976a9145fb1af31edd2aa5a2bbaa24f6043d6ec31f7e63288ac20da3c00000000001976a914efec6de6c253e657a9d5506a78ee48d89762fb3188ac00000000";
+
+$tx = TX::push($hexRawTx);
+
+{
+  "block_height": -1,
+  "hash": "4e6dfb1415b4fba5bd257c129847c70fbd4e45e41828079c4a282680528f3a50",
+  "addresses": [
+    "CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9",
+    "C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn"
+  ],
+  "total": 4988000,
+  "fees": 12000,
+  "size": 226,
+  "preference": "high",
+  "relayed_by": "73.162.198.68",
+  "received": "2015-05-22T05:10:00.305308666Z",
+  "ver": 1,
+  "lock_time": 0,
+  "double_spend": false,
+  "vin_sz": 1,
+  "vout_sz": 2,
+  "confirmations": 0,
+  "inputs": [
+    {
+      "prev_hash": "c8ea8b221580ebb2f1cabc8b40797bffec742b97c82a329df96d93121db43519",
+      "output_index": 0,
+      "script": "483045022100921fc36b911094280f07d8504a80fbab9b823a25f102e2bc69b14bcd369dfc7902200d07067d47f040e724b556e5bc3061af132d5a47bd96e901429d53c41e0f8cca012102152e2bb5b273561ece7bbe8b1df51a4c44f5ab0bc940c105045e2cc77e618044",
+      "output_value": 5000000,
+      "sequence": 4294967295,
+      "addresses": [
+        "CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"
+      ],
+      "script_type": "pay-to-pubkey-hash",
+      "age": 576
+    }
+  ],
+  "outputs": [
+    {
+      "value": 1000000,
+      "script": "76a9145fb1af31edd2aa5a2bbaa24f6043d6ec31f7e63288ac",
+      "addresses": [
+        "C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn"
+      ],
+      "script_type": "pay-to-pubkey-hash"
+    },
+    {
+      "value": 3988000,
+      "script": "76a914efec6de6c253e657a9d5506a78ee48d89762fb3188ac",
+      "addresses": [
+        "CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"
+      ],
+      "script_type": "pay-to-pubkey-hash"
+    }
+  ]
+}
+```
+
 If you'd prefer to use your own transaction library instead of the recommended path of our two-endpoint [transaction generation](#creating-transactions) we're still happy to help you propagate your raw transactions. Simply send your raw hex-encoded transaction to this endpoint and we'll leverage our huge network of nodes to propagate your transaction faster than anywhere else.
 
 Resource | Method | Request Object | Return Object
@@ -1314,6 +1611,66 @@ $.post('https://api.blockcypher.com/v1/bcy/test/txs/decode', JSON.stringify(deco
  'confirmations': 0}
 ```
 
+```php
+<?php
+// Run on console:
+// php -f .\sample\transaction-api\DecodeRawTransactionEndpoint.php
+
+$hexRawTx = "01000000011935b41d12936df99d322ac8972b74ecff7b79408bbccaf1b2eb8015228beac8000000006b483045022100921fc36b911094280f07d8504a80fbab9b823a25f102e2bc69b14bcd369dfc7902200d07067d47f040e724b556e5bc3061af132d5a47bd96e901429d53c41e0f8cca012102152e2bb5b273561ece7bbe8b1df51a4c44f5ab0bc940c105045e2cc77e618044ffffffff0240420f00000000001976a9145fb1af31edd2aa5a2bbaa24f6043d6ec31f7e63288ac20da3c00000000001976a914efec6de6c253e657a9d5506a78ee48d89762fb3188ac00000000";
+
+$tx = TX::decode($hexRawTx);
+
+{
+  "block_height":-1,
+  "hash":"4e6dfb1415b4fba5bd257c129847c70fbd4e45e41828079c4a282680528f3a50",
+  "addresses":[
+    "1NsbjF7mCvxa9sdCwRyeZ8qqvWMWuAyjtg",
+    "19iz3x4d4Wm4rgav33KmbuRjots6r1K9Wg"
+  ],
+  "total":4988000,
+  "fees":0,
+  "size":226,
+  "preference":"low",
+  "relayed_by":"",
+  "received":"0001-01-01T00:00:00Z",
+  "ver":1,
+  "lock_time":0,
+  "double_spend":false,
+  "vin_sz":1,
+  "vout_sz":2,
+  "confirmations":0,
+  "inputs":[
+    {
+      "prev_hash":"c8ea8b221580ebb2f1cabc8b40797bffec742b97c82a329df96d93121db43519",
+      "output_index":0,
+      "script":"483045022100921fc36b9110942...44f5ab0bc940c105045e2cc77e618044",
+      "output_value":0,
+      "sequence":4294967295,
+      "script_type":"empty",
+      "age":0
+    }
+  ],
+  "outputs":[
+    {
+      "value":1000000,
+      "script":"76a9145fb1af31edd2aa5a2bbaa24f6043d6ec31f7e63288ac",
+      "addresses":[
+        "19iz3x4d4Wm4rgav33KmbuRjots6r1K9Wg"
+      ],
+      "script_type":"pay-to-pubkey-hash"
+    },
+    {
+      "value":3988000,
+      "script":"76a914efec6de6c253e657a9d5506a78ee48d89762fb3188ac",
+      "addresses":[
+        "1NsbjF7mCvxa9sdCwRyeZ8qqvWMWuAyjtg"
+      ],
+      "script_type":"pay-to-pubkey-hash"
+    }
+  ]
+}
+```
+
 We also offer the ability to decode raw transactions without sending propagating them to the network; perhaps you want to double-check another client library or confirm that another service is sending proper transactions. 
 
 Resource | Method | Request Object | Return Object
@@ -1363,6 +1720,32 @@ payload = JSON.parse('{ "inputs": [{"addresses": [sourceAddr]}],
 		"value"       : 250000,
 	}]
 }')
+```
+
+```php
+<?php
+// Run on console:
+// php -f .\sample\transaction-api\CreateTxToFundMultisignAddrWithBuilderEndpoint.php
+// Builder classes are optional, see CreateTxToFundMultisignAddrEndpoint.php to see a sample using only base API classes.
+
+$input = TXInputBuilder::aTXInput()
+    ->addAddress("n3D2YXwvpoPg8FhcWpzJiS3SvKKGD8AXZ4")
+    ->build();
+
+$output = TXOutputBuilder::aTXOutput()
+    ->withScryptType("multisig-2-of-3")
+    ->withValue(1000)
+    ->addAddress("03798be8162d7d6bc5c4e3b236100fcc0dfee899130f84c97d3a49faf83450fd81")
+    ->addAddress("03dd9f1d4a39951013b4305bf61887ada66439ab84a9a2f8aca9dc736041f815f1")
+    ->addAddress("03c8e6e99c1d0b42120d5cf40c963e5e8048fd2d2a184758784a041a9d101f1f02")
+    ->build();
+
+$tx = TXBuilder::aTX()
+    ->addTXInput($input)
+    ->addTXOutput($output)
+    ->build();
+
+$txSkeleton = $tx->create();
 ```
 
 Multisignature transactions are made simple by the method described in the [Creating Transactions](#creating-transactions) section, but they deserve special mention. In order to use them, you first need to fund a multisignature address. You use the `/txs/new` endpoint as before, but instead of the **outputs** **addresses** array containing public addresses, it instead contains the public keys associated with the new address. In addition, you must select a **script_type** of *mutlisig-n-of-m*, where *n* and *m* are numbers (e.g., *multisig-2-of-3*). The code example demonstrates how the partially filled [TX request object](#tx) would appear.
@@ -1417,6 +1800,32 @@ payload = JSON.parse('{ "inputs": [{
 	}] }')
 ```
 
+```php
+<?php
+// Run on console:
+// php -f .\sample\transaction-api\CreateTxToSpendMultisignFundsWithBuilderEndpoint.php
+// Builder classes are optional, see CreateTxToSpendMultisignFunds.php to see a sample using only base API classes.
+
+$input = TXInputBuilder::aTXInput()
+    ->addAddress("03798be8162d7d6bc5c4e3b236100fcc0dfee899130f84c97d3a49faf83450fd81")
+    ->addAddress("03dd9f1d4a39951013b4305bf61887ada66439ab84a9a2f8aca9dc736041f815f1")
+    ->addAddress("03c8e6e99c1d0b42120d5cf40c963e5e8048fd2d2a184758784a041a9d101f1f02")
+    ->withScryptType("multisig-2-of-3")
+    ->build();
+
+$output = TXOutputBuilder::aTXOutput()
+    ->addAddress("n3D2YXwvpoPg8FhcWpzJiS3SvKKGD8AXZ4")
+    ->withValue(1000)
+    ->build();
+
+$tx = TXBuilder::aTX()
+    ->addTXInput($input)
+    ->addTXOutput($output)
+    ->build();
+
+$txSkeleton = $tx->create();
+```
+
 Once funded, you might want to programmatically spend the money in the address at some point. Here the process is similar, but with the inputs and outputs reversed. As you can see in the code sample, you need to provide the public keys within the **inputs** **addresses** array, and the corresponding **script_type** of *multisig-n-of-m* (e.g., *multisig-2-of-3*). Then you follow the same process of sending to `/txs/new` and getting an array of data to be signed.
 
 Each party can send their signed data individually to `/txs/send` and we can correlate the signatures to the public keys; once we have enough signatures we'll propagate the transaction. Or you can send all needed signatures alongside ordered public keys with a single call to `/txs/send`.
@@ -1441,6 +1850,25 @@ curl -d '{"data":"I am the walrus", "encoding":"string"}' https://api.blockcyphe
   "data": "I am the walrus",
   "encoding": "string",
   "token": "YOURTOKEN",
+  "hash": "cb6974e0fd57c91b70403e85ef48c840eecdca4804dfc4897b1321d5328e4f18"
+}
+```
+
+```php
+<?php
+// Run on console:
+// php -f .\sample\transaction-api\DataEndpoint.php
+
+$nullData =  new NullData();
+$nullData->setEncoding('string');
+$nullData->setData('***BlockCypher Data Endpoint Test***'); // max 40 bytes
+
+$nullData->create();
+
+{
+  "data": "***BlockCypher Data Endpoint Test***",
+  "encoding": "string",
+  "token": "c0afcccdde5081d6429de37d16166ead",
   "hash": "cb6974e0fd57c91b70403e85ef48c840eecdca4804dfc4897b1321d5328e4f18"
 }
 ```

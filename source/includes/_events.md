@@ -48,6 +48,10 @@ ws.onopen = function(event) {
 }
 ```
 
+```php
+# no websockets via PHP, check the Javascript example
+```
+
 Opening a WebSocket to listen to our feeds is easy, like so in Javascript:
 
 `new WebSocket("wss://socket.blockcypher.com/v1/btc/main");`
@@ -139,6 +143,29 @@ $.post(url, JSON.stringify(webhook))
  'callback_errors': 0}
 ```
 
+```php
+<?php
+// Run on console:
+// php -f .\sample\hook-api\CreateWebHookEndpoint.php
+
+$webHook = new WebHook();
+$webHook->setUrl("http://requestb.in/rwp6jirw?uniqid=" . uniqid());
+$webHook->setEvent('unconfirmed-tx');
+$webHook->setHash('2b17f5589528f97436b5d563635b4b27ca8980aa20c300abdc538f2a8bfa871b');
+
+$output = $webHook->create();
+
+{
+  "url":"http://requestb.in/rwp6jirw?uniqid=5581998e19114",
+  "event":"unconfirmed-tx",
+  "hash":"2b17f5589528f97436b5d563635b4b27ca8980aa20c300abdc538f2a8bfa871b",
+  "id":"d5ca3bd3-5dfb-477d-9fb4-ac3510af258d",
+  "token":"c0afcccdde5081d6429de37d16166ead",
+  "callback_errors":0,
+  "filter":"event=unconfirmed-tx\u0026hash=2b17f5589528f97436b5d563635b4b27ca8980aa20c300abdc538f2a8bfa871b"
+}
+```
+
 Using a partially filled out [Event](#event), you can create a WebHook using this resource. Check the [Event object description](#event) and [types of events](#types-of-events) to understand the options available for your events.
 
 Resource | Method | Request Object | Return Object
@@ -202,6 +229,26 @@ $.get('https://api.blockcypher.com/v1/btc/main/hooks?token='+TOKEN)
   'callback_errors': 0}]
 ```
 
+```php
+<?php
+// Run on console:
+// php -f .\sample\hook-api\ListWebHooksEndpoint.php
+
+$webHooks = WebHook::getAll();
+
+[
+  {
+    "id":"d5ca3bd3-5dfb-477d-9fb4-ac3510af258d",
+    "token":"c0afcccdde5081d6429de37d16166ead",
+    "url":"http://requestb.in/rwp6jirw?uniqid=5581998e19114",
+    "callback_errors":0,
+    "event":"unconfirmed-tx",
+    "hash":"2b17f5589528f97436b5d563635b4b27ca8980aa20c300abdc538f2a8bfa871b",
+    "filter":"event=unconfirmed-tx\u0026hash=2b17f5589528f97436b5d563635b4b27ca8980aa20c300abdc538f2a8bfa871b"
+  }
+]
+```
+
 This resource lists your currently active events, according the base resource and $YOURTOKEN.
 
 Resource | Method | Return Object
@@ -258,6 +305,24 @@ $.get('https://api.blockcypher.com/v1/btc/main/hooks/399d0923-e920-48ee-8928-205
  'callback_errors': 0}
 ```
 
+```php
+<?php
+// Run on console:
+// php -f .\sample\hook-api\WebHookIdEndpoint.php
+
+$webHook = WebHook::get('d5ca3bd3-5dfb-477d-9fb4-ac3510af258d');
+
+{
+  "id":"d5ca3bd3-5dfb-477d-9fb4-ac3510af258d",
+  "token":"c0afcccdde5081d6429de37d16166ead",
+  "url":"http://requestb.in/rwp6jirw?uniqid=5581998e19114",
+  "callback_errors":0,
+  "event":"unconfirmed-tx",
+  "hash":"2b17f5589528f97436b5d563635b4b27ca8980aa20c300abdc538f2a8bfa871b",
+  "filter":"event=unconfirmed-tx\u0026hash=2b17f5589528f97436b5d563635b4b27ca8980aa20c300abdc538f2a8bfa871b"
+}
+```
+
 This resource returns an [Event](#event) based on its generated *id*.
 
 Resource | Method | Return Object
@@ -294,6 +359,23 @@ $.ajax({
 >>> r = requests.delete('https://api.blockcypher.com/v1/btc/main/hooks/50d1fb13-2bd4-47d0-8e1b-0695e0322581')
 # Will return nothing, but we can confirm the status code to be sure
 >>> assert r.status_code == 204
+```
+
+```php
+<?php
+// Run on console:
+// php -f .\sample\hook-api\DeleteWebHookEndpoint.php
+
+// Option 1: get the object before removing it
+//$webHook = WebHook::get('d5ca3bd3-5dfb-477d-9fb4-ac3510af258d');
+
+// Option 2: create a new empty object only with its ID. You save one API request
+$webHook = new WebHook();
+$webHook->setId('d5ca3bd3-5dfb-477d-9fb4-ac3510af258d');
+
+$webHook->delete();
+
+HTTP/1.1 204 OK
 ```
 
 This resource deletes an active [Event](#event) based on its *id*. Remember to include your token, or the request will fail.
