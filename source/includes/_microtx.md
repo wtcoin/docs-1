@@ -83,7 +83,9 @@ $.post(url, JSON.stringify(microtx))
 // Run on console:
 // php -f .\sample\microtransaction-api\CreateMicroTXFromPrivateDocsSample.php
 
-$microTX = MicroTX::fromPrivate(
+$microTXClient = new MicroTXClient();
+
+$microTX = $microTXClient->sendWithPrivateKey(
     "2c2cc015519b79782bd9c5af66f442e808f573714e3c4dc6df7d79c183963cff", // private key
     "C4MYFr4EAdqEeUKxTnPUF3d3whWcPMz1Fi", // to address
     10000, // value (satoshis)
@@ -218,7 +220,7 @@ $.post(url, JSON.stringify(microtx)).then(function(tmptx) {
 // Run on console:
 // php -f .\sample\microtransaction-api\CreateMicroTXFromPubkeyDocsSample.php
 
-$microTX = \BlockCypher\Api\MicroTX::fromPubkey(
+$microTX = $microTXClient->sendSigned(
     "2c2cc015519b79782bd9c5af66f442e808f573714e3c4dc6df7d79c183963cff", // private key
     "C4MYFr4EAdqEeUKxTnPUF3d3whWcPMz1Fi", // to address
     10000, // value (satoshis)
