@@ -191,11 +191,11 @@ BlockCypher has client SDKs for the following languages:
 - **Ruby** [https://github.com/blockcypher/ruby-client](https://github.com/blockcypher/ruby-client)
 - **Python** [https://github.com/blockcypher/blockcypher-python](https://github.com/blockcypher/blockcypher-python)
 - **Java** [https://github.com/blockcypher/java-client](https://github.com/blockcypher/java-client)
+- **PHP** [https://github.com/blockcypher/php-client](https://github.com/blockcypher/php-client)
 
 These client SDKs are under development, but are still officially supported:
 
 - **Node.js** [https://github.com/blockcypher/node-client](https://github.com/blockcypher/node-client)
-- **PHP** [https://github.com/blockcypher/php-client](https://github.com/blockcypher/php-client)
 
 If you're using these languages, we strongly encourage you to use an official SDK. Of course, all our API calls are standard HTTP endpoints using JSON formatted responses, so any language (or cURL from the command-line) will work just fine.
 
