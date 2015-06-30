@@ -19,7 +19,7 @@
 
       <script>
         $(function() {
-          setupLanguages(["shell","javascript","ruby","python"]);
+          setupLanguages(["shell","javascript","ruby","python","php"]);
         });
       </script>
   </head>
@@ -40,6 +40,7 @@
               <a href="#" data-language-name="javascript">JavaScript</a>
               <a href="#" data-language-name="ruby">Ruby</a>
               <a href="#" data-language-name="python">Python</a>
+              <a href="#" data-language-name="php">PHP</a>
         </div>
       <div id="toc">
       </div>
@@ -71,6 +72,14 @@
 <span class="o">//</span> <span class="o">|</span><span class="n">_</span><span class="p">)</span> <span class="o">|</span>  <span class="n">_</span>   <span class="n">_</span> <span class="o">|</span>  <span class="o">/</span>     <span class="o">.</span><span class="n">_</span>  <span class="o">|</span><span class="n">_</span>   <span class="n">_</span>  <span class="o">.</span><span class="n">_</span>
 <span class="o">//</span> <span class="o">|</span><span class="n">_</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">_</span><span class="p">)</span> <span class="p">(</span><span class="n">_</span> <span class="o">|&lt;</span> \<span class="n">_</span> \<span class="o">/</span> <span class="o">|</span><span class="n">_</span><span class="p">)</span> <span class="o">|</span> <span class="o">|</span> <span class="p">(</span><span class="o">/</span><span class="n">_</span> <span class="o">|</span> 
 <span class="o">//</span>                    <span class="o">/</span>  <span class="o">|</span>             
+</code></pre>
+<pre class="highlight php"><code><span class="cp">&lt;?php</span>
+<span class="sd">/**
+ *  _               _
+ * |_) |  _   _ |  /     ._  |_   _  ._
+ * |_) | (_) (_ |&lt; \_ \/ |_) | | (/_ |
+ *                    /  |
+ */</span>
 </code></pre>
 
 <p>Welcome to <a href="http://www.blockcypher.com/">BlockCypher&rsquo;s</a> API documentation! BlockCypher is a simple, mostly RESTful JSON API for interacting with blockchains, accessed over HTTP or HTTPS from the <a href="https://api.blockcypher.com/v1/btc/main">api.blockcypher.com</a> domain. Currently, BlockCypher supports Bitcoin, Bitcoin Testnet3, Litecoin, Dogecoin, Urocoin, and BlockCypher&rsquo;s Test Chain (more about BlockCypher&rsquo;s Test Chain <a href="#testing">below</a>).</p>
@@ -109,6 +118,45 @@ curl is a tool to transfer data from or to a server, using one of the supported 
 </code></pre>
 <pre class="highlight python"><code><span class="n">To</span> <span class="n">see</span> <span class="n">detailed</span> <span class="n">python</span> <span class="n">code</span> <span class="n">snippets</span><span class="p">,</span> <span class="n">check</span> <span class="n">the</span> <span class="n">official</span> <span class="n">python</span> <span class="n">repository</span><span class="p">:</span>
 <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">blockcypher</span><span class="o">/</span><span class="n">blockcypher</span><span class="o">-</span><span class="n">python</span>
+</code></pre>
+<pre class="highlight php"><code>PHP Client
+----------
+
+REQUIREMENTS
+- PHP 5.4+
+- ext-curl
+- ext-gmp
+- ext-mcrypt
+- Composer
+- Git
+
+INSTALL SAMPLES
+git clone https://github.com/blockcypher/php-client.git
+cd php-client
+
+RUNNING SAMPLES ON CONSOLE
+php -f .\sample\docs-sample\address-api\address-endpoint.php
+Log file is generate in the folder when you run the command
+
+To see detailed PHP client info, check the official PHP repository:
+https://github.com/blockcypher/php-client
+
+Irrelevant code is not shown in samples. You can get the full sample version from:
+https://github.com/blockcypher/php-client/tree/master/sample
+
+All samples begin with something like this (but omitted in docs site):
+<span class="cp">&lt;?php</span>
+<span class="k">require</span> <span class="nx">__DIR__</span> <span class="o">.</span> <span class="s1">'/../bootstrap.php'</span><span class="p">;</span>
+
+<span class="k">use</span> <span class="nx">BlockCypher\Auth\SimpleTokenCredential</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">BlockCypher\Rest\ApiContext</span><span class="p">;</span>
+<span class="c1">// ... other classes
+</span>
+<span class="nv">$apiContext</span> <span class="o">=</span> <span class="nx">ApiContext</span><span class="o">::</span><span class="na">create</span><span class="p">(</span>
+    <span class="s1">'main'</span><span class="p">,</span> <span class="s1">'btc'</span><span class="p">,</span> <span class="s1">'v1'</span><span class="p">,</span>
+    <span class="k">new</span> <span class="nx">SimpleTokenCredential</span><span class="p">(</span><span class="s1">'$YOUR_TOKEN'</span><span class="p">),</span>
+    <span class="k">array</span><span class="p">(</span><span class="s1">'log.LogEnabled'</span> <span class="o">=&gt;</span> <span class="kc">true</span><span class="p">,</span> <span class="s1">'log.FileName'</span> <span class="o">=&gt;</span> <span class="s1">'BlockCypher.log'</span><span class="p">,</span> <span class="s1">'log.LogLevel'</span> <span class="o">=&gt;</span> <span class="s1">'DEBUG'</span><span class="p">)</span>
+<span class="p">);</span>
 </code></pre>
 
 <p>In these docs you&rsquo;ll find everything you need to leverage BlockCypher for your applications. For all officially supported languages, you&rsquo;ll see code samples, in addition to basic cURL requests/responses for every endpoint. You can switch between cURL/language samples via the selector in the upper right. We&rsquo;re working on supporting more languages, but if you&rsquo;re working on your own language library, definitely let us know: we&rsquo;d love to add more community supported libraries here.</p>
@@ -157,13 +205,13 @@ Currently, we only have cURL, JavaScript, and Python code samples on this page, 
 <li><strong>Ruby</strong> <a href="https://github.com/blockcypher/ruby-client">https://github.com/blockcypher/ruby-client</a></li>
 <li><strong>Python</strong> <a href="https://github.com/blockcypher/blockcypher-python">https://github.com/blockcypher/blockcypher-python</a></li>
 <li><strong>Java</strong> <a href="https://github.com/blockcypher/java-client">https://github.com/blockcypher/java-client</a></li>
+<li><strong>PHP</strong> <a href="https://github.com/blockcypher/php-client">https://github.com/blockcypher/php-client</a></li>
 </ul>
 
 <p>These client SDKs are under development, but are still officially supported:</p>
 
 <ul>
 <li><strong>Node.js</strong> <a href="https://github.com/blockcypher/node-client">https://github.com/blockcypher/node-client</a></li>
-<li><strong>PHP</strong> <a href="https://github.com/blockcypher/php-client">https://github.com/blockcypher/php-client</a></li>
 </ul>
 
 <p>If you&rsquo;re using these languages, we strongly encourage you to use an official SDK. Of course, all our API calls are standard HTTP endpoints using JSON formatted responses, so any language (or cURL from the command-line) will work just fine.</p>
@@ -256,6 +304,29 @@ Currently, we only have cURL, JavaScript, and Python code samples on this page, 
  <span class="s">'low_fee_per_kb'</span><span class="p">:</span> <span class="mi">12047</span><span class="p">,</span>
  <span class="s">'last_fork_hash'</span><span class="p">:</span> <span class="s">'00000000000000000aa6462fd9faf94712ce1b5a944dc666f491101c996beab9'</span><span class="p">}</span>
 </code></pre>
+<pre class="highlight php"><code><span class="cp">&lt;?php</span>
+<span class="c1">// Run on console:
+// php -f .\sample\chain-api\ChainEndpoint.php
+</span>
+<span class="nv">$chain</span> <span class="o">=</span> <span class="nx">Blockchain</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="s1">'BTC.main'</span><span class="p">);</span>
+
+<span class="p">{</span>
+  <span class="s2">"name"</span><span class="o">:</span><span class="s2">"BTC.main"</span><span class="p">,</span>
+  <span class="s2">"height"</span><span class="o">:</span><span class="mi">360602</span><span class="p">,</span>
+  <span class="s2">"hash"</span><span class="o">:</span><span class="s2">"00000000000000000a1268afd1eb419817106a37c9a87852228cadb752a64f2a"</span><span class="p">,</span>
+  <span class="s2">"time"</span><span class="o">:</span><span class="s2">"2015-06-12T13:09:56.69966089Z"</span><span class="p">,</span>
+  <span class="s2">"latest_url"</span><span class="o">:</span><span class="s2">"https://api.blockcypher.com/v1/btc/main/blocks/00000000000000000a1268afd1eb419817106a37c9a87852228cadb752a64f2a"</span><span class="p">,</span>
+  <span class="s2">"previous_hash"</span><span class="o">:</span><span class="s2">"00000000000000000cea706491da61bc755a1250d7260becff5aafc9d26613f2"</span><span class="p">,</span>
+  <span class="s2">"previous_url"</span><span class="o">:</span><span class="s2">"https://api.blockcypher.com/v1/btc/main/blocks/00000000000000000cea706491da61bc755a1250d7260becff5aafc9d26613f2"</span><span class="p">,</span>
+  <span class="s2">"peer_count"</span><span class="o">:</span><span class="mi">250</span><span class="p">,</span>
+  <span class="s2">"unconfirmed_count"</span><span class="o">:</span><span class="mi">1794</span><span class="p">,</span>
+  <span class="s2">"high_fee_per_kb"</span><span class="o">:</span><span class="mi">40018</span><span class="p">,</span>
+  <span class="s2">"medium_fee_per_kb"</span><span class="o">:</span><span class="mi">26652</span><span class="p">,</span>
+  <span class="s2">"low_fee_per_kb"</span><span class="o">:</span><span class="mi">12299</span><span class="p">,</span>
+  <span class="s2">"last_fork_height"</span><span class="o">:</span><span class="mi">360362</span><span class="p">,</span>
+  <span class="s2">"last_fork_hash"</span><span class="o">:</span><span class="s2">"000000000000000002d5cf67bfaa92ba5b371c1590eb48d25031c669ef6233a0"</span>
+<span class="p">}</span>
+</code></pre>
 
 <p>Almost all resources exist under a given blockchain, and follow this pattern:</p>
 
@@ -345,6 +416,16 @@ curl https://api.blockcypher.com/v1/btc/main?token<span class="o">=</span><span 
 <span class="o">&gt;&gt;&gt;</span> <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">'https://api.blockcypher.com/v1/btc/main'</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
 </code></pre>
+<pre class="highlight php"><code><span class="cp">&lt;?php</span>
+<span class="c1"># Adding your token as client credential to API context
+</span><span class="nv">$apiContext</span> <span class="o">=</span> <span class="nx">ApiContext</span><span class="o">::</span><span class="na">create</span><span class="p">(</span>
+    <span class="s1">'main'</span><span class="p">,</span> <span class="s1">'btc'</span><span class="p">,</span> <span class="s1">'v1'</span><span class="p">,</span>
+    <span class="k">new</span> <span class="nx">SimpleTokenCredential</span><span class="p">(</span><span class="s1">'c0afcccdde5081d6429de37d16166ead'</span><span class="p">),</span>
+    <span class="k">array</span><span class="p">(</span><span class="s1">'log.LogEnabled'</span> <span class="o">=&gt;</span> <span class="kc">true</span><span class="p">,</span> <span class="s1">'log.FileName'</span> <span class="o">=&gt;</span> <span class="s1">'BlockCypher.log'</span><span class="p">,</span> <span class="s1">'log.LogLevel'</span> <span class="o">=&gt;</span> <span class="s1">'DEBUG'</span><span class="p">)</span>
+<span class="p">);</span>
+
+<span class="c1"># Use $apiContext as function param or set as default ApiContext 
+</span></code></pre>
 
 <p>Once you have your token, you can append it to all your requests like any other URL parameter if you&rsquo;re using cURL, or through the appropriate method in the language SDK you&rsquo;re using.</p>
 
@@ -505,6 +586,49 @@ curl https://api.blockcypher.com/v1/btc/main/blocks/5;6;7
 <span class="n">base_url</span> <span class="o">=</span> <span class="s">'https://api.blockcypher.com/v1/btc/main/blocks/'</span>
 <span class="n">full_url</span> <span class="o">=</span> <span class="n">base_url</span> <span class="o">+</span> <span class="s">';'</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">])</span>
 </code></pre>
+<pre class="highlight php"><code><span class="cp">&lt;?php</span>
+<span class="c1">// Run on console:
+// php -f .\sample\introduction\Batching.php
+// Batching blocks 5, 6, and 7
+</span>
+<span class="nv">$blocks</span> <span class="o">=</span> <span class="nx">\BlockCypher\Api\Block</span><span class="o">::</span><span class="na">getMultiple</span><span class="p">(</span><span class="k">array</span><span class="p">(</span><span class="s1">'5'</span><span class="p">,</span> <span class="s1">'6'</span><span class="p">,</span> <span class="s1">'7'</span><span class="p">),</span> <span class="k">array</span><span class="p">(),</span> <span class="nv">$apiContexts</span><span class="p">[</span><span class="s1">'BTC.main'</span><span class="p">]);</span>
+
+<span class="p">[{</span>
+<span class="s2">"hash"</span><span class="o">:</span> <span class="s2">"000000003031a0e73735690c5a1ff2a4be82553b2a12b776fbd3a215dc8f778d"</span><span class="p">,</span>
+<span class="s2">"height"</span><span class="o">:</span> <span class="mi">6</span><span class="p">,</span>
+<span class="s2">"chain"</span><span class="o">:</span> <span class="s2">"BTC.main"</span><span class="p">,</span>
+<span class="s2">"total"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+<span class="s2">"fees"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+<span class="s2">"ver"</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+<span class="s2">"time"</span><span class="o">:</span> <span class="s2">"2009-01-09T03:29:49Z"</span><span class="p">,</span>
+<span class="o">...</span><span class="p">,</span>
+<span class="p">},</span>
+<span class="p">{</span>
+<span class="s2">"hash"</span><span class="o">:</span> <span class="s2">"000000009b7262315dbf071787ad3656097b892abffd1f95a1a022f896f533fc"</span><span class="p">,</span>
+<span class="s2">"height"</span><span class="o">:</span> <span class="mi">5</span><span class="p">,</span>
+<span class="s2">"chain"</span><span class="o">:</span> <span class="s2">"BTC.main"</span><span class="p">,</span>
+<span class="s2">"total"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+<span class="s2">"fees"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+<span class="s2">"ver"</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+<span class="s2">"time"</span><span class="o">:</span> <span class="s2">"2009-01-09T03:23:48Z"</span><span class="p">,</span>
+<span class="o">...</span><span class="p">,</span>
+<span class="p">},</span>
+<span class="p">{</span>
+<span class="s2">"hash"</span><span class="o">:</span> <span class="s2">"0000000071966c2b1d065fd446b1e485b2c9d9594acd2007ccbd5441cfc89444"</span><span class="p">,</span>
+<span class="s2">"height"</span><span class="o">:</span> <span class="mi">7</span><span class="p">,</span>
+<span class="s2">"chain"</span><span class="o">:</span> <span class="s2">"BTC.main"</span><span class="p">,</span>
+<span class="s2">"total"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+<span class="s2">"fees"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+<span class="s2">"ver"</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+<span class="s2">"time"</span><span class="o">:</span> <span class="s2">"2009-01-09T03:39:29Z"</span><span class="p">,</span>
+<span class="o">...</span><span class="p">,</span>
+<span class="p">}]</span>
+
+<span class="c1"># Note, when constructing the block array (first param) programatically you can use alternative syntax like:
+</span><span class="nv">$blockList</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="s1">'5'</span><span class="p">,</span> <span class="s1">'6'</span><span class="p">,</span> <span class="s1">'7'</span><span class="p">);</span>
+<span class="nv">$blockList</span> <span class="o">=</span> <span class="nb">explode</span><span class="p">(</span><span class="s2">";"</span><span class="p">,</span> <span class="s2">"5;6;7"</span><span class="p">);</span>
+<span class="nv">$blockList</span> <span class="o">=</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">];</span> <span class="c1">// PHP 5.4
+</span></code></pre>
 
 <p>All endpoints that can retrieve a single <a href="#objects">Object</a> can be batched to return multiple objects. If you&rsquo;re cURLing the API directly, batching simply requires appending each identifier to the previous one using a semicolon (check the code pane for an example). The results are aggregated in a JSON array and may not be ordered, especially for bigger batches. But this shouldn&rsquo;t matter, as the requested identifiers are always present in the returned objects. The other supported client SDKs batch differently, but each idiomatic to their respective language (check the code pane examples in each library).</p>
 
@@ -599,6 +723,32 @@ curl -d <span class="s1">'{"address": "CFqoZmZ3ePwK5wnkhxJjJAQKJ82C7RJdmd", "amo
 <span class="o">&gt;&gt;&gt;</span> <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s">'http://api.blockcypher.com/v1/bcy/test/faucet'</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
 <span class="p">{</span><span class="s">'tx_ref'</span><span class="p">:</span> <span class="s">'b2ecfb5e40f3923b07819f1a386a538e86cc6ce59ae7a59533df487f622d1cbb'</span><span class="p">}</span>
+</code></pre>
+<pre class="highlight php"><code><span class="cp">&lt;?php</span>
+<span class="c1">// Make new address; returns private key/public key/address
+// Run on console:
+// php -f .\sample\introduction\GenerateBcyAddress.php
+</span>
+<span class="nv">$addressKeyChain</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">AddressKeyChain</span><span class="p">();</span>
+<span class="nv">$addressKeyChain</span><span class="o">-&gt;</span><span class="na">create</span><span class="p">();</span>
+
+<span class="p">{</span>
+  <span class="s2">"private"</span><span class="o">:</span><span class="s2">"40e0d6e6210307b9b9d0113bceb9b8c5be6b9e010a03e07f25f75f462ed00a90"</span><span class="p">,</span>
+  <span class="s2">"public"</span><span class="o">:</span><span class="s2">"03bd50fc57b1cdf3badbdf0662a4bb54b4d7a0b96eb27cc216b01503b8bf29b29e"</span><span class="p">,</span>
+  <span class="s2">"address"</span><span class="o">:</span><span class="s2">"Bxi1GmU6xgqgyBEzugcqFZRLyJd1cpEv2S"</span><span class="p">,</span>
+  <span class="s2">"wif"</span><span class="o">:</span><span class="s2">"BqW9QJ24VFcEvDp8UvYvLTnDxn1SjpxsvTeysPAjBW6BX9NggYfr"</span>
+<span class="p">}</span>
+
+<span class="o">&lt;?</span><span class="nx">php</span>
+<span class="c1">// Fund prior address with faucet
+// Run on console:
+// php -f .\sample\introduction\FundBcyAddressWithFaucetShortVersion.php
+</span>
+<span class="nv">$faucetResponse</span> <span class="o">=</span> <span class="nx">Faucet</span><span class="o">::</span><span class="na">fundAddress</span><span class="p">(</span><span class="s1">'Bxi1GmU6xgqgyBEzugcqFZRLyJd1cpEv2S'</span><span class="p">,</span> <span class="mi">100000</span><span class="p">);</span>
+
+<span class="p">{</span>
+  <span class="s2">"tx_ref"</span><span class="o">:</span><span class="s2">"0fa68cf5c39dbd918a5ca49fc092be36b8bcece83cbfed919ad6c77b5f24cceb"</span>
+<span class="p">}</span>
 </code></pre>
 
 <p>This example shows how to leverage the faucet to programmatically fund addresses, to test your applications. While the example used BlockCypher&rsquo;s Test Chain, the same example could have used Bitcoin Testnet3 and worked the exact same way.</p>
@@ -1459,7 +1609,8 @@ Objects sometimes contain <b>attributes</b> that are <b><i>optional.</i></b> The
     <span class="o">{</span>
     <span class="s2">"address"</span>: <span class="s2">"1bs15..."</span>,
     <span class="s2">"value"</span>: 9995590
-    <span class="o">}</span>,
+    <span class="o">}</span>
+<span class="o">]</span>,
 <span class="s2">"fees"</span>: 735
 <span class="o">}</span>
 </code></pre>
@@ -1747,7 +1898,7 @@ Only one of these three fields is required for the microtransaction endpoint: <b
 <span class="s2">"id"</span>: <span class="s2">"399d0923-e920-48ee-8928-2051cbfbc369"</span>
 <span class="s2">"event"</span>: <span class="s2">"unconfirmed-tx"</span>,
 <span class="s2">"address"</span>: <span class="s2">"15qx9ug952GWGTNn7Uiv6vode4RcGrRemh"</span>,
-<span class="s2">"token"</span>: <span class="s2">"YOURTOKEN"</span>
+<span class="s2">"token"</span>: <span class="s2">"YOURTOKEN"</span>,
 <span class="s2">"url"</span>: <span class="s2">"https://my.domain.com/callbacks/new-tx"</span>
 <span class="o">}</span>
 </code></pre>
@@ -2009,6 +2160,29 @@ Only one of these three fields is required for the microtransaction endpoint: <b
  <span class="s">'high_fee_per_kb'</span><span class="p">:</span> <span class="mi">45997</span><span class="p">,</span>
  <span class="s">'medium_fee_per_kb'</span><span class="p">:</span> <span class="mi">29422</span><span class="p">}</span>
 </code></pre>
+<pre class="highlight php"><code><span class="cp">&lt;?php</span>
+<span class="c1">// Run on console:
+// php -f .\sample\chain-api\ChainEndpoint.php
+</span>
+<span class="nv">$chain</span> <span class="o">=</span> <span class="nx">Blockchain</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="s1">'BTC.main'</span><span class="p">);</span>
+
+<span class="p">{</span>
+  <span class="s2">"name"</span><span class="o">:</span><span class="s2">"BTC.main"</span><span class="p">,</span>
+  <span class="s2">"height"</span><span class="o">:</span><span class="mi">360602</span><span class="p">,</span>
+  <span class="s2">"hash"</span><span class="o">:</span><span class="s2">"00000000000000000a1268afd1eb419817106a37c9a87852228cadb752a64f2a"</span><span class="p">,</span>
+  <span class="s2">"time"</span><span class="o">:</span><span class="s2">"2015-06-12T13:09:56.69966089Z"</span><span class="p">,</span>
+  <span class="s2">"latest_url"</span><span class="o">:</span><span class="s2">"https://api.blockcypher.com/v1/btc/main/blocks/00000000000000000a1268afd1eb419817106a37c9a87852228cadb752a64f2a"</span><span class="p">,</span>
+  <span class="s2">"previous_hash"</span><span class="o">:</span><span class="s2">"00000000000000000cea706491da61bc755a1250d7260becff5aafc9d26613f2"</span><span class="p">,</span>
+  <span class="s2">"previous_url"</span><span class="o">:</span><span class="s2">"https://api.blockcypher.com/v1/btc/main/blocks/00000000000000000cea706491da61bc755a1250d7260becff5aafc9d26613f2"</span><span class="p">,</span>
+  <span class="s2">"peer_count"</span><span class="o">:</span><span class="mi">250</span><span class="p">,</span>
+  <span class="s2">"unconfirmed_count"</span><span class="o">:</span><span class="mi">1794</span><span class="p">,</span>
+  <span class="s2">"high_fee_per_kb"</span><span class="o">:</span><span class="mi">40018</span><span class="p">,</span>
+  <span class="s2">"medium_fee_per_kb"</span><span class="o">:</span><span class="mi">26652</span><span class="p">,</span>
+  <span class="s2">"low_fee_per_kb"</span><span class="o">:</span><span class="mi">12299</span><span class="p">,</span>
+  <span class="s2">"last_fork_height"</span><span class="o">:</span><span class="mi">360362</span><span class="p">,</span>
+  <span class="s2">"last_fork_hash"</span><span class="o">:</span><span class="s2">"000000000000000002d5cf67bfaa92ba5b371c1590eb48d25031c669ef6233a0"</span>
+<span class="p">}</span>
+</code></pre>
 
 <p>General information about a blockchain is available by GET-ing the <a href="#restful-resources">base resource</a>.</p>
 
@@ -2135,6 +2309,37 @@ Only one of these three fields is required for the microtransaction endpoint: <b
  <span class="s">'fees'</span><span class="p">:</span> <span class="mi">130999</span><span class="p">,</span>
  <span class="s">'bits'</span><span class="p">:</span> <span class="mi">419486617</span><span class="p">,</span>
  <span class="s">'time'</span><span class="p">:</span> <span class="s">'2014-04-05T07:49:18Z'</span><span class="p">}</span>
+</code></pre>
+<pre class="highlight php"><code><span class="cp">&lt;?php</span>
+<span class="c1">// Run on console:
+// php -f .\sample\block-api\BlockHashEndpoint.php
+</span>
+<span class="nv">$block</span> <span class="o">=</span> <span class="nx">Block</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="s1">'0000000000000000189bba3564a63772107b5673c940c16f12662b3e8546b412'</span><span class="p">);</span>
+
+<span class="p">{</span>
+  <span class="s2">"hash"</span><span class="o">:</span><span class="s2">"0000000000000000c504bdea36e531d8089d324f2d936c86e3274f97f8a44328"</span><span class="p">,</span>
+  <span class="s2">"height"</span><span class="o">:</span><span class="mi">293000</span><span class="p">,</span>
+  <span class="s2">"chain"</span><span class="o">:</span><span class="s2">"BTC.main"</span><span class="p">,</span>
+  <span class="s2">"total"</span><span class="o">:</span><span class="mi">288801092067</span><span class="p">,</span>
+  <span class="s2">"fees"</span><span class="o">:</span><span class="mi">6635337</span><span class="p">,</span>
+  <span class="s2">"ver"</span><span class="o">:</span><span class="mi">2</span><span class="p">,</span>
+  <span class="s2">"time"</span><span class="o">:</span><span class="s2">"2014-03-29T01:29:19Z"</span><span class="p">,</span>
+  <span class="s2">"received_time"</span><span class="o">:</span><span class="s2">"2014-03-29T01:29:19Z"</span><span class="p">,</span>
+  <span class="s2">"bits"</span><span class="o">:</span><span class="mi">419486617</span><span class="p">,</span>
+  <span class="s2">"nonce"</span><span class="o">:</span><span class="mi">704197304</span><span class="p">,</span>
+  <span class="s2">"n_tx"</span><span class="o">:</span><span class="mi">373</span><span class="p">,</span>
+  <span class="s2">"prev_block"</span><span class="o">:</span><span class="s2">"0000000000000000b358b3b54788547080f49ed52392c2ed32a241951e2c9d5f"</span><span class="p">,</span>
+  <span class="s2">"mrkl_root"</span><span class="o">:</span><span class="s2">"5edf6a7e92e65d32843a79227042c215b875675fb92ff9613c90d6964fb069cd"</span><span class="p">,</span>
+  <span class="s2">"txids"</span><span class="o">:</span><span class="p">[</span>
+    <span class="s2">"7f00b52d075b3596cbd37ba5418640ace14a22ed6c5d154c4db5dd80e049b800"</span><span class="p">,</span>
+    <span class="s2">"a90d9bc04a4e6be53e0ddc47b043625a0bdc849ef3bc05f551bc05336de3a87c"</span><span class="p">,</span>
+    <span class="o">...</span>
+  <span class="p">],</span>
+  <span class="s2">"depth"</span><span class="o">:</span><span class="mi">67602</span><span class="p">,</span>
+  <span class="s2">"prev_block_url"</span><span class="o">:</span><span class="s2">"https://api.blockcypher.com/v1/btc/main/blocks/0000000000000000b358b3b54788547080f49ed52392c2ed32a241951e2c9d5f"</span><span class="p">,</span>
+  <span class="s2">"tx_url"</span><span class="o">:</span><span class="s2">"https://api.blockcypher.com/v1/btc/main/txs/"</span><span class="p">,</span>
+  <span class="s2">"next_txids"</span><span class="o">:</span><span class="s2">"https://api.blockcypher.com/v1/btc/main/blocks/0000000000000000c504bdea36e531d8089d324f2d936c86e3274f97f8a44328?txstart=20\u0026limit=20"</span>
+<span class="p">}</span>
 </code></pre>
 
 <p>If you want more data on a particular block, you can use the Block Hash endpoint.</p>
@@ -2270,6 +2475,40 @@ Only one of these three fields is required for the microtransaction endpoint: <b
  <span class="s">'bits'</span><span class="p">:</span> <span class="mi">419486617</span><span class="p">,</span>
  <span class="s">'time'</span><span class="p">:</span> <span class="s">'2014-04-05T07:49:18Z'</span><span class="p">}</span>
 </code></pre>
+<pre class="highlight php"><code><span class="cp">&lt;?php</span>
+<span class="c1">// Run on console:
+// php -f .\sample\block-api\BlockHeightEndpoint.php
+</span>
+<span class="nv">$params</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
+    <span class="s1">'txstart'</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="s1">'limit'</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">,</span>
+<span class="p">);</span>
+
+<span class="nv">$block</span> <span class="o">=</span> <span class="nx">Block</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="s1">'293000'</span><span class="p">,</span> <span class="nv">$params</span><span class="p">);</span>
+
+<span class="p">{</span>
+  <span class="s2">"hash"</span><span class="o">:</span><span class="s2">"0000000000000000c504bdea36e531d8089d324f2d936c86e3274f97f8a44328"</span><span class="p">,</span>
+  <span class="s2">"height"</span><span class="o">:</span><span class="mi">293000</span><span class="p">,</span>
+  <span class="s2">"chain"</span><span class="o">:</span><span class="s2">"BTC.main"</span><span class="p">,</span>
+  <span class="s2">"total"</span><span class="o">:</span><span class="mi">288801092067</span><span class="p">,</span>
+  <span class="s2">"fees"</span><span class="o">:</span><span class="mi">6635337</span><span class="p">,</span>
+  <span class="s2">"ver"</span><span class="o">:</span><span class="mi">2</span><span class="p">,</span>
+  <span class="s2">"time"</span><span class="o">:</span><span class="s2">"2014-03-29T01:29:19Z"</span><span class="p">,</span>
+  <span class="s2">"received_time"</span><span class="o">:</span><span class="s2">"2014-03-29T01:29:19Z"</span><span class="p">,</span>
+  <span class="s2">"bits"</span><span class="o">:</span><span class="mi">419486617</span><span class="p">,</span>
+  <span class="s2">"nonce"</span><span class="o">:</span><span class="mi">704197304</span><span class="p">,</span>
+  <span class="s2">"n_tx"</span><span class="o">:</span><span class="mi">373</span><span class="p">,</span>
+  <span class="s2">"prev_block"</span><span class="o">:</span><span class="s2">"0000000000000000b358b3b54788547080f49ed52392c2ed32a241951e2c9d5f"</span><span class="p">,</span>
+  <span class="s2">"mrkl_root"</span><span class="o">:</span><span class="s2">"5edf6a7e92e65d32843a79227042c215b875675fb92ff9613c90d6964fb069cd"</span><span class="p">,</span>
+  <span class="s2">"txids"</span><span class="o">:</span><span class="p">[</span>
+    <span class="s2">"a90d9bc04a4e6be53e0ddc47b043625a0bdc849ef3bc05f551bc05336de3a87c"</span>
+  <span class="p">],</span>
+  <span class="s2">"depth"</span><span class="o">:</span><span class="mi">67602</span><span class="p">,</span>
+  <span class="s2">"prev_block_url"</span><span class="o">:</span><span class="s2">"https://api.blockcypher.com/v1/btc/main/blocks/0000000000000000b358b3b54788547080f49ed52392c2ed32a241951e2c9d5f"</span><span class="p">,</span>
+  <span class="s2">"tx_url"</span><span class="o">:</span><span class="s2">"https://api.blockcypher.com/v1/btc/main/txs/"</span><span class="p">,</span>
+  <span class="s2">"next_txids"</span><span class="o">:</span><span class="s2">"https://api.blockcypher.com/v1/btc/main/blocks/0000000000000000c504bdea36e531d8089d324f2d936c86e3274f97f8a44328?txstart=2\u0026limit=1"</span>
+<span class="p">}</span>
+</code></pre>
 
 <p>You can also query for information on a block using its height, using the same resource but with a different variable type.</p>
 
@@ -2385,6 +2624,24 @@ With recent blocks, $BLOCK_HEIGHT is not always a unique identifier, due to the 
  <span class="s">'unconfirmed_balance'</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
  <span class="s">'address'</span><span class="p">:</span> <span class="s">'1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD'</span><span class="p">,</span>
  <span class="s">'unconfirmed_n_tx'</span><span class="p">:</span> <span class="mi">0</span><span class="p">}</span>
+</code></pre>
+<pre class="highlight php"><code><span class="cp">&lt;?php</span>
+<span class="c1">// Run on console:
+// php -f .\sample\address-api\AddressBalanceEndpoint.php
+</span>
+<span class="nv">$addressBalance</span> <span class="o">=</span> <span class="nx">Address</span><span class="o">::</span><span class="na">getOnlyBalance</span><span class="p">(</span><span class="s1">'1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD'</span><span class="p">);</span>
+
+<span class="p">{</span>
+  <span class="s2">"address"</span><span class="o">:</span><span class="s2">"1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD"</span><span class="p">,</span>
+  <span class="s2">"total_received"</span><span class="o">:</span><span class="mi">4433416</span><span class="p">,</span>
+  <span class="s2">"total_sent"</span><span class="o">:</span><span class="mi">0</span><span class="p">,</span>
+  <span class="s2">"balance"</span><span class="o">:</span><span class="mi">4433416</span><span class="p">,</span>
+  <span class="s2">"unconfirmed_balance"</span><span class="o">:</span><span class="mi">0</span><span class="p">,</span>
+  <span class="s2">"final_balance"</span><span class="o">:</span><span class="mi">4433416</span><span class="p">,</span>
+  <span class="s2">"n_tx"</span><span class="o">:</span><span class="mi">7</span><span class="p">,</span>
+  <span class="s2">"unconfirmed_n_tx"</span><span class="o">:</span><span class="mi">0</span><span class="p">,</span>
+  <span class="s2">"final_n_tx"</span><span class="o">:</span><span class="mi">7</span>
+<span class="p">}</span>
 </code></pre>
 
 <p>The Address Balance Endpoint is the simplest&mdash;and fastest&mdash;method to get a subset of information on a public address.</p>
@@ -2545,6 +2802,40 @@ With recent blocks, $BLOCK_HEIGHT is not always a unique identifier, due to the 
  <span class="s">'unconfirmed_balance'</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
  <span class="s">'address'</span><span class="p">:</span> <span class="s">'1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD'</span><span class="p">,</span>
  <span class="s">'unconfirmed_n_tx'</span><span class="p">:</span> <span class="mi">0</span><span class="p">}</span>
+</code></pre>
+<pre class="highlight php"><code><span class="cp">&lt;?php</span>
+
+<span class="c1">// Run on console:
+// php -f .\sample\address-api\AddressEndpoint.php
+</span>
+<span class="nv">$address</span> <span class="o">=</span> <span class="nx">Address</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="s1">'1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD'</span><span class="p">);</span>
+
+<span class="p">{</span>
+  <span class="s2">"address"</span><span class="o">:</span><span class="s2">"1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD"</span><span class="p">,</span>
+  <span class="s2">"total_received"</span><span class="o">:</span><span class="mi">4433416</span><span class="p">,</span>
+  <span class="s2">"total_sent"</span><span class="o">:</span><span class="mi">0</span><span class="p">,</span>
+  <span class="s2">"balance"</span><span class="o">:</span><span class="mi">4433416</span><span class="p">,</span>
+  <span class="s2">"unconfirmed_balance"</span><span class="o">:</span><span class="mi">0</span><span class="p">,</span>
+  <span class="s2">"final_balance"</span><span class="o">:</span><span class="mi">4433416</span><span class="p">,</span>
+  <span class="s2">"n_tx"</span><span class="o">:</span><span class="mi">7</span><span class="p">,</span>
+  <span class="s2">"unconfirmed_n_tx"</span><span class="o">:</span><span class="mi">0</span><span class="p">,</span>
+  <span class="s2">"final_n_tx"</span><span class="o">:</span><span class="mi">7</span><span class="p">,</span>
+  <span class="s2">"txrefs"</span><span class="o">:</span><span class="p">[</span>
+    <span class="p">{</span>
+      <span class="s2">"tx_hash"</span><span class="o">:</span><span class="s2">"14b1052855bbf6561bc4db8aa501762e7cc1e86994dda9e782a6b73b1ce0dc1e"</span><span class="p">,</span>
+      <span class="s2">"block_height"</span><span class="o">:</span><span class="mi">302013</span><span class="p">,</span>
+      <span class="s2">"tx_input_n"</span><span class="o">:-</span><span class="mi">1</span><span class="p">,</span>
+      <span class="s2">"tx_output_n"</span><span class="o">:</span><span class="mi">0</span><span class="p">,</span>
+      <span class="s2">"value"</span><span class="o">:</span><span class="mi">20213</span><span class="p">,</span>
+      <span class="s2">"spent"</span><span class="o">:</span><span class="kc">false</span><span class="p">,</span>
+      <span class="s2">"confirmations"</span><span class="o">:</span><span class="mi">58584</span><span class="p">,</span>
+      <span class="s2">"confirmed"</span><span class="o">:</span><span class="s2">"2014-05-22T03:46:25Z"</span><span class="p">,</span>
+      <span class="s2">"double_spend"</span><span class="o">:</span><span class="kc">false</span>
+    <span class="p">},</span>
+    <span class="o">...</span>
+  <span class="p">],</span>
+  <span class="s2">"tx_url"</span><span class="o">:</span><span class="s2">"https://api.blockcypher.com/v1/btc/main/txs/"</span>
+<span class="p">}</span>
 </code></pre>
 
 <p>The default Address Endpoint strikes a balance between speed of response and data on Addresses. It returns more information about an address&rsquo; transactions than the <a href="#address-balance-endpoint">Address Balance Endpoint</a> but doesn&rsquo;t return full transaction information (like the <a href="#address-full-endpoint">Address Full Endpoint</a>).</p>
@@ -2839,6 +3130,82 @@ With recent blocks, $BLOCK_HEIGHT is not always a unique identifier, due to the 
  <span class="s">'address'</span><span class="p">:</span> <span class="s">'1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD'</span><span class="p">,</span>
  <span class="s">'unconfirmed_n_tx'</span><span class="p">:</span> <span class="mi">0</span><span class="p">}</span>
 </code></pre>
+<pre class="highlight php"><code><span class="cp">&lt;?php</span>
+<span class="c1">// Run on console:
+// php -f .\sample\address-api\AddressFullEndpoint.php
+</span>
+<span class="nv">$fullAddress</span> <span class="o">=</span> <span class="nx">Address</span><span class="o">::</span><span class="na">getFullAddress</span><span class="p">(</span><span class="s1">'1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD'</span><span class="p">);</span>
+
+<span class="p">{</span>
+  <span class="s2">"address"</span><span class="o">:</span><span class="s2">"1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD"</span><span class="p">,</span>
+  <span class="s2">"total_received"</span><span class="o">:</span><span class="mi">4433416</span><span class="p">,</span>
+  <span class="s2">"total_sent"</span><span class="o">:</span><span class="mi">0</span><span class="p">,</span>
+  <span class="s2">"balance"</span><span class="o">:</span><span class="mi">4433416</span><span class="p">,</span>
+  <span class="s2">"unconfirmed_balance"</span><span class="o">:</span><span class="mi">0</span><span class="p">,</span>
+  <span class="s2">"final_balance"</span><span class="o">:</span><span class="mi">4433416</span><span class="p">,</span>
+  <span class="s2">"n_tx"</span><span class="o">:</span><span class="mi">7</span><span class="p">,</span>
+  <span class="s2">"unconfirmed_n_tx"</span><span class="o">:</span><span class="mi">0</span><span class="p">,</span>
+  <span class="s2">"final_n_tx"</span><span class="o">:</span><span class="mi">7</span><span class="p">,</span>
+  <span class="s2">"txs"</span><span class="o">:</span><span class="p">[</span>
+    <span class="p">{</span>
+      <span class="s2">"block_hash"</span><span class="o">:</span><span class="s2">"00000000000000006548ac8dc283c97e8165023dc1fdbbca2eaa75f0143f4a8c"</span><span class="p">,</span>
+      <span class="s2">"block_height"</span><span class="o">:</span><span class="mi">302013</span><span class="p">,</span>
+      <span class="s2">"hash"</span><span class="o">:</span><span class="s2">"14b1052855bbf6561bc4db8aa501762e7cc1e86994dda9e782a6b73b1ce0dc1e"</span><span class="p">,</span>
+      <span class="s2">"addresses"</span><span class="o">:</span><span class="p">[</span>
+        <span class="s2">"17astdTmG8zzVmry8mV8A7atAr3XefEgRX"</span><span class="p">,</span>
+        <span class="s2">"1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD"</span>
+      <span class="p">],</span>
+      <span class="s2">"total"</span><span class="o">:</span><span class="mi">8835413</span><span class="p">,</span>
+      <span class="s2">"fees"</span><span class="o">:</span><span class="mi">10000</span><span class="p">,</span>
+      <span class="s2">"size"</span><span class="o">:</span><span class="mi">258</span><span class="p">,</span>
+      <span class="s2">"preference"</span><span class="o">:</span><span class="s2">"medium"</span><span class="p">,</span>
+      <span class="s2">"relayed_by"</span><span class="o">:</span><span class="s2">""</span><span class="p">,</span>
+      <span class="s2">"confirmed"</span><span class="o">:</span><span class="s2">"2014-05-22T03:46:25Z"</span><span class="p">,</span>
+      <span class="s2">"received"</span><span class="o">:</span><span class="s2">"2014-05-22T03:46:25Z"</span><span class="p">,</span>
+      <span class="s2">"ver"</span><span class="o">:</span><span class="mi">1</span><span class="p">,</span>
+      <span class="s2">"lock_time"</span><span class="o">:</span><span class="mi">0</span><span class="p">,</span>
+      <span class="s2">"double_spend"</span><span class="o">:</span><span class="kc">false</span><span class="p">,</span>
+      <span class="s2">"vin_sz"</span><span class="o">:</span><span class="mi">1</span><span class="p">,</span>
+      <span class="s2">"vout_sz"</span><span class="o">:</span><span class="mi">2</span><span class="p">,</span>
+      <span class="s2">"confirmations"</span><span class="o">:</span><span class="mi">58588</span><span class="p">,</span>
+      <span class="s2">"confidence"</span><span class="o">:</span><span class="mi">1</span><span class="p">,</span>
+      <span class="s2">"inputs"</span><span class="o">:</span><span class="p">[</span>
+        <span class="p">{</span>
+          <span class="s2">"prev_hash"</span><span class="o">:</span><span class="s2">"4cff011ec53022f2ae47197d1a2fd4a6ac2a80139f4d0131c1fed625ed5dc869"</span><span class="p">,</span>
+          <span class="s2">"output_index"</span><span class="o">:</span><span class="mi">1</span><span class="p">,</span>
+          <span class="s2">"script"</span><span class="o">:</span><span class="s2">"483045022035695e3b237733c70a56286eccd8df41b4d22cd103ed9b2df44010caa3bc71430221008f58461c937e8fe6cc6d37a9aaee3927762cce4565a4c386bbcd9d82915acfc50141047b1d511b8559a2003ca88715bc8331f057fa4ebf11f411142509a8ffd2f2d36d5a5e4b6019d6eb3e16878f24fd8d55676050c28b4bc5e4c44f39245beedae100"</span><span class="p">,</span>
+          <span class="s2">"output_value"</span><span class="o">:</span><span class="mi">8845413</span><span class="p">,</span>
+          <span class="s2">"sequence"</span><span class="o">:</span><span class="mi">4294967295</span><span class="p">,</span>
+          <span class="s2">"addresses"</span><span class="o">:</span><span class="p">[</span>
+            <span class="s2">"17astdTmG8zzVmry8mV8A7atAr3XefEgRX"</span>
+          <span class="p">],</span>
+          <span class="s2">"script_type"</span><span class="o">:</span><span class="s2">"pay-to-pubkey-hash"</span>
+        <span class="p">}</span>
+      <span class="p">],</span>
+      <span class="s2">"outputs"</span><span class="o">:</span><span class="p">[</span>
+        <span class="p">{</span>
+          <span class="s2">"value"</span><span class="o">:</span><span class="mi">20213</span><span class="p">,</span>
+          <span class="s2">"script"</span><span class="o">:</span><span class="s2">"76a9148629647bd642a2372d846a7660e210c8414f047c88ac"</span><span class="p">,</span>
+          <span class="s2">"addresses"</span><span class="o">:</span><span class="p">[</span>
+            <span class="s2">"1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD"</span>
+          <span class="p">],</span>
+          <span class="s2">"script_type"</span><span class="o">:</span><span class="s2">"pay-to-pubkey-hash"</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+          <span class="s2">"value"</span><span class="o">:</span><span class="mi">8815200</span><span class="p">,</span>
+          <span class="s2">"script"</span><span class="o">:</span><span class="s2">"76a9144838f65fc4e06c644423ad0430de11ca5785dcd088ac"</span><span class="p">,</span>
+          <span class="s2">"spent_by"</span><span class="o">:</span><span class="s2">"582a50f3a756c3261f8f085185e5975a762e239e95a30bcf1a4f2e31e0f834ab"</span><span class="p">,</span>
+          <span class="s2">"addresses"</span><span class="o">:</span><span class="p">[</span>
+            <span class="s2">"17astdTmG8zzVmry8mV8A7atAr3XefEgRX"</span>
+          <span class="p">],</span>
+          <span class="s2">"script_type"</span><span class="o">:</span><span class="s2">"pay-to-pubkey-hash"</span>
+        <span class="p">}</span>
+      <span class="p">]</span>
+    <span class="p">},</span>
+    <span class="o">...</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</code></pre>
 
 <p>The Address Full Endpoint returns all information available about a particular address, including an array of complete <a href="#tx">transactions</a> instead of just transaction inputs and outputs. Unfortunately, because of the amount of data returned, it is the slowest of the address endpoints, but it returns the most detailed data record.</p>
 
@@ -2911,6 +3278,20 @@ If your returned <a href="#address">Address</a> object includes the <b>hasMore</
  <span class="s2">"wif"</span><span class="o">=&gt;</span><span class="s2">"KyA2uUUMZkiRcSTx3PE1pBeMFgyifpxswcJu3Q7fVwXXZmvh48JA"</span><span class="p">}</span>
 </code></pre>
 <pre class="highlight python"><code><span class="c"># Please use the python library at https://github.com/blockcypher/blockcypher-python to securely generate an address client-side</span>
+</code></pre>
+<pre class="highlight php"><code><span class="cp">&lt;?php</span>
+<span class="c1">// Run on console:
+// php -f .\sample\address-api\GenerateAddressEndpoint.php
+</span>
+<span class="nv">$addressKeyChain</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">AddressKeyChain</span><span class="p">();</span>
+<span class="nv">$addressKeyChain</span><span class="o">-&gt;</span><span class="na">create</span><span class="p">(</span><span class="nv">$apiContexts</span><span class="p">[</span><span class="s1">'BTC.main'</span><span class="p">]);</span>
+
+<span class="p">{</span>
+  <span class="s2">"private"</span><span class="o">:</span><span class="s2">"3f3cea5a7373011d6f51844bf986abe6950d7a30eaaab247fc951c3ea9f13705"</span><span class="p">,</span>
+  <span class="s2">"public"</span><span class="o">:</span><span class="s2">"02d1c8ccc7131a3c39b9e7001741f68d339e5d6941caf31fe9f43b15d6cf09dcb9"</span><span class="p">,</span>
+  <span class="s2">"address"</span><span class="o">:</span><span class="s2">"1rA7AB93qziWzHfTFXn5n3GYJ1mhkG8tn"</span><span class="p">,</span>
+  <span class="s2">"wif"</span><span class="o">:</span><span class="s2">"KyLdumvGqB86v3D9sKqAMGhNXB1UtYSsxb9deH1nxpooskVF7Rgz"</span>
+<span class="p">}</span>
 </code></pre>
 
 <p>The Generate Address endpoint allows you to generate private-public key-pairs along with an associated public address. No information is required with this POST request.</p>
@@ -3004,6 +3385,37 @@ Always use HTTPS for Address Generation requests. Otherwise, your generated priv
  <span class="s">'address'</span><span class="p">:</span> <span class="s">'3BF1M1PnTge94QewuWh3B8mRVw8U4SVnb4'</span><span class="p">,</span>
  <span class="s">'wif'</span><span class="p">:</span> <span class="s">''</span><span class="p">}</span>
 </code></pre>
+<pre class="highlight php"><code><span class="cp">&lt;?php</span>
+<span class="c1">// Run on console:
+// php -f .\sample\address-api\GenerateMultisignAddressEndpoint.php
+</span>
+<span class="nv">$addressKeyChain</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">AddressKeyChain</span><span class="p">();</span>
+<span class="nv">$pubkeys</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
+    <span class="s2">"02c716d071a76cbf0d29c29cacfec76e0ef8116b37389fb7a3e76d6d32cf59f4d3"</span><span class="p">,</span>
+    <span class="s2">"033ef4d5165637d99b673bcdbb7ead359cee6afd7aaf78d3da9d2392ee4102c8ea"</span><span class="p">,</span>
+    <span class="s2">"022b8934cc41e76cb4286b9f3ed57e2d27798395b04dd23711981a77dc216df8ca"</span>
+<span class="p">);</span>
+<span class="nv">$addressKeyChain</span><span class="o">-&gt;</span><span class="na">setPubkeys</span><span class="p">(</span><span class="nv">$pubkeys</span><span class="p">);</span>
+<span class="nv">$addressKeyChain</span><span class="o">-&gt;</span><span class="na">setScriptType</span><span class="p">(</span><span class="s1">'multisig-2-of-3'</span><span class="p">);</span>
+
+<span class="c1">// For Sample Purposes Only.
+</span><span class="nv">$request</span> <span class="o">=</span> <span class="k">clone</span> <span class="nv">$addressKeyChain</span><span class="p">;</span>
+
+<span class="nv">$addressKeyChain</span><span class="o">-&gt;</span><span class="na">create</span><span class="p">();</span>
+
+<span class="p">{</span>
+  <span class="s2">"pubkeys"</span><span class="o">:</span><span class="p">[</span>
+    <span class="s2">"02c716d071a76cbf0d29c29cacfec76e0ef8116b37389fb7a3e76d6d32cf59f4d3"</span><span class="p">,</span>
+    <span class="s2">"033ef4d5165637d99b673bcdbb7ead359cee6afd7aaf78d3da9d2392ee4102c8ea"</span><span class="p">,</span>
+    <span class="s2">"022b8934cc41e76cb4286b9f3ed57e2d27798395b04dd23711981a77dc216df8ca"</span>
+  <span class="p">],</span>
+  <span class="s2">"script_type"</span><span class="o">:</span><span class="s2">"multisig-2-of-3"</span><span class="p">,</span>
+  <span class="s2">"private"</span><span class="o">:</span><span class="s2">""</span><span class="p">,</span>
+  <span class="s2">"public"</span><span class="o">:</span><span class="s2">""</span><span class="p">,</span>
+  <span class="s2">"address"</span><span class="o">:</span><span class="s2">"3BF1M1PnTge94QewuWh3B8mRVw8U4SVnb4"</span><span class="p">,</span>
+  <span class="s2">"wif"</span><span class="o">:</span><span class="s2">""</span>
+<span class="p">}</span>
+</code></pre>
 
 <p>The Generate Multisig Address Endpoint is a convenience method to help you generate multisig addresses from multiple public keys. After supplying a partially filled-out <a href="#addresskeychain">AddressKeychain</a> object (including only an array of hex-encoded public keys and the script type), the returned object includes the computed public address.</p>
 
@@ -3077,6 +3489,26 @@ You are required to authenticate with your <a href="#rate-limits-and-tokens">use
 <span class="p">{</span><span class="s">'name'</span><span class="p">:</span> <span class="s">'alice'</span><span class="p">,</span>
  <span class="s">'token'</span><span class="p">:</span> <span class="s">'YOUR_TOKEN'</span><span class="p">,</span>
  <span class="s">'addresses'</span><span class="p">:</span> <span class="p">[</span><span class="s">'1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e'</span><span class="p">]}</span>
+</code></pre>
+<pre class="highlight php"><code><span class="cp">&lt;?php</span>
+<span class="c1">// Run on console:
+// php -f .\sample\wallet-api\CreateWalletEndpoint.php
+</span>
+<span class="c1">// Create a new instance of Wallet object
+</span><span class="nv">$wallet</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Wallet</span><span class="p">();</span>
+<span class="nv">$wallet</span><span class="o">-&gt;</span><span class="na">setName</span><span class="p">(</span><span class="s1">'alice'</span><span class="p">);</span>
+<span class="nv">$wallet</span><span class="o">-&gt;</span><span class="na">setAddresses</span><span class="p">(</span><span class="k">array</span><span class="p">(</span>
+    <span class="s2">"1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e"</span>
+<span class="p">));</span>
+<span class="nv">$wallet</span><span class="o">-&gt;</span><span class="na">create</span><span class="p">();</span>
+
+<span class="p">{</span>
+  <span class="s2">"token"</span><span class="o">:</span><span class="s2">"c0afcccdde5081d6429de37d16166ead"</span><span class="p">,</span>
+  <span class="s2">"name"</span><span class="o">:</span><span class="s2">"alice"</span><span class="p">,</span>
+  <span class="s2">"addresses"</span><span class="o">:</span><span class="p">[</span>
+    <span class="s2">"1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e"</span>
+  <span class="p">]</span>
+<span class="p">}</span>
 </code></pre>
 
 <table><thead>
@@ -3180,6 +3612,25 @@ If the named wallet already exists under your token, attempting to create a new 
  <span class="s">'token'</span><span class="p">:</span> <span class="s">'YOUR_TOKEN'</span><span class="p">,</span>
  <span class="s">'addresses'</span><span class="p">:</span> <span class="p">[</span><span class="s">'1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e'</span><span class="p">,</span> <span class="s">'13cj1QtfW61kQHoqXm3khVRYPJrgQiRM6j'</span><span class="p">]}</span>
 </code></pre>
+<pre class="highlight php"><code><span class="cp">&lt;?php</span>
+<span class="c1">// Run on console:
+// php -f .\sample\wallet-api\AddAddressesToWalletEndpoint.php
+</span>
+<span class="nv">$wallet</span> <span class="o">=</span> <span class="nx">Wallet</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="s1">'alice'</span><span class="p">);</span>
+<span class="nv">$addressesList</span> <span class="o">=</span> <span class="nx">AddressList</span><span class="o">::</span><span class="na">fromAddressesArray</span><span class="p">(</span><span class="k">array</span><span class="p">(</span>
+    <span class="s2">"13cj1QtfW61kQHoqXm3khVRYPJrgQiRM6j"</span>
+<span class="p">));</span>
+<span class="nv">$wallet</span><span class="o">-&gt;</span><span class="na">addAddresses</span><span class="p">(</span><span class="nv">$addressesList</span><span class="p">);</span>
+
+<span class="p">{</span>
+  <span class="s2">"token"</span><span class="o">:</span><span class="s2">"c0afcccdde5081d6429de37d16166ead"</span><span class="p">,</span>
+  <span class="s2">"name"</span><span class="o">:</span><span class="s2">"alice"</span><span class="p">,</span>
+  <span class="s2">"addresses"</span><span class="o">:</span><span class="p">[</span>
+    <span class="s2">"1jr1rHMthQVMNSYswB9ExSvYn339fWMzn"</span><span class="p">,</span>
+    <span class="s2">"13cj1QtfW61kQHoqXm3khVRYPJrgQiRM6j"</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</code></pre>
 
 <table><thead>
 <tr>
@@ -3227,6 +3678,22 @@ If the named wallet already exists under your token, attempting to create a new 
 <span class="p">{</span><span class="s">'addresses'</span><span class="p">:</span> <span class="p">[</span><span class="s">'13cj1QtfW61kQHoqXm3khVRYPJrgQiRM6j'</span><span class="p">,</span>
   <span class="s">'1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e'</span><span class="p">]}</span>
 </code></pre>
+<pre class="highlight php"><code><span class="cp">&lt;?php</span>
+
+<span class="c1">// Run on console:
+// php -f .\sample\wallet-api\WalletAddressesEndpoint.php
+</span>
+<span class="nv">$wallet</span> <span class="o">=</span> <span class="nx">Wallet</span><span class="o">::</span><span class="na">getOnlyAddresses</span><span class="p">(</span><span class="s1">'alice'</span><span class="p">);</span>
+
+<span class="p">{</span>
+  <span class="s2">"token"</span><span class="o">:</span><span class="s2">"c0afcccdde5081d6429de37d16166ead"</span><span class="p">,</span>
+  <span class="s2">"name"</span><span class="o">:</span><span class="s2">"alice"</span><span class="p">,</span>
+  <span class="s2">"addresses"</span><span class="o">:</span><span class="p">[</span>
+    <span class="s2">"13cj1QtfW61kQHoqXm3khVRYPJrgQiRM6j"</span><span class="p">,</span>
+    <span class="s2">"1jr1rHMthQVMNSYswB9ExSvYn339fWMzn"</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</code></pre>
 
 <table><thead>
 <tr>
@@ -3263,6 +3730,26 @@ If the named wallet already exists under your token, attempting to create a new 
 <span class="o">&gt;&gt;&gt;</span> <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="s">'https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses'</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
 <span class="c"># returns nothing, let's just check the status code to be sure</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="k">assert</span> <span class="n">r</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">204</span>
+</code></pre>
+<pre class="highlight php"><code><span class="cp">&lt;?php</span>
+<span class="c1">// Run on console:
+// php -f .\sample\wallet-api\RemoveAddressesFromWalletEndpoint.php
+</span>
+<span class="c1">// List of addresses to be removed from the wallet
+</span><span class="nv">$addressesList</span> <span class="o">=</span> <span class="nx">AddressesList</span><span class="o">::</span><span class="na">fromAddressesArray</span><span class="p">(</span><span class="k">array</span><span class="p">(</span>
+    <span class="s2">"13cj1QtfW61kQHoqXm3khVRYPJrgQiRM6j"</span>
+<span class="p">));</span>
+
+<span class="nv">$wallet</span> <span class="o">=</span> <span class="nx">Wallet</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="s1">'alice'</span><span class="p">);</span>
+<span class="nv">$wallet</span><span class="o">-&gt;</span><span class="na">removeAddresses</span><span class="p">(</span><span class="nv">$addressesList</span><span class="p">);</span>
+
+<span class="p">{</span>
+  <span class="s2">"token"</span><span class="o">:</span><span class="s2">"c0afcccdde5081d6429de37d16166ead"</span><span class="p">,</span>
+  <span class="s2">"name"</span><span class="o">:</span><span class="s2">"alice"</span><span class="p">,</span>
+  <span class="s2">"addresses"</span><span class="o">:</span><span class="p">[</span>
+    <span class="s2">"1jr1rHMthQVMNSYswB9ExSvYn339fWMzn"</span>
+  <span class="p">]</span>
+<span class="p">}</span>
 </code></pre>
 
 <table><thead>
@@ -3325,6 +3812,26 @@ If the named wallet already exists under your token, attempting to create a new 
 </code></pre>
 <pre class="highlight python"><code><span class="c"># Please use the python library at https://github.com/blockcypher/blockcypher-python to securely generate an address client-side</span>
 </code></pre>
+<pre class="highlight php"><code><span class="cp">&lt;?php</span>
+<span class="c1">// Run on console:
+// php -f .\sample\wallet-api\GenerateAddressInWalletEndpoint.php
+</span>
+<span class="nv">$wallet</span> <span class="o">=</span> <span class="nx">Wallet</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="s1">'alice'</span><span class="p">);</span>
+<span class="nv">$walletGenerateAddressResponse</span> <span class="o">=</span> <span class="nv">$wallet</span><span class="o">-&gt;</span><span class="na">generateAddress</span><span class="p">();</span>
+
+<span class="p">{</span>
+  <span class="s2">"token"</span><span class="o">:</span><span class="s2">"c0afcccdde5081d6429de37d16166ead"</span><span class="p">,</span>
+  <span class="s2">"name"</span><span class="o">:</span><span class="s2">"alice"</span><span class="p">,</span>
+  <span class="s2">"addresses"</span><span class="o">:</span><span class="p">[</span>
+    <span class="s2">"1jr1rHMthQVMNSYswB9ExSvYn339fWMzn"</span><span class="p">,</span>
+    <span class="s2">"13cj1QtfW61kQHoqXm3khVRYPJrgQiRM6j"</span>
+  <span class="p">],</span>
+  <span class="s2">"private"</span><span class="o">:</span><span class="s2">"0d42eb9fa80301aa3a5c4e91d2a5c892b4fb99b10bc1f0d636d46ecba32d37e6"</span><span class="p">,</span>
+  <span class="s2">"public"</span><span class="o">:</span><span class="s2">"030b4780c12784456291191318b231dcce64c93f8eb211fa78eb7e95663009e414"</span><span class="p">,</span>
+  <span class="s2">"address"</span><span class="o">:</span><span class="s2">"1GuPv187EEUi3BDypdpMS7cmMuaVpWy6PM"</span><span class="p">,</span>
+  <span class="s2">"wif"</span><span class="o">:</span><span class="s2">"KwfVLLsRSgSC6pkDLkEmMn8fH5VFceaYT9B58Cu8QHZtZzJvnpYZ"</span>
+<span class="p">}</span>
+</code></pre>
 
 <table><thead>
 <tr>
@@ -3367,6 +3874,13 @@ If the named wallet already exists under your token, attempting to create a new 
 <span class="o">&gt;&gt;&gt;</span> <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="s">'https://api.blockcypher.com/v1/btc/main/wallets/alice'</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
 <span class="c"># returns nothing, let's just check the status code to be sure</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="k">assert</span> <span class="n">r</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">204</span>
+</code></pre>
+<pre class="highlight php"><code><span class="cp">&lt;?php</span>
+<span class="c1">// Run on console:
+// php -f .\sample\wallet-api\DeleteWalletEndpoint.php
+</span>
+<span class="nv">$wallet</span> <span class="o">=</span> <span class="nx">Wallet</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="s1">'alice'</span><span class="p">);</span>
+<span class="nv">$result</span> <span class="o">=</span> <span class="nv">$wallet</span><span class="o">-&gt;</span><span class="na">delete</span><span class="p">();</span>
 </code></pre>
 
 <table><thead>
@@ -3587,6 +4101,65 @@ Even if you don&rsquo;t use the API to assist in creating transactions, we highl
  <span class="s">'size'</span><span class="p">:</span> <span class="mi">636</span><span class="p">,</span>
  <span class="s">'confirmations'</span><span class="p">:</span> <span class="mi">67378</span><span class="p">}</span>
 </code></pre>
+<pre class="highlight php"><code><span class="cp">&lt;?php</span>
+<span class="c1">// Run on console:
+// php -f .\sample\transaction-api\TransactionHashEndpoint.php
+</span>
+<span class="nv">$transaction</span> <span class="o">=</span> <span class="nx">TX</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="s1">'f854aebae95150b379cc1187d848d58225f3c4157fe992bcd166f58bd5063449'</span><span class="p">);</span>
+
+<span class="p">{</span>
+<span class="s2">"block_hash"</span><span class="o">:</span> <span class="s2">"0000000000000000c504bdea36e531d80..."</span><span class="p">,</span>
+<span class="s2">"block_height"</span><span class="o">:</span> <span class="mi">293000</span><span class="p">,</span>
+<span class="s2">"hash"</span><span class="o">:</span> <span class="s2">"f854aebae95150b379cc1187d848d58225f3c41..."</span><span class="p">,</span>
+<span class="s2">"addresses"</span><span class="o">:</span> <span class="p">[</span>
+    <span class="s2">"13XXaBufpMvqRqLkyDty1AXqueZHVe6iyy"</span><span class="p">,</span>
+    <span class="s2">"19YtzZdcfs1V2ZCgyRWo8i2wLT8ND1Tu4L"</span><span class="p">,</span>
+    <span class="s2">"1BNiazBzCxJacAKo2yL83Wq1VJ18AYzNHy"</span><span class="p">,</span>
+    <span class="s2">"1GbMfYui17L5m6sAy3L3WXAtf1P32bxJXq"</span><span class="p">,</span>
+    <span class="s2">"1N2f642sbgCMbNtXFajz9XDACDFnFzdXzV"</span>
+<span class="p">],</span>
+<span class="s2">"total"</span><span class="o">:</span> <span class="mi">70320221545</span><span class="p">,</span>
+<span class="s2">"fees"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+<span class="s2">"size"</span><span class="o">:</span> <span class="mi">636</span><span class="p">,</span>
+<span class="s2">"preference"</span><span class="o">:</span> <span class="s2">"low"</span><span class="p">,</span>
+<span class="s2">"relayed_by"</span><span class="o">:</span> <span class="s2">""</span><span class="p">,</span>
+<span class="s2">"confirmed"</span><span class="o">:</span> <span class="s2">"2014-03-29T01:29:19Z"</span><span class="p">,</span>
+<span class="s2">"received"</span><span class="o">:</span> <span class="s2">"2014-03-29T01:29:19Z"</span><span class="p">,</span>
+<span class="s2">"ver"</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+<span class="s2">"lock_time"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+<span class="s2">"double_spend"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+<span class="s2">"vin_sz"</span><span class="o">:</span> <span class="mi">4</span><span class="p">,</span>
+<span class="s2">"vout_sz"</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+<span class="s2">"confirmations"</span><span class="o">:</span> <span class="mi">63171</span><span class="p">,</span>
+<span class="s2">"confidence"</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+<span class="s2">"inputs"</span><span class="o">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+        <span class="s2">"prev_hash"</span><span class="o">:</span> <span class="s2">"583910b7bf90ab802e22e5c25a89..."</span><span class="p">,</span>
+        <span class="s2">"output_index"</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="s2">"script"</span><span class="o">:</span> <span class="s2">"4830450220504b1ccfddf508422bdd8..."</span><span class="p">,</span>
+        <span class="s2">"output_value"</span><span class="o">:</span> <span class="mi">16450000</span><span class="p">,</span>
+        <span class="s2">"sequence"</span><span class="o">:</span> <span class="mi">4294967295</span><span class="p">,</span>
+        <span class="s2">"addresses"</span><span class="o">:</span> <span class="p">[</span>
+            <span class="s2">"1GbMfYui17L5m6sAy3L3WXAtf1P32bxJXq"</span>
+        <span class="p">],</span>
+        <span class="s2">"script_type"</span><span class="o">:</span> <span class="s2">"pay-to-pubkey-hash"</span>
+    <span class="p">},</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="o">...</span><span class="p">,</span>
+<span class="p">],</span>
+<span class="s2">"outputs"</span><span class="o">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+        <span class="s2">"value"</span><span class="o">:</span> <span class="mi">70320221545</span><span class="p">,</span>
+        <span class="s2">"script"</span><span class="o">:</span> <span class="s2">"76a914e6aad9d712c419ea8febf009a..."</span><span class="p">,</span>
+        <span class="s2">"spent_by"</span><span class="o">:</span> <span class="s2">"35832d6c70b98b54e9a53ab2d5117..."</span><span class="p">,</span>
+        <span class="s2">"addresses"</span><span class="o">:</span> <span class="p">[</span>
+            <span class="s2">"1N2f642sbgCMbNtXFajz9XDACDFnFzdXzV"</span>
+        <span class="p">],</span>
+        <span class="s2">"script_type"</span><span class="o">:</span> <span class="s2">"pay-to-pubkey-hash"</span>
+    <span class="p">}</span>
+<span class="p">]</span>
+<span class="p">}</span>
+</code></pre>
 
 <p>The Transaction Hash Endpoint returns detailed information about a given transaction based on its hash.</p>
 
@@ -3774,6 +4347,51 @@ Even if you don&rsquo;t use the API to assist in creating transactions, we highl
   <span class="s">'confirmations'</span><span class="p">:</span> <span class="mi">0</span><span class="p">},</span>
  <span class="o">...</span>
 <span class="p">],</span>
+</code></pre>
+<pre class="highlight php"><code><span class="cp">&lt;?php</span>
+<span class="c1">// Run on console:
+// php -f .\sample\transaction-api\UnconfirmedTransactionsEndpoint.php
+</span>
+<span class="nv">$txs</span> <span class="o">=</span> <span class="nx">TX</span><span class="o">::</span><span class="na">getUnconfirmed</span><span class="p">();</span>
+
+<span class="p">[{</span><span class="s1">'received'</span><span class="o">:</span> <span class="s1">'2015-06-10T23:10:31.534Z'</span><span class="p">,</span>
+  <span class="s1">'ver'</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="s1">'double_spend'</span><span class="o">:</span> <span class="nx">False</span><span class="p">,</span>
+  <span class="s1">'outputs'</span><span class="o">:</span> <span class="p">[{</span><span class="s1">'value'</span><span class="o">:</span> <span class="mi">131910000</span><span class="p">,</span>
+    <span class="s1">'addresses'</span><span class="o">:</span> <span class="p">[</span><span class="s1">'1Gb4TAU4GD73akvt4V7tg2WdqadcpQSvhH'</span><span class="p">],</span>
+    <span class="s1">'script_type'</span><span class="o">:</span> <span class="s1">'pay-to-pubkey-hash'</span><span class="p">,</span>
+    <span class="s1">'script'</span><span class="o">:</span> <span class="s1">'76a914aafae908428a1778d0e76f0dca4cb800f731873e88ac'</span><span class="p">},</span>
+    <span class="o">...</span>
+    <span class="p">],</span>
+  <span class="s1">'block_height'</span><span class="o">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
+  <span class="s1">'confidence'</span><span class="o">:</span> <span class="mf">0.36208077122201</span><span class="p">,</span>
+  <span class="s1">'receive_count'</span><span class="o">:</span> <span class="mi">109</span><span class="p">,</span>
+  <span class="s1">'total'</span><span class="o">:</span> <span class="mi">131940196</span><span class="p">,</span>
+  <span class="s1">'fees'</span><span class="o">:</span> <span class="mi">13754</span><span class="p">,</span>
+  <span class="s1">'inputs'</span><span class="o">:</span> <span class="p">[{</span><span class="s1">'output_value'</span><span class="o">:</span> <span class="mi">9467</span><span class="p">,</span>
+    <span class="s1">'sequence'</span><span class="o">:</span> <span class="mi">4294967295</span><span class="p">,</span>
+    <span class="s1">'prev_hash'</span><span class="o">:</span> <span class="s1">'3c65f3bdec16c55fcedec8159ca8b7decf12393e3a7088febbfacfd752534ee0'</span><span class="p">,</span>
+    <span class="s1">'script'</span><span class="o">:</span> <span class="s1">'47304402207510efc3ff2ed868478ef627c4fd53a27254874e61c1ff1be6fb5221844c08ac02204a8a50c35d3fac8ec0c15f468c98abb629cadf3ac898f7be5e6f464ba9e4fba00121035649100ba29d0b34df8a928c2ed7ab1389d017b4ed206f6df5c212a461a764f2'</span><span class="p">,</span>
+    <span class="s1">'age'</span><span class="o">:</span> <span class="mi">38</span><span class="p">,</span>
+    <span class="s1">'addresses'</span><span class="o">:</span> <span class="p">[</span><span class="s1">'1MBuZ5ZxhytsjRZmec5rLr1WhDWm9DgFUJ'</span><span class="p">],</span>
+    <span class="s1">'output_index'</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="s1">'script_type'</span><span class="o">:</span> <span class="s1">'pay-to-pubkey-hash'</span><span class="p">},</span>
+    <span class="o">...</span>
+   <span class="p">],</span>
+  <span class="s1">'preference'</span><span class="o">:</span> <span class="s1">'medium'</span><span class="p">,</span>
+  <span class="s1">'vout_sz'</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
+  <span class="s1">'vin_sz'</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span>
+  <span class="s1">'relayed_by'</span><span class="o">:</span> <span class="s1">'167.114.118.213:8333'</span><span class="p">,</span>
+  <span class="s1">'hash'</span><span class="o">:</span> <span class="s1">'97f551c7d200f3acf322160d6ada87830d2ad8d935909630a35a87d61bc8fa74'</span><span class="p">,</span>
+  <span class="s1">'addresses'</span><span class="o">:</span> <span class="p">[</span><span class="s1">'1DLDFKuAWGUJqZoYrevG8bHufuZCjCdSFZ'</span><span class="p">,</span>
+   <span class="s1">'1Gb4TAU4GD73akvt4V7tg2WdqadcpQSvhH'</span><span class="p">,</span>
+   <span class="o">...</span>
+   <span class="p">]</span>
+  <span class="s1">'lock_time'</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+  <span class="s1">'size'</span><span class="o">:</span> <span class="mi">521</span><span class="p">,</span>
+  <span class="s1">'confirmations'</span><span class="o">:</span> <span class="mi">0</span><span class="p">},</span>
+ <span class="o">...</span>
+<span class="p">]</span>
 </code></pre>
 
 <p>The Unconfirmed Transactions Endpoint returns an array of the latest transactions relayed by nodes in a blockchain that haven&rsquo;t been included in any blocks.</p>
@@ -4001,6 +4619,70 @@ Always use HTTPS for creating and pushing transactions.
   <span class="s">'size'</span><span class="p">:</span> <span class="mi">119</span><span class="p">,</span>
   <span class="s">'confirmations'</span><span class="p">:</span> <span class="mi">0</span><span class="p">}}</span>
 </code></pre>
+<pre class="highlight php"><code><span class="cp">&lt;?php</span>
+<span class="c1">// Run on console:
+// php -f .\sample\transaction-api\NewTransactionEndpoint.php
+</span>
+<span class="c1">// Create a new instance of Transaction object
+</span><span class="nv">$tx</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Transaction</span><span class="p">();</span>
+
+<span class="c1">// Tx inputs
+</span><span class="nv">$input</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\BlockCypher\Api\Input</span><span class="p">();</span>
+<span class="nv">$input</span><span class="o">-&gt;</span><span class="na">addAddress</span><span class="p">(</span><span class="s2">"C5vqMGme4FThKnCY44gx1PLgWr86uxRbDm"</span><span class="p">);</span>
+<span class="nv">$tx</span><span class="o">-&gt;</span><span class="na">addInput</span><span class="p">(</span><span class="nv">$input</span><span class="p">);</span>
+<span class="c1">// Tx outputs
+</span><span class="nv">$output</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\BlockCypher\Api\Output</span><span class="p">();</span>
+<span class="nv">$output</span><span class="o">-&gt;</span><span class="na">addAddress</span><span class="p">(</span><span class="s2">"C4MYFr4EAdqEeUKxTnPUF3d3whWcPMz1Fi"</span><span class="p">);</span>
+<span class="nv">$tx</span><span class="o">-&gt;</span><span class="na">addOutput</span><span class="p">(</span><span class="nv">$output</span><span class="p">);</span>
+<span class="c1">// Tx amount
+</span><span class="nv">$output</span><span class="o">-&gt;</span><span class="na">setValue</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span> <span class="c1">// Satoshis
+</span>
+<span class="nv">$txSkeleton</span> <span class="o">=</span> <span class="nv">$tx</span><span class="o">-&gt;</span><span class="na">create</span><span class="p">();</span>
+
+<span class="p">{</span>
+  <span class="s2">"tx"</span><span class="o">:</span><span class="p">{</span>
+    <span class="s2">"block_height"</span><span class="o">:-</span><span class="mi">1</span><span class="p">,</span>
+    <span class="s2">"hash"</span><span class="o">:</span><span class="s2">"edb785c310ea58c70245c9a89130efca8fb0a02d4bee47b18542986e7bf95806"</span><span class="p">,</span>
+    <span class="s2">"addresses"</span><span class="o">:</span><span class="p">[</span>
+      <span class="s2">"C5vqMGme4FThKnCY44gx1PLgWr86uxRbDm"</span><span class="p">,</span>
+      <span class="s2">"C4MYFr4EAdqEeUKxTnPUF3d3whWcPMz1Fi"</span>
+    <span class="p">],</span>
+    <span class="s2">"total"</span><span class="o">:</span><span class="mi">5420100</span><span class="p">,</span>
+    <span class="s2">"fees"</span><span class="o">:</span><span class="mi">12000</span><span class="p">,</span>
+    <span class="s2">"size"</span><span class="o">:</span><span class="mi">119</span><span class="p">,</span>
+    <span class="s2">"preference"</span><span class="o">:</span><span class="s2">"high"</span><span class="p">,</span>
+    <span class="s2">"relayed_by"</span><span class="o">:</span><span class="s2">"88.7.90.149"</span><span class="p">,</span>
+    <span class="s2">"received"</span><span class="o">:</span><span class="s2">"2015-06-17T10:23:02.475392139Z"</span><span class="p">,</span>
+    <span class="s2">"ver"</span><span class="o">:</span><span class="mi">1</span><span class="p">,</span>
+    <span class="s2">"lock_time"</span><span class="o">:</span><span class="mi">0</span><span class="p">,</span>
+    <span class="s2">"double_spend"</span><span class="o">:</span><span class="kc">false</span><span class="p">,</span>
+    <span class="s2">"vin_sz"</span><span class="o">:</span><span class="mi">1</span><span class="p">,</span>
+    <span class="s2">"vout_sz"</span><span class="o">:</span><span class="mi">2</span><span class="p">,</span>
+    <span class="s2">"confirmations"</span><span class="o">:</span><span class="mi">0</span><span class="p">,</span>
+    <span class="s2">"inputs"</span><span class="o">:</span><span class="p">[{</span> <span class="s2">"prev_hash"</span><span class="o">:</span><span class="s2">"64e39fa5322ee604ad548dc5d4ae1a61b0a575278724d0df7e53dd334f5f13e3"</span><span class="p">,</span>
+        <span class="s2">"output_index"</span><span class="o">:</span><span class="mi">0</span><span class="p">,</span>
+        <span class="s2">"script"</span><span class="o">:</span><span class="s2">""</span><span class="p">,</span>
+        <span class="s2">"output_value"</span><span class="o">:</span><span class="mi">5432100</span><span class="p">,</span>
+        <span class="s2">"sequence"</span><span class="o">:</span><span class="mi">4294967295</span><span class="p">,</span>
+        <span class="s2">"addresses"</span><span class="o">:</span><span class="p">[</span><span class="s2">"C5vqMGme4FThKnCY44gx1PLgWr86uxRbDm"</span><span class="p">],</span>
+        <span class="s2">"script_type"</span><span class="o">:</span><span class="s2">""</span><span class="p">,</span>
+        <span class="s2">"age"</span><span class="o">:</span><span class="mi">0</span>
+      <span class="p">}</span>
+    <span class="p">],</span>
+    <span class="s2">"outputs"</span><span class="o">:</span><span class="p">[{</span> <span class="s2">"value"</span><span class="o">:</span><span class="mi">1000</span><span class="p">,</span>
+        <span class="s2">"script"</span><span class="o">:</span><span class="s2">"76a9147b2b09ad46d95e177df6969a275db321c66cecf388ac"</span><span class="p">,</span>
+        <span class="s2">"addresses"</span><span class="o">:</span><span class="p">[</span><span class="s2">"C4MYFr4EAdqEeUKxTnPUF3d3whWcPMz1Fi"</span><span class="p">],</span>
+        <span class="s2">"script_type"</span><span class="o">:</span><span class="s2">"pay-to-pubkey-hash"</span>
+      <span class="p">},</span>
+      <span class="p">{</span> <span class="s2">"value"</span><span class="o">:</span><span class="mi">5419100</span><span class="p">,</span>
+        <span class="s2">"script"</span><span class="o">:</span><span class="s2">"76a9148c6f28c814116f1ae3d0940b2fb05a68a9507e8a88ac"</span><span class="p">,</span>
+        <span class="s2">"addresses"</span><span class="o">:</span><span class="p">[</span><span class="s2">"C5vqMGme4FThKnCY44gx1PLgWr86uxRbDm"</span><span class="p">],</span>
+        <span class="s2">"script_type"</span><span class="o">:</span><span class="s2">"pay-to-pubkey-hash"</span>
+      <span class="p">}]</span>
+  <span class="p">},</span>
+  <span class="s2">"tosign"</span><span class="o">:</span><span class="p">[</span><span class="s2">"770af2c9a9b7b8b1998e36d4c1ce2b8fa3b9d4d6575679a513722d9f478177d2"</span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre>
 
 <p>To use BlockCypher&rsquo;s two-endpoint transaction creation tool, first you need to provide the input address(es), output address, and value to transfer (in satoshis). Provide this in a partially-filled out <a href="#tx">TX</a> request object.</p>
 
@@ -4079,6 +4761,12 @@ The <b>hash</b> assigned to <a href="#tx">TX</a> within the return object is onl
   <span class="p">});</span>
 </code></pre>
 <pre class="highlight ruby"><code><span class="c1"># Signing is handled by our SDK in the next step</span>
+</code></pre>
+<pre class="highlight php"><code><span class="cp">&lt;?php</span>
+<span class="c1">// Sign the transaction
+// Private key for address: C5vqMGme4FThKnCY44gx1PLgWr86uxRbDm
+</span><span class="nv">$privateKeys</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="s2">"2c2cc015519b79782bd9c5af66f442e808f573714e3c4dc6df7d79c183963cff"</span><span class="p">);</span>
+<span class="nv">$txSkeleton</span><span class="o">-&gt;</span><span class="na">sign</span><span class="p">(</span><span class="nv">$privateKeys</span><span class="p">);</span>
 </code></pre>
 
 <h3 id="locally-sign-your-transaction">Locally Sign Your Transaction</h3>
@@ -4249,6 +4937,56 @@ curl -d <span class="s1">'{"tx": {...}, "tosign": [ "32b5ea64c253b6b466366647458
       <span class="s2">"addresses"</span><span class="o">=&gt;</span><span class="p">[</span><span class="s2">"CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"</span><span class="p">],</span>
       <span class="s2">"script_type"</span><span class="o">=&gt;</span><span class="s2">"pay-to-pubkey-hash"</span><span class="p">}]},</span>
  <span class="s2">"tosign"</span><span class="o">=&gt;</span><span class="p">[</span><span class="s2">""</span><span class="p">]}</span>
+</code></pre>
+<pre class="highlight php"><code><span class="cp">&lt;?php</span>
+<span class="c1">// Send the transaction
+</span><span class="nv">$txSkeleton</span> <span class="o">=</span> <span class="nv">$txSkeleton</span><span class="o">-&gt;</span><span class="na">send</span><span class="p">();</span>
+
+<span class="p">{</span>
+  <span class="s2">"tx"</span><span class="o">:</span><span class="p">{</span>
+    <span class="s2">"block_height"</span><span class="o">:-</span><span class="mi">1</span><span class="p">,</span>
+    <span class="s2">"hash"</span><span class="o">:</span><span class="s2">"edb785c310ea58c70245c9a89130efca8fb0a02d4bee47b18542986e7bf95806"</span><span class="p">,</span>
+    <span class="s2">"addresses"</span><span class="o">:</span><span class="p">[</span>
+      <span class="s2">"C5vqMGme4FThKnCY44gx1PLgWr86uxRbDm"</span><span class="p">,</span>
+      <span class="s2">"C4MYFr4EAdqEeUKxTnPUF3d3whWcPMz1Fi"</span>
+    <span class="p">],</span>
+    <span class="s2">"total"</span><span class="o">:</span><span class="mi">5420100</span><span class="p">,</span>
+    <span class="s2">"fees"</span><span class="o">:</span><span class="mi">12000</span><span class="p">,</span>
+    <span class="s2">"size"</span><span class="o">:</span><span class="mi">119</span><span class="p">,</span>
+    <span class="s2">"preference"</span><span class="o">:</span><span class="s2">"high"</span><span class="p">,</span>
+    <span class="s2">"relayed_by"</span><span class="o">:</span><span class="s2">"88.7.90.149"</span><span class="p">,</span>
+    <span class="s2">"received"</span><span class="o">:</span><span class="s2">"2015-06-17T10:23:02.475392139Z"</span><span class="p">,</span>
+    <span class="s2">"ver"</span><span class="o">:</span><span class="mi">1</span><span class="p">,</span>
+    <span class="s2">"lock_time"</span><span class="o">:</span><span class="mi">0</span><span class="p">,</span>
+    <span class="s2">"double_spend"</span><span class="o">:</span><span class="kc">false</span><span class="p">,</span>
+    <span class="s2">"vin_sz"</span><span class="o">:</span><span class="mi">1</span><span class="p">,</span>
+    <span class="s2">"vout_sz"</span><span class="o">:</span><span class="mi">2</span><span class="p">,</span>
+    <span class="s2">"confirmations"</span><span class="o">:</span><span class="mi">0</span><span class="p">,</span>
+    <span class="s2">"inputs"</span><span class="o">:</span><span class="p">[{</span>
+        <span class="s2">"prev_hash"</span><span class="o">:</span><span class="s2">"64e39fa5322ee604ad548dc5d4ae1a61b0a575278724d0df7e53dd334f5f13e3"</span><span class="p">,</span>
+        <span class="s2">"output_index"</span><span class="o">:</span><span class="mi">0</span><span class="p">,</span>
+        <span class="s2">"script"</span><span class="o">:</span><span class="s2">""</span><span class="p">,</span>
+        <span class="s2">"output_value"</span><span class="o">:</span><span class="mi">5432100</span><span class="p">,</span>
+        <span class="s2">"sequence"</span><span class="o">:</span><span class="mi">4294967295</span><span class="p">,</span>
+        <span class="s2">"addresses"</span><span class="o">:</span><span class="p">[</span><span class="s2">"C5vqMGme4FThKnCY44gx1PLgWr86uxRbDm"</span><span class="p">],</span>
+        <span class="s2">"script_type"</span><span class="o">:</span><span class="s2">""</span><span class="p">,</span>
+        <span class="s2">"age"</span><span class="o">:</span><span class="mi">0</span>
+      <span class="p">}</span>
+    <span class="p">],</span>
+    <span class="s2">"outputs"</span><span class="o">:</span><span class="p">[</span>
+      <span class="p">{</span><span class="s2">"value"</span><span class="o">:</span><span class="mi">1000</span><span class="p">,</span>
+        <span class="s2">"script"</span><span class="o">:</span><span class="s2">"76a9147b2b09ad46d95e177df6969a275db321c66cecf388ac"</span><span class="p">,</span>
+        <span class="s2">"addresses"</span><span class="o">:</span><span class="p">[</span><span class="s2">"C4MYFr4EAdqEeUKxTnPUF3d3whWcPMz1Fi"</span><span class="p">],</span>
+        <span class="s2">"script_type"</span><span class="o">:</span><span class="s2">"pay-to-pubkey-hash"</span>
+      <span class="p">},</span>
+      <span class="p">{</span> <span class="s2">"value"</span><span class="o">:</span><span class="mi">5419100</span><span class="p">,</span>
+        <span class="s2">"script"</span><span class="o">:</span><span class="s2">"76a9148c6f28c814116f1ae3d0940b2fb05a68a9507e8a88ac"</span><span class="p">,</span>
+        <span class="s2">"addresses"</span><span class="o">:</span><span class="p">[</span><span class="s2">"C5vqMGme4FThKnCY44gx1PLgWr86uxRbDm"</span><span class="p">],</span>
+        <span class="s2">"script_type"</span><span class="o">:</span><span class="s2">"pay-to-pubkey-hash"</span>
+      <span class="p">}]</span>
+  <span class="p">},</span>
+  <span class="s2">"tosign"</span><span class="o">:</span><span class="p">[]</span>
+<span class="p">}</span>
 </code></pre>
 
 <h3 id="send-transaction-endpoint">Send Transaction Endpoint</h3>
@@ -4520,6 +5258,67 @@ One of the most common errors we see are users who use uncompressed public keys 
   <span class="p">]</span>
 <span class="p">}</span>
 </code></pre>
+<pre class="highlight php"><code><span class="cp">&lt;?php</span>
+<span class="c1">// Run on console:
+// php -f .\sample\transaction-api\PushRawTransactionEndpoint.php
+</span>
+<span class="nv">$hexRawTx</span> <span class="o">=</span> <span class="s2">"01000000011935b41d12936df99d322ac8972b74ecff7b79408bbccaf1b2eb8015228beac8000000006b483045022100921fc36b911094280f07d8504a80fbab9b823a25f102e2bc69b14bcd369dfc7902200d07067d47f040e724b556e5bc3061af132d5a47bd96e901429d53c41e0f8cca012102152e2bb5b273561ece7bbe8b1df51a4c44f5ab0bc940c105045e2cc77e618044ffffffff0240420f00000000001976a9145fb1af31edd2aa5a2bbaa24f6043d6ec31f7e63288ac20da3c00000000001976a914efec6de6c253e657a9d5506a78ee48d89762fb3188ac00000000"</span><span class="p">;</span>
+
+<span class="nv">$tx</span> <span class="o">=</span> <span class="nx">TX</span><span class="o">::</span><span class="na">push</span><span class="p">(</span><span class="nv">$hexRawTx</span><span class="p">);</span>
+
+<span class="p">{</span>
+  <span class="s2">"block_height"</span><span class="o">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
+  <span class="s2">"hash"</span><span class="o">:</span> <span class="s2">"4e6dfb1415b4fba5bd257c129847c70fbd4e45e41828079c4a282680528f3a50"</span><span class="p">,</span>
+  <span class="s2">"addresses"</span><span class="o">:</span> <span class="p">[</span>
+    <span class="s2">"CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"</span><span class="p">,</span>
+    <span class="s2">"C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn"</span>
+  <span class="p">],</span>
+  <span class="s2">"total"</span><span class="o">:</span> <span class="mi">4988000</span><span class="p">,</span>
+  <span class="s2">"fees"</span><span class="o">:</span> <span class="mi">12000</span><span class="p">,</span>
+  <span class="s2">"size"</span><span class="o">:</span> <span class="mi">226</span><span class="p">,</span>
+  <span class="s2">"preference"</span><span class="o">:</span> <span class="s2">"high"</span><span class="p">,</span>
+  <span class="s2">"relayed_by"</span><span class="o">:</span> <span class="s2">"73.162.198.68"</span><span class="p">,</span>
+  <span class="s2">"received"</span><span class="o">:</span> <span class="s2">"2015-05-22T05:10:00.305308666Z"</span><span class="p">,</span>
+  <span class="s2">"ver"</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="s2">"lock_time"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+  <span class="s2">"double_spend"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+  <span class="s2">"vin_sz"</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="s2">"vout_sz"</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
+  <span class="s2">"confirmations"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+  <span class="s2">"inputs"</span><span class="o">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="s2">"prev_hash"</span><span class="o">:</span> <span class="s2">"c8ea8b221580ebb2f1cabc8b40797bffec742b97c82a329df96d93121db43519"</span><span class="p">,</span>
+      <span class="s2">"output_index"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+      <span class="s2">"script"</span><span class="o">:</span> <span class="s2">"483045022100921fc36b911094280f07d8504a80fbab9b823a25f102e2bc69b14bcd369dfc7902200d07067d47f040e724b556e5bc3061af132d5a47bd96e901429d53c41e0f8cca012102152e2bb5b273561ece7bbe8b1df51a4c44f5ab0bc940c105045e2cc77e618044"</span><span class="p">,</span>
+      <span class="s2">"output_value"</span><span class="o">:</span> <span class="mi">5000000</span><span class="p">,</span>
+      <span class="s2">"sequence"</span><span class="o">:</span> <span class="mi">4294967295</span><span class="p">,</span>
+      <span class="s2">"addresses"</span><span class="o">:</span> <span class="p">[</span>
+        <span class="s2">"CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"</span>
+      <span class="p">],</span>
+      <span class="s2">"script_type"</span><span class="o">:</span> <span class="s2">"pay-to-pubkey-hash"</span><span class="p">,</span>
+      <span class="s2">"age"</span><span class="o">:</span> <span class="mi">576</span>
+    <span class="p">}</span>
+  <span class="p">],</span>
+  <span class="s2">"outputs"</span><span class="o">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="s2">"value"</span><span class="o">:</span> <span class="mi">1000000</span><span class="p">,</span>
+      <span class="s2">"script"</span><span class="o">:</span> <span class="s2">"76a9145fb1af31edd2aa5a2bbaa24f6043d6ec31f7e63288ac"</span><span class="p">,</span>
+      <span class="s2">"addresses"</span><span class="o">:</span> <span class="p">[</span>
+        <span class="s2">"C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn"</span>
+      <span class="p">],</span>
+      <span class="s2">"script_type"</span><span class="o">:</span> <span class="s2">"pay-to-pubkey-hash"</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="s2">"value"</span><span class="o">:</span> <span class="mi">3988000</span><span class="p">,</span>
+      <span class="s2">"script"</span><span class="o">:</span> <span class="s2">"76a914efec6de6c253e657a9d5506a78ee48d89762fb3188ac"</span><span class="p">,</span>
+      <span class="s2">"addresses"</span><span class="o">:</span> <span class="p">[</span>
+        <span class="s2">"CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"</span>
+      <span class="p">],</span>
+      <span class="s2">"script_type"</span><span class="o">:</span> <span class="s2">"pay-to-pubkey-hash"</span>
+    <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</code></pre>
 
 <p>If you&rsquo;d prefer to use your own transaction library instead of the recommended path of our two-endpoint <a href="#creating-transactions">transaction generation</a> we&rsquo;re still happy to help you propagate your raw transactions. Simply send your raw hex-encoded transaction to this endpoint and we&rsquo;ll leverage our huge network of nodes to propagate your transaction faster than anywhere else.</p>
 
@@ -4734,6 +5533,64 @@ One of the most common errors we see are users who use uncompressed public keys 
  <span class="s">'size'</span><span class="p">:</span> <span class="mi">226</span><span class="p">,</span>
  <span class="s">'confirmations'</span><span class="p">:</span> <span class="mi">0</span><span class="p">}</span>
 </code></pre>
+<pre class="highlight php"><code><span class="cp">&lt;?php</span>
+<span class="c1">// Run on console:
+// php -f .\sample\transaction-api\DecodeRawTransactionEndpoint.php
+</span>
+<span class="nv">$hexRawTx</span> <span class="o">=</span> <span class="s2">"01000000011935b41d12936df99d322ac8972b74ecff7b79408bbccaf1b2eb8015228beac8000000006b483045022100921fc36b911094280f07d8504a80fbab9b823a25f102e2bc69b14bcd369dfc7902200d07067d47f040e724b556e5bc3061af132d5a47bd96e901429d53c41e0f8cca012102152e2bb5b273561ece7bbe8b1df51a4c44f5ab0bc940c105045e2cc77e618044ffffffff0240420f00000000001976a9145fb1af31edd2aa5a2bbaa24f6043d6ec31f7e63288ac20da3c00000000001976a914efec6de6c253e657a9d5506a78ee48d89762fb3188ac00000000"</span><span class="p">;</span>
+
+<span class="nv">$tx</span> <span class="o">=</span> <span class="nx">TX</span><span class="o">::</span><span class="na">decode</span><span class="p">(</span><span class="nv">$hexRawTx</span><span class="p">);</span>
+
+<span class="p">{</span>
+  <span class="s2">"block_height"</span><span class="o">:-</span><span class="mi">1</span><span class="p">,</span>
+  <span class="s2">"hash"</span><span class="o">:</span><span class="s2">"4e6dfb1415b4fba5bd257c129847c70fbd4e45e41828079c4a282680528f3a50"</span><span class="p">,</span>
+  <span class="s2">"addresses"</span><span class="o">:</span><span class="p">[</span>
+    <span class="s2">"1NsbjF7mCvxa9sdCwRyeZ8qqvWMWuAyjtg"</span><span class="p">,</span>
+    <span class="s2">"19iz3x4d4Wm4rgav33KmbuRjots6r1K9Wg"</span>
+  <span class="p">],</span>
+  <span class="s2">"total"</span><span class="o">:</span><span class="mi">4988000</span><span class="p">,</span>
+  <span class="s2">"fees"</span><span class="o">:</span><span class="mi">0</span><span class="p">,</span>
+  <span class="s2">"size"</span><span class="o">:</span><span class="mi">226</span><span class="p">,</span>
+  <span class="s2">"preference"</span><span class="o">:</span><span class="s2">"low"</span><span class="p">,</span>
+  <span class="s2">"relayed_by"</span><span class="o">:</span><span class="s2">""</span><span class="p">,</span>
+  <span class="s2">"received"</span><span class="o">:</span><span class="s2">"0001-01-01T00:00:00Z"</span><span class="p">,</span>
+  <span class="s2">"ver"</span><span class="o">:</span><span class="mi">1</span><span class="p">,</span>
+  <span class="s2">"lock_time"</span><span class="o">:</span><span class="mi">0</span><span class="p">,</span>
+  <span class="s2">"double_spend"</span><span class="o">:</span><span class="kc">false</span><span class="p">,</span>
+  <span class="s2">"vin_sz"</span><span class="o">:</span><span class="mi">1</span><span class="p">,</span>
+  <span class="s2">"vout_sz"</span><span class="o">:</span><span class="mi">2</span><span class="p">,</span>
+  <span class="s2">"confirmations"</span><span class="o">:</span><span class="mi">0</span><span class="p">,</span>
+  <span class="s2">"inputs"</span><span class="o">:</span><span class="p">[</span>
+    <span class="p">{</span>
+      <span class="s2">"prev_hash"</span><span class="o">:</span><span class="s2">"c8ea8b221580ebb2f1cabc8b40797bffec742b97c82a329df96d93121db43519"</span><span class="p">,</span>
+      <span class="s2">"output_index"</span><span class="o">:</span><span class="mi">0</span><span class="p">,</span>
+      <span class="s2">"script"</span><span class="o">:</span><span class="s2">"483045022100921fc36b9110942...44f5ab0bc940c105045e2cc77e618044"</span><span class="p">,</span>
+      <span class="s2">"output_value"</span><span class="o">:</span><span class="mi">0</span><span class="p">,</span>
+      <span class="s2">"sequence"</span><span class="o">:</span><span class="mi">4294967295</span><span class="p">,</span>
+      <span class="s2">"script_type"</span><span class="o">:</span><span class="s2">"empty"</span><span class="p">,</span>
+      <span class="s2">"age"</span><span class="o">:</span><span class="mi">0</span>
+    <span class="p">}</span>
+  <span class="p">],</span>
+  <span class="s2">"outputs"</span><span class="o">:</span><span class="p">[</span>
+    <span class="p">{</span>
+      <span class="s2">"value"</span><span class="o">:</span><span class="mi">1000000</span><span class="p">,</span>
+      <span class="s2">"script"</span><span class="o">:</span><span class="s2">"76a9145fb1af31edd2aa5a2bbaa24f6043d6ec31f7e63288ac"</span><span class="p">,</span>
+      <span class="s2">"addresses"</span><span class="o">:</span><span class="p">[</span>
+        <span class="s2">"19iz3x4d4Wm4rgav33KmbuRjots6r1K9Wg"</span>
+      <span class="p">],</span>
+      <span class="s2">"script_type"</span><span class="o">:</span><span class="s2">"pay-to-pubkey-hash"</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="s2">"value"</span><span class="o">:</span><span class="mi">3988000</span><span class="p">,</span>
+      <span class="s2">"script"</span><span class="o">:</span><span class="s2">"76a914efec6de6c253e657a9d5506a78ee48d89762fb3188ac"</span><span class="p">,</span>
+      <span class="s2">"addresses"</span><span class="o">:</span><span class="p">[</span>
+        <span class="s2">"1NsbjF7mCvxa9sdCwRyeZ8qqvWMWuAyjtg"</span>
+      <span class="p">],</span>
+      <span class="s2">"script_type"</span><span class="o">:</span><span class="s2">"pay-to-pubkey-hash"</span>
+    <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</code></pre>
 
 <p>We also offer the ability to decode raw transactions without sending propagating them to the network; perhaps you want to double-check another client library or confirm that another service is sending proper transactions. </p>
 
@@ -4791,6 +5648,30 @@ One of the most common errors we see are users who use uncompressed public keys 
     }]
 }'</span><span class="p">)</span>
 </code></pre>
+<pre class="highlight php"><code><span class="cp">&lt;?php</span>
+<span class="c1">// Run on console:
+// php -f .\sample\transaction-api\CreateTxToFundMultisignAddrWithBuilderEndpoint.php
+// Builder classes are optional, see CreateTxToFundMultisignAddrEndpoint.php to see a sample using only base API classes.
+</span>
+<span class="nv">$input</span> <span class="o">=</span> <span class="nx">TXInputBuilder</span><span class="o">::</span><span class="na">aTXInput</span><span class="p">()</span>
+    <span class="o">-&gt;</span><span class="na">addAddress</span><span class="p">(</span><span class="s2">"n3D2YXwvpoPg8FhcWpzJiS3SvKKGD8AXZ4"</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="na">build</span><span class="p">();</span>
+
+<span class="nv">$output</span> <span class="o">=</span> <span class="nx">TXOutputBuilder</span><span class="o">::</span><span class="na">aTXOutput</span><span class="p">()</span>
+    <span class="o">-&gt;</span><span class="na">withScryptType</span><span class="p">(</span><span class="s2">"multisig-2-of-3"</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="na">withValue</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="na">addAddress</span><span class="p">(</span><span class="s2">"03798be8162d7d6bc5c4e3b236100fcc0dfee899130f84c97d3a49faf83450fd81"</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="na">addAddress</span><span class="p">(</span><span class="s2">"03dd9f1d4a39951013b4305bf61887ada66439ab84a9a2f8aca9dc736041f815f1"</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="na">addAddress</span><span class="p">(</span><span class="s2">"03c8e6e99c1d0b42120d5cf40c963e5e8048fd2d2a184758784a041a9d101f1f02"</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="na">build</span><span class="p">();</span>
+
+<span class="nv">$tx</span> <span class="o">=</span> <span class="nx">TXBuilder</span><span class="o">::</span><span class="na">aTX</span><span class="p">()</span>
+    <span class="o">-&gt;</span><span class="na">addTXInput</span><span class="p">(</span><span class="nv">$input</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="na">addTXOutput</span><span class="p">(</span><span class="nv">$output</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="na">build</span><span class="p">();</span>
+
+<span class="nv">$txSkeleton</span> <span class="o">=</span> <span class="nv">$tx</span><span class="o">-&gt;</span><span class="na">create</span><span class="p">();</span>
+</code></pre>
 
 <p>Multisignature transactions are made simple by the method described in the <a href="#creating-transactions">Creating Transactions</a> section, but they deserve special mention. In order to use them, you first need to fund a multisignature address. You use the <code class="prettyprint">/txs/new</code> endpoint as before, but instead of the <strong>outputs</strong> <strong>addresses</strong> array containing public addresses, it instead contains the public keys associated with the new address. In addition, you must select a <strong>script_type</strong> of <em>mutlisig-n-of-m</em>, where <em>n</em> and <em>m</em> are numbers (e.g., <em>multisig-2-of-3</em>). The code example demonstrates how the partially filled <a href="#tx">TX request object</a> would appear.</p>
 
@@ -4837,6 +5718,30 @@ If you only need a <i>pay-to-script-hash</i> address corresponding to N-of-M mul
         "value"     : 150000
     }] }'</span><span class="p">)</span>
 </code></pre>
+<pre class="highlight php"><code><span class="cp">&lt;?php</span>
+<span class="c1">// Run on console:
+// php -f .\sample\transaction-api\CreateTxToSpendMultisignFundsWithBuilderEndpoint.php
+// Builder classes are optional, see CreateTxToSpendMultisignFunds.php to see a sample using only base API classes.
+</span>
+<span class="nv">$input</span> <span class="o">=</span> <span class="nx">TXInputBuilder</span><span class="o">::</span><span class="na">aTXInput</span><span class="p">()</span>
+    <span class="o">-&gt;</span><span class="na">addAddress</span><span class="p">(</span><span class="s2">"03798be8162d7d6bc5c4e3b236100fcc0dfee899130f84c97d3a49faf83450fd81"</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="na">addAddress</span><span class="p">(</span><span class="s2">"03dd9f1d4a39951013b4305bf61887ada66439ab84a9a2f8aca9dc736041f815f1"</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="na">addAddress</span><span class="p">(</span><span class="s2">"03c8e6e99c1d0b42120d5cf40c963e5e8048fd2d2a184758784a041a9d101f1f02"</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="na">withScryptType</span><span class="p">(</span><span class="s2">"multisig-2-of-3"</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="na">build</span><span class="p">();</span>
+
+<span class="nv">$output</span> <span class="o">=</span> <span class="nx">TXOutputBuilder</span><span class="o">::</span><span class="na">aTXOutput</span><span class="p">()</span>
+    <span class="o">-&gt;</span><span class="na">addAddress</span><span class="p">(</span><span class="s2">"n3D2YXwvpoPg8FhcWpzJiS3SvKKGD8AXZ4"</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="na">withValue</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="na">build</span><span class="p">();</span>
+
+<span class="nv">$tx</span> <span class="o">=</span> <span class="nx">TXBuilder</span><span class="o">::</span><span class="na">aTX</span><span class="p">()</span>
+    <span class="o">-&gt;</span><span class="na">addTXInput</span><span class="p">(</span><span class="nv">$input</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="na">addTXOutput</span><span class="p">(</span><span class="nv">$output</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="na">build</span><span class="p">();</span>
+
+<span class="nv">$txSkeleton</span> <span class="o">=</span> <span class="nv">$tx</span><span class="o">-&gt;</span><span class="na">create</span><span class="p">();</span>
+</code></pre>
 
 <p>Once funded, you might want to programmatically spend the money in the address at some point. Here the process is similar, but with the inputs and outputs reversed. As you can see in the code sample, you need to provide the public keys within the <strong>inputs</strong> <strong>addresses</strong> array, and the corresponding <strong>script_type</strong> of <em>multisig-n-of-m</em> (e.g., <em>multisig-2-of-3</em>). Then you follow the same process of sending to <code class="prettyprint">/txs/new</code> and getting an array of data to be signed.</p>
 
@@ -4862,6 +5767,23 @@ curl -d <span class="s1">'{"data":"I am the walrus", "encoding":"string"}'</span
   <span class="s2">"token"</span>: <span class="s2">"YOURTOKEN"</span>,
   <span class="s2">"hash"</span>: <span class="s2">"cb6974e0fd57c91b70403e85ef48c840eecdca4804dfc4897b1321d5328e4f18"</span>
 <span class="o">}</span>
+</code></pre>
+<pre class="highlight php"><code><span class="cp">&lt;?php</span>
+<span class="c1">// Run on console:
+// php -f .\sample\transaction-api\DataEndpoint.php
+</span>
+<span class="nv">$nullData</span> <span class="o">=</span>  <span class="k">new</span> <span class="nx">NullData</span><span class="p">();</span>
+<span class="nv">$nullData</span><span class="o">-&gt;</span><span class="na">setEncoding</span><span class="p">(</span><span class="s1">'string'</span><span class="p">);</span>
+<span class="nv">$nullData</span><span class="o">-&gt;</span><span class="na">setData</span><span class="p">(</span><span class="s1">'***BlockCypher Data Endpoint Test***'</span><span class="p">);</span> <span class="c1">// max 40 bytes
+</span>
+<span class="nv">$nullData</span><span class="o">-&gt;</span><span class="na">create</span><span class="p">();</span>
+
+<span class="p">{</span>
+  <span class="s2">"data"</span><span class="o">:</span> <span class="s2">"***BlockCypher Data Endpoint Test***"</span><span class="p">,</span>
+  <span class="s2">"encoding"</span><span class="o">:</span> <span class="s2">"string"</span><span class="p">,</span>
+  <span class="s2">"token"</span><span class="o">:</span> <span class="s2">"c0afcccdde5081d6429de37d16166ead"</span><span class="p">,</span>
+  <span class="s2">"hash"</span><span class="o">:</span> <span class="s2">"cb6974e0fd57c91b70403e85ef48c840eecdca4804dfc4897b1321d5328e4f18"</span>
+<span class="p">}</span>
 </code></pre>
 
 <p>Some of the most interesting blockchain applications involve embedding data through <em>null-data</em> (also known as OP_RETURN) output scripts with transactions. While you can certainly use our <a href="#creating-transactions">guided transaction process</a> and customize your script output, there&rsquo;s a simpler way: through our Data Endpoint. All you need is the data you want to embed (up to 40 bytes, inclusive) and we&rsquo;ll handle the rest.</p>
@@ -4979,6 +5901,26 @@ As with creating <a href="#creating-transactions">normal Transactions</a>, alway
 <span class="o">&gt;&gt;&gt;</span> <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s">'https://api.blockcypher.com/v1/bcy/test/txs/micro'</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
 </code></pre>
+<pre class="highlight php"><code><span class="cp">&lt;?php</span>
+<span class="c1">// Run on console:
+// php -f .\sample\microtransaction-api\CreateMicroTXFromPrivateDocsSample.php
+</span>
+<span class="nv">$microTXClient</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">MicroTXClient</span><span class="p">();</span>
+
+<span class="nv">$microTX</span> <span class="o">=</span> <span class="nv">$microTXClient</span><span class="o">-&gt;</span><span class="na">sendWithPrivateKey</span><span class="p">(</span>
+    <span class="s2">"2c2cc015519b79782bd9c5af66f442e808f573714e3c4dc6df7d79c183963cff"</span><span class="p">,</span> <span class="c1">// private key
+</span>    <span class="s2">"C4MYFr4EAdqEeUKxTnPUF3d3whWcPMz1Fi"</span><span class="p">,</span> <span class="c1">// to address
+</span>    <span class="mi">10000</span><span class="p">,</span> <span class="c1">// value (satoshis)
+</span>    <span class="nv">$apiContext</span>
+<span class="p">);</span>
+
+<span class="p">{</span>
+  <span class="s2">"from_private"</span><span class="o">:</span><span class="s2">"2c2cc015519b79782bd9c5af66f442e808f573714e3c4dc6df7d79c183963cff"</span><span class="p">,</span>
+  <span class="s2">"to_address"</span><span class="o">:</span><span class="s2">"C4MYFr4EAdqEeUKxTnPUF3d3whWcPMz1Fi"</span><span class="p">,</span>
+  <span class="s2">"value_satoshis"</span><span class="o">:</span><span class="mi">10000</span><span class="p">,</span>
+  <span class="s2">"hash"</span><span class="o">:</span><span class="s2">"6886c3b2f48e410d83eb0ea4ef18396a699aba453a3210bc39bc7af99f061854"</span>
+<span class="p">}</span>
+</code></pre>
 
 <h3 id="via-private-keys">Via Private Keys</h3>
 
@@ -5088,6 +6030,38 @@ curl -H <span class="s2">"Content-Type: application/json"</span> -d <span class=
    <span class="p">{</span><span class="s2">"address"</span><span class="o">=&gt;</span><span class="s2">"CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"</span><span class="p">,</span> <span class="s2">"value"</span><span class="o">=&gt;</span><span class="mi">3716000</span><span class="p">}],</span>
  <span class="s2">"fees"</span><span class="o">=&gt;</span><span class="mi">735</span><span class="p">}</span>
 </code></pre>
+<pre class="highlight php"><code><span class="cp">&lt;?php</span>
+<span class="c1">// Run on console:
+// php -f .\sample\microtransaction-api\CreateMicroTXFromPubkeyDocsSample.php
+</span>
+<span class="nv">$microTX</span> <span class="o">=</span> <span class="nv">$microTXClient</span><span class="o">-&gt;</span><span class="na">sendSigned</span><span class="p">(</span>
+    <span class="s2">"2c2cc015519b79782bd9c5af66f442e808f573714e3c4dc6df7d79c183963cff"</span><span class="p">,</span> <span class="c1">// private key
+</span>    <span class="s2">"C4MYFr4EAdqEeUKxTnPUF3d3whWcPMz1Fi"</span><span class="p">,</span> <span class="c1">// to address
+</span>    <span class="mi">10000</span><span class="p">,</span> <span class="c1">// value (satoshis)
+</span>    <span class="nv">$apiContext</span>
+<span class="p">);</span>
+
+<span class="p">{</span>
+  <span class="s2">"from_pubkey"</span><span class="o">:</span><span class="s2">"02d4e3404e175923adf89c932fab96758716f6a0a896890f2494c5d9141eb3f543"</span><span class="p">,</span>
+  <span class="s2">"to_address"</span><span class="o">:</span><span class="s2">"C4MYFr4EAdqEeUKxTnPUF3d3whWcPMz1Fi"</span><span class="p">,</span>
+  <span class="s2">"value_satoshis"</span><span class="o">:</span><span class="mi">10000</span><span class="p">,</span>
+  <span class="s2">"tosign"</span><span class="o">:</span><span class="p">[</span>
+    <span class="s2">"488e6defc3f3d26a20505730a1c64b8a3499e225f1bbd8a0e1b51b38251eed0a"</span>
+  <span class="p">],</span>
+  <span class="s2">"token"</span><span class="o">:</span><span class="s2">"c0afcccdde5081d6429de37d16166ead"</span><span class="p">,</span>
+  <span class="s2">"inputs"</span><span class="o">:</span><span class="p">[</span>
+    <span class="o">...</span>
+  <span class="p">],</span>
+  <span class="s2">"outputs"</span><span class="o">:</span><span class="p">[</span>
+    <span class="o">...</span>
+  <span class="p">],</span>
+  <span class="s2">"fees"</span><span class="o">:</span><span class="mi">735</span><span class="p">,</span>
+  <span class="s2">"signatures"</span><span class="o">:</span><span class="p">[</span>
+    <span class="s2">"3045022100f99bef2add7d1fd9c...d6d64d8ae19ec090373"</span>
+  <span class="p">],</span>
+  <span class="s2">"hash"</span><span class="o">:</span><span class="s2">"7fc9e41e6ef29486bc4478ff063934ea9a1ecd08bbfb0a207b39ad92fe55bebf"</span>
+<span class="p">}</span>
+</code></pre>
 
 <h3 id="via-public-keys-and-client-side-signing">Via Public Keys and Client-side Signing</h3>
 
@@ -5164,6 +6138,20 @@ While we stand by our work behind our confidence research, please note that thes
  <span class="s">'confidence'</span><span class="p">:</span> <span class="mf">0.9901509730004237</span><span class="p">,</span>
  <span class="s">'receive_count'</span><span class="p">:</span> <span class="mi">666</span><span class="p">,</span>
  <span class="s">'txhash'</span><span class="p">:</span> <span class="s">'43fa951e1bea87c282f6725cf8bdc08bb48761396c3af8dd5a41a085ab62acc9'</span><span class="p">}</span>
+</code></pre>
+<pre class="highlight php"><code><span class="cp">&lt;?php</span>
+<span class="c1">// Run on console:
+// php -f .\sample\confidence-factor\TransactionConfidenceEndpoint.php
+</span>
+<span class="nv">$txConfidence</span> <span class="o">=</span> <span class="nx">TXConfidence</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="s1">'43fa951e1bea87c282f6725cf8bdc08bb48761396c3af8dd5a41a085ab62acc9'</span><span class="p">);</span>
+
+<span class="p">{</span>
+  <span class="s2">"age_millis"</span><span class="o">:</span><span class="mi">2188284017</span><span class="p">,</span>
+  <span class="s2">"receive_count"</span><span class="o">:-</span><span class="mi">1</span><span class="p">,</span>
+  <span class="s2">"confidence"</span><span class="o">:</span><span class="mi">1</span><span class="p">,</span>
+  <span class="s2">"txhash"</span><span class="o">:</span><span class="s2">"43fa951e1bea87c282f6725cf8bdc08bb48761396c3af8dd5a41a085ab62acc9"</span><span class="p">,</span>
+  <span class="s2">"txurl"</span><span class="o">:</span><span class="s2">"https://api.blockcypher.com/v1/btc/main/txs/43fa951e1bea87c282f6725cf8bdc08bb48761396c3af8dd5a41a085ab62acc9"</span>
+<span class="p">}</span>
 </code></pre>
 
 <p>Our confidence interval is automatically included in any <a href="#tx">unconfirmed transaction</a>, but you can retrieve it through a specific endpoint too.</p>
@@ -5251,6 +6239,24 @@ By default, all payments will be debited with a 10,000 satoshis mining fee. The 
  <span class="s">'id'</span><span class="p">:</span> <span class="s">'f35c80c2-3347-410d-b4ac-d049910289ec'</span><span class="p">,</span>
  <span class="s">'token'</span><span class="p">:</span> <span class="s">'YOUR_TOKEN'</span><span class="p">}</span>
 </code></pre>
+<pre class="highlight php"><code><span class="cp">&lt;?php</span>
+<span class="c1">// Run on console:
+// php -f .\sample\payment-api\CreatePaymentEndpoint.php
+</span>
+<span class="nv">$paymentForward</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">PaymentForward</span><span class="p">();</span>
+<span class="nv">$paymentForward</span><span class="o">-&gt;</span><span class="na">setDestination</span><span class="p">(</span><span class="s1">'15qx9ug952GWGTNn7Uiv6vode4RcGrRemh'</span><span class="p">);</span>
+<span class="nv">$paymentForward</span><span class="o">-&gt;</span><span class="na">setCallbackUrl</span><span class="p">(</span><span class="s2">"http://requestb.in/rwp6jirw?uniqid="</span> <span class="o">.</span> <span class="nb">uniqid</span><span class="p">());</span>
+
+<span class="nv">$paymentForward</span><span class="o">-&gt;</span><span class="na">create</span><span class="p">();</span>
+
+<span class="p">{</span>
+  <span class="s2">"destination"</span><span class="o">:</span><span class="s2">"15qx9ug952GWGTNn7Uiv6vode4RcGrRemh"</span><span class="p">,</span>
+  <span class="s2">"callback_url"</span><span class="o">:</span><span class="s2">"http://requestb.in/rwp6jirw?uniqid=5583de7d87288"</span><span class="p">,</span>
+  <span class="s2">"id"</span><span class="o">:</span><span class="s2">"ec2b4b4f-eeb2-4824-b528-7d78a6f52492"</span><span class="p">,</span>
+  <span class="s2">"token"</span><span class="o">:</span><span class="s2">"c0afcccdde5081d6429de37d16166ead"</span><span class="p">,</span>
+  <span class="s2">"input_address"</span><span class="o">:</span><span class="s2">"17h2S1KtX7AqS9DJexqqSTNFCgwCoqqxhU"</span>
+<span class="p">}</span>
+</code></pre>
 
 <p>First, to create an payment forwarding address, you need to POST a partially filled <a href="#paymentforward">PaymentForward</a> object to the payment creation endpoint. You need to include at least a <strong>destination</strong> address and your <strong>token</strong>; optionally, you can add a <strong>callback_url</strong>, processing fees (either percent or fixed) and a <strong>process_fee_address</strong>, and a few other options. You can see more details about these options in the <a href="#paymentforward">PaymentForward</a> object details.</p>
 
@@ -5318,6 +6324,22 @@ If you decide to have a <b>callback_url</b>, you&rsquo;ll receive a payload at t
   <span class="s">'id'</span><span class="p">:</span> <span class="s">'f35c80c2-3347-410d-b4ac-d049910289ec'</span><span class="p">,</span>
   <span class="s">'token'</span><span class="p">:</span> <span class="s">'YOUR_TOKEN'</span><span class="p">}]</span>
 </code></pre>
+<pre class="highlight php"><code><span class="cp">&lt;?php</span>
+<span class="c1">// Run on console:
+// php -f .\sample\payment-api\ListPaymentsEndpoint.php
+</span>
+<span class="nv">$paymentForwardArray</span> <span class="o">=</span> <span class="nx">PaymentForward</span><span class="o">::</span><span class="na">getAll</span><span class="p">();</span>
+
+<span class="p">[</span>
+  <span class="p">{</span>
+    <span class="s2">"id"</span><span class="o">:</span><span class="s2">"ec2b4b4f-eeb2-4824-b528-7d78a6f52492"</span><span class="p">,</span>
+    <span class="s2">"token"</span><span class="o">:</span><span class="s2">"c0afcccdde5081d6429de37d16166ead"</span><span class="p">,</span>
+    <span class="s2">"destination"</span><span class="o">:</span><span class="s2">"15qx9ug952GWGTNn7Uiv6vode4RcGrRemh"</span><span class="p">,</span>
+    <span class="s2">"input_address"</span><span class="o">:</span><span class="s2">"17h2S1KtX7AqS9DJexqqSTNFCgwCoqqxhU"</span><span class="p">,</span>
+    <span class="s2">"callback_url"</span><span class="o">:</span><span class="s2">"http://requestb.in/rwp6jirw?uniqid=5583de7d87288"</span>
+  <span class="p">}</span>
+<span class="p">]</span>
+</code></pre>
 
 <p>To list your currently active payment forwarding addresses, you can use this endpoint.</p>
 
@@ -5357,6 +6379,16 @@ HTTP/1.1 204 No Content
 <span class="o">&gt;&gt;&gt;</span> <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="s">'http://api.blockcypher.com/v1/btc/main/payments/f35c80c2-3347-410d-b4ac-d049910289ec'</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
 <span class="c"># will return nothing, but we can confirm that delete was succesful via http code</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="k">assert</span> <span class="n">r</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">204</span>
+</code></pre>
+<pre class="highlight php"><code><span class="cp">&lt;?php</span>
+<span class="c1">// Run on console:
+// php -f .\sample\payment-api\DeletePaymentEndpoint.php
+</span>
+<span class="nv">$webHook</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">PaymentForward</span><span class="p">();</span>
+<span class="nv">$webHook</span><span class="o">-&gt;</span><span class="na">setId</span><span class="p">(</span><span class="s1">'ec2b4b4f-eeb2-4824-b528-7d78a6f52492'</span><span class="p">);</span>
+<span class="nv">$webHook</span><span class="o">-&gt;</span><span class="na">delete</span><span class="p">();</span>
+
+<span class="nx">HTTP</span><span class="o">/</span><span class="mf">1.1</span> <span class="mi">204</span> <span class="nx">No</span> <span class="nx">Content</span>
 </code></pre>
 
 <p>When you&rsquo;re done with a payment forwarding address, you can delete it via its id.</p>
@@ -5446,6 +6478,8 @@ Events like <i>unconfirmed-tx</i> can produce a lot of requests. To avoid rate-l
   <span class="nx">ws</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span><span class="na">filter</span><span class="p">:</span> <span class="s2">"event=unconfirmed-tx"</span><span class="p">}));</span>
 <span class="p">}</span>
 </code></pre>
+<pre class="highlight php"><code># no websockets via PHP, check the Javascript example
+</code></pre>
 
 <p>Opening a WebSocket to listen to our feeds is easy, like so in Javascript:</p>
 
@@ -5531,6 +6565,27 @@ Testing WebHooks can be tricky; we recommend using <a href="http://requestb.in/"
  <span class="s">'event'</span><span class="p">:</span> <span class="s">'unconfirmed-tx'</span><span class="p">,</span>
  <span class="s">'callback_errors'</span><span class="p">:</span> <span class="mi">0</span><span class="p">}</span>
 </code></pre>
+<pre class="highlight php"><code><span class="cp">&lt;?php</span>
+<span class="c1">// Run on console:
+// php -f .\sample\hook-api\CreateWebHookEndpoint.php
+</span>
+<span class="nv">$webHook</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">WebHook</span><span class="p">();</span>
+<span class="nv">$webHook</span><span class="o">-&gt;</span><span class="na">setUrl</span><span class="p">(</span><span class="s2">"http://requestb.in/rwp6jirw?uniqid="</span> <span class="o">.</span> <span class="nb">uniqid</span><span class="p">());</span>
+<span class="nv">$webHook</span><span class="o">-&gt;</span><span class="na">setEvent</span><span class="p">(</span><span class="s1">'unconfirmed-tx'</span><span class="p">);</span>
+<span class="nv">$webHook</span><span class="o">-&gt;</span><span class="na">setHash</span><span class="p">(</span><span class="s1">'2b17f5589528f97436b5d563635b4b27ca8980aa20c300abdc538f2a8bfa871b'</span><span class="p">);</span>
+
+<span class="nv">$output</span> <span class="o">=</span> <span class="nv">$webHook</span><span class="o">-&gt;</span><span class="na">create</span><span class="p">();</span>
+
+<span class="p">{</span>
+  <span class="s2">"url"</span><span class="o">:</span><span class="s2">"http://requestb.in/rwp6jirw?uniqid=5581998e19114"</span><span class="p">,</span>
+  <span class="s2">"event"</span><span class="o">:</span><span class="s2">"unconfirmed-tx"</span><span class="p">,</span>
+  <span class="s2">"hash"</span><span class="o">:</span><span class="s2">"2b17f5589528f97436b5d563635b4b27ca8980aa20c300abdc538f2a8bfa871b"</span><span class="p">,</span>
+  <span class="s2">"id"</span><span class="o">:</span><span class="s2">"d5ca3bd3-5dfb-477d-9fb4-ac3510af258d"</span><span class="p">,</span>
+  <span class="s2">"token"</span><span class="o">:</span><span class="s2">"c0afcccdde5081d6429de37d16166ead"</span><span class="p">,</span>
+  <span class="s2">"callback_errors"</span><span class="o">:</span><span class="mi">0</span><span class="p">,</span>
+  <span class="s2">"filter"</span><span class="o">:</span><span class="s2">"event=unconfirmed-tx\u0026hash=2b17f5589528f97436b5d563635b4b27ca8980aa20c300abdc538f2a8bfa871b"</span>
+<span class="p">}</span>
+</code></pre>
 
 <p>Using a partially filled out <a href="#event">Event</a>, you can create a WebHook using this resource. Check the <a href="#event">Event object description</a> and <a href="#types-of-events">types of events</a> to understand the options available for your events.</p>
 
@@ -5598,6 +6653,24 @@ Testing WebHooks can be tricky; we recommend using <a href="http://requestb.in/"
   <span class="s">'event'</span><span class="p">:</span> <span class="s">'unconfirmed-tx'</span><span class="p">,</span>
   <span class="s">'callback_errors'</span><span class="p">:</span> <span class="mi">0</span><span class="p">}]</span>
 </code></pre>
+<pre class="highlight php"><code><span class="cp">&lt;?php</span>
+<span class="c1">// Run on console:
+// php -f .\sample\hook-api\ListWebHooksEndpoint.php
+</span>
+<span class="nv">$webHooks</span> <span class="o">=</span> <span class="nx">WebHook</span><span class="o">::</span><span class="na">getAll</span><span class="p">();</span>
+
+<span class="p">[</span>
+  <span class="p">{</span>
+    <span class="s2">"id"</span><span class="o">:</span><span class="s2">"d5ca3bd3-5dfb-477d-9fb4-ac3510af258d"</span><span class="p">,</span>
+    <span class="s2">"token"</span><span class="o">:</span><span class="s2">"c0afcccdde5081d6429de37d16166ead"</span><span class="p">,</span>
+    <span class="s2">"url"</span><span class="o">:</span><span class="s2">"http://requestb.in/rwp6jirw?uniqid=5581998e19114"</span><span class="p">,</span>
+    <span class="s2">"callback_errors"</span><span class="o">:</span><span class="mi">0</span><span class="p">,</span>
+    <span class="s2">"event"</span><span class="o">:</span><span class="s2">"unconfirmed-tx"</span><span class="p">,</span>
+    <span class="s2">"hash"</span><span class="o">:</span><span class="s2">"2b17f5589528f97436b5d563635b4b27ca8980aa20c300abdc538f2a8bfa871b"</span><span class="p">,</span>
+    <span class="s2">"filter"</span><span class="o">:</span><span class="s2">"event=unconfirmed-tx\u0026hash=2b17f5589528f97436b5d563635b4b27ca8980aa20c300abdc538f2a8bfa871b"</span>
+  <span class="p">}</span>
+<span class="p">]</span>
+</code></pre>
 
 <p>This resource lists your currently active events, according the base resource and $YOURTOKEN.</p>
 
@@ -5656,6 +6729,22 @@ Testing WebHooks can be tricky; we recommend using <a href="http://requestb.in/"
  <span class="s">'event'</span><span class="p">:</span> <span class="s">'unconfirmed-tx'</span><span class="p">,</span>
  <span class="s">'callback_errors'</span><span class="p">:</span> <span class="mi">0</span><span class="p">}</span>
 </code></pre>
+<pre class="highlight php"><code><span class="cp">&lt;?php</span>
+<span class="c1">// Run on console:
+// php -f .\sample\hook-api\WebHookIdEndpoint.php
+</span>
+<span class="nv">$webHook</span> <span class="o">=</span> <span class="nx">WebHook</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="s1">'d5ca3bd3-5dfb-477d-9fb4-ac3510af258d'</span><span class="p">);</span>
+
+<span class="p">{</span>
+  <span class="s2">"id"</span><span class="o">:</span><span class="s2">"d5ca3bd3-5dfb-477d-9fb4-ac3510af258d"</span><span class="p">,</span>
+  <span class="s2">"token"</span><span class="o">:</span><span class="s2">"c0afcccdde5081d6429de37d16166ead"</span><span class="p">,</span>
+  <span class="s2">"url"</span><span class="o">:</span><span class="s2">"http://requestb.in/rwp6jirw?uniqid=5581998e19114"</span><span class="p">,</span>
+  <span class="s2">"callback_errors"</span><span class="o">:</span><span class="mi">0</span><span class="p">,</span>
+  <span class="s2">"event"</span><span class="o">:</span><span class="s2">"unconfirmed-tx"</span><span class="p">,</span>
+  <span class="s2">"hash"</span><span class="o">:</span><span class="s2">"2b17f5589528f97436b5d563635b4b27ca8980aa20c300abdc538f2a8bfa871b"</span><span class="p">,</span>
+  <span class="s2">"filter"</span><span class="o">:</span><span class="s2">"event=unconfirmed-tx\u0026hash=2b17f5589528f97436b5d563635b4b27ca8980aa20c300abdc538f2a8bfa871b"</span>
+<span class="p">}</span>
+</code></pre>
 
 <p>This resource returns an <a href="#event">Event</a> based on its generated <em>id</em>.</p>
 
@@ -5696,6 +6785,21 @@ HTTP/1.1 204 OK
 <span class="c"># Will return nothing, but we can confirm the status code to be sure</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="k">assert</span> <span class="n">r</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">204</span>
 </code></pre>
+<pre class="highlight php"><code><span class="cp">&lt;?php</span>
+<span class="c1">// Run on console:
+// php -f .\sample\hook-api\DeleteWebHookEndpoint.php
+</span>
+<span class="c1">// Option 1: get the object before removing it
+//$webHook = WebHook::get('d5ca3bd3-5dfb-477d-9fb4-ac3510af258d');
+</span>
+<span class="c1">// Option 2: create a new empty object only with its ID. You save one API request
+</span><span class="nv">$webHook</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">WebHook</span><span class="p">();</span>
+<span class="nv">$webHook</span><span class="o">-&gt;</span><span class="na">setId</span><span class="p">(</span><span class="s1">'d5ca3bd3-5dfb-477d-9fb4-ac3510af258d'</span><span class="p">);</span>
+
+<span class="nv">$webHook</span><span class="o">-&gt;</span><span class="na">delete</span><span class="p">();</span>
+
+<span class="nx">HTTP</span><span class="o">/</span><span class="mf">1.1</span> <span class="mi">204</span> <span class="nx">OK</span>
+</code></pre>
 
 <p>This resource deletes an active <a href="#event">Event</a> based on its <em>id</em>. Remember to include your token, or the request will fail.</p>
 
@@ -5726,6 +6830,7 @@ HTTP/1.1 204 OK
                 <a href="#" data-language-name="javascript">JavaScript</a>
                 <a href="#" data-language-name="ruby">Ruby</a>
                 <a href="#" data-language-name="python">Python</a>
+                <a href="#" data-language-name="php">PHP</a>
           </div>
       </div>
     </div>
