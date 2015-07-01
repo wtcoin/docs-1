@@ -1298,9 +1298,17 @@ This endpoint deletes the wallet with $NAME. If successful, it will return an HT
 
 ## HD Wallets
 
-Similar to the wallet API, the HD Wallet API makes it easy to manage multiple addresses under a single name. All HD wallet addresses are derived from a single seed. It only holds public address information and never requires any private keys.
+Similar to the wallet API, HD Wallets makes it easy to manage multiple addresses under a single name. All HD wallet addresses are derived from a single seed.
 
-HD wallets can be used with the Transactions, Events and Hooks APIs.
+HD wallets can be created, deleted and have new addresses generated. However, addresses cannot be removed.
+
+When creating a wallet, one can optionally include one or more "subchain" indexes. These subchains can later be referenced when generating new addresses or sending txs. If none are provided in wallet creation, the wallet will derive & use addresses straight from the given extended pubkey. If no index is given when using the wallet with other APIs, it defaults to using the wallet's first (sub) chain.
+
+Please see <a href="https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki">BIP32</a> for the background on HD wallets. For subchains, refer to <a href="https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki#the-default-wallet-layout">BIP32 wallet layout</a>
+
+HD Wallets can be used with the [Address API](#address-api), the [Events](#events-and-hooks) and with the [Transaction API](#transaction-api).
+
+If an address ahead of current addresses in a wallet receives a transaction, it will be added to the wallet, along with any addresses between the new address and the last used one.
 
 ### Create HD Wallet Endpoint
 
@@ -1351,7 +1359,11 @@ Resource | Method | Request Object | Return Object
 -------- | ------ | -------------- | -------------
 /wallets/hd | POST | [Wallet](#wallet) | [Wallet](#wallet)
 
-This endpoint allows you to create a new HD wallet, by POSTing a partially filled out [Wallet](#wallet) object. At minimum, you must include the **name** and the **extended_public_key** attributes. If successful, it will return the same [Wallet](#wallet) object you requested, appended with your user token.
+This endpoint allows you to create a new HD wallet, by POSTing a partially filled out [Wallet](#wallet) object.
+
+At minimum, you must include the **name** and the **extended_public_key** attributes. The encoding of the key is <a href="https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki#serialization-format">documented here</a>
+
+ If successful, it will return the same [Wallet](#wallet) object you requested, appended with your user token.
 
 Pass **subchain_indexes** to initialise the wallet with one or more subchains. If not given, the wallet will derive address straight from the given extended pubkey. See <a href="https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki#The_default_wallet_layout">BIP32</a> for more info.
 
