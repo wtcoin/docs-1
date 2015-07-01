@@ -1111,7 +1111,7 @@ Fees in cryptocurrencies can be complex. We provide 2 different ways for you to 
 
 To learn more about fees, [bitcoinfees.com](http://bitcoinfees.com/) is a good resource.
 
-For even more control, you can also change the **script_type** in the **output** of your partially filled [TX](#tx). You'll notice this used to powerful effect in the section on [Multisig Transactions](#multisig-transactions). These are the possible script types:
+For even more control, you can also change the **script_type** in the **outputs** of your partially filled [TX](#tx). You'll notice this used to powerful effect in the section on [Multisig Transactions](#multisig-transactions). These are the possible script types:
 
 1. *pay-to-pubkey-hash* (most common transaction transferring to a public key hash, and the default behavior if no out)
 1. *pay-to-multi-pubkey-hash* (multi-signatures transaction, now actually less used than *pay-to-script-hash* for this purpose)
@@ -1120,6 +1120,10 @@ For even more control, you can also change the **script_type** in the **output**
 1. *null-data* (sometimes called op-return; used to embed small chunks of data in the blockchain)
 1. *empty* (no script present, mostly used for mining transaction inputs)
 1. *unknown* (non-standard script)
+
+<aside class="warning">
+Due to safety checks within the API's transaction creation process, the user-set <b>value</b> field of an <b>output</b> may never be 0, even when using a <i>null-data</i> <b>script-type</b>. You can still embed data in the blockchain, but you need to set the value to (at least) 1 satoshi. Please note that whatever value you set will become unrecoverable if the transaction successfully propagates. For simpler data embedding needs, consider using our <a href="#data-endpoint">Data Endpoint.</a>
+</aside>
 
 ## Push Raw Transaction Endpoint
 
