@@ -195,7 +195,7 @@ $.get('https://api.blockcypher.com/v1/btc/main/addrs/1DEP8i3QJCsomS4BSMY2RpU1upv
 
 ```ruby
 > block_cypher.address_details("1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD")
-=> {"address"=>"1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD", 
+=> {"address"=>"1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD",
  "total_received"=>4433416,
  "total_sent"=>0,
  "balance"=>4433416,
@@ -480,7 +480,7 @@ $.get('https://api.blockcypher.com/v1/btc/main/addrs/1DEP8i3QJCsomS4BSMY2RpU1upv
   "hash"=>"14b1052855bbf6561bc4db8aa501762e7cc1e86994dda9e782a6b73b1ce0dc1e",
   "addresses"=>["17astdTmG8zzVmry8mV8A7at Ar3XefEgRX", "1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD"],
   "total"=>8835413,
-  "fees"=>10000, 
+  "fees"=>10000,
   "size"=>258,
   "preference"=>"medium",
   "relayed_by"=>"",
@@ -506,7 +506,7 @@ $.get('https://api.blockcypher.com/v1/btc/main/addrs/1DEP8i3QJCsomS4BSMY2RpU1upv
 	 "script"=>"76a9148629647bd642a2372d846a7660e210c8414f047c88ac",
 	 "addresses"=>["1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD"],
 	 "script_type"=>"pay-to-pubkey-hash"},
-	 ... ]}, 
+	 ... ]},
   ...
  ]}
 ```
@@ -846,7 +846,7 @@ Resource | Method | Request Object | Return Object
 
 ## Wallets
 
-The Wallet API allows you to group multiple addresses under a single name. It only holds public address information and never requires any private keys. 
+The Wallet API allows you to group multiple addresses under a single name. It only holds public address information and never requires any private keys.
 
 <aside class="notice">
 Don't be confused: this Wallet API has nothing to do with private key management. The best way to think of the Wallet API is a "Set of Public Addresses to Query Together" API, but that name refused to fit into any of our marketing materials.
@@ -1293,3 +1293,213 @@ Resource | Method | Request Object | Return Object
 /wallets/$NAME | DELETE | [Wallet](#wallet) | *nil*
 
 This endpoint deletes the wallet with $NAME. If successful, it will return an HTTP 204 status code with no return object.
+
+<br />
+
+## HD Wallets
+
+Similar to the wallet API, HD Wallets makes it easy to manage multiple addresses under a single name. All HD wallet addresses are derived from a single seed.
+
+HD wallets can be created, deleted and have new addresses generated. However, addresses cannot be removed.
+
+When creating a wallet, one can optionally include one or more "subchain" indexes. These subchains can later be referenced when generating new addresses or sending txs. If none are provided in wallet creation, the wallet will derive & use addresses straight from the given extended pubkey. If no index is given when using the wallet with other APIs, it defaults to using the wallet's first (sub) chain.
+
+Please see <a href="https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki">BIP32</a> for the background on HD wallets. For subchains, refer to <a href="https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki#the-default-wallet-layout">BIP32 wallet layout</a>
+
+HD Wallets can be used with the [Address API](#address-api), the [Events](#events-and-hooks) and with the [Transaction API](#transaction-api).
+
+If an address ahead of current addresses in a wallet receives a transaction, it will be added to the wallet, along with any addresses between the new address and the last used one.
+
+### Create HD Wallet Endpoint
+
+```shell
+curl -d '{"name": "alice", "extended_public_key": "xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoCu1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8"}' https://api.blockcypher.com/v1/btc/main/wallets/hd?token=YOURTOKEN
+
+{"token": "YOURTOKEN",
+"name": "alice",
+"hd" : true,
+"extended_public_key": "xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoCu1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8"
+}
+```
+
+```javascript
+var data = {"name": "alice", "extended_public_key": "xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoCu1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8"};
+$.post('https://api.blockcypher.com/v1/btc/main/wallets?token=USERTOKEN', data)
+  .then(function(d) {console.log(d)});
+> {"token": "YOURTOKEN",
+> "name": "alice",
+> "hd" : true,
+> "extended_public_key": "xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoC> u1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8"
+> }
+```
+
+```ruby
+> TODO: Ruby objets & functions for HD
+=>
+```
+
+```python
+>>> import requests, json
+>>> data = {'name': 'alice', 'extended_public_key': 'xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoC> u1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8'}
+>>> params = {'token': 'YOUR_TOKEN'}
+>>> r = requests.post('https://api.blockcypher.com/v1/btc/main/wallets/hd', data=json.dumps(data), params=params)
+>>> r.json()
+{'name': 'alice',
+ 'token': 'YOUR_TOKEN',
+ 'extended_public_key': 'xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoC> u1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8'}
+```
+
+```php
+<?php
+
+// TODO: PHP object & functions for HD
+```
+
+Resource | Method | Request Object | Return Object
+-------- | ------ | -------------- | -------------
+/wallets/hd | POST | [Wallet](#wallet) | [Wallet](#wallet)
+
+This endpoint allows you to create a new HD wallet, by POSTing a partially filled out [Wallet](#wallet) object.
+
+At minimum, you must include the **name** and the **extended_public_key** attributes. The encoding of the key is <a href="https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki#serialization-format">documented here</a>
+
+ If successful, it will return the same [Wallet](#wallet) object you requested, appended with your user token.
+
+Pass **subchain_indexes** to initialise the wallet with one or more subchains. If not given, the wallet will derive address straight from the given extended pubkey. See <a href="https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki#The_default_wallet_layout">BIP32</a> for more info.
+
+<aside class="warning">
+If the named wallet already exists under your token, attempting to create a new wallet will return an error.
+</aside>
+
+<br />
+
+### Generate Address in HD Wallet Endpoint
+
+```shell
+curl -X POST https://api.blockcypher.com/v1/btc/main/wallets/hd/alice/addresses/new?token=YOURTOKEN
+
+{"new_address": "13cj1QtfW61kQHoqXm3khVRYPJrgQiRM6j"}
+```
+
+```javascript
+$.post('https://api.blockcypher.com/v1/btc/main/wallets/hd/alice/addresses/new?token=USERTOKEN')
+  .then(function(d) {console.log(d)});
+> {
+>   "new_address": "13cj1QtfW61kQHoqXm3khVRYPJrgQiRM6j"
+> }
+```
+
+```ruby
+> TODO: Ruby objets & functions for HD
+=>
+```
+
+```python
+# Please use the python library at https://github.com/blockcypher/blockcypher-python to securely generate an address client-side
+```
+
+```php
+<?php
+
+// TODO: PHP object & functions for HD
+
+```
+
+Resource | Method | Request Object | Return Object
+-------- | ------ | -------------- | -------------
+/wallets/hd/$NAME/addresses/new | POST | *nil* | [Wallet](#Wallet) + [AddressKeychain](#AddressKeychain)
+
+This endpoint allows you to generate a new address associated with the $NAME wallet, similar to the [Generate Address Endpoint](#generate-address-endpoint). Pass **subchain_index** to generate address on a specific subchain. Otherwise the address is generated on the first chain in the wallet.
+
+<br />
+
+### Get HD Wallet Addresses Endpoint
+
+```shell
+curl https://api.blockcypher.com/v1/btc/main/wallets/hd/alice/addresses?token=YOURTOKEN
+
+{"addresses": [
+	"13cj1QtfW61kQHoqXm3khVRYPJrgQiRM6j",
+	"1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e"
+]}
+```
+
+```javascript
+$.get('https://api.blockcypher.com/v1/btc/main/wallets/hd/alice/addresses?token=USERTOKEN')
+  .then(function(d) {console.log(d)});
+> {
+> "addresses": [
+> 	"13cj1QtfW61kQHoqXm3khVRYPJrgQiRM6j",
+> 	"1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e"
+> ]}
+```
+
+```ruby
+> TODO: Ruby objets & functions for HD
+=>
+```
+
+```python
+>>> import requests
+>>> params = {'token': 'YOUR_TOKEN'}
+>>> r = requests.get('https://api.blockcypher.com/v1/btc/main/wallets/hd/alice/addresses', params=params)
+>>> r.json()
+{'addresses': ['13cj1QtfW61kQHoqXm3khVRYPJrgQiRM6j',
+  '1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e']}
+```
+
+```php
+<?php
+
+// TODO: PHP object & functions for HD
+
+```
+
+Resource | Method | Return Object
+-------- | ------ | -------------
+/wallets/$NAME/addresses | GET | [Wallet](#wallet)
+
+This endpoint returns a list of the addresses associated with the $NAME wallet. It returns the addresses in a partially filled out [Wallet](#wallet) object, which you'll find under the **addresses** attribute.
+
+<br />
+
+### Delete Wallet Endpoint
+
+```shell
+curl -X DELETE https://api.blockcypher.com/v1/btc/main/wallets/hd/alice?token=YOURTOKEN
+
+```
+
+```javascript
+$.ajax({
+  url: "https://api.blockcypher.com/v1/btc/main/wallets/hd/alice?token=USERTOKEN",
+  method: "DELETE"
+});
+```
+
+```ruby
+> TODO: Ruby objets & functions for HD
+=>
+```
+
+```python
+>>> import requests
+>>> params = {'token': 'YOUR_TOKEN'}
+>>> r = requests.delete('https://api.blockcypher.com/v1/btc/main/wallets/hd/alice', params=params)
+# returns nothing, let's just check the status code to be sure
+>>> assert r.status_code == 204
+```
+
+```php
+<?php
+// TODO: PHP object & functions for HD
+
+```
+
+Resource | Method | Request Object | Return Object
+-------- | ------ | -------------- | -------------
+/wallets/hd/$NAME | DELETE | [Wallet](#wallet) | *nil*
+
+This endpoint deletes the wallet with $NAME. If successful, it will return an HTTP 204 status code with no return object.
+
+<br />
