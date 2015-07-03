@@ -521,13 +521,30 @@ curl -d '{"name": "alice","addresses": ["1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e"]}' 
 }
 ```
 
-A Wallet represents a list of addresses, and can be used interchangeably with all the [Address API](#address-api) endpoints.
+## HD Wallet
+
+```shell
+curl -d '{"name": "bob", "": "extended_public_key": "xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoCu1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8"}' https://api.blockcypher.com/v1/btc/main/wallets/hd?token=YOURTOKEN
+
+{
+"token":"YOURTOKEN",
+"name": "bob",
+"hd" : true,
+"extended_public_key": "xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoCu1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8"}
+}
+```
+
+A HD Wallet contains addresses derived from a single seed. Like normal wallets, it can be used interchangeably with all the [Address API](#address-api) endpoints.
 
 Attribute | Type | Description
 --------- | ---- | -----------
 **token** | *string* | User token associated with this wallet.
 **name** | *string* | Name of the wallet.
 **addresses** | *array[string]* | List of addresses associated with this wallet.
+**hd** | *bool* | true for HD wallets, not present for normal wallets.
+**extended_public_key** | *string* | The extended public key all addresses in the wallet are derived from. It's encoded in [BIP32 format](https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki#serialization-format)
+**subchain_indexes** | *array[integer]* | ***optional*** returned for wallets created with subchains.
+
 
 ## Event
 
