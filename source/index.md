@@ -16,6 +16,7 @@ includes:
   - objects
   - blockchain
   - address
+  - wallet
   - tx
   - microtx
   - conf
