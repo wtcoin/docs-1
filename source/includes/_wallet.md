@@ -525,7 +525,7 @@ Resource | Method | Request Object | Return Object
 
 This endpoint allows you to generate a new address associated with the $NAME wallet, similar to the [Generate Address Endpoint](#generate-address-endpoint). If successful, it will returned the newly modified [Wallet](#wallet) or [HDWallet](#hdwallet) composed with an [AddressKeychain](#AddressKeychain).
 
-For HD Wallets, include **subchain_index** to generate address on a specific subchain. Otherwise the address is generated on the first chain in the wallet.
+For HD Wallets, include a **subchain_index** to generate address on a specific subchain. Otherwise the address is generated on the first chain in the wallet.
 
 ## Delete Wallet Endpoint
 
@@ -587,3 +587,4 @@ Resource | Method | Return Object
 /wallets/hd/$NAME | DELETE | *nil*
 
 This endpoint deletes the Wallet or HD Wallet with $NAME. If successful, it will return an HTTP 204 status code with no return object.
+
