@@ -51,12 +51,13 @@ curl -d '{"name": "alice","addresses": ["1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e"]}' 
 ]}
 
 # hd wallet
-curl -d '{"name": "bob", "extended_public_key": "xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoCu1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8"}' https://api.blockcypher.com/v1/btc/main/wallets/hd?token=YOURTOKEN
+curl -d '{"name": "bob", "extended_public_key": "xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoCu1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8", "subchain_indexes": [1, 3]}' https://api.blockcypher.com/v1/btc/main/wallets/hd?token=YOURTOKEN
 
 {"token": "YOURTOKEN",
 "name": "bob",
-"hd" : true,
-"extended_public_key": "xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoCu1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8"}
+"hd": true,
+"extended_public_key": "xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoCu1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8",
+"subchain_indexes": [ 1, 3 ]}
 ```
 
 ```javascript
@@ -71,13 +72,13 @@ $.post('https://api.blockcypher.com/v1/btc/main/wallets?token=USERTOKEN', data)
 > ]}
 
 //hd wallet
-var data = {"name": "bob", "extended_public_key": "xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoCu1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8"};
+var data = {"name": "bob", "extended_public_key": "xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoCu1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8, "subchain_indexes": [ 1, 3 ]};
 $.post('https://api.blockcypher.com/v1/btc/main/wallets?token=USERTOKEN', data)
   .then(function(d) {console.log(d)});
 > {"token": "YOURTOKEN",
 > "name": "bob",
 > "hd" : true,
-> "extended_public_key": "xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoC> u1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8"
+> "extended_public_key": "xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoC> u1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8", "subchain_indexes": [ 1, 3 ]}
 > }
 ```
 
@@ -100,13 +101,14 @@ $.post('https://api.blockcypher.com/v1/btc/main/wallets?token=USERTOKEN', data)
  'addresses': ['1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e']}
 
 //hd wallet
->>> data = {'name': 'bob', 'extended_public_key': 'xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoC> u1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8'}
+>>> data = {'name': 'bob', 'extended_public_key': 'xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoC> u1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8', 'subchain_indexes': [1, 3]}
 >>> params = {'token': 'YOUR_TOKEN'}
 >>> r = requests.post('https://api.blockcypher.com/v1/btc/main/wallets/hd', data=json.dumps(data), params=params)
 >>> r.json()
 {'name': 'bob',
  'token': 'YOUR_TOKEN',
- 'extended_public_key': 'xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoC> u1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8'}
+ 'extended_public_key': 'xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoC> u1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8',
+ 'subchain_indexes': [1, 3]}
 ```
 
 ```php
@@ -165,8 +167,9 @@ curl https://api.blockcypher.com/v1/btc/main/wallets/hd/bob?token=YOURTOKEN
 
 {"token": "YOURTOKEN",
 "name": "bob",
-"hd" : true,
-"extended_public_key": "xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoCu1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8"}
+"hd": true,
+"extended_public_key": "xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoCu1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8",
+"subchain_indexes": [ 1, 3 ]}
 ```
 
 ```javascript
@@ -456,6 +459,11 @@ curl -X POST https://api.blockcypher.com/v1/btc/main/wallets/hd/bob/addresses/ge
 ],
 "public": "03e4f273521a30373a639f60da836f2308a5d53853ec18f903dd235c73e6e26e4a",
 "address": "13cj1QtfW61kQHoqXm3khVRYPJrgQiRM6j"}
+
+#hd wallet with subchain_index
+curl -X POST https://api.blockcypher.com/v1/btc/main/wallets/hd/bob/addresses/generate?token=YOURTOKEN&subchain_index=1
+
+#todo: response here
 ```
 
 ```javascript
