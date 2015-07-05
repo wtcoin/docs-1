@@ -446,7 +446,7 @@ curl -X POST https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses/gen
 "wif": "KzWeDL7sysRay7pZUm6hQQLaDVjmN1jUZzeZuq6ru5FtN1RhPrLX"}
 
 #hd wallet
-curl -X POST https://api.blockcypher.com/v1/btc/main/wallets/hd/bob/addresses/new?token=YOURTOKEN
+curl -X POST https://api.blockcypher.com/v1/btc/main/wallets/hd/bob/addresses/generate?token=YOURTOKEN
 
 {"token": "YOURTOKEN",
 "name": "bob",
@@ -521,7 +521,7 @@ $walletGenerateAddressResponse = $wallet->generateAddress();
 Resource | Method | Request Object | Return Object
 -------- | ------ | -------------- | -------------
 /wallets/$NAME/addresses/generate | POST | *nil* | [Wallet](#Wallet) + [AddressKeychain](#AddressKeychain)
-/wallets/hd/$NAME/addresses/new | POST | *nil* | [Wallet](#Wallet) + [AddressKeychain](#AddressKeychain)
+/wallets/hd/$NAME/addresses/generate | POST | *nil* | [Wallet](#Wallet) + [AddressKeychain](#AddressKeychain)
 
 This endpoint allows you to generate a new address associated with the $NAME wallet, similar to the [Generate Address Endpoint](#generate-address-endpoint). If successful, it will returned the newly modified [Wallet](#wallet) or [HDWallet](#hdwallet) composed with an [AddressKeychain](#AddressKeychain).
 
