@@ -229,6 +229,8 @@ Attribute | Type | Description
 **addresses** | *array[string]* | An array of public addresses associated with the output of the previous transaction.
 **sequence** | *integer* | Legacy 4-byte [sequence number](https://bitcoin.org/en/glossary/sequence-number), not usually relevant unless dealing with locktime encumbrances.
 **age** | *integer* | ***Optional*** Number of confirmations of the previous transaction for which this input was an output. Currently, only returned in unconfirmed transactions.
+**wallet_name** | *string* | ***Optional*** Name of [Wallet](#wallet) or [HDWallet](#hdwallet) from which to derive inputs. Only used when constructing transactions via the [Creating Transactions](#creating-transactions) process.
+**wallet_token** | *string* | ***Optional*** Token associated with [Wallet](#wallet) or [HDWallet](#hdwallet) used to derive inputs. Only used when constructing transactions via the [Creating Transactions](#creating-transactions) process.
 
 ## TXOutput
 
