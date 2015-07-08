@@ -650,6 +650,7 @@ Flag | Type | Effect
 ---- | ---- | ------
 **before** | *integer* | Filters response to only include transactions below **before** height in the blockchain.
 **limit** | *integer* | Only includes **limit** number of TXs; if unset, default is 10, while the maximum is 50.
+**includeHex** | *bool* | If *true*, includes hex-encoded raw transaction for each TX; false by default.
 
 ADDRESS is a *string* representing the public address (or wallet name) you're interested in querying, for example:
 
