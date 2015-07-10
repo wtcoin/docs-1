@@ -527,7 +527,7 @@ curl -d '{"name": "alice","addresses": ["1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e"]}' 
 ## HDWallet
 
 ```shell
-curl -d '{"name": "bob", "": "extended_public_key": "xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoCu1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8"}' https://api.blockcypher.com/v1/btc/main/wallets/hd?token=YOURTOKEN
+curl -d '{"name": "bob", "extended_public_key": "xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoCu1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8"}' https://api.blockcypher.com/v1/btc/main/wallets/hd?token=YOURTOKEN
 
 {
 "token":"YOURTOKEN",
