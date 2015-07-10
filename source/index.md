@@ -637,6 +637,10 @@ In case you missed the [Resources section](#restful-resources), the BlockCypher 
 
 `https://api.blockcypher.com/v1/bcy/test`
 
+<aside class="warning">
+As mentioned above, Bitcoin Testnet3 is frequently under attack, sometimes from core developers stress-testing the protocol, sometimes from malevolent actors attempting new attack vectors. It can be extremely---and inconsistently---unreliable. Unless your testing environment requires Testnet3, we strongly encourage you to use BlockCypher's Test Chain.
+</aside>
+
 ### Test Faucets
 
 To help facilitate automated testing in your applications, a faucet endpoint is available on both BlockCypher's Test Chain and Bitcoin Testnet3. Calling the faucet endpoint, along with passing a valid address, will automatically create---and propagate---a new transaction funding the address with the amount you provide.
