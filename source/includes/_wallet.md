@@ -35,7 +35,7 @@ The following code examples should be considered serially; that is to say, the r
 As you'll see in the examples, if you're using HD Wallets, take care to use the appropriate resource (e.g. `/wallets/hd` instead of `/wallets` ).
 
 <aside class="warning">
-HD Wallets and Wallets share the same namespace. For example, under a single token, you cannot have both an HD Wallet and normal Wallet named "alice."
+HD Wallets and Wallets share the same namespace under a particular coin/chain. For example, under a single token, you cannot have both an HD Wallet and normal Wallet named "alice" on Bitcoin Main.
 </aside>
 
 ## Create Wallet Endpoint
