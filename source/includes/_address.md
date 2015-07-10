@@ -101,6 +101,10 @@ Resource | Method | Return Object
 -------- | ------ | -------------
 /addrs/$ADDRESS/balance | GET | [Address](#address)
 
+Flag | Type | Effect
+---- | ---- | ------
+**confirmations** | *integer* | If set, only returns the **balance** that has this number of **confirmations**.
+
 ADDRESS is a *string* representing the public address (or wallet name) you're interested in querying, for example:
 
 `1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD`
