@@ -462,9 +462,20 @@ curl -X POST https://api.blockcypher.com/v1/btc/main/wallets/hd/bob/addresses/ge
 }
 
 #hd wallet with subchain_index
-curl -X POST https://api.blockcypher.com/v1/btc/main/wallets/hd/bob/addresses/generate?token=YOURTOKEN&subchain_index=1
+curl -X POST 'https://api.blockcypher.com/v1/btc/main/wallets/hd/bob/addresses/generate?token=YOURTOKEN&subchain_index=1'
 
-#todo: response
+{
+  "token": "YOURTOKEN",
+  "name": "bob",
+  "addresses": [
+    "1NwEtFZ6Td7cpKaJtYoeryS6avP2TUkSMh",
+    "1NZ97rKhSPy6NLud5Dp89E4yH5a2fUGeyC"
+  ],
+  "hd": true,
+  "subchain_index": 1,
+  "address": "1NZ97rKhSPy6NLud5Dp89E4yH5a2fUGeyC",
+  "public": "03d18a97975c5f2e11dfa22dd686315f27b35c2db5d32cd7d0c11aea146fdd17c2"
+}
 ```
 
 ```javascript
