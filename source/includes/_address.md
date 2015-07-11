@@ -101,10 +101,6 @@ Resource | Method | Return Object
 -------- | ------ | -------------
 /addrs/$ADDRESS/balance | GET | [Address](#address)
 
-Flag | Type | Effect
----- | ---- | ------
-**confirmations** | *integer* | If set, only returns the **balance** that has this number of **confirmations**.
-
 ADDRESS is a *string* representing the public address (or wallet name) you're interested in querying, for example:
 
 `1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD`
@@ -304,6 +300,7 @@ Flag | Type | Effect
 **unspentOnly** | *bool* | If **unspentOnly** is *true*, filters response to only include unspent transaction outputs (UTXOs).
 **before** | *integer* | Filters response to only include transactions below **before** height in the blockchain.
 **limit** | *integer* | Only includes **limit** number of TXRefs; if unset, default is 50, while the maximum is 200.
+**confirmations** | *integer* | If set, only returns the **balance** and TXRefs that have this number of **confirmations**.
 
 ADDRESS is a *string* representing the public address (or wallet name) you're interested in querying, for example:
 
