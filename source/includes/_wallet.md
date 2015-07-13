@@ -298,10 +298,7 @@ curl https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses?token=YOURT
 #hd wallet
 curl https://api.blockcypher.com/v1/btc/main/wallets/hd/bob/addresses?token=YOURTOKEN
 
-{"addresses": [
-	"13cj1QtfW61kQHoqXm3khVRYPJrgQiRM6j",
-	"1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e"
-]}
+{}
 ```
 
 ```javascript
@@ -317,11 +314,7 @@ $.get('https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses?token=USE
 //hd wallet
 $.get('https://api.blockcypher.com/v1/btc/main/wallets/hd/bob/addresses?token=USERTOKEN')
   .then(function(d) {console.log(d)});
-> {
-> "addresses": [
-> 	"13cj1QtfW61kQHoqXm3khVRYPJrgQiRM6j",
-> 	"1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e"
-> ]}
+> {}
 ```
 
 ```ruby
@@ -343,8 +336,7 @@ $.get('https://api.blockcypher.com/v1/btc/main/wallets/hd/bob/addresses?token=US
 //hd wallet
 >>> r = requests.get('https://api.blockcypher.com/v1/btc/main/wallets/hd/alice/addresses', params=params)
 >>> r.json()
-{'addresses': ['13cj1QtfW61kQHoqXm3khVRYPJrgQiRM6j',
-  '1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e']}
+{}
 ```
 
 ```php
@@ -458,24 +450,21 @@ curl -X POST https://api.blockcypher.com/v1/btc/main/wallets/hd/bob/addresses/ge
 ],
 "hd": true,
 "address": "1NwEtFZ6Td7cpKaJtYoeryS6avP2TUkSMh",
-"public": "029b393153a1ec68c7af3a98e88aecede3a409f27e698c090540098611c79e05b0"
-}
+"public": "029b393153a1ec68c7af3a98e88aecede3a409f27e698c090540098611c79e05b0"}
 
 #hd wallet with subchain_index
 curl -X POST 'https://api.blockcypher.com/v1/btc/main/wallets/hd/bob/addresses/generate?token=YOURTOKEN&subchain_index=1'
 
-{
-  "token": "YOURTOKEN",
-  "name": "bob",
-  "addresses": [
-    "1NwEtFZ6Td7cpKaJtYoeryS6avP2TUkSMh",
-    "1NZ97rKhSPy6NLud5Dp89E4yH5a2fUGeyC"
-  ],
-  "hd": true,
-  "subchain_index": 1,
-  "address": "1NZ97rKhSPy6NLud5Dp89E4yH5a2fUGeyC",
-  "public": "03d18a97975c5f2e11dfa22dd686315f27b35c2db5d32cd7d0c11aea146fdd17c2"
-}
+{"token": "YOURTOKEN",
+"name": "bob",
+"addresses": [
+  "1NwEtFZ6Td7cpKaJtYoeryS6avP2TUkSMh",
+  "1NZ97rKhSPy6NLud5Dp89E4yH5a2fUGeyC"
+],
+"hd": true,
+"subchain_index": 1,
+"address": "1NZ97rKhSPy6NLud5Dp89E4yH5a2fUGeyC",
+"public": "03d18a97975c5f2e11dfa22dd686315f27b35c2db5d32cd7d0c11aea146fdd17c2"}
 ```
 
 ```javascript
