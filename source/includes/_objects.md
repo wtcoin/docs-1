@@ -289,6 +289,7 @@ Attribute | Type | Description
 "tx_input_n": -1,
 "tx_output_n": 0,
 "value": 20213,
+"ref_balance": 4433416,
 "spent": false,
 "confirmations": 54405,
 "confirmed": "2014-05-22T03:46:25Z",
