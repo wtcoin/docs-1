@@ -161,7 +161,8 @@ Currently, we only have cURL, JavaScript, and Python code samples on this page, 
 
 - [Objects:](#objects) An overview of all the objects in the API, alongside detailed descriptions of every field.
 - [Blockchain API:](#blockchain-api) Endpoints to query general information about a blockchain and its blocks.
-- [Address API:](#address-api) Query information about addresses, generate addresses, and build/query multiple-address-watching wallets.
+- [Address API:](#address-api) Query information about addresses, generate addresses, and generate multisig addresses from public keys.
+- [Wallet API:](#wallet-api) Build and modify multiple-address-watching and hierarchical deterministic (HD) wallets, usable throughout the BlockCypher API.
 - [Transaction API:](#transaction-api) Information about transactions, how to generate/send your own, and how to embed data into the blockchain.
 - [Microtransaction API:](#microtransaction-api) Send on-chain microtransactions while BlockCypher covers your initial mining fees, and low computed fees afterwards.
 - [Confidence Factor:](#confidence-factor) Get an accurate measure of the likelihood of a successful double-spend against your unconfirmed transactions.
