@@ -100,7 +100,7 @@ Attribute | Type | Description
 **ver** | *integer* | Block version. In Bitcoin, per [BIP34](https://github.com/bitcoin/bips/blob/master/bip-0034.mediawiki) the last version 1 block was at height 227835.
 **time** | [*time*](https://tools.ietf.org/html/rfc3339) | Recorded time at which block was built. *Note: Miners rarely post accurate clock times.*
 **received_time** | [*time*](https://tools.ietf.org/html/rfc3339) | The time BlockCypher's servers receive the block. Our servers' clock is continuously adjusted and accurate.
-**bits** | *integer* | The block-encoded [difficulty target](https://en.bitcoin.it/wiki/Difficulty).
+**bits** | *integer* | The block-encoded [difficulty target](https://en.bitcoin.it/wiki/Target).
 **nonce** | *integer* | The [number used by a miner](https://en.bitcoin.it/wiki/Nonce) to generate this block.
 **n_tx** | *integer* | Number of transactions in this block.
 **prev_block** | *string* | The hash of the previous block in the blockchain.
