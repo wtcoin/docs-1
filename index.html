@@ -170,7 +170,8 @@ Currently, we only have cURL, JavaScript, and Python code samples on this page, 
 <ul>
 <li><a href="#objects">Objects:</a> An overview of all the objects in the API, alongside detailed descriptions of every field.</li>
 <li><a href="#blockchain-api">Blockchain API:</a> Endpoints to query general information about a blockchain and its blocks.</li>
-<li><a href="#address-api">Address API:</a> Query information about addresses, generate addresses, and build/query multiple-address-watching wallets.</li>
+<li><a href="#address-api">Address API:</a> Query information about addresses, generate addresses, and generate multisig addresses from public keys.</li>
+<li><a href="#wallet-api">Wallet API:</a> Build and modify multiple-address-watching and hierarchical deterministic (HD) wallets, usable throughout the BlockCypher API.</li>
 <li><a href="#transaction-api">Transaction API:</a> Information about transactions, how to generate/send your own, and how to embed data into the blockchain.</li>
 <li><a href="#microtransaction-api">Microtransaction API:</a> Send on-chain microtransactions while BlockCypher covers your initial mining fees, and low computed fees afterwards.</li>
 <li><a href="#confidence-factor">Confidence Factor:</a> Get an accurate measure of the likelihood of a successful double-spend against your unconfirmed transactions.</li>
@@ -2725,28 +2726,30 @@ With recent blocks, $BLOCK_HEIGHT is not always a unique identifier, due to the 
 <span class="s2">"unconfirmed_n_tx"</span>: 0,
 <span class="s2">"final_n_tx"</span>: 7,
 <span class="s2">"txrefs"</span>: <span class="o">[</span>
-    <span class="o">{</span>
-    <span class="s2">"tx_hash"</span>: <span class="s2">"14b1052855bbf6561bc4db8aa501762..."</span>,
-    <span class="s2">"block_height"</span>: 302013,
-    <span class="s2">"tx_input_n"</span>: -1,
-    <span class="s2">"tx_output_n"</span>: 0,
-    <span class="s2">"value"</span>: 20213,
-    <span class="s2">"spent"</span>: <span class="nb">false</span>,
-    <span class="s2">"confirmations"</span>: 55061,
-    <span class="s2">"confirmed"</span>: <span class="s2">"2014-05-22T03:46:25Z"</span>,
-    <span class="s2">"double_spend"</span>: <span class="nb">false</span>
-    <span class="o">}</span>,
-    <span class="o">{</span>
-    <span class="s2">"tx_hash"</span>: <span class="s2">"4cff011ec53022f2ae47197d1a2fd4a6..."</span>,
-    <span class="s2">"block_height"</span>: 302002,
-    <span class="s2">"tx_input_n"</span>: -1,
-    <span class="s2">"tx_output_n"</span>: 0,
-    <span class="s2">"value"</span>: 40596,
-    <span class="s2">"spent"</span>: <span class="nb">false</span>,
-    <span class="s2">"confirmations"</span>: 55072,
-    <span class="s2">"confirmed"</span>: <span class="s2">"2014-05-22T02:56:08Z"</span>,
-    <span class="s2">"double_spend"</span>: <span class="nb">false</span>
-    <span class="o">}</span>,
+<span class="o">{</span>
+  <span class="s2">"tx_hash"</span>: <span class="s2">"14b1052855bbf6561bc4db8aa501762e7cc1e86994dda9e782a6b73b1ce0dc1e"</span>,
+  <span class="s2">"block_height"</span>: 302013,
+  <span class="s2">"tx_input_n"</span>: -1,
+  <span class="s2">"tx_output_n"</span>: 0,
+  <span class="s2">"value"</span>: 20213,
+  <span class="s2">"ref_balance"</span>: 4433416,
+  <span class="s2">"spent"</span>: <span class="nb">false</span>,
+  <span class="s2">"confirmations"</span>: 63066,
+  <span class="s2">"confirmed"</span>: <span class="s2">"2014-05-22T03:46:25Z"</span>,
+  <span class="s2">"double_spend"</span>: <span class="nb">false</span>
+<span class="o">}</span>,
+<span class="o">{</span>
+  <span class="s2">"tx_hash"</span>: <span class="s2">"4cff011ec53022f2ae47197d1a2fd4a6ac2a80139f4d0131c1fed625ed5dc869"</span>,
+  <span class="s2">"block_height"</span>: 302002,
+  <span class="s2">"tx_input_n"</span>: -1,
+  <span class="s2">"tx_output_n"</span>: 0,
+  <span class="s2">"value"</span>: 40596,
+  <span class="s2">"ref_balance"</span>: 4413203,
+  <span class="s2">"spent"</span>: <span class="nb">false</span>,
+  <span class="s2">"confirmations"</span>: 63077,
+  <span class="s2">"confirmed"</span>: <span class="s2">"2014-05-22T02:56:08Z"</span>,
+  <span class="s2">"double_spend"</span>: <span class="nb">false</span>
+<span class="o">}</span>,
 ...
 <span class="o">]</span>,
 <span class="s2">"tx_url"</span>: <span class="s2">"https://api.blockcypher.com/v1/btc/main/txs/"</span>
@@ -2771,6 +2774,7 @@ With recent blocks, $BLOCK_HEIGHT is not always a unique identifier, due to the 
 <span class="o">&gt;</span>   <span class="s2">"tx_input_n"</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
 <span class="o">&gt;</span>   <span class="s2">"tx_output_n"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
 <span class="o">&gt;</span>   <span class="s2">"value"</span><span class="p">:</span> <span class="mi">20213</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"ref_balance"</span><span class="p">:</span> <span class="mi">4433416</span><span class="p">,</span>
 <span class="o">&gt;</span>   <span class="s2">"spent"</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
 <span class="o">&gt;</span>   <span class="s2">"confirmations"</span><span class="p">:</span> <span class="mi">55061</span><span class="p">,</span>
 <span class="o">&gt;</span>   <span class="s2">"confirmed"</span><span class="p">:</span> <span class="s2">"2014-05-22T03:46:25Z"</span><span class="p">,</span>
@@ -2782,6 +2786,7 @@ With recent blocks, $BLOCK_HEIGHT is not always a unique identifier, due to the 
 <span class="o">&gt;</span>   <span class="s2">"tx_input_n"</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
 <span class="o">&gt;</span>   <span class="s2">"tx_output_n"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
 <span class="o">&gt;</span>   <span class="s2">"value"</span><span class="p">:</span> <span class="mi">40596</span><span class="p">,</span>
+<span class="o">&gt;</span>   <span class="s2">"ref_balance"</span><span class="p">:</span> <span class="mi">4413203</span><span class="p">,</span>
 <span class="o">&gt;</span>   <span class="s2">"spent"</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
 <span class="o">&gt;</span>   <span class="s2">"confirmations"</span><span class="p">:</span> <span class="mi">55072</span><span class="p">,</span>
 <span class="o">&gt;</span>   <span class="s2">"confirmed"</span><span class="p">:</span> <span class="s2">"2014-05-22T02:56:08Z"</span><span class="p">,</span>
@@ -2808,6 +2813,7 @@ With recent blocks, $BLOCK_HEIGHT is not always a unique identifier, due to the 
      <span class="s2">"tx_input_n"</span><span class="o">=&gt;-</span><span class="mi">1</span><span class="p">,</span>
      <span class="s2">"tx_output_n"</span><span class="o">=&gt;</span><span class="mi">0</span><span class="p">,</span>
      <span class="s2">"value"</span><span class="o">=&gt;</span><span class="mi">20213</span><span class="p">,</span>
+   <span class="s2">"ref_balance"</span><span class="o">=&gt;</span><span class="mi">4433416</span><span class="p">,</span>
      <span class="s2">"spent"</span><span class="o">=&gt;</span><span class="kp">false</span><span class="p">,</span>
      <span class="s2">"confirmations"</span><span class="o">=&gt;</span><span class="mi">59220</span><span class="p">,</span>
      <span class="s2">"confirmed"</span><span class="o">=&gt;</span><span class="s2">"2014-05-22T03:46:25Z"</span><span class="p">,</span>
@@ -2817,6 +2823,7 @@ With recent blocks, $BLOCK_HEIGHT is not always a unique identifier, due to the 
      <span class="s2">"tx_input_n"</span><span class="o">=&gt;-</span><span class="mi">1</span><span class="p">,</span>
      <span class="s2">"tx_output_n"</span><span class="o">=&gt;</span><span class="mi">0</span><span class="p">,</span>
      <span class="s2">"value"</span><span class="o">=&gt;</span><span class="mi">40596</span><span class="p">,</span>
+   <span class="s2">"ref_balance"</span><span class="o">=&gt;</span><span class="mi">4413203</span><span class="p">,</span>
      <span class="s2">"spent"</span><span class="o">=&gt;</span><span class="kp">false</span><span class="p">,</span>
      <span class="s2">"confirmations"</span><span class="o">=&gt;</span><span class="mi">59231</span><span class="p">,</span>
      <span class="s2">"confirmed"</span><span class="o">=&gt;</span><span class="s2">"2014-05-22T02:56:08Z"</span><span class="p">,</span>
@@ -2872,6 +2879,7 @@ With recent blocks, $BLOCK_HEIGHT is not always a unique identifier, due to the 
       <span class="s2">"tx_input_n"</span><span class="o">:-</span><span class="mi">1</span><span class="p">,</span>
       <span class="s2">"tx_output_n"</span><span class="o">:</span><span class="mi">0</span><span class="p">,</span>
       <span class="s2">"value"</span><span class="o">:</span><span class="mi">20213</span><span class="p">,</span>
+      <span class="s2">"ref_balance"</span><span class="o">:</span> <span class="mi">4433416</span><span class="p">,</span>
       <span class="s2">"spent"</span><span class="o">:</span><span class="kc">false</span><span class="p">,</span>
       <span class="s2">"confirmations"</span><span class="o">:</span><span class="mi">58584</span><span class="p">,</span>
       <span class="s2">"confirmed"</span><span class="o">:</span><span class="s2">"2014-05-22T03:46:25Z"</span><span class="p">,</span>
