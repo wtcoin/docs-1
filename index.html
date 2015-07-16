@@ -1552,6 +1552,11 @@ Objects sometimes contain <b>attributes</b> that are <b><i>optional.</i></b> The
 <td>Array of public keys corresponding to each signature. In general, these are provided by you, and correspond to the signatures you provide.</td>
 </tr>
 <tr>
+<td><strong>tosign_tx</strong></td>
+<td><em>array[string]</em></td>
+<td><strong><em>Optional</em></strong> Array of hex-encoded, work-in-progress transactions; optionally returned to validate the <strong>tosign</strong> data locally.</td>
+</tr>
+<tr>
 <td><strong>errors</strong></td>
 <td><em>array[&ldquo;error&rdquo;:string]</em></td>
 <td><strong><em>Optional</em></strong> Array of errors in the form <em>&ldquo;error&rdquo;:&ldquo;description-of-error&rdquo;</em>. This is only returned if there was an error in any stage of transaction generation, and is usually accompanied by a HTTP 400 code.</td>
@@ -4935,6 +4940,20 @@ Always use HTTPS for creating and pushing transactions.
 </tr>
 </tbody></table>
 
+<table><thead>
+<tr>
+<th>Flag</th>
+<th>Type</th>
+<th>Effect</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>includeToSignTX</strong></td>
+<td><em>bool</em></td>
+<td>If <em>true</em>, includes <strong>tosign_tx</strong> array in <a href="#txskeleton">TXSkeleton</a>, useful for validating data to sign; false by default.</td>
+</tr>
+</tbody></table>
+
 <p>As you can see from the code example, you only need to provide a single public address within the <strong>addresses</strong> array of both the <strong>input</strong> and <strong>output</strong> of your <a href="#tx">TX</a> request object. You also need to fill in the <strong>value</strong> with the amount you&rsquo;d like to transfer from one address to another.</p>
 
 <p>If you&rsquo;d like, you can even use a <a href="#wallet">Wallet</a> instead of addresses as your input. You just need to use two non-standard fields (your <strong>wallet_name</strong> and <strong>wallet_token</strong>) within the <strong>inputs</strong> array in your transaction, instead of <strong>addresses</strong>:</p>
@@ -4944,6 +4963,15 @@ Always use HTTPS for creating and pushing transactions.
 <p>While this particular usage will differ between client libraries, the result is the same: the addresses within your wallet will be used as the <strong>inputs</strong>, as if all of them had been placed within the <strong>addresses</strong> array.</p>
 
 <p>As a return object, you&rsquo;ll receive a <a href="#txskeleton">TXSkeleton</a> containing a slightly-more complete <a href="#tx">TX</a> alongside data you need to sign in the <strong>tosign</strong> array. You&rsquo;ll need this object for the next steps of the transaction creation process.</p>
+
+<h3 id="validating-the-data-to-sign">Validating the Data to Sign</h3>
+
+<p>For the extra cautious, you can protect yourself from a potential malicious attack on BlockCypher by validating the data we&rsquo;re asking you to sign. Unfortunately, it&rsquo;s impossible to do so directly, as pre-signed signature data is hashed twice using SHA256. To get around this, set the <strong>includeToSignTX</strong> URL flag to true. The optional <strong>tosign_tx</strong> array will be returned within the <a href="#txskeleton">TXSkeleton</a>, which you can use in the following way:</p>
+
+<ul>
+<li>Hashing the hex-encoded string twice using SHA256 should give you back the corresponding <strong>tosign</strong> data.</li>
+<li>Decoding the hex-encoded string using our <code class="prettyprint">/txs/decode</code> endpoint (or an independent, client-side source) should give you the output addresses and amounts that match your work-in-progress transaction.</li>
+</ul>
 
 <aside class="notice">
 If you want to automatically empty your input address(es) without knowing their exact value, your <a href="#tx">TX</a> request object&rsquo;s <b>value</b> can be set to -1 to <i>sweep</i> all value from your input address(es) to your output address.
