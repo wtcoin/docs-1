@@ -773,6 +773,10 @@ Resource | Method | Request Object | Return Object
 -------- | ------ | -------------- | -------------
 /txs/new | POST | [TX](#tx) | [TXSkeleton](#txskeleton)
 
+Flag | Type | Effect
+---- | ---- | ------
+**includeToSignTX** | *bool* | If *true*, includes **tosign_tx** array in [TXSkeleton](#txskeleton), useful for validating data to sign; false by default.
+
 As you can see from the code example, you only need to provide a single public address within the **addresses** array of both the **input** and **output** of your [TX](#tx) request object. You also need to fill in the **value** with the amount you'd like to transfer from one address to another.
 
 If you'd like, you can even use a [Wallet](#wallet) instead of addresses as your input. You just need to use two non-standard fields (your **wallet_name** and **wallet_token**) within the **inputs** array in your transaction, instead of **addresses**:
@@ -782,6 +786,13 @@ If you'd like, you can even use a [Wallet](#wallet) instead of addresses as your
 While this particular usage will differ between client libraries, the result is the same: the addresses within your wallet will be used as the **inputs**, as if all of them had been placed within the **addresses** array.
 
 As a return object, you'll receive a [TXSkeleton](#txskeleton) containing a slightly-more complete [TX](#tx) alongside data you need to sign in the **tosign** array. You'll need this object for the next steps of the transaction creation process.
+
+### Validating the Data to Sign
+
+For the extra cautious, you can protect yourself from a potential malicious attack on BlockCypher by validating the data we're asking you to sign. Unfortunately, it's impossible to do so directly, as pre-signed signature data is hashed twice using SHA256. To get around this, set the **includeToSignTX** URL flag to true. The optional **tosign_tx** array will be returned within the [TXSkeleton](#txskeleton), which you can use in the following way:
+
+- Hashing the hex-encoded string twice using SHA256 should give you back the corresponding **tosign** data.
+- Decoding the hex-encoded string using our `/txs/decode` endpoint (or an independent, client-side source) should give you the output addresses and amounts that match your work-in-progress transaction.
 
 <aside class="notice">
 If you want to automatically empty your input address(es) without knowing their exact value, your <a href="#tx">TX</a> request object's <b>value</b> can be set to -1 to <i>sweep</i> all value from your input address(es) to your output address.

@@ -362,6 +362,7 @@ Attribute | Type | Description
 **tosign** | *array[string]* | Array of hex-encoded data for you to sign, one for each input.
 **signatures** | *array[string]* | Array of signatures corresponding to all the data in **tosign**, typically provided by you.
 **pubkeys** | *array[string]* | Array of public keys corresponding to each signature. In general, these are provided by you, and correspond to the signatures you provide.
+**tosign_tx** | *array[string]* | ***Optional*** Array of hex-encoded, work-in-progress transactions; optionally returned to validate the **tosign** data locally.
 **errors** | *array["error":string]* | ***Optional*** Array of errors in the form *"error":"description-of-error"*. This is only returned if there was an error in any stage of transaction generation, and is usually accompanied by a HTTP 400 code.
 
 ## NullData
