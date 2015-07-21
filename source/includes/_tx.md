@@ -1845,6 +1845,14 @@ Once funded, you might want to programmatically spend the money in the address a
 
 Each party can send their signed data individually to `/txs/send` and we can correlate the signatures to the public keys; once we have enough signatures we'll propagate the transaction. Or you can send all needed signatures alongside ordered public keys with a single call to `/txs/send`.
 
+If you send all signatures in a single call, and you're spending inputs locked by a *multisig-n-of-m* **script_type**, remember that you'll need *n* signatures for every element in the [TXSkeleton's](#txskeleton) **tosign** array. For example, let's say `/txs/new` returns two elements in the **tosign** array, corresponding to two *multisig-2-of-3* inputs locked by *pubkey1*, *pubkey2*, and *pubkey3:*
+
+`{...,"tosign":[data1,data2],...}`
+
+Then you'd need to return each piece of data signed twice, preserving order between signatures and pubkeys, resulting in four elements for the **signatures** and **pubkeys** arrays:
+
+`{...,"tosign":[data1,data2], "signatures":[data1sig1,data1sig2,data2sig1,data2sig2], "pubkeys":[pubkey1,pubkey2,pubkey1,pubkey2],...}`
+
 ## Data Endpoint
 
 ```shell
