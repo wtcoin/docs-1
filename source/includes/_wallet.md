@@ -16,6 +16,8 @@ HD Wallets can be created, deleted, and have new addresses generated. However, u
 
 When creating a wallet, one can optionally include one or more "subchain" indexes. These subchains can later be referenced when generating new addresses or sending txs. If none are provided in wallet creation, the wallet will derive & use addresses straight from the given extended pubkey. If no index is given when using the wallet with other APIs, it defaults to using the wallet's first (sub) chain.
 
+In BIP32 notation, the wallet layout is m/0, m/1, ... and m/<b>i</b>/0, m/<b>i</b>/1, ... for each subchain <b>i</b> if the wallet has subchains. For example, the path of the fourth address generated is m/3 for a non-subchain wallet. The path of the fourth address at subchain index two is m/2/3. Note that this is different from the default BIP32 wallet layout.
+
 If an address ahead of current addresses listed in an HD Wallet receives a transaction, it will be added, along with any addresses between the new address and the last used one. We limit looking ahead to 10 addresses; if more than 10 addresses are skipped for the next payment to an HD Wallet, it won't be detected/added to the HD Wallet.
 
 Please see [BIP32](https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki) for the background on HD wallets. For subchains, refer to [BIP32 wallet layout.](https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki#the-default-wallet-layout)
