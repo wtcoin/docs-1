@@ -525,6 +525,13 @@ curl -d '{"name": "alice","addresses": ["1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e"]}' 
 "addresses": ["1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e"]
 }
 ```
+Attribute | Type | Description
+--------- | ---- | -----------
+**token** | *string* | User token associated with this wallet.
+**name** | *string* | Name of the wallet.
+**addresses** | *array[string]* | List of addresses associated with this wallet.
+
+A Wallet contains a list of addresses associated by its name and the user's token. It can be used interchangeably with all the [Address API](#address-api) endpoints, and in many places that require addresses, like when [Creating Transactions](#creating-transactions).
 
 ## HDWallet
 
@@ -539,16 +546,16 @@ curl -d '{"name": "bob", "extended_public_key": "xpub661MyMwAqRbcFtXgS5sYJABqqG9
 }
 ```
 
-A HDWallet contains addresses derived from a single seed. Like normal wallets, it can be used interchangeably with all the [Address API](#address-api) endpoints.
+A HDWallet contains addresses derived from a single seed. Like normal wallets, it can be used interchangeably with all the [Address API](#address-api) endpoints, and in many places that require addresses, like when [Creating Transactions](#creating-transactions).
 
 Attribute | Type | Description
 --------- | ---- | -----------
-**token** | *string* | User token associated with this wallet.
-**name** | *string* | Name of the wallet.
-**addresses** | *array[string]* | List of addresses associated with this wallet.
+**token** | *string* | User token associated with this HD wallet.
+**name** | *string* | Name of the HD wallet.
+**addresses** | *array[string]* | List of addresses associated with this HD wallet.
 **hd** | *bool* | true for HD wallets, not present for normal wallets.
-**extended_public_key** | *string* | The extended public key all addresses in the wallet are derived from. It's encoded in [BIP32 format](https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki#serialization-format)
-**subchain_indexes** | *array[integer]* | ***optional*** returned for wallets created with subchains.
+**extended_public_key** | *string* | The extended public key all addresses in the HD wallet are derived from. It's encoded in [BIP32 format](https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki#serialization-format)
+**subchain_indexes** | *array[integer]* | ***optional*** returned for HD wallets created with subchains.
 
 
 ## Event
