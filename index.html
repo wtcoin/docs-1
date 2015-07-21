@@ -4992,7 +4992,7 @@ Always use HTTPS for creating and pushing transactions.
 
 <h3 id="validating-the-data-to-sign">Validating the Data to Sign</h3>
 
-<p>For the extra cautious, you can protect yourself from a potential malicious attack on BlockCypher by validating the data we&rsquo;re asking you to sign. Unfortunately, it&rsquo;s impossible to do so directly, as pre-signed signature data is hashed twice using SHA256. To get around this, set the <strong>includeToSignTX</strong> URL flag to true. The optional <strong>tosign_tx</strong> array will be returned within the <a href="#txskeleton">TXSkeleton</a>, which you can use in the following way:</p>
+<p>For the extra cautious, you can protect yourself from a potential malicious attack on BlockCypher by validating the data we&rsquo;re asking you to sign. Unfortunately, it&rsquo;s impossible to do so directly, as pre-signed signature data is hashed twice using SHA256. To get around this, set the <strong>includeToSignTx</strong> URL flag to true. The optional <strong>tosign_tx</strong> array will be returned within the <a href="#txskeleton">TXSkeleton</a>, which you can use in the following way:</p>
 
 <ul>
 <li>Hashing the hex-encoded string twice using SHA256 should give you back the corresponding <strong>tosign</strong> data.</li>
