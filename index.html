@@ -6012,6 +6012,14 @@ If you only need a <i>pay-to-script-hash</i> address corresponding to N-of-M mul
 
 <p>Each party can send their signed data individually to <code class="prettyprint">/txs/send</code> and we can correlate the signatures to the public keys; once we have enough signatures we&rsquo;ll propagate the transaction. Or you can send all needed signatures alongside ordered public keys with a single call to <code class="prettyprint">/txs/send</code>.</p>
 
+<p>If you send all signatures in a single call, and you&rsquo;re spending inputs locked by a <em>multisig-n-of-m</em> <strong>script_type</strong>, remember that you&rsquo;ll need <em>n</em> signatures for every element in the <a href="#txskeleton">TXSkeleton&rsquo;s</a> <strong>tosign</strong> array. For example, let&rsquo;s say <code class="prettyprint">/txs/new</code> returns two elements in the <strong>tosign</strong> array, corresponding to two <em>multisig-2-of-3</em> inputs locked by <em>pubkey1</em>, <em>pubkey2</em>, and <em>pubkey3:</em></p>
+
+<p><code class="prettyprint">{...,&quot;tosign&quot;:[data1,data2],...}</code></p>
+
+<p>Then you&rsquo;d need to return each piece of data signed twice, preserving order between signatures and pubkeys, resulting in four elements for the <strong>signatures</strong> and <strong>pubkeys</strong> arrays:</p>
+
+<p><code class="prettyprint">{...,&quot;tosign&quot;:[data1,data2], &quot;signatures&quot;:[data1sig1,data1sig2,data2sig1,data2sig2], &quot;pubkeys&quot;:[pubkey1,pubkey2,pubkey1,pubkey2],...}</code></p>
+
 <h2 id="data-endpoint">Data Endpoint</h2>
 <pre class="highlight shell"><code><span class="c"># Embedding (Hash) Data</span>
 curl -d <span class="s1">'{"data":"6cbe5d6c75bc36879b5fd32e29b325e288599d31edc76327c7889d407985e2aa"}'</span> https://api.blockcypher.com/v1/btc/main/txs/data?token<span class="o">=</span>YOURTOKEN
