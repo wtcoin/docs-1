@@ -789,7 +789,7 @@ As a return object, you'll receive a [TXSkeleton](#txskeleton) containing a slig
 
 ### Validating the Data to Sign
 
-For the extra cautious, you can protect yourself from a potential malicious attack on BlockCypher by validating the data we're asking you to sign. Unfortunately, it's impossible to do so directly, as pre-signed signature data is hashed twice using SHA256. To get around this, set the **includeToSignTX** URL flag to true. The optional **tosign_tx** array will be returned within the [TXSkeleton](#txskeleton), which you can use in the following way:
+For the extra cautious, you can protect yourself from a potential malicious attack on BlockCypher by validating the data we're asking you to sign. Unfortunately, it's impossible to do so directly, as pre-signed signature data is hashed twice using SHA256. To get around this, set the **includeToSignTx** URL flag to true. The optional **tosign_tx** array will be returned within the [TXSkeleton](#txskeleton), which you can use in the following way:
 
 - Hashing the hex-encoded string twice using SHA256 should give you back the corresponding **tosign** data.
 - Decoding the hex-encoded string using our `/txs/decode` endpoint (or an independent, client-side source) should give you the output addresses and amounts that match your work-in-progress transaction.
