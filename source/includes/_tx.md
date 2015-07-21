@@ -775,7 +775,7 @@ Resource | Method | Request Object | Return Object
 
 Flag | Type | Effect
 ---- | ---- | ------
-**includeToSignTX** | *bool* | If *true*, includes **tosign_tx** array in [TXSkeleton](#txskeleton), useful for validating data to sign; false by default.
+**includeToSignTx** | *bool* | If *true*, includes **tosign_tx** array in [TXSkeleton](#txskeleton), useful for validating data to sign; false by default.
 
 As you can see from the code example, you only need to provide a single public address within the **addresses** array of both the **input** and **output** of your [TX](#tx) request object. You also need to fill in the **value** with the amount you'd like to transfer from one address to another.
 
