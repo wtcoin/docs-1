@@ -1891,19 +1891,6 @@ Only one of these three fields is required for the microtransaction endpoint: <b
 <span class="o">}</span>
 </code></pre>
 
-<h2 id="hdwallet">HDWallet</h2>
-<pre class="highlight shell"><code>curl -d <span class="s1">'{"name": "bob", "extended_public_key": "xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoCu1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8"}'</span> https://api.blockcypher.com/v1/btc/main/wallets/hd?token<span class="o">=</span>YOURTOKEN
-
-<span class="o">{</span>
-<span class="s2">"token"</span>:<span class="s2">"YOURTOKEN"</span>,
-<span class="s2">"name"</span>: <span class="s2">"bob"</span>,
-<span class="s2">"hd"</span> : <span class="nb">true</span>,
-<span class="s2">"extended_public_key"</span>: <span class="s2">"xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoCu1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8"</span><span class="o">}</span>
-<span class="o">}</span>
-</code></pre>
-
-<p>A HDWallet contains addresses derived from a single seed. Like normal wallets, it can be used interchangeably with all the <a href="#address-api">Address API</a> endpoints.</p>
-
 <table><thead>
 <tr>
 <th>Attribute</th>
@@ -1926,6 +1913,45 @@ Only one of these three fields is required for the microtransaction endpoint: <b
 <td><em>array[string]</em></td>
 <td>List of addresses associated with this wallet.</td>
 </tr>
+</tbody></table>
+
+<p>A Wallet contains a list of addresses associated by its name and the user&rsquo;s token. It can be used interchangeably with all the <a href="#address-api">Address API</a> endpoints, and in many places that require addresses, like when <a href="#creating-transactions">Creating Transactions</a>.</p>
+
+<h2 id="hdwallet">HDWallet</h2>
+<pre class="highlight shell"><code>curl -d <span class="s1">'{"name": "bob", "extended_public_key": "xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoCu1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8"}'</span> https://api.blockcypher.com/v1/btc/main/wallets/hd?token<span class="o">=</span>YOURTOKEN
+
+<span class="o">{</span>
+<span class="s2">"token"</span>:<span class="s2">"YOURTOKEN"</span>,
+<span class="s2">"name"</span>: <span class="s2">"bob"</span>,
+<span class="s2">"hd"</span> : <span class="nb">true</span>,
+<span class="s2">"extended_public_key"</span>: <span class="s2">"xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoCu1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8"</span><span class="o">}</span>
+<span class="o">}</span>
+</code></pre>
+
+<p>A HDWallet contains addresses derived from a single seed. Like normal wallets, it can be used interchangeably with all the <a href="#address-api">Address API</a> endpoints, and in many places that require addresses, like when <a href="#creating-transactions">Creating Transactions</a>.</p>
+
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>token</strong></td>
+<td><em>string</em></td>
+<td>User token associated with this HD wallet.</td>
+</tr>
+<tr>
+<td><strong>name</strong></td>
+<td><em>string</em></td>
+<td>Name of the HD wallet.</td>
+</tr>
+<tr>
+<td><strong>addresses</strong></td>
+<td><em>array[string]</em></td>
+<td>List of addresses associated with this HD wallet.</td>
+</tr>
 <tr>
 <td><strong>hd</strong></td>
 <td><em>bool</em></td>
@@ -1934,12 +1960,12 @@ Only one of these three fields is required for the microtransaction endpoint: <b
 <tr>
 <td><strong>extended_public_key</strong></td>
 <td><em>string</em></td>
-<td>The extended public key all addresses in the wallet are derived from. It&rsquo;s encoded in <a href="https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki#serialization-format">BIP32 format</a></td>
+<td>The extended public key all addresses in the HD wallet are derived from. It&rsquo;s encoded in <a href="https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki#serialization-format">BIP32 format</a></td>
 </tr>
 <tr>
 <td><strong>subchain_indexes</strong></td>
 <td><em>array[integer]</em></td>
-<td><strong><em>optional</em></strong> returned for wallets created with subchains.</td>
+<td><strong><em>optional</em></strong> returned for HD wallets created with subchains.</td>
 </tr>
 </tbody></table>
 
@@ -4948,7 +4974,7 @@ Always use HTTPS for creating and pushing transactions.
 </tr>
 </thead><tbody>
 <tr>
-<td><strong>includeToSignTX</strong></td>
+<td><strong>includeToSignTx</strong></td>
 <td><em>bool</em></td>
 <td>If <em>true</em>, includes <strong>tosign_tx</strong> array in <a href="#txskeleton">TXSkeleton</a>, useful for validating data to sign; false by default.</td>
 </tr>
