@@ -82,7 +82,7 @@ To prevent eavesdropping, we recommend securing your callback <b>url</b> by usin
 </aside>
 
 <aside class="notice">
-Testing WebHooks can be tricky; we recommend using <a href="http://requestb.in/">reqeustb.in</a> to set up a temporary server to test your events.
+Testing WebHooks can be tricky; we recommend using <a href="http://requestb.in/">requestb.in</a> to set up a temporary server to test your events.
 </aside>
 
 ### Create WebHook Endpoint
