@@ -73,11 +73,12 @@ $.post(url, JSON.stringify(payment))
 // Run on console:
 // php -f .\sample\payment-api\CreatePaymentEndpoint.php
 
-$paymentForward = new PaymentForward();
-$paymentForward->setDestination('15qx9ug952GWGTNn7Uiv6vode4RcGrRemh');
-$paymentForward->setCallbackUrl("http://requestb.in/rwp6jirw?uniqid=" . uniqid());
+$paymentForwardClient = new PaymentForwardClient($apiContext);
+$options = array(
+    'callback_url' => 'http://requestb.in/rwp6jirw?uniqid=' . uniqid()
+);
+$paymentForward = $paymentForwardClient->createForwardingAddress('15qx9ug952GWGTNn7Uiv6vode4RcGrRemh', $options);
 
-$paymentForward->create();
 
 {
   "destination":"15qx9ug952GWGTNn7Uiv6vode4RcGrRemh",
@@ -156,7 +157,8 @@ $.get('http://api.blockcypher.com/v1/btc/main/payments?token='+TOKEN)
 // Run on console:
 // php -f .\sample\payment-api\ListPaymentsEndpoint.php
 
-$paymentForwardArray = PaymentForward::getAll();
+$paymentForwardClient = new PaymentForwardClient($apiContext);
+$paymentForwardArray = $paymentForwardClient->listForwardingAddresses();
 
 [
   {
@@ -212,9 +214,8 @@ $.ajax({
 // Run on console:
 // php -f .\sample\payment-api\DeletePaymentEndpoint.php
 
-$webHook = new PaymentForward();
-$webHook->setId('ec2b4b4f-eeb2-4824-b528-7d78a6f52492');
-$webHook->delete();
+$paymentForwardClient = new PaymentForwardClient($apiContext);
+$paymentForwardClient->deleteForwardingAddress('1fdf8f9b-cc37-4955-882b-8cbcd670a433');
 
 HTTP/1.1 204 No Content
 ```

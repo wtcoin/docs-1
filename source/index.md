@@ -133,10 +133,10 @@ Log file is generate in the folder when you run the command
 To see detailed PHP client info, check the official PHP repository:
 https://github.com/blockcypher/php-client
 
-Irrelevant code is not shown in samples. You can get the full sample version from:
+Less relevant/repetitive code is not shown in samples. You can get the full sample version from:
 https://github.com/blockcypher/php-client/tree/master/sample
 
-All samples begin with something like this (but omitted in docs site):
+Unless noted otherwise, all samples assume this initializing code:
 <?php
 require __DIR__ . '/../bootstrap.php';
 
@@ -301,7 +301,8 @@ $.get('https://api.blockcypher.com/v1/btc/main').then(function(d) {console.log(d
 // Run on console:
 // php -f .\sample\chain-api\ChainEndpoint.php
 
-$chain = Blockchain::get('BTC.main');
+$blockchainClient = new BlockchainClient($apiContext);
+$blockchain = $blockchainClient->get('BTC.main');
 
 {
   "name":"BTC.main",
@@ -572,7 +573,9 @@ full_url = base_url + ';'.join([5,6,7])
 // php -f .\sample\introduction\Batching.php
 // Batching blocks 5, 6, and 7
 
-$blocks = \BlockCypher\Api\Block::getMultiple(array('5', '6', '7'), array(), $apiContexts['BTC.main']);
+$blockClient = new BlockClient($apiContext);
+$blockList = array('5', '6', '7');
+$blocks = $blockClient->getMultiple($blockList);
 
 [{
 "hash": "000000003031a0e73735690c5a1ff2a4be82553b2a12b776fbd3a215dc8f778d",
@@ -720,8 +723,8 @@ $.post('http://api.blockcypher.com/v1/bcy/test/faucet?token=$YOUR_TOKEN', req)
 // Run on console:
 // php -f .\sample\introduction\GenerateBcyAddress.php
 
-$addressKeyChain = new AddressKeyChain();
-$addressKeyChain->create();
+$addressClient = new AddressClient($apiContext);
+$addressKeyChain = $addressClient->generateAddress();
 
 {
   "private":"40e0d6e6210307b9b9d0113bceb9b8c5be6b9e010a03e07f25f75f462ed00a90",
@@ -733,9 +736,10 @@ $addressKeyChain->create();
 <?php
 // Fund prior address with faucet
 // Run on console:
-// php -f .\sample\introduction\FundBcyAddressWithFaucetShortVersion.php
+// php -f .\sample\introduction\FundAddressWithFaucetEndpoint.php
 
-$faucetResponse = Faucet::fundAddress('Bxi1GmU6xgqgyBEzugcqFZRLyJd1cpEv2S', 100000);
+$faucetClient = new FaucetClient($apiContext);
+$faucetResponse = $faucetClient->fundAddress('Bxi1GmU6xgqgyBEzugcqFZRLyJd1cpEv2S', 100000);
 
 {
   "tx_ref":"0fa68cf5c39dbd918a5ca49fc092be36b8bcece83cbfed919ad6c77b5f24cceb"
