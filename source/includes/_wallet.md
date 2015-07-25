@@ -141,7 +141,7 @@ $createdWallet = $walletClient->create($wallet);
 
 // Create a new instance of HDWallet object
 $wallet = new HDWallet();
-$wallet->setName($walletName);
+$wallet->setName('bob');
 $wallet->setExtendedPublicKey('xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoCu1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8');
 $wallet->setSubchainIndexes(array(1, 3));
 
@@ -150,7 +150,7 @@ $createdWallet = $walletClient->create($wallet);
 
 {
   "token":"c0afcccdde5081d6429de37d16166ead",
-  "name":"",
+  "name":"bob",
   "hd":true,
   "extended_public_key":"xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoCu1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8",
   "subchain_indexes":[

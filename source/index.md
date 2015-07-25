@@ -133,10 +133,10 @@ Log file is generate in the folder when you run the command
 To see detailed PHP client info, check the official PHP repository:
 https://github.com/blockcypher/php-client
 
-Irrelevant code is not shown in samples. You can get the full sample version from:
+Less relevant/repetitive code is not shown in samples. You can get the full sample version from:
 https://github.com/blockcypher/php-client/tree/master/sample
 
-All samples begin with something like this (but omitted in docs site):
+Unless noted otherwise, all samples assume this initializing code:
 <?php
 require __DIR__ . '/../bootstrap.php';
 
