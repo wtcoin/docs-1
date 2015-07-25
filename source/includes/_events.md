@@ -153,7 +153,8 @@ $webHook->setUrl("http://requestb.in/rwp6jirw?uniqid=" . uniqid());
 $webHook->setEvent('unconfirmed-tx');
 $webHook->setHash('2b17f5589528f97436b5d563635b4b27ca8980aa20c300abdc538f2a8bfa871b');
 
-$output = $webHook->create();
+$webHookClient = new \BlockCypher\Client\WebHookClient($apiContext);
+$webHook = $webHookClient->create($webHook);
 
 {
   "url":"http://requestb.in/rwp6jirw?uniqid=5581998e19114",
@@ -234,7 +235,8 @@ $.get('https://api.blockcypher.com/v1/btc/main/hooks?token='+TOKEN)
 // Run on console:
 // php -f .\sample\hook-api\ListWebHooksEndpoint.php
 
-$webHooks = WebHook::getAll();
+$webHookClient = new \BlockCypher\Client\WebHookClient($apiContext);
+$webHooks = $webHookClient->getAll();
 
 [
   {
@@ -310,7 +312,8 @@ $.get('https://api.blockcypher.com/v1/btc/main/hooks/399d0923-e920-48ee-8928-205
 // Run on console:
 // php -f .\sample\hook-api\WebHookIdEndpoint.php
 
-$webHook = WebHook::get('d5ca3bd3-5dfb-477d-9fb4-ac3510af258d');
+$webHookClient = new \BlockCypher\Client\WebHookClient($apiContext);
+$webHook = $webHookClient->get('d5ca3bd3-5dfb-477d-9fb4-ac3510af258d');
 
 {
   "id":"d5ca3bd3-5dfb-477d-9fb4-ac3510af258d",
@@ -366,14 +369,8 @@ $.ajax({
 // Run on console:
 // php -f .\sample\hook-api\DeleteWebHookEndpoint.php
 
-// Option 1: get the object before removing it
-//$webHook = WebHook::get('d5ca3bd3-5dfb-477d-9fb4-ac3510af258d');
-
-// Option 2: create a new empty object only with its ID. You save one API request
-$webHook = new WebHook();
-$webHook->setId('d5ca3bd3-5dfb-477d-9fb4-ac3510af258d');
-
-$webHook->delete();
+$webHookClient = new \BlockCypher\Client\WebHookClient($apiContext);
+$webHookClient->delete('d5ca3bd3-5dfb-477d-9fb4-ac3510af258d');
 
 HTTP/1.1 204 OK
 ```

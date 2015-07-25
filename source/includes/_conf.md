@@ -63,7 +63,8 @@ curl https://api.blockcypher.com/v1/btc/main/txs/43fa951e1bea87c282f6725cf8bdc08
 // Run on console:
 // php -f .\sample\confidence-factor\TransactionConfidenceEndpoint.php
 
-$txConfidence = TXConfidence::get('43fa951e1bea87c282f6725cf8bdc08bb48761396c3af8dd5a41a085ab62acc9');
+$txClient = new TXClient($apiContext);
+$txConfidence = $txClient->getConfidence('43fa951e1bea87c282f6725cf8bdc08bb48761396c3af8dd5a41a085ab62acc9');
 
 {
   "age_millis":2188284017,

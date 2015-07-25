@@ -113,6 +113,7 @@ $.post('https://api.blockcypher.com/v1/btc/main/wallets?token=USERTOKEN', data)
 
 ```php
 <?php
+// normal wallet
 // Run on console:
 // php -f .\sample\wallet-api\CreateWalletEndpoint.php
 
@@ -122,7 +123,9 @@ $wallet->setName('alice');
 $wallet->setAddresses(array(
     "1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e"
 ));
-$wallet->create();
+
+$walletClient = new WalletClient($apiContext);
+$createdWallet = $walletClient->create($wallet);
 
 {
   "token":"c0afcccdde5081d6429de37d16166ead",
@@ -132,7 +135,30 @@ $wallet->create();
   ]
 }
 
-//TODO: php hd wallet example
+// hd wallet
+// Run on console:
+// php -f .\sample\wallet-api\CreateHDWalletEndpoint.php
+
+// Create a new instance of HDWallet object
+$wallet = new HDWallet();
+$wallet->setName($walletName);
+$wallet->setExtendedPublicKey('xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoCu1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8');
+$wallet->setSubchainIndexes(array(1, 3));
+
+$walletClient = new HDWalletClient($apiContext);
+$createdWallet = $walletClient->create($wallet);
+
+{
+  "token":"c0afcccdde5081d6429de37d16166ead",
+  "name":"",
+  "hd":true,
+  "extended_public_key":"xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoCu1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8",
+  "subchain_indexes":[
+    1,
+    3
+  ]
+}
+
 ```
 
 Resource | Method | Request Object | Return Object
@@ -204,6 +230,42 @@ $.get('https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses?token=YOU
 //TODO: hd wallet example
 ```
 
+```php
+<?php
+// normal wallet
+// Run on console:
+// php -f .\sample\wallet-api\GetWalletEndpoint.php
+
+$walletClient = new WalletClient($apiContext);
+$wallet = $walletClient->get('alice');
+
+{
+  "token":"c0afcccdde5081d6429de37d16166ead",
+  "name":"alice",
+  "addresses":[
+    "1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e"
+  ]
+}
+
+// hd wallet
+// Run on console:
+// php -f .\sample\wallet-api\GetHDWalletEndpoint.php
+
+$walletClient = new HDWalletClient($apiContext);
+$wallet = $walletClient->get('bob');
+
+{
+  "token":"c0afcccdde5081d6429de37d16166ead",
+  "name":"bob",
+  "hd":true,
+  "extended_public_key":"xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoCu1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8",
+  "subchain_indexes":[
+    1,
+    3
+  ]
+}
+```
+
 Resource | Method | Return Object
 -------- | ------ | -------------
 /wallets/$NAME | GET | [Wallet](#wallet)
@@ -258,11 +320,11 @@ $.post('https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses?token=US
 // Run on console:
 // php -f .\sample\wallet-api\AddAddressesToWalletEndpoint.php
 
-$wallet = Wallet::get('alice');
-$addressesList = AddressList::fromAddressesArray(array(
+$walletClient = new WalletClient($apiContext);
+$addressList = AddressList::fromAddressesArray(array(
     "13cj1QtfW61kQHoqXm3khVRYPJrgQiRM6j"
 ));
-$wallet->addAddresses($addressesList);
+$wallet = $walletClient->addAddresses('alice', $addressList);
 
 {
   "token":"c0afcccdde5081d6429de37d16166ead",
@@ -341,11 +403,12 @@ $.get('https://api.blockcypher.com/v1/btc/main/wallets/hd/bob/addresses?token=US
 
 ```php
 <?php
-
+// normal wallet
 // Run on console:
 // php -f .\sample\wallet-api\WalletAddressesEndpoint.php
 
-$wallet = Wallet::getOnlyAddresses('alice');
+$walletClient = new WalletClient($apiContext);
+$addressList = $walletClient->getWalletAddresses('alice');
 
 {
   "addresses":[
@@ -354,7 +417,19 @@ $wallet = Wallet::getOnlyAddresses('alice');
   ]
 }
 
-// TODO: PHP object & functions for HD
+// hd wallet
+// Run on console:
+// php -f .\sample\wallet-api\GetHDWalletAddressesEndpoint.php
+
+$walletClient = new HDWalletClient($apiContext);
+$addressList = $walletClient->getWalletAddresses('bob');
+
+{
+  "addresses":[
+    "13cj1QtfW61kQHoqXm3khVRYPJrgQiRM6j",
+    "1jr1rHMthQVMNSYswB9ExSvYn339fWMzn"
+  ]
+}
 ```
 
 Resource | Method | Return Object
@@ -396,13 +471,12 @@ $.ajax({
 // Run on console:
 // php -f .\sample\wallet-api\RemoveAddressesFromWalletEndpoint.php
 
+$walletClient = new WalletClient($apiContext);
 // List of addresses to be removed from the wallet
-$addressesList = AddressesList::fromAddressesArray(array(
+$addressList = AddressList::fromAddressesArray(array(
     "13cj1QtfW61kQHoqXm3khVRYPJrgQiRM6j"
 ));
-
-$wallet = Wallet::get('alice');
-$wallet->removeAddresses($addressesList);
+$wallet = $walletClient->removeAddresses('alice', $addressList);
 
 {
   "token":"c0afcccdde5081d6429de37d16166ead",
@@ -505,11 +579,12 @@ $.post('https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses/generate
 
 ```php
 <?php
+// normal wallet
 // Run on console:
 // php -f .\sample\wallet-api\GenerateAddressInWalletEndpoint.php
 
-$wallet = Wallet::get('alice');
-$walletGenerateAddressResponse = $wallet->generateAddress();
+$walletClient = new WalletClient($apiContext);
+$walletGenerateAddressResponse = $walletClient->generateAddress('alice');
 
 {
   "token":"c0afcccdde5081d6429de37d16166ead",
@@ -524,7 +599,44 @@ $walletGenerateAddressResponse = $wallet->generateAddress();
   "wif":"KwfVLLsRSgSC6pkDLkEmMn8fH5VFceaYT9B58Cu8QHZtZzJvnpYZ"
 }
 
-//todo: php examples
+// hd wallet
+// Run on console:
+// php -f .\sample\wallet-api\GenerateAddressInHDWalletEndpoint.php
+
+$walletClient = new HDWalletClient($apiContext);
+$hdWalletGenerateAddressResponse = $walletClient->generateAddress('bob');
+
+{
+  "token":"c0afcccdde5081d6429de37d16166ead",
+  "name":"bob",
+  "addresses":[
+    "1NwEtFZ6Td7cpKaJtYoeryS6avP2TUkSMh"
+  ],
+  "hd":true,
+  "address":"1NwEtFZ6Td7cpKaJtYoeryS6avP2TUkSMh",
+  "public":"029b393153a1ec68c7af3a98e88aecede3a409f27e698c090540098611c79e05b0"
+}
+
+// hd wallet with subchain_index
+// Run on console:
+// php -f .\sample\wallet-api\GenerateAddressInHDWalletWithSubchainIndexEndpoint.php
+
+$walletClient = new HDWalletClient($apiContexts['BTC.main']);
+$params = array('subchain_index' => 1);
+$hdWalletGenerateAddressResponse = $walletClient->generateAddress('bob', $params);
+
+{
+  "token":"c0afcccdde5081d6429de37d16166ead",
+  "name":"bob",
+  "addresses":[
+    "1NwEtFZ6Td7cpKaJtYoeryS6avP2TUkSMh",
+    "18FcseQ86zCaXzLbgDsH86292xb2EuKtFW"
+  ],
+  "hd":true,
+  "subchain_index":1,
+  "address":"18FcseQ86zCaXzLbgDsH86292xb2EuKtFW",
+  "public":"02518873d92d8e9a7720134ef499621eb793ecd85894f5da03ae172a392c69bce8"
+}
 ```
 
 Resource | Method | Request Object | Return Object
@@ -581,13 +693,19 @@ $.ajax({
 
 ```php
 <?php
+// normal wallet
 // Run on console:
 // php -f .\sample\wallet-api\DeleteWalletEndpoint.php
 
-$wallet = Wallet::get('alice');
-$result = $wallet->delete();
+$walletClient = new WalletClient($apiContext);
+$result = $walletClient->delete('alice');
 
-// TODO: PHP object & functions for HD
+// hd wallet
+// Run on console:
+// php -f .\sample\wallet-api\DeleteHDWalletEndpoint.php
+
+$walletClient = new HDWalletClient($apiContext);
+$result = $walletClient->delete('bob');
 ```
 
 Resource | Method | Return Object

@@ -212,7 +212,8 @@ $.get('https://api.blockcypher.com/v1/btc/main/txs/f854aebae95150b379cc1187d848d
 // Run on console:
 // php -f .\sample\transaction-api\TransactionHashEndpoint.php
 
-$transaction = TX::get('f854aebae95150b379cc1187d848d58225f3c4157fe992bcd166f58bd5063449');
+$txClient = new TXClient($apiContext);
+$transaction = $txClient->get('f854aebae95150b379cc1187d848d58225f3c4157fe992bcd166f58bd5063449');
 
 {
 "block_hash": "0000000000000000c504bdea36e531d80...",
@@ -437,7 +438,8 @@ $.get('https://api.blockcypher.com/v1/btc/main/txs').then(function(d) {console.l
 // Run on console:
 // php -f .\sample\transaction-api\UnconfirmedTransactionsEndpoint.php
 
-$txs = TX::getUnconfirmed();
+$txClient = new TXClient($apiContext);
+$txs = $txClient->getUnconfirmed(array(), $apiContext);
 
 [{'received': '2015-06-10T23:10:31.534Z',
   'ver': 1,
@@ -720,7 +722,8 @@ $tx->addOutput($output);
 // Tx amount
 $output->setValue(1000); // Satoshis
 
-$txSkeleton = $tx->create();
+$txClient = new TXClient($apiContext);
+$txSkeleton = $txClient->create($tx);
 
 {
   "tx":{
@@ -856,7 +859,7 @@ $.post('https://api.blockcypher.com/v1/bcy/test/txs/new', JSON.stringify(newtx))
 // Sign the transaction
 // Private key for address: C5vqMGme4FThKnCY44gx1PLgWr86uxRbDm
 $privateKeys = array("2c2cc015519b79782bd9c5af66f442e808f573714e3c4dc6df7d79c183963cff");
-$txSkeleton->sign($privateKeys);
+$txSkeleton = $txClient->sign($txSkeleton, $privateKeys);
 ```
 
 ### Locally Sign Your Transaction
@@ -1038,7 +1041,7 @@ $.post('https://api.blockcypher.com/v1/bcy/test/txs/send', JSON.stringify(sendtx
 ```php
 <?php
 // Send the transaction
-$txSkeleton = $txSkeleton->send();
+$txSkeleton = $txClient->send($txSkeleton);
 
 {
   "tx":{
@@ -1358,9 +1361,9 @@ $.post('https://api.blockcypher.com/v1/bcy/test/txs/send', JSON.stringify(pushtx
 // Run on console:
 // php -f .\sample\transaction-api\PushRawTransactionEndpoint.php
 
+$txClient = new TXClient($apiContext);
 $hexRawTx = "01000000011935b41d12936df99d322ac8972b74ecff7b79408bbccaf1b2eb8015228beac8000000006b483045022100921fc36b911094280f07d8504a80fbab9b823a25f102e2bc69b14bcd369dfc7902200d07067d47f040e724b556e5bc3061af132d5a47bd96e901429d53c41e0f8cca012102152e2bb5b273561ece7bbe8b1df51a4c44f5ab0bc940c105045e2cc77e618044ffffffff0240420f00000000001976a9145fb1af31edd2aa5a2bbaa24f6043d6ec31f7e63288ac20da3c00000000001976a914efec6de6c253e657a9d5506a78ee48d89762fb3188ac00000000";
-
-$tx = TX::push($hexRawTx);
+$tx = $txClient->push($hexRawTx);
 
 {
   "block_height": -1,
@@ -1631,9 +1634,9 @@ $.post('https://api.blockcypher.com/v1/bcy/test/txs/decode', JSON.stringify(deco
 // Run on console:
 // php -f .\sample\transaction-api\DecodeRawTransactionEndpoint.php
 
+$txClient = new TXClient($apiContext);
 $hexRawTx = "01000000011935b41d12936df99d322ac8972b74ecff7b79408bbccaf1b2eb8015228beac8000000006b483045022100921fc36b911094280f07d8504a80fbab9b823a25f102e2bc69b14bcd369dfc7902200d07067d47f040e724b556e5bc3061af132d5a47bd96e901429d53c41e0f8cca012102152e2bb5b273561ece7bbe8b1df51a4c44f5ab0bc940c105045e2cc77e618044ffffffff0240420f00000000001976a9145fb1af31edd2aa5a2bbaa24f6043d6ec31f7e63288ac20da3c00000000001976a914efec6de6c253e657a9d5506a78ee48d89762fb3188ac00000000";
-
-$tx = TX::decode($hexRawTx);
+$tx = $txClient->decode($hexRawTx);
 
 {
   "block_height":-1,
@@ -1740,8 +1743,8 @@ payload = JSON.parse('{ "inputs": [{"addresses": [sourceAddr]}],
 ```php
 <?php
 // Run on console:
-// php -f .\sample\transaction-api\CreateTxToFundMultisignAddrWithBuilderEndpoint.php
-// Builder classes are optional, see CreateTxToFundMultisignAddrEndpoint.php to see a sample using only base API classes.
+// php -f .\sample\transaction-api\CreateTxToFundMultisigAddrWithBuilderEndpoint.php
+// Builder classes are optional, see CreateTxToFundMultisigAddrEndpoint.php to see a sample using only base API classes.
 
 $input = TXInputBuilder::aTXInput()
     ->addAddress("n3D2YXwvpoPg8FhcWpzJiS3SvKKGD8AXZ4")
@@ -1760,7 +1763,8 @@ $tx = TXBuilder::aTX()
     ->addTXOutput($output)
     ->build();
 
-$txSkeleton = $tx->create();
+$txClient = new TXClient($apiContext);
+$txSkeleton = $txClient->create($tx);
 ```
 
 Multisignature transactions are made simple by the method described in the [Creating Transactions](#creating-transactions) section, but they deserve special mention. In order to use them, you first need to fund a multisignature address. You use the `/txs/new` endpoint as before, but instead of the **outputs** **addresses** array containing public addresses, it instead contains the public keys associated with the new address. In addition, you must select a **script_type** of *mutlisig-n-of-m*, where *n* and *m* are numbers (e.g., *multisig-2-of-3*). The code example demonstrates how the partially filled [TX request object](#tx) would appear.
@@ -1818,8 +1822,8 @@ payload = JSON.parse('{ "inputs": [{
 ```php
 <?php
 // Run on console:
-// php -f .\sample\transaction-api\CreateTxToSpendMultisignFundsWithBuilderEndpoint.php
-// Builder classes are optional, see CreateTxToSpendMultisignFunds.php to see a sample using only base API classes.
+// php -f .\sample\transaction-api\CreateTxToSpendMultisigFundsWithBuilderEndpoint.php
+// Builder classes are optional, see CreateTxToSpendMultisigFunds.php to see a sample using only base API classes.
 
 $input = TXInputBuilder::aTXInput()
     ->addAddress("03798be8162d7d6bc5c4e3b236100fcc0dfee899130f84c97d3a49faf83450fd81")
@@ -1838,7 +1842,8 @@ $tx = TXBuilder::aTX()
     ->addTXOutput($output)
     ->build();
 
-$txSkeleton = $tx->create();
+$txClient = new TXClient($apiContext);
+$txSkeleton = $txClient->create($tx);
 ```
 
 Once funded, you might want to programmatically spend the money in the address at some point. Here the process is similar, but with the inputs and outputs reversed. As you can see in the code sample, you need to provide the public keys within the **inputs** **addresses** array, and the corresponding **script_type** of *multisig-n-of-m* (e.g., *multisig-2-of-3*). Then you follow the same process of sending to `/txs/new` and getting an array of data to be signed.
@@ -1882,11 +1887,8 @@ curl -d '{"data":"I am the walrus", "encoding":"string"}' https://api.blockcyphe
 // Run on console:
 // php -f .\sample\transaction-api\DataEndpoint.php
 
-$nullData =  new NullData();
-$nullData->setEncoding('string');
-$nullData->setData('***BlockCypher Data Endpoint Test***'); // max 40 bytes
-
-$nullData->create();
+$nullDataClient = new NullDataClient($apiContext);
+$nullData = $nullDataClient->embedString('***BlockCypher Data Endpoint Test***'); // max 40 bytes
 
 {
   "data": "***BlockCypher Data Endpoint Test***",

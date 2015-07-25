@@ -80,7 +80,8 @@ $.get('https://api.blockcypher.com/v1/btc/main/addrs/1DEP8i3QJCsomS4BSMY2RpU1upv
 // Run on console:
 // php -f .\sample\address-api\AddressBalanceEndpoint.php
 
-$addressBalance = Address::getOnlyBalance('1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD');
+$addressClient = new AddressClient($apiContext);
+$addressBalance = $addressClient->getBalance('1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD');
 
 {
   "address":"1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD",
@@ -265,7 +266,8 @@ $.get('https://api.blockcypher.com/v1/btc/main/addrs/1DEP8i3QJCsomS4BSMY2RpU1upv
 // Run on console:
 // php -f .\sample\address-api\AddressEndpoint.php
 
-$address = Address::get('1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD');
+$addressClient = new AddressClient($apiContext);
+$address = $addressClient->get('1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD');
 
 {
   "address":"1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD",
@@ -575,7 +577,8 @@ $.get('https://api.blockcypher.com/v1/btc/main/addrs/1DEP8i3QJCsomS4BSMY2RpU1upv
 // Run on console:
 // php -f .\sample\address-api\AddressFullEndpoint.php
 
-$fullAddress = Address::getFullAddress('1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD');
+$addressClient = new AddressClient($apiContext);
+$fullAddress = $addressClient->getFullAddress('1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD');
 
 {
   "address":"1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD",
@@ -711,8 +714,8 @@ $.post('https://api.blockcypher.com/v1/btc/test3/addrs')
 // Run on console:
 // php -f .\sample\address-api\GenerateAddressEndpoint.php
 
-$addressKeyChain = new AddressKeyChain();
-$addressKeyChain->create($apiContexts['BTC.main']);
+$addressClient = new AddressClient($apiContext);
+$addressKeyChain = $addressClient->generateAddress();
 
 {
   "private":"3f3cea5a7373011d6f51844bf986abe6950d7a30eaaab247fc951c3ea9f13705",
@@ -813,21 +816,15 @@ $.post('https://api.blockcypher.com/v1/btc/test3/addrs', data)
 ```php
 <?php
 // Run on console:
-// php -f .\sample\address-api\GenerateMultisignAddressEndpoint.php
+// php -f .\sample\address-api\GenerateMultisigAddressEndpoint.php
 
-$addressKeyChain = new AddressKeyChain();
+$addressClient = new AddressClient($apiContext);
 $pubkeys = array(
     "02c716d071a76cbf0d29c29cacfec76e0ef8116b37389fb7a3e76d6d32cf59f4d3",
     "033ef4d5165637d99b673bcdbb7ead359cee6afd7aaf78d3da9d2392ee4102c8ea",
     "022b8934cc41e76cb4286b9f3ed57e2d27798395b04dd23711981a77dc216df8ca"
 );
-$addressKeyChain->setPubkeys($pubkeys);
-$addressKeyChain->setScriptType('multisig-2-of-3');
-
-// For Sample Purposes Only.
-$request = clone $addressKeyChain;
-
-$addressKeyChain->create();
+$addressKeyChain = $addressClient->generateMultisigAddress($pubkeys, 'multisig-2-of-3');
 
 {
   "pubkeys":[
