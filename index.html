@@ -899,6 +899,7 @@ Objects sometimes contain <b>attributes</b> that are <b><i>optional.</i></b> The
 <span class="s2">"ver"</span>: 2,
 <span class="s2">"time"</span>: <span class="s2">"2014-04-05T07:49:18Z"</span>,
 <span class="s2">"received_time"</span>: <span class="s2">"2014-04-05T07:49:18Z"</span>,
+<span class="s2">"relayed_by"</span>: <span class="s2">""</span>,
 <span class="s2">"bits"</span>: 419486617,
 <span class="s2">"nonce"</span>: 1225187768,
 <span class="s2">"n_tx"</span>: 10,
@@ -968,6 +969,11 @@ Objects sometimes contain <b>attributes</b> that are <b><i>optional.</i></b> The
 <td><strong>received_time</strong></td>
 <td><a href="https://tools.ietf.org/html/rfc3339"><em>time</em></a></td>
 <td>The time BlockCypher&rsquo;s servers receive the block. Our servers&rsquo; clock is continuously adjusted and accurate.</td>
+</tr>
+<tr>
+<td><strong>relayed_by</strong></td>
+<td><em>string</em></td>
+<td>Address of the peer that sent BlockCypher&rsquo;s servers this block.</td>
 </tr>
 <tr>
 <td><strong>bits</strong></td>
