@@ -71,6 +71,7 @@ curl https://api.blockcypher.com/v1/btc/main/blocks/0000000000000000189bba3564a6
 "ver": 2,
 "time": "2014-04-05T07:49:18Z",
 "received_time": "2014-04-05T07:49:18Z",
+"relayed_by": "",
 "bits": 419486617,
 "nonce": 1225187768,
 "n_tx": 10,
@@ -100,6 +101,7 @@ Attribute | Type | Description
 **ver** | *integer* | Block version. In Bitcoin, per [BIP34](https://github.com/bitcoin/bips/blob/master/bip-0034.mediawiki) the last version 1 block was at height 227835.
 **time** | [*time*](https://tools.ietf.org/html/rfc3339) | Recorded time at which block was built. *Note: Miners rarely post accurate clock times.*
 **received_time** | [*time*](https://tools.ietf.org/html/rfc3339) | The time BlockCypher's servers receive the block. Our servers' clock is continuously adjusted and accurate.
+**relayed_by** | *string* | Address of the peer that sent BlockCypher's servers this block.
 **bits** | *integer* | The block-encoded [difficulty target](https://en.bitcoin.it/wiki/Target).
 **nonce** | *integer* | The [number used by a miner](https://en.bitcoin.it/wiki/Nonce) to generate this block.
 **n_tx** | *integer* | Number of transactions in this block.
