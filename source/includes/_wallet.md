@@ -10,15 +10,13 @@ A normal Wallet can be created, deleted, and have addresses added and removed. T
 
 ## Hierarchical Deterministic (HD) Wallets
 
-We also offer support for HD Wallets, which make it easy to manage multiple addresses under a single name. All HD wallet addresses are derived from a single seed.
+We also offer support for HD Wallets, which make it easy to manage multiple addresses under a single name. All HD wallet addresses are derived from a single seed. Please see [BIP32](https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki) for more background on HD wallets.
 
 HD Wallets can be created, deleted, and have new addresses generated. However, unlike normal Wallets, addresses cannot be removed.
 
 When creating a wallet, one can optionally include one or more "subchain" indexes. These subchains can later be referenced when generating new addresses or sending txs. If none are provided in wallet creation, the wallet will derive & use addresses straight from the given extended pubkey. If no index is given when using the wallet with other APIs, it defaults to using the wallet's first (sub) chain.
 
-Please see [BIP32](https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki) for the background on HD wallets.
-
-In BIP32 notation, the wallet layout is m/0, m/1, ... and m/<b>i</b>/0, m/<b>i</b>/1, ... for each subchain <b>i</b> if the wallet has subchains. For example, the path of the fourth address generated is m/3 for a non-subchain wallet. The path of the fourth address at subchain index two is m/2/3. Note that this is different from the default BIP32 wallet layout.
+In BIP32 notation, the wallet layout is m/0, m/1, ... and m/**i**/0, m/**i**/1, ... for each subchain **i** if the wallet has subchains. For example, the path of the fourth address generated is m/3 for a non-subchain wallet. The path of the fourth address at subchain index two is m/2/3. Note that this is different from the default BIP32 wallet layout.
 
 If you want to use [BIP32 default wallet layout](https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki#The_default_wallet_layout) you can submit the extended public key of m/0' (which can only be derived from your master private key) with subchain indexes = [0, 1]. Subchain index 0 represents the external chain (of account 0) and will discover all k keypairs that look like: m/0'/0/k. Subchain index 1 represents the internal chain (of account 0) and will discover all k keypairs in m/0'/1/k.
 
