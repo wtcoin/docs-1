@@ -4,7 +4,7 @@ In addition to our normal [Transaction API](#transaction-api), we offer a unique
 
 Simple. We leverage our own infrastructure; in particular, our [Confidence Factor](#confidence-factor). When we reach 98% confidence that a microtransaction will reach the next block (usually ~8 seconds), we guarantee its value and return the completed microtransaction. As of this writing, we haven't had a single failed mictrotransaction, and we're improving our confidence data all the time.
 
-We also pay for the mining fees on transactions for the first 8,000 microtransactions. After which, we automatically optimize fee structure to achieve a balance between guaranteeing confidence it will be in the next block and minimizing cost. If there isn't enough value for the fee, we'll return an error.
+We also pay for the mining fees for your first 8,000 microtransactions. After which, we automatically optimize fee structure to achieve a balance between guaranteeing confidence it will be in the next block and minimizing cost. If there isn't enough value in your microtransaction for the fee, we'll return an error.
 
 <aside class="notice">
 In order for us to keep track of mining fees, we require that all calls to the Microtransactions API use a token. You can <a href="http://accounts.blockcypher.com/">register for one here.</a>
