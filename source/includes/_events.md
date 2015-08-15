@@ -19,7 +19,7 @@ Event | Description
 *confirmed-tx* | Triggered for every new transaction making it into a new block; in other words, for every first transaction confirmation. This is equivalent to listening to the *new-block* event and fetching each transaction in the new [Block](#block). The payload is a confirmed [TX](#tx).
 *tx-confirmation* | Simplifies listening to confirmations on all transactions for a given address up to a provided threshold. Sends first the unconfirmed transaction and then the transaction for each confirmation. Use the **confirmations** property within the [Event](#event) to manually specify the number of confirmations desired (maximum 10, defaults to 6). The payload is a [TX](#tx).
 *double-spend-tx* | Triggered any time a double spend is detected by BlockCypher. The payload is the [TX](#tx) that triggered the event; the hash of the transaction that it's trying to double spend is included in its **double_spend_tx** property.
-*tx-confidence* | Triggered any time an **address** has an unconfirmed transaction above the **confidence** property specified in the [Event](#event). The payload is the [TX](#tx) that triggered the event. If **confidence** is not set, defaults to 0.99.
+*tx-confidence* | Triggered any time an **address** has an unconfirmed transaction above the **confidence** property specified in the [Event](#event), based on our [Confidence Factor.](#confidence-factor) The payload is the [TX](#tx) that triggered the event. If **confidence** is not set, defaults to 0.99.
 
 <aside class="notice">
 Events like <i>unconfirmed-tx</i> can produce a lot of requests. To avoid rate-limiting, please <a href="http://accounts.blockcypher.com/">register for a token.</a>
