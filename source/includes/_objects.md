@@ -579,12 +579,13 @@ An Event represents a WebHooks or WebSockets-based notification request, as deta
 Attribute | Type | Description
 --------- | ---- | -----------
 **id** | *string* | Identifier of the event; generated when a new request is created.
-**event** | *string* | Type of event; can be *unconfirmed-tx*, *new-block*, *confirmed-tx*, *tx-confirmation*, *double-spend-tx*.
+**event** | *string* | Type of event; can be *unconfirmed-tx*, *new-block*, *confirmed-tx*, *tx-confirmation*, *double-spend-tx*, *tx-confidence*.
 **hash**	| *string* | ***optional*** Only objects with a matching hash will be sent. The hash can either be for a block or a transaction.
 **wallet_name**	|  *string* | ***optional*** Only transactions associated with the given wallet will be sent. If used, requires a user token.
 **token**	| *string* | ***optional*** Required if wallet_name is used, though generally we advise users to include it (as they can reach API throttling thresholds rapidly).
 **address**	| *string* | ***optional*** Only transactions associated with the given address will be sent. A wallet name can also be used instead of an address, which will then match on any address in the wallet.
 **confirmations** | *integer* | ***optional***  Used in concert with the *tx-confirmation* event type to set the number of confirmations desired for which to receive an update. You'll receive an updated [TX](#tx) for every confirmation up to this amount. The maximum allowed is 10; if not set, it will default to 6.
+**confidence** | *float* | ***optional*** Used in concert with the *tx-confidence* event type to set the minimum [confidence](#confidence-factor) for which you'll receive an update. You'll receive an a [TX](#tx) once this threshold is met. Will accept any interval between 0.001 and 0.999; if not set, defaults to 0.99.
 **script**	| *string* | ***optional*** Only transactions with an output script of the provided type will be sent. The recognized types of scripts are: *pay-to-pubkey-hash*, *pay-to-multi-pubkey-hash*, *pay-to-pubkey*, *pay-to-script-hash*, *null-data* (sometimes called OP_RETURN), *empty* or *unknown*.
 **url** | *url* | ***optional*** Callback URL for this Event's WebHook; not applicable for WebSockets usage.
 
