@@ -2003,7 +2003,7 @@ Only one of these three fields is required for the microtransaction endpoint: <b
 <tr>
 <td><strong>event</strong></td>
 <td><em>string</em></td>
-<td>Type of event; can be <em>unconfirmed-tx</em>, <em>new-block</em>, <em>confirmed-tx</em>, <em>tx-confirmation</em>, <em>double-spend-tx</em>.</td>
+<td>Type of event; can be <em>unconfirmed-tx</em>, <em>new-block</em>, <em>confirmed-tx</em>, <em>tx-confirmation</em>, <em>double-spend-tx</em>, <em>tx-confidence</em>.</td>
 </tr>
 <tr>
 <td><strong>hash</strong></td>
@@ -2029,6 +2029,11 @@ Only one of these three fields is required for the microtransaction endpoint: <b
 <td><strong>confirmations</strong></td>
 <td><em>integer</em></td>
 <td><strong><em>optional</em></strong>  Used in concert with the <em>tx-confirmation</em> event type to set the number of confirmations desired for which to receive an update. You&rsquo;ll receive an updated <a href="#tx">TX</a> for every confirmation up to this amount. The maximum allowed is 10; if not set, it will default to 6.</td>
+</tr>
+<tr>
+<td><strong>confidence</strong></td>
+<td><em>float</em></td>
+<td><strong><em>optional</em></strong> Used in concert with the <em>tx-confidence</em> event type to set the minimum <a href="#confidence-factor">confidence</a> for which you&rsquo;ll receive an update. You&rsquo;ll receive an a <a href="#tx">TX</a> once this threshold is met. Will accept any interval between 0.001 and 0.999; if not set, defaults to 0.99.</td>
 </tr>
 <tr>
 <td><strong>script</strong></td>
@@ -6877,6 +6882,10 @@ HTTP/1.1 204 No Content
 <tr>
 <td><em>double-spend-tx</em></td>
 <td>Triggered any time a double spend is detected by BlockCypher. The payload is the <a href="#tx">TX</a> that triggered the event; the hash of the transaction that it&rsquo;s trying to double spend is included in its <strong>double_spend_tx</strong> property.</td>
+</tr>
+<tr>
+<td><em>tx-confidence</em></td>
+<td>Triggered any time an <strong>address</strong> has an unconfirmed transaction above the <strong>confidence</strong> property specified in the <a href="#event">Event</a>. The payload is the <a href="#tx">TX</a> that triggered the event. If <strong>confidence</strong> is not set, defaults to 0.99.</td>
 </tr>
 </tbody></table>
 
