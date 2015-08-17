@@ -570,7 +570,8 @@ curl https://api.blockcypher.com/v1/btc/main/hooks/399d0923-e920-48ee-8928-2051c
 "event": "unconfirmed-tx",
 "address": "15qx9ug952GWGTNn7Uiv6vode4RcGrRemh",
 "token": "YOURTOKEN",
-"url": "https://my.domain.com/callbacks/new-tx"
+"url": "https://my.domain.com/callbacks/new-tx",
+"callback_errors": 0
 }
 ```
 
@@ -588,6 +589,7 @@ Attribute | Type | Description
 **confidence** | *float* | ***optional*** Used in concert with the *tx-confidence* event type to set the minimum [confidence](#confidence-factor) for which you'll receive a notification. You'll receive a [TX](#tx) once this threshold is met. Will accept any *float* between 0 and 1, exclusive; if not set, defaults to 0.99.
 **script**	| *string* | ***optional*** Only transactions with an output script of the provided type will be sent. The recognized types of scripts are: *pay-to-pubkey-hash*, *pay-to-multi-pubkey-hash*, *pay-to-pubkey*, *pay-to-script-hash*, *null-data* (sometimes called OP_RETURN), *empty* or *unknown*.
 **url** | *url* | ***optional*** Callback URL for this Event's WebHook; not applicable for WebSockets usage.
+**callback_errors** | *int* | Number of errors when attempting to POST to callback URL; not applicable for WebSockets usage.
 
 ## PaymentForward
 

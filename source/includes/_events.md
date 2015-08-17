@@ -95,8 +95,9 @@ curl -d '{"event": "unconfirmed-tx", "address": "15qx9ug952GWGTNn7Uiv6vode4RcGrR
 "id": "399d0923-e920-48ee-8928-2051cbfbc369"
 "event": "unconfirmed-tx",
 "address": "15qx9ug952GWGTNn7Uiv6vode4RcGrRemh",
-"token": "YOURTOKEN"
-"url": "https://my.domain.com/callbacks/new-tx"
+"token": "YOURTOKEN",
+"url": "https://my.domain.com/callbacks/new-tx",
+"callback_errors": 0
 }
 ```
 
@@ -113,8 +114,9 @@ $.post(url, JSON.stringify(webhook))
 "id": "399d0923-e920-48ee-8928-2051cbfbc369"
 "event": "unconfirmed-tx",
 "address": "15qx9ug952GWGTNn7Uiv6vode4RcGrRemh",
-"token": "YOURTOKEN"
-"url": "https://my.domain.com/callbacks/new-tx"
+"token": "YOURTOKEN",
+"url": "https://my.domain.com/callbacks/new-tx",
+"callback_errors": 0
 }
 ```
 
@@ -186,8 +188,9 @@ curl https://api.blockcypher.com/v1/btc/main/hooks?token=YOURTOKEN
 	"id": "399d0923-e920-48ee-8928-2051cbfbc369"
 	"event": "unconfirmed-tx",
 	"address": "15qx9ug952GWGTNn7Uiv6vode4RcGrRemh",
-	"token": "YOURTOKEN"
-	"url": "https://my.domain.com/callbacks/new-tx"
+	"token": "YOURTOKEN",
+	"url": "https://my.domain.com/callbacks/new-tx",
+	"callback_errors": 0
 	}
 ]
 ```
@@ -200,8 +203,9 @@ $.get('https://api.blockcypher.com/v1/btc/main/hooks?token='+TOKEN)
 	"id": "399d0923-e920-48ee-8928-2051cbfbc369"
 	"event": "unconfirmed-tx",
 	"address": "15qx9ug952GWGTNn7Uiv6vode4RcGrRemh",
-	"token": "YOURTOKEN"
-	"url": "https://my.domain.com/callbacks/new-tx"
+	"token": "YOURTOKEN",
+	"url": "https://my.domain.com/callbacks/new-tx",
+	"callback_errors": 0
 	}
 ]
 ```
@@ -267,8 +271,9 @@ curl https://api.blockcypher.com/v1/btc/main/hooks/399d0923-e920-48ee-8928-2051c
 "id": "399d0923-e920-48ee-8928-2051cbfbc369"
 "event": "unconfirmed-tx",
 "address": "15qx9ug952GWGTNn7Uiv6vode4RcGrRemh",
-"token": "YOURTOKEN"
-"url": "https://my.domain.com/callbacks/new-tx"
+"token": "YOURTOKEN",
+"url": "https://my.domain.com/callbacks/new-tx",
+"callback_errors": 0
 }
 ```
 
@@ -279,8 +284,9 @@ $.get('https://api.blockcypher.com/v1/btc/main/hooks/399d0923-e920-48ee-8928-205
 "id": "399d0923-e920-48ee-8928-2051cbfbc369"
 "event": "unconfirmed-tx",
 "address": "15qx9ug952GWGTNn7Uiv6vode4RcGrRemh",
-"token": "YOURTOKEN"
-"url": "https://my.domain.com/callbacks/new-tx"
+"token": "YOURTOKEN",
+"url": "https://my.domain.com/callbacks/new-tx",
+"callback_errors": 0
 }
 ```
 
