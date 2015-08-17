@@ -2033,7 +2033,7 @@ Only one of these three fields is required for the microtransaction endpoint: <b
 <tr>
 <td><strong>confidence</strong></td>
 <td><em>float</em></td>
-<td><strong><em>optional</em></strong> Used in concert with the <em>tx-confidence</em> event type to set the minimum <a href="#confidence-factor">confidence</a> for which you&rsquo;ll receive an update. You&rsquo;ll receive an a <a href="#tx">TX</a> once this threshold is met. Will accept any interval between 0.001 and 0.999; if not set, defaults to 0.99.</td>
+<td><strong><em>optional</em></strong> Used in concert with the <em>tx-confidence</em> event type to set the minimum <a href="#confidence-factor">confidence</a> for which you&rsquo;ll receive a notification. You&rsquo;ll receive a <a href="#tx">TX</a> once this threshold is met. Will accept any <em>float</em> between 0 and 1, exclusive; if not set, defaults to 0.99.</td>
 </tr>
 <tr>
 <td><strong>script</strong></td>
