@@ -1982,7 +1982,8 @@ Only one of these three fields is required for the microtransaction endpoint: <b
 <span class="s2">"event"</span>: <span class="s2">"unconfirmed-tx"</span>,
 <span class="s2">"address"</span>: <span class="s2">"15qx9ug952GWGTNn7Uiv6vode4RcGrRemh"</span>,
 <span class="s2">"token"</span>: <span class="s2">"YOURTOKEN"</span>,
-<span class="s2">"url"</span>: <span class="s2">"https://my.domain.com/callbacks/new-tx"</span>
+<span class="s2">"url"</span>: <span class="s2">"https://my.domain.com/callbacks/new-tx"</span>,
+<span class="s2">"callback_errors"</span>: 0
 <span class="o">}</span>
 </code></pre>
 
@@ -2044,6 +2045,11 @@ Only one of these three fields is required for the microtransaction endpoint: <b
 <td><strong>url</strong></td>
 <td><em>url</em></td>
 <td><strong><em>optional</em></strong> Callback URL for this Event&rsquo;s WebHook; not applicable for WebSockets usage.</td>
+</tr>
+<tr>
+<td><strong>callback_errors</strong></td>
+<td><em>int</em></td>
+<td>Number of errors when attempting to POST to callback URL; not applicable for WebSockets usage.</td>
 </tr>
 </tbody></table>
 
@@ -6957,8 +6963,9 @@ Testing WebHooks can be tricky; we recommend using <a href="http://requestb.in/"
 <span class="s2">"id"</span>: <span class="s2">"399d0923-e920-48ee-8928-2051cbfbc369"</span>
 <span class="s2">"event"</span>: <span class="s2">"unconfirmed-tx"</span>,
 <span class="s2">"address"</span>: <span class="s2">"15qx9ug952GWGTNn7Uiv6vode4RcGrRemh"</span>,
-<span class="s2">"token"</span>: <span class="s2">"YOURTOKEN"</span>
-<span class="s2">"url"</span>: <span class="s2">"https://my.domain.com/callbacks/new-tx"</span>
+<span class="s2">"token"</span>: <span class="s2">"YOURTOKEN"</span>,
+<span class="s2">"url"</span>: <span class="s2">"https://my.domain.com/callbacks/new-tx"</span>,
+<span class="s2">"callback_errors"</span>: 0
 <span class="o">}</span>
 </code></pre>
 <pre class="highlight javascript"><code><span class="kd">var</span> <span class="nx">webhook</span> <span class="o">=</span> <span class="p">{</span>
@@ -6973,8 +6980,9 @@ Testing WebHooks can be tricky; we recommend using <a href="http://requestb.in/"
 <span class="s2">"id"</span><span class="err">:</span> <span class="s2">"399d0923-e920-48ee-8928-2051cbfbc369"</span>
 <span class="s2">"event"</span><span class="err">:</span> <span class="s2">"unconfirmed-tx"</span><span class="p">,</span>
 <span class="s2">"address"</span><span class="err">:</span> <span class="s2">"15qx9ug952GWGTNn7Uiv6vode4RcGrRemh"</span><span class="p">,</span>
-<span class="s2">"token"</span><span class="err">:</span> <span class="s2">"YOURTOKEN"</span>
-<span class="s2">"url"</span><span class="err">:</span> <span class="s2">"https://my.domain.com/callbacks/new-tx"</span>
+<span class="s2">"token"</span><span class="err">:</span> <span class="s2">"YOURTOKEN"</span><span class="p">,</span>
+<span class="s2">"url"</span><span class="err">:</span> <span class="s2">"https://my.domain.com/callbacks/new-tx"</span><span class="p">,</span>
+<span class="s2">"callback_errors"</span><span class="err">:</span> <span class="mi">0</span>
 <span class="p">}</span>
 </code></pre>
 <pre class="highlight ruby"><code><span class="o">&gt;</span> <span class="n">block_cypher</span><span class="p">.</span><span class="nf">event_webhook_subscribe</span><span class="p">(</span><span class="s2">"https://my.domain.com/callbacks/new-tx"</span><span class="p">,</span> <span class="s2">"unconfirmed-tx"</span><span class="p">,</span> <span class="n">address</span><span class="ss">:"15qx9ug952GWGTNn7Uiv6vode4RcGrRemh"</span><span class="p">)</span>
@@ -7050,8 +7058,9 @@ Testing WebHooks can be tricky; we recommend using <a href="http://requestb.in/"
     <span class="s2">"id"</span>: <span class="s2">"399d0923-e920-48ee-8928-2051cbfbc369"</span>
     <span class="s2">"event"</span>: <span class="s2">"unconfirmed-tx"</span>,
     <span class="s2">"address"</span>: <span class="s2">"15qx9ug952GWGTNn7Uiv6vode4RcGrRemh"</span>,
-    <span class="s2">"token"</span>: <span class="s2">"YOURTOKEN"</span>
-    <span class="s2">"url"</span>: <span class="s2">"https://my.domain.com/callbacks/new-tx"</span>
+    <span class="s2">"token"</span>: <span class="s2">"YOURTOKEN"</span>,
+    <span class="s2">"url"</span>: <span class="s2">"https://my.domain.com/callbacks/new-tx"</span>,
+    <span class="s2">"callback_errors"</span>: 0
     <span class="o">}</span>
 <span class="o">]</span>
 </code></pre>
@@ -7062,8 +7071,9 @@ Testing WebHooks can be tricky; we recommend using <a href="http://requestb.in/"
     <span class="s2">"id"</span><span class="p">:</span> <span class="s2">"399d0923-e920-48ee-8928-2051cbfbc369"</span>
     <span class="s2">"event"</span><span class="p">:</span> <span class="s2">"unconfirmed-tx"</span><span class="p">,</span>
     <span class="s2">"address"</span><span class="p">:</span> <span class="s2">"15qx9ug952GWGTNn7Uiv6vode4RcGrRemh"</span><span class="p">,</span>
-    <span class="s2">"token"</span><span class="p">:</span> <span class="s2">"YOURTOKEN"</span>
-    <span class="s2">"url"</span><span class="p">:</span> <span class="s2">"https://my.domain.com/callbacks/new-tx"</span>
+    <span class="s2">"token"</span><span class="p">:</span> <span class="s2">"YOURTOKEN"</span><span class="p">,</span>
+    <span class="s2">"url"</span><span class="p">:</span> <span class="s2">"https://my.domain.com/callbacks/new-tx"</span><span class="p">,</span>
+    <span class="s2">"callback_errors"</span><span class="p">:</span> <span class="mi">0</span>
     <span class="p">}</span>
 <span class="p">]</span>
 </code></pre>
@@ -7131,8 +7141,9 @@ Testing WebHooks can be tricky; we recommend using <a href="http://requestb.in/"
 <span class="s2">"id"</span>: <span class="s2">"399d0923-e920-48ee-8928-2051cbfbc369"</span>
 <span class="s2">"event"</span>: <span class="s2">"unconfirmed-tx"</span>,
 <span class="s2">"address"</span>: <span class="s2">"15qx9ug952GWGTNn7Uiv6vode4RcGrRemh"</span>,
-<span class="s2">"token"</span>: <span class="s2">"YOURTOKEN"</span>
-<span class="s2">"url"</span>: <span class="s2">"https://my.domain.com/callbacks/new-tx"</span>
+<span class="s2">"token"</span>: <span class="s2">"YOURTOKEN"</span>,
+<span class="s2">"url"</span>: <span class="s2">"https://my.domain.com/callbacks/new-tx"</span>,
+<span class="s2">"callback_errors"</span>: 0
 <span class="o">}</span>
 </code></pre>
 <pre class="highlight javascript"><code><span class="nx">$</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">'https://api.blockcypher.com/v1/btc/main/hooks/399d0923-e920-48ee-8928-2051cbfbc369'</span><span class="p">)</span>
@@ -7141,8 +7152,9 @@ Testing WebHooks can be tricky; we recommend using <a href="http://requestb.in/"
 <span class="s2">"id"</span><span class="err">:</span> <span class="s2">"399d0923-e920-48ee-8928-2051cbfbc369"</span>
 <span class="s2">"event"</span><span class="err">:</span> <span class="s2">"unconfirmed-tx"</span><span class="p">,</span>
 <span class="s2">"address"</span><span class="err">:</span> <span class="s2">"15qx9ug952GWGTNn7Uiv6vode4RcGrRemh"</span><span class="p">,</span>
-<span class="s2">"token"</span><span class="err">:</span> <span class="s2">"YOURTOKEN"</span>
-<span class="s2">"url"</span><span class="err">:</span> <span class="s2">"https://my.domain.com/callbacks/new-tx"</span>
+<span class="s2">"token"</span><span class="err">:</span> <span class="s2">"YOURTOKEN"</span><span class="p">,</span>
+<span class="s2">"url"</span><span class="err">:</span> <span class="s2">"https://my.domain.com/callbacks/new-tx"</span><span class="p">,</span>
+<span class="s2">"callback_errors"</span><span class="err">:</span> <span class="mi">0</span>
 <span class="p">}</span>
 </code></pre>
 <pre class="highlight ruby"><code><span class="o">&gt;</span> <span class="n">block_cypher</span><span class="p">.</span><span class="nf">event_webhook_get</span><span class="p">(</span><span class="s2">"85883de4-2b01-4f27-a7d4-4400856e124a"</span><span class="p">)</span>
