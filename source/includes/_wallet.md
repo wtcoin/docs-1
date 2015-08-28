@@ -439,9 +439,15 @@ $addressList = $walletClient->getWalletAddresses('bob');
 Resource | Method | Return Object
 -------- | ------ | -------------
 /wallets/$NAME/addresses | GET | [Wallet](#wallet)
-/wallets/hd/$NAME/addresses | GET | [HDWallet](#hdwallet)
+/wallets/hd/$NAME/addresses | GET | [HD Addresses](#hd-addresses)
 
-This endpoint returns a list of the addresses associated with the $NAME wallet. It returns the addresses in a partially filled out [Wallet](#wallet) or [HDWallet](#hdwallet) object, which you'll find under the **addresses** attribute.
+Flag | Type | Effect
+---- | ---- | ------
+**used** | *bool* | Returns only used addresses if set to **true** and only unused if **false**.
+**zerobalance** | *bool* | Returns only addresses with zero balance if set to **true** and only addresses with non-zero balance if **false**.
+
+
+This endpoint returns a list of the addresses associated with the $NAME wallet. It returns the addresses in a partially filled out [Wallet](#wallet) which you'll find under the **addresses** attribute. For HD wallets it returns a [HD Addresses](#hd-addresses) object.
 
 ## Remove Addresses from Wallet Endpoint
 
@@ -645,8 +651,13 @@ $hdWalletGenerateAddressResponse = $walletClient->generateAddress('bob', $params
 
 Resource | Method | Request Object | Return Object
 -------- | ------ | -------------- | -------------
-/wallets/$NAME/addresses/generate | POST | *nil* | [Wallet](#Wallet) + [AddressKeychain](#AddressKeychain)
-/wallets/hd/$NAME/addresses/generate | POST | *nil* | [Wallet](#Wallet) + [AddressKeychain](#AddressKeychain)
+/wallets/$NAME/addresses/generate | POST | *nil* | [Wallet](#wallet) + [AddressKeychain](#addresskeychain)
+/wallets/hd/$NAME/addresses/derive | POST | *nil* | [Wallet](#hdwallet) + [HD Address](#hd-address)
+
+Flag | Type | Effect
+---- | ---- | ------
+**count** | *integer* | number of addresses to derive for HD wallets.
+
 
 This endpoint allows you to generate a new address associated with the $NAME wallet, similar to the [Generate Address Endpoint](#generate-address-endpoint). If successful, it will returned the newly modified [Wallet](#wallet) or [HDWallet](#hdwallet) composed with an [AddressKeychain](#AddressKeychain).
 

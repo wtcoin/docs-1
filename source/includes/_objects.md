@@ -554,10 +554,67 @@ Attribute | Type | Description
 --------- | ---- | -----------
 **token** | *string* | User token associated with this HD wallet.
 **name** | *string* | Name of the HD wallet.
-**addresses** | *array[string]* | List of addresses associated with this HD wallet.
+**chains** | *HD Addresses* | List of HD chains associated with this wallet, each containing addresses. A single chain is returned if the wallet has no subchains.
 **hd** | *bool* | true for HD wallets, not present for normal wallets.
 **extended_public_key** | *string* | The extended public key all addresses in the HD wallet are derived from. It's encoded in [BIP32 format](https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki#serialization-format)
 **subchain_indexes** | *array[integer]* | ***optional*** returned for HD wallets created with subchains.
+
+## HD Addresses
+
+```shell
+curl http://api.blockcypher.com/v1/btc/main/wallet/hd/mywallet/addresses
+
+{
+  "chains": [
+    {
+      "index": 0,
+      "chain_addresses": [
+        {
+          "address": "mrSeAixYDXL17YZm6VEcxn9REZ6jK8DDgL",
+          "public": "",
+          "path": "m/0/0"
+        }
+      ]
+    },
+    {
+      "index": 1,
+      "chain_addresses": []
+    },
+    {
+      "index": 3,
+      "chain_addresses": [
+        {
+          "address": "mwdn5TnPgHYQZ6Cm5Q6M5irhEUonXWo7EK",
+          "public": "",
+          "path": "m/3/0"
+        },
+        {
+          "address": "mkSGZzk5MSrhNHTJzVbtQGcLQQHty13Spe",
+          "public": "",
+          "path": "m/3/1"
+        }
+      ]
+    }
+  ]
+}
+```
+
+HD Addresses are returned from the [Get Wallet](#get-wallet-endpoint), [Get Wallet Addresses](#get-wallet-addresses-endpoint) and [Generate Address in Wallet](#generate-address-in-wallet-endpoint) endpoints.
+
+Attribute | Type | Description
+--------- | ---- | -----------
+**index** | *integer* | ***optional***  Index of the subchain, returned if the wallet has subchains.
+**chain_addresses** | *array[hd address]* | List of HD address objects
+
+## HD Address
+
+Attribute | Type | Description
+--------- | ---- | -----------
+**address** | *string* | HD address
+**public** | *string* | Contains the public key bytes if returned by [Generate Address in Wallet](#generate-address-in-wallet-endpoint) endpoint.
+**path** | *string* | The BIP32 path of the HD address.
+
+An HD Address object contains the actual address and the BIP32 HD path (location of the address in the HD tree). It also contains the public key when returned from the [Generate Address in Wallet](#generate-address-in-wallet-endpoint) endpoint.
 
 
 ## Event
