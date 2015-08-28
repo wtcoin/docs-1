@@ -439,7 +439,7 @@ $addressList = $walletClient->getWalletAddresses('bob');
 Resource | Method | Return Object
 -------- | ------ | -------------
 /wallets/$NAME/addresses | GET | [Wallet](#wallet)
-/wallets/hd/$NAME/addresses | GET | [HD Addresses](#hd-addresses)
+/wallets/hd/$NAME/addresses | GET | [HDChain](#hdchain)
 
 Flag | Type | Effect
 ---- | ---- | ------
@@ -510,7 +510,6 @@ You cannot remove addresses from HD Wallets.
 ## Generate Address in Wallet Endpoint
 
 ```shell
-# normal wallet
 curl -X POST https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses/generate?token=YOURTOKEN
 
 {"token": "YOURTOKEN",
@@ -523,32 +522,6 @@ curl -X POST https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses/gen
 "public": "03e4f273521a30373a639f60da836f2308a5d53853ec18f903dd235c73e6e26e4a",
 "address": "14LcPtRSGjYb1s8kfxsVDbXvA7VYCmoFho",
 "wif": "KzWeDL7sysRay7pZUm6hQQLaDVjmN1jUZzeZuq6ru5FtN1RhPrLX"}
-
-#hd wallet
-curl -X POST https://api.blockcypher.com/v1/btc/main/wallets/hd/bob/addresses/generate?token=YOURTOKEN
-
-{"token": "YOURTOKEN",
-"name": "bob",
-"addresses": [
-  "1NwEtFZ6Td7cpKaJtYoeryS6avP2TUkSMh"
-],
-"hd": true,
-"address": "1NwEtFZ6Td7cpKaJtYoeryS6avP2TUkSMh",
-"public": "029b393153a1ec68c7af3a98e88aecede3a409f27e698c090540098611c79e05b0"}
-
-#hd wallet with subchain_index
-curl -X POST 'https://api.blockcypher.com/v1/btc/main/wallets/hd/bob/addresses/generate?token=YOURTOKEN&subchain_index=1'
-
-{"token": "YOURTOKEN",
-"name": "bob",
-"addresses": [
-  "1NwEtFZ6Td7cpKaJtYoeryS6avP2TUkSMh",
-  "1NZ97rKhSPy6NLud5Dp89E4yH5a2fUGeyC"
-],
-"hd": true,
-"subchain_index": 1,
-"address": "1NZ97rKhSPy6NLud5Dp89E4yH5a2fUGeyC",
-"public": "03d18a97975c5f2e11dfa22dd686315f27b35c2db5d32cd7d0c11aea146fdd17c2"}
 ```
 
 ```javascript
@@ -566,8 +539,6 @@ $.post('https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses/generate
 >   "address": "14LcPtRSGjYb1s8kfxsVDbXvA7VYCmoFho",
 >   "wif": "KzWeDL7sysRay7pZUm6hQQLaDVjmN1jUZzeZuq6ru5FtN1RhPrLX"
 > }
-
-//todo: javascript hd examples
 ```
 
 ```ruby
@@ -579,8 +550,6 @@ $.post('https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses/generate
  "public"=>"037318b43fc83f3af24b5d88c8e4e33ebbdea62c3a3f6eb3a9830e2bb1f6682108",
  "address"=>"1Bq7QRwfa36p5DGSe6UBy4PYmsEtQhpqC8",
  "wif"=>"L5NwFyFdHqfBYhaQDttym6b3tXeaKaH7cepgAJunWrkKY24NUCjb"}
-
-# todo: ruby hd examples
 ```
 
 ```python
@@ -589,7 +558,6 @@ $.post('https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses/generate
 
 ```php
 <?php
-// normal wallet
 // Run on console:
 // php -f .\sample\wallet-api\GenerateAddressInWalletEndpoint.php
 
@@ -608,8 +576,58 @@ $walletGenerateAddressResponse = $walletClient->generateAddress('alice');
   "address":"1GuPv187EEUi3BDypdpMS7cmMuaVpWy6PM",
   "wif":"KwfVLLsRSgSC6pkDLkEmMn8fH5VFceaYT9B58Cu8QHZtZzJvnpYZ"
 }
+```
 
-// hd wallet
+Resource | Method | Request Object | Return Object
+-------- | ------ | -------------- | -------------
+/wallets/$NAME/addresses/generate | POST | *nil* | [Wallet](#wallet) + [AddressKeychain](#addresskeychain)
+
+This endpoint allows you to generate a new address associated with the $NAME wallet, similar to the [Generate Address Endpoint](#generate-address-endpoint). If successful, it will returned the newly modified [Wallet](#wallet) composed with an [AddressKeychain](#addresskeychain).
+
+Only works for regular Wallets; for HD Wallets, use the [Derive Address](#derive-address-in-wallet-endpoint) in Wallet endpoint specified below.
+
+## Derive Address in Wallet Endpoint
+
+```shell
+curl -X POST https://api.blockcypher.com/v1/btc/main/wallets/hd/bob/addresses/derive?token=YOURTOKEN
+
+{"token": "YOURTOKEN",
+"name": "bob",
+"addresses": [
+  "1NwEtFZ6Td7cpKaJtYoeryS6avP2TUkSMh"
+],
+"hd": true,
+"address": "1NwEtFZ6Td7cpKaJtYoeryS6avP2TUkSMh",
+"public": "029b393153a1ec68c7af3a98e88aecede3a409f27e698c090540098611c79e05b0"}
+
+#hd wallet with subchain_index
+curl -X POST 'https://api.blockcypher.com/v1/btc/main/wallets/hd/bob/addresses/derive?token=YOURTOKEN&subchain_index=1'
+
+{"token": "YOURTOKEN",
+"name": "bob",
+"addresses": [
+  "1NwEtFZ6Td7cpKaJtYoeryS6avP2TUkSMh",
+  "1NZ97rKhSPy6NLud5Dp89E4yH5a2fUGeyC"
+],
+"hd": true,
+"subchain_index": 1,
+"address": "1NZ97rKhSPy6NLud5Dp89E4yH5a2fUGeyC",
+"public": "03d18a97975c5f2e11dfa22dd686315f27b35c2db5d32cd7d0c11aea146fdd17c2"}
+```
+
+```javascript
+//todo: javascript hd derive examples
+```
+
+```ruby
+# todo: ruby hd derive examples
+```
+
+```python
+# todo: python hd derive examples
+```
+
+```php
 // Run on console:
 // php -f .\sample\wallet-api\GenerateAddressInHDWalletEndpoint.php
 
@@ -627,7 +645,7 @@ $hdWalletGenerateAddressResponse = $walletClient->generateAddress('bob');
   "public":"029b393153a1ec68c7af3a98e88aecede3a409f27e698c090540098611c79e05b0"
 }
 
-// hd wallet with subchain_index
+// with subchain_index
 // Run on console:
 // php -f .\sample\wallet-api\GenerateAddressInHDWalletWithSubchainIndexEndpoint.php
 
@@ -651,17 +669,16 @@ $hdWalletGenerateAddressResponse = $walletClient->generateAddress('bob', $params
 
 Resource | Method | Request Object | Return Object
 -------- | ------ | -------------- | -------------
-/wallets/$NAME/addresses/generate | POST | *nil* | [Wallet](#wallet) + [AddressKeychain](#addresskeychain)
-/wallets/hd/$NAME/addresses/derive | POST | *nil* | [Wallet](#hdwallet) + [HD Address](#hd-address)
+/wallets/hd/$NAME/addresses/derive | POST | *nil* | [HDWallet](#hdwallet) + [HD Address](#hd-address)
 
 Flag | Type | Effect
 ---- | ---- | ------
-**count** | *integer* | number of addresses to derive for HD wallets.
+**count** | *integer* | Number of addresses to derive. If not set, default is one address.
+**subchain_index** | *integer* | Derives address(es) on this specific subchain. If not set, address will be generated on the first chain in the HD wallet.
 
+This endpoint allows you to derive a new address (or multiple addresses) associated with the $NAME HD Wallet. If successful, it will returned the newly modified [HDWallet](#hdwallet) composed with the newly derived [HDAddress](#hdaddress).
 
-This endpoint allows you to generate a new address associated with the $NAME wallet, similar to the [Generate Address Endpoint](#generate-address-endpoint). If successful, it will returned the newly modified [Wallet](#wallet) or [HDWallet](#hdwallet) composed with an [AddressKeychain](#AddressKeychain).
-
-For HD Wallets, include a **subchain_index** to generate address on a specific subchain. Otherwise the address is generated on the first chain in the wallet.
+Only works for HD Wallets; for regular wallets, use the [Generate Address](#generate-address-in-wallet-endpoint) in Wallet endpoint specified above.
 
 ## Delete Wallet Endpoint
 

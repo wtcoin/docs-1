@@ -548,18 +548,18 @@ curl -d '{"name": "bob", "extended_public_key": "xpub661MyMwAqRbcFtXgS5sYJABqqG9
 }
 ```
 
-A HDWallet contains addresses derived from a single seed. Like normal wallets, it can be used interchangeably with all the [Address API](#address-api) endpoints, and in many places that require addresses, like when [Creating Transactions](#creating-transactions).
+An HDWallet contains addresses derived from a single seed. Like normal wallets, it can be used interchangeably with all the [Address API](#address-api) endpoints, and in many places that require addresses, like when [Creating Transactions](#creating-transactions).
 
 Attribute | Type | Description
 --------- | ---- | -----------
 **token** | *string* | User token associated with this HD wallet.
 **name** | *string* | Name of the HD wallet.
-**chains** | *HD Addresses* | List of HD chains associated with this wallet, each containing addresses. A single chain is returned if the wallet has no subchains.
+**chains** | *array[[HDChain](#hdchain)]* | List of HD chains associated with this wallet, each containing [HDAddresses](#hdaddress). A single chain is returned if the wallet has no subchains.
 **hd** | *bool* | true for HD wallets, not present for normal wallets.
 **extended_public_key** | *string* | The extended public key all addresses in the HD wallet are derived from. It's encoded in [BIP32 format](https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki#serialization-format)
 **subchain_indexes** | *array[integer]* | ***optional*** returned for HD wallets created with subchains.
 
-## HD Addresses
+## HDChain
 
 ```shell
 curl http://api.blockcypher.com/v1/btc/main/wallet/hd/mywallet/addresses
@@ -599,22 +599,22 @@ curl http://api.blockcypher.com/v1/btc/main/wallet/hd/mywallet/addresses
 }
 ```
 
-HD Addresses are returned from the [Get Wallet](#get-wallet-endpoint), [Get Wallet Addresses](#get-wallet-addresses-endpoint) and [Generate Address in Wallet](#generate-address-in-wallet-endpoint) endpoints.
+An array of HDChains are included in every [HDWallet](#hdwallet) and returned from the [Get Wallet](#get-wallet-endpoint), [Get Wallet Addresses](#get-wallet-addresses-endpoint) and [Derive Address in Wallet](#derive-address-in-wallet-endpoint) endpoints.
 
 Attribute | Type | Description
 --------- | ---- | -----------
 **index** | *integer* | ***optional***  Index of the subchain, returned if the wallet has subchains.
-**chain_addresses** | *array[hd address]* | List of HD address objects
+**chain_addresses** | *array[[HDAddress](#hdaddress)]* | Array of HDAddresses associated with this subchain.
 
-## HD Address
+## HDAddress
 
 Attribute | Type | Description
 --------- | ---- | -----------
-**address** | *string* | HD address
-**public** | *string* | Contains the public key bytes if returned by [Generate Address in Wallet](#generate-address-in-wallet-endpoint) endpoint.
+**address** | *string* | Standard address representation.
+**public** | *string* | Contains the hex-encoded public key if returned by [Derive Address in Wallet](#derive-address-in-wallet-endpoint) endpoint.
 **path** | *string* | The BIP32 path of the HD address.
 
-An HD Address object contains the actual address and the BIP32 HD path (location of the address in the HD tree). It also contains the public key when returned from the [Generate Address in Wallet](#generate-address-in-wallet-endpoint) endpoint.
+An HD Address object contains an address and its BIP32 HD path (location of the address in the HD tree). It also contains the hex-encoded public key when returned from the [Derive Address in Wallet](#derive-address-in-wallet-endpoint) endpoint.
 
 
 ## Event
