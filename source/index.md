@@ -404,7 +404,7 @@ Once you have your token, you can append it to all your requests like any other 
 
 ```shell
 # Batching blocks 5, 6, and 7
-curl https://api.blockcypher.com/v1/btc/main/blocks/5;6;7
+curl 'https://api.blockcypher.com/v1/btc/main/blocks/5;6;7'
 
 [{
 "hash": "000000003031a0e73735690c5a1ff2a4be82553b2a12b776fbd3a215dc8f778d",
