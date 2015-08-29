@@ -110,7 +110,7 @@ $.post('https://api.blockcypher.com/v1/btc/main/wallets?token=USERTOKEN', data)
 > ]}
 
 //hd wallet
-var data = {"name": "bob", "extended_public_key": "xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoCu1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8 };
+var data = {"name": "bob", "extended_public_key": "xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoCu1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8" };
 $.post('https://api.blockcypher.com/v1/btc/main/wallets/hd?token=USERTOKEN', data)
   .then(function(d) {console.log(d)});
 > {"token": "YOURTOKEN",
@@ -324,7 +324,6 @@ $.get('https://api.blockcypher.com/v1/btc/main/wallets/hd/bob?token=USERTOKEN')
 > 		}
 > 	]}
 > ]}
-```
 ```
 
 ```ruby
