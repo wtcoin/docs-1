@@ -55,13 +55,47 @@ curl -d '{"name": "alice","addresses": ["1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e"]}' 
 ]}
 
 # hd wallet
-curl -d '{"name": "bob", "extended_public_key": "xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoCu1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8", "subchain_indexes": [1, 3]}' https://api.blockcypher.com/v1/btc/main/wallets/hd?token=YOURTOKEN
+curl -d '{"name": "bob", "extended_public_key": "xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoCu1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8"}' https://api.blockcypher.com/v1/btc/main/wallets/hd?token=YOURTOKEN
 
 {"token": "YOURTOKEN",
 "name": "bob",
 "hd": true,
 "extended_public_key": "xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoCu1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8",
-"subchain_indexes": [ 1, 3 ]}
+"chains": [
+	{"chain_addresses": [
+		{
+			"address": "1FHz8bpEE5qUZ9XhfjzAbCCwo5bT1HMNAc",
+			"path": "m/0"
+		},
+		{
+			"address": "1J8QDN1u7iDMbJktbqXPSrAqruNjkmRFmT",
+			"path": "m/1"
+		},
+		{
+			"address": "1MWNKnYfE2LVdvAzFUioF3F3JXFpRfDCQb",
+			"path": "m/2"
+		}
+	]}
+]}
+
+# hd wallet with subchains
+curl -d '{"name": "catheryne", "extended_public_key": "xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoCu1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8", "subchain_indexes": [1, 3]}' https://api.blockcypher.com/v1/btc/main/wallets/hd?token=YOURTOKEN
+
+{"token": "YOURTOKEN",
+"name": "catheryne",
+"hd": true,
+"extended_public_key": "xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoCu1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8",
+"subchain_indexes": [ 1, 3 ],
+"chains": [
+	{
+		"index": 1,
+		"chain_addresses": []
+	},
+	{
+		"index": 3,
+		"chain_addresses": []
+	}
+]}
 ```
 
 ```javascript
@@ -76,14 +110,29 @@ $.post('https://api.blockcypher.com/v1/btc/main/wallets?token=USERTOKEN', data)
 > ]}
 
 //hd wallet
-var data = {"name": "bob", "extended_public_key": "xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoCu1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8, "subchain_indexes": [ 1, 3 ]};
-$.post('https://api.blockcypher.com/v1/btc/main/wallets?token=USERTOKEN', data)
+var data = {"name": "bob", "extended_public_key": "xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoCu1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8" };
+$.post('https://api.blockcypher.com/v1/btc/main/wallets/hd?token=USERTOKEN', data)
   .then(function(d) {console.log(d)});
 > {"token": "YOURTOKEN",
 > "name": "bob",
-> "hd" : true,
-> "extended_public_key": "xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoC> u1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8", "subchain_indexes": [ 1, 3 ]}
-> }
+> "hd": true,
+> "extended_public_key": "xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoCu1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8",
+> "chains": [
+> 	{"chain_addresses": [
+> 		{
+> 			"address": "1FHz8bpEE5qUZ9XhfjzAbCCwo5bT1HMNAc",
+> 			"path": "m/0"
+> 		},
+> 		{
+> 			"address": "1J8QDN1u7iDMbJktbqXPSrAqruNjkmRFmT",
+> 			"path": "m/1"
+> 		},
+> 		{
+> 			"address": "1MWNKnYfE2LVdvAzFUioF3F3JXFpRfDCQb",
+> 			"path": "m/2"
+> 		}
+> 	]}
+> ]}
 ```
 
 ```ruby
@@ -105,14 +154,31 @@ $.post('https://api.blockcypher.com/v1/btc/main/wallets?token=USERTOKEN', data)
  'addresses': ['1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e']}
 
 //hd wallet
->>> data = {'name': 'bob', 'extended_public_key': 'xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoC> u1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8', 'subchain_indexes': [1, 3]}
+>>> data = {'name': 'bob', 'extended_public_key': 'xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoC> u1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8'}
 >>> params = {'token': 'YOUR_TOKEN'}
 >>> r = requests.post('https://api.blockcypher.com/v1/btc/main/wallets/hd', data=json.dumps(data), params=params)
 >>> r.json()
-{'name': 'bob',
- 'token': 'YOUR_TOKEN',
- 'extended_public_key': 'xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoC> u1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8',
- 'subchain_indexes': [1, 3]}
+
+{'token': 'YOURTOKEN',
+'name': 'bob',
+'hd': true,
+'extended_public_key': 'xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoCu1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8',
+'chains': [
+	{'chain_addresses': [
+		{
+			'address': '1FHz8bpEE5qUZ9XhfjzAbCCwo5bT1HMNAc',
+			'path': 'm/0'
+		},
+		{
+			'address': '1J8QDN1u7iDMbJktbqXPSrAqruNjkmRFmT',
+			'path': 'm/1'
+		},
+		{
+			'address': '1MWNKnYfE2LVdvAzFUioF3F3JXFpRfDCQb',
+			'path': 'm/2'
+		}
+	]}
+]}
 ```
 
 ```php
@@ -147,22 +213,30 @@ $createdWallet = $walletClient->create($wallet);
 $wallet = new HDWallet();
 $wallet->setName('bob');
 $wallet->setExtendedPublicKey('xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoCu1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8');
-$wallet->setSubchainIndexes(array(1, 3));
 
 $walletClient = new HDWalletClient($apiContext);
 $createdWallet = $walletClient->create($wallet);
 
-{
-  "token":"c0afcccdde5081d6429de37d16166ead",
-  "name":"bob",
-  "hd":true,
-  "extended_public_key":"xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoCu1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8",
-  "subchain_indexes":[
-    1,
-    3
-  ]
-}
-
+{"token": "c0afcccdde5081d6429de37d16166ead",
+"name": "bob",
+"hd": true,
+"extended_public_key": "xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoCu1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8",
+"chains": [
+	{"chain_addresses": [
+		{
+			"address": "1FHz8bpEE5qUZ9XhfjzAbCCwo5bT1HMNAc",
+			"path": "m/0"
+		},
+		{
+			"address": "1J8QDN1u7iDMbJktbqXPSrAqruNjkmRFmT",
+			"path": "m/1"
+		},
+		{
+			"address": "1MWNKnYfE2LVdvAzFUioF3F3JXFpRfDCQb",
+			"path": "m/2"
+		}
+	]}
+]}
 ```
 
 Resource | Method | Request Object | Return Object
@@ -199,7 +273,22 @@ curl https://api.blockcypher.com/v1/btc/main/wallets/hd/bob?token=YOURTOKEN
 "name": "bob",
 "hd": true,
 "extended_public_key": "xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoCu1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8",
-"subchain_indexes": [ 1, 3 ]}
+"chains": [{
+	"chain_addresses": [
+		{
+			"address": "1FHz8bpEE5qUZ9XhfjzAbCCwo5bT1HMNAc",
+			"path": "m/0"
+		},
+		{
+			"address": "1J8QDN1u7iDMbJktbqXPSrAqruNjkmRFmT",
+			"path": "m/1"
+		},
+		{
+			"address": "1MWNKnYfE2LVdvAzFUioF3F3JXFpRfDCQb",
+			"path": "m/2"
+		}
+	]}
+]}
 ```
 
 ```javascript
@@ -212,7 +301,29 @@ $.get('https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses?token=YOU
 > 	"1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e"
 > ]}
 
-//TODO: hd wallet example
+//hd wallet
+$.get('https://api.blockcypher.com/v1/btc/main/wallets/hd/bob?token=USERTOKEN')
+  .then(function(d) {console.log(d)});
+> {"token": "YOURTOKEN",
+> "name": "bob",
+> "hd": true,
+> "extended_public_key": "xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoCu1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8",
+> "chains": [
+> 	{"chain_addresses": [
+> 		{
+> 			"address": "1FHz8bpEE5qUZ9XhfjzAbCCwo5bT1HMNAc",
+> 			"path": "m/0"
+> 		},
+> 		{
+> 			"address": "1J8QDN1u7iDMbJktbqXPSrAqruNjkmRFmT",
+> 			"path": "m/1"
+> 		},
+> 		{
+> 			"address": "1MWNKnYfE2LVdvAzFUioF3F3JXFpRfDCQb",
+> 			"path": "m/2"
+> 		}
+> 	]}
+> ]}
 ```
 
 ```ruby
@@ -231,7 +342,30 @@ $.get('https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses?token=YOU
  'token': 'YOURTOKEN',
  'addresses': ['1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e']}
 
-//TODO: hd wallet example
+//hd wallet
+>>> r = requests.get('https://api.blockcypher.com/v1/btc/main/wallets/hd/bob', params=params)
+>>> r.json()
+
+{'token': 'YOURTOKEN',
+'name': 'bob',
+'hd': true,
+'extended_public_key': 'xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoCu1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8',
+'chains': [
+	{'chain_addresses': [
+		{
+			'address': '1FHz8bpEE5qUZ9XhfjzAbCCwo5bT1HMNAc',
+			'path': 'm/0'
+		},
+		{
+			'address': '1J8QDN1u7iDMbJktbqXPSrAqruNjkmRFmT',
+			'path': 'm/1'
+		},
+		{
+			'address': '1MWNKnYfE2LVdvAzFUioF3F3JXFpRfDCQb',
+			'path': 'm/2'
+		}
+	]}
+]}
 ```
 
 ```php
@@ -258,16 +392,26 @@ $wallet = $walletClient->get('alice');
 $walletClient = new HDWalletClient($apiContext);
 $wallet = $walletClient->get('bob');
 
-{
-  "token":"c0afcccdde5081d6429de37d16166ead",
-  "name":"bob",
-  "hd":true,
-  "extended_public_key":"xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoCu1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8",
-  "subchain_indexes":[
-    1,
-    3
-  ]
-}
+{"token": "c0afcccdde5081d6429de37d16166ead",
+"name": "bob",
+"hd": true,
+"extended_public_key": "xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoCu1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8",
+"chains": [
+	{"chain_addresses": [
+		{
+			"address": "1FHz8bpEE5qUZ9XhfjzAbCCwo5bT1HMNAc",
+			"path": "m/0"
+		},
+		{
+			"address": "1J8QDN1u7iDMbJktbqXPSrAqruNjkmRFmT",
+			"path": "m/1"
+		},
+		{
+			"address": "1MWNKnYfE2LVdvAzFUioF3F3JXFpRfDCQb",
+			"path": "m/2"
+		}
+	]}
+]}
 ```
 
 Resource | Method | Return Object
@@ -364,7 +508,22 @@ curl https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses?token=YOURT
 #hd wallet
 curl https://api.blockcypher.com/v1/btc/main/wallets/hd/bob/addresses?token=YOURTOKEN
 
-{}
+{"chains": [
+	{"chain_addresses": [
+		{
+			"address": "1FHz8bpEE5qUZ9XhfjzAbCCwo5bT1HMNAc",
+			"path": "m/0"
+		},
+		{
+			"address": "1J8QDN1u7iDMbJktbqXPSrAqruNjkmRFmT",
+			"path": "m/1"
+		},
+		{
+			"address": "1MWNKnYfE2LVdvAzFUioF3F3JXFpRfDCQb",
+			"path": "m/2"
+		}]
+	}
+]}
 ```
 
 ```javascript
@@ -380,7 +539,22 @@ $.get('https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses?token=USE
 //hd wallet
 $.get('https://api.blockcypher.com/v1/btc/main/wallets/hd/bob/addresses?token=USERTOKEN')
   .then(function(d) {console.log(d)});
-> {}
+> {"chains": [
+> 	{"chain_addresses": [
+> 		{
+> 			"address": "1FHz8bpEE5qUZ9XhfjzAbCCwo5bT1HMNAc",
+> 			"path": "m/0"
+> 		},
+> 		{
+> 			"address": "1J8QDN1u7iDMbJktbqXPSrAqruNjkmRFmT",
+> 			"path": "m/1"
+> 		},
+> 		{
+> 			"address": "1MWNKnYfE2LVdvAzFUioF3F3JXFpRfDCQb",
+> 			"path": "m/2"
+> 		}]
+> 	}
+> ]}
 ```
 
 ```ruby
@@ -402,7 +576,22 @@ $.get('https://api.blockcypher.com/v1/btc/main/wallets/hd/bob/addresses?token=US
 //hd wallet
 >>> r = requests.get('https://api.blockcypher.com/v1/btc/main/wallets/hd/alice/addresses', params=params)
 >>> r.json()
-{}
+{'chains': [
+	{'chain_addresses': [
+		{
+			'address': '1FHz8bpEE5qUZ9XhfjzAbCCwo5bT1HMNAc',
+			'path': 'm/0'
+		},
+		{
+			'address': '1J8QDN1u7iDMbJktbqXPSrAqruNjkmRFmT',
+			'path': 'm/1'
+		},
+		{
+			'address': '1MWNKnYfE2LVdvAzFUioF3F3JXFpRfDCQb',
+			'path': 'm/2'
+		}]
+	}
+]}
 ```
 
 ```php
@@ -414,12 +603,10 @@ $.get('https://api.blockcypher.com/v1/btc/main/wallets/hd/bob/addresses?token=US
 $walletClient = new WalletClient($apiContext);
 $addressList = $walletClient->getWalletAddresses('alice');
 
-{
-  "addresses":[
+{"addresses":[
     "13cj1QtfW61kQHoqXm3khVRYPJrgQiRM6j",
     "1jr1rHMthQVMNSYswB9ExSvYn339fWMzn"
-  ]
-}
+]}
 
 // hd wallet
 // Run on console:
@@ -428,20 +615,36 @@ $addressList = $walletClient->getWalletAddresses('alice');
 $walletClient = new HDWalletClient($apiContext);
 $addressList = $walletClient->getWalletAddresses('bob');
 
-{
-  "addresses":[
-    "13cj1QtfW61kQHoqXm3khVRYPJrgQiRM6j",
-    "1jr1rHMthQVMNSYswB9ExSvYn339fWMzn"
-  ]
-}
+{"chains": [
+	{"chain_addresses": [
+		{
+			"address": "1FHz8bpEE5qUZ9XhfjzAbCCwo5bT1HMNAc",
+			"path": "m/0"
+		},
+		{
+			"address": "1J8QDN1u7iDMbJktbqXPSrAqruNjkmRFmT",
+			"path": "m/1"
+		},
+		{
+			"address": "1MWNKnYfE2LVdvAzFUioF3F3JXFpRfDCQb",
+			"path": "m/2"
+		}]
+	}
+]}
 ```
 
 Resource | Method | Return Object
 -------- | ------ | -------------
 /wallets/$NAME/addresses | GET | [Wallet](#wallet)
-/wallets/hd/$NAME/addresses | GET | [HDWallet](#hdwallet)
+/wallets/hd/$NAME/addresses | GET | [HDChain](#hdchain)
 
-This endpoint returns a list of the addresses associated with the $NAME wallet. It returns the addresses in a partially filled out [Wallet](#wallet) or [HDWallet](#hdwallet) object, which you'll find under the **addresses** attribute.
+Flag | Type | Effect
+---- | ---- | ------
+**used** | *bool* | Returns only used addresses if set to **true** and only unused if **false**.
+**zerobalance** | *bool* | Returns only addresses with zero balance if set to **true** and only addresses with non-zero balance if **false**.
+
+
+This endpoint returns a list of the addresses associated with the $NAME wallet. It returns the addresses in a partially filled out [Wallet](#wallet) which you'll find under the **addresses** attribute. For HD wallets it returns a [HD Addresses](#hd-addresses) object.
 
 ## Remove Addresses from Wallet Endpoint
 
@@ -504,7 +707,6 @@ You cannot remove addresses from HD Wallets.
 ## Generate Address in Wallet Endpoint
 
 ```shell
-# normal wallet
 curl -X POST https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses/generate?token=YOURTOKEN
 
 {"token": "YOURTOKEN",
@@ -517,32 +719,6 @@ curl -X POST https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses/gen
 "public": "03e4f273521a30373a639f60da836f2308a5d53853ec18f903dd235c73e6e26e4a",
 "address": "14LcPtRSGjYb1s8kfxsVDbXvA7VYCmoFho",
 "wif": "KzWeDL7sysRay7pZUm6hQQLaDVjmN1jUZzeZuq6ru5FtN1RhPrLX"}
-
-#hd wallet
-curl -X POST https://api.blockcypher.com/v1/btc/main/wallets/hd/bob/addresses/generate?token=YOURTOKEN
-
-{"token": "YOURTOKEN",
-"name": "bob",
-"addresses": [
-  "1NwEtFZ6Td7cpKaJtYoeryS6avP2TUkSMh"
-],
-"hd": true,
-"address": "1NwEtFZ6Td7cpKaJtYoeryS6avP2TUkSMh",
-"public": "029b393153a1ec68c7af3a98e88aecede3a409f27e698c090540098611c79e05b0"}
-
-#hd wallet with subchain_index
-curl -X POST 'https://api.blockcypher.com/v1/btc/main/wallets/hd/bob/addresses/generate?token=YOURTOKEN&subchain_index=1'
-
-{"token": "YOURTOKEN",
-"name": "bob",
-"addresses": [
-  "1NwEtFZ6Td7cpKaJtYoeryS6avP2TUkSMh",
-  "1NZ97rKhSPy6NLud5Dp89E4yH5a2fUGeyC"
-],
-"hd": true,
-"subchain_index": 1,
-"address": "1NZ97rKhSPy6NLud5Dp89E4yH5a2fUGeyC",
-"public": "03d18a97975c5f2e11dfa22dd686315f27b35c2db5d32cd7d0c11aea146fdd17c2"}
 ```
 
 ```javascript
@@ -560,8 +736,6 @@ $.post('https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses/generate
 >   "address": "14LcPtRSGjYb1s8kfxsVDbXvA7VYCmoFho",
 >   "wif": "KzWeDL7sysRay7pZUm6hQQLaDVjmN1jUZzeZuq6ru5FtN1RhPrLX"
 > }
-
-//todo: javascript hd examples
 ```
 
 ```ruby
@@ -573,8 +747,6 @@ $.post('https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses/generate
  "public"=>"037318b43fc83f3af24b5d88c8e4e33ebbdea62c3a3f6eb3a9830e2bb1f6682108",
  "address"=>"1Bq7QRwfa36p5DGSe6UBy4PYmsEtQhpqC8",
  "wif"=>"L5NwFyFdHqfBYhaQDttym6b3tXeaKaH7cepgAJunWrkKY24NUCjb"}
-
-# todo: ruby hd examples
 ```
 
 ```python
@@ -583,7 +755,6 @@ $.post('https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses/generate
 
 ```php
 <?php
-// normal wallet
 // Run on console:
 // php -f .\sample\wallet-api\GenerateAddressInWalletEndpoint.php
 
@@ -602,55 +773,94 @@ $walletGenerateAddressResponse = $walletClient->generateAddress('alice');
   "address":"1GuPv187EEUi3BDypdpMS7cmMuaVpWy6PM",
   "wif":"KwfVLLsRSgSC6pkDLkEmMn8fH5VFceaYT9B58Cu8QHZtZzJvnpYZ"
 }
+```
 
-// hd wallet
+Resource | Method | Request Object | Return Object
+-------- | ------ | -------------- | -------------
+/wallets/$NAME/addresses/generate | POST | *nil* | [Wallet](#wallet) + [AddressKeychain](#addresskeychain)
+
+This endpoint allows you to generate a new address associated with the $NAME wallet, similar to the [Generate Address Endpoint](#generate-address-endpoint). If successful, it will returned the newly modified [Wallet](#wallet) composed with an [AddressKeychain](#addresskeychain).
+
+Only works for regular Wallets; for HD Wallets, use the [Derive Address](#derive-address-in-wallet-endpoint) endpoint specified below.
+
+## Derive Address in Wallet Endpoint
+
+```shell
+curl -X POST https://api.blockcypher.com/v1/btc/main/wallets/hd/bob/addresses/derive?token=YOURTOKEN
+
+{"token": "YOURTOKEN",
+"name": "bob",
+"hd": true,
+"extended_public_key": "xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoCu1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8",
+"chains": [
+	{"chain_addresses": [
+		{
+			"address": "19urzZsoBNsomSfj68PUUGLXDz261tK5Jo",
+			"public": "02c85080e00080aa933f93a2718bba9f01fd6fdc8e4712a155849f5ba588666471",
+			"path": "m/3"
+		}
+	]}
+]}
+
+#with subchain_index
+curl -X POST 'https://api.blockcypher.com/v1/btc/main/wallets/hd/catheryne/addresses/derive?token=YOURTOKEN&subchain_index=1'
+
+{"token": "YOURTOKEN",
+"name": "catheryne",
+"hd": true,
+"extended_public_key": "xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoCu1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8",
+"chains": [
+	{"index":1,
+	"chain_addresses": [
+    {
+      "address": "1NwEtFZ6Td7cpKaJtYoeryS6avP2TUkSMh",
+      "public": "029b393153a1ec68c7af3a98e88aecede3a409f27e698c090540098611c79e05b0",
+      "path": "m/1/0"
+    }
+  ]}
+]}
+```
+
+```javascript
+//todo: javascript hd derive examples
+```
+
+```ruby
+# todo: ruby hd derive examples
+```
+
+```python
+# todo: python hd derive examples
+```
+
+```php
 // Run on console:
 // php -f .\sample\wallet-api\GenerateAddressInHDWalletEndpoint.php
 
 $walletClient = new HDWalletClient($apiContext);
 $hdWalletGenerateAddressResponse = $walletClient->generateAddress('bob');
 
-{
-  "token":"c0afcccdde5081d6429de37d16166ead",
-  "name":"bob",
-  "addresses":[
-    "1NwEtFZ6Td7cpKaJtYoeryS6avP2TUkSMh"
-  ],
-  "hd":true,
-  "address":"1NwEtFZ6Td7cpKaJtYoeryS6avP2TUkSMh",
-  "public":"029b393153a1ec68c7af3a98e88aecede3a409f27e698c090540098611c79e05b0"
-}
-
-// hd wallet with subchain_index
+// with subchain_index
 // Run on console:
 // php -f .\sample\wallet-api\GenerateAddressInHDWalletWithSubchainIndexEndpoint.php
 
 $walletClient = new HDWalletClient($apiContexts['BTC.main']);
 $params = array('subchain_index' => 1);
 $hdWalletGenerateAddressResponse = $walletClient->generateAddress('bob', $params);
-
-{
-  "token":"c0afcccdde5081d6429de37d16166ead",
-  "name":"bob",
-  "addresses":[
-    "1NwEtFZ6Td7cpKaJtYoeryS6avP2TUkSMh",
-    "18FcseQ86zCaXzLbgDsH86292xb2EuKtFW"
-  ],
-  "hd":true,
-  "subchain_index":1,
-  "address":"18FcseQ86zCaXzLbgDsH86292xb2EuKtFW",
-  "public":"02518873d92d8e9a7720134ef499621eb793ecd85894f5da03ae172a392c69bce8"
-}
 ```
 
 Resource | Method | Request Object | Return Object
 -------- | ------ | -------------- | -------------
-/wallets/$NAME/addresses/generate | POST | *nil* | [Wallet](#Wallet) + [AddressKeychain](#AddressKeychain)
-/wallets/hd/$NAME/addresses/generate | POST | *nil* | [Wallet](#Wallet) + [AddressKeychain](#AddressKeychain)
+/wallets/hd/$NAME/addresses/derive | POST | *nil* | Partial [HDWallet](#hdwallet)
 
-This endpoint allows you to generate a new address associated with the $NAME wallet, similar to the [Generate Address Endpoint](#generate-address-endpoint). If successful, it will returned the newly modified [Wallet](#wallet) or [HDWallet](#hdwallet) composed with an [AddressKeychain](#AddressKeychain).
+Flag | Type | Effect
+---- | ---- | ------
+**count** | *integer* | Number of addresses to derive. If not set, default is one address.
+**subchain_index** | *integer* | Derives address(es) on this specific subchain. If not set, address will be generated on the first chain in the HD wallet.
 
-For HD Wallets, include a **subchain_index** to generate address on a specific subchain. Otherwise the address is generated on the first chain in the wallet.
+This endpoint allows you to derive a new address (or multiple addresses) associated with the $NAME HD Wallet. If successful, it will return an [HDWallet](#hdwallet) **but only with the newly derived address(es)** represented in its **chains** field to limit the data transmitted; for the full address list after derivation, you can follow up this API call with the [Get Wallet Addresses Endpoint.](#get-wallet-addresses-endpoint)
+
+Only works for HD Wallets; for regular wallets, use the [Generate Address](#generate-address-in-wallet-endpoint) in Wallet endpoint specified above.
 
 ## Delete Wallet Endpoint
 

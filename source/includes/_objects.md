@@ -540,24 +540,77 @@ A Wallet contains a list of addresses associated by its name and the user's toke
 ```shell
 curl -d '{"name": "bob", "extended_public_key": "xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoCu1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8"}' https://api.blockcypher.com/v1/btc/main/wallets/hd?token=YOURTOKEN
 
-{
-"token":"YOURTOKEN",
+{"token": "YOURTOKEN",
 "name": "bob",
-"hd" : true,
-"extended_public_key": "xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoCu1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8"
-}
+"hd": true,
+"extended_public_key": "xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoCu1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8",
+"chains": [
+	{"chain_addresses": [
+		{
+			"address": "1FHz8bpEE5qUZ9XhfjzAbCCwo5bT1HMNAc",
+			"path": "m/0"
+		},
+		{
+			"address": "1J8QDN1u7iDMbJktbqXPSrAqruNjkmRFmT",
+			"path": "m/1"
+		},
+		{
+			"address": "1MWNKnYfE2LVdvAzFUioF3F3JXFpRfDCQb",
+			"path": "m/2"
+		}
+	]}
+]}
 ```
-
-A HDWallet contains addresses derived from a single seed. Like normal wallets, it can be used interchangeably with all the [Address API](#address-api) endpoints, and in many places that require addresses, like when [Creating Transactions](#creating-transactions).
+An HDWallet contains addresses derived from a single seed. Like normal wallets, it can be used interchangeably with all the [Address API](#address-api) endpoints, and in many places that require addresses, like when [Creating Transactions](#creating-transactions).
 
 Attribute | Type | Description
 --------- | ---- | -----------
 **token** | *string* | User token associated with this HD wallet.
 **name** | *string* | Name of the HD wallet.
-**addresses** | *array[string]* | List of addresses associated with this HD wallet.
+**chains** | *array[[HDChain](#hdchain)]* | List of HD chains associated with this wallet, each containing [HDAddresses](#hdaddress). A single chain is returned if the wallet has no subchains.
 **hd** | *bool* | true for HD wallets, not present for normal wallets.
 **extended_public_key** | *string* | The extended public key all addresses in the HD wallet are derived from. It's encoded in [BIP32 format](https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki#serialization-format)
 **subchain_indexes** | *array[integer]* | ***optional*** returned for HD wallets created with subchains.
+
+## HDChain
+
+```shell
+curl http://api.blockcypher.com/v1/btc/main/wallet/hd/bob/addresses?token=YOURTOKEN
+
+{"chains": [
+	{"chain_addresses": [
+		{
+			"address": "1FHz8bpEE5qUZ9XhfjzAbCCwo5bT1HMNAc",
+			"path": "m/0"
+		},
+		{
+			"address": "1J8QDN1u7iDMbJktbqXPSrAqruNjkmRFmT",
+			"path": "m/1"
+		},
+		{
+			"address": "1MWNKnYfE2LVdvAzFUioF3F3JXFpRfDCQb",
+			"path": "m/2"
+		}]
+	}
+]}
+```
+
+An array of HDChains are included in every [HDWallet](#hdwallet) and returned from the [Get Wallet](#get-wallet-endpoint), [Get Wallet Addresses](#get-wallet-addresses-endpoint) and [Derive Address in Wallet](#derive-address-in-wallet-endpoint) endpoints.
+
+Attribute | Type | Description
+--------- | ---- | -----------
+**chain_addresses** | *array[[HDAddress](#hdaddress)]* | Array of HDAddresses associated with this subchain.
+**index** | *integer* | ***optional***  Index of the subchain, returned if the wallet has subchains.
+
+## HDAddress
+
+Attribute | Type | Description
+--------- | ---- | -----------
+**address** | *string* | Standard address representation.
+**path** | *string* | The BIP32 path of the HD address.
+**public** | *string* | ***optional*** Contains the hex-encoded public key if returned by [Derive Address in Wallet](#derive-address-in-wallet-endpoint) endpoint.
+
+An HD Address object contains an address and its BIP32 HD path (location of the address in the HD tree). It also contains the hex-encoded public key when returned from the [Derive Address in Wallet](#derive-address-in-wallet-endpoint) endpoint.
 
 
 ## Event
