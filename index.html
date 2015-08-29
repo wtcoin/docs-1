@@ -428,7 +428,7 @@ curl https://api.blockcypher.com/v1/btc/main?token<span class="o">=</span><span 
 
 <h2 id="batching">Batching</h2>
 <pre class="highlight shell"><code><span class="c"># Batching blocks 5, 6, and 7</span>
-curl https://api.blockcypher.com/v1/btc/main/blocks/5;6;7
+curl <span class="s1">'https://api.blockcypher.com/v1/btc/main/blocks/5;6;7'</span>
 
 <span class="o">[{</span>
 <span class="s2">"hash"</span>: <span class="s2">"000000003031a0e73735690c5a1ff2a4be82553b2a12b776fbd3a215dc8f778d"</span>,
@@ -1925,15 +1925,29 @@ Only one of these three fields is required for the microtransaction endpoint: <b
 <h2 id="hdwallet">HDWallet</h2>
 <pre class="highlight shell"><code>curl -d <span class="s1">'{"name": "bob", "extended_public_key": "xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoCu1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8"}'</span> https://api.blockcypher.com/v1/btc/main/wallets/hd?token<span class="o">=</span>YOURTOKEN
 
-<span class="o">{</span>
-<span class="s2">"token"</span>:<span class="s2">"YOURTOKEN"</span>,
+<span class="o">{</span><span class="s2">"token"</span>: <span class="s2">"YOURTOKEN"</span>,
 <span class="s2">"name"</span>: <span class="s2">"bob"</span>,
-<span class="s2">"hd"</span> : <span class="nb">true</span>,
-<span class="s2">"extended_public_key"</span>: <span class="s2">"xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoCu1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8"</span>
-<span class="o">}</span>
+<span class="s2">"hd"</span>: <span class="nb">true</span>,
+<span class="s2">"extended_public_key"</span>: <span class="s2">"xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoCu1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8"</span>,
+<span class="s2">"chains"</span>: <span class="o">[</span>
+    <span class="o">{</span><span class="s2">"chain_addresses"</span>: <span class="o">[</span>
+        <span class="o">{</span>
+            <span class="s2">"address"</span>: <span class="s2">"1FHz8bpEE5qUZ9XhfjzAbCCwo5bT1HMNAc"</span>,
+            <span class="s2">"path"</span>: <span class="s2">"m/0"</span>
+        <span class="o">}</span>,
+        <span class="o">{</span>
+            <span class="s2">"address"</span>: <span class="s2">"1J8QDN1u7iDMbJktbqXPSrAqruNjkmRFmT"</span>,
+            <span class="s2">"path"</span>: <span class="s2">"m/1"</span>
+        <span class="o">}</span>,
+        <span class="o">{</span>
+            <span class="s2">"address"</span>: <span class="s2">"1MWNKnYfE2LVdvAzFUioF3F3JXFpRfDCQb"</span>,
+            <span class="s2">"path"</span>: <span class="s2">"m/2"</span>
+        <span class="o">}</span>
+    <span class="o">]}</span>
+<span class="o">]}</span>
 </code></pre>
 
-<p>A HDWallet contains addresses derived from a single seed. Like normal wallets, it can be used interchangeably with all the <a href="#address-api">Address API</a> endpoints, and in many places that require addresses, like when <a href="#creating-transactions">Creating Transactions</a>.</p>
+<p>An HDWallet contains addresses derived from a single seed. Like normal wallets, it can be used interchangeably with all the <a href="#address-api">Address API</a> endpoints, and in many places that require addresses, like when <a href="#creating-transactions">Creating Transactions</a>.</p>
 
 <table><thead>
 <tr>
@@ -1953,9 +1967,9 @@ Only one of these three fields is required for the microtransaction endpoint: <b
 <td>Name of the HD wallet.</td>
 </tr>
 <tr>
-<td><strong>addresses</strong></td>
-<td><em>array[string]</em></td>
-<td>List of addresses associated with this HD wallet.</td>
+<td><strong>chains</strong></td>
+<td><em>array[<a href="#hdchain">HDChain</a>]</em></td>
+<td>List of HD chains associated with this wallet, each containing <a href="#hdaddress">HDAddresses</a>. A single chain is returned if the wallet has no subchains.</td>
 </tr>
 <tr>
 <td><strong>hd</strong></td>
@@ -1973,6 +1987,76 @@ Only one of these three fields is required for the microtransaction endpoint: <b
 <td><strong><em>optional</em></strong> returned for HD wallets created with subchains.</td>
 </tr>
 </tbody></table>
+
+<h2 id="hdchain">HDChain</h2>
+<pre class="highlight shell"><code>curl http://api.blockcypher.com/v1/btc/main/wallet/hd/bob/addresses?token<span class="o">=</span>YOURTOKEN
+
+<span class="o">{</span><span class="s2">"chains"</span>: <span class="o">[</span>
+    <span class="o">{</span><span class="s2">"chain_addresses"</span>: <span class="o">[</span>
+        <span class="o">{</span>
+            <span class="s2">"address"</span>: <span class="s2">"1FHz8bpEE5qUZ9XhfjzAbCCwo5bT1HMNAc"</span>,
+            <span class="s2">"path"</span>: <span class="s2">"m/0"</span>
+        <span class="o">}</span>,
+        <span class="o">{</span>
+            <span class="s2">"address"</span>: <span class="s2">"1J8QDN1u7iDMbJktbqXPSrAqruNjkmRFmT"</span>,
+            <span class="s2">"path"</span>: <span class="s2">"m/1"</span>
+        <span class="o">}</span>,
+        <span class="o">{</span>
+            <span class="s2">"address"</span>: <span class="s2">"1MWNKnYfE2LVdvAzFUioF3F3JXFpRfDCQb"</span>,
+            <span class="s2">"path"</span>: <span class="s2">"m/2"</span>
+        <span class="o">}]</span>
+    <span class="o">}</span>
+<span class="o">]}</span>
+</code></pre>
+
+<p>An array of HDChains are included in every <a href="#hdwallet">HDWallet</a> and returned from the <a href="#get-wallet-endpoint">Get Wallet</a>, <a href="#get-wallet-addresses-endpoint">Get Wallet Addresses</a> and <a href="#derive-address-in-wallet-endpoint">Derive Address in Wallet</a> endpoints.</p>
+
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>chain_addresses</strong></td>
+<td><em>array[<a href="#hdaddress">HDAddress</a>]</em></td>
+<td>Array of HDAddresses associated with this subchain.</td>
+</tr>
+<tr>
+<td><strong>index</strong></td>
+<td><em>integer</em></td>
+<td><strong><em>optional</em></strong>  Index of the subchain, returned if the wallet has subchains.</td>
+</tr>
+</tbody></table>
+
+<h2 id="hdaddress">HDAddress</h2>
+
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>address</strong></td>
+<td><em>string</em></td>
+<td>Standard address representation.</td>
+</tr>
+<tr>
+<td><strong>path</strong></td>
+<td><em>string</em></td>
+<td>The BIP32 path of the HD address.</td>
+</tr>
+<tr>
+<td><strong>public</strong></td>
+<td><em>string</em></td>
+<td><strong><em>optional</em></strong> Contains the hex-encoded public key if returned by <a href="#derive-address-in-wallet-endpoint">Derive Address in Wallet</a> endpoint.</td>
+</tr>
+</tbody></table>
+
+<p>An HD Address object contains an address and its BIP32 HD path (location of the address in the HD tree). It also contains the hex-encoded public key when returned from the <a href="#derive-address-in-wallet-endpoint">Derive Address in Wallet</a> endpoint.</p>
 
 <h2 id="event">Event</h2>
 <pre class="highlight shell"><code>curl https://api.blockcypher.com/v1/btc/main/hooks/399d0923-e920-48ee-8928-2051cbfbc369
@@ -3604,13 +3688,47 @@ curl -d <span class="s1">'{"name": "alice","addresses": ["1JcX75oraJEmzXXHpDjRct
 <span class="o">]}</span>
 
 <span class="c"># hd wallet</span>
-curl -d <span class="s1">'{"name": "bob", "extended_public_key": "xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoCu1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8", "subchain_indexes": [1, 3]}'</span> https://api.blockcypher.com/v1/btc/main/wallets/hd?token<span class="o">=</span>YOURTOKEN
+curl -d <span class="s1">'{"name": "bob", "extended_public_key": "xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoCu1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8"}'</span> https://api.blockcypher.com/v1/btc/main/wallets/hd?token<span class="o">=</span>YOURTOKEN
 
 <span class="o">{</span><span class="s2">"token"</span>: <span class="s2">"YOURTOKEN"</span>,
 <span class="s2">"name"</span>: <span class="s2">"bob"</span>,
 <span class="s2">"hd"</span>: <span class="nb">true</span>,
 <span class="s2">"extended_public_key"</span>: <span class="s2">"xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoCu1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8"</span>,
-<span class="s2">"subchain_indexes"</span>: <span class="o">[</span> 1, 3 <span class="o">]}</span>
+<span class="s2">"chains"</span>: <span class="o">[</span>
+    <span class="o">{</span><span class="s2">"chain_addresses"</span>: <span class="o">[</span>
+        <span class="o">{</span>
+            <span class="s2">"address"</span>: <span class="s2">"1FHz8bpEE5qUZ9XhfjzAbCCwo5bT1HMNAc"</span>,
+            <span class="s2">"path"</span>: <span class="s2">"m/0"</span>
+        <span class="o">}</span>,
+        <span class="o">{</span>
+            <span class="s2">"address"</span>: <span class="s2">"1J8QDN1u7iDMbJktbqXPSrAqruNjkmRFmT"</span>,
+            <span class="s2">"path"</span>: <span class="s2">"m/1"</span>
+        <span class="o">}</span>,
+        <span class="o">{</span>
+            <span class="s2">"address"</span>: <span class="s2">"1MWNKnYfE2LVdvAzFUioF3F3JXFpRfDCQb"</span>,
+            <span class="s2">"path"</span>: <span class="s2">"m/2"</span>
+        <span class="o">}</span>
+    <span class="o">]}</span>
+<span class="o">]}</span>
+
+<span class="c"># hd wallet with subchains</span>
+curl -d <span class="s1">'{"name": "catheryne", "extended_public_key": "xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoCu1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8", "subchain_indexes": [1, 3]}'</span> https://api.blockcypher.com/v1/btc/main/wallets/hd?token<span class="o">=</span>YOURTOKEN
+
+<span class="o">{</span><span class="s2">"token"</span>: <span class="s2">"YOURTOKEN"</span>,
+<span class="s2">"name"</span>: <span class="s2">"catheryne"</span>,
+<span class="s2">"hd"</span>: <span class="nb">true</span>,
+<span class="s2">"extended_public_key"</span>: <span class="s2">"xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoCu1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8"</span>,
+<span class="s2">"subchain_indexes"</span>: <span class="o">[</span> 1, 3 <span class="o">]</span>,
+<span class="s2">"chains"</span>: <span class="o">[</span>
+    <span class="o">{</span>
+        <span class="s2">"index"</span>: 1,
+        <span class="s2">"chain_addresses"</span>: <span class="o">[]</span>
+    <span class="o">}</span>,
+    <span class="o">{</span>
+        <span class="s2">"index"</span>: 3,
+        <span class="s2">"chain_addresses"</span>: <span class="o">[]</span>
+    <span class="o">}</span>
+<span class="o">]}</span>
 </code></pre>
 <pre class="highlight javascript"><code><span class="c1">//normal wallet</span>
 <span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"name"</span><span class="p">:</span> <span class="s2">"alice"</span><span class="p">,</span><span class="s2">"addresses"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e"</span><span class="p">]};</span>
@@ -3623,14 +3741,29 @@ curl -d <span class="s1">'{"name": "bob", "extended_public_key": "xpub661MyMwAqR
 <span class="o">&gt;</span> <span class="p">]}</span>
 
 <span class="c1">//hd wallet</span>
-<span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"name"</span><span class="p">:</span> <span class="s2">"bob"</span><span class="p">,</span> <span class="s2">"extended_public_key"</span><span class="p">:</span> <span class="s2">"xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoCu1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8, "</span><span class="nx">subchain_indexes</span><span class="s2">": [ 1, 3 ]};
-$.post('https://api.blockcypher.com/v1/btc/main/wallets?token=USERTOKEN', data)
-  .then(function(d) {console.log(d)});
-&gt; {"</span><span class="nx">token</span><span class="s2">": "</span><span class="nx">YOURTOKEN</span><span class="s2">",
-&gt; "</span><span class="nx">name</span><span class="s2">": "</span><span class="nx">bob</span><span class="s2">",
-&gt; "</span><span class="nx">hd</span><span class="s2">" : true,
-&gt; "</span><span class="nx">extended_public_key</span><span class="s2">": "</span><span class="nx">xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoC</span><span class="o">&gt;</span> <span class="nx">u1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8</span><span class="s2">", "</span><span class="nx">subchain_indexes</span><span class="err">"</span><span class="p">:</span> <span class="p">[</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span> <span class="p">]}</span>
-<span class="o">&gt;</span> <span class="p">}</span>
+<span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"name"</span><span class="p">:</span> <span class="s2">"bob"</span><span class="p">,</span> <span class="s2">"extended_public_key"</span><span class="p">:</span> <span class="s2">"xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoCu1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8"</span> <span class="p">};</span>
+<span class="nx">$</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="s1">'https://api.blockcypher.com/v1/btc/main/wallets/hd?token=USERTOKEN'</span><span class="p">,</span> <span class="nx">data</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">{</span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">d</span><span class="p">)});</span>
+<span class="o">&gt;</span> <span class="p">{</span><span class="s2">"token"</span><span class="p">:</span> <span class="s2">"YOURTOKEN"</span><span class="p">,</span>
+<span class="o">&gt;</span> <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"bob"</span><span class="p">,</span>
+<span class="o">&gt;</span> <span class="s2">"hd"</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+<span class="o">&gt;</span> <span class="s2">"extended_public_key"</span><span class="p">:</span> <span class="s2">"xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoCu1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8"</span><span class="p">,</span>
+<span class="o">&gt;</span> <span class="s2">"chains"</span><span class="p">:</span> <span class="p">[</span>
+<span class="o">&gt;</span>   <span class="p">{</span><span class="s2">"chain_addresses"</span><span class="p">:</span> <span class="p">[</span>
+<span class="o">&gt;</span>       <span class="p">{</span>
+<span class="o">&gt;</span>           <span class="s2">"address"</span><span class="p">:</span> <span class="s2">"1FHz8bpEE5qUZ9XhfjzAbCCwo5bT1HMNAc"</span><span class="p">,</span>
+<span class="o">&gt;</span>           <span class="s2">"path"</span><span class="p">:</span> <span class="s2">"m/0"</span>
+<span class="o">&gt;</span>       <span class="p">},</span>
+<span class="o">&gt;</span>       <span class="p">{</span>
+<span class="o">&gt;</span>           <span class="s2">"address"</span><span class="p">:</span> <span class="s2">"1J8QDN1u7iDMbJktbqXPSrAqruNjkmRFmT"</span><span class="p">,</span>
+<span class="o">&gt;</span>           <span class="s2">"path"</span><span class="p">:</span> <span class="s2">"m/1"</span>
+<span class="o">&gt;</span>       <span class="p">},</span>
+<span class="o">&gt;</span>       <span class="p">{</span>
+<span class="o">&gt;</span>           <span class="s2">"address"</span><span class="p">:</span> <span class="s2">"1MWNKnYfE2LVdvAzFUioF3F3JXFpRfDCQb"</span><span class="p">,</span>
+<span class="o">&gt;</span>           <span class="s2">"path"</span><span class="p">:</span> <span class="s2">"m/2"</span>
+<span class="o">&gt;</span>       <span class="p">}</span>
+<span class="o">&gt;</span>   <span class="p">]}</span>
+<span class="o">&gt;</span> <span class="p">]}</span>
 </code></pre>
 <pre class="highlight ruby"><code><span class="o">&gt;</span> <span class="n">block_cypher</span><span class="p">.</span><span class="nf">wallet_create</span><span class="p">(</span><span class="s2">"alice"</span><span class="p">,[</span><span class="s2">"1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e"</span><span class="p">])</span>
 <span class="o">=&gt;</span> <span class="p">{</span><span class="s2">"token"</span><span class="o">=&gt;</span><span class="s2">"YOURTOKEN"</span><span class="p">,</span> <span class="s2">"name"</span><span class="o">=&gt;</span><span class="s2">"alice"</span><span class="p">,</span> <span class="s2">"addresses"</span><span class="o">=&gt;</span><span class="p">[</span><span class="s2">"1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e"</span><span class="p">]}</span>
@@ -3648,14 +3781,31 @@ $.post('https://api.blockcypher.com/v1/btc/main/wallets?token=USERTOKEN', data)
  <span class="s">'addresses'</span><span class="p">:</span> <span class="p">[</span><span class="s">'1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e'</span><span class="p">]}</span>
 
 <span class="o">//</span><span class="n">hd</span> <span class="n">wallet</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s">'name'</span><span class="p">:</span> <span class="s">'bob'</span><span class="p">,</span> <span class="s">'extended_public_key'</span><span class="p">:</span> <span class="s">'xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoC&gt; u1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8'</span><span class="p">,</span> <span class="s">'subchain_indexes'</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">]}</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s">'name'</span><span class="p">:</span> <span class="s">'bob'</span><span class="p">,</span> <span class="s">'extended_public_key'</span><span class="p">:</span> <span class="s">'xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoC&gt; u1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8'</span><span class="p">}</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s">'token'</span><span class="p">:</span> <span class="s">'YOUR_TOKEN'</span><span class="p">}</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s">'https://api.blockcypher.com/v1/btc/main/wallets/hd'</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
-<span class="p">{</span><span class="s">'name'</span><span class="p">:</span> <span class="s">'bob'</span><span class="p">,</span>
- <span class="s">'token'</span><span class="p">:</span> <span class="s">'YOUR_TOKEN'</span><span class="p">,</span>
- <span class="s">'extended_public_key'</span><span class="p">:</span> <span class="s">'xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoC&gt; u1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8'</span><span class="p">,</span>
- <span class="s">'subchain_indexes'</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">]}</span>
+
+<span class="p">{</span><span class="s">'token'</span><span class="p">:</span> <span class="s">'YOURTOKEN'</span><span class="p">,</span>
+<span class="s">'name'</span><span class="p">:</span> <span class="s">'bob'</span><span class="p">,</span>
+<span class="s">'hd'</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+<span class="s">'extended_public_key'</span><span class="p">:</span> <span class="s">'xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoCu1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8'</span><span class="p">,</span>
+<span class="s">'chains'</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span><span class="s">'chain_addresses'</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s">'address'</span><span class="p">:</span> <span class="s">'1FHz8bpEE5qUZ9XhfjzAbCCwo5bT1HMNAc'</span><span class="p">,</span>
+            <span class="s">'path'</span><span class="p">:</span> <span class="s">'m/0'</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="s">'address'</span><span class="p">:</span> <span class="s">'1J8QDN1u7iDMbJktbqXPSrAqruNjkmRFmT'</span><span class="p">,</span>
+            <span class="s">'path'</span><span class="p">:</span> <span class="s">'m/1'</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="s">'address'</span><span class="p">:</span> <span class="s">'1MWNKnYfE2LVdvAzFUioF3F3JXFpRfDCQb'</span><span class="p">,</span>
+            <span class="s">'path'</span><span class="p">:</span> <span class="s">'m/2'</span>
+        <span class="p">}</span>
+    <span class="p">]}</span>
+<span class="p">]}</span>
 </code></pre>
 <pre class="highlight php"><code><span class="cp">&lt;?php</span>
 <span class="c1">// normal wallet
@@ -3688,22 +3838,30 @@ $.post('https://api.blockcypher.com/v1/btc/main/wallets?token=USERTOKEN', data)
 </span><span class="nv">$wallet</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">HDWallet</span><span class="p">();</span>
 <span class="nv">$wallet</span><span class="o">-&gt;</span><span class="na">setName</span><span class="p">(</span><span class="s1">'bob'</span><span class="p">);</span>
 <span class="nv">$wallet</span><span class="o">-&gt;</span><span class="na">setExtendedPublicKey</span><span class="p">(</span><span class="s1">'xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoCu1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8'</span><span class="p">);</span>
-<span class="nv">$wallet</span><span class="o">-&gt;</span><span class="na">setSubchainIndexes</span><span class="p">(</span><span class="k">array</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">));</span>
 
 <span class="nv">$walletClient</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">HDWalletClient</span><span class="p">(</span><span class="nv">$apiContext</span><span class="p">);</span>
 <span class="nv">$createdWallet</span> <span class="o">=</span> <span class="nv">$walletClient</span><span class="o">-&gt;</span><span class="na">create</span><span class="p">(</span><span class="nv">$wallet</span><span class="p">);</span>
 
-<span class="p">{</span>
-  <span class="s2">"token"</span><span class="o">:</span><span class="s2">"c0afcccdde5081d6429de37d16166ead"</span><span class="p">,</span>
-  <span class="s2">"name"</span><span class="o">:</span><span class="s2">"bob"</span><span class="p">,</span>
-  <span class="s2">"hd"</span><span class="o">:</span><span class="kc">true</span><span class="p">,</span>
-  <span class="s2">"extended_public_key"</span><span class="o">:</span><span class="s2">"xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoCu1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8"</span><span class="p">,</span>
-  <span class="s2">"subchain_indexes"</span><span class="o">:</span><span class="p">[</span>
-    <span class="mi">1</span><span class="p">,</span>
-    <span class="mi">3</span>
-  <span class="p">]</span>
-<span class="p">}</span>
-
+<span class="p">{</span><span class="s2">"token"</span><span class="o">:</span> <span class="s2">"c0afcccdde5081d6429de37d16166ead"</span><span class="p">,</span>
+<span class="s2">"name"</span><span class="o">:</span> <span class="s2">"bob"</span><span class="p">,</span>
+<span class="s2">"hd"</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+<span class="s2">"extended_public_key"</span><span class="o">:</span> <span class="s2">"xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoCu1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8"</span><span class="p">,</span>
+<span class="s2">"chains"</span><span class="o">:</span> <span class="p">[</span>
+    <span class="p">{</span><span class="s2">"chain_addresses"</span><span class="o">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">"address"</span><span class="o">:</span> <span class="s2">"1FHz8bpEE5qUZ9XhfjzAbCCwo5bT1HMNAc"</span><span class="p">,</span>
+            <span class="s2">"path"</span><span class="o">:</span> <span class="s2">"m/0"</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="s2">"address"</span><span class="o">:</span> <span class="s2">"1J8QDN1u7iDMbJktbqXPSrAqruNjkmRFmT"</span><span class="p">,</span>
+            <span class="s2">"path"</span><span class="o">:</span> <span class="s2">"m/1"</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="s2">"address"</span><span class="o">:</span> <span class="s2">"1MWNKnYfE2LVdvAzFUioF3F3JXFpRfDCQb"</span><span class="p">,</span>
+            <span class="s2">"path"</span><span class="o">:</span> <span class="s2">"m/2"</span>
+        <span class="p">}</span>
+    <span class="p">]}</span>
+<span class="p">]}</span>
 </code></pre>
 
 <table><thead>
@@ -3755,7 +3913,22 @@ curl https://api.blockcypher.com/v1/btc/main/wallets/hd/bob?token<span class="o"
 <span class="s2">"name"</span>: <span class="s2">"bob"</span>,
 <span class="s2">"hd"</span>: <span class="nb">true</span>,
 <span class="s2">"extended_public_key"</span>: <span class="s2">"xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoCu1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8"</span>,
-<span class="s2">"subchain_indexes"</span>: <span class="o">[</span> 1, 3 <span class="o">]}</span>
+<span class="s2">"chains"</span>: <span class="o">[{</span>
+    <span class="s2">"chain_addresses"</span>: <span class="o">[</span>
+        <span class="o">{</span>
+            <span class="s2">"address"</span>: <span class="s2">"1FHz8bpEE5qUZ9XhfjzAbCCwo5bT1HMNAc"</span>,
+            <span class="s2">"path"</span>: <span class="s2">"m/0"</span>
+        <span class="o">}</span>,
+        <span class="o">{</span>
+            <span class="s2">"address"</span>: <span class="s2">"1J8QDN1u7iDMbJktbqXPSrAqruNjkmRFmT"</span>,
+            <span class="s2">"path"</span>: <span class="s2">"m/1"</span>
+        <span class="o">}</span>,
+        <span class="o">{</span>
+            <span class="s2">"address"</span>: <span class="s2">"1MWNKnYfE2LVdvAzFUioF3F3JXFpRfDCQb"</span>,
+            <span class="s2">"path"</span>: <span class="s2">"m/2"</span>
+        <span class="o">}</span>
+    <span class="o">]}</span>
+<span class="o">]}</span>
 </code></pre>
 <pre class="highlight javascript"><code><span class="nx">$</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">'https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses?token=YOURTOKEN'</span><span class="p">)</span>
   <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">{</span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">d</span><span class="p">)});</span>
@@ -3766,7 +3939,29 @@ curl https://api.blockcypher.com/v1/btc/main/wallets/hd/bob?token<span class="o"
 <span class="o">&gt;</span>   <span class="s2">"1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e"</span>
 <span class="o">&gt;</span> <span class="p">]}</span>
 
-<span class="c1">//TODO: hd wallet example</span>
+<span class="c1">//hd wallet</span>
+<span class="nx">$</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">'https://api.blockcypher.com/v1/btc/main/wallets/hd/bob?token=USERTOKEN'</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">{</span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">d</span><span class="p">)});</span>
+<span class="o">&gt;</span> <span class="p">{</span><span class="s2">"token"</span><span class="p">:</span> <span class="s2">"YOURTOKEN"</span><span class="p">,</span>
+<span class="o">&gt;</span> <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"bob"</span><span class="p">,</span>
+<span class="o">&gt;</span> <span class="s2">"hd"</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+<span class="o">&gt;</span> <span class="s2">"extended_public_key"</span><span class="p">:</span> <span class="s2">"xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoCu1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8"</span><span class="p">,</span>
+<span class="o">&gt;</span> <span class="s2">"chains"</span><span class="p">:</span> <span class="p">[</span>
+<span class="o">&gt;</span>   <span class="p">{</span><span class="s2">"chain_addresses"</span><span class="p">:</span> <span class="p">[</span>
+<span class="o">&gt;</span>       <span class="p">{</span>
+<span class="o">&gt;</span>           <span class="s2">"address"</span><span class="p">:</span> <span class="s2">"1FHz8bpEE5qUZ9XhfjzAbCCwo5bT1HMNAc"</span><span class="p">,</span>
+<span class="o">&gt;</span>           <span class="s2">"path"</span><span class="p">:</span> <span class="s2">"m/0"</span>
+<span class="o">&gt;</span>       <span class="p">},</span>
+<span class="o">&gt;</span>       <span class="p">{</span>
+<span class="o">&gt;</span>           <span class="s2">"address"</span><span class="p">:</span> <span class="s2">"1J8QDN1u7iDMbJktbqXPSrAqruNjkmRFmT"</span><span class="p">,</span>
+<span class="o">&gt;</span>           <span class="s2">"path"</span><span class="p">:</span> <span class="s2">"m/1"</span>
+<span class="o">&gt;</span>       <span class="p">},</span>
+<span class="o">&gt;</span>       <span class="p">{</span>
+<span class="o">&gt;</span>           <span class="s2">"address"</span><span class="p">:</span> <span class="s2">"1MWNKnYfE2LVdvAzFUioF3F3JXFpRfDCQb"</span><span class="p">,</span>
+<span class="o">&gt;</span>           <span class="s2">"path"</span><span class="p">:</span> <span class="s2">"m/2"</span>
+<span class="o">&gt;</span>       <span class="p">}</span>
+<span class="o">&gt;</span>   <span class="p">]}</span>
+<span class="o">&gt;</span> <span class="p">]}</span>
 </code></pre>
 <pre class="highlight ruby"><code><span class="o">&gt;</span> <span class="n">block_cypher</span><span class="p">.</span><span class="nf">wallet_get</span><span class="p">(</span><span class="s2">"alice"</span><span class="p">)</span>
 <span class="o">=&gt;</span> <span class="p">{</span><span class="s2">"token"</span><span class="o">=&gt;</span><span class="s2">"YOURTOKEN"</span><span class="p">,</span> <span class="s2">"name"</span><span class="o">=&gt;</span><span class="s2">"alice"</span><span class="p">,</span> <span class="s2">"addresses"</span><span class="o">=&gt;</span><span class="p">[</span><span class="s2">"1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e"</span><span class="p">]}</span>
@@ -3781,7 +3976,30 @@ curl https://api.blockcypher.com/v1/btc/main/wallets/hd/bob?token<span class="o"
  <span class="s">'token'</span><span class="p">:</span> <span class="s">'YOURTOKEN'</span><span class="p">,</span>
  <span class="s">'addresses'</span><span class="p">:</span> <span class="p">[</span><span class="s">'1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e'</span><span class="p">]}</span>
 
-<span class="o">//</span><span class="n">TODO</span><span class="p">:</span> <span class="n">hd</span> <span class="n">wallet</span> <span class="n">example</span>
+<span class="o">//</span><span class="n">hd</span> <span class="n">wallet</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">'https://api.blockcypher.com/v1/btc/main/wallets/hd/bob'</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+
+<span class="p">{</span><span class="s">'token'</span><span class="p">:</span> <span class="s">'YOURTOKEN'</span><span class="p">,</span>
+<span class="s">'name'</span><span class="p">:</span> <span class="s">'bob'</span><span class="p">,</span>
+<span class="s">'hd'</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+<span class="s">'extended_public_key'</span><span class="p">:</span> <span class="s">'xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoCu1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8'</span><span class="p">,</span>
+<span class="s">'chains'</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span><span class="s">'chain_addresses'</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s">'address'</span><span class="p">:</span> <span class="s">'1FHz8bpEE5qUZ9XhfjzAbCCwo5bT1HMNAc'</span><span class="p">,</span>
+            <span class="s">'path'</span><span class="p">:</span> <span class="s">'m/0'</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="s">'address'</span><span class="p">:</span> <span class="s">'1J8QDN1u7iDMbJktbqXPSrAqruNjkmRFmT'</span><span class="p">,</span>
+            <span class="s">'path'</span><span class="p">:</span> <span class="s">'m/1'</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="s">'address'</span><span class="p">:</span> <span class="s">'1MWNKnYfE2LVdvAzFUioF3F3JXFpRfDCQb'</span><span class="p">,</span>
+            <span class="s">'path'</span><span class="p">:</span> <span class="s">'m/2'</span>
+        <span class="p">}</span>
+    <span class="p">]}</span>
+<span class="p">]}</span>
 </code></pre>
 <pre class="highlight php"><code><span class="cp">&lt;?php</span>
 <span class="c1">// normal wallet
@@ -3806,16 +4024,26 @@ curl https://api.blockcypher.com/v1/btc/main/wallets/hd/bob?token<span class="o"
 <span class="nv">$walletClient</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">HDWalletClient</span><span class="p">(</span><span class="nv">$apiContext</span><span class="p">);</span>
 <span class="nv">$wallet</span> <span class="o">=</span> <span class="nv">$walletClient</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">'bob'</span><span class="p">);</span>
 
-<span class="p">{</span>
-  <span class="s2">"token"</span><span class="o">:</span><span class="s2">"c0afcccdde5081d6429de37d16166ead"</span><span class="p">,</span>
-  <span class="s2">"name"</span><span class="o">:</span><span class="s2">"bob"</span><span class="p">,</span>
-  <span class="s2">"hd"</span><span class="o">:</span><span class="kc">true</span><span class="p">,</span>
-  <span class="s2">"extended_public_key"</span><span class="o">:</span><span class="s2">"xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoCu1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8"</span><span class="p">,</span>
-  <span class="s2">"subchain_indexes"</span><span class="o">:</span><span class="p">[</span>
-    <span class="mi">1</span><span class="p">,</span>
-    <span class="mi">3</span>
-  <span class="p">]</span>
-<span class="p">}</span>
+<span class="p">{</span><span class="s2">"token"</span><span class="o">:</span> <span class="s2">"c0afcccdde5081d6429de37d16166ead"</span><span class="p">,</span>
+<span class="s2">"name"</span><span class="o">:</span> <span class="s2">"bob"</span><span class="p">,</span>
+<span class="s2">"hd"</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+<span class="s2">"extended_public_key"</span><span class="o">:</span> <span class="s2">"xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoCu1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8"</span><span class="p">,</span>
+<span class="s2">"chains"</span><span class="o">:</span> <span class="p">[</span>
+    <span class="p">{</span><span class="s2">"chain_addresses"</span><span class="o">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">"address"</span><span class="o">:</span> <span class="s2">"1FHz8bpEE5qUZ9XhfjzAbCCwo5bT1HMNAc"</span><span class="p">,</span>
+            <span class="s2">"path"</span><span class="o">:</span> <span class="s2">"m/0"</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="s2">"address"</span><span class="o">:</span> <span class="s2">"1J8QDN1u7iDMbJktbqXPSrAqruNjkmRFmT"</span><span class="p">,</span>
+            <span class="s2">"path"</span><span class="o">:</span> <span class="s2">"m/1"</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="s2">"address"</span><span class="o">:</span> <span class="s2">"1MWNKnYfE2LVdvAzFUioF3F3JXFpRfDCQb"</span><span class="p">,</span>
+            <span class="s2">"path"</span><span class="o">:</span> <span class="s2">"m/2"</span>
+        <span class="p">}</span>
+    <span class="p">]}</span>
+<span class="p">]}</span>
 </code></pre>
 
 <table><thead>
@@ -3926,7 +4154,22 @@ curl https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses?token<span 
 <span class="c">#hd wallet</span>
 curl https://api.blockcypher.com/v1/btc/main/wallets/hd/bob/addresses?token<span class="o">=</span>YOURTOKEN
 
-<span class="o">{}</span>
+<span class="o">{</span><span class="s2">"chains"</span>: <span class="o">[</span>
+    <span class="o">{</span><span class="s2">"chain_addresses"</span>: <span class="o">[</span>
+        <span class="o">{</span>
+            <span class="s2">"address"</span>: <span class="s2">"1FHz8bpEE5qUZ9XhfjzAbCCwo5bT1HMNAc"</span>,
+            <span class="s2">"path"</span>: <span class="s2">"m/0"</span>
+        <span class="o">}</span>,
+        <span class="o">{</span>
+            <span class="s2">"address"</span>: <span class="s2">"1J8QDN1u7iDMbJktbqXPSrAqruNjkmRFmT"</span>,
+            <span class="s2">"path"</span>: <span class="s2">"m/1"</span>
+        <span class="o">}</span>,
+        <span class="o">{</span>
+            <span class="s2">"address"</span>: <span class="s2">"1MWNKnYfE2LVdvAzFUioF3F3JXFpRfDCQb"</span>,
+            <span class="s2">"path"</span>: <span class="s2">"m/2"</span>
+        <span class="o">}]</span>
+    <span class="o">}</span>
+<span class="o">]}</span>
 </code></pre>
 <pre class="highlight javascript"><code><span class="c1">//normal wallet</span>
 <span class="nx">$</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">'https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses?token=USERTOKEN'</span><span class="p">)</span>
@@ -3940,7 +4183,22 @@ curl https://api.blockcypher.com/v1/btc/main/wallets/hd/bob/addresses?token<span
 <span class="c1">//hd wallet</span>
 <span class="nx">$</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">'https://api.blockcypher.com/v1/btc/main/wallets/hd/bob/addresses?token=USERTOKEN'</span><span class="p">)</span>
   <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">{</span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">d</span><span class="p">)});</span>
-<span class="o">&gt;</span> <span class="p">{}</span>
+<span class="o">&gt;</span> <span class="p">{</span><span class="s2">"chains"</span><span class="p">:</span> <span class="p">[</span>
+<span class="o">&gt;</span>   <span class="p">{</span><span class="s2">"chain_addresses"</span><span class="p">:</span> <span class="p">[</span>
+<span class="o">&gt;</span>       <span class="p">{</span>
+<span class="o">&gt;</span>           <span class="s2">"address"</span><span class="p">:</span> <span class="s2">"1FHz8bpEE5qUZ9XhfjzAbCCwo5bT1HMNAc"</span><span class="p">,</span>
+<span class="o">&gt;</span>           <span class="s2">"path"</span><span class="p">:</span> <span class="s2">"m/0"</span>
+<span class="o">&gt;</span>       <span class="p">},</span>
+<span class="o">&gt;</span>       <span class="p">{</span>
+<span class="o">&gt;</span>           <span class="s2">"address"</span><span class="p">:</span> <span class="s2">"1J8QDN1u7iDMbJktbqXPSrAqruNjkmRFmT"</span><span class="p">,</span>
+<span class="o">&gt;</span>           <span class="s2">"path"</span><span class="p">:</span> <span class="s2">"m/1"</span>
+<span class="o">&gt;</span>       <span class="p">},</span>
+<span class="o">&gt;</span>       <span class="p">{</span>
+<span class="o">&gt;</span>           <span class="s2">"address"</span><span class="p">:</span> <span class="s2">"1MWNKnYfE2LVdvAzFUioF3F3JXFpRfDCQb"</span><span class="p">,</span>
+<span class="o">&gt;</span>           <span class="s2">"path"</span><span class="p">:</span> <span class="s2">"m/2"</span>
+<span class="o">&gt;</span>       <span class="p">}]</span>
+<span class="o">&gt;</span>   <span class="p">}</span>
+<span class="o">&gt;</span> <span class="p">]}</span>
 </code></pre>
 <pre class="highlight ruby"><code><span class="o">&gt;</span> <span class="n">block_cypher</span><span class="p">.</span><span class="nf">wallet_get_addr</span><span class="p">(</span><span class="s2">"alice"</span><span class="p">)</span>
 <span class="o">=&gt;</span> <span class="p">{</span><span class="s2">"addresses"</span><span class="o">=&gt;</span><span class="p">[</span><span class="s2">"13cj1QtfW61kQHoqXm3khVRYPJrgQiRM6j"</span><span class="p">,</span> <span class="s2">"1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e"</span><span class="p">]}</span>
@@ -3958,7 +4216,22 @@ curl https://api.blockcypher.com/v1/btc/main/wallets/hd/bob/addresses?token<span
 <span class="o">//</span><span class="n">hd</span> <span class="n">wallet</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">'https://api.blockcypher.com/v1/btc/main/wallets/hd/alice/addresses'</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
-<span class="p">{}</span>
+<span class="p">{</span><span class="s">'chains'</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span><span class="s">'chain_addresses'</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s">'address'</span><span class="p">:</span> <span class="s">'1FHz8bpEE5qUZ9XhfjzAbCCwo5bT1HMNAc'</span><span class="p">,</span>
+            <span class="s">'path'</span><span class="p">:</span> <span class="s">'m/0'</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="s">'address'</span><span class="p">:</span> <span class="s">'1J8QDN1u7iDMbJktbqXPSrAqruNjkmRFmT'</span><span class="p">,</span>
+            <span class="s">'path'</span><span class="p">:</span> <span class="s">'m/1'</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="s">'address'</span><span class="p">:</span> <span class="s">'1MWNKnYfE2LVdvAzFUioF3F3JXFpRfDCQb'</span><span class="p">,</span>
+            <span class="s">'path'</span><span class="p">:</span> <span class="s">'m/2'</span>
+        <span class="p">}]</span>
+    <span class="p">}</span>
+<span class="p">]}</span>
 </code></pre>
 <pre class="highlight php"><code><span class="cp">&lt;?php</span>
 <span class="c1">// normal wallet
@@ -3968,12 +4241,10 @@ curl https://api.blockcypher.com/v1/btc/main/wallets/hd/bob/addresses?token<span
 <span class="nv">$walletClient</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">WalletClient</span><span class="p">(</span><span class="nv">$apiContext</span><span class="p">);</span>
 <span class="nv">$addressList</span> <span class="o">=</span> <span class="nv">$walletClient</span><span class="o">-&gt;</span><span class="na">getWalletAddresses</span><span class="p">(</span><span class="s1">'alice'</span><span class="p">);</span>
 
-<span class="p">{</span>
-  <span class="s2">"addresses"</span><span class="o">:</span><span class="p">[</span>
+<span class="p">{</span><span class="s2">"addresses"</span><span class="o">:</span><span class="p">[</span>
     <span class="s2">"13cj1QtfW61kQHoqXm3khVRYPJrgQiRM6j"</span><span class="p">,</span>
     <span class="s2">"1jr1rHMthQVMNSYswB9ExSvYn339fWMzn"</span>
-  <span class="p">]</span>
-<span class="p">}</span>
+<span class="p">]}</span>
 
 <span class="c1">// hd wallet
 // Run on console:
@@ -3982,12 +4253,22 @@ curl https://api.blockcypher.com/v1/btc/main/wallets/hd/bob/addresses?token<span
 <span class="nv">$walletClient</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">HDWalletClient</span><span class="p">(</span><span class="nv">$apiContext</span><span class="p">);</span>
 <span class="nv">$addressList</span> <span class="o">=</span> <span class="nv">$walletClient</span><span class="o">-&gt;</span><span class="na">getWalletAddresses</span><span class="p">(</span><span class="s1">'bob'</span><span class="p">);</span>
 
-<span class="p">{</span>
-  <span class="s2">"addresses"</span><span class="o">:</span><span class="p">[</span>
-    <span class="s2">"13cj1QtfW61kQHoqXm3khVRYPJrgQiRM6j"</span><span class="p">,</span>
-    <span class="s2">"1jr1rHMthQVMNSYswB9ExSvYn339fWMzn"</span>
-  <span class="p">]</span>
-<span class="p">}</span>
+<span class="p">{</span><span class="s2">"chains"</span><span class="o">:</span> <span class="p">[</span>
+    <span class="p">{</span><span class="s2">"chain_addresses"</span><span class="o">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">"address"</span><span class="o">:</span> <span class="s2">"1FHz8bpEE5qUZ9XhfjzAbCCwo5bT1HMNAc"</span><span class="p">,</span>
+            <span class="s2">"path"</span><span class="o">:</span> <span class="s2">"m/0"</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="s2">"address"</span><span class="o">:</span> <span class="s2">"1J8QDN1u7iDMbJktbqXPSrAqruNjkmRFmT"</span><span class="p">,</span>
+            <span class="s2">"path"</span><span class="o">:</span> <span class="s2">"m/1"</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="s2">"address"</span><span class="o">:</span> <span class="s2">"1MWNKnYfE2LVdvAzFUioF3F3JXFpRfDCQb"</span><span class="p">,</span>
+            <span class="s2">"path"</span><span class="o">:</span> <span class="s2">"m/2"</span>
+        <span class="p">}]</span>
+    <span class="p">}</span>
+<span class="p">]}</span>
 </code></pre>
 
 <table><thead>
@@ -4005,11 +4286,30 @@ curl https://api.blockcypher.com/v1/btc/main/wallets/hd/bob/addresses?token<span
 <tr>
 <td>/wallets/hd/$NAME/addresses</td>
 <td>GET</td>
-<td><a href="#hdwallet">HDWallet</a></td>
+<td><a href="#hdchain">HDChain</a></td>
 </tr>
 </tbody></table>
 
-<p>This endpoint returns a list of the addresses associated with the $NAME wallet. It returns the addresses in a partially filled out <a href="#wallet">Wallet</a> or <a href="#hdwallet">HDWallet</a> object, which you&rsquo;ll find under the <strong>addresses</strong> attribute.</p>
+<table><thead>
+<tr>
+<th>Flag</th>
+<th>Type</th>
+<th>Effect</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>used</strong></td>
+<td><em>bool</em></td>
+<td>Returns only used addresses if set to <strong>true</strong> and only unused if <strong>false</strong>.</td>
+</tr>
+<tr>
+<td><strong>zerobalance</strong></td>
+<td><em>bool</em></td>
+<td>Returns only addresses with zero balance if set to <strong>true</strong> and only addresses with non-zero balance if <strong>false</strong>.</td>
+</tr>
+</tbody></table>
+
+<p>This endpoint returns a list of the addresses associated with the $NAME wallet. It returns the addresses in a partially filled out <a href="#wallet">Wallet</a> which you&rsquo;ll find under the <strong>addresses</strong> attribute. For HD wallets it returns a <a href="#hd-addresses">HD Addresses</a> object.</p>
 
 <h2 id="remove-addresses-from-wallet-endpoint">Remove Addresses from Wallet Endpoint</h2>
 <pre class="highlight shell"><code><span class="gp">$ </span>curl -X DELETE https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses?token<span class="o">=</span>USERTOKEN&amp;address<span class="o">=</span>1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e
@@ -4072,8 +4372,7 @@ You cannot remove addresses from HD Wallets.
 </aside>
 
 <h2 id="generate-address-in-wallet-endpoint">Generate Address in Wallet Endpoint</h2>
-<pre class="highlight shell"><code><span class="c"># normal wallet</span>
-curl -X POST https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses/generate?token<span class="o">=</span>YOURTOKEN
+<pre class="highlight shell"><code>curl -X POST https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses/generate?token<span class="o">=</span>YOURTOKEN
 
 <span class="o">{</span><span class="s2">"token"</span>: <span class="s2">"YOURTOKEN"</span>,
 <span class="s2">"name"</span>: <span class="s2">"alice"</span>,
@@ -4085,32 +4384,6 @@ curl -X POST https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses/gen
 <span class="s2">"public"</span>: <span class="s2">"03e4f273521a30373a639f60da836f2308a5d53853ec18f903dd235c73e6e26e4a"</span>,
 <span class="s2">"address"</span>: <span class="s2">"14LcPtRSGjYb1s8kfxsVDbXvA7VYCmoFho"</span>,
 <span class="s2">"wif"</span>: <span class="s2">"KzWeDL7sysRay7pZUm6hQQLaDVjmN1jUZzeZuq6ru5FtN1RhPrLX"</span><span class="o">}</span>
-
-<span class="c">#hd wallet</span>
-curl -X POST https://api.blockcypher.com/v1/btc/main/wallets/hd/bob/addresses/generate?token<span class="o">=</span>YOURTOKEN
-
-<span class="o">{</span><span class="s2">"token"</span>: <span class="s2">"YOURTOKEN"</span>,
-<span class="s2">"name"</span>: <span class="s2">"bob"</span>,
-<span class="s2">"addresses"</span>: <span class="o">[</span>
-  <span class="s2">"1NwEtFZ6Td7cpKaJtYoeryS6avP2TUkSMh"</span>
-<span class="o">]</span>,
-<span class="s2">"hd"</span>: <span class="nb">true</span>,
-<span class="s2">"address"</span>: <span class="s2">"1NwEtFZ6Td7cpKaJtYoeryS6avP2TUkSMh"</span>,
-<span class="s2">"public"</span>: <span class="s2">"029b393153a1ec68c7af3a98e88aecede3a409f27e698c090540098611c79e05b0"</span><span class="o">}</span>
-
-<span class="c">#hd wallet with subchain_index</span>
-curl -X POST <span class="s1">'https://api.blockcypher.com/v1/btc/main/wallets/hd/bob/addresses/generate?token=YOURTOKEN&amp;subchain_index=1'</span>
-
-<span class="o">{</span><span class="s2">"token"</span>: <span class="s2">"YOURTOKEN"</span>,
-<span class="s2">"name"</span>: <span class="s2">"bob"</span>,
-<span class="s2">"addresses"</span>: <span class="o">[</span>
-  <span class="s2">"1NwEtFZ6Td7cpKaJtYoeryS6avP2TUkSMh"</span>,
-  <span class="s2">"1NZ97rKhSPy6NLud5Dp89E4yH5a2fUGeyC"</span>
-<span class="o">]</span>,
-<span class="s2">"hd"</span>: <span class="nb">true</span>,
-<span class="s2">"subchain_index"</span>: 1,
-<span class="s2">"address"</span>: <span class="s2">"1NZ97rKhSPy6NLud5Dp89E4yH5a2fUGeyC"</span>,
-<span class="s2">"public"</span>: <span class="s2">"03d18a97975c5f2e11dfa22dd686315f27b35c2db5d32cd7d0c11aea146fdd17c2"</span><span class="o">}</span>
 </code></pre>
 <pre class="highlight javascript"><code><span class="nx">$</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="s1">'https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses/generate?token=USERTOKEN'</span><span class="p">)</span>
   <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">{</span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">d</span><span class="p">)});</span>
@@ -4126,8 +4399,6 @@ curl -X POST <span class="s1">'https://api.blockcypher.com/v1/btc/main/wallets/h
 <span class="o">&gt;</span>   <span class="s2">"address"</span><span class="p">:</span> <span class="s2">"14LcPtRSGjYb1s8kfxsVDbXvA7VYCmoFho"</span><span class="p">,</span>
 <span class="o">&gt;</span>   <span class="s2">"wif"</span><span class="p">:</span> <span class="s2">"KzWeDL7sysRay7pZUm6hQQLaDVjmN1jUZzeZuq6ru5FtN1RhPrLX"</span>
 <span class="o">&gt;</span> <span class="p">}</span>
-
-<span class="c1">//todo: javascript hd examples</span>
 </code></pre>
 <pre class="highlight ruby"><code><span class="o">&gt;</span> <span class="n">block_cypher</span><span class="p">.</span><span class="nf">wallet_gen_addr</span><span class="p">(</span><span class="s2">"alice"</span><span class="p">)</span>
 <span class="o">=&gt;</span> <span class="p">{</span><span class="s2">"token"</span><span class="o">=&gt;</span><span class="s2">"YOURTOKEN"</span><span class="p">,</span>
@@ -4137,14 +4408,11 @@ curl -X POST <span class="s1">'https://api.blockcypher.com/v1/btc/main/wallets/h
  <span class="s2">"public"</span><span class="o">=&gt;</span><span class="s2">"037318b43fc83f3af24b5d88c8e4e33ebbdea62c3a3f6eb3a9830e2bb1f6682108"</span><span class="p">,</span>
  <span class="s2">"address"</span><span class="o">=&gt;</span><span class="s2">"1Bq7QRwfa36p5DGSe6UBy4PYmsEtQhpqC8"</span><span class="p">,</span>
  <span class="s2">"wif"</span><span class="o">=&gt;</span><span class="s2">"L5NwFyFdHqfBYhaQDttym6b3tXeaKaH7cepgAJunWrkKY24NUCjb"</span><span class="p">}</span>
-
-<span class="c1"># todo: ruby hd examples</span>
 </code></pre>
 <pre class="highlight python"><code><span class="c"># Please use the python library at https://github.com/blockcypher/blockcypher-python to securely generate an address client-side</span>
 </code></pre>
 <pre class="highlight php"><code><span class="cp">&lt;?php</span>
-<span class="c1">// normal wallet
-// Run on console:
+<span class="c1">// Run on console:
 // php -f .\sample\wallet-api\GenerateAddressInWalletEndpoint.php
 </span>
 <span class="nv">$walletClient</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">WalletClient</span><span class="p">(</span><span class="nv">$apiContext</span><span class="p">);</span>
@@ -4162,45 +4430,6 @@ curl -X POST <span class="s1">'https://api.blockcypher.com/v1/btc/main/wallets/h
   <span class="s2">"address"</span><span class="o">:</span><span class="s2">"1GuPv187EEUi3BDypdpMS7cmMuaVpWy6PM"</span><span class="p">,</span>
   <span class="s2">"wif"</span><span class="o">:</span><span class="s2">"KwfVLLsRSgSC6pkDLkEmMn8fH5VFceaYT9B58Cu8QHZtZzJvnpYZ"</span>
 <span class="p">}</span>
-
-<span class="c1">// hd wallet
-// Run on console:
-// php -f .\sample\wallet-api\GenerateAddressInHDWalletEndpoint.php
-</span>
-<span class="nv">$walletClient</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">HDWalletClient</span><span class="p">(</span><span class="nv">$apiContext</span><span class="p">);</span>
-<span class="nv">$hdWalletGenerateAddressResponse</span> <span class="o">=</span> <span class="nv">$walletClient</span><span class="o">-&gt;</span><span class="na">generateAddress</span><span class="p">(</span><span class="s1">'bob'</span><span class="p">);</span>
-
-<span class="p">{</span>
-  <span class="s2">"token"</span><span class="o">:</span><span class="s2">"c0afcccdde5081d6429de37d16166ead"</span><span class="p">,</span>
-  <span class="s2">"name"</span><span class="o">:</span><span class="s2">"bob"</span><span class="p">,</span>
-  <span class="s2">"addresses"</span><span class="o">:</span><span class="p">[</span>
-    <span class="s2">"1NwEtFZ6Td7cpKaJtYoeryS6avP2TUkSMh"</span>
-  <span class="p">],</span>
-  <span class="s2">"hd"</span><span class="o">:</span><span class="kc">true</span><span class="p">,</span>
-  <span class="s2">"address"</span><span class="o">:</span><span class="s2">"1NwEtFZ6Td7cpKaJtYoeryS6avP2TUkSMh"</span><span class="p">,</span>
-  <span class="s2">"public"</span><span class="o">:</span><span class="s2">"029b393153a1ec68c7af3a98e88aecede3a409f27e698c090540098611c79e05b0"</span>
-<span class="p">}</span>
-
-<span class="c1">// hd wallet with subchain_index
-// Run on console:
-// php -f .\sample\wallet-api\GenerateAddressInHDWalletWithSubchainIndexEndpoint.php
-</span>
-<span class="nv">$walletClient</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">HDWalletClient</span><span class="p">(</span><span class="nv">$apiContexts</span><span class="p">[</span><span class="s1">'BTC.main'</span><span class="p">]);</span>
-<span class="nv">$params</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="s1">'subchain_index'</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">);</span>
-<span class="nv">$hdWalletGenerateAddressResponse</span> <span class="o">=</span> <span class="nv">$walletClient</span><span class="o">-&gt;</span><span class="na">generateAddress</span><span class="p">(</span><span class="s1">'bob'</span><span class="p">,</span> <span class="nv">$params</span><span class="p">);</span>
-
-<span class="p">{</span>
-  <span class="s2">"token"</span><span class="o">:</span><span class="s2">"c0afcccdde5081d6429de37d16166ead"</span><span class="p">,</span>
-  <span class="s2">"name"</span><span class="o">:</span><span class="s2">"bob"</span><span class="p">,</span>
-  <span class="s2">"addresses"</span><span class="o">:</span><span class="p">[</span>
-    <span class="s2">"1NwEtFZ6Td7cpKaJtYoeryS6avP2TUkSMh"</span><span class="p">,</span>
-    <span class="s2">"18FcseQ86zCaXzLbgDsH86292xb2EuKtFW"</span>
-  <span class="p">],</span>
-  <span class="s2">"hd"</span><span class="o">:</span><span class="kc">true</span><span class="p">,</span>
-  <span class="s2">"subchain_index"</span><span class="o">:</span><span class="mi">1</span><span class="p">,</span>
-  <span class="s2">"address"</span><span class="o">:</span><span class="s2">"18FcseQ86zCaXzLbgDsH86292xb2EuKtFW"</span><span class="p">,</span>
-  <span class="s2">"public"</span><span class="o">:</span><span class="s2">"02518873d92d8e9a7720134ef499621eb793ecd85894f5da03ae172a392c69bce8"</span>
-<span class="p">}</span>
 </code></pre>
 
 <table><thead>
@@ -4215,19 +4444,108 @@ curl -X POST <span class="s1">'https://api.blockcypher.com/v1/btc/main/wallets/h
 <td>/wallets/$NAME/addresses/generate</td>
 <td>POST</td>
 <td><em>nil</em></td>
-<td><a href="#Wallet">Wallet</a> + <a href="#AddressKeychain">AddressKeychain</a></td>
-</tr>
-<tr>
-<td>/wallets/hd/$NAME/addresses/generate</td>
-<td>POST</td>
-<td><em>nil</em></td>
-<td><a href="#Wallet">Wallet</a> + <a href="#AddressKeychain">AddressKeychain</a></td>
+<td><a href="#wallet">Wallet</a> + <a href="#addresskeychain">AddressKeychain</a></td>
 </tr>
 </tbody></table>
 
-<p>This endpoint allows you to generate a new address associated with the $NAME wallet, similar to the <a href="#generate-address-endpoint">Generate Address Endpoint</a>. If successful, it will returned the newly modified <a href="#wallet">Wallet</a> or <a href="#hdwallet">HDWallet</a> composed with an <a href="#AddressKeychain">AddressKeychain</a>.</p>
+<p>This endpoint allows you to generate a new address associated with the $NAME wallet, similar to the <a href="#generate-address-endpoint">Generate Address Endpoint</a>. If successful, it will returned the newly modified <a href="#wallet">Wallet</a> composed with an <a href="#addresskeychain">AddressKeychain</a>.</p>
 
-<p>For HD Wallets, include a <strong>subchain_index</strong> to generate address on a specific subchain. Otherwise the address is generated on the first chain in the wallet.</p>
+<p>Only works for regular Wallets; for HD Wallets, use the <a href="#derive-address-in-wallet-endpoint">Derive Address</a> endpoint specified below.</p>
+
+<h2 id="derive-address-in-wallet-endpoint">Derive Address in Wallet Endpoint</h2>
+<pre class="highlight shell"><code>curl -X POST https://api.blockcypher.com/v1/btc/main/wallets/hd/bob/addresses/derive?token<span class="o">=</span>YOURTOKEN
+
+<span class="o">{</span><span class="s2">"token"</span>: <span class="s2">"YOURTOKEN"</span>,
+<span class="s2">"name"</span>: <span class="s2">"bob"</span>,
+<span class="s2">"hd"</span>: <span class="nb">true</span>,
+<span class="s2">"extended_public_key"</span>: <span class="s2">"xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoCu1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8"</span>,
+<span class="s2">"chains"</span>: <span class="o">[</span>
+    <span class="o">{</span><span class="s2">"chain_addresses"</span>: <span class="o">[</span>
+        <span class="o">{</span>
+            <span class="s2">"address"</span>: <span class="s2">"19urzZsoBNsomSfj68PUUGLXDz261tK5Jo"</span>,
+            <span class="s2">"public"</span>: <span class="s2">"02c85080e00080aa933f93a2718bba9f01fd6fdc8e4712a155849f5ba588666471"</span>,
+            <span class="s2">"path"</span>: <span class="s2">"m/3"</span>
+        <span class="o">}</span>
+    <span class="o">]}</span>
+<span class="o">]}</span>
+
+<span class="c">#with subchain_index</span>
+curl -X POST <span class="s1">'https://api.blockcypher.com/v1/btc/main/wallets/hd/catheryne/addresses/derive?token=YOURTOKEN&amp;subchain_index=1'</span>
+
+<span class="o">{</span><span class="s2">"token"</span>: <span class="s2">"YOURTOKEN"</span>,
+<span class="s2">"name"</span>: <span class="s2">"catheryne"</span>,
+<span class="s2">"hd"</span>: <span class="nb">true</span>,
+<span class="s2">"extended_public_key"</span>: <span class="s2">"xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoCu1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8"</span>,
+<span class="s2">"chains"</span>: <span class="o">[</span>
+    <span class="o">{</span><span class="s2">"index"</span>:1,
+    <span class="s2">"chain_addresses"</span>: <span class="o">[</span>
+    <span class="o">{</span>
+      <span class="s2">"address"</span>: <span class="s2">"1NwEtFZ6Td7cpKaJtYoeryS6avP2TUkSMh"</span>,
+      <span class="s2">"public"</span>: <span class="s2">"029b393153a1ec68c7af3a98e88aecede3a409f27e698c090540098611c79e05b0"</span>,
+      <span class="s2">"path"</span>: <span class="s2">"m/1/0"</span>
+    <span class="o">}</span>
+  <span class="o">]}</span>
+<span class="o">]}</span>
+</code></pre>
+<pre class="highlight javascript"><code><span class="c1">//todo: javascript hd derive examples</span>
+</code></pre>
+<pre class="highlight ruby"><code><span class="c1"># todo: ruby hd derive examples</span>
+</code></pre>
+<pre class="highlight python"><code><span class="c"># todo: python hd derive examples</span>
+</code></pre>
+<pre class="highlight php"><code>// Run on console:
+// php -f .\sample\wallet-api\GenerateAddressInHDWalletEndpoint.php
+
+$walletClient = new HDWalletClient($apiContext);
+$hdWalletGenerateAddressResponse = $walletClient-&gt;generateAddress('bob');
+
+// with subchain_index
+// Run on console:
+// php -f .\sample\wallet-api\GenerateAddressInHDWalletWithSubchainIndexEndpoint.php
+
+$walletClient = new HDWalletClient($apiContexts['BTC.main']);
+$params = array('subchain_index' =&gt; 1);
+$hdWalletGenerateAddressResponse = $walletClient-&gt;generateAddress('bob', $params);
+</code></pre>
+
+<table><thead>
+<tr>
+<th>Resource</th>
+<th>Method</th>
+<th>Request Object</th>
+<th>Return Object</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>/wallets/hd/$NAME/addresses/derive</td>
+<td>POST</td>
+<td><em>nil</em></td>
+<td>Partial <a href="#hdwallet">HDWallet</a></td>
+</tr>
+</tbody></table>
+
+<table><thead>
+<tr>
+<th>Flag</th>
+<th>Type</th>
+<th>Effect</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>count</strong></td>
+<td><em>integer</em></td>
+<td>Number of addresses to derive. If not set, default is one address.</td>
+</tr>
+<tr>
+<td><strong>subchain_index</strong></td>
+<td><em>integer</em></td>
+<td>Derives address(es) on this specific subchain. If not set, address will be generated on the first chain in the HD wallet.</td>
+</tr>
+</tbody></table>
+
+<p>This endpoint allows you to derive a new address (or multiple addresses) associated with the $NAME HD Wallet. If successful, it will return an <a href="#hdwallet">HDWallet</a> <strong>but only with the newly derived address(es)</strong> represented in its <strong>chains</strong> field to limit the data transmitted; for the full address list after derivation, you can follow up this API call with the <a href="#get-wallet-addresses-endpoint">Get Wallet Addresses Endpoint.</a></p>
+
+<p>Only works for HD Wallets; for regular wallets, use the <a href="#generate-address-in-wallet-endpoint">Generate Address</a> in Wallet endpoint specified above.</p>
 
 <h2 id="delete-wallet-endpoint">Delete Wallet Endpoint</h2>
 <pre class="highlight shell"><code><span class="c"># normal wallet</span>
