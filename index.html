@@ -3657,7 +3657,7 @@ Don&rsquo;t be confused: this Wallet API has nothing to do with private key mana
 
 <p>If you want to use <a href="https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki">BIP 44</a> layout (for BTC), you can submit the extended public key of m/44&rsquo;/0&rsquo;/0&rsquo;. (which can only be derived from your master private key) with subchain indexes = [0, 1]. Subchain index 0 represents the external chain (of account 0) and will discover all k keypairs in m/44&rsquo;/0&rsquo;/0&rsquo;/0/k. Subchain index 1 represents the internal chain (of account 0) and will discover all k keypairs in m/44&rsquo;/0&rsquo;/0&rsquo;/1/k.</p>
 
-<p>If an address ahead of current addresses listed in an HD Wallet receives a transaction, it will be added, along with any addresses between the new address and the last used one. We limit looking ahead to 10 addresses; if more than 10 addresses are skipped for the next payment to an HD Wallet, it won&rsquo;t be detected/added to the HD Wallet.</p>
+<p>If an address ahead of current addresses listed in an HD Wallet receives a transaction, it will be added, along with any addresses between the new address and the last used one. We limit looking ahead to 20 addresses; if more than 20 addresses are skipped for the next payment to an HD Wallet, it won&rsquo;t be detected/added to the HD Wallet.</p>
 
 <h2 id="using-wallets">Using Wallets</h2>
 
