@@ -22,7 +22,7 @@ If you want to use [BIP32 default wallet layout](https://github.com/bitcoin/bips
 
 If you want to use [BIP 44](https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki) layout (for BTC), you can submit the extended public key of m/44'/0'/0'. (which can only be derived from your master private key) with subchain indexes = [0, 1]. Subchain index 0 represents the external chain (of account 0) and will discover all k keypairs in m/44'/0'/0'/0/k. Subchain index 1 represents the internal chain (of account 0) and will discover all k keypairs in m/44'/0'/0'/1/k.
 
-If an address ahead of current addresses listed in an HD Wallet receives a transaction, it will be added, along with any addresses between the new address and the last used one. We limit looking ahead to 10 addresses; if more than 10 addresses are skipped for the next payment to an HD Wallet, it won't be detected/added to the HD Wallet.
+If an address ahead of current addresses listed in an HD Wallet receives a transaction, it will be added, along with any addresses between the new address and the last used one. We limit looking ahead to 20 addresses; if more than 20 addresses are skipped for the next payment to an HD Wallet, it won't be detected/added to the HD Wallet.
 
 ## Using Wallets
 
