@@ -3,3 +3,4 @@
 //= require ./app/_search
 //= require ./app/_toc
 //= require ./app/_websocket-browser
+//= require ./app/_google-analytics
