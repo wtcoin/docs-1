@@ -1337,6 +1337,16 @@ Objects sometimes contain <b>attributes</b> that are <b><i>optional.</i></b> The
 <td><em>string</em></td>
 <td><strong><em>Optional</em></strong> The transaction hash that spent this output. Only returned for outputs that have been spent.</td>
 </tr>
+<tr>
+<td><strong>data_hex</strong></td>
+<td><em>string</em></td>
+<td><strong><em>Optional</em></strong> A hex-encoded representation of an OP_RETURN data output, without any other script instructions. Only returned for outputs whose <strong>script_type</strong> is <em>null-data</em>.</td>
+</tr>
+<tr>
+<td><strong>data_string</strong></td>
+<td><em>string</em></td>
+<td><strong><em>Optional</em></strong> An ASCII representation of an OP_RETURN data output, without any other script instructions. Only returned for outputs whose <strong>script_type</strong> is <em>null-data</em> and if its data falls into the visible ASCII range.</td>
+</tr>
 </tbody></table>
 
 <h2 id="txconfidence">TXConfidence</h2>
