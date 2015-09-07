@@ -257,6 +257,8 @@ Attribute | Type | Description
 **addresses** | *array[string]* | Addresses that correspond to this output; typically this will only have a single address, and you can think of this output as having "sent" **value** to the address contained herein.
 **script_type** | *string* | The type of encumbrance script used for this output.
 **spent_by** | *string* | ***Optional*** The transaction hash that spent this output. Only returned for outputs that have been spent.
+**data_hex** | *string* | ***Optional*** A hex-encoded representation of an OP_RETURN data output, without any other script instructions. Only returned for outputs whose **script_type** is *null-data*.
+**data_string** | *string* | ***Optional*** An ASCII representation of an OP_RETURN data output, without any other script instructions. Only returned for outputs whose **script_type** is *null-data* and if its data falls into the visible ASCII range.
 
 ## TXConfidence
 
