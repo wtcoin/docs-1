@@ -305,12 +305,13 @@ A TXRef object represents summarized data about a transaction input or output. T
 
 Attribute | Type | Description
 --------- | ---- | -----------
-**block_height** | *integer* | Height of the block that contains this transaction. If this is an unconfirmed transaction, it will equal -1.
+**address** | *string* | ***Optional*** The address associated with this transaction output. Only returned when querying an address endpoint via a wallet/HD wallet name.
+**block_height** | *integer* | Height of the block that contains this transaction output. If it's unconfirmed, this will equal -1.
 **tx_hash** | *string* | The hash of the transaction containing this input or output. While reasonably unique, using hashes as identifiers may be [unsafe](https://en.bitcoin.it/wiki/Transaction_Malleability).
-**tx_input_n** | *integer* | Index of the input in the transaction. It's a negative number for an output.
-**tx_output_n** | *integer* |	Index of the output in the transaction. It's a negative number for an input.
+**tx_input_n** | *integer* | Index of this input in the transaction. It's a negative number for an output.
+**tx_output_n** | *integer* |	Index of this output in the transaction. It's a negative number for an input.
 **value** | *integer* | The value transfered by this input/output in satoshis exchanged in this transaction.
-**preference** | *string* | The likelihood that this transaction will make it to the next block; reflects the preference level miners have to include this transaction. Can be high, medium or low.
+**preference** | *string* | The likelihood that the enclosing transaction will make it to the next block; reflects the preference level miners have to include this transaction. Can be high, medium or low.
 **spent** | *bool* | 	True if this output was spent; false otherwise.
 **double_spend** | *bool* | True if this is an attempted double spend; false otherwise.
 **confirmations** | *integer* | Number of subsequent blocks, including the block the transaction is in. Unconfirmed transactions have 0 confirmations.
@@ -479,7 +480,9 @@ An Address represents a public address on a blockchain, and contains information
 
 Attribute | Type | Description
 --------- | ---- | -----------
-**address** | *string* | The requested address.
+**address** | *string* | ***Optional*** The requested address. Not returned if querying a wallet/HD wallet.
+**wallet** | *[Wallet](#wallet)* | ***Optional*** The requested wallet object. Only returned if querying by wallet name instead of public address.
+**hd_wallet** | *[HDWallet](#hdwallet)* | ***Optional*** The requested HD wallet object. Only returned if querying by HD wallet name instead of public address.
 **total_received** | *integer* |Total amount of satoshis received by this address.
 **total_sent** | *integer* | Total amount of satoshis sent by this address.
 **balance**	| *integer* | Balance of confirmed satoshis on this address. This is the difference between outputs and inputs on this address, but only for transactions that have been included into a block (i.e., for transactions whose confirmations > 0).

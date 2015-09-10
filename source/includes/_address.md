@@ -102,7 +102,7 @@ Resource | Method | Return Object
 -------- | ------ | -------------
 /addrs/$ADDRESS/balance | GET | [Address](#address)
 
-ADDRESS is a *string* representing the public address (or wallet name) you're interested in querying, for example:
+ADDRESS is a *string* representing the public address (or wallet/HD wallet name) you're interested in querying, for example:
 
 `1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD`
 
@@ -311,7 +311,7 @@ Flag | Type | Effect
 **limit** | *integer* | Only includes **limit** number of TXRefs; if unset, default is 50, while the maximum is 200.
 **confirmations** | *integer* | If set, only returns the **balance** and TXRefs that have this number of **confirmations**.
 
-ADDRESS is a *string* representing the public address (or wallet name) you're interested in querying, for example:
+ADDRESS is a *string* representing the public address (or wallet/HD wallet name) you're interested in querying, for example:
 
 `1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD`
 
@@ -663,7 +663,7 @@ Flag | Type | Effect
 **limit** | *integer* | Only includes **limit** number of TXs; if unset, default is 10, while the maximum is 50.
 **includeHex** | *bool* | If *true*, includes hex-encoded raw transaction for each TX; false by default.
 
-ADDRESS is a *string* representing the public address (or wallet name) you're interested in querying, for example:
+ADDRESS is a *string* representing the public address (or wallet/HD wallet name) you're interested in querying, for example:
 
 `1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD`
 
