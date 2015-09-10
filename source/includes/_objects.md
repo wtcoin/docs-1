@@ -256,7 +256,7 @@ Attribute | Type | Description
 **script** | *string* | Raw hexadecimal encoding of the encumbrance script for this output.
 **addresses** | *array[string]* | Addresses that correspond to this output; typically this will only have a single address, and you can think of this output as having "sent" **value** to the address contained herein.
 **script_type** | *string* | The type of encumbrance script used for this output.
-**spent_by** | *string* | ***Optional*** The transaction hash that spent this output. Only returned for outputs that have been spent.
+**spent_by** | *string* | ***Optional*** The transaction hash that spent this output. Only returned for outputs that have been spent. The spending transaction may be unconfirmed.
 **data_hex** | *string* | ***Optional*** A hex-encoded representation of an OP_RETURN data output, without any other script instructions. Only returned for outputs whose **script_type** is *null-data*.
 **data_string** | *string* | ***Optional*** An ASCII representation of an OP_RETURN data output, without any other script instructions. Only returned for outputs whose **script_type** is *null-data* and if its data falls into the visible ASCII range.
 
@@ -317,7 +317,7 @@ Attribute | Type | Description
 **ref_balance** | *integer* | ***Optional*** The past balance of the parent address the moment this transaction was confirmed. Not present for unconfirmed transactions.
 **confidence** | *float* | ***Optional*** The percentage chance this transaction will be included in the next block, if unconfirmed. For more information, check the section on [Confidence Factor.](#confidence-factor)
 **confirmed** | [*time*](https://tools.ietf.org/html/rfc3339) | ***Optional*** Time at which transaction was included in a block; only present for confirmed transactions.
-**spent_by** | *string* | ***Optional*** The transaction hash that spent this output. Only returned for outputs that have been spent.
+**spent_by** | *string* | ***Optional*** The transaction hash that spent this output. Only returned for outputs that have been spent. The spending transaction may be unconfirmed.
 **received** | [*time*](https://tools.ietf.org/html/rfc3339) | ***Optional*** Time this transaction was received by BlockCypher's servers; only present for unconfirmed transactions.
 **receive_count** | *integer* | ***Optional*** Number of peers that have sent this transaction to BlockCypher; only present for unconfirmed transactions.
 **double_of** | *string* | ***Optional*** If this transaction is a double-spend (i.e. **double_spend** == true) then this is the hash of the transaction it's double-spending.
