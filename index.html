@@ -1335,7 +1335,7 @@ Objects sometimes contain <b>attributes</b> that are <b><i>optional.</i></b> The
 <tr>
 <td><strong>spent_by</strong></td>
 <td><em>string</em></td>
-<td><strong><em>Optional</em></strong> The transaction hash that spent this output. Only returned for outputs that have been spent.</td>
+<td><strong><em>Optional</em></strong> The transaction hash that spent this output. Only returned for outputs that have been spent. The spending transaction may be unconfirmed.</td>
 </tr>
 <tr>
 <td><strong>data_hex</strong></td>
@@ -1422,9 +1422,14 @@ Objects sometimes contain <b>attributes</b> that are <b><i>optional.</i></b> The
 </tr>
 </thead><tbody>
 <tr>
+<td><strong>address</strong></td>
+<td><em>string</em></td>
+<td><strong><em>Optional</em></strong> The address associated with this transaction output. Only returned when querying an address endpoint via a wallet/HD wallet name.</td>
+</tr>
+<tr>
 <td><strong>block_height</strong></td>
 <td><em>integer</em></td>
-<td>Height of the block that contains this transaction. If this is an unconfirmed transaction, it will equal -1.</td>
+<td>Height of the block that contains this transaction output. If it&rsquo;s unconfirmed, this will equal -1.</td>
 </tr>
 <tr>
 <td><strong>tx_hash</strong></td>
@@ -1434,12 +1439,12 @@ Objects sometimes contain <b>attributes</b> that are <b><i>optional.</i></b> The
 <tr>
 <td><strong>tx_input_n</strong></td>
 <td><em>integer</em></td>
-<td>Index of the input in the transaction. It&rsquo;s a negative number for an output.</td>
+<td>Index of this input in the transaction. It&rsquo;s a negative number for an output.</td>
 </tr>
 <tr>
 <td><strong>tx_output_n</strong></td>
 <td><em>integer</em></td>
-<td>Index of the output in the transaction. It&rsquo;s a negative number for an input.</td>
+<td>Index of this output in the transaction. It&rsquo;s a negative number for an input.</td>
 </tr>
 <tr>
 <td><strong>value</strong></td>
@@ -1449,7 +1454,7 @@ Objects sometimes contain <b>attributes</b> that are <b><i>optional.</i></b> The
 <tr>
 <td><strong>preference</strong></td>
 <td><em>string</em></td>
-<td>The likelihood that this transaction will make it to the next block; reflects the preference level miners have to include this transaction. Can be high, medium or low.</td>
+<td>The likelihood that the enclosing transaction will make it to the next block; reflects the preference level miners have to include this transaction. Can be high, medium or low.</td>
 </tr>
 <tr>
 <td><strong>spent</strong></td>
@@ -1484,7 +1489,7 @@ Objects sometimes contain <b>attributes</b> that are <b><i>optional.</i></b> The
 <tr>
 <td><strong>spent_by</strong></td>
 <td><em>string</em></td>
-<td><strong><em>Optional</em></strong> The transaction hash that spent this output. Only returned for outputs that have been spent.</td>
+<td><strong><em>Optional</em></strong> The transaction hash that spent this output. Only returned for outputs that have been spent. The spending transaction may be unconfirmed.</td>
 </tr>
 <tr>
 <td><strong>received</strong></td>
@@ -1775,7 +1780,17 @@ Only one of these three fields is required for the microtransaction endpoint: <b
 <tr>
 <td><strong>address</strong></td>
 <td><em>string</em></td>
-<td>The requested address.</td>
+<td><strong><em>Optional</em></strong> The requested address. Not returned if querying a wallet/HD wallet.</td>
+</tr>
+<tr>
+<td><strong>wallet</strong></td>
+<td><em><a href="#wallet">Wallet</a></em></td>
+<td><strong><em>Optional</em></strong> The requested wallet object. Only returned if querying by wallet name instead of public address.</td>
+</tr>
+<tr>
+<td><strong>hd_wallet</strong></td>
+<td><em><a href="#hdwallet">HDWallet</a></em></td>
+<td><strong><em>Optional</em></strong> The requested HD wallet object. Only returned if querying by HD wallet name instead of public address.</td>
 </tr>
 <tr>
 <td><strong>total_received</strong></td>
@@ -2851,7 +2866,7 @@ With recent blocks, $BLOCK_HEIGHT is not always a unique identifier, due to the 
 </tr>
 </tbody></table>
 
-<p>ADDRESS is a <em>string</em> representing the public address (or wallet name) you&rsquo;re interested in querying, for example:</p>
+<p>ADDRESS is a <em>string</em> representing the public address (or wallet/HD wallet name) you&rsquo;re interested in querying, for example:</p>
 
 <p><code class="prettyprint">1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD</code></p>
 
@@ -3082,7 +3097,7 @@ With recent blocks, $BLOCK_HEIGHT is not always a unique identifier, due to the 
 </tr>
 </tbody></table>
 
-<p>ADDRESS is a <em>string</em> representing the public address (or wallet name) you&rsquo;re interested in querying, for example:</p>
+<p>ADDRESS is a <em>string</em> representing the public address (or wallet/HD wallet name) you&rsquo;re interested in querying, for example:</p>
 
 <p><code class="prettyprint">1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD</code></p>
 
@@ -3452,7 +3467,7 @@ With recent blocks, $BLOCK_HEIGHT is not always a unique identifier, due to the 
 </tr>
 </tbody></table>
 
-<p>ADDRESS is a <em>string</em> representing the public address (or wallet name) you&rsquo;re interested in querying, for example:</p>
+<p>ADDRESS is a <em>string</em> representing the public address (or wallet/HD wallet name) you&rsquo;re interested in querying, for example:</p>
 
 <p><code class="prettyprint">1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD</code></p>
 
