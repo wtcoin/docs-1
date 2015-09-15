@@ -483,8 +483,8 @@ Attribute | Type | Description
 **address** | *string* | ***Optional*** The requested address. Not returned if querying a wallet/HD wallet.
 **wallet** | *[Wallet](#wallet)* | ***Optional*** The requested wallet object. Only returned if querying by wallet name instead of public address.
 **hd_wallet** | *[HDWallet](#hdwallet)* | ***Optional*** The requested HD wallet object. Only returned if querying by HD wallet name instead of public address.
-**total_received** | *integer* |Total amount of satoshis received by this address.
-**total_sent** | *integer* | Total amount of satoshis sent by this address.
+**total_received** | *integer* |Total amount of confirmed satoshis received by this address.
+**total_sent** | *integer* | Total amount of confirmed satoshis sent by this address.
 **balance**	| *integer* | Balance of confirmed satoshis on this address. This is the difference between outputs and inputs on this address, but only for transactions that have been included into a block (i.e., for transactions whose confirmations > 0).
 **unconfirmed_balance**	| *integer* | Balance of unconfirmed satoshis on this address. Can be negative (if unconfirmed transactions are just spending outputs). Only unconfirmed transactions (haven't made it into a block) are included.
 **final_balance**	| *integer* |	Total balance of satoshis, including confirmed and unconfirmed transactions, for this address.
