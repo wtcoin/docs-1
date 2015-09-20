@@ -2866,6 +2866,20 @@ With recent blocks, $BLOCK_HEIGHT is not always a unique identifier, due to the 
 </tr>
 </tbody></table>
 
+<table><thead>
+<tr>
+<th>Flag</th>
+<th>Type</th>
+<th>Effect</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>omitWalletAddresses</strong></td>
+<td><em>bool</em></td>
+<td>If <strong>omitWalletAddresses</strong> is <em>true</em> and you&rsquo;re querying a <a href="#wallet">Wallet</a> or <a href="#hdwallet">HDWallet</a>, the response will omit address information (useful to speed up the API call for larger wallets).</td>
+</tr>
+</tbody></table>
+
 <p>ADDRESS is a <em>string</em> representing the public address (or wallet/HD wallet name) you&rsquo;re interested in querying, for example:</p>
 
 <p><code class="prettyprint">1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD</code></p>
@@ -3094,6 +3108,11 @@ With recent blocks, $BLOCK_HEIGHT is not always a unique identifier, due to the 
 <td><strong>confirmations</strong></td>
 <td><em>integer</em></td>
 <td>If set, only returns the <strong>balance</strong> and TXRefs that have this number of <strong>confirmations</strong>.</td>
+</tr>
+<tr>
+<td><strong>omitWalletAddresses</strong></td>
+<td><em>bool</em></td>
+<td>If <strong>omitWalletAddresses</strong> is <em>true</em> and you&rsquo;re querying a <a href="#wallet">Wallet</a> or <a href="#hdwallet">HDWallet</a>, the response will omit address information (useful to speed up the API call for larger wallets).</td>
 </tr>
 </tbody></table>
 
@@ -3464,6 +3483,11 @@ With recent blocks, $BLOCK_HEIGHT is not always a unique identifier, due to the 
 <td><strong>includeHex</strong></td>
 <td><em>bool</em></td>
 <td>If <em>true</em>, includes hex-encoded raw transaction for each TX; false by default.</td>
+</tr>
+<tr>
+<td><strong>omitWalletAddresses</strong></td>
+<td><em>bool</em></td>
+<td>If <strong>omitWalletAddresses</strong> is <em>true</em> and you&rsquo;re querying a <a href="#wallet">Wallet</a> or <a href="#hdwallet">HDWallet</a>, the response will omit address information (useful to speed up the API call for larger wallets).</td>
 </tr>
 </tbody></table>
 
