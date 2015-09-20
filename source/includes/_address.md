@@ -102,6 +102,10 @@ Resource | Method | Return Object
 -------- | ------ | -------------
 /addrs/$ADDRESS/balance | GET | [Address](#address)
 
+Flag | Type | Effect
+---- | ---- | ------
+**omitWalletAddresses** | *bool* | If **omitWalletAddresses** is *true* and you're querying a [Wallet](#wallet) or [HDWallet](#hdwallet), the response will omit address information (useful to speed up the API call for larger wallets).
+
 ADDRESS is a *string* representing the public address (or wallet/HD wallet name) you're interested in querying, for example:
 
 `1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD`
@@ -310,6 +314,7 @@ Flag | Type | Effect
 **before** | *integer* | Filters response to only include transactions below **before** height in the blockchain.
 **limit** | *integer* | Only includes **limit** number of TXRefs; if unset, default is 50, while the maximum is 200.
 **confirmations** | *integer* | If set, only returns the **balance** and TXRefs that have this number of **confirmations**.
+**omitWalletAddresses** | *bool* | If **omitWalletAddresses** is *true* and you're querying a [Wallet](#wallet) or [HDWallet](#hdwallet), the response will omit address information (useful to speed up the API call for larger wallets).
 
 ADDRESS is a *string* representing the public address (or wallet/HD wallet name) you're interested in querying, for example:
 
@@ -662,6 +667,7 @@ Flag | Type | Effect
 **before** | *integer* | Filters response to only include transactions below **before** height in the blockchain.
 **limit** | *integer* | Only includes **limit** number of TXs; if unset, default is 10, while the maximum is 50.
 **includeHex** | *bool* | If *true*, includes hex-encoded raw transaction for each TX; false by default.
+**omitWalletAddresses** | *bool* | If **omitWalletAddresses** is *true* and you're querying a [Wallet](#wallet) or [HDWallet](#hdwallet), the response will omit address information (useful to speed up the API call for larger wallets).
 
 ADDRESS is a *string* representing the public address (or wallet/HD wallet name) you're interested in querying, for example:
 
