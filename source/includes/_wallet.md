@@ -256,6 +256,77 @@ If successful, it will return the same [Wallet](#wallet) or [HDWallet](#hdwallet
 If the named wallet already exists under your token, attempting to create a new wallet will return an error. As mentioned above, Wallets and HDWallets share the same namespace, so an error will be returned if you attempt to create a named HD Wallet that shares a name with a normal Wallet under your token.
 </aside>
 
+## List Wallets Endpoint
+
+```shell
+# normal wallets
+curl https://api.blockcypher.com/v1/btc/main/wallets?token=YOURTOKEN
+{
+"wallet_names": [
+		"alice"
+	]
+}
+
+# hd wallets
+curl https://api.blockcypher.com/v1/btc/main/wallets/hd?token=YOURTOKEN
+{
+"hd_wallet_names": [
+		"bob",
+		"catheryne"
+	]
+}
+```
+
+```javascript
+//normal wallets
+$.get('https://api.blockcypher.com/v1/btc/main/wallets?token=YOURTOKEN')
+  .then(function(d) {console.log(d)});
+> {
+> "wallet_names": [
+> 		"alice"
+> 	]
+> }
+
+//hd wallets
+$.get('https://api.blockcypher.com/v1/btc/main/wallets/hd?token=YOURTOKEN')
+  .then(function(d) {console.log(d)});
+> {
+> "hd_wallet_names": [
+> 		"bob",
+> 		"catheryne"
+> 	]
+> }
+```
+
+```ruby
+# TODO: ruby examples
+```
+
+```python
+>>> import requests
+>>> params = {'token': 'YOURTOKEN'}
+>>> r = requests.get('https://api.blockcypher.com/v1/btc/main/wallets', params=params)
+>>> r.json()
+{'wallet_names': [ 'alice' ] }
+
+//hd wallets
+>>> r = requests.get('https://api.blockcypher.com/v1/btc/main/wallets/hd', params=params)
+>>> r.json()
+{'hd_wallet_names': [ 'bob', 'catheryne' ] }
+```
+
+```php
+<?php
+//TODO: php examples
+```
+
+Resource | Method | Return Object
+-------- | ------ | -------------
+/wallets | GET | {"wallet_names":$NAMEARRAY}
+/wallets/hd | GET | {"hd_wallet_names":$NAMEARRAY}
+
+This endpoint returns a string array ($NAMEARRAY) of active wallet names under the token you queried. You can then query detailed information on individual wallets (via their names) by leveraging the [Get Wallet Endpoint.](#get-wallet-endpoint)
+
 ## Get Wallet Endpoint
 
 ```shell
