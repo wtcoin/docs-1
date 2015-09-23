@@ -1141,7 +1141,7 @@ Objects sometimes contain <b>attributes</b> that are <b><i>optional.</i></b> The
 <tr>
 <td><strong>double_spend</strong></td>
 <td><em>bool</em></td>
-<td>True if this is an attempted double spend; false otherwise.</td>
+<td><em>true</em> if this is an attempted double spend; <em>false</em> otherwise.</td>
 </tr>
 <tr>
 <td><strong>vin_sz</strong></td>
@@ -1196,7 +1196,7 @@ Objects sometimes contain <b>attributes</b> that are <b><i>optional.</i></b> The
 <tr>
 <td><strong>double_of</strong></td>
 <td><em>string</em></td>
-<td><strong><em>Optional</em></strong> If this transaction is a double-spend (i.e. <strong>double_spend</strong> == true) then this is the hash of the transaction it&rsquo;s double-spending.</td>
+<td><strong><em>Optional</em></strong> If this transaction is a double-spend (i.e. <strong>double_spend</strong> == <em>true</em>) then this is the hash of the transaction it&rsquo;s double-spending.</td>
 </tr>
 <tr>
 <td><strong>hex</strong></td>
@@ -1424,47 +1424,47 @@ Objects sometimes contain <b>attributes</b> that are <b><i>optional.</i></b> The
 <tr>
 <td><strong>address</strong></td>
 <td><em>string</em></td>
-<td><strong><em>Optional</em></strong> The address associated with this transaction output. Only returned when querying an address endpoint via a wallet/HD wallet name.</td>
+<td><strong><em>Optional</em></strong> The address associated with this transaction input/output. Only returned when querying an address endpoint via a wallet/HD wallet name.</td>
 </tr>
 <tr>
 <td><strong>block_height</strong></td>
 <td><em>integer</em></td>
-<td>Height of the block that contains this transaction output. If it&rsquo;s unconfirmed, this will equal -1.</td>
+<td>Height of the block that contains this transaction input/output. If it&rsquo;s unconfirmed, this will equal -1.</td>
 </tr>
 <tr>
 <td><strong>tx_hash</strong></td>
 <td><em>string</em></td>
-<td>The hash of the transaction containing this input or output. While reasonably unique, using hashes as identifiers may be <a href="https://en.bitcoin.it/wiki/Transaction_Malleability">unsafe</a>.</td>
+<td>The hash of the transaction containing this input/output. While reasonably unique, using hashes as identifiers may be <a href="https://en.bitcoin.it/wiki/Transaction_Malleability">unsafe</a>.</td>
 </tr>
 <tr>
 <td><strong>tx_input_n</strong></td>
 <td><em>integer</em></td>
-<td>Index of this input in the transaction. It&rsquo;s a negative number for an output.</td>
+<td>Index of this input in the enclosing transaction. It&rsquo;s a negative number for an output.</td>
 </tr>
 <tr>
 <td><strong>tx_output_n</strong></td>
 <td><em>integer</em></td>
-<td>Index of this output in the transaction. It&rsquo;s a negative number for an input.</td>
+<td>Index of this output in the enclosing transaction. It&rsquo;s a negative number for an input.</td>
 </tr>
 <tr>
 <td><strong>value</strong></td>
 <td><em>integer</em></td>
-<td>The value transfered by this input/output in satoshis exchanged in this transaction.</td>
+<td>The value transfered by this input/output in satoshis exchanged in the enclosing transaction.</td>
 </tr>
 <tr>
 <td><strong>preference</strong></td>
 <td><em>string</em></td>
-<td>The likelihood that the enclosing transaction will make it to the next block; reflects the preference level miners have to include this transaction. Can be high, medium or low.</td>
+<td>The likelihood that the enclosing transaction will make it to the next block; reflects the preference level miners have to include the enclosing transaction. Can be high, medium or low.</td>
 </tr>
 <tr>
 <td><strong>spent</strong></td>
 <td><em>bool</em></td>
-<td>True if this output was spent; false otherwise.</td>
+<td><em>true</em> if this is an output and was spent. If it&rsquo;s an input, or an unspent output, it will be <em>false</em>.</td>
 </tr>
 <tr>
 <td><strong>double_spend</strong></td>
 <td><em>bool</em></td>
-<td>True if this is an attempted double spend; false otherwise.</td>
+<td><em>true</em> if this is an attempted double spend; <em>false</em> otherwise.</td>
 </tr>
 <tr>
 <td><strong>confirmations</strong></td>
@@ -1504,7 +1504,7 @@ Objects sometimes contain <b>attributes</b> that are <b><i>optional.</i></b> The
 <tr>
 <td><strong>double_of</strong></td>
 <td><em>string</em></td>
-<td><strong><em>Optional</em></strong> If this transaction is a double-spend (i.e. <strong>double_spend</strong> == true) then this is the hash of the transaction it&rsquo;s double-spending.</td>
+<td><strong><em>Optional</em></strong> If this transaction is a double-spend (i.e. <strong>double_spend</strong> == <em>true</em>) then this is the hash of the transaction it&rsquo;s double-spending.</td>
 </tr>
 </tbody></table>
 
@@ -1999,7 +1999,7 @@ Only one of these three fields is required for the microtransaction endpoint: <b
 <tr>
 <td><strong>hd</strong></td>
 <td><em>bool</em></td>
-<td>true for HD wallets, not present for normal wallets.</td>
+<td><em>true</em> for HD wallets, not present for normal wallets.</td>
 </tr>
 <tr>
 <td><strong>extended_public_key</strong></td>
@@ -3482,7 +3482,7 @@ With recent blocks, $BLOCK_HEIGHT is not always a unique identifier, due to the 
 <tr>
 <td><strong>includeHex</strong></td>
 <td><em>bool</em></td>
-<td>If <em>true</em>, includes hex-encoded raw transaction for each TX; false by default.</td>
+<td>If <em>true</em>, includes hex-encoded raw transaction for each TX; <em>false</em> by default.</td>
 </tr>
 <tr>
 <td><strong>omitWalletAddresses</strong></td>
@@ -4424,12 +4424,12 @@ curl https://api.blockcypher.com/v1/btc/main/wallets/hd/bob/addresses?token<span
 <tr>
 <td><strong>used</strong></td>
 <td><em>bool</em></td>
-<td>Returns only used addresses if set to <strong>true</strong> and only unused if <strong>false</strong>.</td>
+<td>Returns only used addresses if set to <em>true</em> and only unused if <em>false</em>.</td>
 </tr>
 <tr>
 <td><strong>zerobalance</strong></td>
 <td><em>bool</em></td>
-<td>Returns only addresses with zero balance if set to <strong>true</strong> and only addresses with non-zero balance if <strong>false</strong>.</td>
+<td>Returns only addresses with zero balance if set to <em>true</em> and only addresses with non-zero balance if <em>false</em>.</td>
 </tr>
 </tbody></table>
 
@@ -5044,7 +5044,7 @@ Even if you don&rsquo;t use the API to assist in creating transactions, we highl
 <tr>
 <td><strong>includeHex</strong></td>
 <td><em>bool</em></td>
-<td>If <em>true</em>, includes hex-encoded raw transaction; false by default.</td>
+<td>If <em>true</em>, includes hex-encoded raw transaction; <em>false</em> by default.</td>
 </tr>
 </tbody></table>
 
@@ -5556,7 +5556,7 @@ Always use HTTPS for creating and pushing transactions.
 <tr>
 <td><strong>includeToSignTx</strong></td>
 <td><em>bool</em></td>
-<td>If <em>true</em>, includes <strong>tosign_tx</strong> array in <a href="#txskeleton">TXSkeleton</a>, useful for validating data to sign; false by default.</td>
+<td>If <em>true</em>, includes <strong>tosign_tx</strong> array in <a href="#txskeleton">TXSkeleton</a>, useful for validating data to sign; <em>false</em> by default.</td>
 </tr>
 </tbody></table>
 
@@ -5572,7 +5572,7 @@ Always use HTTPS for creating and pushing transactions.
 
 <h3 id="validating-the-data-to-sign">Validating the Data to Sign</h3>
 
-<p>For the extra cautious, you can protect yourself from a potential malicious attack on BlockCypher by validating the data we&rsquo;re asking you to sign. Unfortunately, it&rsquo;s impossible to do so directly, as pre-signed signature data is hashed twice using SHA256. To get around this, set the <strong>includeToSignTx</strong> URL flag to true. The optional <strong>tosign_tx</strong> array will be returned within the <a href="#txskeleton">TXSkeleton</a>, which you can use in the following way:</p>
+<p>For the extra cautious, you can protect yourself from a potential malicious attack on BlockCypher by validating the data we&rsquo;re asking you to sign. Unfortunately, it&rsquo;s impossible to do so directly, as pre-signed signature data is hashed twice using SHA256. To get around this, set the <strong>includeToSignTx</strong> URL flag to <em>true</em>. The optional <strong>tosign_tx</strong> array will be returned within the <a href="#txskeleton">TXSkeleton</a>, which you can use in the following way:</p>
 
 <ul>
 <li>Hashing the hex-encoded string twice using SHA256 should give you back the corresponding <strong>tosign</strong> data.</li>
