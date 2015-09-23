@@ -280,7 +280,7 @@ Flag | Type | Effect
 **limit** | *integer* | Filters TXInputs/TXOutputs, if unset, default is 20.
 **inStart** | *integer* | Filters TX to only include TXInputs after this input index.
 **outStart** | *integer* | Filters TX to only include TXOutputs after this output index.
-**includeHex** | *bool* | If *true*, includes hex-encoded raw transaction; false by default.
+**includeHex** | *bool* | If *true*, includes hex-encoded raw transaction; *false* by default.
 
 TXHASH is a *string* representing the hex-encoded transaction hash you're interested in querying, for example:
 
@@ -778,7 +778,7 @@ Resource | Method | Request Object | Return Object
 
 Flag | Type | Effect
 ---- | ---- | ------
-**includeToSignTx** | *bool* | If *true*, includes **tosign_tx** array in [TXSkeleton](#txskeleton), useful for validating data to sign; false by default.
+**includeToSignTx** | *bool* | If *true*, includes **tosign_tx** array in [TXSkeleton](#txskeleton), useful for validating data to sign; *false* by default.
 
 As you can see from the code example, you only need to provide a single public address within the **addresses** array of both the **input** and **output** of your [TX](#tx) request object. You also need to fill in the **value** with the amount you'd like to transfer from one address to another.
 
@@ -792,7 +792,7 @@ As a return object, you'll receive a [TXSkeleton](#txskeleton) containing a slig
 
 ### Validating the Data to Sign
 
-For the extra cautious, you can protect yourself from a potential malicious attack on BlockCypher by validating the data we're asking you to sign. Unfortunately, it's impossible to do so directly, as pre-signed signature data is hashed twice using SHA256. To get around this, set the **includeToSignTx** URL flag to true. The optional **tosign_tx** array will be returned within the [TXSkeleton](#txskeleton), which you can use in the following way:
+For the extra cautious, you can protect yourself from a potential malicious attack on BlockCypher by validating the data we're asking you to sign. Unfortunately, it's impossible to do so directly, as pre-signed signature data is hashed twice using SHA256. To get around this, set the **includeToSignTx** URL flag to *true*. The optional **tosign_tx** array will be returned within the [TXSkeleton](#txskeleton), which you can use in the following way:
 
 - Hashing the hex-encoded string twice using SHA256 should give you back the corresponding **tosign** data.
 - Decoding the hex-encoded string using our `/txs/decode` endpoint (or an independent, client-side source) should give you the output addresses and amounts that match your work-in-progress transaction.
