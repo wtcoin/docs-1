@@ -186,7 +186,7 @@ Attribute | Type | Description
 **received** | [*time*](https://tools.ietf.org/html/rfc3339) | Time this transaction was received by BlockCypher's servers.
 **ver** | *integer* | Version number, [typically 1 for Bitcoin transactions.](https://en.bitcoin.it/wiki/Transaction)
 **lock_time** | *integer* | Time when transaction can be valid. Can be interpreted in two ways: if less than 500 million, refers to block height. If more, refers to Unix epoch time.
-**double_spend** | *bool* | True if this is an attempted double spend; false otherwise.
+**double_spend** | *bool* | *true* if this is an attempted double spend; *false* otherwise.
 **vin_sz** | *integer* | Total number of inputs in the transaction.
 **vout_sz** | *integer* | Total number of outputs in the transaction.
 **confirmations** | *integer* | Number of subsequent blocks, including the block the transaction is in. Unconfirmed transactions have 0 confirmations.
@@ -197,7 +197,7 @@ Attribute | Type | Description
 **receive_count** | *integer* | ***Optional*** Number of peers that have sent this transaction to BlockCypher; only present for unconfirmed transactions.
 **change_address** | *string* | ***Optional*** Address BlockCypher will use to send back your change, if you [constructed this transaction](#creating-transactions). If not set, defaults to the address from which the coins were originally sent.
 **block_hash** | *string* | ***Optional***  Hash of the block that contains this transaction; only present for confirmed transactions.
-**double_of** | *string* | ***Optional*** If this transaction is a double-spend (i.e. **double_spend** == true) then this is the hash of the transaction it's double-spending.
+**double_of** | *string* | ***Optional*** If this transaction is a double-spend (i.e. **double_spend** == *true*) then this is the hash of the transaction it's double-spending.
 **hex** | *string* | ***Optional*** Hex-encoded bytes of the transaction, as sent over the network.
 **next_inputs** | *url* | ***Optional*** If there are more transaction inptus that couldn't fit into the TXInput array, this is the BlockCypher URL to query the next set of TXInputs (within a TX object).
 **next_outputs** | *url* | ***Optional*** If there are more transaction outputs that couldn't fit into the TXOutput array, this is the BlockCypher URL to query the next set of TXOutputs(within a TX object).
@@ -305,15 +305,15 @@ A TXRef object represents summarized data about a transaction input or output. T
 
 Attribute | Type | Description
 --------- | ---- | -----------
-**address** | *string* | ***Optional*** The address associated with this transaction output. Only returned when querying an address endpoint via a wallet/HD wallet name.
-**block_height** | *integer* | Height of the block that contains this transaction output. If it's unconfirmed, this will equal -1.
-**tx_hash** | *string* | The hash of the transaction containing this input or output. While reasonably unique, using hashes as identifiers may be [unsafe](https://en.bitcoin.it/wiki/Transaction_Malleability).
-**tx_input_n** | *integer* | Index of this input in the transaction. It's a negative number for an output.
-**tx_output_n** | *integer* |	Index of this output in the transaction. It's a negative number for an input.
-**value** | *integer* | The value transfered by this input/output in satoshis exchanged in this transaction.
-**preference** | *string* | The likelihood that the enclosing transaction will make it to the next block; reflects the preference level miners have to include this transaction. Can be high, medium or low.
-**spent** | *bool* | 	True if this output was spent; false otherwise.
-**double_spend** | *bool* | True if this is an attempted double spend; false otherwise.
+**address** | *string* | ***Optional*** The address associated with this transaction input/output. Only returned when querying an address endpoint via a wallet/HD wallet name.
+**block_height** | *integer* | Height of the block that contains this transaction input/output. If it's unconfirmed, this will equal -1.
+**tx_hash** | *string* | The hash of the transaction containing this input/output. While reasonably unique, using hashes as identifiers may be [unsafe](https://en.bitcoin.it/wiki/Transaction_Malleability).
+**tx_input_n** | *integer* | Index of this input in the enclosing transaction. It's a negative number for an output.
+**tx_output_n** | *integer* |	Index of this output in the enclosing transaction. It's a negative number for an input.
+**value** | *integer* | The value transfered by this input/output in satoshis exchanged in the enclosing transaction.
+**preference** | *string* | The likelihood that the enclosing transaction will make it to the next block; reflects the preference level miners have to include the enclosing transaction. Can be high, medium or low.
+**spent** | *bool* | 	*true* if this is an output and was spent. If it's an input, or an unspent output, it will be *false*. 
+**double_spend** | *bool* | *true* if this is an attempted double spend; *false* otherwise.
 **confirmations** | *integer* | Number of subsequent blocks, including the block the transaction is in. Unconfirmed transactions have 0 confirmations.
 **ref_balance** | *integer* | ***Optional*** The past balance of the parent address the moment this transaction was confirmed. Not present for unconfirmed transactions.
 **confidence** | *float* | ***Optional*** The percentage chance this transaction will be included in the next block, if unconfirmed. For more information, check the section on [Confidence Factor.](#confidence-factor)
@@ -321,7 +321,7 @@ Attribute | Type | Description
 **spent_by** | *string* | ***Optional*** The transaction hash that spent this output. Only returned for outputs that have been spent. The spending transaction may be unconfirmed.
 **received** | [*time*](https://tools.ietf.org/html/rfc3339) | ***Optional*** Time this transaction was received by BlockCypher's servers; only present for unconfirmed transactions.
 **receive_count** | *integer* | ***Optional*** Number of peers that have sent this transaction to BlockCypher; only present for unconfirmed transactions.
-**double_of** | *string* | ***Optional*** If this transaction is a double-spend (i.e. **double_spend** == true) then this is the hash of the transaction it's double-spending.
+**double_of** | *string* | ***Optional*** If this transaction is a double-spend (i.e. **double_spend** == *true*) then this is the hash of the transaction it's double-spending.
 
 ## TXSkeleton
 
@@ -573,7 +573,7 @@ Attribute | Type | Description
 **token** | *string* | User token associated with this HD wallet.
 **name** | *string* | Name of the HD wallet.
 **chains** | *array[[HDChain](#hdchain)]* | List of HD chains associated with this wallet, each containing [HDAddresses](#hdaddress). A single chain is returned if the wallet has no subchains.
-**hd** | *bool* | true for HD wallets, not present for normal wallets.
+**hd** | *bool* | *true* for HD wallets, not present for normal wallets.
 **extended_public_key** | *string* | The extended public key all addresses in the HD wallet are derived from. It's encoded in [BIP32 format](https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki#serialization-format)
 **subchain_indexes** | *array[integer]* | ***optional*** returned for HD wallets created with subchains.
 
