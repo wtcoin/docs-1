@@ -327,6 +327,10 @@ Resource | Method | Return Object
 
 This endpoint returns a string array ($NAMEARRAY) of active wallet names under the token you queried. You can then query detailed information on individual wallets (via their names) by leveraging the [Get Wallet Endpoint.](#get-wallet-endpoint)
 
+<aside class="notice">
+If you're building a client-side application where your users might have access to your token, and your security model requires maintaining wallet name privacy, we can blacklist this endpoint for you. Just reach out to <a href="mailto:support@blockcypher.com">support@blockcypher.com</a> to let us know.
+</aside>
+
 ## Get Wallet Endpoint
 
 ```shell
