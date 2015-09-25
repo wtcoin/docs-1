@@ -4022,6 +4022,10 @@ curl https://api.blockcypher.com/v1/btc/main/wallets/hd?token<span class="o">=</
 
 <p>This endpoint returns a string array ($NAMEARRAY) of active wallet names under the token you queried. You can then query detailed information on individual wallets (via their names) by leveraging the <a href="#get-wallet-endpoint">Get Wallet Endpoint.</a></p>
 
+<aside class="notice">
+If you&rsquo;re building a client-side application where your users might have access to your token, and your security model requires maintaining wallet name privacy, we can blacklist this endpoint for you. Just reach out to <a href="mailto:support@blockcypher.com">support@blockcypher.com</a> to let us know.
+</aside>
+
 <h2 id="get-wallet-endpoint">Get Wallet Endpoint</h2>
 <pre class="highlight shell"><code><span class="c"># normal wallet</span>
 curl https://api.blockcypher.com/v1/btc/main/wallets/alice?token<span class="o">=</span>YOURTOKEN
