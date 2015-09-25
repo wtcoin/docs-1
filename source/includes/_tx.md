@@ -1131,6 +1131,7 @@ For even more control, you can also change the **script_type** in the **outputs*
 1. *pay-to-multi-pubkey-hash* (multi-signatures transaction, now actually less used than *pay-to-script-hash* for this purpose)
 1. *pay-to-pubkey* (used for mining transactions)
 1. *pay-to-script-hash* (used for transactions relying on arbitrary scripts, now used primarily for multi-sig transactions)
+1. *multisig-m-of-n* (not present in blockchain, but used by BlockCypher to construct P2SH multisig transactions; see [Multisig Transactions](#multisig-transactions) for more info)
 1. *null-data* (sometimes called op-return; used to embed small chunks of data in the blockchain)
 1. *empty* (no script present, mostly used for mining transaction inputs)
 1. *unknown* (non-standard script)
