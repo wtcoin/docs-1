@@ -366,7 +366,8 @@ $.ajax({
 
 ```python
 >>> import requests
->>> r = requests.delete('https://api.blockcypher.com/v1/btc/main/hooks/50d1fb13-2bd4-47d0-8e1b-0695e0322581')
+>>> params = {'token': 'YOUR_TOKEN'}
+>>> r = requests.delete('https://api.blockcypher.com/v1/btc/main/hooks/50d1fb13-2bd4-47d0-8e1b-0695e0322581', params=params)
 # Will return nothing, but we can confirm the status code to be sure
 >>> assert r.status_code == 204
 ```
