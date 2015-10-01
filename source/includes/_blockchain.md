@@ -288,7 +288,7 @@ The returned object contains information about the block, including its height, 
 ## Block Height Endpoint
 
 ```shell
-curl https://api.blockcypher.com/v1/btc/main/blocks/294322?txstart=1&limit=1
+curl 'https://api.blockcypher.com/v1/btc/main/blocks/294322?txstart=1&limit=1'
 
 {
 "hash": "0000000000000000189bba3564a63772107b567...",
