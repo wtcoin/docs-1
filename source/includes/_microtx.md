@@ -34,7 +34,7 @@ The request object is a partially filled out [MicroTX](#microtx), whose format d
 - If not set, **wait_guarantee** defaults to *true*, which means the API will wait for BlockCypher to guarantee the transaction, using our [Confidence Factor](#confidence-factor). The guarantee usually takes around 8 seconds. If manually set to *false*, the Microtransaction endpoint will return as soon as the transaction is broadcast.
 
 ```shell
-curl -H "Content-Type: application/json" -d '{ "from_private": "97838249d77bf...", "to_address": "C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn", "value_satoshis": 10000, "token": "YOURTOKEN" }' https://api.blockcypher.com/v1/bcy/test/txs/micro
+curl -d '{ "from_private": "97838249d77bf...", "to_address": "C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn", "value_satoshis": 10000 }' https://api.blockcypher.com/v1/bcy/test/txs/micro?token=YOURTOKEN
 
 {
 "from_private": "97838249d77bfa65f97be02b63fd1b7bb6a58474c7c22784a0da63993d1c2f90",
@@ -48,8 +48,7 @@ curl -H "Content-Type: application/json" -d '{ "from_private": "97838249d77bf...
 var microtx = {
   from_private: "97838249d77bfa65f97be02b63fd1b7bb6a58474c7c22784a0da63993d1c2f90",
   to_address: "C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn",
-  value_satoshis: 10000,
-  token: TOKEN
+  value_satoshis: 10000
 }
 var url = 'https://api.blockcypher.com/v1/bcy/test/txs/micro?token='+TOKEN;
 $.post(url, JSON.stringify(microtx))
@@ -72,7 +71,7 @@ $.post(url, JSON.stringify(microtx))
 
 ```python
 >>> import requests, json
->>> data = {'from_private': '97838249d77bfa65f97be02b63fd1b7bb6a58474c7c22784a0da63993d1c2f90', 'to_address': 'C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn', 'value_satoshis': 10000, 'token': 'YOUR_TOKEN'}
+>>> data = {'from_private': '97838249d77bfa65f97be02b63fd1b7bb6a58474c7c22784a0da63993d1c2f90', 'to_address': 'C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn', 'value_satoshis': 10000}
 >>> params = {'token': 'YOUR_TOKEN'}
 >>> r = requests.post('https://api.blockcypher.com/v1/bcy/test/txs/micro', data=json.dumps(data), params=params)
 >>> r.json()
@@ -100,7 +99,7 @@ $microTX = $microTXClient->sendWithPrivateKey(
 
 ### Via Private Keys
 
-The simplest way to send a Microtransaction is by using a private key. Within the request object you must include **from_private** (or the equivalent **from_wif**), **to_address**, **token**, and **value_satoshis**. You can read more descriptions about these fields within [MicroTX object description](#microtx), although they should be self-explanatory.
+The simplest way to send a Microtransaction is by using a private key. Within the request object you must include **from_private** (or the equivalent **from_wif**), **to_address**, and **value_satoshis**. You can read more descriptions about these fields within [MicroTX object description](#microtx), although they should be self-explanatory.
 
 The call will hold until the Confidence Factor reaches 98% (usually about 8 seconds). If successful thereafter, a completed [MicroTX object](#microtx) will be returned (which will include the transaction's **hash** for future queries), along with an HTTP Status Code 201.
 
@@ -109,7 +108,7 @@ The private key method doesn't work with <b>uncompressed public addresses</b> as
 </aside>
 
 ```shell
-curl -H "Content-Type: application/json" -d '{ "from_pubkey": "02152e2bb5b273561ece7bbe8b1df...", "to_address": "C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn", "value_satoshis": 20000, "token": "YOURTOKEN" }' https://api.blockcypher.com/v1/bcy/test/txs/micro
+curl -d '{ "from_pubkey": "02152e2bb5b273561ece7bbe8b1df...", "to_address": "C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn", "value_satoshis": 20000 }' https://api.blockcypher.com/v1/bcy/test/txs/micro?token=YOURTOKEN
 
 {
   "from_pubkey": "02152e2bb5b273561ece7bbe...",
@@ -134,7 +133,7 @@ curl -H "Content-Type: application/json" -d '{ "from_pubkey": "02152e2bb5b273561
 30450221009050c3c966d1f895b6d6f6ab544113b88b3ce6908083a58170ef1e32da415e2f022037cb5dae353165f505d18a12c50b318c826b2c3552e41f70f7ade186e0434388
 
 #request object is same as return object above, but + signature
-curl -H "Content-Type: application/json" -d '{ ..., "signatures": ["30450221009050c3c966d1f895b6d6f6ab544113b88b3ce6908083a58170ef1e32da415e2f022037cb5dae353165f505d18a12c50b318c826b2c3552e41f70f7ade186e0434388"],...}' https://api.blockcypher.com/v1/bcy/test/txs/micro
+curl -d '{ ..., "signatures": ["30450221009050c3c966d1f895b6d6f6ab544113b88b3ce6908083a58170ef1e32da415e2f022037cb5dae353165f505d18a12c50b318c826b2c3552e41f70f7ade186e0434388"],...}' https://api.blockcypher.com/v1/bcy/test/txs/micro?token=YOURTOKEN
 
 {
   "from_pubkey": "02152e2bb5b273561ece7bbe8b1...",
@@ -164,8 +163,7 @@ var key     = new bitcoin.ECKey(bigi.fromHex(my_hex_private_key), true);
 var microtx = {
   from_pubkey: "02152e2bb5b273561ece7bbe...",
   to_address: "C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn",
-  value_satoshis: 20000,
-  token: TOKEN
+  value_satoshis: 20000
 }
 var url = 'https://api.blockcypher.com/v1/bcy/test/txs/micro?token='+TOKEN;
 
@@ -249,7 +247,7 @@ $microTX = $microTXClient->sendSigned(
 
 ### Via Public Keys and Client-side Signing
 
-If your security/application model allows it, we strongly recommend using public keys instead. Much like [creating normal transactions](#creating-transactions) the process requires two endpoint calls; the first is similar to the private key method, but with public keys. E.g., your required object must contain **from_pubkey** (instead of private keys), **to_address**, **token**, and **value_satoshis**.
+If your security/application model allows it, we strongly recommend using public keys instead. Much like [creating normal transactions](#creating-transactions) the process requires two endpoint calls; the first is similar to the private key method, but with public keys. E.g., your required object must contain **from_pubkey** (instead of private keys), **to_address**, and **value_satoshis**.
 
 After POSTing this to `/txs/micro` you'll receive another partially filled out [MicroTX](#microtx) object, but one containing a **tosign** array. You must then sign the data in this array with your locally-stored private key; signing can be a tricky process, but you can use our [signer tool](https://github.com/blockcypher/btcutils/tree/master/signer) as a baseline. Once that data is signed, it must be inserted to a **signatures** within the previously returned [MicroTX](#microtx) object. Then, you send this completed [MicroTX](#microtx) to `/txs/micro`.
 

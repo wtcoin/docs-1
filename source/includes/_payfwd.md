@@ -18,7 +18,7 @@ By default, all payments will be debited with a 10,000 satoshis mining fee. The 
 ## Create Payment Endpoint
 
 ```shell
-curl -d '{"destination":"15qx9ug952GWGTNn7Uiv6vode4RcGrRemh","callback_url": "https://my.domain.com/callbacks/new-pay","token":"YOURTOKEN"}' http://api.blockcypher.com/v1/btc/main/payments
+curl -d '{"destination":"15qx9ug952GWGTNn7Uiv6vode4RcGrRemh","callback_url": "https://my.domain.com/callbacks/new-pay"}' http://api.blockcypher.com/v1/btc/main/payments?token=YOURTOKEN
 
 {
 "input_address": "16uKw7GsQSzfMaVTcT7tpFQkd7Rh9qcXWX",

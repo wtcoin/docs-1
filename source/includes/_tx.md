@@ -1710,7 +1710,7 @@ If it succeeds, you'll receive your decoded [TX](#tx) object.
 	"outputs": [{
 		"addresses"   : [pubkey1, pubkey2, pubkey3],
 		"script_type" : "multisig-2-of-3",
-		"value"       : 250000,
+		"value"       : 250000
 	}]
 }
 ```
@@ -1721,7 +1721,7 @@ If it succeeds, you'll receive your decoded [TX](#tx) object.
 	"outputs": [{
 		"addresses"   : [pubkey1, pubkey2, pubkey3],
 		"script_type" : "multisig-2-of-3",
-		"value"       : 250000,
+		"value"       : 250000
 	}]
 }
 ```
@@ -1736,7 +1736,7 @@ payload = JSON.parse('{ "inputs": [{"addresses": [sourceAddr]}],
 	"outputs": [{
 		"addresses"   : [pubkey1, pubkey2, pubkey3],
 		"script_type" : "multisig-2-of-3",
-		"value"       : 250000,
+		"value"       : 250000
 	}]
 }')
 ```
