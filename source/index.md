@@ -346,20 +346,25 @@ Our API <b>always</b> returns values in satoshis, or the lowest non-divisible un
 
 ## Rate Limits and Tokens
 
-We want everyone to try BlockCypher with as little friction as possible, which is why you don't need a token to get started. However, we do rate-limit non-registered users to maintain fidelity for registered users:
-
-- Classic requests, up to 5 requests/sec and 600 requests/hr
-- WebHooks and WebSockets, up to 600 requests/hr
-
-<aside class="warning">
-If you exceed these limits as a non-registered user, your requests will return an HTTP Status Code 429!
-</aside>
-
-Please [register for a user token](http://accounts.blockcypher.com/) if your usage exceeds those limits, or if you want to preventively avoid the rate limits. Our future pricing plan will be tiered based on usage and volume. We will have a free tier and an extended free plan for our early users. To request higher limits or SLAs, please [email us.](mailto:contact@blockcypher.com)
-
 ```shell
 # Adding your token as URL parameter
 curl https://api.blockcypher.com/v1/btc/main?token=$YOURTOKEN
+
+# Checking your token's limits
+curl https://api.blockcypher.com/v1/$YOURTOKEN
+{
+"token": "YOURTOKEN",
+"limits": {
+	"api/hour": 10000,
+	"api/second": 500,
+	"hooks/hour": 5000
+},
+"hits": {
+	"api/hour": 28,
+	"hooks/hour": 24
+}
+}
+# These are quite above the default limits, but if you'd like them, reach out at contact@blockcypher.com ;)
 ```
 
 ```javascript
@@ -398,7 +403,26 @@ $apiContext = ApiContext::create(
 # Use $apiContext as function param or set as default ApiContext 
 ```
 
-Once you have your token, you can append it to all your requests like any other URL parameter if you're using cURL, or through the appropriate method in the language SDK you're using.
+We want everyone to try BlockCypher with as little friction as possible, which is why you don't need a token to get started. However, we do rate-limit non-registered users to maintain fidelity for registered users:
+
+- Classic requests, up to 5 requests/sec and 600 requests/hr
+- WebHooks and WebSockets, up to 600 requests/hr
+
+<aside class="warning">
+If you exceed these limits as a non-registered user, your requests will return an HTTP Status Code 429!
+</aside>
+
+Please [register for a user token](http://accounts.blockcypher.com/) if your usage exceeds those limits, or if you want to preventively avoid the rate limits. Once you have your token, you can append it to all your requests like any other URL parameter if you're using cURL, or through the appropriate method in the language SDK you're using.
+
+Our future pricing plan will be tiered based on usage and volume. We will have a free tier and an extended free plan for our early users. To request higher limits or SLAs, please [email us.](mailto:contact@blockcypher.com)
+
+You can check your current limits and usage via a **GET** on the following endpoint, outside of our normal coin/chain pattern:
+
+`https://api.blockcypher.com/v1/YOURTOKEN`
+
+<aside class="warning">
+If your limits are at default levels (i.e. haven't been raised by us) the endpoint won't return any limit information.
+</aside>
 
 ## Batching
 
