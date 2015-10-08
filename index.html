@@ -379,21 +379,24 @@ Our API <b>always</b> returns values in satoshis, or the lowest non-divisible un
 </aside>
 
 <h2 id="rate-limits-and-tokens">Rate Limits and Tokens</h2>
-
-<p>We want everyone to try BlockCypher with as little friction as possible, which is why you don&rsquo;t need a token to get started. However, we do rate-limit non-registered users to maintain fidelity for registered users:</p>
-
-<ul>
-<li>Classic requests, up to 5 requests/sec and 600 requests/hr</li>
-<li>WebHooks and WebSockets, up to 600 requests/hr</li>
-</ul>
-
-<aside class="warning">
-If you exceed these limits as a non-registered user, your requests will return an HTTP Status Code 429!
-</aside>
-
-<p>Please <a href="http://accounts.blockcypher.com/">register for a user token</a> if your usage exceeds those limits, or if you want to preventively avoid the rate limits. Our future pricing plan will be tiered based on usage and volume. We will have a free tier and an extended free plan for our early users. To request higher limits or SLAs, please <a href="mailto:contact@blockcypher.com">email us.</a></p>
 <pre class="highlight shell"><code><span class="c"># Adding your token as URL parameter</span>
 curl https://api.blockcypher.com/v1/btc/main?token<span class="o">=</span><span class="nv">$YOURTOKEN</span>
+
+<span class="c"># Checking your token's limits</span>
+curl https://api.blockcypher.com/v1/<span class="nv">$YOURTOKEN</span>
+<span class="o">{</span>
+<span class="s2">"token"</span>: <span class="s2">"YOURTOKEN"</span>,
+<span class="s2">"limits"</span>: <span class="o">{</span>
+    <span class="s2">"api/hour"</span>: 10000,
+    <span class="s2">"api/second"</span>: 500,
+    <span class="s2">"hooks/hour"</span>: 5000
+<span class="o">}</span>,
+<span class="s2">"hits"</span>: <span class="o">{</span>
+    <span class="s2">"api/hour"</span>: 28,
+    <span class="s2">"hooks/hour"</span>: 24
+<span class="o">}</span>
+<span class="o">}</span>
+<span class="c"># These are quite above the default limits, but if you'd like them, reach out at contact@blockcypher.com ;)</span>
 </code></pre>
 <pre class="highlight javascript"><code><span class="c1">// Adding your token as URL parameter</span>
 <span class="kr">const</span> <span class="nx">TOKEN</span> <span class="o">=</span> <span class="s1">'YOUR_TOKEN'</span><span class="p">;</span>
@@ -424,7 +427,28 @@ curl https://api.blockcypher.com/v1/btc/main?token<span class="o">=</span><span 
 <span class="c1"># Use $apiContext as function param or set as default ApiContext 
 </span></code></pre>
 
-<p>Once you have your token, you can append it to all your requests like any other URL parameter if you&rsquo;re using cURL, or through the appropriate method in the language SDK you&rsquo;re using.</p>
+<p>We want everyone to try BlockCypher with as little friction as possible, which is why you don&rsquo;t need a token to get started. However, we do rate-limit non-registered users to maintain fidelity for registered users:</p>
+
+<ul>
+<li>Classic requests, up to 5 requests/sec and 600 requests/hr</li>
+<li>WebHooks and WebSockets, up to 600 requests/hr</li>
+</ul>
+
+<aside class="warning">
+If you exceed these limits as a non-registered user, your requests will return an HTTP Status Code 429!
+</aside>
+
+<p>Please <a href="http://accounts.blockcypher.com/">register for a user token</a> if your usage exceeds those limits, or if you want to preventively avoid the rate limits. Once you have your token, you can append it to all your requests like any other URL parameter if you&rsquo;re using cURL, or through the appropriate method in the language SDK you&rsquo;re using.</p>
+
+<p>Our future pricing plan will be tiered based on usage and volume. We will have a free tier and an extended free plan for our early users. To request higher limits or SLAs, please <a href="mailto:contact@blockcypher.com">email us.</a></p>
+
+<p>You can check your current limits and usage via a <strong>GET</strong> on the following endpoint, outside of our normal coin/chain pattern:</p>
+
+<p><code class="prettyprint">https://api.blockcypher.com/v1/YOURTOKEN</code></p>
+
+<aside class="warning">
+If your limits are at default levels (i.e. haven&rsquo;t been raised by us) the endpoint won&rsquo;t return any limit information.
+</aside>
 
 <h2 id="batching">Batching</h2>
 <pre class="highlight shell"><code><span class="c"># Batching blocks 5, 6, and 7</span>
