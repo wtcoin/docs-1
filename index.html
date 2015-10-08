@@ -4293,6 +4293,20 @@ curl https://api.blockcypher.com/v1/btc/main/wallets/hd/bob?token<span class="o"
 </tr>
 </tbody></table>
 
+<table><thead>
+<tr>
+<th>Flag</th>
+<th>Type</th>
+<th>Effect</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>omitWalletAddresses</strong></td>
+<td><em>bool</em></td>
+<td>If <strong>omitWalletAddresses</strong> is <em>true</em>, the response will omit address information (useful to speed up the API call for larger wallets).</td>
+</tr>
+</tbody></table>
+
 <p>This endpoint allows you to add public addresses to the $NAME wallet, by POSTing a partially filled out <a href="#wallet">Wallet</a> object. You only need to include the additional addresses in a new <strong>addresses</strong> array in the object. If successful, it will return the newly modified <a href="#wallet">Wallet</a>, including an up-to-date, complete listing of addresses.</p>
 
 <aside class="notice">
