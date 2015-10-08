@@ -563,6 +563,10 @@ Resource | Method | Request Object | Return Object
 -------- | ------ | -------------- | -------------
 /wallets/$NAME/addresses | POST | [Wallet](#wallet) | [Wallet](#wallet)
 
+Flag | Type | Effect
+---- | ---- | ------
+**omitWalletAddresses** | *bool* | If **omitWalletAddresses** is *true*, the response will omit address information (useful to speed up the API call for larger wallets).
+
 This endpoint allows you to add public addresses to the $NAME wallet, by POSTing a partially filled out [Wallet](#wallet) object. You only need to include the additional addresses in a new **addresses** array in the object. If successful, it will return the newly modified [Wallet](#wallet), including an up-to-date, complete listing of addresses.
 
 <aside class="notice">
