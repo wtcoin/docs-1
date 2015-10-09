@@ -2152,7 +2152,7 @@ Only one of these three fields is required for the microtransaction endpoint: <b
 <tr>
 <td><strong>wallet_name</strong></td>
 <td><em>string</em></td>
-<td><strong><em>optional</em></strong> Only transactions associated with the given wallet will be sent. If used, requires a user token.</td>
+<td><strong><em>optional</em></strong> Only transactions associated with the given wallet will be sent; can use a regular or HD wallet name. If used, requires a user token.</td>
 </tr>
 <tr>
 <td><strong>token</strong></td>
@@ -4480,7 +4480,7 @@ curl https://api.blockcypher.com/v1/btc/main/wallets/hd/bob/addresses?token<span
 </tr>
 </tbody></table>
 
-<p>This endpoint returns a list of the addresses associated with the $NAME wallet. It returns the addresses in a partially filled out <a href="#wallet">Wallet</a> which you&rsquo;ll find under the <strong>addresses</strong> attribute. For HD wallets it returns a <a href="#hd-addresses">HD Addresses</a> object.</p>
+<p>This endpoint returns a list of the addresses associated with the $NAME wallet. It returns the addresses in a partially filled out <a href="#wallet">Wallet</a> which you&rsquo;ll find under the <strong>addresses</strong> attribute. For HD wallets it returns an <a href="#hd-chain">HDChain</a> object.</p>
 
 <h2 id="remove-addresses-from-wallet-endpoint">Remove Addresses from Wallet Endpoint</h2>
 <pre class="highlight shell"><code><span class="c">#pipe to grep to check status code</span>
