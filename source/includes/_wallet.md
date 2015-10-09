@@ -723,7 +723,7 @@ Flag | Type | Effect
 **zerobalance** | *bool* | Returns only addresses with zero balance if set to *true* and only addresses with non-zero balance if *false*.
 
 
-This endpoint returns a list of the addresses associated with the $NAME wallet. It returns the addresses in a partially filled out [Wallet](#wallet) which you'll find under the **addresses** attribute. For HD wallets it returns a [HD Addresses](#hd-addresses) object.
+This endpoint returns a list of the addresses associated with the $NAME wallet. It returns the addresses in a partially filled out [Wallet](#wallet) which you'll find under the **addresses** attribute. For HD wallets it returns an [HDChain](#hd-chain) object.
 
 ## Remove Addresses from Wallet Endpoint
 
