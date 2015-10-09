@@ -347,7 +347,7 @@ WEBHOOKID is a string representing the event's generated *id*, for example:
 
 ```shell
 # Piping into grep to get status code
-curl -X DELETE -IsL https://api.blockcypher.com/v1/btc/main/hooks/399d0923-e920-48ee-8928-2051cbfbc369?token=YOURTOKEN | grep "HTTP/1.1"
+curl -X DELETE -Is https://api.blockcypher.com/v1/btc/main/hooks/399d0923-e920-48ee-8928-2051cbfbc369?token=YOURTOKEN | grep "HTTP/1.1"
 
 HTTP/1.1 204 OK
 ```

@@ -20,6 +20,7 @@ includes:
   - tx
   - microtx
   - conf
+  - meta
   - payfwd
   - events
 ---

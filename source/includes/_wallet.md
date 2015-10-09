@@ -728,8 +728,10 @@ This endpoint returns a list of the addresses associated with the $NAME wallet. 
 ## Remove Addresses from Wallet Endpoint
 
 ```shell
-$ curl -X DELETE https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses?token=USERTOKEN&address=1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e
+#pipe to grep to check status code
+$ curl -X DELETE -Is https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses?token=USERTOKEN&address=1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e | grep "HTTP/1.1"
 
+HTTP/1.1 204 OK
 ```
 
 ```javascript
@@ -773,9 +775,9 @@ $wallet = $walletClient->removeAddresses('alice', $addressList);
 }
 ```
 
-Resource | Method | Request Object | Return Object
--------- | ------ | -------------- | -------------
-/wallets/$NAME/addresses?address=$ADDRESS | DELETE | *nil* | *nil*
+Resource | Method | Return Object
+-------- | ------ | -------------
+/wallets/$NAME/addresses?address=$ADDRESS | DELETE | *nil*
 
 This endpoint allows you to delete an $ADDRESS associated with the $NAME wallet. As a reminder, you [can batch](#http://dev.blockcypher.com/#batching) multiple addresses by appending them with semicolons within the $ADDRESS URL parameter. If successful, it will return an HTTP 204 status code with no return object.
 
@@ -944,11 +946,15 @@ Only works for HD Wallets; for regular wallets, use the [Generate Address](#gene
 ## Delete Wallet Endpoint
 
 ```shell
-# normal wallet
-curl -X DELETE https://api.blockcypher.com/v1/btc/main/wallets/alice?token=YOURTOKEN
+# normal wallet, pipe to grep to check status code
+curl -X DELETE -Is https://api.blockcypher.com/v1/btc/main/wallets/alice?token=YOURTOKEN | grep "HTTP/1.1"
+
+HTTP/1.1 204 OK
 
 # hd wallet
-curl -X DELETE https://api.blockcypher.com/v1/btc/main/wallets/hd/bob?token=YOURTOKEN
+curl -X DELETE -Is https://api.blockcypher.com/v1/btc/main/wallets/hd/bob?token=YOURTOKEN | grep "HTTP/1.1"
+
+HTTP/1.1 204 OK
 ```
 
 ```javascript

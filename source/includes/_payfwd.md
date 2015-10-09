@@ -183,7 +183,7 @@ You'll get a full array of your currently active payment forwarding addresses, b
 
 ```shell
 # Piping to grep to just show status code
-curl -X DELETE -IsL http://api.blockcypher.com/v1/btc/main/payments/399d0923-e920-48ee-8928-2051cbfbc369?token=YOURTOKEN | grep "HTTP/1.1"
+curl -X DELETE -Is http://api.blockcypher.com/v1/btc/main/payments/399d0923-e920-48ee-8928-2051cbfbc369?token=YOURTOKEN | grep "HTTP/1.1"
 
 HTTP/1.1 204 No Content
 ```
