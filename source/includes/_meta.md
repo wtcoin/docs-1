@@ -4,7 +4,7 @@ Cryptocurrency addresses, transactions, and blocks are extremely powerful, but t
 
 ## Private vs Public Metadata 
 
-The Metadata API supports both public and private key-value storage. In both cases, setting metadata requires use of a token (if you haven't already, you can [register for one here](https://accounts.blockcypher.com/)). **Public metadata is immutable**; once set, it cannot be modified or deleted. Also, as implied by the name, it's openly accessible to the whole world---regardless of whether they have a token or not. Consequently, private metadata is associated and only accessible with your user token. The methods for interacting with metadata are outlined below.
+The Metadata API supports both public and private key-value storage. In both cases, setting metadata requires use of a token (if you haven't already, you can [register for one here](https://accounts.blockcypher.com/)). **Public metadata is immutable**; once set, it cannot be modified or deleted. If you accidentally set public metadata and need it deleted, [contact us](mailto:support@blockcypher.com). Also, as implied by the name, it's openly accessible to the whole world---regardless of whether they have a token or not. Consequently, private metadata is associated and only accessible with your user token. The methods for interacting with metadata are outlined below.
 
 ## Get Metadata Endpoint
 
@@ -107,7 +107,7 @@ Flag | Type | Effect
 This endpoint sets or updates metadata (of the form {"$KEY1:$VALUE1,$KEY2:$VALUE2,...}") associated with a given $ADDRESS, $TXHASH, or $BLOCKHASH. If another key with the same name already exists under your private metadata store, supplying a new value will replace it. New key-value pairs will be added without replacing prexisting key-value pairs. If successful, it will return an HTTP Status Code 204 with no return object.
 
 <aside class="warning">
-If you set public metadata, <b>you cannot modify or delete it.</b> It's set there forever, and viewable to the world. You have been warned.
+If you set public metadata, <b>you cannot modify or delete it.</b> It's set there forever, and viewable to the world. If you accidentally set public metadata and need it deleted, <a href="mailto:support@blockcypher.com">contact us</a>.
 </aside>
 
 ## Delete Metadata Endpoint
@@ -150,5 +150,5 @@ Resource | Method | Return Object
 This endpoint deletes all **private** metadata associated with a given $ADDRESS, $TXHASH, or $BLOCKHASH and your token.
 
 <aside class="warning">
-As a last friendly reminder, if you set public metadata, <b>you cannot delete it.</b> It's set there forever, and viewable to the world. This endpoint will only delete your <b>private</b> metadata. You have been warned.
+As a last friendly reminder, if you set public metadata, <b>you cannot delete it.</b> It's set there forever, and viewable to the world. This endpoint will only delete your <b>private</b> metadata. If you accidentally set public metadata and need it deleted, <a href="mailto:support@blockcypher.com">contact us</a>.
 </aside>
