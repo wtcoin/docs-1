@@ -4483,8 +4483,10 @@ curl https://api.blockcypher.com/v1/btc/main/wallets/hd/bob/addresses?token<span
 <p>This endpoint returns a list of the addresses associated with the $NAME wallet. It returns the addresses in a partially filled out <a href="#wallet">Wallet</a> which you&rsquo;ll find under the <strong>addresses</strong> attribute. For HD wallets it returns a <a href="#hd-addresses">HD Addresses</a> object.</p>
 
 <h2 id="remove-addresses-from-wallet-endpoint">Remove Addresses from Wallet Endpoint</h2>
-<pre class="highlight shell"><code><span class="gp">$ </span>curl -X DELETE https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses?token<span class="o">=</span>USERTOKEN&amp;address<span class="o">=</span>1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e
+<pre class="highlight shell"><code><span class="c">#pipe to grep to check status code</span>
+<span class="gp">$ </span>curl -X DELETE -Is https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses?token<span class="o">=</span>USERTOKEN&amp;address<span class="o">=</span>1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e | grep <span class="s2">"HTTP/1.1"</span>
 
+HTTP/1.1 204 OK
 </code></pre>
 <pre class="highlight javascript"><code><span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span>
   <span class="na">url</span><span class="p">:</span> <span class="s2">"https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses?token=USERTOKEN&amp;address=1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e"</span><span class="p">,</span>
@@ -4524,14 +4526,12 @@ curl https://api.blockcypher.com/v1/btc/main/wallets/hd/bob/addresses?token<span
 <tr>
 <th>Resource</th>
 <th>Method</th>
-<th>Request Object</th>
 <th>Return Object</th>
 </tr>
 </thead><tbody>
 <tr>
 <td>/wallets/$NAME/addresses?address=$ADDRESS</td>
 <td>DELETE</td>
-<td><em>nil</em></td>
 <td><em>nil</em></td>
 </tr>
 </tbody></table>
@@ -4719,11 +4719,15 @@ $hdWalletGenerateAddressResponse = $walletClient-&gt;generateAddress('bob', $par
 <p>Only works for HD Wallets; for regular wallets, use the <a href="#generate-address-in-wallet-endpoint">Generate Address</a> in Wallet endpoint specified above.</p>
 
 <h2 id="delete-wallet-endpoint">Delete Wallet Endpoint</h2>
-<pre class="highlight shell"><code><span class="c"># normal wallet</span>
-curl -X DELETE https://api.blockcypher.com/v1/btc/main/wallets/alice?token<span class="o">=</span>YOURTOKEN
+<pre class="highlight shell"><code><span class="c"># normal wallet, pipe to grep to check status code</span>
+curl -X DELETE -Is https://api.blockcypher.com/v1/btc/main/wallets/alice?token<span class="o">=</span>YOURTOKEN | grep <span class="s2">"HTTP/1.1"</span>
+
+HTTP/1.1 204 OK
 
 <span class="c"># hd wallet</span>
-curl -X DELETE https://api.blockcypher.com/v1/btc/main/wallets/hd/bob?token<span class="o">=</span>YOURTOKEN
+curl -X DELETE -Is https://api.blockcypher.com/v1/btc/main/wallets/hd/bob?token<span class="o">=</span>YOURTOKEN | grep <span class="s2">"HTTP/1.1"</span>
+
+HTTP/1.1 204 OK
 </code></pre>
 <pre class="highlight javascript"><code><span class="c1">//normal wallet</span>
 <span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span>
@@ -7099,6 +7103,209 @@ While we stand by our work behind our confidence research, please note that thes
 
 <p>The returned <a href="#txconfidence">TXConfidence</a> object contains the all-important confidence percentage, receive count and more.</p>
 
+          <h1 id="metadata-api">Metadata API</h1>
+
+<p>Cryptocurrency addresses, transactions, and blocks are extremely powerful, but the labels they employ can be&hellip;cryptic. That&rsquo;s why we have a Metadata API, allowing both public and private key-value storage against addresses, transactions, and blocks.</p>
+
+<h2 id="private-vs-public-metadata">Private vs Public Metadata</h2>
+
+<p>The Metadata API supports both public and private key-value storage. In both cases, setting metadata requires use of a token (if you haven&rsquo;t already, you can <a href="https://accounts.blockcypher.com/">register for one here</a>). <strong>Public metadata is immutable</strong>; once set, it cannot be modified or deleted. Also, as implied by the name, it&rsquo;s openly accessible to the whole world&mdash;regardless of whether they have a token or not. Consequently, private metadata is associated and only accessible with your user token. The methods for interacting with metadata are outlined below.</p>
+
+<h2 id="get-metadata-endpoint">Get Metadata Endpoint</h2>
+<pre class="highlight shell"><code><span class="c"># Get Public Metadata (set by your or anyone else)</span>
+curl https://api.blockcypher.com/v1/btc/main/addrs/1rundZJCMJhUiWQNFS5uT3BvisBuLxkAp/meta?token<span class="o">=</span>YOURTOKEN
+
+<span class="o">{</span><span class="s2">"name"</span>:<span class="s2">"silkroad"</span>,<span class="s2">"owner"</span>:<span class="s2">"dpr"</span><span class="o">}</span>
+
+<span class="c"># Get Private Metadata (none set yet, returns empty)</span>
+curl https://api.blockcypher.com/v1/btc/main/addrs/1rundZJCMJhUiWQNFS5uT3BvisBuLxkAp/meta?token<span class="o">=</span>YOURTOKEN&amp;private<span class="o">=</span><span class="nb">true</span>
+
+<span class="o">{}</span>
+</code></pre>
+<pre class="highlight javascript"><code><span class="c1">//todo: JS examples</span>
+</code></pre>
+<pre class="highlight ruby"><code><span class="c1">#todo: ruby examples</span>
+</code></pre>
+<pre class="highlight python"><code><span class="c">#todo: python examples</span>
+</code></pre>
+<pre class="highlight php"><code><span class="cp">&lt;?php</span>
+<span class="c1">//todo: php examples
+</span></code></pre>
+
+<table><thead>
+<tr>
+<th>Resource</th>
+<th>Method</th>
+<th>Return Object</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>/addrs/$ADDRESS/meta</td>
+<td>GET</td>
+<td>{&ldquo;$KEY&rdquo;:&ldquo;$VALUE&rdquo;,&hellip;}</td>
+</tr>
+<tr>
+<td>/txs/$TXHASH/meta</td>
+<td>GET</td>
+<td>{&ldquo;$KEY&rdquo;:&ldquo;$VALUE&rdquo;,&hellip;}</td>
+</tr>
+<tr>
+<td>/blocks/$BLOCKHASH/meta</td>
+<td>GET</td>
+<td>{&ldquo;$KEY&rdquo;:&ldquo;$VALUE&rdquo;,&hellip;}</td>
+</tr>
+</tbody></table>
+
+<table><thead>
+<tr>
+<th>Flag</th>
+<th>Type</th>
+<th>Effect</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>private</strong></td>
+<td><em>bool</em></td>
+<td>If <strong>private</strong> is <em>true</em>, it will return privately stored metadata under your token. Otherwise, returns public metadata. If not set, it defaults to <em>false</em>, returning public data.</td>
+</tr>
+</tbody></table>
+
+<p>This endpoint retrieves metadata associated with a given $ADDRESS, $TXHASH, or $BLOCKHASH.</p>
+
+<aside class="notice">
+Remember to set the <b>private</b> flag if you&rsquo;re querying private metadata underneath your token.
+</aside>
+
+<h2 id="put-metadata-endpoint">Put Metadata Endpoint</h2>
+<pre class="highlight shell"><code><span class="c"># Put Private Metadata, piping to grep to check 204 status code</span>
+curl -X PUT -d <span class="s1">'{"satoshi":"nakamoto", "alice":"bob"}'</span> -is <span class="s1">'https://api.blockcypher.com/v1/btc/main/addrs/1rundZJCMJhUiWQNFS5uT3BvisBuLxkAp/meta?token=YOURTOKEN&amp;private=true'</span> | grep <span class="s2">"HTTP/1.1"</span>
+
+HTTP/1.1 204 No Content
+
+<span class="c"># Get Metadata Again</span>
+curl https://api.blockcypher.com/v1/btc/main/addrs/1rundZJCMJhUiWQNFS5uT3BvisBuLxkAp/meta?token<span class="o">=</span>YOURTOKEN&amp;private<span class="o">=</span><span class="nb">true</span>
+
+<span class="o">{</span><span class="s2">"satoshi"</span>:<span class="s2">"nakamoto"</span>, <span class="s2">"alice"</span>:<span class="s2">"bob"</span><span class="o">}</span>
+
+<span class="c"># Modify/Add Private Metadata </span>
+curl -X PUT -d <span class="s1">'{"satoshi":"moto", "charlie":"tango"}'</span> -is <span class="s1">'https://api.blockcypher.com/v1/btc/main/addrs/1rundZJCMJhUiWQNFS5uT3BvisBuLxkAp/meta?token=YOURTOKEN&amp;private=true'</span> | grep <span class="s2">"HTTP/1.1"</span>
+
+HTTP/1.1 204 No Content
+
+<span class="c"># Get Metadata Again</span>
+curl https://api.blockcypher.com/v1/btc/main/addrs/1rundZJCMJhUiWQNFS5uT3BvisBuLxkAp/meta?token<span class="o">=</span>YOURTOKEN&amp;private<span class="o">=</span><span class="nb">true</span>
+
+<span class="o">{</span><span class="s2">"satoshi"</span>:<span class="s2">"moto"</span>, <span class="s2">"alice"</span>:<span class="s2">"bob"</span>, <span class="s2">"charlie"</span>:<span class="s2">"tango"</span><span class="o">}</span>
+</code></pre>
+<pre class="highlight javascript"><code><span class="c1">//todo: JS examples</span>
+</code></pre>
+<pre class="highlight ruby"><code><span class="c1">#todo: ruby examples</span>
+</code></pre>
+<pre class="highlight python"><code><span class="c">#todo: python examples</span>
+</code></pre>
+<pre class="highlight php"><code><span class="cp">&lt;?php</span>
+<span class="c1">//todo: php examples
+</span></code></pre>
+
+<table><thead>
+<tr>
+<th>Resource</th>
+<th>Method</th>
+<th>Request Object</th>
+<th>Return Object</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>/addrs/$ADDRESS/meta</td>
+<td>PUT</td>
+<td>{&ldquo;$KEY&rdquo;:&ldquo;$VALUE&rdquo;,&hellip;}</td>
+<td><em>nil</em></td>
+</tr>
+<tr>
+<td>/txs/$TXHASH/meta</td>
+<td>PUT</td>
+<td>{&ldquo;$KEY&rdquo;:&ldquo;$VALUE&rdquo;,&hellip;}</td>
+<td><em>nil</em></td>
+</tr>
+<tr>
+<td>/blocks/$BLOCKHASH/meta</td>
+<td>PUT</td>
+<td>{&ldquo;$KEY&rdquo;:&ldquo;$VALUE&rdquo;,&hellip;}</td>
+<td><em>nil</em></td>
+</tr>
+</tbody></table>
+
+<table><thead>
+<tr>
+<th>Flag</th>
+<th>Type</th>
+<th>Effect</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>private</strong></td>
+<td><em>bool</em></td>
+<td>If <strong>private</strong> is <em>true</em>, it will set/update privately stored metadata under your token. Otherwise, sets public metadata. If not set, it defaults to <em>false</em>, setting public metadata.</td>
+</tr>
+</tbody></table>
+
+<p>This endpoint sets or updates metadata (of the form {&ldquo;$KEY1:$VALUE1,$KEY2:$VALUE2,&hellip;}&rdquo;) associated with a given $ADDRESS, $TXHASH, or $BLOCKHASH. If another key with the same name already exists under your private metadata store, supplying a new value will replace it. New key-value pairs will be added without replacing prexisting key-value pairs. If successful, it will return an HTTP Status Code 204 with no return object.</p>
+
+<aside class="warning">
+If you set public metadata, <b>you cannot modify or delete it.</b> It&rsquo;s set there forever, and viewable to the world. You have been warned.
+</aside>
+
+<h2 id="delete-metadata-endpoint">Delete Metadata Endpoint</h2>
+<pre class="highlight shell"><code><span class="c"># Delete Private Metadata, pipes to grep to check for 204 status code</span>
+curl -X DELETE -Is https://api.blockcypher.com/v1/btc/main/addrs/1rundZJCMJhUiWQNFS5uT3BvisBuLxkAp/meta?token<span class="o">=</span>YOURTOKEN | grep <span class="s2">"HTTP/1.1"</span>
+
+HTTP/1.1 204 No Content
+
+<span class="c"># Get Private Metadata Again to Confirm Deletion</span>
+curl https://api.blockcypher.com/v1/btc/main/addrs/1rundZJCMJhUiWQNFS5uT3BvisBuLxkAp/meta?token<span class="o">=</span>YOURTOKEN&amp;private<span class="o">=</span><span class="nb">true</span>
+
+<span class="o">{}</span>
+</code></pre>
+<pre class="highlight javascript"><code><span class="c1">//todo: JS examples</span>
+</code></pre>
+<pre class="highlight ruby"><code><span class="c1">#todo: ruby examples</span>
+</code></pre>
+<pre class="highlight python"><code><span class="c">#todo: python examples</span>
+</code></pre>
+<pre class="highlight php"><code><span class="cp">&lt;?php</span>
+<span class="c1">//todo: php examples
+</span></code></pre>
+
+<table><thead>
+<tr>
+<th>Resource</th>
+<th>Method</th>
+<th>Return Object</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>/addrs/$ADDRESS/meta</td>
+<td>DELETE</td>
+<td><em>nil</em></td>
+</tr>
+<tr>
+<td>/txs/$TXHASH/meta</td>
+<td>DELETE</td>
+<td><em>nil</em></td>
+</tr>
+<tr>
+<td>/blocks/$BLOCKHASH/meta</td>
+<td>DELETE</td>
+<td><em>nil</em></td>
+</tr>
+</tbody></table>
+
+<p>This endpoint deletes all <strong>private</strong> metadata associated with a given $ADDRESS, $TXHASH, or $BLOCKHASH and your token.</p>
+
+<aside class="warning">
+As a last friendly reminder, if you set public metadata, <b>you cannot delete it.</b> It&rsquo;s set there forever, and viewable to the world. This endpoint will only delete your <b>private</b> metadata. You have been warned.
+</aside>
+
           <h1 id="payment-forwarding">Payment Forwarding</h1>
 
 <p>One of the well-known benefits of cryptocurrency is the ability to allow users to partake in online commerce without necessarily requiring extensive setup barriers, like registering new accounts. In that spirit, our Payment Forwarding API is the easiest way to accept&mdash;and consolidate&mdash;payments securely without forcing your users to create accounts and jump through unnecessary loops. It&rsquo;s also a generic way to automatically transfer value from one address to another. While there are many possible use cases, the two we hear most about are:</p>
@@ -7286,7 +7493,7 @@ If you decide to have a <b>callback_url</b>, you&rsquo;ll receive a payload at t
 
 <h2 id="delete-payment-endpoint">Delete Payment Endpoint</h2>
 <pre class="highlight shell"><code><span class="c"># Piping to grep to just show status code</span>
-curl -X DELETE -IsL http://api.blockcypher.com/v1/btc/main/payments/399d0923-e920-48ee-8928-2051cbfbc369?token<span class="o">=</span>YOURTOKEN | grep <span class="s2">"HTTP/1.1"</span>
+curl -X DELETE -Is http://api.blockcypher.com/v1/btc/main/payments/399d0923-e920-48ee-8928-2051cbfbc369?token<span class="o">=</span>YOURTOKEN | grep <span class="s2">"HTTP/1.1"</span>
 
 HTTP/1.1 204 No Content
 </code></pre>
@@ -7705,7 +7912,7 @@ Testing WebHooks can be tricky; we recommend using <a href="http://requestb.in/"
 
 <h3 id="delete-webhook-endpoint">Delete WebHook Endpoint</h3>
 <pre class="highlight shell"><code><span class="c"># Piping into grep to get status code</span>
-curl -X DELETE -IsL https://api.blockcypher.com/v1/btc/main/hooks/399d0923-e920-48ee-8928-2051cbfbc369?token<span class="o">=</span>YOURTOKEN | grep <span class="s2">"HTTP/1.1"</span>
+curl -X DELETE -Is https://api.blockcypher.com/v1/btc/main/hooks/399d0923-e920-48ee-8928-2051cbfbc369?token<span class="o">=</span>YOURTOKEN | grep <span class="s2">"HTTP/1.1"</span>
 
 HTTP/1.1 204 OK
 </code></pre>
