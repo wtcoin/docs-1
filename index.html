@@ -7109,7 +7109,7 @@ While we stand by our work behind our confidence research, please note that thes
 
 <h2 id="private-vs-public-metadata">Private vs Public Metadata</h2>
 
-<p>The Metadata API supports both public and private key-value storage. In both cases, setting metadata requires use of a token (if you haven&rsquo;t already, you can <a href="https://accounts.blockcypher.com/">register for one here</a>). <strong>Public metadata is immutable</strong>; once set, it cannot be modified or deleted. Also, as implied by the name, it&rsquo;s openly accessible to the whole world&mdash;regardless of whether they have a token or not. Consequently, private metadata is associated and only accessible with your user token. The methods for interacting with metadata are outlined below.</p>
+<p>The Metadata API supports both public and private key-value storage. In both cases, setting metadata requires use of a token (if you haven&rsquo;t already, you can <a href="https://accounts.blockcypher.com/">register for one here</a>). <strong>Public metadata is immutable</strong>; once set, it cannot be modified or deleted. If you accidentally set public metadata and need it deleted, <a href="mailto:support@blockcypher.com">contact us</a>. Also, as implied by the name, it&rsquo;s openly accessible to the whole world&mdash;regardless of whether they have a token or not. Consequently, private metadata is associated and only accessible with your user token. The methods for interacting with metadata are outlined below.</p>
 
 <h2 id="get-metadata-endpoint">Get Metadata Endpoint</h2>
 <pre class="highlight shell"><code><span class="c"># Get Public Metadata (set by your or anyone else)</span>
@@ -7252,7 +7252,7 @@ curl https://api.blockcypher.com/v1/btc/main/addrs/1rundZJCMJhUiWQNFS5uT3BvisBuL
 <p>This endpoint sets or updates metadata (of the form {&ldquo;$KEY1:$VALUE1,$KEY2:$VALUE2,&hellip;}&rdquo;) associated with a given $ADDRESS, $TXHASH, or $BLOCKHASH. If another key with the same name already exists under your private metadata store, supplying a new value will replace it. New key-value pairs will be added without replacing prexisting key-value pairs. If successful, it will return an HTTP Status Code 204 with no return object.</p>
 
 <aside class="warning">
-If you set public metadata, <b>you cannot modify or delete it.</b> It&rsquo;s set there forever, and viewable to the world. You have been warned.
+If you set public metadata, <b>you cannot modify or delete it.</b> It&rsquo;s set there forever, and viewable to the world. If you accidentally set public metadata and need it deleted, <a href="mailto:support@blockcypher.com">contact us</a>.
 </aside>
 
 <h2 id="delete-metadata-endpoint">Delete Metadata Endpoint</h2>
@@ -7303,7 +7303,7 @@ curl https://api.blockcypher.com/v1/btc/main/addrs/1rundZJCMJhUiWQNFS5uT3BvisBuL
 <p>This endpoint deletes all <strong>private</strong> metadata associated with a given $ADDRESS, $TXHASH, or $BLOCKHASH and your token.</p>
 
 <aside class="warning">
-As a last friendly reminder, if you set public metadata, <b>you cannot delete it.</b> It&rsquo;s set there forever, and viewable to the world. This endpoint will only delete your <b>private</b> metadata. You have been warned.
+As a last friendly reminder, if you set public metadata, <b>you cannot delete it.</b> It&rsquo;s set there forever, and viewable to the world. This endpoint will only delete your <b>private</b> metadata. If you accidentally set public metadata and need it deleted, <a href="mailto:support@blockcypher.com">contact us</a>.
 </aside>
 
           <h1 id="payment-forwarding">Payment Forwarding</h1>
