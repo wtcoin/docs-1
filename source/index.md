@@ -352,7 +352,7 @@ Our API <b>always</b> returns values in satoshis, or the lowest non-divisible un
 curl https://api.blockcypher.com/v1/btc/main?token=$YOURTOKEN
 
 # Checking your token's limits
-curl https://api.blockcypher.com/v1/$YOURTOKEN
+curl https://api.blockcypher.com/v1/tokens/$YOURTOKEN
 {
 "token": "YOURTOKEN",
 "limits": {
@@ -419,7 +419,7 @@ Our future pricing plan will be tiered based on usage and volume. We will have a
 
 You can check your current limits and usage via a **GET** on the following endpoint, outside of our normal coin/chain pattern:
 
-`https://api.blockcypher.com/v1/YOURTOKEN`
+`https://api.blockcypher.com/v1/tokens/YOURTOKEN`
 
 <aside class="warning">
 If your limits are at default levels (i.e. haven't been raised by us) the endpoint won't return any limit information.
