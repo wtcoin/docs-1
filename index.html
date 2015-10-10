@@ -383,7 +383,7 @@ Our API <b>always</b> returns values in satoshis, or the lowest non-divisible un
 curl https://api.blockcypher.com/v1/btc/main?token<span class="o">=</span><span class="nv">$YOURTOKEN</span>
 
 <span class="c"># Checking your token's limits</span>
-curl https://api.blockcypher.com/v1/<span class="nv">$YOURTOKEN</span>
+curl https://api.blockcypher.com/v1/tokens/<span class="nv">$YOURTOKEN</span>
 <span class="o">{</span>
 <span class="s2">"token"</span>: <span class="s2">"YOURTOKEN"</span>,
 <span class="s2">"limits"</span>: <span class="o">{</span>
@@ -444,7 +444,7 @@ If you exceed these limits as a non-registered user, your requests will return a
 
 <p>You can check your current limits and usage via a <strong>GET</strong> on the following endpoint, outside of our normal coin/chain pattern:</p>
 
-<p><code class="prettyprint">https://api.blockcypher.com/v1/YOURTOKEN</code></p>
+<p><code class="prettyprint">https://api.blockcypher.com/v1/tokens/YOURTOKEN</code></p>
 
 <aside class="warning">
 If your limits are at default levels (i.e. haven&rsquo;t been raised by us) the endpoint won&rsquo;t return any limit information.
