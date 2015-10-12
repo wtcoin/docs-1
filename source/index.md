@@ -195,6 +195,7 @@ BlockCypher has client SDKs for the following languages:
 - **Python** [https://github.com/blockcypher/blockcypher-python](https://github.com/blockcypher/blockcypher-python)
 - **Java** [https://github.com/blockcypher/java-client](https://github.com/blockcypher/java-client)
 - **PHP** [https://github.com/blockcypher/php-client](https://github.com/blockcypher/php-client)
+- **Go** [https://github.com/blockcypher/gobcy](https://github.com/blockcypher/gobcy)
 
 These client SDKs are under development, but are still officially supported:
 
@@ -204,10 +205,9 @@ If you're using these languages, we strongly encourage you to use an official SD
 
 ### Unofficial Libraries
 
-These client SDKs were made by members of the community, and are not officially supported by BlockCypher. As such, BlockCypher cannot guarantee that they're fully up to date, but we hope they will provide a nice jumping-off point for developers using these languages. We'll endeavor to keep this list updated, if any of these prove obsolete. If there's enough support for a particular language, we'll work with the community to turn it into an officially supported SDK.
+This client SDK was made by the community, and is not officially supported by BlockCypher. As such, BlockCypher cannot guarantee that it's fully up to date, but we hope it will provide a nice jumping-off point for developers using this language. We'll endeavor to keep this list updated, if any of these prove obsolete. If there's enough support for a particular language, we'll work with the community to turn it into an officially supported SDK.
 
 - **.NET** [https://github.com/bscheiman/BlockCypher](https://github.com/bscheiman/BlockCypher)
-- **Go** [https://github.com/acityinohio/blockcy](https://github.com/acityinohio/blockcy)
 
 ## RESTful Resources
 
