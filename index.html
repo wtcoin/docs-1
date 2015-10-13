@@ -7610,7 +7610,7 @@ Events like <i>unconfirmed-tx</i> can produce a lot of requests. To avoid rate-l
   <span class="k">if</span> <span class="p">(</span><span class="nx">count</span> <span class="o">&gt;</span> <span class="mi">10</span><span class="p">)</span> <span class="nx">ws</span><span class="p">.</span><span class="nx">close</span><span class="p">();</span>
 <span class="p">}</span>
 <span class="nx">ws</span><span class="p">.</span><span class="nx">onopen</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
-  <span class="nx">ws</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span><span class="na">filter</span><span class="p">:</span> <span class="s2">"event=unconfirmed-tx"</span><span class="p">}));</span>
+  <span class="nx">ws</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span><span class="na">event</span><span class="p">:</span> <span class="s2">"unconfirmed-tx"</span><span class="p">}));</span>
 <span class="p">}</span>
 </code></pre>
 <pre class="highlight php"><code># no websockets via PHP, check the Javascript example
