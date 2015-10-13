@@ -127,13 +127,23 @@ https://github.com/blockcypher/blockcypher-python
 // go get github.com/blockcypher/gobcy
 
 // Then import the package in your Go application
-import "github.com/blockcypher/gobcy"
+// All examples assume fmt is also imported, and 
+// will require additional packages as necessary
+package main
 
-// All requests assume an initialized API object
-// For Bitcoin main:
-btc := gobcy.API{"YOURTOKEN","btc","main"}
-// For BlockCypher's internal testnet:
-bcy := gobcy.API{"YOURTOKEN","bcy","test"}
+import (
+	"fmt"
+
+	"github.com/blockcypher/gobcy"
+)
+
+func main() {
+	// For Bitcoin main:
+	btc := gobcy.API{"YOURTOKEN","btc","main"}
+	// For BlockCypher's internal testnet:
+	bcy := gobcy.API{"YOURTOKEN","bcy","test"}
+	//examples will always follow in main()
+}
 
 // You can see additional info in the GoDoc, accessible here:
 // https://godoc.org/github.com/blockcypher/gobcy
@@ -325,6 +335,28 @@ $.get('https://api.blockcypher.com/v1/btc/main').then(function(d) {console.log(d
  'last_fork_hash': '00000000000000000aa6462fd9faf94712ce1b5a944dc666f491101c996beab9'}
 ```
 
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/blockcypher/gobcy"
+)
+
+func main() {
+	btc := gobcy.API{"YOURTOKEN", "btc", "main"}
+	chainInfo, err := btc.GetChain()
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Printf("%+v\n", chainInfo)
+}
+
+//Result from `go run`: 
+//{Name:BTC.main Height:378750 Hash:000000000000000001d8c28595ba3ebacc5bd1dc7cc91a3cd47400e2c83c1123 Time:2015-10-13 20:47:03.575975057 +0000 UTC PrevHash:00000000000000000601c02134e4d49c7d5903f0fe382a5f10d24f7de457c5c0 PeerCount:1000 HighFee:50628 MediumFee:27723 LowFee:22560 UnconfirmedCount:58707 LastForkHeight:378316 LastForkHash:000000000000000000cc3179570758c48ebe31a47f55e74ad765541d8adb32ea}
+```
+
 ```php
 <?php
 // Run on console:
@@ -418,6 +450,25 @@ $.get('https://api.blockcypher.com/v1/btc/main?token='+TOKEN);
 >>> params = {'token': 'YOUR_TOKEN'}
 >>> r = requests.get('https://api.blockcypher.com/v1/btc/main', params=params)
 >>> r.json()
+```
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/blockcypher/gobcy"
+)
+
+func main() {
+	//Adding your token is part of the API coin/chain initialization
+	btc := gobcy.API{"YOURTOKEN", "btc", "main"}
+	fmt.Printf("%+v\n", btc)
+}
+
+//Result from `go run`:
+//{Token:YOURTOKEN Coin:btc Chain:main}
 ```
 
 ```php
@@ -619,6 +670,35 @@ base_url = 'https://api.blockcypher.com/v1/btc/main/blocks/'
 full_url = base_url + ';'.join([5,6,7])
 ```
 
+```go
+//Batching requests is currently unsupported in the Go SDK
+//But you can still request things serially
+package main
+
+import (
+	"fmt"
+
+	"github.com/blockcypher/gobcy"
+)
+
+func main() {
+	btc := gobcy.API{"YOURTOKEN", "btc", "main"}
+	blocks := make([]gobcy.Block, 3)
+	heights := []int{5, 6, 7}
+	for i, v := range heights {
+		blk, err := btc.GetBlock(v, "")
+		if err != nil {
+			fmt.Println(err)
+		}
+		blocks[i] = blk
+	}
+	fmt.Printf("%+v\n", blocks)
+}
+
+//Result from `go run`:
+//[{Hash:000000009b7262315dbf071787ad3656097b892abffd1f95a1a022f896f533fc Height:5 Depth:378755 Chain:BTC.main Total:0 Fees:0 Ver:1 Time:2009-01-09 03:23:48 +0000 UTC ReceivedTime:2009-01-09 03:23:48 +0000 UTC RelayedBy: Bits:486604799 Nonce:2011431709 NumTX:1 PrevBlock:000000004ebadb55ee9096c9a2f8880e09da59c0d68b1c228da88e48844a1485 MerkleRoot:63522845d294ee9b0188ae5cac91bf389a0c3723f084ca1025e7d9cdfe481ce1 TXids:[63522845d294ee9b0188ae5cac91bf389a0c3723f084ca1025e7d9cdfe481ce1] NextTXs:} {Hash:000000003031a0e73735690c5a1ff2a4be82553b2a12b776fbd3a215dc8f778d Height:6 Depth:378754 Chain:BTC.main Total:0 Fees:0 Ver:1 Time:2009-01-09 03:29:49 +0000 UTC ReceivedTime:2009-01-09 03:29:49 +0000 UTC RelayedBy: Bits:486604799 Nonce:2538380312 NumTX:1 PrevBlock:000000009b7262315dbf071787ad3656097b892abffd1f95a1a022f896f533fc MerkleRoot:20251a76e64e920e58291a30d4b212939aae976baca40e70818ceaa596fb9d37 TXids:[20251a76e64e920e58291a30d4b212939aae976baca40e70818ceaa596fb9d37] NextTXs:} {Hash:0000000071966c2b1d065fd446b1e485b2c9d9594acd2007ccbd5441cfc89444 Height:7 Depth:378753 Chain:BTC.main Total:0 Fees:0 Ver:1 Time:2009-01-09 03:39:29 +0000 UTC ReceivedTime:2009-01-09 03:39:29 +0000 UTC RelayedBy: Bits:486604799 Nonce:2258412857 NumTX:1 PrevBlock:000000003031a0e73735690c5a1ff2a4be82553b2a12b776fbd3a215dc8f778d MerkleRoot:8aa673bc752f2851fd645d6a0a92917e967083007d9c1684f9423b100540673f TXids:[8aa673bc752f2851fd645d6a0a92917e967083007d9c1684f9423b100540673f] NextTXs:}]
+```
+
 ```php
 <?php
 // Run on console:
@@ -697,15 +777,6 @@ In case you missed the [Resources section](#restful-resources), the BlockCypher 
 As mentioned above, Bitcoin Testnet3 is frequently under attack, sometimes from core developers stress-testing the protocol, sometimes from malevolent actors attempting new attack vectors. It can be extremely---and inconsistently---unreliable. Unless your testing environment requires Testnet3, we strongly encourage you to use BlockCypher's Test Chain.
 </aside>
 
-### Test Faucets
-
-To help facilitate automated testing in your applications, a faucet endpoint is available on both BlockCypher's Test Chain and Bitcoin Testnet3. Calling the faucet endpoint, along with passing a valid address, will automatically create---and propagate---a new transaction funding the address with the amount you provide.
-
-The faucets can be used from your browser if you want to play with them before automating:
-
-- [Bitcoin Testnet Faucet](https://accounts.blockcypher.com/testnet-faucet)
-- [BlockCypher Test Chain Faucet](https://accounts.blockcypher.com/blockcypher-faucet)
-
 ```shell
 # Make new address; returns private key/public key/address
 curl -X POST http://api.blockcypher.com/v1/bcy/test/addrs?token=$YOURTOKEN
@@ -769,6 +840,31 @@ $.post('http://api.blockcypher.com/v1/bcy/test/faucet?token=$YOUR_TOKEN', req)
 {'tx_ref': 'b2ecfb5e40f3923b07819f1a386a538e86cc6ce59ae7a59533df487f622d1cbb'}
 ```
 
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/blockcypher/gobcy"
+)
+
+func main() {
+	bcy := gobcy.API{"YOURTOKEN", "bcy", "test"}
+	//Generate new address
+	pair, err := bcy.GenAddrKeychain()
+	//Fund it with faucet
+	txhash, err := bcy.Faucet(pair, 100000)
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Printf("Address: %v, Faucet TXHash: %v\n", pair.Address, txhash)
+}
+
+//Result from `go run`:
+//Address: Buvu6hXdvs52UiRmwtRDs2VXEuta3iWM1Y, Faucet TXHash: 31da1be35d10711eae224f149ae600a8515def0e9045901c0d144e71098c9a20
+```
+
 ```php
 <?php
 // Make new address; returns private key/public key/address
@@ -797,6 +893,15 @@ $faucetResponse = $faucetClient->fundAddress('Bxi1GmU6xgqgyBEzugcqFZRLyJd1cpEv2S
   "tx_ref":"0fa68cf5c39dbd918a5ca49fc092be36b8bcece83cbfed919ad6c77b5f24cceb"
 }
 ```
+
+### Test Faucets
+
+To help facilitate automated testing in your applications, a faucet endpoint is available on both BlockCypher's Test Chain and Bitcoin Testnet3. Calling the faucet endpoint, along with passing a valid address, will automatically create---and propagate---a new transaction funding the address with the amount you provide.
+
+The faucets can be used from your browser if you want to play with them before automating:
+
+- [Bitcoin Testnet Faucet](https://accounts.blockcypher.com/testnet-faucet)
+- [BlockCypher Test Chain Faucet](https://accounts.blockcypher.com/blockcypher-faucet)
 
 This example shows how to leverage the faucet to programmatically fund addresses, to test your applications. While the example used BlockCypher's Test Chain, the same example could have used Bitcoin Testnet3 and worked the exact same way.
 
