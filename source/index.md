@@ -119,6 +119,26 @@ To see detailed python code snippets, check the official python repository:
 https://github.com/blockcypher/blockcypher-python
 ```
 
+```go
+// Go examples use the official SDK, which you can find here:
+// https://github.com/blockcypher/gobcy
+
+// To install, use Go Get on the command line 
+// go get github.com/blockcypher/gobcy
+
+// Then import the package in your Go application
+import "github.com/blockcypher/gobcy"
+
+// All requests assume an initialized API object
+// For Bitcoin main:
+btc := gobcy.API{"YOURTOKEN","btc","main"}
+// For BlockCypher's internal testnet:
+bcy := gobcy.API{"YOURTOKEN","bcy","test"}
+
+// You can see additional info in the GoDoc, accessible here:
+// https://godoc.org/github.com/blockcypher/gobcy
+```
+
 ```php
 PHP Client
 ----------
