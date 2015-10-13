@@ -6,6 +6,7 @@ language_tabs:
   - javascript: JavaScript
   - ruby: Ruby
   - python: Python
+  - go: Go
   - php: PHP
 
 toc_footers:
@@ -49,6 +50,13 @@ includes:
 ```
 
 ```python
+//  _               _                  
+// |_) |  _   _ |  /     ._  |_   _  ._
+// |_) | (_) (_ |< \_ \/ |_) | | (/_ | 
+//                    /  |             
+```
+
+```go
 //  _               _                  
 // |_) |  _   _ |  /     ._  |_   _  ._
 // |_) | (_) (_ |< \_ \/ |_) | | (/_ | 
