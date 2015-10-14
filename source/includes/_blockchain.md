@@ -83,6 +83,28 @@ $.get('https://api.blockcypher.com/v1/btc/main').then(function(d) {console.log(d
  'medium_fee_per_kb': 29422}
 ```
 
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/blockcypher/gobcy"
+)
+
+func main() {
+	btc := gobcy.API{"YOURTOKEN", "btc", "main"}
+	chain, err := btc.GetChain()
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Printf("%+v\n", chain)
+}
+
+//Result from `go run`:
+//{Name:BTC.main Height:378882 Hash:000000000000000005e5b78413032db5d54a6df5600549f5d3ec339dd7bac4c0 Time:2015-10-14 17:01:57.647896489 +0000 UTC PrevHash:0000000000000000111be2620123bcf2f8ca6209140a8b1f0d8c2412dd9067f2 PeerCount:896 HighFee:52463 MediumFee:27563 LowFee:24926 UnconfirmedCount:81047 LastForkHeight:378316 LastForkHash:00000000000000000806c49f6b53b439beec2a1434f15ae713b84b87a26bbb51}
+```
+
 ```php
 <?php
 // Run on console:
@@ -232,6 +254,28 @@ $.get('https://api.blockcypher.com/v1/btc/main/blocks/0000000000000000189bba3564
  'fees': 130999,
  'bits': 419486617,
  'time': '2014-04-05T07:49:18Z'}
+```
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/blockcypher/gobcy"
+)
+
+func main() {
+	btc := gobcy.API{"YOURTOKEN", "btc", "main"}
+	block, err := btc.GetBlock(0, "0000000000000000189bba3564a63772107b5673c940c16f12662b3e8546b412")
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Printf("%+v\n", block)
+}
+
+//Result from `go run`:
+//{Hash:0000000000000000189bba3564a63772107b5673c940c16f12662b3e8546b412 Height:294322 Depth:84560 Chain:BTC.main Total:1146652915 Fees:130999 Ver:2 Time:2014-04-05 07:49:18 +0000 UTC ReceivedTime:2014-04-05 07:49:18 +0000 UTC RelayedBy: Bits:419486617 Nonce:1225187768 NumTX:10 PrevBlock:0000000000000000ced0958bd27720b71d32c5847e40660aaca39f33c298abb0 MerkleRoot:359d624d37aee1efa5662b7f5dbc390e996d561afc8148e8d716cf6ad765a952 TXids:[32b3b86e40d996b1f281e24e8d4af2ceacbf874c4038369cc21baa807409b277 1579f716359ba1a207f70248135f5e5fadf539be1dcf5300613aedcb6577d287 dd1f183348eb41eaaa9ecf8012f9cca3ecbae41a6349f0cc4bfd2b1a497fa3d0 749d12ccd180968b82aef4c271ca4effdf981d9b5d12523264457c9d4e6fa78e c4fe2ee16b8e3067d3d95caf7944011f4959781288b807df8bf853b7f80ed97c 5a2114675265522d2b7ce8a7874cfa7a22ccc3fb6566a8599d6432c6805b1b5f 077d851c8240671de80caa8be9f5285201c08a70edc5a45a9cd35fe7eaebf5e1 6202cc55fbd9130e065c9294a5b2e061c26f3d2c8df56c32da605d9f183103f9 ad3e7aa1c33f1d3e1c105d94f7b1542808da07bbe66b9621b050104a85dbf650 36cc61016b9d1bd69768666f287db1edaa9b292fb442f152af7099305677230e] NextTXs:}
 ```
 
 ```php
@@ -384,6 +428,29 @@ $.get('https://api.blockcypher.com/v1/btc/main/blocks/294322?txstart=1&limit=1')
  'fees': 130999,
  'bits': 419486617,
  'time': '2014-04-05T07:49:18Z'}
+```
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/blockcypher/gobcy"
+)
+
+func main() {
+	btc := gobcy.API{"YOURTOKEN", "btc", "main"}
+	//setting txstart to 1 and limit to 1
+	block, err := btc.GetBlockPage(294322, "", 1, 1)
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Printf("%+v\n", block)
+}
+
+//Result from `go run`:
+//{Hash:0000000000000000189bba3564a63772107b5673c940c16f12662b3e8546b412 Height:294322 Depth:84560 Chain:BTC.main Total:1146652915 Fees:130999 Ver:2 Time:2014-04-05 07:49:18 +0000 UTC ReceivedTime:2014-04-05 07:49:18 +0000 UTC RelayedBy: Bits:419486617 Nonce:1225187768 NumTX:10 PrevBlock:0000000000000000ced0958bd27720b71d32c5847e40660aaca39f33c298abb0 MerkleRoot:359d624d37aee1efa5662b7f5dbc390e996d561afc8148e8d716cf6ad765a952 TXids:[1579f716359ba1a207f70248135f5e5fadf539be1dcf5300613aedcb6577d287] NextTXs:https://api.blockcypher.com/v1/btc/main/blocks/0000000000000000189bba3564a63772107b5673c940c16f12662b3e8546b412?txstart=2&limit=1}
 ```
 
 ```php
