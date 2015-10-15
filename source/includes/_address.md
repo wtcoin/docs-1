@@ -75,6 +75,28 @@ $.get('https://api.blockcypher.com/v1/btc/main/addrs/1DEP8i3QJCsomS4BSMY2RpU1upv
  'unconfirmed_n_tx': 0}
 ```
 
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/blockcypher/gobcy"
+)
+
+func main() {
+	btc := gobcy.API{"YOURTOKEN", "btc", "main"}
+	addr, err := btc.GetAddrBal("1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD")
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Printf("%+v\n", addr)
+}
+
+//Result from `go run`:
+//{Address:1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD Wallet:{Name: Addresses:[]} HDWallet:{Name: ExtPubKey: SubchainIndexes:[] Chains:[]} TotalReceived:4433416 TotalSent:0 Balance:4433416 UnconfirmedBalance:0 FinalBalance:4433416 NumTX:7 UnconfirmedNumTX:0 FinalNumTX:7 TXs:[] TXRefs:[] UnconfirmedTXRefs:[] HasMore:false}
+```
+
 ```php
 <?php
 // Run on console:
@@ -262,6 +284,28 @@ $.get('https://api.blockcypher.com/v1/btc/main/addrs/1DEP8i3QJCsomS4BSMY2RpU1upv
  'unconfirmed_balance': 0,
  'address': '1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD',
  'unconfirmed_n_tx': 0}
+```
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/blockcypher/gobcy"
+)
+
+func main() {
+	btc := gobcy.API{"YOURTOKEN", "btc", "main"}
+	addr, err := btc.GetAddr("1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD")
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Printf("%+v\n", addr)
+}
+
+//Result from `go run`:
+//{Address:1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD Wallet:{Name: Addresses:[]} HDWallet:{Name: ExtPubKey: SubchainIndexes:[] Chains:[]} TotalReceived:4433416 TotalSent:0 Balance:4433416 UnconfirmedBalance:0 FinalBalance:4433416 NumTX:7 UnconfirmedNumTX:0 FinalNumTX:7 TXs:[] TXRefs:[{Address: BlockHeight:302013 TXHash:14b1052855bbf6561bc4db8aa501762e7cc1e86994dda9e782a6b73b1ce0dc1e TXInputN:-1 TXOutputN:0 Value:20213 Pref: Spent:false DoubleSpend:false DoubleOf: Confirmations:76913 RefBalance:4433416 Confidence:0 Confirmed:2014-05-22 03:46:25 +0000 UTC SpentBy: Received:0001-01-01 00:00:00 +0000 UTC ReceivedCount:0} {Address: BlockHeight:302002 TXHash:4cff011ec53022f2ae47197d1a2fd4a6ac2a80139f4d0131c1fed625ed5dc869 TXInputN:-1 TXOutputN:0 Value:40596 Pref: Spent:false DoubleSpend:false DoubleOf: Confirmations:76924 RefBalance:4413203 Confidence:0 Confirmed:2014-05-22 02:56:08 +0000 UTC SpentBy: Received:0001-01-01 00:00:00 +0000 UTC ReceivedCount:0} {Address: BlockHeight:302002 TXHash:ea1cbb874ed4e40add51b4d65b877dc4e8d69bb63f5b2220a79d673c413b778a TXInputN:-1 TXOutputN:0 Value:101491 Pref: Spent:false DoubleSpend:false DoubleOf: Confirmations:76924 RefBalance:4372607 Confidence:0 Confirmed:2014-05-22 02:56:08 +0000 UTC SpentBy: Received:0001-01-01 00:00:00 +0000 UTC ReceivedCount:0} {Address: BlockHeight:292601 TXHash:b4735a0690dab16b8789fceaf81c511f3be484e319f684cc214380eaa2851030 TXInputN:-1 TXOutputN:0 Value:3500000 Pref: Spent:false DoubleSpend:false DoubleOf: Confirmations:86325 RefBalance:4271116 Confidence:0 Confirmed:2014-03-26 17:08:04 +0000 UTC SpentBy: Received:0001-01-01 00:00:00 +0000 UTC ReceivedCount:0} {Address: BlockHeight:292519 TXHash:0416b8db5db4fa088437008aea7889e966e326f11c52c1da95161cd2ded95185 TXInputN:-1 TXOutputN:0 Value:100000 Pref: Spent:false DoubleSpend:false DoubleOf: Confirmations:86407 RefBalance:771116 Confidence:0 Confirmed:2014-03-26 04:18:38 +0000 UTC SpentBy: Received:0001-01-01 00:00:00 +0000 UTC ReceivedCount:0} {Address: BlockHeight:292469 TXHash:995a50e05d197be88d4da74160b4bcd2c363ebb1a49f95e572667d580bc70aba TXInputN:-1 TXOutputN:0 Value:500000 Pref: Spent:false DoubleSpend:false DoubleOf: Confirmations:86457 RefBalance:671116 Confidence:0 Confirmed:2014-03-25 21:32:08 +0000 UTC SpentBy: Received:0001-01-01 00:00:00 +0000 UTC ReceivedCount:0} {Address: BlockHeight:292336 TXHash:0c83c8321537a7c79dc6214788944ba6cd5ea76f0594453b6251fcf1856f2e4b TXInputN:-1 TXOutputN:0 Value:171116 Pref: Spent:false DoubleSpend:false DoubleOf: Confirmations:86590 RefBalance:171116 Confidence:0 Confirmed:2014-03-25 00:07:31 +0000 UTC SpentBy: Received:0001-01-01 00:00:00 +0000 UTC ReceivedCount:0}] UnconfirmedTXRefs:[] HasMore:false}
 ```
 
 ```php
@@ -577,6 +621,28 @@ $.get('https://api.blockcypher.com/v1/btc/main/addrs/1DEP8i3QJCsomS4BSMY2RpU1upv
  'unconfirmed_n_tx': 0}
 ```
 
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/blockcypher/gobcy"
+)
+
+func main() {
+	btc := gobcy.API{"YOURTOKEN", "btc", "main"}
+	addr, err := btc.GetAddrFullCustom("1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD", false, 300000, 0, false)
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Printf("%+v\n", addr)
+}
+
+//Result from `go run`:
+//{Address:1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD Wallet:{Name: Addresses:[]} HDWallet:{Name: ExtPubKey: SubchainIndexes:[] Chains:[]} TotalReceived:4433416 TotalSent:0 Balance:4433416 UnconfirmedBalance:0 FinalBalance:4433416 NumTX:7 UnconfirmedNumTX:0 FinalNumTX:7 TXs:[{BlockHash:0000000000000000af64802c79f9b22e9091eb5548b4b662d5e444e61885923b BlockHeight:292586 Hash:b4735a0690dab16b8789fceaf81c511f3be484e319f684cc214380eaa2851030 Addresses:[18KXZzuC3xvz6upUMQpsZzXrBwNPWZjdSa 1AAuRETEcHDqL4VM3R97aZHP8DSUHxpkFV 1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD 1VxsEDjo6ZLMT99dpcLu4RQonMDVEQQTG] Total:3537488 Fees:20000 Size:438 Preference:medium RelayedBy: Received:2014-03-26 17:08:04 +0000 UTC Confirmed:2014-03-26 17:08:04 +0000 UTC Confirmations:86341 Confidence:1 Ver:1 LockTime:0 DoubleSpend:false DoubleOf: ReceiveCount:0 VinSize:2 VoutSize:2 Hex: DataProtocol: ChangeAddress: NextInputs: NextOutputs: Inputs:[{PrevHash:729f6469b59fea5da77457f3291e2623c2516e3e8e7afc782687c6d59f4c5e41 OutputIndex:0 OutputValue:3500000 Addresses:[1VxsEDjo6ZLMT99dpcLu4RQonMDVEQQTG] Sequence:4294967295 ScriptType:pay-to-pubkey-hash Script:483045022100d06cdad1a54081e8499a4117f9f52d7fbc83c679dda7e3c22c08e964915b7354022010a2d6af1601d28d33a456dab2bccf3fbde35b2f3a9db82f72d675c90d015571014104672a00c8ee6fa23d68094dd98188ea1491848498554a10e13194851b614168b225b28b7f5a1c6ba98b5463438ef030c48b60533031ff2de84104e549d8d06ea9 Age:0 WalletName:} {PrevHash:45b74e542799343fc5ae70b715b7dd402da3a50fec766a9ebeb0879153db10ff OutputIndex:1 OutputValue:57488 Addresses:[1AAuRETEcHDqL4VM3R97aZHP8DSUHxpkFV] Sequence:4294967295 ScriptType:pay-to-pubkey-hash Script:48304502203deee40f705127eb57de0bb1bb998376e11f09bbde663c614d9cf746948f9b740221008715b8df9fa6c33fad7bfa2bb72875c8e30002a61843f430b9f0af268c136e2a0141046b29997ba1e1974f88d4513257ed4021205a94cc20ef7c1c6c7b8510becb68085220b213b8864ebfb465b614a4e7719b29d81c9849aea37343962cda47945a16 Age:0 WalletName:}] Outputs:[{SpentBy: Value:3500000 Addresses:[1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD] ScriptType:pay-to-pubkey-hash Script:76a9148629647bd642a2372d846a7660e210c8414f047c88ac DataHex: DataString:} {SpentBy:3ebe4bb294beaed58aca834af5e8148248abd9c6c6b56d9c73c2f25eb6a4838f Value:37488 Addresses:[18KXZzuC3xvz6upUMQpsZzXrBwNPWZjdSa] ScriptType:pay-to-pubkey-hash Script:76a9145049e2ad94ed9c683b8f6ca67db33b979dd6d13a88ac DataHex: DataString:}]} {BlockHash:00000000000000001528e12ffb2bdfc46f739c864952d85258485511d3d0aba3 BlockHeight:292505 Hash:0416b8db5db4fa088437008aea7889e966e326f11c52c1da95161cd2ded95185 Addresses:[13UrVoMywxv9yaFBWvPfZ6kugWAZhLsnKo 1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD 1DUgQLCoJowWkcDCW13ZGSAELyr6jFG7AP 1NqW3Jk1w4RisMrBs53g9bK1Rnmi2zMcfC] Total:217176 Fees:20000 Size:438 Preference:medium RelayedBy: Received:2014-03-26 04:18:38 +0000 UTC Confirmed:2014-03-26 04:18:38 +0000 UTC Confirmations:86422 Confidence:1 Ver:1 LockTime:0 DoubleSpend:false DoubleOf: ReceiveCount:0 VinSize:2 VoutSize:2 Hex: DataProtocol: ChangeAddress: NextInputs: NextOutputs: Inputs:[{PrevHash:df959bf4b6faa51aedde7de2d23309c147a1637e89afd36cb8f3f35149943a75 OutputIndex:0 OutputValue:100000 Addresses:[1DUgQLCoJowWkcDCW13ZGSAELyr6jFG7AP] Sequence:4294967295 ScriptType:pay-to-pubkey-hash Script:49304602210087cfe517c22a4001230cffadf62a0e59d286b76c343f7dfa69daf4be3e4f3562022100d15fe4dc85428850af24789c50c43e95e96d3ff27ee066823ba4dbffb4e8f02f014104c40f18fab1dcc621e78e65b02f20d0e7413e95b9de60bb6c9f32dc3bc0f2ddc9b67ba1cc2e2fafc0ee14cdcd55c97c31501b4c6dde91c37135c50ff7fbec9e5a Age:0 WalletName:} {PrevHash:6b9f0e8f326bab57d56dc455dc10b00fbd5167a00475549759882b554d7217f7 OutputIndex:1 OutputValue:137176 Addresses:[13UrVoMywxv9yaFBWvPfZ6kugWAZhLsnKo] Sequence:4294967295 ScriptType:pay-to-pubkey-hash Script:473044022051a83d1b8bcec5093652e51eb2d51f87572a0181c65d12b6f374ca06769b70100220447a771160387584da21a22e8d3a51ff8e2fc03538af64b6d88d23b8ea28fa99014104ac5249d12d65eb0062a13d722420f881b06c732f1a820a9962035d9f87992114bf14208552a293c2bf669c969676dfef3f36b16fff30e3deb0fb6b432092691d Age:0 WalletName:}] Outputs:[{SpentBy: Value:100000 Addresses:[1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD] ScriptType:pay-to-pubkey-hash Script:76a9148629647bd642a2372d846a7660e210c8414f047c88ac DataHex: DataString:} {SpentBy:5c82a033cbfa9149836840036a392566a8c7b4dfcb0c2c4c0a20993f69b49340 Value:117176 Addresses:[1NqW3Jk1w4RisMrBs53g9bK1Rnmi2zMcfC] ScriptType:pay-to-pubkey-hash Script:76a914ef86d94a858cd446ba7f0cd78d32677ffcc436a988ac DataHex: DataString:}]} {BlockHash:0000000000000000651ba18b29a1a7543d8fb9f6240d57b9e740014f51053ebc BlockHeight:292455 Hash:995a50e05d197be88d4da74160b4bcd2c363ebb1a49f95e572667d580bc70aba Addresses:[1CzuqkzUg1ybSsVaR3NWrEoXLxYtXdG35V 1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD] Total:299990000 Fees:10000 Size:226 Preference:medium RelayedBy: Received:2014-03-25 21:32:08 +0000 UTC Confirmed:2014-03-25 21:32:08 +0000 UTC Confirmations:86472 Confidence:1 Ver:1 LockTime:0 DoubleSpend:false DoubleOf: ReceiveCount:0 VinSize:1 VoutSize:2 Hex: DataProtocol: ChangeAddress: NextInputs: NextOutputs: Inputs:[{PrevHash:7c72a7f748ad3d407b977ba1004855ed14367e1a9c9a3fdb916a24302f075421 OutputIndex:0 OutputValue:300000000 Addresses:[1CzuqkzUg1ybSsVaR3NWrEoXLxYtXdG35V] Sequence:4294967295 ScriptType:pay-to-pubkey-hash Script:4830450221009336f886851ea3026f8d8836fc3c1a8d9d9456075ac440259410803767a4995a02202eee3c52aafa034d8058a236eabc3feaf80be5d8b3011bab192ee7856cee9d1b0121033a148923bf45432ab6cdbcb198abb8d23be28c5aa2ff3c6405837a9a9e4ef031 Age:0 WalletName:}] Outputs:[{SpentBy: Value:500000 Addresses:[1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD] ScriptType:pay-to-pubkey-hash Script:76a9148629647bd642a2372d846a7660e210c8414f047c88ac DataHex: DataString:} {SpentBy:3743ba41fc279cda244ec1bb5a75fba1352968870b2957cd5508a7e5b64dc94f Value:299490000 Addresses:[1CzuqkzUg1ybSsVaR3NWrEoXLxYtXdG35V] ScriptType:pay-to-pubkey-hash Script:76a914839d33de1bbd7807a03bcadbacd135316351330788ac DataHex: DataString:}]} {BlockHash:00000000000000006caa894c02a7254475acaefd5adf50d97de97f85470620db BlockHeight:292325 Hash:0c83c8321537a7c79dc6214788944ba6cd5ea76f0594453b6251fcf1856f2e4b Addresses:[1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD 1HBB6wHbhHBmsNmoBzzKdq77LKQUcUhGp3] Total:2990000 Fees:10000 Size:259 Preference:medium RelayedBy: Received:2014-03-25 00:07:31 +0000 UTC Confirmed:2014-03-25 00:07:31 +0000 UTC Confirmations:86602 Confidence:1 Ver:1 LockTime:0 DoubleSpend:false DoubleOf: ReceiveCount:0 VinSize:1 VoutSize:2 Hex: DataProtocol: ChangeAddress: NextInputs: NextOutputs: Inputs:[{PrevHash:ed21bb99e2df321c3e28d9ec5e11010d86a5dcf02412e989ae9dbc0f5b4ff3ff OutputIndex:0 OutputValue:3000000 Addresses:[1HBB6wHbhHBmsNmoBzzKdq77LKQUcUhGp3] Sequence:4294967295 ScriptType:pay-to-pubkey-hash Script:493046022100c1eec2a231f42f0034d7c8cc479e20967214a4e9fc6da0b95ccdcc9de3e8d2e8022100a0f80d26f71dd625f262d74c9adc74412273df4e34aaacf33c44550ba545641c0141040f60c5ea2ba9bf92637083449caa13be32ebdcc55e94ddb2d1923cf704019d80e56f48800b9e6cb9d10835f10dd4426aeac8f410877a3a1f8a94caad45187c0e Age:0 WalletName:}] Outputs:[{SpentBy: Value:171116 Addresses:[1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD] ScriptType:pay-to-pubkey-hash Script:76a9148629647bd642a2372d846a7660e210c8414f047c88ac DataHex: DataString:} {SpentBy:d035e58aa0a1f174ff2c2a0d8213f6e95102c3448e122ce4b48fcd72c9af4c41 Value:2818884 Addresses:[1HBB6wHbhHBmsNmoBzzKdq77LKQUcUhGp3] ScriptType:pay-to-pubkey-hash Script:76a914b16e9aec76e2dcca9a64b5615f9f334e2250c6df88ac DataHex: DataString:}]}] TXRefs:[] UnconfirmedTXRefs:[] HasMore:false}
+```
+
 ```php
 <?php
 // Run on console:
@@ -715,6 +781,28 @@ $.post('https://api.blockcypher.com/v1/btc/test3/addrs')
 # Please use the python library at https://github.com/blockcypher/blockcypher-python to securely generate an address client-side
 ```
 
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/blockcypher/gobcy"
+)
+
+func main() {
+	btc := gobcy.API{"YOURTOKEN", "btc", "main"}
+	addrKeys, err := btc.GenAddrKeychain()
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Printf("%+v\n", addrKeys)
+}
+
+//Result from `go run`:
+//{Address:18P5PFbuevRn4G3X27LF9ZEcfW3pKgy1Yp Private:b833a204a295c26dd19e49a0cc9fbb2f6475a886b7dc5b47b78261aa0ce07d94 Public:03685bbf3756a89240e7fa2b1312c48dc7b0c455116b9cc3e463b53643716396d5 Wif:L3Pmu1ZnRMUWmDoiXecA4m1gPhVwFMgm7CirQxWxxb437nQhESbT PubKeys:[] ScriptType:}
+```
+
 ```php
 <?php
 // Run on console:
@@ -817,6 +905,28 @@ $.post('https://api.blockcypher.com/v1/btc/test3/addrs', data)
   '022b8934cc41e76cb4286b9f3ed57e2d27798395b04dd23711981a77dc216df8ca'],
  'address': '3BF1M1PnTge94QewuWh3B8mRVw8U4SVnb4',
  'wif': ''}
+```
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/blockcypher/gobcy"
+)
+
+func main() {
+	btc := gobcy.API{"YOURTOKEN", "btc", "main"}
+	addrKeys, err := btc.GenAddrMultisig(gobcy.AddrKeychain{PubKeys: []string{"02c716d071a76cbf0d29c29cacfec76e0ef8116b37389fb7a3e76d6d32cf59f4d3", "033ef4d5165637d99b673bcdbb7ead359cee6afd7aaf78d3da9d2392ee4102c8ea", "022b8934cc41e76cb4286b9f3ed57e2d27798395b04dd23711981a77dc216df8ca"}, ScriptType: "multisig-2-of-3"})
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Printf("%+v\n", addrKeys)
+}
+
+//Result from `go run`:
+//{Address:3BF1M1PnTge94QewuWh3B8mRVw8U4SVnb4 Private: Public: Wif: PubKeys:[02c716d071a76cbf0d29c29cacfec76e0ef8116b37389fb7a3e76d6d32cf59f4d3 033ef4d5165637d99b673bcdbb7ead359cee6afd7aaf78d3da9d2392ee4102c8ea 022b8934cc41e76cb4286b9f3ed57e2d27798395b04dd23711981a77dc216df8ca] ScriptType:multisig-2-of-3}
 ```
 
 ```php
