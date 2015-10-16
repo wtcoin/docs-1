@@ -181,6 +181,32 @@ $.post('https://api.blockcypher.com/v1/btc/main/wallets/hd?token=USERTOKEN', dat
 ]}
 ```
 
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/blockcypher/gobcy"
+)
+
+func main() {
+	btc := gobcy.API{"YOURTOKEN", "btc", "main"}
+	//normal wallet
+	alice, err := btc.CreateWallet(gobcy.Wallet{"alice", []string{"1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e"}})
+	//hdwallet
+	bob, err := btc.CreateHDWallet(gobcy.HDWallet{Name: "bob", ExtPubKey: "xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoCu1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8"})
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Printf("Normal Wallet:%+v\nHDWallet: %+v\n", alice, bob)
+}
+
+//Result from `go run`:
+//Normal Wallet:{Name:alice Addresses:[1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e]}
+//HDWallet: {Name:bob ExtPubKey:xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoCu1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8 SubchainIndexes:[] Chains:[{ChainAddr:[{Address:1FHz8bpEE5qUZ9XhfjzAbCCwo5bT1HMNAc Path:m/0 Public:} {Address:1J8QDN1u7iDMbJktbqXPSrAqruNjkmRFmT Path:m/1 Public:} {Address:1MWNKnYfE2LVdvAzFUioF3F3JXFpRfDCQb Path:m/2 Public:}] Index:0}]}
+```
+
 ```php
 <?php
 // normal wallet
@@ -315,6 +341,32 @@ $.get('https://api.blockcypher.com/v1/btc/main/wallets/hd?token=YOURTOKEN')
 {'hd_wallet_names': [ 'bob', 'catheryne' ] }
 ```
 
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/blockcypher/gobcy"
+)
+
+func main() {
+	btc := gobcy.API{"YOURTOKEN", "btc", "main"}
+	//normal wallets
+	walletNames, err := btc.ListWallets()
+	//hdwallets
+	hdWalletNames, err := btc.ListHDWallets()
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Printf("Normal Wallets:%v\nHDWallets:%v\n", walletNames, hdWalletNames)
+}
+
+//Result from `go run`:
+//Normal Wallets: [alice]
+//HD Wallets: [catheryne bob]
+```
+
 ```php
 <?php
 //TODO: php examples
@@ -443,6 +495,32 @@ $.get('https://api.blockcypher.com/v1/btc/main/wallets/hd/bob?token=USERTOKEN')
 ]}
 ```
 
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/blockcypher/gobcy"
+)
+
+func main() {
+	btc := gobcy.API{"YOURTOKEN", "btc", "main"}
+	//normal wallet
+	alice, err := btc.GetWallet("alice")
+	//hdwallet
+	bob, err := btc.GetHDWallet("bob")
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Printf("Normal Wallet: %v\nHDWallet: %v\n", alice, bob)
+}
+
+//Result from `go run`:
+//Normal Wallet: {alice [1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e]}
+//HDWallet: {bob xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoCu1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8 [] [{[{1FHz8bpEE5qUZ9XhfjzAbCCwo5bT1HMNAc m/0 } {1J8QDN1u7iDMbJktbqXPSrAqruNjkmRFmT m/1 } {1MWNKnYfE2LVdvAzFUioF3F3JXFpRfDCQb m/2 }] 0}]}
+```
+
 ```php
 <?php
 // normal wallet
@@ -536,6 +614,29 @@ $.post('https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses?token=US
 {'name': 'alice',
  'token': 'YOUR_TOKEN',
  'addresses': ['1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e', '13cj1QtfW61kQHoqXm3khVRYPJrgQiRM6j']}
+```
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/blockcypher/gobcy"
+)
+
+func main() {
+	btc := gobcy.API{"YOURTOKEN", "btc", "main"}
+	//normal wallet
+	alice, err := btc.AddAddrWallet("alice", []string{"13cj1QtfW61kQHoqXm3khVRYPJrgQiRM6j"}, false)
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Printf("%+v\n", alice)
+}
+
+//Result from `go run`:
+//{Name:alice Addresses:[13cj1QtfW61kQHoqXm3khVRYPJrgQiRM6j 1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e]}
 ```
 
 ```php
@@ -673,6 +774,32 @@ $.get('https://api.blockcypher.com/v1/btc/main/wallets/hd/bob/addresses?token=US
 ]}
 ```
 
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/blockcypher/gobcy"
+)
+
+func main() {
+	btc := gobcy.API{"YOURTOKEN", "btc", "main"}
+	//normal wallet
+	alice, err := btc.GetAddrWallet("alice", false, false, false, false)
+	//hdwallet
+	bob, err := btc.GetAddrHDWallet("bob", false, false, false, false)
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Printf("Normal Wallet: %+v\nHD Wallet: %+v\n", alice, bob)
+}
+
+//Result from `go run`:
+//Normal Wallet: [13cj1QtfW61kQHoqXm3khVRYPJrgQiRM6j 1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e]
+//HD Wallet: {Name: ExtPubKey: SubchainIndexes:[] Chains:[{ChainAddr:[{Address:1FHz8bpEE5qUZ9XhfjzAbCCwo5bT1HMNAc Path:m/0 Public:} {Address:1J8QDN1u7iDMbJktbqXPSrAqruNjkmRFmT Path:m/1 Public:} {Address:1MWNKnYfE2LVdvAzFUioF3F3JXFpRfDCQb Path:m/2 Public:}] Index:0}]}
+```
+
 ```php
 <?php
 // normal wallet
@@ -752,6 +879,30 @@ $.ajax({
 >>> r = requests.delete('https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses', data=json.dumps(data))
 # returns nothing, let's just check the status code to be sure
 >>> assert r.status_code == 204
+```
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/blockcypher/gobcy"
+)
+
+func main() {
+	btc := gobcy.API{"YOURTOKEN", "btc", "main"}
+	//normal wallet only
+	err := btc.DeleteAddrWallet("alice", []string{"1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e"})
+	if err != nil {
+		fmt.Println(err)
+	} else {
+		fmt.Printf("Address deleted")
+	}
+}
+
+//Result from `go run`:
+//Address deleted
 ```
 
 ```php
@@ -834,6 +985,30 @@ $.post('https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses/generate
 # Please use the python library at https://github.com/blockcypher/blockcypher-python to securely generate an address client-side
 ```
 
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/blockcypher/gobcy"
+)
+
+func main() {
+	btc := gobcy.API{"YOURTOKEN", "btc", "main"}
+	//normal wallet only
+	alice, addr, err := btc.GenAddrWallet("alice")
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Printf("Wallet: %+v\nNew Address: %+v\n", alice, addr)
+}
+
+//Result from `go run`:
+//Wallet: {Name:alice Addresses:[13cj1QtfW61kQHoqXm3khVRYPJrgQiRM6j 14KLgDRAEHdk5ggRUDcqeZNfJHu2cCoU5D]}
+//New Address: {Address:14KLgDRAEHdk5ggRUDcqeZNfJHu2cCoU5D Private:b8202b67710cef1990ca3dfe04e2bf5e3484e6d6a4725c46e86b7f8b3e4b3f20 Public:0226a990df828225f1fbb608313a4a08db75ddfbf73a5f9a5ed9da8d38c89923b2 Wif:L3PdKr1QRFD8uxfXrkTVUrd6LznocDpwgY1JQsFCpYTrzT4do3KJ PubKeys:[] ScriptType:}
+```
+
 ```php
 <?php
 // Run on console:
@@ -869,10 +1044,7 @@ Only works for regular Wallets; for HD Wallets, use the [Derive Address](#derive
 ```shell
 curl -X POST https://api.blockcypher.com/v1/btc/main/wallets/hd/bob/addresses/derive?token=YOURTOKEN
 
-{"token": "YOURTOKEN",
-"name": "bob",
-"hd": true,
-"extended_public_key": "xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoCu1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8",
+{
 "chains": [
 	{"chain_addresses": [
 		{
@@ -886,10 +1058,7 @@ curl -X POST https://api.blockcypher.com/v1/btc/main/wallets/hd/bob/addresses/de
 #with subchain_index
 curl -X POST 'https://api.blockcypher.com/v1/btc/main/wallets/hd/catheryne/addresses/derive?token=YOURTOKEN&subchain_index=1'
 
-{"token": "YOURTOKEN",
-"name": "catheryne",
-"hd": true,
-"extended_public_key": "xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoCu1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8",
+{
 "chains": [
 	{"index":1,
 	"chain_addresses": [
@@ -912,6 +1081,29 @@ curl -X POST 'https://api.blockcypher.com/v1/btc/main/wallets/hd/catheryne/addre
 
 ```python
 # todo: python hd derive examples
+```
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/blockcypher/gobcy"
+)
+
+func main() {
+	btc := gobcy.API{"YOURTOKEN", "btc", "main"}
+	//hdwallet only
+	bob, err := btc.DeriveAddrHDWallet("bob", 1, false, 0)
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Printf("Parital HD Wallet: %+v\n", bob)
+}
+
+//Result from `go run`:
+//Partial HD Wallet: {Name: ExtPubKey: SubchainIndexes:[] Chains:[{ChainAddr:[{Address:19urzZsoBNsomSfj68PUUGLXDz261tK5Jo Path:m/3 Public:02c85080e00080aa933f93a2718bba9f01fd6fdc8e4712a155849f5ba588666471}] Index:0}]}
 ```
 
 ```php
@@ -988,6 +1180,32 @@ $.ajax({
 
 //hd wallet
 >>> r = requests.delete('https://api.blockcypher.com/v1/btc/main/wallets/hd/bob', params=params)
+```
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/blockcypher/gobcy"
+)
+
+func main() {
+	btc := gobcy.API{"YOURTOKEN", "btc", "main"}
+	//wallet
+	err := btc.DeleteWallet("alice")
+	//hdwallet
+	err = btc.DeleteHDWallet("bob")
+	if err != nil {
+		fmt.Println(err)
+	} else {
+		fmt.Println("Alice and Bob Deleted")
+	}
+}
+
+//Result from `go run`:
+//Alice and Bob Deleted
 ```
 
 ```php
