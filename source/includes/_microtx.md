@@ -77,6 +77,29 @@ $.post(url, JSON.stringify(microtx))
 >>> r.json()
 ```
 
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/blockcypher/gobcy"
+)
+
+func main() {
+	//note the change to BlockCypher Testnet
+	bcy := gobcy.API{"YOURTOKEN", "bcy", "test"}
+	micro, err := bcy.SendMicro(gobcy.MicroTX{Priv: "5e4e8495f90a7d2e7091ec60a6586fdfb57b3108823ecfd955732aab1e3c18d7", ToAddr: "CBXcmktjHSwqtHsC8cgRPYT7Mpq9VT7ASp", Value: 200000})
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Printf("%+v\n", micro)
+}
+
+//Result from `go run`:
+//{Pubkey: Priv:5e4e8495f90a7d2e7091ec60a6586fdfb57b3108823ecfd955732aab1e3c18d7 Wif: ToAddr:CBXcmktjHSwqtHsC8cgRPYT7Mpq9VT7ASp Value:200000 ChangeAddr: Wait:false ToSign:[] Signatures:[] Hash:f3ef51a0d595e5c42a7599335adbb88c03b2fc104376c942dd2201139fe968f7 Inputs:[] Outputs:[] Fees:0}
+```
+
 ```php
 <?php
 // Run on console:
@@ -209,6 +232,32 @@ $.post(url, JSON.stringify(microtx)).then(function(tmptx) {
    {"address"=>"CEyQhiXPtWk8q7hMkv2Kg728i4PYDM9qxf", "value"=>9997795},
    {"address"=>"CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9", "value"=>3716000}],
  "fees"=>735}
+```
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/blockcypher/gobcy"
+)
+
+func main() {
+	//note the change to BlockCypher Testnet
+	bcy := gobcy.API{"YOURTOKEN", "bcy", "test"}
+	keychain := gobcy.AddrKeychain{Private: "5e4e8495f90a7d2e7091ec60a6586fdfb57b3108823ecfd955732aab1e3c18d7", Public: "03daabc0502d41f52358690a65a7001a2a22df432706cce52a3c98da2c47229a51", Address: "CBXcmktjHSwqtHsC8cgRPYT7Mpq9VT7ASp"}
+	micro, err := bcy.SendMicro(gobcy.MicroTX{Pubkey: keychain.Public, ToAddr: "C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn", Value: 300000})
+	err = micro.Sign(keychain.Private)
+	micro, err = bcy.SendMicro(micro)
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Printf("%+v\n", micro)
+}
+
+//Result from `go run`:
+//{Pubkey:03daabc0502d41f52358690a65a7001a2a22df432706cce52a3c98da2c47229a51 Priv: Wif: ToAddr:C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn Value:300000 ChangeAddr: Wait:false ToSign:[] Signatures:[] Hash:934dfdaae9269ed7cf33f2484b3b3e8a7e5c1be12b9ea010e4bf95a2d11e59c7 Inputs:[{PrevHash:f3ef51a0d595e5c42a7599335adbb88c03b2fc104376c942dd2201139fe968f7 OutputIndex:0} {PrevHash:f3ef51a0d595e5c42a7599335adbb88c03b2fc104376c942dd2201139fe968f7 OutputIndex:2} {PrevHash:3332e1b220d0584f54a3cc8f8d1c6eafe2767b4f0f017379e8ca514ca4823c32 OutputIndex:1}] Outputs:[{Value:300000 Address:C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn} {Value:9958400 Address:BxeGtkPZM6qUsfkZ4pzaq4TF1RHNoqdZHT} {Value:700000 Address:CBXcmktjHSwqtHsC8cgRPYT7Mpq9VT7ASp}] Fees:3400}
 ```
 
 ```php
