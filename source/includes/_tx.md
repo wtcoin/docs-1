@@ -207,6 +207,28 @@ $.get('https://api.blockcypher.com/v1/btc/main/txs/f854aebae95150b379cc1187d848d
  'confirmations': 67378}
 ```
 
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/blockcypher/gobcy"
+)
+
+func main() {
+	btc := gobcy.API{"YOURTOKEN", "btc", "main"}
+	tx, err := btc.GetTX("f854aebae95150b379cc1187d848d58225f3c4157fe992bcd166f58bd5063449")
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Printf("%+v\n", tx)
+}
+
+//Result from `go run`:
+//{BlockHash:0000000000000000c504bdea36e531d8089d324f2d936c86e3274f97f8a44328 BlockHeight:293000 Hash:f854aebae95150b379cc1187d848d58225f3c4157fe992bcd166f58bd5063449 Addresses:[13XXaBufpMvqRqLkyDty1AXqueZHVe6iyy 19YtzZdcfs1V2ZCgyRWo8i2wLT8ND1Tu4L 1BNiazBzCxJacAKo2yL83Wq1VJ18AYzNHy 1GbMfYui17L5m6sAy3L3WXAtf1P32bxJXq 1N2f642sbgCMbNtXFajz9XDACDFnFzdXzV] Total:70320221545 Fees:0 Size:636 Preference:low RelayedBy: Received:2014-03-29 01:29:19 +0000 UTC Confirmed:2014-03-29 01:29:19 +0000 UTC Confirmations:86227 Confidence:1 Ver:1 LockTime:0 DoubleSpend:false DoubleOf: ReceiveCount:0 VinSize:4 VoutSize:1 Hex: DataProtocol: ChangeAddress: NextInputs: NextOutputs: Inputs:[{PrevHash:583910b7bf90ab802e22e5c25a89b59862b20c8c1aeb24dfb94e7a508a70f121 OutputIndex:1 OutputValue:16450000 Addresses:[1GbMfYui17L5m6sAy3L3WXAtf1P32bxJXq] Sequence:4294967295 ScriptType:pay-to-pubkey-hash Script:4830450220504b1ccfddf508422bdd8b0fcda2b1483e87aee1b486c0130bc29226bbce3b4e022100b5befcfcf0d3bf6ebf0ac2f93badb19e3042c7bed456c398e743b885e782466c012103b1feb40b99e8ff18469484a50e8b52cc478d5f4f773a341fbd920a4ceaedd4bf Age:0 WalletName:} {PrevHash:f6966bb3d3ba0eb97fd11b223fb13c793c0b4a1b3deb575e8ae38d666c1d00d9 OutputIndex:36 OutputValue:10061545 Addresses:[19YtzZdcfs1V2ZCgyRWo8i2wLT8ND1Tu4L] Sequence:4294967295 ScriptType:pay-to-pubkey-hash Script:48304502210086de855e03008abcc49335c775973eab9ace2e16c3bfe6536218c1d029287fdb0220129ced657870af63f61cdd4b941996f9a243d1f306e774fc9c5f3dea0af8d581012103cbe40d1d790799a6494c07f844eaf05b4c6deab0b9dee2ee45c8decead12c5cd Age:0 WalletName:} {PrevHash:9ea2f9695e6694309fb0d8b966afb4678a77a59f160822e33819fada9e0c8288 OutputIndex:1 OutputValue:70000000000 Addresses:[1BNiazBzCxJacAKo2yL83Wq1VJ18AYzNHy] Sequence:4294967295 ScriptType:pay-to-pubkey-hash Script:48304502201f1eb5b79279258a91c00dee09dff5d6f6ece7c01639e66a6bdd579136ecddee022100d4a9ed93183bf338e51ba80bc1dd10ff03e9e159bd8ea59db3a5c10aa0ccd3400121022667ee37e180c1ad2fef6f16aa52ed27799f629364dfe51e144dd683317dbbd2 Age:0 WalletName:} {PrevHash:279ccbbab8605390a85fe6f0e4fb04ec1946ee6033054b16fec72e1304742d5d OutputIndex:0 OutputValue:293710000 Addresses:[13XXaBufpMvqRqLkyDty1AXqueZHVe6iyy] Sequence:4294967295 ScriptType:pay-to-pubkey-hash Script:483045022100baac0c25867855f62592872cfac522d59fddd590a6cc290c8ad3bbe6b1151b5802204f2713c565ce6b00e5ea00e955d35e3b0878af5474feda35ebbb73232122d5480121023ed3b44ad598e3834e561efed205c221b7bc2e577e752eeaa66e85e60d0381c9 Age:0 WalletName:}] Outputs:[{SpentBy:35832d6c70b98b54e9a53ab2d51176eb19ad11bc4505d6bb1ea6c51a68cb92ee Value:70320221545 Addresses:[1N2f642sbgCMbNtXFajz9XDACDFnFzdXzV] ScriptType:pay-to-pubkey-hash Script:76a914e6aad9d712c419ea8febf009a3f3bfdd8d222fac88ac DataHex: DataString:}]}
+```
+
 ```php
 <?php
 // Run on console:
@@ -431,6 +453,28 @@ $.get('https://api.blockcypher.com/v1/btc/main/txs').then(function(d) {console.l
   'confirmations': 0},
  ...
 ],
+```
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/blockcypher/gobcy"
+)
+
+func main() {
+	btc := gobcy.API{"YOURTOKEN", "btc", "main"}
+	txs, err := btc.GetUnTX()
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Printf("%+v\n", txs)
+}
+
+//Result from `go run`:
+//[{BlockHash: BlockHeight:-1 Hash:f8928f4b57b4a419056d979de6c6daf1f8cf9e431b2d2e056d5122115bbf6e03 Addresses:[13m2zkhwfufunZj48C5yiCK5GyauoZASEK 1443nQwA3q5gRELUUrFFbsQ7wjfnzLKmNb 17QqqUkKsuGWF7EgftiY9HrXEPPYoLAmJ4 18WLk2MdxoJvkWewdYfZAUS7D5BitKWxrM 19Fkb6WcpT8xr2A9kggKJ1ogUQyDjGXGq7 1ApjvBUwNEt8kEvTn2XTDHqDQhPn8MApRq 1Ckk3HysYTTeTXrt4mAxa4wzP9WjLEBgKM 1DXEqjgC2QV7CsDiEjYdthmxvJEwEAEchB 1FuFEWK9Ms6YFfmBLQWeQxE5FUYcWHHdMf 1Gsp5Cz8xbxHdcKCBUL8eA8sWgTbs6pbVK 1JK6ANFKJvck3TArHfH8hxYXM69LLQi4Cd 1JpqxXp3WsDWru1HrC3jXKoiwstUMoGwE7 1KcTNQtGB2VkF8gHRcUP3LeKT4ipDWC3xz 1QJrogp9xSNMrEKH7eE74qy86baCsUnTFe] Total:14404949 Fees:18480 Size:1845 Preference:low RelayedBy:194.237.158.153:8333 Received:2015-10-16 23:12:50.822 +0000 UTC Confirmed:0001-01-01 00:00:00 +0000 UTC Confirmations:0 Confidence:0.4147856074218964 Ver:1 LockTime:0 DoubleSpend:false DoubleOf: ReceiveCount:138 VinSize:12 VoutSize:2 Hex: DataProtocol: ChangeAddress: NextInputs: NextOutputs: Inputs:[{PrevHash:de3e7627b5aaacc505901120a3c4cabebfee3d5d3c2b9349808fab8db26bd252 OutputIndex:0 OutputValue:1303094 Addresses:[1JpqxXp3WsDWru1HrC3jXKoiwstUMoGwE7] Sequence:4294967295 ScriptType:pay-to-pubkey-hash Script:483045022100e5f613cbdc60d13614dc58a2bdb9c67f348933e478288bb2e08a58e63c22dffc02201dda42464b34fa1a24e954cfa05ac2936575a039f5eb18201fe96dfd020c9967012103f1fbbcd8f5e50dde03be77c153a416c370b4c14c0d2c27eac66a64e4a47bd3f6 Age:0 WalletName:} {PrevHash:ce86c754efeb48d3b78e56f344082e825a76b2bfcb670eef5968934cf7694f24 OutputIndex:1 OutputValue:1006641 Addresses:[1ApjvBUwNEt8kEvTn2XTDHqDQhPn8MApRq] Sequence:4294967295 ScriptType:pay-to-pubkey-hash Script:483045022100a844dd4291fdd417cabaea58e9694c8e4d4ff6d3d80bbd7a3b703465b7be6cf102204ff0c4b5f2e904c4e06f086c4cba57b9bc40310f7bf463176f75eea8a117c8b8012102eb8c62ca2106a753fe5f0c1937729e1db551f15b0d202871c3f3cb1391ed4a1f Age:0 WalletName:} {PrevHash:f6a89efed192e3d9dabb9fae65ecf6780bae904bc17397ec69c898435e55ee41 OutputIndex:1 OutputValue:1146424 Addresses:[1FuFEWK9Ms6YFfmBLQWeQxE5FUYcWHHdMf] Sequence:4294967295 ScriptType:pay-to-pubkey-hash Script:4730440220258aa6e1a1e0fd03ad55d2fefe512785609fe079faa284eaf9263ba36ed0027002207740057cd9ade642a972f3490289d0256f604c60c1cfdeef4fffc9fcb3973e130121023a778b5d5eb3b1e2c7394f441a21ab104df692ad8e8ad6a9838b8dac7318be6d Age:0 WalletName:} {PrevHash:1b1f154612323edbf9f1970a42a1c33fb0ab9f734a5f080fb04c0f26921640c3 OutputIndex:1 OutputValue:1001406 Addresses:[13m2zkhwfufunZj48C5yiCK5GyauoZASEK] Sequence:4294967295 ScriptType:pay-to-pubkey-hash Script:483045022100a0e44c26c6f16e20c17f309bbf2b8fc4b89da36a46734aa82a7d72b4147a7703022024646da778e77bac3f9e76f5b34e8fc9d39225daea17f331da507e9116f64506012102a6fa3938b873686753bf48cc5551d1f5b9615481f87c67fe04d4f596088f01ef Age:0 WalletName:} {PrevHash:9a8935c75f8479c2a7149c6e26f52b32d07a35cf15c120a81a431b8024f2bff8 OutputIndex:0 OutputValue:1042321 Addresses:[1KcTNQtGB2VkF8gHRcUP3LeKT4ipDWC3xz] Sequence:4294967295 ScriptType:pay-to-pubkey-hash Script:473044022011a7fe8be1b3d1bfdf0137e81b85dae50fd8fda81503ecd72b9b5d325bc5b9a1022069b7d1bf262818fa65fc109f5ea6f8cdd14df4de3e2b83562f353251d5d8821f01210303fa00593f969a7f419ee258f588d3d4d672717ea0e73c1a15b3eeff767de575 Age:0 WalletName:} {PrevHash:7c0017d41d61f44d25b216f4918d4e7037f0247cd5f0d270e8b44e097e8cb5d3 OutputIndex:1 OutputValue:1950455 Addresses:[1Ckk3HysYTTeTXrt4mAxa4wzP9WjLEBgKM] Sequence:4294967295 ScriptType:pay-to-pubkey-hash Script:473044022063383285fe15f2afad8e2574a1545c60f098b749041c40a0241659a3d1bc616d022059e93d5a55cd10847d1fe233dc64ceefae8cd4f191306f6b0078b75c5a2de57801210276043ad0e0491dd2b1792db12e3e1f031b97574c316ea19e9331155a47659741 Age:0 WalletName:} {PrevHash:f3f3d69581b8f8bcee3243c0fcb812737ecc446e8f2a4b4e23eb564498643750 OutputIndex:1 OutputValue:1164682 Addresses:[1QJrogp9xSNMrEKH7eE74qy86baCsUnTFe] Sequence:4294967295 ScriptType:pay-to-pubkey-hash Script:47304402200a96d273b08ba084151784edfd82eda23f3283a5871d92b455854bc4cdeb9d14022053a834acc49b5e7fd195136bf6f0ac52ea1da088f737a298f213f950718b31720121026ebc9ee90c3f61c7289785982385523b4085f0454aed5e259dbdd8c50c3cc552 Age:0 WalletName:} {PrevHash:83fc9cbe8f9e28de140fad9a64885c848ef112d988f7110d9518ca60837ec36a OutputIndex:1 OutputValue:1019486 Addresses:[1Gsp5Cz8xbxHdcKCBUL8eA8sWgTbs6pbVK] Sequence:4294967295 ScriptType:pay-to-pubkey-hash Script:473044022046bff50b4b67a39cbc09537a6e4b43d6c4aff8aba48db142875692dc935d7b1c022031cf89787b71e27a8c6721874b76c47a2b38042f6885dbf217be1851820ab560012102b4643824e610792d544ceae83ba6d1b0e6bbe0deb4b07059c3e95d41243c877e Age:0 WalletName:} {PrevHash:1a599344c35a02a89a4e0adf385df1539afe83863cf63a3fcb02c922f2808a86 OutputIndex:1 OutputValue:1224402 Addresses:[17QqqUkKsuGWF7EgftiY9HrXEPPYoLAmJ4] Sequence:4294967295 ScriptType:pay-to-pubkey-hash Script:47304402202facd04cdd448e71b505e254b4768bf765525e527fc14dae1a6b9baaab7abbb7022060ff7fe015c32cf27f99d43f910d891c7acefd355b0e0db177f0c10180e83f2c012103cf170047f6744b1a37652034610d2549129aaf94a9b8c2c97465d6e7c135d4fe Age:0 WalletName:} {PrevHash:69043a9c6675f7bfa5c56d6e1b523c6a7a615ab0e505c99856b168e47a44aa8c OutputIndex:1 OutputValue:1255773 Addresses:[19Fkb6WcpT8xr2A9kggKJ1ogUQyDjGXGq7] Sequence:4294967295 ScriptType:pay-to-pubkey-hash Script:473044022013a74f574e6c787010064e395233a5404c64b42ddc1412e071290ae1c09a79100220763496a016227db16ff0537c131b9aa1a70ca58cade03a548d88e9272f3d9218012103efde06c3eba524a6f4b15bbf699f422d1cbc08d1127ef71da109d6be5e4ae7e9 Age:0 WalletName:} {PrevHash:a63907e2e843d142d8f6865b35e80ffbc16addaa3cd0c0d1c0c65eeb67bebe5c OutputIndex:0 OutputValue:1078122 Addresses:[1DXEqjgC2QV7CsDiEjYdthmxvJEwEAEchB] Sequence:4294967295 ScriptType:pay-to-pubkey-hash Script:47304402205e8c41c90624444b533ed10ac4afa0039f5b16ab9fcf7c74ab8e01c65579706402207936add6ca8a6d35ee803bdfa57ade55aa6cd647d67ffddcd1dd8fb22bfcffce012103dfd1d1cbc043c91a1ae71d3e3a55156e94ecc9664c0e58b65f490b03fc0dcdb0 Age:0 WalletName:} {PrevHash:f758e79c071aa8ea136033ec1555c7381a46078a31f73a397b94be8427121848 OutputIndex:1 OutputValue:1230623 Addresses:[1JK6ANFKJvck3TArHfH8hxYXM69LLQi4Cd] Sequence:4294967295 ScriptType:pay-to-pubkey-hash Script:47304402202488d537e1a97e0810423a2b39cc958ce00e63d724d565c579fc08db6e1d2c00022008baf16a0c15568aa54386e8f4b0017b0a544a90208e815bc491c6141ed5248c012102487efb8337132b593bec69020e4b8aee118c8046b842cc150023915c06dfb596 Age:0 WalletName:}] Outputs:[{SpentBy: Value:1000593 Addresses:[18WLk2MdxoJvkWewdYfZAUS7D5BitKWxrM] ScriptType:pay-to-pubkey-hash Script:76a91452556c48f68b7cd56ed997ca23e183fff8808ded88ac DataHex: DataString:} {SpentBy: Value:13404356 Addresses:[1443nQwA3q5gRELUUrFFbsQ7wjfnzLKmNb] ScriptType:pay-to-pubkey-hash Script:76a914217bf2c6fabaf36888c4ba7af725b54412d3716988ac DataHex: DataString:}]} {BlockHash: BlockHeight:-1 ...}]
 ```
 
 ```php
@@ -703,6 +747,47 @@ $.post('https://api.blockcypher.com/v1/bcy/test/txs/new', JSON.stringify(newtx))
   'confirmations': 0}}
 ```
 
+```go
+//this is the same example as below, demonstrates
+//creating New TXSkels, signing, and Sending TXSkels
+package main
+
+import (
+	"fmt"
+
+	"github.com/blockcypher/gobcy"
+)
+
+func main() {
+	//note the change to BlockCypher Testnet
+	bcy := gobcy.API{"YOURTOKEN", "bcy", "test"}
+	//generate two addresses
+	addr1, err := bcy.GenAddrKeychain()
+	addr2, err := bcy.GenAddrKeychain()
+	//use faucet to fund first
+	_, err = bcy.Faucet(addr1, 3e5)
+	if err != nil {
+		fmt.Println(err)
+	}
+	//Post New TXSkeleton
+	skel, err := bcy.NewTX(gobcy.TempNewTX(addr1.Address, addr2.Address, 2e5), false)
+	//Sign it locally
+	err = skel.Sign([]string{addr1.Private})
+	if err != nil {
+		fmt.Println(err)
+	}
+	//Send TXSkeleton
+	skel, err = bcy.SendTX(skel)
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Printf("%+v\n", skel)
+}
+
+//Result from `go run`:
+// {Trans:{BlockHash: BlockHeight:-1 Hash:55d6ef290774f5428b66a0a27e46a8c37032c33bc15abce4791d56a2f8adb773 Addresses:[C6LBLb668ZTS4okXhjtzapFWAdnFjH7A4i ByaXmP5k14WRBFLXArfCcqcpAHrUQRy3vL] Total:287500 Fees:12500 Size:225 Preference:high RelayedBy:52.27.84.91, 127.0.0.1 Received:2015-10-16 23:38:09.536632402 +0000 UTC Confirmed:0001-01-01 00:00:00 +0000 UTC Confirmations:0 Confidence:0 Ver:1 LockTime:0 DoubleSpend:false DoubleOf: ReceiveCount:0 VinSize:1 VoutSize:2 Hex: DataProtocol: ChangeAddress: NextInputs: NextOutputs: Inputs:[{PrevHash:50c4738cb29901dc1ae3ed2692a57751653a31192176019d85d3f3922969dd1f OutputIndex:0 OutputValue:300000 Addresses:[C6LBLb668ZTS4okXhjtzapFWAdnFjH7A4i] Sequence:4294967295 ScriptType:pay-to-pubkey-hash Script:4730440220298915c785165233e2f19192bbbb9b8c3fed6d064279cb8968af6698c783b875022037287134f9f0aaf84429ba9bb50f1efcb4cedcfbd34407c285134e068234432c012102b17f04f5fa1bd44315ef33f8759822a302a2ba7fa28c56a50fac0441a341b96a Age:0 WalletName:}] Outputs:[{SpentBy: Value:200000 Addresses:[ByaXmP5k14WRBFLXArfCcqcpAHrUQRy3vL] ScriptType:pay-to-pubkey-hash Script:76a91446c7681dcacaee1ea3f57eced37755d1d09e070188ac DataHex: DataString:} {SpentBy: Value:87500 Addresses:[C6LBLb668ZTS4okXhjtzapFWAdnFjH7A4i] ScriptType:pay-to-pubkey-hash Script:76a91490d969679032cc1af6a69b4161778f12e90cb13588ac DataHex: DataString:}]} ToSign:[] Signatures:[] PubKeys:[] ToSignTX:[] Errors:[]}
+```
+
 ```php
 <?php
 // Run on console:
@@ -852,6 +937,10 @@ $.post('https://api.blockcypher.com/v1/bcy/test/txs/new', JSON.stringify(newtx))
 
 ```ruby
 # Signing is handled by our SDK in the next step
+```
+
+```go
+//signing handled in both examples
 ```
 
 ```php
@@ -1036,6 +1125,47 @@ $.post('https://api.blockcypher.com/v1/bcy/test/txs/send', JSON.stringify(sendtx
       "addresses"=>["CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"],
       "script_type"=>"pay-to-pubkey-hash"}]},
  "tosign"=>[""]}
+```
+
+```go
+//this is the same example as above, demonstrates
+//creating New TXSkels, signing, and Sending TXSkels
+package main
+
+import (
+	"fmt"
+
+	"github.com/blockcypher/gobcy"
+)
+
+func main() {
+	//note the change to BlockCypher Testnet
+	bcy := gobcy.API{"YOURTOKEN", "bcy", "test"}
+	//generate two addresses
+	addr1, err := bcy.GenAddrKeychain()
+	addr2, err := bcy.GenAddrKeychain()
+	//use faucet to fund first
+	_, err = bcy.Faucet(addr1, 3e5)
+	if err != nil {
+		fmt.Println(err)
+	}
+	//Post New TXSkeleton
+	skel, err := bcy.NewTX(gobcy.TempNewTX(addr1.Address, addr2.Address, 2e5), false)
+	//Sign it locally
+	err = skel.Sign([]string{addr1.Private})
+	if err != nil {
+		fmt.Println(err)
+	}
+	//Send TXSkeleton
+	skel, err = bcy.SendTX(skel)
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Printf("%+v\n", skel)
+}
+
+//Result from `go run`:
+// {Trans:{BlockHash: BlockHeight:-1 Hash:55d6ef290774f5428b66a0a27e46a8c37032c33bc15abce4791d56a2f8adb773 Addresses:[C6LBLb668ZTS4okXhjtzapFWAdnFjH7A4i ByaXmP5k14WRBFLXArfCcqcpAHrUQRy3vL] Total:287500 Fees:12500 Size:225 Preference:high RelayedBy:52.27.84.91, 127.0.0.1 Received:2015-10-16 23:38:09.536632402 +0000 UTC Confirmed:0001-01-01 00:00:00 +0000 UTC Confirmations:0 Confidence:0 Ver:1 LockTime:0 DoubleSpend:false DoubleOf: ReceiveCount:0 VinSize:1 VoutSize:2 Hex: DataProtocol: ChangeAddress: NextInputs: NextOutputs: Inputs:[{PrevHash:50c4738cb29901dc1ae3ed2692a57751653a31192176019d85d3f3922969dd1f OutputIndex:0 OutputValue:300000 Addresses:[C6LBLb668ZTS4okXhjtzapFWAdnFjH7A4i] Sequence:4294967295 ScriptType:pay-to-pubkey-hash Script:4730440220298915c785165233e2f19192bbbb9b8c3fed6d064279cb8968af6698c783b875022037287134f9f0aaf84429ba9bb50f1efcb4cedcfbd34407c285134e068234432c012102b17f04f5fa1bd44315ef33f8759822a302a2ba7fa28c56a50fac0441a341b96a Age:0 WalletName:}] Outputs:[{SpentBy: Value:200000 Addresses:[ByaXmP5k14WRBFLXArfCcqcpAHrUQRy3vL] ScriptType:pay-to-pubkey-hash Script:76a91446c7681dcacaee1ea3f57eced37755d1d09e070188ac DataHex: DataString:} {SpentBy: Value:87500 Addresses:[C6LBLb668ZTS4okXhjtzapFWAdnFjH7A4i] ScriptType:pay-to-pubkey-hash Script:76a91490d969679032cc1af6a69b4161778f12e90cb13588ac DataHex: DataString:}]} ToSign:[] Signatures:[] PubKeys:[] ToSignTX:[] Errors:[]}
 ```
 
 ```php
@@ -1357,6 +1487,29 @@ $.post('https://api.blockcypher.com/v1/bcy/test/txs/push', JSON.stringify(pushtx
 }
 ```
 
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/blockcypher/gobcy"
+)
+
+func main() {
+	//note the change to BlockCypher Testnet
+	bcy := gobcy.API{"YOURTOKEN", "bcy", "test"}
+	skel, err := bcy.PushTX("01000000011fdd692992f3d3859d01762119313a655177a59226ede31adc0199b28c73c450000000006a4730440220298915c785165233e2f19192bbbb9b8c3fed6d064279cb8968af6698c783b875022037287134f9f0aaf84429ba9bb50f1efcb4cedcfbd34407c285134e068234432c012102b17f04f5fa1bd44315ef33f8759822a302a2ba7fa28c56a50fac0441a341b96affffffff02400d0300000000001976a91446c7681dcacaee1ea3f57eced37755d1d09e070188accc550100000000001976a91490d969679032cc1af6a69b4161778f12e90cb13588ac00000000")
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Printf("%+v\n", skel)
+}
+
+//Result from `go run`:
+// {Trans:{BlockHash: BlockHeight:-1 Hash:55d6ef290774f5428b66a0a27e46a8c37032c33bc15abce4791d56a2f8adb773 Addresses:[C6LBLb668ZTS4okXhjtzapFWAdnFjH7A4i ByaXmP5k14WRBFLXArfCcqcpAHrUQRy3vL] Total:287500 Fees:12500 Size:225 Preference:high RelayedBy:52.27.84.91, 127.0.0.1 Received:2015-10-16 23:38:09.536632402 +0000 UTC Confirmed:0001-01-01 00:00:00 +0000 UTC Confirmations:0 Confidence:0 Ver:1 LockTime:0 DoubleSpend:false DoubleOf: ReceiveCount:0 VinSize:1 VoutSize:2 Hex: DataProtocol: ChangeAddress: NextInputs: NextOutputs: Inputs:[{PrevHash:50c4738cb29901dc1ae3ed2692a57751653a31192176019d85d3f3922969dd1f OutputIndex:0 OutputValue:300000 Addresses:[C6LBLb668ZTS4okXhjtzapFWAdnFjH7A4i] Sequence:4294967295 ScriptType:pay-to-pubkey-hash Script:4730440220298915c785165233e2f19192bbbb9b8c3fed6d064279cb8968af6698c783b875022037287134f9f0aaf84429ba9bb50f1efcb4cedcfbd34407c285134e068234432c012102b17f04f5fa1bd44315ef33f8759822a302a2ba7fa28c56a50fac0441a341b96a Age:0 WalletName:}] Outputs:[{SpentBy: Value:200000 Addresses:[ByaXmP5k14WRBFLXArfCcqcpAHrUQRy3vL] ScriptType:pay-to-pubkey-hash Script:76a91446c7681dcacaee1ea3f57eced37755d1d09e070188ac DataHex: DataString:} {SpentBy: Value:87500 Addresses:[C6LBLb668ZTS4okXhjtzapFWAdnFjH7A4i] ScriptType:pay-to-pubkey-hash Script:76a91490d969679032cc1af6a69b4161778f12e90cb13588ac DataHex: DataString:}]} ToSign:[] Signatures:[] PubKeys:[] ToSignTX:[] Errors:[]}
+```
+
 ```php
 <?php
 // Run on console:
@@ -1630,6 +1783,29 @@ $.post('https://api.blockcypher.com/v1/bcy/test/txs/decode', JSON.stringify(deco
  'confirmations': 0}
 ```
 
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/blockcypher/gobcy"
+)
+
+func main() {
+	//note the change to BlockCypher Testnet
+	bcy := gobcy.API{"YOURTOKEN", "bcy", "test"}
+	skel, err := bcy.DecodeTX("01000000011fdd692992f3d3859d01762119313a655177a59226ede31adc0199b28c73c450000000006a4730440220298915c785165233e2f19192bbbb9b8c3fed6d064279cb8968af6698c783b875022037287134f9f0aaf84429ba9bb50f1efcb4cedcfbd34407c285134e068234432c012102b17f04f5fa1bd44315ef33f8759822a302a2ba7fa28c56a50fac0441a341b96affffffff02400d0300000000001976a91446c7681dcacaee1ea3f57eced37755d1d09e070188accc550100000000001976a91490d969679032cc1af6a69b4161778f12e90cb13588ac00000000")
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Printf("%+v\n", skel)
+}
+
+//Result from `go run`:
+// {Trans:{BlockHash: BlockHeight:-1 Hash:55d6ef290774f5428b66a0a27e46a8c37032c33bc15abce4791d56a2f8adb773 Addresses:[C6LBLb668ZTS4okXhjtzapFWAdnFjH7A4i ByaXmP5k14WRBFLXArfCcqcpAHrUQRy3vL] Total:287500 Fees:12500 Size:225 Preference:high RelayedBy:52.27.84.91, 127.0.0.1 Received:2015-10-16 23:38:09.536632402 +0000 UTC Confirmed:0001-01-01 00:00:00 +0000 UTC Confirmations:0 Confidence:0 Ver:1 LockTime:0 DoubleSpend:false DoubleOf: ReceiveCount:0 VinSize:1 VoutSize:2 Hex: DataProtocol: ChangeAddress: NextInputs: NextOutputs: Inputs:[{PrevHash:50c4738cb29901dc1ae3ed2692a57751653a31192176019d85d3f3922969dd1f OutputIndex:0 OutputValue:300000 Addresses:[C6LBLb668ZTS4okXhjtzapFWAdnFjH7A4i] Sequence:4294967295 ScriptType:pay-to-pubkey-hash Script:4730440220298915c785165233e2f19192bbbb9b8c3fed6d064279cb8968af6698c783b875022037287134f9f0aaf84429ba9bb50f1efcb4cedcfbd34407c285134e068234432c012102b17f04f5fa1bd44315ef33f8759822a302a2ba7fa28c56a50fac0441a341b96a Age:0 WalletName:}] Outputs:[{SpentBy: Value:200000 Addresses:[ByaXmP5k14WRBFLXArfCcqcpAHrUQRy3vL] ScriptType:pay-to-pubkey-hash Script:76a91446c7681dcacaee1ea3f57eced37755d1d09e070188ac DataHex: DataString:} {SpentBy: Value:87500 Addresses:[C6LBLb668ZTS4okXhjtzapFWAdnFjH7A4i] ScriptType:pay-to-pubkey-hash Script:76a91490d969679032cc1af6a69b4161778f12e90cb13588ac DataHex: DataString:}]} ToSign:[] Signatures:[] PubKeys:[] ToSignTX:[] Errors:[]}
+```
+
 ```php
 <?php
 // Run on console:
@@ -1741,6 +1917,20 @@ payload = JSON.parse('{ "inputs": [{"addresses": [sourceAddr]}],
 }')
 ```
 
+```go
+package main
+
+import "github.com/blockcypher/gobcy"
+
+func main() {
+	//note the change to BlockCypher Testnet
+	bcy := gobcy.API{"YOURTOKEN", "bcy", "test"}
+	//use TempMultiTX to set up multisig
+	temptx := gobcy.TempMultiTX("sourceAddr", "", 25000, 2, []string{"pubkey1", "pubkey2", "pubkey3"})
+	//Then follow the New/Send two-step process with this temptx as the input
+}
+```
+
 ```php
 <?php
 // Run on console:
@@ -1818,6 +2008,20 @@ payload = JSON.parse('{ "inputs": [{
 		"addresses" : [destAddr],
 		"value"     : 150000
 	}] }')
+```
+
+```go
+package main
+
+import "github.com/blockcypher/gobcy"
+
+func main() {
+	//note the change to BlockCypher Testnet
+	bcy := gobcy.API{"YOURTOKEN", "bcy", "test"}
+	//use TempMultiTX to set up multisig
+	temptx := gobcy.TempMultiTX("", "destAddr", 25000, 2, []string{"pubkey1", "pubkey2", "pubkey3"})
+	//Then follow the New/Send two-step process with this temptx as the input
+}
 ```
 
 ```php
