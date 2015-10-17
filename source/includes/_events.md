@@ -146,6 +146,28 @@ $.post(url, JSON.stringify(webhook))
  'callback_errors': 0}
 ```
 
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/blockcypher/gobcy"
+)
+
+func main() {
+	btc := gobcy.API{"YOURTOKEN", "btc", "main"}
+	hook, err := btc.CreateHook(gobcy.Hook{Event: "tx-confirmation", Address: "15qx9ug952GWGTNn7Uiv6vode4RcGrRemh", URL: "https://my.domain.com/callbacks/payments"})
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Printf("%+v\n", hook)
+}
+
+//Result from `go run`:
+//{ID:376fcc2a-28ac-4ba5-9a29-6449ee0b1d83 Event:tx-confirmation Hash: WalletName: Address:15qx9ug952GWGTNn7Uiv6vode4RcGrRemh Confirmations:6 Confidence:0 Script: URL:https://my.domain.com/callbacks/payments CallbackErrs:0}
+```
+
 ```php
 <?php
 // Run on console:
@@ -235,6 +257,28 @@ $.get('https://api.blockcypher.com/v1/btc/main/hooks?token='+TOKEN)
   'callback_errors': 0}]
 ```
 
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/blockcypher/gobcy"
+)
+
+func main() {
+	btc := gobcy.API{"YOURTOKEN", "btc", "main"}
+	hooks, err := btc.ListHooks()
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Printf("%+v\n", hooks)
+}
+
+//Result from `go run`:
+//[{ID:376fcc2a-28ac-4ba5-9a29-6449ee0b1d83 Event:tx-confirmation Hash: WalletName: Address:15qx9ug952GWGTNn7Uiv6vode4RcGrRemh Confirmations:6 Confidence:0 Script: URL:https://my.domain.com/callbacks/payments CallbackErrs:0}]
+```
+
 ```php
 <?php
 // Run on console:
@@ -314,6 +358,28 @@ $.get('https://api.blockcypher.com/v1/btc/main/hooks/399d0923-e920-48ee-8928-205
  'callback_errors': 0}
 ```
 
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/blockcypher/gobcy"
+)
+
+func main() {
+	btc := gobcy.API{"YOURTOKEN", "btc", "main"}
+	hook, err := btc.GetHook("376fcc2a-28ac-4ba5-9a29-6449ee0b1d83")
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Printf("%+v\n", hook)
+}
+
+//Result from `go run`:
+//{ID:376fcc2a-28ac-4ba5-9a29-6449ee0b1d83 Event:tx-confirmation Hash: WalletName: Address:15qx9ug952GWGTNn7Uiv6vode4RcGrRemh Confirmations:6 Confidence:0 Script: URL:https://my.domain.com/callbacks/payments CallbackErrs:0}
+```
+
 ```php
 <?php
 // Run on console:
@@ -370,6 +436,29 @@ $.ajax({
 >>> r = requests.delete('https://api.blockcypher.com/v1/btc/main/hooks/50d1fb13-2bd4-47d0-8e1b-0695e0322581', params=params)
 # Will return nothing, but we can confirm the status code to be sure
 >>> assert r.status_code == 204
+```
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/blockcypher/gobcy"
+)
+
+func main() {
+	btc := gobcy.API{"YOURTOKEN", "btc", "main"}
+	err := btc.DeleteHook("376fcc2a-28ac-4ba5-9a29-6449ee0b1d83")
+	if err != nil {
+		fmt.Println(err)
+	} else {
+		fmt.Println("Hook deleted")
+	}
+}
+
+//Result from `go run`:
+//Hook deleted
 ```
 
 ```php

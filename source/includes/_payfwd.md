@@ -68,6 +68,28 @@ $.post(url, JSON.stringify(payment))
  'token': 'YOUR_TOKEN'}
 ```
 
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/blockcypher/gobcy"
+)
+
+func main() {
+	btc := gobcy.API{"YOURTOKEN", "btc", "main"}
+	payfwd, err := btc.CreatePayFwd(gobcy.PayFwd{Destination: "15qx9ug952GWGTNn7Uiv6vode4RcGrRemh", CallbackURL: "https://my.domain.com/callbacks/payments"})
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Printf("%+v\n", payfwd)
+}
+
+//Result from `go run`:
+//{ID:6fbe2b48-fe79-44a2-9cdc-8114bc4d5fcc Destination:15qx9ug952GWGTNn7Uiv6vode4RcGrRemh InputAddr:17Ri1Shdzo5G8kiUys1qoeM8w1PNj1eFAK ProcessAddr: ProcessPercent:0 ProcessValue:0 CallbackURL:https://my.domain.com/callbacks/payments EnableConfirm:false MiningFees:0 TXHistory:[]}
+```
+
 ```php
 <?php
 // Run on console:
@@ -152,6 +174,28 @@ $.get('http://api.blockcypher.com/v1/btc/main/payments?token='+TOKEN)
   'token': 'YOUR_TOKEN'}]
 ```
 
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/blockcypher/gobcy"
+)
+
+func main() {
+	btc := gobcy.API{"YOURTOKEN", "btc", "main"}
+	payfwds, err := btc.ListPayFwds()
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Printf("%+v\n", payfwds)
+}
+
+//Result from `go run`:
+//[{ID:6fbe2b48-fe79-44a2-9cdc-8114bc4d5fcc Destination:15qx9ug952GWGTNn7Uiv6vode4RcGrRemh InputAddr:17Ri1Shdzo5G8kiUys1qoeM8w1PNj1eFAK ProcessAddr: ProcessPercent:0 ProcessValue:0 CallbackURL:https://my.domain.com/callbacks/payments EnableConfirm:false MiningFees:0 TXHistory:[]}]
+```
+
 ```php
 <?php
 // Run on console:
@@ -207,6 +251,29 @@ $.ajax({
 >>> r = requests.delete('http://api.blockcypher.com/v1/btc/main/payments/f35c80c2-3347-410d-b4ac-d049910289ec', params=params)
 # will return nothing, but we can confirm that delete was succesful via http code
 >>> assert r.status_code == 204
+```
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/blockcypher/gobcy"
+)
+
+func main() {
+	btc := gobcy.API{"YOURTOKEN", "btc", "main"}
+	err := btc.DeletePayFwd("6fbe2b48-fe79-44a2-9cdc-8114bc4d5fcc ")
+	if err != nil {
+		fmt.Println(err)
+	} else {
+		fmt.Println("PayFwd Deleted")
+	}
+}
+
+//Result from `go run`:
+//PayFwd Deleted
 ```
 
 ```php
