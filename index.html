@@ -19,7 +19,7 @@
 
       <script>
         $(function() {
-          setupLanguages(["shell","javascript","ruby","python","php"]);
+          setupLanguages(["shell","javascript","ruby","python","go","php"]);
         });
       </script>
   </head>
@@ -40,6 +40,7 @@
               <a href="#" data-language-name="javascript">JavaScript</a>
               <a href="#" data-language-name="ruby">Ruby</a>
               <a href="#" data-language-name="python">Python</a>
+              <a href="#" data-language-name="go">Go</a>
               <a href="#" data-language-name="php">PHP</a>
         </div>
       <div id="toc">
@@ -73,6 +74,11 @@
 <span class="o">//</span> <span class="o">|</span><span class="n">_</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">_</span><span class="p">)</span> <span class="p">(</span><span class="n">_</span> <span class="o">|&lt;</span> \<span class="n">_</span> \<span class="o">/</span> <span class="o">|</span><span class="n">_</span><span class="p">)</span> <span class="o">|</span> <span class="o">|</span> <span class="p">(</span><span class="o">/</span><span class="n">_</span> <span class="o">|</span> 
 <span class="o">//</span>                    <span class="o">/</span>  <span class="o">|</span>             
 </code></pre>
+<pre class="highlight go"><code><span class="c">//  _               _                  </span><span class="x">
+</span><span class="c">// |_) |  _   _ |  /     ._  |_   _  ._</span><span class="x">
+</span><span class="c">// |_) | (_) (_ |&lt; \_ \/ |_) | | (/_ | </span><span class="x">
+</span><span class="c">//                    /  |             </span><span class="x">
+</span></code></pre>
 <pre class="highlight php"><code><span class="cp">&lt;?php</span>
 <span class="sd">/**
  *  _               _
@@ -119,6 +125,34 @@ curl is a tool to transfer data from or to a server, using one of the supported 
 <pre class="highlight python"><code><span class="n">To</span> <span class="n">see</span> <span class="n">detailed</span> <span class="n">python</span> <span class="n">code</span> <span class="n">snippets</span><span class="p">,</span> <span class="n">check</span> <span class="n">the</span> <span class="n">official</span> <span class="n">python</span> <span class="n">repository</span><span class="p">:</span>
 <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">blockcypher</span><span class="o">/</span><span class="n">blockcypher</span><span class="o">-</span><span class="n">python</span>
 </code></pre>
+<pre class="highlight go"><code><span class="c">// Go examples use the official SDK, which you can find here:</span><span class="x">
+</span><span class="c">// https://github.com/blockcypher/gobcy</span><span class="x">
+
+</span><span class="c">// To install, use Go Get on the command line </span><span class="x">
+</span><span class="c">// go get github.com/blockcypher/gobcy</span><span class="x">
+
+</span><span class="c">// Then import the package in your Go application</span><span class="x">
+</span><span class="c">// All examples assume fmt is also imported, and </span><span class="x">
+</span><span class="c">// will require additional packages as necessary</span><span class="x">
+</span><span class="k">package</span><span class="x"> </span><span class="n">main</span><span class="x">
+
+</span><span class="k">import</span><span class="x"> </span><span class="p">(</span><span class="x">
+    </span><span class="s">"fmt"</span><span class="x">
+
+    </span><span class="s">"github.com/blockcypher/gobcy"</span><span class="x">
+</span><span class="p">)</span><span class="x">
+
+</span><span class="k">func</span><span class="x"> </span><span class="n">main</span><span class="p">()</span><span class="x"> </span><span class="p">{</span><span class="x">
+    </span><span class="c">// For Bitcoin main:</span><span class="x">
+    </span><span class="n">btc</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">gobcy</span><span class="o">.</span><span class="n">API</span><span class="p">{</span><span class="s">"YOURTOKEN"</span><span class="p">,</span><span class="s">"btc"</span><span class="p">,</span><span class="s">"main"</span><span class="p">}</span><span class="x">
+    </span><span class="c">// For BlockCypher's internal testnet:</span><span class="x">
+    </span><span class="n">bcy</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">gobcy</span><span class="o">.</span><span class="n">API</span><span class="p">{</span><span class="s">"YOURTOKEN"</span><span class="p">,</span><span class="s">"bcy"</span><span class="p">,</span><span class="s">"test"</span><span class="p">}</span><span class="x">
+    </span><span class="c">//examples will always follow in main()</span><span class="x">
+</span><span class="p">}</span><span class="x">
+
+</span><span class="c">// You can see additional info in the GoDoc, accessible here:</span><span class="x">
+</span><span class="c">// https://godoc.org/github.com/blockcypher/gobcy</span><span class="x">
+</span></code></pre>
 <pre class="highlight php"><code>PHP Client
 ----------
 
@@ -305,6 +339,26 @@ Currently, we only have cURL, JavaScript, and Python code samples on this page, 
  <span class="s">'low_fee_per_kb'</span><span class="p">:</span> <span class="mi">12047</span><span class="p">,</span>
  <span class="s">'last_fork_hash'</span><span class="p">:</span> <span class="s">'00000000000000000aa6462fd9faf94712ce1b5a944dc666f491101c996beab9'</span><span class="p">}</span>
 </code></pre>
+<pre class="highlight go"><code><span class="k">package</span><span class="x"> </span><span class="n">main</span><span class="x">
+
+</span><span class="k">import</span><span class="x"> </span><span class="p">(</span><span class="x">
+    </span><span class="s">"fmt"</span><span class="x">
+
+    </span><span class="s">"github.com/blockcypher/gobcy"</span><span class="x">
+</span><span class="p">)</span><span class="x">
+
+</span><span class="k">func</span><span class="x"> </span><span class="n">main</span><span class="p">()</span><span class="x"> </span><span class="p">{</span><span class="x">
+    </span><span class="n">btc</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">gobcy</span><span class="o">.</span><span class="n">API</span><span class="p">{</span><span class="s">"YOURTOKEN"</span><span class="p">,</span><span class="x"> </span><span class="s">"btc"</span><span class="p">,</span><span class="x"> </span><span class="s">"main"</span><span class="p">}</span><span class="x">
+    </span><span class="n">chainInfo</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">btc</span><span class="o">.</span><span class="n">GetChain</span><span class="p">()</span><span class="x">
+    </span><span class="k">if</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="no">nil</span><span class="x"> </span><span class="p">{</span><span class="x">
+        </span><span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="n">err</span><span class="p">)</span><span class="x">
+    </span><span class="p">}</span><span class="x">
+    </span><span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">"%+v</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="x"> </span><span class="n">chainInfo</span><span class="p">)</span><span class="x">
+</span><span class="p">}</span><span class="x">
+
+</span><span class="c">//Result from `go run`: </span><span class="x">
+</span><span class="c">//{Name:BTC.main Height:378750 Hash:000000000000000001d8c28595ba3ebacc5bd1dc7cc91a3cd47400e2c83c1123 Time:2015-10-13 20:47:03.575975057 +0000 UTC PrevHash:00000000000000000601c02134e4d49c7d5903f0fe382a5f10d24f7de457c5c0 PeerCount:1000 HighFee:50628 MediumFee:27723 LowFee:22560 UnconfirmedCount:58707 LastForkHeight:378316 LastForkHash:000000000000000000cc3179570758c48ebe31a47f55e74ad765541d8adb32ea}</span><span class="x">
+</span></code></pre>
 <pre class="highlight php"><code><span class="cp">&lt;?php</span>
 <span class="c1">// Run on console:
 // php -f .\sample\chain-api\ChainEndpoint.php
@@ -416,6 +470,23 @@ curl https://api.blockcypher.com/v1/tokens/<span class="nv">$YOURTOKEN</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">'https://api.blockcypher.com/v1/btc/main'</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
 </code></pre>
+<pre class="highlight go"><code><span class="k">package</span><span class="x"> </span><span class="n">main</span><span class="x">
+
+</span><span class="k">import</span><span class="x"> </span><span class="p">(</span><span class="x">
+    </span><span class="s">"fmt"</span><span class="x">
+
+    </span><span class="s">"github.com/blockcypher/gobcy"</span><span class="x">
+</span><span class="p">)</span><span class="x">
+
+</span><span class="k">func</span><span class="x"> </span><span class="n">main</span><span class="p">()</span><span class="x"> </span><span class="p">{</span><span class="x">
+    </span><span class="c">//Adding your token is part of the API coin/chain initialization</span><span class="x">
+    </span><span class="n">btc</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">gobcy</span><span class="o">.</span><span class="n">API</span><span class="p">{</span><span class="s">"YOURTOKEN"</span><span class="p">,</span><span class="x"> </span><span class="s">"btc"</span><span class="p">,</span><span class="x"> </span><span class="s">"main"</span><span class="p">}</span><span class="x">
+    </span><span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">"%+v</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="x"> </span><span class="n">btc</span><span class="p">)</span><span class="x">
+</span><span class="p">}</span><span class="x">
+
+</span><span class="c">//Result from `go run`:</span><span class="x">
+</span><span class="c">//{Token:YOURTOKEN Coin:btc Chain:main}</span><span class="x">
+</span></code></pre>
 <pre class="highlight php"><code><span class="cp">&lt;?php</span>
 <span class="c1"># Adding your token as client credential to API context
 </span><span class="nv">$apiContext</span> <span class="o">=</span> <span class="nx">ApiContext</span><span class="o">::</span><span class="na">create</span><span class="p">(</span>
@@ -607,6 +678,33 @@ curl <span class="s1">'https://api.blockcypher.com/v1/btc/main/blocks/5;6;7'</sp
 <span class="n">base_url</span> <span class="o">=</span> <span class="s">'https://api.blockcypher.com/v1/btc/main/blocks/'</span>
 <span class="n">full_url</span> <span class="o">=</span> <span class="n">base_url</span> <span class="o">+</span> <span class="s">';'</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">])</span>
 </code></pre>
+<pre class="highlight go"><code><span class="c">//Batching requests is currently unsupported in the Go SDK</span><span class="x">
+</span><span class="c">//But you can still request things serially</span><span class="x">
+</span><span class="k">package</span><span class="x"> </span><span class="n">main</span><span class="x">
+
+</span><span class="k">import</span><span class="x"> </span><span class="p">(</span><span class="x">
+    </span><span class="s">"fmt"</span><span class="x">
+
+    </span><span class="s">"github.com/blockcypher/gobcy"</span><span class="x">
+</span><span class="p">)</span><span class="x">
+
+</span><span class="k">func</span><span class="x"> </span><span class="n">main</span><span class="p">()</span><span class="x"> </span><span class="p">{</span><span class="x">
+    </span><span class="n">btc</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">gobcy</span><span class="o">.</span><span class="n">API</span><span class="p">{</span><span class="s">"YOURTOKEN"</span><span class="p">,</span><span class="x"> </span><span class="s">"btc"</span><span class="p">,</span><span class="x"> </span><span class="s">"main"</span><span class="p">}</span><span class="x">
+    </span><span class="n">blocks</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="nb">make</span><span class="p">([]</span><span class="n">gobcy</span><span class="o">.</span><span class="n">Block</span><span class="p">,</span><span class="x"> </span><span class="m">3</span><span class="p">)</span><span class="x">
+    </span><span class="n">heights</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="p">[]</span><span class="kt">int</span><span class="p">{</span><span class="m">5</span><span class="p">,</span><span class="x"> </span><span class="m">6</span><span class="p">,</span><span class="x"> </span><span class="m">7</span><span class="p">}</span><span class="x">
+    </span><span class="k">for</span><span class="x"> </span><span class="n">i</span><span class="p">,</span><span class="x"> </span><span class="n">v</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="k">range</span><span class="x"> </span><span class="n">heights</span><span class="x"> </span><span class="p">{</span><span class="x">
+        </span><span class="n">blk</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">btc</span><span class="o">.</span><span class="n">GetBlock</span><span class="p">(</span><span class="n">v</span><span class="p">,</span><span class="x"> </span><span class="s">""</span><span class="p">)</span><span class="x">
+        </span><span class="k">if</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="no">nil</span><span class="x"> </span><span class="p">{</span><span class="x">
+            </span><span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="n">err</span><span class="p">)</span><span class="x">
+        </span><span class="p">}</span><span class="x">
+        </span><span class="n">blocks</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="x"> </span><span class="o">=</span><span class="x"> </span><span class="n">blk</span><span class="x">
+    </span><span class="p">}</span><span class="x">
+    </span><span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">"%+v</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="x"> </span><span class="n">blocks</span><span class="p">)</span><span class="x">
+</span><span class="p">}</span><span class="x">
+
+</span><span class="c">//Result from `go run`:</span><span class="x">
+</span><span class="c">//[{Hash:000000009b7262315dbf071787ad3656097b892abffd1f95a1a022f896f533fc Height:5 Depth:378755 Chain:BTC.main Total:0 Fees:0 Ver:1 Time:2009-01-09 03:23:48 +0000 UTC ReceivedTime:2009-01-09 03:23:48 +0000 UTC RelayedBy: Bits:486604799 Nonce:2011431709 NumTX:1 PrevBlock:000000004ebadb55ee9096c9a2f8880e09da59c0d68b1c228da88e48844a1485 MerkleRoot:63522845d294ee9b0188ae5cac91bf389a0c3723f084ca1025e7d9cdfe481ce1 TXids:[63522845d294ee9b0188ae5cac91bf389a0c3723f084ca1025e7d9cdfe481ce1] NextTXs:} {Hash:000000003031a0e73735690c5a1ff2a4be82553b2a12b776fbd3a215dc8f778d Height:6 Depth:378754 Chain:BTC.main Total:0 Fees:0 Ver:1 Time:2009-01-09 03:29:49 +0000 UTC ReceivedTime:2009-01-09 03:29:49 +0000 UTC RelayedBy: Bits:486604799 Nonce:2538380312 NumTX:1 PrevBlock:000000009b7262315dbf071787ad3656097b892abffd1f95a1a022f896f533fc MerkleRoot:20251a76e64e920e58291a30d4b212939aae976baca40e70818ceaa596fb9d37 TXids:[20251a76e64e920e58291a30d4b212939aae976baca40e70818ceaa596fb9d37] NextTXs:} {Hash:0000000071966c2b1d065fd446b1e485b2c9d9594acd2007ccbd5441cfc89444 Height:7 Depth:378753 Chain:BTC.main Total:0 Fees:0 Ver:1 Time:2009-01-09 03:39:29 +0000 UTC ReceivedTime:2009-01-09 03:39:29 +0000 UTC RelayedBy: Bits:486604799 Nonce:2258412857 NumTX:1 PrevBlock:000000003031a0e73735690c5a1ff2a4be82553b2a12b776fbd3a215dc8f778d MerkleRoot:8aa673bc752f2851fd645d6a0a92917e967083007d9c1684f9423b100540673f TXids:[8aa673bc752f2851fd645d6a0a92917e967083007d9c1684f9423b100540673f] NextTXs:}]</span><span class="x">
+</span></code></pre>
 <pre class="highlight php"><code><span class="cp">&lt;?php</span>
 <span class="c1">// Run on console:
 // php -f .\sample\introduction\Batching.php
@@ -685,17 +783,6 @@ Since the default, non-registered <a href="#rate-limits-and-tokens">rate limit</
 <aside class="warning">
 As mentioned above, Bitcoin Testnet3 is frequently under attack, sometimes from core developers stress-testing the protocol, sometimes from malevolent actors attempting new attack vectors. It can be extremely&mdash;and inconsistently&mdash;unreliable. Unless your testing environment requires Testnet3, we strongly encourage you to use BlockCypher&rsquo;s Test Chain.
 </aside>
-
-<h3 id="test-faucets">Test Faucets</h3>
-
-<p>To help facilitate automated testing in your applications, a faucet endpoint is available on both BlockCypher&rsquo;s Test Chain and Bitcoin Testnet3. Calling the faucet endpoint, along with passing a valid address, will automatically create&mdash;and propagate&mdash;a new transaction funding the address with the amount you provide.</p>
-
-<p>The faucets can be used from your browser if you want to play with them before automating:</p>
-
-<ul>
-<li><a href="https://accounts.blockcypher.com/testnet-faucet">Bitcoin Testnet Faucet</a></li>
-<li><a href="https://accounts.blockcypher.com/blockcypher-faucet">BlockCypher Test Chain Faucet</a></li>
-</ul>
 <pre class="highlight shell"><code><span class="c"># Make new address; returns private key/public key/address</span>
 curl -X POST http://api.blockcypher.com/v1/bcy/test/addrs?token<span class="o">=</span><span class="nv">$YOURTOKEN</span>
 
@@ -751,6 +838,29 @@ curl -d <span class="s1">'{"address": "CFqoZmZ3ePwK5wnkhxJjJAQKJ82C7RJdmd", "amo
 <span class="o">&gt;&gt;&gt;</span> <span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
 <span class="p">{</span><span class="s">'tx_ref'</span><span class="p">:</span> <span class="s">'b2ecfb5e40f3923b07819f1a386a538e86cc6ce59ae7a59533df487f622d1cbb'</span><span class="p">}</span>
 </code></pre>
+<pre class="highlight go"><code><span class="k">package</span><span class="x"> </span><span class="n">main</span><span class="x">
+
+</span><span class="k">import</span><span class="x"> </span><span class="p">(</span><span class="x">
+    </span><span class="s">"fmt"</span><span class="x">
+
+    </span><span class="s">"github.com/blockcypher/gobcy"</span><span class="x">
+</span><span class="p">)</span><span class="x">
+
+</span><span class="k">func</span><span class="x"> </span><span class="n">main</span><span class="p">()</span><span class="x"> </span><span class="p">{</span><span class="x">
+    </span><span class="n">bcy</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">gobcy</span><span class="o">.</span><span class="n">API</span><span class="p">{</span><span class="s">"YOURTOKEN"</span><span class="p">,</span><span class="x"> </span><span class="s">"bcy"</span><span class="p">,</span><span class="x"> </span><span class="s">"test"</span><span class="p">}</span><span class="x">
+    </span><span class="c">//Generate new address</span><span class="x">
+    </span><span class="n">pair</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">bcy</span><span class="o">.</span><span class="n">GenAddrKeychain</span><span class="p">()</span><span class="x">
+    </span><span class="c">//Fund it with faucet</span><span class="x">
+    </span><span class="n">txhash</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">bcy</span><span class="o">.</span><span class="n">Faucet</span><span class="p">(</span><span class="n">pair</span><span class="p">,</span><span class="x"> </span><span class="m">100000</span><span class="p">)</span><span class="x">
+    </span><span class="k">if</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="no">nil</span><span class="x"> </span><span class="p">{</span><span class="x">
+        </span><span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="n">err</span><span class="p">)</span><span class="x">
+    </span><span class="p">}</span><span class="x">
+    </span><span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">"Address: %v, Faucet TXHash: %v</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="x"> </span><span class="n">pair</span><span class="o">.</span><span class="n">Address</span><span class="p">,</span><span class="x"> </span><span class="n">txhash</span><span class="p">)</span><span class="x">
+</span><span class="p">}</span><span class="x">
+
+</span><span class="c">//Result from `go run`:</span><span class="x">
+</span><span class="c">//Address: Buvu6hXdvs52UiRmwtRDs2VXEuta3iWM1Y, Faucet TXHash: 31da1be35d10711eae224f149ae600a8515def0e9045901c0d144e71098c9a20</span><span class="x">
+</span></code></pre>
 <pre class="highlight php"><code><span class="cp">&lt;?php</span>
 <span class="c1">// Make new address; returns private key/public key/address
 // Run on console:
@@ -778,6 +888,17 @@ curl -d <span class="s1">'{"address": "CFqoZmZ3ePwK5wnkhxJjJAQKJ82C7RJdmd", "amo
   <span class="s2">"tx_ref"</span><span class="o">:</span><span class="s2">"0fa68cf5c39dbd918a5ca49fc092be36b8bcece83cbfed919ad6c77b5f24cceb"</span>
 <span class="p">}</span>
 </code></pre>
+
+<h3 id="test-faucets">Test Faucets</h3>
+
+<p>To help facilitate automated testing in your applications, a faucet endpoint is available on both BlockCypher&rsquo;s Test Chain and Bitcoin Testnet3. Calling the faucet endpoint, along with passing a valid address, will automatically create&mdash;and propagate&mdash;a new transaction funding the address with the amount you provide.</p>
+
+<p>The faucets can be used from your browser if you want to play with them before automating:</p>
+
+<ul>
+<li><a href="https://accounts.blockcypher.com/testnet-faucet">Bitcoin Testnet Faucet</a></li>
+<li><a href="https://accounts.blockcypher.com/blockcypher-faucet">BlockCypher Test Chain Faucet</a></li>
+</ul>
 
 <p>This example shows how to leverage the faucet to programmatically fund addresses, to test your applications. While the example used BlockCypher&rsquo;s Test Chain, the same example could have used Bitcoin Testnet3 and worked the exact same way.</p>
 
@@ -2392,6 +2513,26 @@ Only one of these three fields is required for the microtransaction endpoint: <b
  <span class="s">'high_fee_per_kb'</span><span class="p">:</span> <span class="mi">45997</span><span class="p">,</span>
  <span class="s">'medium_fee_per_kb'</span><span class="p">:</span> <span class="mi">29422</span><span class="p">}</span>
 </code></pre>
+<pre class="highlight go"><code><span class="k">package</span><span class="x"> </span><span class="n">main</span><span class="x">
+
+</span><span class="k">import</span><span class="x"> </span><span class="p">(</span><span class="x">
+    </span><span class="s">"fmt"</span><span class="x">
+
+    </span><span class="s">"github.com/blockcypher/gobcy"</span><span class="x">
+</span><span class="p">)</span><span class="x">
+
+</span><span class="k">func</span><span class="x"> </span><span class="n">main</span><span class="p">()</span><span class="x"> </span><span class="p">{</span><span class="x">
+    </span><span class="n">btc</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">gobcy</span><span class="o">.</span><span class="n">API</span><span class="p">{</span><span class="s">"YOURTOKEN"</span><span class="p">,</span><span class="x"> </span><span class="s">"btc"</span><span class="p">,</span><span class="x"> </span><span class="s">"main"</span><span class="p">}</span><span class="x">
+    </span><span class="n">chain</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">btc</span><span class="o">.</span><span class="n">GetChain</span><span class="p">()</span><span class="x">
+    </span><span class="k">if</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="no">nil</span><span class="x"> </span><span class="p">{</span><span class="x">
+        </span><span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="n">err</span><span class="p">)</span><span class="x">
+    </span><span class="p">}</span><span class="x">
+    </span><span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">"%+v</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="x"> </span><span class="n">chain</span><span class="p">)</span><span class="x">
+</span><span class="p">}</span><span class="x">
+
+</span><span class="c">//Result from `go run`:</span><span class="x">
+</span><span class="c">//{Name:BTC.main Height:378882 Hash:000000000000000005e5b78413032db5d54a6df5600549f5d3ec339dd7bac4c0 Time:2015-10-14 17:01:57.647896489 +0000 UTC PrevHash:0000000000000000111be2620123bcf2f8ca6209140a8b1f0d8c2412dd9067f2 PeerCount:896 HighFee:52463 MediumFee:27563 LowFee:24926 UnconfirmedCount:81047 LastForkHeight:378316 LastForkHash:00000000000000000806c49f6b53b439beec2a1434f15ae713b84b87a26bbb51}</span><span class="x">
+</span></code></pre>
 <pre class="highlight php"><code><span class="cp">&lt;?php</span>
 <span class="c1">// Run on console:
 // php -f .\sample\chain-api\ChainEndpoint.php
@@ -2543,6 +2684,26 @@ Only one of these three fields is required for the microtransaction endpoint: <b
  <span class="s">'bits'</span><span class="p">:</span> <span class="mi">419486617</span><span class="p">,</span>
  <span class="s">'time'</span><span class="p">:</span> <span class="s">'2014-04-05T07:49:18Z'</span><span class="p">}</span>
 </code></pre>
+<pre class="highlight go"><code><span class="k">package</span><span class="x"> </span><span class="n">main</span><span class="x">
+
+</span><span class="k">import</span><span class="x"> </span><span class="p">(</span><span class="x">
+    </span><span class="s">"fmt"</span><span class="x">
+
+    </span><span class="s">"github.com/blockcypher/gobcy"</span><span class="x">
+</span><span class="p">)</span><span class="x">
+
+</span><span class="k">func</span><span class="x"> </span><span class="n">main</span><span class="p">()</span><span class="x"> </span><span class="p">{</span><span class="x">
+    </span><span class="n">btc</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">gobcy</span><span class="o">.</span><span class="n">API</span><span class="p">{</span><span class="s">"YOURTOKEN"</span><span class="p">,</span><span class="x"> </span><span class="s">"btc"</span><span class="p">,</span><span class="x"> </span><span class="s">"main"</span><span class="p">}</span><span class="x">
+    </span><span class="n">block</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">btc</span><span class="o">.</span><span class="n">GetBlock</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="x"> </span><span class="s">"0000000000000000189bba3564a63772107b5673c940c16f12662b3e8546b412"</span><span class="p">)</span><span class="x">
+    </span><span class="k">if</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="no">nil</span><span class="x"> </span><span class="p">{</span><span class="x">
+        </span><span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="n">err</span><span class="p">)</span><span class="x">
+    </span><span class="p">}</span><span class="x">
+    </span><span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">"%+v</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="x"> </span><span class="n">block</span><span class="p">)</span><span class="x">
+</span><span class="p">}</span><span class="x">
+
+</span><span class="c">//Result from `go run`:</span><span class="x">
+</span><span class="c">//{Hash:0000000000000000189bba3564a63772107b5673c940c16f12662b3e8546b412 Height:294322 Depth:84560 Chain:BTC.main Total:1146652915 Fees:130999 Ver:2 Time:2014-04-05 07:49:18 +0000 UTC ReceivedTime:2014-04-05 07:49:18 +0000 UTC RelayedBy: Bits:419486617 Nonce:1225187768 NumTX:10 PrevBlock:0000000000000000ced0958bd27720b71d32c5847e40660aaca39f33c298abb0 MerkleRoot:359d624d37aee1efa5662b7f5dbc390e996d561afc8148e8d716cf6ad765a952 TXids:[32b3b86e40d996b1f281e24e8d4af2ceacbf874c4038369cc21baa807409b277 1579f716359ba1a207f70248135f5e5fadf539be1dcf5300613aedcb6577d287 dd1f183348eb41eaaa9ecf8012f9cca3ecbae41a6349f0cc4bfd2b1a497fa3d0 749d12ccd180968b82aef4c271ca4effdf981d9b5d12523264457c9d4e6fa78e c4fe2ee16b8e3067d3d95caf7944011f4959781288b807df8bf853b7f80ed97c 5a2114675265522d2b7ce8a7874cfa7a22ccc3fb6566a8599d6432c6805b1b5f 077d851c8240671de80caa8be9f5285201c08a70edc5a45a9cd35fe7eaebf5e1 6202cc55fbd9130e065c9294a5b2e061c26f3d2c8df56c32da605d9f183103f9 ad3e7aa1c33f1d3e1c105d94f7b1542808da07bbe66b9621b050104a85dbf650 36cc61016b9d1bd69768666f287db1edaa9b292fb442f152af7099305677230e] NextTXs:}</span><span class="x">
+</span></code></pre>
 <pre class="highlight php"><code><span class="cp">&lt;?php</span>
 <span class="c1">// Run on console:
 // php -f .\sample\block-api\BlockHashEndpoint.php
@@ -2709,6 +2870,27 @@ Only one of these three fields is required for the microtransaction endpoint: <b
  <span class="s">'bits'</span><span class="p">:</span> <span class="mi">419486617</span><span class="p">,</span>
  <span class="s">'time'</span><span class="p">:</span> <span class="s">'2014-04-05T07:49:18Z'</span><span class="p">}</span>
 </code></pre>
+<pre class="highlight go"><code><span class="k">package</span><span class="x"> </span><span class="n">main</span><span class="x">
+
+</span><span class="k">import</span><span class="x"> </span><span class="p">(</span><span class="x">
+    </span><span class="s">"fmt"</span><span class="x">
+
+    </span><span class="s">"github.com/blockcypher/gobcy"</span><span class="x">
+</span><span class="p">)</span><span class="x">
+
+</span><span class="k">func</span><span class="x"> </span><span class="n">main</span><span class="p">()</span><span class="x"> </span><span class="p">{</span><span class="x">
+    </span><span class="n">btc</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">gobcy</span><span class="o">.</span><span class="n">API</span><span class="p">{</span><span class="s">"YOURTOKEN"</span><span class="p">,</span><span class="x"> </span><span class="s">"btc"</span><span class="p">,</span><span class="x"> </span><span class="s">"main"</span><span class="p">}</span><span class="x">
+    </span><span class="c">//setting txstart to 1 and limit to 1</span><span class="x">
+    </span><span class="n">block</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">btc</span><span class="o">.</span><span class="n">GetBlockPage</span><span class="p">(</span><span class="m">294322</span><span class="p">,</span><span class="x"> </span><span class="s">""</span><span class="p">,</span><span class="x"> </span><span class="m">1</span><span class="p">,</span><span class="x"> </span><span class="m">1</span><span class="p">)</span><span class="x">
+    </span><span class="k">if</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="no">nil</span><span class="x"> </span><span class="p">{</span><span class="x">
+        </span><span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="n">err</span><span class="p">)</span><span class="x">
+    </span><span class="p">}</span><span class="x">
+    </span><span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">"%+v</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="x"> </span><span class="n">block</span><span class="p">)</span><span class="x">
+</span><span class="p">}</span><span class="x">
+
+</span><span class="c">//Result from `go run`:</span><span class="x">
+</span><span class="c">//{Hash:0000000000000000189bba3564a63772107b5673c940c16f12662b3e8546b412 Height:294322 Depth:84560 Chain:BTC.main Total:1146652915 Fees:130999 Ver:2 Time:2014-04-05 07:49:18 +0000 UTC ReceivedTime:2014-04-05 07:49:18 +0000 UTC RelayedBy: Bits:419486617 Nonce:1225187768 NumTX:10 PrevBlock:0000000000000000ced0958bd27720b71d32c5847e40660aaca39f33c298abb0 MerkleRoot:359d624d37aee1efa5662b7f5dbc390e996d561afc8148e8d716cf6ad765a952 TXids:[1579f716359ba1a207f70248135f5e5fadf539be1dcf5300613aedcb6577d287] NextTXs:https://api.blockcypher.com/v1/btc/main/blocks/0000000000000000189bba3564a63772107b5673c940c16f12662b3e8546b412?txstart=2&amp;limit=1}</span><span class="x">
+</span></code></pre>
 <pre class="highlight php"><code><span class="cp">&lt;?php</span>
 <span class="c1">// Run on console:
 // php -f .\sample\block-api\BlockHeightEndpoint.php
@@ -2859,6 +3041,26 @@ With recent blocks, $BLOCK_HEIGHT is not always a unique identifier, due to the 
  <span class="s">'address'</span><span class="p">:</span> <span class="s">'1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD'</span><span class="p">,</span>
  <span class="s">'unconfirmed_n_tx'</span><span class="p">:</span> <span class="mi">0</span><span class="p">}</span>
 </code></pre>
+<pre class="highlight go"><code><span class="k">package</span><span class="x"> </span><span class="n">main</span><span class="x">
+
+</span><span class="k">import</span><span class="x"> </span><span class="p">(</span><span class="x">
+    </span><span class="s">"fmt"</span><span class="x">
+
+    </span><span class="s">"github.com/blockcypher/gobcy"</span><span class="x">
+</span><span class="p">)</span><span class="x">
+
+</span><span class="k">func</span><span class="x"> </span><span class="n">main</span><span class="p">()</span><span class="x"> </span><span class="p">{</span><span class="x">
+    </span><span class="n">btc</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">gobcy</span><span class="o">.</span><span class="n">API</span><span class="p">{</span><span class="s">"YOURTOKEN"</span><span class="p">,</span><span class="x"> </span><span class="s">"btc"</span><span class="p">,</span><span class="x"> </span><span class="s">"main"</span><span class="p">}</span><span class="x">
+    </span><span class="n">addr</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">btc</span><span class="o">.</span><span class="n">GetAddrBal</span><span class="p">(</span><span class="s">"1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD"</span><span class="p">)</span><span class="x">
+    </span><span class="k">if</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="no">nil</span><span class="x"> </span><span class="p">{</span><span class="x">
+        </span><span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="n">err</span><span class="p">)</span><span class="x">
+    </span><span class="p">}</span><span class="x">
+    </span><span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">"%+v</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="x"> </span><span class="n">addr</span><span class="p">)</span><span class="x">
+</span><span class="p">}</span><span class="x">
+
+</span><span class="c">//Result from `go run`:</span><span class="x">
+</span><span class="c">//{Address:1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD Wallet:{Name: Addresses:[]} HDWallet:{Name: ExtPubKey: SubchainIndexes:[] Chains:[]} TotalReceived:4433416 TotalSent:0 Balance:4433416 UnconfirmedBalance:0 FinalBalance:4433416 NumTX:7 UnconfirmedNumTX:0 FinalNumTX:7 TXs:[] TXRefs:[] UnconfirmedTXRefs:[] HasMore:false}</span><span class="x">
+</span></code></pre>
 <pre class="highlight php"><code><span class="cp">&lt;?php</span>
 <span class="c1">// Run on console:
 // php -f .\sample\address-api\AddressBalanceEndpoint.php
@@ -3058,6 +3260,26 @@ With recent blocks, $BLOCK_HEIGHT is not always a unique identifier, due to the 
  <span class="s">'address'</span><span class="p">:</span> <span class="s">'1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD'</span><span class="p">,</span>
  <span class="s">'unconfirmed_n_tx'</span><span class="p">:</span> <span class="mi">0</span><span class="p">}</span>
 </code></pre>
+<pre class="highlight go"><code><span class="k">package</span><span class="x"> </span><span class="n">main</span><span class="x">
+
+</span><span class="k">import</span><span class="x"> </span><span class="p">(</span><span class="x">
+    </span><span class="s">"fmt"</span><span class="x">
+
+    </span><span class="s">"github.com/blockcypher/gobcy"</span><span class="x">
+</span><span class="p">)</span><span class="x">
+
+</span><span class="k">func</span><span class="x"> </span><span class="n">main</span><span class="p">()</span><span class="x"> </span><span class="p">{</span><span class="x">
+    </span><span class="n">btc</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">gobcy</span><span class="o">.</span><span class="n">API</span><span class="p">{</span><span class="s">"YOURTOKEN"</span><span class="p">,</span><span class="x"> </span><span class="s">"btc"</span><span class="p">,</span><span class="x"> </span><span class="s">"main"</span><span class="p">}</span><span class="x">
+    </span><span class="n">addr</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">btc</span><span class="o">.</span><span class="n">GetAddr</span><span class="p">(</span><span class="s">"1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD"</span><span class="p">)</span><span class="x">
+    </span><span class="k">if</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="no">nil</span><span class="x"> </span><span class="p">{</span><span class="x">
+        </span><span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="n">err</span><span class="p">)</span><span class="x">
+    </span><span class="p">}</span><span class="x">
+    </span><span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">"%+v</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="x"> </span><span class="n">addr</span><span class="p">)</span><span class="x">
+</span><span class="p">}</span><span class="x">
+
+</span><span class="c">//Result from `go run`:</span><span class="x">
+</span><span class="c">//{Address:1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD Wallet:{Name: Addresses:[]} HDWallet:{Name: ExtPubKey: SubchainIndexes:[] Chains:[]} TotalReceived:4433416 TotalSent:0 Balance:4433416 UnconfirmedBalance:0 FinalBalance:4433416 NumTX:7 UnconfirmedNumTX:0 FinalNumTX:7 TXs:[] TXRefs:[{Address: BlockHeight:302013 TXHash:14b1052855bbf6561bc4db8aa501762e7cc1e86994dda9e782a6b73b1ce0dc1e TXInputN:-1 TXOutputN:0 Value:20213 Pref: Spent:false DoubleSpend:false DoubleOf: Confirmations:76913 RefBalance:4433416 Confidence:0 Confirmed:2014-05-22 03:46:25 +0000 UTC SpentBy: Received:0001-01-01 00:00:00 +0000 UTC ReceivedCount:0} {Address: BlockHeight:302002 TXHash:4cff011ec53022f2ae47197d1a2fd4a6ac2a80139f4d0131c1fed625ed5dc869 TXInputN:-1 TXOutputN:0 Value:40596 Pref: Spent:false DoubleSpend:false DoubleOf: Confirmations:76924 RefBalance:4413203 Confidence:0 Confirmed:2014-05-22 02:56:08 +0000 UTC SpentBy: Received:0001-01-01 00:00:00 +0000 UTC ReceivedCount:0} {Address: BlockHeight:302002 TXHash:ea1cbb874ed4e40add51b4d65b877dc4e8d69bb63f5b2220a79d673c413b778a TXInputN:-1 TXOutputN:0 Value:101491 Pref: Spent:false DoubleSpend:false DoubleOf: Confirmations:76924 RefBalance:4372607 Confidence:0 Confirmed:2014-05-22 02:56:08 +0000 UTC SpentBy: Received:0001-01-01 00:00:00 +0000 UTC ReceivedCount:0} {Address: BlockHeight:292601 TXHash:b4735a0690dab16b8789fceaf81c511f3be484e319f684cc214380eaa2851030 TXInputN:-1 TXOutputN:0 Value:3500000 Pref: Spent:false DoubleSpend:false DoubleOf: Confirmations:86325 RefBalance:4271116 Confidence:0 Confirmed:2014-03-26 17:08:04 +0000 UTC SpentBy: Received:0001-01-01 00:00:00 +0000 UTC ReceivedCount:0} {Address: BlockHeight:292519 TXHash:0416b8db5db4fa088437008aea7889e966e326f11c52c1da95161cd2ded95185 TXInputN:-1 TXOutputN:0 Value:100000 Pref: Spent:false DoubleSpend:false DoubleOf: Confirmations:86407 RefBalance:771116 Confidence:0 Confirmed:2014-03-26 04:18:38 +0000 UTC SpentBy: Received:0001-01-01 00:00:00 +0000 UTC ReceivedCount:0} {Address: BlockHeight:292469 TXHash:995a50e05d197be88d4da74160b4bcd2c363ebb1a49f95e572667d580bc70aba TXInputN:-1 TXOutputN:0 Value:500000 Pref: Spent:false DoubleSpend:false DoubleOf: Confirmations:86457 RefBalance:671116 Confidence:0 Confirmed:2014-03-25 21:32:08 +0000 UTC SpentBy: Received:0001-01-01 00:00:00 +0000 UTC ReceivedCount:0} {Address: BlockHeight:292336 TXHash:0c83c8321537a7c79dc6214788944ba6cd5ea76f0594453b6251fcf1856f2e4b TXInputN:-1 TXOutputN:0 Value:171116 Pref: Spent:false DoubleSpend:false DoubleOf: Confirmations:86590 RefBalance:171116 Confidence:0 Confirmed:2014-03-25 00:07:31 +0000 UTC SpentBy: Received:0001-01-01 00:00:00 +0000 UTC ReceivedCount:0}] UnconfirmedTXRefs:[] HasMore:false}</span><span class="x">
+</span></code></pre>
 <pre class="highlight php"><code><span class="cp">&lt;?php</span>
 
 <span class="c1">// Run on console:
@@ -3397,6 +3619,26 @@ With recent blocks, $BLOCK_HEIGHT is not always a unique identifier, due to the 
  <span class="s">'address'</span><span class="p">:</span> <span class="s">'1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD'</span><span class="p">,</span>
  <span class="s">'unconfirmed_n_tx'</span><span class="p">:</span> <span class="mi">0</span><span class="p">}</span>
 </code></pre>
+<pre class="highlight go"><code><span class="k">package</span><span class="x"> </span><span class="n">main</span><span class="x">
+
+</span><span class="k">import</span><span class="x"> </span><span class="p">(</span><span class="x">
+    </span><span class="s">"fmt"</span><span class="x">
+
+    </span><span class="s">"github.com/blockcypher/gobcy"</span><span class="x">
+</span><span class="p">)</span><span class="x">
+
+</span><span class="k">func</span><span class="x"> </span><span class="n">main</span><span class="p">()</span><span class="x"> </span><span class="p">{</span><span class="x">
+    </span><span class="n">btc</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">gobcy</span><span class="o">.</span><span class="n">API</span><span class="p">{</span><span class="s">"YOURTOKEN"</span><span class="p">,</span><span class="x"> </span><span class="s">"btc"</span><span class="p">,</span><span class="x"> </span><span class="s">"main"</span><span class="p">}</span><span class="x">
+    </span><span class="n">addr</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">btc</span><span class="o">.</span><span class="n">GetAddrFullCustom</span><span class="p">(</span><span class="s">"1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD"</span><span class="p">,</span><span class="x"> </span><span class="no">false</span><span class="p">,</span><span class="x"> </span><span class="m">300000</span><span class="p">,</span><span class="x"> </span><span class="m">0</span><span class="p">,</span><span class="x"> </span><span class="no">false</span><span class="p">)</span><span class="x">
+    </span><span class="k">if</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="no">nil</span><span class="x"> </span><span class="p">{</span><span class="x">
+        </span><span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="n">err</span><span class="p">)</span><span class="x">
+    </span><span class="p">}</span><span class="x">
+    </span><span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">"%+v</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="x"> </span><span class="n">addr</span><span class="p">)</span><span class="x">
+</span><span class="p">}</span><span class="x">
+
+</span><span class="c">//Result from `go run`:</span><span class="x">
+</span><span class="c">//{Address:1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD Wallet:{Name: Addresses:[]} HDWallet:{Name: ExtPubKey: SubchainIndexes:[] Chains:[]} TotalReceived:4433416 TotalSent:0 Balance:4433416 UnconfirmedBalance:0 FinalBalance:4433416 NumTX:7 UnconfirmedNumTX:0 FinalNumTX:7 TXs:[{BlockHash:0000000000000000af64802c79f9b22e9091eb5548b4b662d5e444e61885923b BlockHeight:292586 Hash:b4735a0690dab16b8789fceaf81c511f3be484e319f684cc214380eaa2851030 Addresses:[18KXZzuC3xvz6upUMQpsZzXrBwNPWZjdSa 1AAuRETEcHDqL4VM3R97aZHP8DSUHxpkFV 1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD 1VxsEDjo6ZLMT99dpcLu4RQonMDVEQQTG] Total:3537488 Fees:20000 Size:438 Preference:medium RelayedBy: Received:2014-03-26 17:08:04 +0000 UTC Confirmed:2014-03-26 17:08:04 +0000 UTC Confirmations:86341 Confidence:1 Ver:1 LockTime:0 DoubleSpend:false DoubleOf: ReceiveCount:0 VinSize:2 VoutSize:2 Hex: DataProtocol: ChangeAddress: NextInputs: NextOutputs: Inputs:[{PrevHash:729f6469b59fea5da77457f3291e2623c2516e3e8e7afc782687c6d59f4c5e41 OutputIndex:0 OutputValue:3500000 Addresses:[1VxsEDjo6ZLMT99dpcLu4RQonMDVEQQTG] Sequence:4294967295 ScriptType:pay-to-pubkey-hash Script:483045022100d06cdad1a54081e8499a4117f9f52d7fbc83c679dda7e3c22c08e964915b7354022010a2d6af1601d28d33a456dab2bccf3fbde35b2f3a9db82f72d675c90d015571014104672a00c8ee6fa23d68094dd98188ea1491848498554a10e13194851b614168b225b28b7f5a1c6ba98b5463438ef030c48b60533031ff2de84104e549d8d06ea9 Age:0 WalletName:} {PrevHash:45b74e542799343fc5ae70b715b7dd402da3a50fec766a9ebeb0879153db10ff OutputIndex:1 OutputValue:57488 Addresses:[1AAuRETEcHDqL4VM3R97aZHP8DSUHxpkFV] Sequence:4294967295 ScriptType:pay-to-pubkey-hash Script:48304502203deee40f705127eb57de0bb1bb998376e11f09bbde663c614d9cf746948f9b740221008715b8df9fa6c33fad7bfa2bb72875c8e30002a61843f430b9f0af268c136e2a0141046b29997ba1e1974f88d4513257ed4021205a94cc20ef7c1c6c7b8510becb68085220b213b8864ebfb465b614a4e7719b29d81c9849aea37343962cda47945a16 Age:0 WalletName:}] Outputs:[{SpentBy: Value:3500000 Addresses:[1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD] ScriptType:pay-to-pubkey-hash Script:76a9148629647bd642a2372d846a7660e210c8414f047c88ac DataHex: DataString:} {SpentBy:3ebe4bb294beaed58aca834af5e8148248abd9c6c6b56d9c73c2f25eb6a4838f Value:37488 Addresses:[18KXZzuC3xvz6upUMQpsZzXrBwNPWZjdSa] ScriptType:pay-to-pubkey-hash Script:76a9145049e2ad94ed9c683b8f6ca67db33b979dd6d13a88ac DataHex: DataString:}]} {BlockHash:00000000000000001528e12ffb2bdfc46f739c864952d85258485511d3d0aba3 BlockHeight:292505 Hash:0416b8db5db4fa088437008aea7889e966e326f11c52c1da95161cd2ded95185 Addresses:[13UrVoMywxv9yaFBWvPfZ6kugWAZhLsnKo 1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD 1DUgQLCoJowWkcDCW13ZGSAELyr6jFG7AP 1NqW3Jk1w4RisMrBs53g9bK1Rnmi2zMcfC] Total:217176 Fees:20000 Size:438 Preference:medium RelayedBy: Received:2014-03-26 04:18:38 +0000 UTC Confirmed:2014-03-26 04:18:38 +0000 UTC Confirmations:86422 Confidence:1 Ver:1 LockTime:0 DoubleSpend:false DoubleOf: ReceiveCount:0 VinSize:2 VoutSize:2 Hex: DataProtocol: ChangeAddress: NextInputs: NextOutputs: Inputs:[{PrevHash:df959bf4b6faa51aedde7de2d23309c147a1637e89afd36cb8f3f35149943a75 OutputIndex:0 OutputValue:100000 Addresses:[1DUgQLCoJowWkcDCW13ZGSAELyr6jFG7AP] Sequence:4294967295 ScriptType:pay-to-pubkey-hash Script:49304602210087cfe517c22a4001230cffadf62a0e59d286b76c343f7dfa69daf4be3e4f3562022100d15fe4dc85428850af24789c50c43e95e96d3ff27ee066823ba4dbffb4e8f02f014104c40f18fab1dcc621e78e65b02f20d0e7413e95b9de60bb6c9f32dc3bc0f2ddc9b67ba1cc2e2fafc0ee14cdcd55c97c31501b4c6dde91c37135c50ff7fbec9e5a Age:0 WalletName:} {PrevHash:6b9f0e8f326bab57d56dc455dc10b00fbd5167a00475549759882b554d7217f7 OutputIndex:1 OutputValue:137176 Addresses:[13UrVoMywxv9yaFBWvPfZ6kugWAZhLsnKo] Sequence:4294967295 ScriptType:pay-to-pubkey-hash Script:473044022051a83d1b8bcec5093652e51eb2d51f87572a0181c65d12b6f374ca06769b70100220447a771160387584da21a22e8d3a51ff8e2fc03538af64b6d88d23b8ea28fa99014104ac5249d12d65eb0062a13d722420f881b06c732f1a820a9962035d9f87992114bf14208552a293c2bf669c969676dfef3f36b16fff30e3deb0fb6b432092691d Age:0 WalletName:}] Outputs:[{SpentBy: Value:100000 Addresses:[1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD] ScriptType:pay-to-pubkey-hash Script:76a9148629647bd642a2372d846a7660e210c8414f047c88ac DataHex: DataString:} {SpentBy:5c82a033cbfa9149836840036a392566a8c7b4dfcb0c2c4c0a20993f69b49340 Value:117176 Addresses:[1NqW3Jk1w4RisMrBs53g9bK1Rnmi2zMcfC] ScriptType:pay-to-pubkey-hash Script:76a914ef86d94a858cd446ba7f0cd78d32677ffcc436a988ac DataHex: DataString:}]} {BlockHash:0000000000000000651ba18b29a1a7543d8fb9f6240d57b9e740014f51053ebc BlockHeight:292455 Hash:995a50e05d197be88d4da74160b4bcd2c363ebb1a49f95e572667d580bc70aba Addresses:[1CzuqkzUg1ybSsVaR3NWrEoXLxYtXdG35V 1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD] Total:299990000 Fees:10000 Size:226 Preference:medium RelayedBy: Received:2014-03-25 21:32:08 +0000 UTC Confirmed:2014-03-25 21:32:08 +0000 UTC Confirmations:86472 Confidence:1 Ver:1 LockTime:0 DoubleSpend:false DoubleOf: ReceiveCount:0 VinSize:1 VoutSize:2 Hex: DataProtocol: ChangeAddress: NextInputs: NextOutputs: Inputs:[{PrevHash:7c72a7f748ad3d407b977ba1004855ed14367e1a9c9a3fdb916a24302f075421 OutputIndex:0 OutputValue:300000000 Addresses:[1CzuqkzUg1ybSsVaR3NWrEoXLxYtXdG35V] Sequence:4294967295 ScriptType:pay-to-pubkey-hash Script:4830450221009336f886851ea3026f8d8836fc3c1a8d9d9456075ac440259410803767a4995a02202eee3c52aafa034d8058a236eabc3feaf80be5d8b3011bab192ee7856cee9d1b0121033a148923bf45432ab6cdbcb198abb8d23be28c5aa2ff3c6405837a9a9e4ef031 Age:0 WalletName:}] Outputs:[{SpentBy: Value:500000 Addresses:[1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD] ScriptType:pay-to-pubkey-hash Script:76a9148629647bd642a2372d846a7660e210c8414f047c88ac DataHex: DataString:} {SpentBy:3743ba41fc279cda244ec1bb5a75fba1352968870b2957cd5508a7e5b64dc94f Value:299490000 Addresses:[1CzuqkzUg1ybSsVaR3NWrEoXLxYtXdG35V] ScriptType:pay-to-pubkey-hash Script:76a914839d33de1bbd7807a03bcadbacd135316351330788ac DataHex: DataString:}]} {BlockHash:00000000000000006caa894c02a7254475acaefd5adf50d97de97f85470620db BlockHeight:292325 Hash:0c83c8321537a7c79dc6214788944ba6cd5ea76f0594453b6251fcf1856f2e4b Addresses:[1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD 1HBB6wHbhHBmsNmoBzzKdq77LKQUcUhGp3] Total:2990000 Fees:10000 Size:259 Preference:medium RelayedBy: Received:2014-03-25 00:07:31 +0000 UTC Confirmed:2014-03-25 00:07:31 +0000 UTC Confirmations:86602 Confidence:1 Ver:1 LockTime:0 DoubleSpend:false DoubleOf: ReceiveCount:0 VinSize:1 VoutSize:2 Hex: DataProtocol: ChangeAddress: NextInputs: NextOutputs: Inputs:[{PrevHash:ed21bb99e2df321c3e28d9ec5e11010d86a5dcf02412e989ae9dbc0f5b4ff3ff OutputIndex:0 OutputValue:3000000 Addresses:[1HBB6wHbhHBmsNmoBzzKdq77LKQUcUhGp3] Sequence:4294967295 ScriptType:pay-to-pubkey-hash Script:493046022100c1eec2a231f42f0034d7c8cc479e20967214a4e9fc6da0b95ccdcc9de3e8d2e8022100a0f80d26f71dd625f262d74c9adc74412273df4e34aaacf33c44550ba545641c0141040f60c5ea2ba9bf92637083449caa13be32ebdcc55e94ddb2d1923cf704019d80e56f48800b9e6cb9d10835f10dd4426aeac8f410877a3a1f8a94caad45187c0e Age:0 WalletName:}] Outputs:[{SpentBy: Value:171116 Addresses:[1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD] ScriptType:pay-to-pubkey-hash Script:76a9148629647bd642a2372d846a7660e210c8414f047c88ac DataHex: DataString:} {SpentBy:d035e58aa0a1f174ff2c2a0d8213f6e95102c3448e122ce4b48fcd72c9af4c41 Value:2818884 Addresses:[1HBB6wHbhHBmsNmoBzzKdq77LKQUcUhGp3] ScriptType:pay-to-pubkey-hash Script:76a914b16e9aec76e2dcca9a64b5615f9f334e2250c6df88ac DataHex: DataString:}]}] TXRefs:[] UnconfirmedTXRefs:[] HasMore:false}</span><span class="x">
+</span></code></pre>
 <pre class="highlight php"><code><span class="cp">&lt;?php</span>
 <span class="c1">// Run on console:
 // php -f .\sample\address-api\AddressFullEndpoint.php
@@ -3557,6 +3799,26 @@ If your returned <a href="#address">Address</a> object includes the <b>hasMore</
 </code></pre>
 <pre class="highlight python"><code><span class="c"># Please use the python library at https://github.com/blockcypher/blockcypher-python to securely generate an address client-side</span>
 </code></pre>
+<pre class="highlight go"><code><span class="k">package</span><span class="x"> </span><span class="n">main</span><span class="x">
+
+</span><span class="k">import</span><span class="x"> </span><span class="p">(</span><span class="x">
+    </span><span class="s">"fmt"</span><span class="x">
+
+    </span><span class="s">"github.com/blockcypher/gobcy"</span><span class="x">
+</span><span class="p">)</span><span class="x">
+
+</span><span class="k">func</span><span class="x"> </span><span class="n">main</span><span class="p">()</span><span class="x"> </span><span class="p">{</span><span class="x">
+    </span><span class="n">btc</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">gobcy</span><span class="o">.</span><span class="n">API</span><span class="p">{</span><span class="s">"YOURTOKEN"</span><span class="p">,</span><span class="x"> </span><span class="s">"btc"</span><span class="p">,</span><span class="x"> </span><span class="s">"main"</span><span class="p">}</span><span class="x">
+    </span><span class="n">addrKeys</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">btc</span><span class="o">.</span><span class="n">GenAddrKeychain</span><span class="p">()</span><span class="x">
+    </span><span class="k">if</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="no">nil</span><span class="x"> </span><span class="p">{</span><span class="x">
+        </span><span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="n">err</span><span class="p">)</span><span class="x">
+    </span><span class="p">}</span><span class="x">
+    </span><span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">"%+v</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="x"> </span><span class="n">addrKeys</span><span class="p">)</span><span class="x">
+</span><span class="p">}</span><span class="x">
+
+</span><span class="c">//Result from `go run`:</span><span class="x">
+</span><span class="c">//{Address:18P5PFbuevRn4G3X27LF9ZEcfW3pKgy1Yp Private:b833a204a295c26dd19e49a0cc9fbb2f6475a886b7dc5b47b78261aa0ce07d94 Public:03685bbf3756a89240e7fa2b1312c48dc7b0c455116b9cc3e463b53643716396d5 Wif:L3Pmu1ZnRMUWmDoiXecA4m1gPhVwFMgm7CirQxWxxb437nQhESbT PubKeys:[] ScriptType:}</span><span class="x">
+</span></code></pre>
 <pre class="highlight php"><code><span class="cp">&lt;?php</span>
 <span class="c1">// Run on console:
 // php -f .\sample\address-api\GenerateAddressEndpoint.php
@@ -3663,6 +3925,26 @@ Always use HTTPS for Address Generation requests. Otherwise, your generated priv
  <span class="s">'address'</span><span class="p">:</span> <span class="s">'3BF1M1PnTge94QewuWh3B8mRVw8U4SVnb4'</span><span class="p">,</span>
  <span class="s">'wif'</span><span class="p">:</span> <span class="s">''</span><span class="p">}</span>
 </code></pre>
+<pre class="highlight go"><code><span class="k">package</span><span class="x"> </span><span class="n">main</span><span class="x">
+
+</span><span class="k">import</span><span class="x"> </span><span class="p">(</span><span class="x">
+    </span><span class="s">"fmt"</span><span class="x">
+
+    </span><span class="s">"github.com/blockcypher/gobcy"</span><span class="x">
+</span><span class="p">)</span><span class="x">
+
+</span><span class="k">func</span><span class="x"> </span><span class="n">main</span><span class="p">()</span><span class="x"> </span><span class="p">{</span><span class="x">
+    </span><span class="n">btc</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">gobcy</span><span class="o">.</span><span class="n">API</span><span class="p">{</span><span class="s">"YOURTOKEN"</span><span class="p">,</span><span class="x"> </span><span class="s">"btc"</span><span class="p">,</span><span class="x"> </span><span class="s">"main"</span><span class="p">}</span><span class="x">
+    </span><span class="n">addrKeys</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">btc</span><span class="o">.</span><span class="n">GenAddrMultisig</span><span class="p">(</span><span class="n">gobcy</span><span class="o">.</span><span class="n">AddrKeychain</span><span class="p">{</span><span class="n">PubKeys</span><span class="o">:</span><span class="x"> </span><span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">"02c716d071a76cbf0d29c29cacfec76e0ef8116b37389fb7a3e76d6d32cf59f4d3"</span><span class="p">,</span><span class="x"> </span><span class="s">"033ef4d5165637d99b673bcdbb7ead359cee6afd7aaf78d3da9d2392ee4102c8ea"</span><span class="p">,</span><span class="x"> </span><span class="s">"022b8934cc41e76cb4286b9f3ed57e2d27798395b04dd23711981a77dc216df8ca"</span><span class="p">},</span><span class="x"> </span><span class="n">ScriptType</span><span class="o">:</span><span class="x"> </span><span class="s">"multisig-2-of-3"</span><span class="p">})</span><span class="x">
+    </span><span class="k">if</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="no">nil</span><span class="x"> </span><span class="p">{</span><span class="x">
+        </span><span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="n">err</span><span class="p">)</span><span class="x">
+    </span><span class="p">}</span><span class="x">
+    </span><span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">"%+v</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="x"> </span><span class="n">addrKeys</span><span class="p">)</span><span class="x">
+</span><span class="p">}</span><span class="x">
+
+</span><span class="c">//Result from `go run`:</span><span class="x">
+</span><span class="c">//{Address:3BF1M1PnTge94QewuWh3B8mRVw8U4SVnb4 Private: Public: Wif: PubKeys:[02c716d071a76cbf0d29c29cacfec76e0ef8116b37389fb7a3e76d6d32cf59f4d3 033ef4d5165637d99b673bcdbb7ead359cee6afd7aaf78d3da9d2392ee4102c8ea 022b8934cc41e76cb4286b9f3ed57e2d27798395b04dd23711981a77dc216df8ca] ScriptType:multisig-2-of-3}</span><span class="x">
+</span></code></pre>
 <pre class="highlight php"><code><span class="cp">&lt;?php</span>
 <span class="c1">// Run on console:
 // php -f .\sample\address-api\GenerateMultisigAddressEndpoint.php
@@ -3885,6 +4167,30 @@ curl -d <span class="s1">'{"name": "catheryne", "extended_public_key": "xpub661M
     <span class="p">]}</span>
 <span class="p">]}</span>
 </code></pre>
+<pre class="highlight go"><code><span class="k">package</span><span class="x"> </span><span class="n">main</span><span class="x">
+
+</span><span class="k">import</span><span class="x"> </span><span class="p">(</span><span class="x">
+    </span><span class="s">"fmt"</span><span class="x">
+
+    </span><span class="s">"github.com/blockcypher/gobcy"</span><span class="x">
+</span><span class="p">)</span><span class="x">
+
+</span><span class="k">func</span><span class="x"> </span><span class="n">main</span><span class="p">()</span><span class="x"> </span><span class="p">{</span><span class="x">
+    </span><span class="n">btc</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">gobcy</span><span class="o">.</span><span class="n">API</span><span class="p">{</span><span class="s">"YOURTOKEN"</span><span class="p">,</span><span class="x"> </span><span class="s">"btc"</span><span class="p">,</span><span class="x"> </span><span class="s">"main"</span><span class="p">}</span><span class="x">
+    </span><span class="c">//normal wallet</span><span class="x">
+    </span><span class="n">alice</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">btc</span><span class="o">.</span><span class="n">CreateWallet</span><span class="p">(</span><span class="n">gobcy</span><span class="o">.</span><span class="n">Wallet</span><span class="p">{</span><span class="s">"alice"</span><span class="p">,</span><span class="x"> </span><span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">"1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e"</span><span class="p">}})</span><span class="x">
+    </span><span class="c">//hdwallet</span><span class="x">
+    </span><span class="n">bob</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">btc</span><span class="o">.</span><span class="n">CreateHDWallet</span><span class="p">(</span><span class="n">gobcy</span><span class="o">.</span><span class="n">HDWallet</span><span class="p">{</span><span class="n">Name</span><span class="o">:</span><span class="x"> </span><span class="s">"bob"</span><span class="p">,</span><span class="x"> </span><span class="n">ExtPubKey</span><span class="o">:</span><span class="x"> </span><span class="s">"xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoCu1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8"</span><span class="p">})</span><span class="x">
+    </span><span class="k">if</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="no">nil</span><span class="x"> </span><span class="p">{</span><span class="x">
+        </span><span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="n">err</span><span class="p">)</span><span class="x">
+    </span><span class="p">}</span><span class="x">
+    </span><span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">"Normal Wallet:%+v</span><span class="se">\n</span><span class="s">HDWallet: %+v</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="x"> </span><span class="n">alice</span><span class="p">,</span><span class="x"> </span><span class="n">bob</span><span class="p">)</span><span class="x">
+</span><span class="p">}</span><span class="x">
+
+</span><span class="c">//Result from `go run`:</span><span class="x">
+</span><span class="c">//Normal Wallet:{Name:alice Addresses:[1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e]}</span><span class="x">
+</span><span class="c">//HDWallet: {Name:bob ExtPubKey:xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoCu1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8 SubchainIndexes:[] Chains:[{ChainAddr:[{Address:1FHz8bpEE5qUZ9XhfjzAbCCwo5bT1HMNAc Path:m/0 Public:} {Address:1J8QDN1u7iDMbJktbqXPSrAqruNjkmRFmT Path:m/1 Public:} {Address:1MWNKnYfE2LVdvAzFUioF3F3JXFpRfDCQb Path:m/2 Public:}] Index:0}]}</span><span class="x">
+</span></code></pre>
 <pre class="highlight php"><code><span class="cp">&lt;?php</span>
 <span class="c1">// normal wallet
 // Run on console:
@@ -4026,6 +4332,30 @@ curl https://api.blockcypher.com/v1/btc/main/wallets/hd?token<span class="o">=</
 <span class="o">&gt;&gt;&gt;</span> <span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
 <span class="p">{</span><span class="s">'hd_wallet_names'</span><span class="p">:</span> <span class="p">[</span> <span class="s">'bob'</span><span class="p">,</span> <span class="s">'catheryne'</span> <span class="p">]</span> <span class="p">}</span>
 </code></pre>
+<pre class="highlight go"><code><span class="k">package</span><span class="x"> </span><span class="n">main</span><span class="x">
+
+</span><span class="k">import</span><span class="x"> </span><span class="p">(</span><span class="x">
+    </span><span class="s">"fmt"</span><span class="x">
+
+    </span><span class="s">"github.com/blockcypher/gobcy"</span><span class="x">
+</span><span class="p">)</span><span class="x">
+
+</span><span class="k">func</span><span class="x"> </span><span class="n">main</span><span class="p">()</span><span class="x"> </span><span class="p">{</span><span class="x">
+    </span><span class="n">btc</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">gobcy</span><span class="o">.</span><span class="n">API</span><span class="p">{</span><span class="s">"YOURTOKEN"</span><span class="p">,</span><span class="x"> </span><span class="s">"btc"</span><span class="p">,</span><span class="x"> </span><span class="s">"main"</span><span class="p">}</span><span class="x">
+    </span><span class="c">//normal wallets</span><span class="x">
+    </span><span class="n">walletNames</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">btc</span><span class="o">.</span><span class="n">ListWallets</span><span class="p">()</span><span class="x">
+    </span><span class="c">//hdwallets</span><span class="x">
+    </span><span class="n">hdWalletNames</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">btc</span><span class="o">.</span><span class="n">ListHDWallets</span><span class="p">()</span><span class="x">
+    </span><span class="k">if</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="no">nil</span><span class="x"> </span><span class="p">{</span><span class="x">
+        </span><span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="n">err</span><span class="p">)</span><span class="x">
+    </span><span class="p">}</span><span class="x">
+    </span><span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">"Normal Wallets:%v</span><span class="se">\n</span><span class="s">HDWallets:%v</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="x"> </span><span class="n">walletNames</span><span class="p">,</span><span class="x"> </span><span class="n">hdWalletNames</span><span class="p">)</span><span class="x">
+</span><span class="p">}</span><span class="x">
+
+</span><span class="c">//Result from `go run`:</span><span class="x">
+</span><span class="c">//Normal Wallets: [alice]</span><span class="x">
+</span><span class="c">//HD Wallets: [catheryne bob]</span><span class="x">
+</span></code></pre>
 <pre class="highlight php"><code><span class="cp">&lt;?php</span>
 <span class="c1">//TODO: php examples
 </span></code></pre>
@@ -4158,6 +4488,30 @@ curl https://api.blockcypher.com/v1/btc/main/wallets/hd/bob?token<span class="o"
     <span class="p">]}</span>
 <span class="p">]}</span>
 </code></pre>
+<pre class="highlight go"><code><span class="k">package</span><span class="x"> </span><span class="n">main</span><span class="x">
+
+</span><span class="k">import</span><span class="x"> </span><span class="p">(</span><span class="x">
+    </span><span class="s">"fmt"</span><span class="x">
+
+    </span><span class="s">"github.com/blockcypher/gobcy"</span><span class="x">
+</span><span class="p">)</span><span class="x">
+
+</span><span class="k">func</span><span class="x"> </span><span class="n">main</span><span class="p">()</span><span class="x"> </span><span class="p">{</span><span class="x">
+    </span><span class="n">btc</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">gobcy</span><span class="o">.</span><span class="n">API</span><span class="p">{</span><span class="s">"YOURTOKEN"</span><span class="p">,</span><span class="x"> </span><span class="s">"btc"</span><span class="p">,</span><span class="x"> </span><span class="s">"main"</span><span class="p">}</span><span class="x">
+    </span><span class="c">//normal wallet</span><span class="x">
+    </span><span class="n">alice</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">btc</span><span class="o">.</span><span class="n">GetWallet</span><span class="p">(</span><span class="s">"alice"</span><span class="p">)</span><span class="x">
+    </span><span class="c">//hdwallet</span><span class="x">
+    </span><span class="n">bob</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">btc</span><span class="o">.</span><span class="n">GetHDWallet</span><span class="p">(</span><span class="s">"bob"</span><span class="p">)</span><span class="x">
+    </span><span class="k">if</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="no">nil</span><span class="x"> </span><span class="p">{</span><span class="x">
+        </span><span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="n">err</span><span class="p">)</span><span class="x">
+    </span><span class="p">}</span><span class="x">
+    </span><span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">"Normal Wallet: %v</span><span class="se">\n</span><span class="s">HDWallet: %v</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="x"> </span><span class="n">alice</span><span class="p">,</span><span class="x"> </span><span class="n">bob</span><span class="p">)</span><span class="x">
+</span><span class="p">}</span><span class="x">
+
+</span><span class="c">//Result from `go run`:</span><span class="x">
+</span><span class="c">//Normal Wallet: {alice [1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e]}</span><span class="x">
+</span><span class="c">//HDWallet: {bob xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoCu1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8 [] [{[{1FHz8bpEE5qUZ9XhfjzAbCCwo5bT1HMNAc m/0 } {1J8QDN1u7iDMbJktbqXPSrAqruNjkmRFmT m/1 } {1MWNKnYfE2LVdvAzFUioF3F3JXFpRfDCQb m/2 }] 0}]}</span><span class="x">
+</span></code></pre>
 <pre class="highlight php"><code><span class="cp">&lt;?php</span>
 <span class="c1">// normal wallet
 // Run on console:
@@ -4257,6 +4611,27 @@ curl https://api.blockcypher.com/v1/btc/main/wallets/hd/bob?token<span class="o"
  <span class="s">'token'</span><span class="p">:</span> <span class="s">'YOUR_TOKEN'</span><span class="p">,</span>
  <span class="s">'addresses'</span><span class="p">:</span> <span class="p">[</span><span class="s">'1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e'</span><span class="p">,</span> <span class="s">'13cj1QtfW61kQHoqXm3khVRYPJrgQiRM6j'</span><span class="p">]}</span>
 </code></pre>
+<pre class="highlight go"><code><span class="k">package</span><span class="x"> </span><span class="n">main</span><span class="x">
+
+</span><span class="k">import</span><span class="x"> </span><span class="p">(</span><span class="x">
+    </span><span class="s">"fmt"</span><span class="x">
+
+    </span><span class="s">"github.com/blockcypher/gobcy"</span><span class="x">
+</span><span class="p">)</span><span class="x">
+
+</span><span class="k">func</span><span class="x"> </span><span class="n">main</span><span class="p">()</span><span class="x"> </span><span class="p">{</span><span class="x">
+    </span><span class="n">btc</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">gobcy</span><span class="o">.</span><span class="n">API</span><span class="p">{</span><span class="s">"YOURTOKEN"</span><span class="p">,</span><span class="x"> </span><span class="s">"btc"</span><span class="p">,</span><span class="x"> </span><span class="s">"main"</span><span class="p">}</span><span class="x">
+    </span><span class="c">//normal wallet</span><span class="x">
+    </span><span class="n">alice</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">btc</span><span class="o">.</span><span class="n">AddAddrWallet</span><span class="p">(</span><span class="s">"alice"</span><span class="p">,</span><span class="x"> </span><span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">"13cj1QtfW61kQHoqXm3khVRYPJrgQiRM6j"</span><span class="p">},</span><span class="x"> </span><span class="no">false</span><span class="p">)</span><span class="x">
+    </span><span class="k">if</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="no">nil</span><span class="x"> </span><span class="p">{</span><span class="x">
+        </span><span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="n">err</span><span class="p">)</span><span class="x">
+    </span><span class="p">}</span><span class="x">
+    </span><span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">"%+v</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="x"> </span><span class="n">alice</span><span class="p">)</span><span class="x">
+</span><span class="p">}</span><span class="x">
+
+</span><span class="c">//Result from `go run`:</span><span class="x">
+</span><span class="c">//{Name:alice Addresses:[13cj1QtfW61kQHoqXm3khVRYPJrgQiRM6j 1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e]}</span><span class="x">
+</span></code></pre>
 <pre class="highlight php"><code><span class="cp">&lt;?php</span>
 <span class="c1">// Run on console:
 // php -f .\sample\wallet-api\AddAddressesToWalletEndpoint.php
@@ -4404,6 +4779,30 @@ curl https://api.blockcypher.com/v1/btc/main/wallets/hd/bob/addresses?token<span
     <span class="p">}</span>
 <span class="p">]}</span>
 </code></pre>
+<pre class="highlight go"><code><span class="k">package</span><span class="x"> </span><span class="n">main</span><span class="x">
+
+</span><span class="k">import</span><span class="x"> </span><span class="p">(</span><span class="x">
+    </span><span class="s">"fmt"</span><span class="x">
+
+    </span><span class="s">"github.com/blockcypher/gobcy"</span><span class="x">
+</span><span class="p">)</span><span class="x">
+
+</span><span class="k">func</span><span class="x"> </span><span class="n">main</span><span class="p">()</span><span class="x"> </span><span class="p">{</span><span class="x">
+    </span><span class="n">btc</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">gobcy</span><span class="o">.</span><span class="n">API</span><span class="p">{</span><span class="s">"YOURTOKEN"</span><span class="p">,</span><span class="x"> </span><span class="s">"btc"</span><span class="p">,</span><span class="x"> </span><span class="s">"main"</span><span class="p">}</span><span class="x">
+    </span><span class="c">//normal wallet</span><span class="x">
+    </span><span class="n">alice</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">btc</span><span class="o">.</span><span class="n">GetAddrWallet</span><span class="p">(</span><span class="s">"alice"</span><span class="p">,</span><span class="x"> </span><span class="no">false</span><span class="p">,</span><span class="x"> </span><span class="no">false</span><span class="p">,</span><span class="x"> </span><span class="no">false</span><span class="p">,</span><span class="x"> </span><span class="no">false</span><span class="p">)</span><span class="x">
+    </span><span class="c">//hdwallet</span><span class="x">
+    </span><span class="n">bob</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">btc</span><span class="o">.</span><span class="n">GetAddrHDWallet</span><span class="p">(</span><span class="s">"bob"</span><span class="p">,</span><span class="x"> </span><span class="no">false</span><span class="p">,</span><span class="x"> </span><span class="no">false</span><span class="p">,</span><span class="x"> </span><span class="no">false</span><span class="p">,</span><span class="x"> </span><span class="no">false</span><span class="p">)</span><span class="x">
+    </span><span class="k">if</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="no">nil</span><span class="x"> </span><span class="p">{</span><span class="x">
+        </span><span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="n">err</span><span class="p">)</span><span class="x">
+    </span><span class="p">}</span><span class="x">
+    </span><span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">"Normal Wallet: %+v</span><span class="se">\n</span><span class="s">HD Wallet: %+v</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="x"> </span><span class="n">alice</span><span class="p">,</span><span class="x"> </span><span class="n">bob</span><span class="p">)</span><span class="x">
+</span><span class="p">}</span><span class="x">
+
+</span><span class="c">//Result from `go run`:</span><span class="x">
+</span><span class="c">//Normal Wallet: [13cj1QtfW61kQHoqXm3khVRYPJrgQiRM6j 1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e]</span><span class="x">
+</span><span class="c">//HD Wallet: {Name: ExtPubKey: SubchainIndexes:[] Chains:[{ChainAddr:[{Address:1FHz8bpEE5qUZ9XhfjzAbCCwo5bT1HMNAc Path:m/0 Public:} {Address:1J8QDN1u7iDMbJktbqXPSrAqruNjkmRFmT Path:m/1 Public:} {Address:1MWNKnYfE2LVdvAzFUioF3F3JXFpRfDCQb Path:m/2 Public:}] Index:0}]}</span><span class="x">
+</span></code></pre>
 <pre class="highlight php"><code><span class="cp">&lt;?php</span>
 <span class="c1">// normal wallet
 // Run on console:
@@ -4502,6 +4901,28 @@ HTTP/1.1 204 OK
 <span class="c"># returns nothing, let's just check the status code to be sure</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="k">assert</span> <span class="n">r</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">204</span>
 </code></pre>
+<pre class="highlight go"><code><span class="k">package</span><span class="x"> </span><span class="n">main</span><span class="x">
+
+</span><span class="k">import</span><span class="x"> </span><span class="p">(</span><span class="x">
+    </span><span class="s">"fmt"</span><span class="x">
+
+    </span><span class="s">"github.com/blockcypher/gobcy"</span><span class="x">
+</span><span class="p">)</span><span class="x">
+
+</span><span class="k">func</span><span class="x"> </span><span class="n">main</span><span class="p">()</span><span class="x"> </span><span class="p">{</span><span class="x">
+    </span><span class="n">btc</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">gobcy</span><span class="o">.</span><span class="n">API</span><span class="p">{</span><span class="s">"YOURTOKEN"</span><span class="p">,</span><span class="x"> </span><span class="s">"btc"</span><span class="p">,</span><span class="x"> </span><span class="s">"main"</span><span class="p">}</span><span class="x">
+    </span><span class="c">//normal wallet only</span><span class="x">
+    </span><span class="n">err</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">btc</span><span class="o">.</span><span class="n">DeleteAddrWallet</span><span class="p">(</span><span class="s">"alice"</span><span class="p">,</span><span class="x"> </span><span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">"1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e"</span><span class="p">})</span><span class="x">
+    </span><span class="k">if</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="no">nil</span><span class="x"> </span><span class="p">{</span><span class="x">
+        </span><span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="n">err</span><span class="p">)</span><span class="x">
+    </span><span class="p">}</span><span class="x"> </span><span class="k">else</span><span class="x"> </span><span class="p">{</span><span class="x">
+        </span><span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">"Address deleted"</span><span class="p">)</span><span class="x">
+    </span><span class="p">}</span><span class="x">
+</span><span class="p">}</span><span class="x">
+
+</span><span class="c">//Result from `go run`:</span><span class="x">
+</span><span class="c">//Address deleted</span><span class="x">
+</span></code></pre>
 <pre class="highlight php"><code><span class="cp">&lt;?php</span>
 <span class="c1">// Run on console:
 // php -f .\sample\wallet-api\RemoveAddressesFromWalletEndpoint.php
@@ -4582,6 +5003,28 @@ You cannot remove addresses from HD Wallets.
 </code></pre>
 <pre class="highlight python"><code><span class="c"># Please use the python library at https://github.com/blockcypher/blockcypher-python to securely generate an address client-side</span>
 </code></pre>
+<pre class="highlight go"><code><span class="k">package</span><span class="x"> </span><span class="n">main</span><span class="x">
+
+</span><span class="k">import</span><span class="x"> </span><span class="p">(</span><span class="x">
+    </span><span class="s">"fmt"</span><span class="x">
+
+    </span><span class="s">"github.com/blockcypher/gobcy"</span><span class="x">
+</span><span class="p">)</span><span class="x">
+
+</span><span class="k">func</span><span class="x"> </span><span class="n">main</span><span class="p">()</span><span class="x"> </span><span class="p">{</span><span class="x">
+    </span><span class="n">btc</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">gobcy</span><span class="o">.</span><span class="n">API</span><span class="p">{</span><span class="s">"YOURTOKEN"</span><span class="p">,</span><span class="x"> </span><span class="s">"btc"</span><span class="p">,</span><span class="x"> </span><span class="s">"main"</span><span class="p">}</span><span class="x">
+    </span><span class="c">//normal wallet only</span><span class="x">
+    </span><span class="n">alice</span><span class="p">,</span><span class="x"> </span><span class="n">addr</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">btc</span><span class="o">.</span><span class="n">GenAddrWallet</span><span class="p">(</span><span class="s">"alice"</span><span class="p">)</span><span class="x">
+    </span><span class="k">if</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="no">nil</span><span class="x"> </span><span class="p">{</span><span class="x">
+        </span><span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="n">err</span><span class="p">)</span><span class="x">
+    </span><span class="p">}</span><span class="x">
+    </span><span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">"Wallet: %+v</span><span class="se">\n</span><span class="s">New Address: %+v</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="x"> </span><span class="n">alice</span><span class="p">,</span><span class="x"> </span><span class="n">addr</span><span class="p">)</span><span class="x">
+</span><span class="p">}</span><span class="x">
+
+</span><span class="c">//Result from `go run`:</span><span class="x">
+</span><span class="c">//Wallet: {Name:alice Addresses:[13cj1QtfW61kQHoqXm3khVRYPJrgQiRM6j 14KLgDRAEHdk5ggRUDcqeZNfJHu2cCoU5D]}</span><span class="x">
+</span><span class="c">//New Address: {Address:14KLgDRAEHdk5ggRUDcqeZNfJHu2cCoU5D Private:b8202b67710cef1990ca3dfe04e2bf5e3484e6d6a4725c46e86b7f8b3e4b3f20 Public:0226a990df828225f1fbb608313a4a08db75ddfbf73a5f9a5ed9da8d38c89923b2 Wif:L3PdKr1QRFD8uxfXrkTVUrd6LznocDpwgY1JQsFCpYTrzT4do3KJ PubKeys:[] ScriptType:}</span><span class="x">
+</span></code></pre>
 <pre class="highlight php"><code><span class="cp">&lt;?php</span>
 <span class="c1">// Run on console:
 // php -f .\sample\wallet-api\GenerateAddressInWalletEndpoint.php
@@ -4626,10 +5069,7 @@ You cannot remove addresses from HD Wallets.
 <h2 id="derive-address-in-wallet-endpoint">Derive Address in Wallet Endpoint</h2>
 <pre class="highlight shell"><code>curl -X POST https://api.blockcypher.com/v1/btc/main/wallets/hd/bob/addresses/derive?token<span class="o">=</span>YOURTOKEN
 
-<span class="o">{</span><span class="s2">"token"</span>: <span class="s2">"YOURTOKEN"</span>,
-<span class="s2">"name"</span>: <span class="s2">"bob"</span>,
-<span class="s2">"hd"</span>: <span class="nb">true</span>,
-<span class="s2">"extended_public_key"</span>: <span class="s2">"xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoCu1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8"</span>,
+<span class="o">{</span>
 <span class="s2">"chains"</span>: <span class="o">[</span>
     <span class="o">{</span><span class="s2">"chain_addresses"</span>: <span class="o">[</span>
         <span class="o">{</span>
@@ -4643,10 +5083,7 @@ You cannot remove addresses from HD Wallets.
 <span class="c">#with subchain_index</span>
 curl -X POST <span class="s1">'https://api.blockcypher.com/v1/btc/main/wallets/hd/catheryne/addresses/derive?token=YOURTOKEN&amp;subchain_index=1'</span>
 
-<span class="o">{</span><span class="s2">"token"</span>: <span class="s2">"YOURTOKEN"</span>,
-<span class="s2">"name"</span>: <span class="s2">"catheryne"</span>,
-<span class="s2">"hd"</span>: <span class="nb">true</span>,
-<span class="s2">"extended_public_key"</span>: <span class="s2">"xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoCu1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8"</span>,
+<span class="o">{</span>
 <span class="s2">"chains"</span>: <span class="o">[</span>
     <span class="o">{</span><span class="s2">"index"</span>:1,
     <span class="s2">"chain_addresses"</span>: <span class="o">[</span>
@@ -4664,6 +5101,27 @@ curl -X POST <span class="s1">'https://api.blockcypher.com/v1/btc/main/wallets/h
 </code></pre>
 <pre class="highlight python"><code><span class="c"># todo: python hd derive examples</span>
 </code></pre>
+<pre class="highlight go"><code><span class="k">package</span><span class="x"> </span><span class="n">main</span><span class="x">
+
+</span><span class="k">import</span><span class="x"> </span><span class="p">(</span><span class="x">
+    </span><span class="s">"fmt"</span><span class="x">
+
+    </span><span class="s">"github.com/blockcypher/gobcy"</span><span class="x">
+</span><span class="p">)</span><span class="x">
+
+</span><span class="k">func</span><span class="x"> </span><span class="n">main</span><span class="p">()</span><span class="x"> </span><span class="p">{</span><span class="x">
+    </span><span class="n">btc</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">gobcy</span><span class="o">.</span><span class="n">API</span><span class="p">{</span><span class="s">"YOURTOKEN"</span><span class="p">,</span><span class="x"> </span><span class="s">"btc"</span><span class="p">,</span><span class="x"> </span><span class="s">"main"</span><span class="p">}</span><span class="x">
+    </span><span class="c">//hdwallet only</span><span class="x">
+    </span><span class="n">bob</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">btc</span><span class="o">.</span><span class="n">DeriveAddrHDWallet</span><span class="p">(</span><span class="s">"bob"</span><span class="p">,</span><span class="x"> </span><span class="m">1</span><span class="p">,</span><span class="x"> </span><span class="no">false</span><span class="p">,</span><span class="x"> </span><span class="m">0</span><span class="p">)</span><span class="x">
+    </span><span class="k">if</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="no">nil</span><span class="x"> </span><span class="p">{</span><span class="x">
+        </span><span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="n">err</span><span class="p">)</span><span class="x">
+    </span><span class="p">}</span><span class="x">
+    </span><span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">"Parital HD Wallet: %+v</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="x"> </span><span class="n">bob</span><span class="p">)</span><span class="x">
+</span><span class="p">}</span><span class="x">
+
+</span><span class="c">//Result from `go run`:</span><span class="x">
+</span><span class="c">//Partial HD Wallet: {Name: ExtPubKey: SubchainIndexes:[] Chains:[{ChainAddr:[{Address:19urzZsoBNsomSfj68PUUGLXDz261tK5Jo Path:m/3 Public:02c85080e00080aa933f93a2718bba9f01fd6fdc8e4712a155849f5ba588666471}] Index:0}]}</span><span class="x">
+</span></code></pre>
 <pre class="highlight php"><code>// Run on console:
 // php -f .\sample\wallet-api\GenerateAddressInHDWalletEndpoint.php
 
@@ -4756,6 +5214,30 @@ HTTP/1.1 204 OK
 <span class="o">//</span><span class="n">hd</span> <span class="n">wallet</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="s">'https://api.blockcypher.com/v1/btc/main/wallets/hd/bob'</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
 </code></pre>
+<pre class="highlight go"><code><span class="k">package</span><span class="x"> </span><span class="n">main</span><span class="x">
+
+</span><span class="k">import</span><span class="x"> </span><span class="p">(</span><span class="x">
+    </span><span class="s">"fmt"</span><span class="x">
+
+    </span><span class="s">"github.com/blockcypher/gobcy"</span><span class="x">
+</span><span class="p">)</span><span class="x">
+
+</span><span class="k">func</span><span class="x"> </span><span class="n">main</span><span class="p">()</span><span class="x"> </span><span class="p">{</span><span class="x">
+    </span><span class="n">btc</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">gobcy</span><span class="o">.</span><span class="n">API</span><span class="p">{</span><span class="s">"YOURTOKEN"</span><span class="p">,</span><span class="x"> </span><span class="s">"btc"</span><span class="p">,</span><span class="x"> </span><span class="s">"main"</span><span class="p">}</span><span class="x">
+    </span><span class="c">//wallet</span><span class="x">
+    </span><span class="n">err</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">btc</span><span class="o">.</span><span class="n">DeleteWallet</span><span class="p">(</span><span class="s">"alice"</span><span class="p">)</span><span class="x">
+    </span><span class="c">//hdwallet</span><span class="x">
+    </span><span class="n">err</span><span class="x"> </span><span class="o">=</span><span class="x"> </span><span class="n">btc</span><span class="o">.</span><span class="n">DeleteHDWallet</span><span class="p">(</span><span class="s">"bob"</span><span class="p">)</span><span class="x">
+    </span><span class="k">if</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="no">nil</span><span class="x"> </span><span class="p">{</span><span class="x">
+        </span><span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="n">err</span><span class="p">)</span><span class="x">
+    </span><span class="p">}</span><span class="x"> </span><span class="k">else</span><span class="x"> </span><span class="p">{</span><span class="x">
+        </span><span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="s">"Alice and Bob Deleted"</span><span class="p">)</span><span class="x">
+    </span><span class="p">}</span><span class="x">
+</span><span class="p">}</span><span class="x">
+
+</span><span class="c">//Result from `go run`:</span><span class="x">
+</span><span class="c">//Alice and Bob Deleted</span><span class="x">
+</span></code></pre>
 <pre class="highlight php"><code><span class="cp">&lt;?php</span>
 <span class="c1">// normal wallet
 // Run on console:
@@ -4993,6 +5475,26 @@ Even if you don&rsquo;t use the API to assist in creating transactions, we highl
  <span class="s">'size'</span><span class="p">:</span> <span class="mi">636</span><span class="p">,</span>
  <span class="s">'confirmations'</span><span class="p">:</span> <span class="mi">67378</span><span class="p">}</span>
 </code></pre>
+<pre class="highlight go"><code><span class="k">package</span><span class="x"> </span><span class="n">main</span><span class="x">
+
+</span><span class="k">import</span><span class="x"> </span><span class="p">(</span><span class="x">
+    </span><span class="s">"fmt"</span><span class="x">
+
+    </span><span class="s">"github.com/blockcypher/gobcy"</span><span class="x">
+</span><span class="p">)</span><span class="x">
+
+</span><span class="k">func</span><span class="x"> </span><span class="n">main</span><span class="p">()</span><span class="x"> </span><span class="p">{</span><span class="x">
+    </span><span class="n">btc</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">gobcy</span><span class="o">.</span><span class="n">API</span><span class="p">{</span><span class="s">"YOURTOKEN"</span><span class="p">,</span><span class="x"> </span><span class="s">"btc"</span><span class="p">,</span><span class="x"> </span><span class="s">"main"</span><span class="p">}</span><span class="x">
+    </span><span class="n">tx</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">btc</span><span class="o">.</span><span class="n">GetTX</span><span class="p">(</span><span class="s">"f854aebae95150b379cc1187d848d58225f3c4157fe992bcd166f58bd5063449"</span><span class="p">)</span><span class="x">
+    </span><span class="k">if</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="no">nil</span><span class="x"> </span><span class="p">{</span><span class="x">
+        </span><span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="n">err</span><span class="p">)</span><span class="x">
+    </span><span class="p">}</span><span class="x">
+    </span><span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">"%+v</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="x"> </span><span class="n">tx</span><span class="p">)</span><span class="x">
+</span><span class="p">}</span><span class="x">
+
+</span><span class="c">//Result from `go run`:</span><span class="x">
+</span><span class="c">//{BlockHash:0000000000000000c504bdea36e531d8089d324f2d936c86e3274f97f8a44328 BlockHeight:293000 Hash:f854aebae95150b379cc1187d848d58225f3c4157fe992bcd166f58bd5063449 Addresses:[13XXaBufpMvqRqLkyDty1AXqueZHVe6iyy 19YtzZdcfs1V2ZCgyRWo8i2wLT8ND1Tu4L 1BNiazBzCxJacAKo2yL83Wq1VJ18AYzNHy 1GbMfYui17L5m6sAy3L3WXAtf1P32bxJXq 1N2f642sbgCMbNtXFajz9XDACDFnFzdXzV] Total:70320221545 Fees:0 Size:636 Preference:low RelayedBy: Received:2014-03-29 01:29:19 +0000 UTC Confirmed:2014-03-29 01:29:19 +0000 UTC Confirmations:86227 Confidence:1 Ver:1 LockTime:0 DoubleSpend:false DoubleOf: ReceiveCount:0 VinSize:4 VoutSize:1 Hex: DataProtocol: ChangeAddress: NextInputs: NextOutputs: Inputs:[{PrevHash:583910b7bf90ab802e22e5c25a89b59862b20c8c1aeb24dfb94e7a508a70f121 OutputIndex:1 OutputValue:16450000 Addresses:[1GbMfYui17L5m6sAy3L3WXAtf1P32bxJXq] Sequence:4294967295 ScriptType:pay-to-pubkey-hash Script:4830450220504b1ccfddf508422bdd8b0fcda2b1483e87aee1b486c0130bc29226bbce3b4e022100b5befcfcf0d3bf6ebf0ac2f93badb19e3042c7bed456c398e743b885e782466c012103b1feb40b99e8ff18469484a50e8b52cc478d5f4f773a341fbd920a4ceaedd4bf Age:0 WalletName:} {PrevHash:f6966bb3d3ba0eb97fd11b223fb13c793c0b4a1b3deb575e8ae38d666c1d00d9 OutputIndex:36 OutputValue:10061545 Addresses:[19YtzZdcfs1V2ZCgyRWo8i2wLT8ND1Tu4L] Sequence:4294967295 ScriptType:pay-to-pubkey-hash Script:48304502210086de855e03008abcc49335c775973eab9ace2e16c3bfe6536218c1d029287fdb0220129ced657870af63f61cdd4b941996f9a243d1f306e774fc9c5f3dea0af8d581012103cbe40d1d790799a6494c07f844eaf05b4c6deab0b9dee2ee45c8decead12c5cd Age:0 WalletName:} {PrevHash:9ea2f9695e6694309fb0d8b966afb4678a77a59f160822e33819fada9e0c8288 OutputIndex:1 OutputValue:70000000000 Addresses:[1BNiazBzCxJacAKo2yL83Wq1VJ18AYzNHy] Sequence:4294967295 ScriptType:pay-to-pubkey-hash Script:48304502201f1eb5b79279258a91c00dee09dff5d6f6ece7c01639e66a6bdd579136ecddee022100d4a9ed93183bf338e51ba80bc1dd10ff03e9e159bd8ea59db3a5c10aa0ccd3400121022667ee37e180c1ad2fef6f16aa52ed27799f629364dfe51e144dd683317dbbd2 Age:0 WalletName:} {PrevHash:279ccbbab8605390a85fe6f0e4fb04ec1946ee6033054b16fec72e1304742d5d OutputIndex:0 OutputValue:293710000 Addresses:[13XXaBufpMvqRqLkyDty1AXqueZHVe6iyy] Sequence:4294967295 ScriptType:pay-to-pubkey-hash Script:483045022100baac0c25867855f62592872cfac522d59fddd590a6cc290c8ad3bbe6b1151b5802204f2713c565ce6b00e5ea00e955d35e3b0878af5474feda35ebbb73232122d5480121023ed3b44ad598e3834e561efed205c221b7bc2e577e752eeaa66e85e60d0381c9 Age:0 WalletName:}] Outputs:[{SpentBy:35832d6c70b98b54e9a53ab2d51176eb19ad11bc4505d6bb1ea6c51a68cb92ee Value:70320221545 Addresses:[1N2f642sbgCMbNtXFajz9XDACDFnFzdXzV] ScriptType:pay-to-pubkey-hash Script:76a914e6aad9d712c419ea8febf009a3f3bfdd8d222fac88ac DataHex: DataString:}]}</span><span class="x">
+</span></code></pre>
 <pre class="highlight php"><code><span class="cp">&lt;?php</span>
 <span class="c1">// Run on console:
 // php -f .\sample\transaction-api\TransactionHashEndpoint.php
@@ -5241,6 +5743,26 @@ Even if you don&rsquo;t use the API to assist in creating transactions, we highl
  <span class="o">...</span>
 <span class="p">],</span>
 </code></pre>
+<pre class="highlight go"><code><span class="k">package</span><span class="x"> </span><span class="n">main</span><span class="x">
+
+</span><span class="k">import</span><span class="x"> </span><span class="p">(</span><span class="x">
+    </span><span class="s">"fmt"</span><span class="x">
+
+    </span><span class="s">"github.com/blockcypher/gobcy"</span><span class="x">
+</span><span class="p">)</span><span class="x">
+
+</span><span class="k">func</span><span class="x"> </span><span class="n">main</span><span class="p">()</span><span class="x"> </span><span class="p">{</span><span class="x">
+    </span><span class="n">btc</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">gobcy</span><span class="o">.</span><span class="n">API</span><span class="p">{</span><span class="s">"YOURTOKEN"</span><span class="p">,</span><span class="x"> </span><span class="s">"btc"</span><span class="p">,</span><span class="x"> </span><span class="s">"main"</span><span class="p">}</span><span class="x">
+    </span><span class="n">txs</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">btc</span><span class="o">.</span><span class="n">GetUnTX</span><span class="p">()</span><span class="x">
+    </span><span class="k">if</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="no">nil</span><span class="x"> </span><span class="p">{</span><span class="x">
+        </span><span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="n">err</span><span class="p">)</span><span class="x">
+    </span><span class="p">}</span><span class="x">
+    </span><span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">"%+v</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="x"> </span><span class="n">txs</span><span class="p">)</span><span class="x">
+</span><span class="p">}</span><span class="x">
+
+</span><span class="c">//Result from `go run`:</span><span class="x">
+</span><span class="c">//[{BlockHash: BlockHeight:-1 Hash:f8928f4b57b4a419056d979de6c6daf1f8cf9e431b2d2e056d5122115bbf6e03 Addresses:[13m2zkhwfufunZj48C5yiCK5GyauoZASEK 1443nQwA3q5gRELUUrFFbsQ7wjfnzLKmNb 17QqqUkKsuGWF7EgftiY9HrXEPPYoLAmJ4 18WLk2MdxoJvkWewdYfZAUS7D5BitKWxrM 19Fkb6WcpT8xr2A9kggKJ1ogUQyDjGXGq7 1ApjvBUwNEt8kEvTn2XTDHqDQhPn8MApRq 1Ckk3HysYTTeTXrt4mAxa4wzP9WjLEBgKM 1DXEqjgC2QV7CsDiEjYdthmxvJEwEAEchB 1FuFEWK9Ms6YFfmBLQWeQxE5FUYcWHHdMf 1Gsp5Cz8xbxHdcKCBUL8eA8sWgTbs6pbVK 1JK6ANFKJvck3TArHfH8hxYXM69LLQi4Cd 1JpqxXp3WsDWru1HrC3jXKoiwstUMoGwE7 1KcTNQtGB2VkF8gHRcUP3LeKT4ipDWC3xz 1QJrogp9xSNMrEKH7eE74qy86baCsUnTFe] Total:14404949 Fees:18480 Size:1845 Preference:low RelayedBy:194.237.158.153:8333 Received:2015-10-16 23:12:50.822 +0000 UTC Confirmed:0001-01-01 00:00:00 +0000 UTC Confirmations:0 Confidence:0.4147856074218964 Ver:1 LockTime:0 DoubleSpend:false DoubleOf: ReceiveCount:138 VinSize:12 VoutSize:2 Hex: DataProtocol: ChangeAddress: NextInputs: NextOutputs: Inputs:[{PrevHash:de3e7627b5aaacc505901120a3c4cabebfee3d5d3c2b9349808fab8db26bd252 OutputIndex:0 OutputValue:1303094 Addresses:[1JpqxXp3WsDWru1HrC3jXKoiwstUMoGwE7] Sequence:4294967295 ScriptType:pay-to-pubkey-hash Script:483045022100e5f613cbdc60d13614dc58a2bdb9c67f348933e478288bb2e08a58e63c22dffc02201dda42464b34fa1a24e954cfa05ac2936575a039f5eb18201fe96dfd020c9967012103f1fbbcd8f5e50dde03be77c153a416c370b4c14c0d2c27eac66a64e4a47bd3f6 Age:0 WalletName:} {PrevHash:ce86c754efeb48d3b78e56f344082e825a76b2bfcb670eef5968934cf7694f24 OutputIndex:1 OutputValue:1006641 Addresses:[1ApjvBUwNEt8kEvTn2XTDHqDQhPn8MApRq] Sequence:4294967295 ScriptType:pay-to-pubkey-hash Script:483045022100a844dd4291fdd417cabaea58e9694c8e4d4ff6d3d80bbd7a3b703465b7be6cf102204ff0c4b5f2e904c4e06f086c4cba57b9bc40310f7bf463176f75eea8a117c8b8012102eb8c62ca2106a753fe5f0c1937729e1db551f15b0d202871c3f3cb1391ed4a1f Age:0 WalletName:} {PrevHash:f6a89efed192e3d9dabb9fae65ecf6780bae904bc17397ec69c898435e55ee41 OutputIndex:1 OutputValue:1146424 Addresses:[1FuFEWK9Ms6YFfmBLQWeQxE5FUYcWHHdMf] Sequence:4294967295 ScriptType:pay-to-pubkey-hash Script:4730440220258aa6e1a1e0fd03ad55d2fefe512785609fe079faa284eaf9263ba36ed0027002207740057cd9ade642a972f3490289d0256f604c60c1cfdeef4fffc9fcb3973e130121023a778b5d5eb3b1e2c7394f441a21ab104df692ad8e8ad6a9838b8dac7318be6d Age:0 WalletName:} {PrevHash:1b1f154612323edbf9f1970a42a1c33fb0ab9f734a5f080fb04c0f26921640c3 OutputIndex:1 OutputValue:1001406 Addresses:[13m2zkhwfufunZj48C5yiCK5GyauoZASEK] Sequence:4294967295 ScriptType:pay-to-pubkey-hash Script:483045022100a0e44c26c6f16e20c17f309bbf2b8fc4b89da36a46734aa82a7d72b4147a7703022024646da778e77bac3f9e76f5b34e8fc9d39225daea17f331da507e9116f64506012102a6fa3938b873686753bf48cc5551d1f5b9615481f87c67fe04d4f596088f01ef Age:0 WalletName:} {PrevHash:9a8935c75f8479c2a7149c6e26f52b32d07a35cf15c120a81a431b8024f2bff8 OutputIndex:0 OutputValue:1042321 Addresses:[1KcTNQtGB2VkF8gHRcUP3LeKT4ipDWC3xz] Sequence:4294967295 ScriptType:pay-to-pubkey-hash Script:473044022011a7fe8be1b3d1bfdf0137e81b85dae50fd8fda81503ecd72b9b5d325bc5b9a1022069b7d1bf262818fa65fc109f5ea6f8cdd14df4de3e2b83562f353251d5d8821f01210303fa00593f969a7f419ee258f588d3d4d672717ea0e73c1a15b3eeff767de575 Age:0 WalletName:} {PrevHash:7c0017d41d61f44d25b216f4918d4e7037f0247cd5f0d270e8b44e097e8cb5d3 OutputIndex:1 OutputValue:1950455 Addresses:[1Ckk3HysYTTeTXrt4mAxa4wzP9WjLEBgKM] Sequence:4294967295 ScriptType:pay-to-pubkey-hash Script:473044022063383285fe15f2afad8e2574a1545c60f098b749041c40a0241659a3d1bc616d022059e93d5a55cd10847d1fe233dc64ceefae8cd4f191306f6b0078b75c5a2de57801210276043ad0e0491dd2b1792db12e3e1f031b97574c316ea19e9331155a47659741 Age:0 WalletName:} {PrevHash:f3f3d69581b8f8bcee3243c0fcb812737ecc446e8f2a4b4e23eb564498643750 OutputIndex:1 OutputValue:1164682 Addresses:[1QJrogp9xSNMrEKH7eE74qy86baCsUnTFe] Sequence:4294967295 ScriptType:pay-to-pubkey-hash Script:47304402200a96d273b08ba084151784edfd82eda23f3283a5871d92b455854bc4cdeb9d14022053a834acc49b5e7fd195136bf6f0ac52ea1da088f737a298f213f950718b31720121026ebc9ee90c3f61c7289785982385523b4085f0454aed5e259dbdd8c50c3cc552 Age:0 WalletName:} {PrevHash:83fc9cbe8f9e28de140fad9a64885c848ef112d988f7110d9518ca60837ec36a OutputIndex:1 OutputValue:1019486 Addresses:[1Gsp5Cz8xbxHdcKCBUL8eA8sWgTbs6pbVK] Sequence:4294967295 ScriptType:pay-to-pubkey-hash Script:473044022046bff50b4b67a39cbc09537a6e4b43d6c4aff8aba48db142875692dc935d7b1c022031cf89787b71e27a8c6721874b76c47a2b38042f6885dbf217be1851820ab560012102b4643824e610792d544ceae83ba6d1b0e6bbe0deb4b07059c3e95d41243c877e Age:0 WalletName:} {PrevHash:1a599344c35a02a89a4e0adf385df1539afe83863cf63a3fcb02c922f2808a86 OutputIndex:1 OutputValue:1224402 Addresses:[17QqqUkKsuGWF7EgftiY9HrXEPPYoLAmJ4] Sequence:4294967295 ScriptType:pay-to-pubkey-hash Script:47304402202facd04cdd448e71b505e254b4768bf765525e527fc14dae1a6b9baaab7abbb7022060ff7fe015c32cf27f99d43f910d891c7acefd355b0e0db177f0c10180e83f2c012103cf170047f6744b1a37652034610d2549129aaf94a9b8c2c97465d6e7c135d4fe Age:0 WalletName:} {PrevHash:69043a9c6675f7bfa5c56d6e1b523c6a7a615ab0e505c99856b168e47a44aa8c OutputIndex:1 OutputValue:1255773 Addresses:[19Fkb6WcpT8xr2A9kggKJ1ogUQyDjGXGq7] Sequence:4294967295 ScriptType:pay-to-pubkey-hash Script:473044022013a74f574e6c787010064e395233a5404c64b42ddc1412e071290ae1c09a79100220763496a016227db16ff0537c131b9aa1a70ca58cade03a548d88e9272f3d9218012103efde06c3eba524a6f4b15bbf699f422d1cbc08d1127ef71da109d6be5e4ae7e9 Age:0 WalletName:} {PrevHash:a63907e2e843d142d8f6865b35e80ffbc16addaa3cd0c0d1c0c65eeb67bebe5c OutputIndex:0 OutputValue:1078122 Addresses:[1DXEqjgC2QV7CsDiEjYdthmxvJEwEAEchB] Sequence:4294967295 ScriptType:pay-to-pubkey-hash Script:47304402205e8c41c90624444b533ed10ac4afa0039f5b16ab9fcf7c74ab8e01c65579706402207936add6ca8a6d35ee803bdfa57ade55aa6cd647d67ffddcd1dd8fb22bfcffce012103dfd1d1cbc043c91a1ae71d3e3a55156e94ecc9664c0e58b65f490b03fc0dcdb0 Age:0 WalletName:} {PrevHash:f758e79c071aa8ea136033ec1555c7381a46078a31f73a397b94be8427121848 OutputIndex:1 OutputValue:1230623 Addresses:[1JK6ANFKJvck3TArHfH8hxYXM69LLQi4Cd] Sequence:4294967295 ScriptType:pay-to-pubkey-hash Script:47304402202488d537e1a97e0810423a2b39cc958ce00e63d724d565c579fc08db6e1d2c00022008baf16a0c15568aa54386e8f4b0017b0a544a90208e815bc491c6141ed5248c012102487efb8337132b593bec69020e4b8aee118c8046b842cc150023915c06dfb596 Age:0 WalletName:}] Outputs:[{SpentBy: Value:1000593 Addresses:[18WLk2MdxoJvkWewdYfZAUS7D5BitKWxrM] ScriptType:pay-to-pubkey-hash Script:76a91452556c48f68b7cd56ed997ca23e183fff8808ded88ac DataHex: DataString:} {SpentBy: Value:13404356 Addresses:[1443nQwA3q5gRELUUrFFbsQ7wjfnzLKmNb] ScriptType:pay-to-pubkey-hash Script:76a914217bf2c6fabaf36888c4ba7af725b54412d3716988ac DataHex: DataString:}]} {BlockHash: BlockHeight:-1 ...}]</span><span class="x">
+</span></code></pre>
 <pre class="highlight php"><code><span class="cp">&lt;?php</span>
 <span class="c1">// Run on console:
 // php -f .\sample\transaction-api\UnconfirmedTransactionsEndpoint.php
@@ -5513,6 +6035,45 @@ Always use HTTPS for creating and pushing transactions.
   <span class="s">'size'</span><span class="p">:</span> <span class="mi">119</span><span class="p">,</span>
   <span class="s">'confirmations'</span><span class="p">:</span> <span class="mi">0</span><span class="p">}}</span>
 </code></pre>
+<pre class="highlight go"><code><span class="c">//this is the same example as below, demonstrates</span><span class="x">
+</span><span class="c">//creating New TXSkels, signing, and Sending TXSkels</span><span class="x">
+</span><span class="k">package</span><span class="x"> </span><span class="n">main</span><span class="x">
+
+</span><span class="k">import</span><span class="x"> </span><span class="p">(</span><span class="x">
+    </span><span class="s">"fmt"</span><span class="x">
+
+    </span><span class="s">"github.com/blockcypher/gobcy"</span><span class="x">
+</span><span class="p">)</span><span class="x">
+
+</span><span class="k">func</span><span class="x"> </span><span class="n">main</span><span class="p">()</span><span class="x"> </span><span class="p">{</span><span class="x">
+    </span><span class="c">//note the change to BlockCypher Testnet</span><span class="x">
+    </span><span class="n">bcy</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">gobcy</span><span class="o">.</span><span class="n">API</span><span class="p">{</span><span class="s">"YOURTOKEN"</span><span class="p">,</span><span class="x"> </span><span class="s">"bcy"</span><span class="p">,</span><span class="x"> </span><span class="s">"test"</span><span class="p">}</span><span class="x">
+    </span><span class="c">//generate two addresses</span><span class="x">
+    </span><span class="n">addr1</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">bcy</span><span class="o">.</span><span class="n">GenAddrKeychain</span><span class="p">()</span><span class="x">
+    </span><span class="n">addr2</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">bcy</span><span class="o">.</span><span class="n">GenAddrKeychain</span><span class="p">()</span><span class="x">
+    </span><span class="c">//use faucet to fund first</span><span class="x">
+    </span><span class="n">_</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">=</span><span class="x"> </span><span class="n">bcy</span><span class="o">.</span><span class="n">Faucet</span><span class="p">(</span><span class="n">addr1</span><span class="p">,</span><span class="x"> </span><span class="m">3e5</span><span class="p">)</span><span class="x">
+    </span><span class="k">if</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="no">nil</span><span class="x"> </span><span class="p">{</span><span class="x">
+        </span><span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="n">err</span><span class="p">)</span><span class="x">
+    </span><span class="p">}</span><span class="x">
+    </span><span class="c">//Post New TXSkeleton</span><span class="x">
+    </span><span class="n">skel</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">bcy</span><span class="o">.</span><span class="n">NewTX</span><span class="p">(</span><span class="n">gobcy</span><span class="o">.</span><span class="n">TempNewTX</span><span class="p">(</span><span class="n">addr1</span><span class="o">.</span><span class="n">Address</span><span class="p">,</span><span class="x"> </span><span class="n">addr2</span><span class="o">.</span><span class="n">Address</span><span class="p">,</span><span class="x"> </span><span class="m">2e5</span><span class="p">),</span><span class="x"> </span><span class="no">false</span><span class="p">)</span><span class="x">
+    </span><span class="c">//Sign it locally</span><span class="x">
+    </span><span class="n">err</span><span class="x"> </span><span class="o">=</span><span class="x"> </span><span class="n">skel</span><span class="o">.</span><span class="n">Sign</span><span class="p">([]</span><span class="kt">string</span><span class="p">{</span><span class="n">addr1</span><span class="o">.</span><span class="n">Private</span><span class="p">})</span><span class="x">
+    </span><span class="k">if</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="no">nil</span><span class="x"> </span><span class="p">{</span><span class="x">
+        </span><span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="n">err</span><span class="p">)</span><span class="x">
+    </span><span class="p">}</span><span class="x">
+    </span><span class="c">//Send TXSkeleton</span><span class="x">
+    </span><span class="n">skel</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">=</span><span class="x"> </span><span class="n">bcy</span><span class="o">.</span><span class="n">SendTX</span><span class="p">(</span><span class="n">skel</span><span class="p">)</span><span class="x">
+    </span><span class="k">if</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="no">nil</span><span class="x"> </span><span class="p">{</span><span class="x">
+        </span><span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="n">err</span><span class="p">)</span><span class="x">
+    </span><span class="p">}</span><span class="x">
+    </span><span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">"%+v</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="x"> </span><span class="n">skel</span><span class="p">)</span><span class="x">
+</span><span class="p">}</span><span class="x">
+
+</span><span class="c">//Result from `go run`:</span><span class="x">
+</span><span class="c">// {Trans:{BlockHash: BlockHeight:-1 Hash:55d6ef290774f5428b66a0a27e46a8c37032c33bc15abce4791d56a2f8adb773 Addresses:[C6LBLb668ZTS4okXhjtzapFWAdnFjH7A4i ByaXmP5k14WRBFLXArfCcqcpAHrUQRy3vL] Total:287500 Fees:12500 Size:225 Preference:high RelayedBy:52.27.84.91, 127.0.0.1 Received:2015-10-16 23:38:09.536632402 +0000 UTC Confirmed:0001-01-01 00:00:00 +0000 UTC Confirmations:0 Confidence:0 Ver:1 LockTime:0 DoubleSpend:false DoubleOf: ReceiveCount:0 VinSize:1 VoutSize:2 Hex: DataProtocol: ChangeAddress: NextInputs: NextOutputs: Inputs:[{PrevHash:50c4738cb29901dc1ae3ed2692a57751653a31192176019d85d3f3922969dd1f OutputIndex:0 OutputValue:300000 Addresses:[C6LBLb668ZTS4okXhjtzapFWAdnFjH7A4i] Sequence:4294967295 ScriptType:pay-to-pubkey-hash Script:4730440220298915c785165233e2f19192bbbb9b8c3fed6d064279cb8968af6698c783b875022037287134f9f0aaf84429ba9bb50f1efcb4cedcfbd34407c285134e068234432c012102b17f04f5fa1bd44315ef33f8759822a302a2ba7fa28c56a50fac0441a341b96a Age:0 WalletName:}] Outputs:[{SpentBy: Value:200000 Addresses:[ByaXmP5k14WRBFLXArfCcqcpAHrUQRy3vL] ScriptType:pay-to-pubkey-hash Script:76a91446c7681dcacaee1ea3f57eced37755d1d09e070188ac DataHex: DataString:} {SpentBy: Value:87500 Addresses:[C6LBLb668ZTS4okXhjtzapFWAdnFjH7A4i] ScriptType:pay-to-pubkey-hash Script:76a91490d969679032cc1af6a69b4161778f12e90cb13588ac DataHex: DataString:}]} ToSign:[] Signatures:[] PubKeys:[] ToSignTX:[] Errors:[]}</span><span class="x">
+</span></code></pre>
 <pre class="highlight php"><code><span class="cp">&lt;?php</span>
 <span class="c1">// Run on console:
 // php -f .\sample\transaction-api\NewTransactionEndpoint.php
@@ -5680,6 +6241,8 @@ The <b>hash</b> assigned to <a href="#tx">TX</a> within the return object is onl
 </code></pre>
 <pre class="highlight ruby"><code><span class="c1"># Signing is handled by our SDK in the next step</span>
 </code></pre>
+<pre class="highlight go"><code><span class="c">//signing handled in both examples</span><span class="x">
+</span></code></pre>
 <pre class="highlight php"><code><span class="cp">&lt;?php</span>
 <span class="c1">// Sign the transaction
 // Private key for address: C5vqMGme4FThKnCY44gx1PLgWr86uxRbDm
@@ -5856,6 +6419,45 @@ curl -d <span class="s1">'{"tx": {...}, "tosign": [ "32b5ea64c253b6b466366647458
       <span class="s2">"script_type"</span><span class="o">=&gt;</span><span class="s2">"pay-to-pubkey-hash"</span><span class="p">}]},</span>
  <span class="s2">"tosign"</span><span class="o">=&gt;</span><span class="p">[</span><span class="s2">""</span><span class="p">]}</span>
 </code></pre>
+<pre class="highlight go"><code><span class="c">//this is the same example as above, demonstrates</span><span class="x">
+</span><span class="c">//creating New TXSkels, signing, and Sending TXSkels</span><span class="x">
+</span><span class="k">package</span><span class="x"> </span><span class="n">main</span><span class="x">
+
+</span><span class="k">import</span><span class="x"> </span><span class="p">(</span><span class="x">
+    </span><span class="s">"fmt"</span><span class="x">
+
+    </span><span class="s">"github.com/blockcypher/gobcy"</span><span class="x">
+</span><span class="p">)</span><span class="x">
+
+</span><span class="k">func</span><span class="x"> </span><span class="n">main</span><span class="p">()</span><span class="x"> </span><span class="p">{</span><span class="x">
+    </span><span class="c">//note the change to BlockCypher Testnet</span><span class="x">
+    </span><span class="n">bcy</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">gobcy</span><span class="o">.</span><span class="n">API</span><span class="p">{</span><span class="s">"YOURTOKEN"</span><span class="p">,</span><span class="x"> </span><span class="s">"bcy"</span><span class="p">,</span><span class="x"> </span><span class="s">"test"</span><span class="p">}</span><span class="x">
+    </span><span class="c">//generate two addresses</span><span class="x">
+    </span><span class="n">addr1</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">bcy</span><span class="o">.</span><span class="n">GenAddrKeychain</span><span class="p">()</span><span class="x">
+    </span><span class="n">addr2</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">bcy</span><span class="o">.</span><span class="n">GenAddrKeychain</span><span class="p">()</span><span class="x">
+    </span><span class="c">//use faucet to fund first</span><span class="x">
+    </span><span class="n">_</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">=</span><span class="x"> </span><span class="n">bcy</span><span class="o">.</span><span class="n">Faucet</span><span class="p">(</span><span class="n">addr1</span><span class="p">,</span><span class="x"> </span><span class="m">3e5</span><span class="p">)</span><span class="x">
+    </span><span class="k">if</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="no">nil</span><span class="x"> </span><span class="p">{</span><span class="x">
+        </span><span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="n">err</span><span class="p">)</span><span class="x">
+    </span><span class="p">}</span><span class="x">
+    </span><span class="c">//Post New TXSkeleton</span><span class="x">
+    </span><span class="n">skel</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">bcy</span><span class="o">.</span><span class="n">NewTX</span><span class="p">(</span><span class="n">gobcy</span><span class="o">.</span><span class="n">TempNewTX</span><span class="p">(</span><span class="n">addr1</span><span class="o">.</span><span class="n">Address</span><span class="p">,</span><span class="x"> </span><span class="n">addr2</span><span class="o">.</span><span class="n">Address</span><span class="p">,</span><span class="x"> </span><span class="m">2e5</span><span class="p">),</span><span class="x"> </span><span class="no">false</span><span class="p">)</span><span class="x">
+    </span><span class="c">//Sign it locally</span><span class="x">
+    </span><span class="n">err</span><span class="x"> </span><span class="o">=</span><span class="x"> </span><span class="n">skel</span><span class="o">.</span><span class="n">Sign</span><span class="p">([]</span><span class="kt">string</span><span class="p">{</span><span class="n">addr1</span><span class="o">.</span><span class="n">Private</span><span class="p">})</span><span class="x">
+    </span><span class="k">if</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="no">nil</span><span class="x"> </span><span class="p">{</span><span class="x">
+        </span><span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="n">err</span><span class="p">)</span><span class="x">
+    </span><span class="p">}</span><span class="x">
+    </span><span class="c">//Send TXSkeleton</span><span class="x">
+    </span><span class="n">skel</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">=</span><span class="x"> </span><span class="n">bcy</span><span class="o">.</span><span class="n">SendTX</span><span class="p">(</span><span class="n">skel</span><span class="p">)</span><span class="x">
+    </span><span class="k">if</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="no">nil</span><span class="x"> </span><span class="p">{</span><span class="x">
+        </span><span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="n">err</span><span class="p">)</span><span class="x">
+    </span><span class="p">}</span><span class="x">
+    </span><span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">"%+v</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="x"> </span><span class="n">skel</span><span class="p">)</span><span class="x">
+</span><span class="p">}</span><span class="x">
+
+</span><span class="c">//Result from `go run`:</span><span class="x">
+</span><span class="c">// {Trans:{BlockHash: BlockHeight:-1 Hash:55d6ef290774f5428b66a0a27e46a8c37032c33bc15abce4791d56a2f8adb773 Addresses:[C6LBLb668ZTS4okXhjtzapFWAdnFjH7A4i ByaXmP5k14WRBFLXArfCcqcpAHrUQRy3vL] Total:287500 Fees:12500 Size:225 Preference:high RelayedBy:52.27.84.91, 127.0.0.1 Received:2015-10-16 23:38:09.536632402 +0000 UTC Confirmed:0001-01-01 00:00:00 +0000 UTC Confirmations:0 Confidence:0 Ver:1 LockTime:0 DoubleSpend:false DoubleOf: ReceiveCount:0 VinSize:1 VoutSize:2 Hex: DataProtocol: ChangeAddress: NextInputs: NextOutputs: Inputs:[{PrevHash:50c4738cb29901dc1ae3ed2692a57751653a31192176019d85d3f3922969dd1f OutputIndex:0 OutputValue:300000 Addresses:[C6LBLb668ZTS4okXhjtzapFWAdnFjH7A4i] Sequence:4294967295 ScriptType:pay-to-pubkey-hash Script:4730440220298915c785165233e2f19192bbbb9b8c3fed6d064279cb8968af6698c783b875022037287134f9f0aaf84429ba9bb50f1efcb4cedcfbd34407c285134e068234432c012102b17f04f5fa1bd44315ef33f8759822a302a2ba7fa28c56a50fac0441a341b96a Age:0 WalletName:}] Outputs:[{SpentBy: Value:200000 Addresses:[ByaXmP5k14WRBFLXArfCcqcpAHrUQRy3vL] ScriptType:pay-to-pubkey-hash Script:76a91446c7681dcacaee1ea3f57eced37755d1d09e070188ac DataHex: DataString:} {SpentBy: Value:87500 Addresses:[C6LBLb668ZTS4okXhjtzapFWAdnFjH7A4i] ScriptType:pay-to-pubkey-hash Script:76a91490d969679032cc1af6a69b4161778f12e90cb13588ac DataHex: DataString:}]} ToSign:[] Signatures:[] PubKeys:[] ToSignTX:[] Errors:[]}</span><span class="x">
+</span></code></pre>
 <pre class="highlight php"><code><span class="cp">&lt;?php</span>
 <span class="c1">// Send the transaction
 </span><span class="nv">$txSkeleton</span> <span class="o">=</span> <span class="nv">$txClient</span><span class="o">-&gt;</span><span class="na">send</span><span class="p">(</span><span class="nv">$txSkeleton</span><span class="p">);</span>
@@ -6181,6 +6783,27 @@ Due to safety checks within the API&rsquo;s transaction creation process, the us
   <span class="p">]</span>
 <span class="p">}</span>
 </code></pre>
+<pre class="highlight go"><code><span class="k">package</span><span class="x"> </span><span class="n">main</span><span class="x">
+
+</span><span class="k">import</span><span class="x"> </span><span class="p">(</span><span class="x">
+    </span><span class="s">"fmt"</span><span class="x">
+
+    </span><span class="s">"github.com/blockcypher/gobcy"</span><span class="x">
+</span><span class="p">)</span><span class="x">
+
+</span><span class="k">func</span><span class="x"> </span><span class="n">main</span><span class="p">()</span><span class="x"> </span><span class="p">{</span><span class="x">
+    </span><span class="c">//note the change to BlockCypher Testnet</span><span class="x">
+    </span><span class="n">bcy</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">gobcy</span><span class="o">.</span><span class="n">API</span><span class="p">{</span><span class="s">"YOURTOKEN"</span><span class="p">,</span><span class="x"> </span><span class="s">"bcy"</span><span class="p">,</span><span class="x"> </span><span class="s">"test"</span><span class="p">}</span><span class="x">
+    </span><span class="n">skel</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">bcy</span><span class="o">.</span><span class="n">PushTX</span><span class="p">(</span><span class="s">"01000000011fdd692992f3d3859d01762119313a655177a59226ede31adc0199b28c73c450000000006a4730440220298915c785165233e2f19192bbbb9b8c3fed6d064279cb8968af6698c783b875022037287134f9f0aaf84429ba9bb50f1efcb4cedcfbd34407c285134e068234432c012102b17f04f5fa1bd44315ef33f8759822a302a2ba7fa28c56a50fac0441a341b96affffffff02400d0300000000001976a91446c7681dcacaee1ea3f57eced37755d1d09e070188accc550100000000001976a91490d969679032cc1af6a69b4161778f12e90cb13588ac00000000"</span><span class="p">)</span><span class="x">
+    </span><span class="k">if</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="no">nil</span><span class="x"> </span><span class="p">{</span><span class="x">
+        </span><span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="n">err</span><span class="p">)</span><span class="x">
+    </span><span class="p">}</span><span class="x">
+    </span><span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">"%+v</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="x"> </span><span class="n">skel</span><span class="p">)</span><span class="x">
+</span><span class="p">}</span><span class="x">
+
+</span><span class="c">//Result from `go run`:</span><span class="x">
+</span><span class="c">// {Trans:{BlockHash: BlockHeight:-1 Hash:55d6ef290774f5428b66a0a27e46a8c37032c33bc15abce4791d56a2f8adb773 Addresses:[C6LBLb668ZTS4okXhjtzapFWAdnFjH7A4i ByaXmP5k14WRBFLXArfCcqcpAHrUQRy3vL] Total:287500 Fees:12500 Size:225 Preference:high RelayedBy:52.27.84.91, 127.0.0.1 Received:2015-10-16 23:38:09.536632402 +0000 UTC Confirmed:0001-01-01 00:00:00 +0000 UTC Confirmations:0 Confidence:0 Ver:1 LockTime:0 DoubleSpend:false DoubleOf: ReceiveCount:0 VinSize:1 VoutSize:2 Hex: DataProtocol: ChangeAddress: NextInputs: NextOutputs: Inputs:[{PrevHash:50c4738cb29901dc1ae3ed2692a57751653a31192176019d85d3f3922969dd1f OutputIndex:0 OutputValue:300000 Addresses:[C6LBLb668ZTS4okXhjtzapFWAdnFjH7A4i] Sequence:4294967295 ScriptType:pay-to-pubkey-hash Script:4730440220298915c785165233e2f19192bbbb9b8c3fed6d064279cb8968af6698c783b875022037287134f9f0aaf84429ba9bb50f1efcb4cedcfbd34407c285134e068234432c012102b17f04f5fa1bd44315ef33f8759822a302a2ba7fa28c56a50fac0441a341b96a Age:0 WalletName:}] Outputs:[{SpentBy: Value:200000 Addresses:[ByaXmP5k14WRBFLXArfCcqcpAHrUQRy3vL] ScriptType:pay-to-pubkey-hash Script:76a91446c7681dcacaee1ea3f57eced37755d1d09e070188ac DataHex: DataString:} {SpentBy: Value:87500 Addresses:[C6LBLb668ZTS4okXhjtzapFWAdnFjH7A4i] ScriptType:pay-to-pubkey-hash Script:76a91490d969679032cc1af6a69b4161778f12e90cb13588ac DataHex: DataString:}]} ToSign:[] Signatures:[] PubKeys:[] ToSignTX:[] Errors:[]}</span><span class="x">
+</span></code></pre>
 <pre class="highlight php"><code><span class="cp">&lt;?php</span>
 <span class="c1">// Run on console:
 // php -f .\sample\transaction-api\PushRawTransactionEndpoint.php
@@ -6456,6 +7079,27 @@ Due to safety checks within the API&rsquo;s transaction creation process, the us
  <span class="s">'size'</span><span class="p">:</span> <span class="mi">226</span><span class="p">,</span>
  <span class="s">'confirmations'</span><span class="p">:</span> <span class="mi">0</span><span class="p">}</span>
 </code></pre>
+<pre class="highlight go"><code><span class="k">package</span><span class="x"> </span><span class="n">main</span><span class="x">
+
+</span><span class="k">import</span><span class="x"> </span><span class="p">(</span><span class="x">
+    </span><span class="s">"fmt"</span><span class="x">
+
+    </span><span class="s">"github.com/blockcypher/gobcy"</span><span class="x">
+</span><span class="p">)</span><span class="x">
+
+</span><span class="k">func</span><span class="x"> </span><span class="n">main</span><span class="p">()</span><span class="x"> </span><span class="p">{</span><span class="x">
+    </span><span class="c">//note the change to BlockCypher Testnet</span><span class="x">
+    </span><span class="n">bcy</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">gobcy</span><span class="o">.</span><span class="n">API</span><span class="p">{</span><span class="s">"YOURTOKEN"</span><span class="p">,</span><span class="x"> </span><span class="s">"bcy"</span><span class="p">,</span><span class="x"> </span><span class="s">"test"</span><span class="p">}</span><span class="x">
+    </span><span class="n">skel</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">bcy</span><span class="o">.</span><span class="n">DecodeTX</span><span class="p">(</span><span class="s">"01000000011fdd692992f3d3859d01762119313a655177a59226ede31adc0199b28c73c450000000006a4730440220298915c785165233e2f19192bbbb9b8c3fed6d064279cb8968af6698c783b875022037287134f9f0aaf84429ba9bb50f1efcb4cedcfbd34407c285134e068234432c012102b17f04f5fa1bd44315ef33f8759822a302a2ba7fa28c56a50fac0441a341b96affffffff02400d0300000000001976a91446c7681dcacaee1ea3f57eced37755d1d09e070188accc550100000000001976a91490d969679032cc1af6a69b4161778f12e90cb13588ac00000000"</span><span class="p">)</span><span class="x">
+    </span><span class="k">if</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="no">nil</span><span class="x"> </span><span class="p">{</span><span class="x">
+        </span><span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="n">err</span><span class="p">)</span><span class="x">
+    </span><span class="p">}</span><span class="x">
+    </span><span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">"%+v</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="x"> </span><span class="n">skel</span><span class="p">)</span><span class="x">
+</span><span class="p">}</span><span class="x">
+
+</span><span class="c">//Result from `go run`:</span><span class="x">
+</span><span class="c">// {Trans:{BlockHash: BlockHeight:-1 Hash:55d6ef290774f5428b66a0a27e46a8c37032c33bc15abce4791d56a2f8adb773 Addresses:[C6LBLb668ZTS4okXhjtzapFWAdnFjH7A4i ByaXmP5k14WRBFLXArfCcqcpAHrUQRy3vL] Total:287500 Fees:12500 Size:225 Preference:high RelayedBy:52.27.84.91, 127.0.0.1 Received:2015-10-16 23:38:09.536632402 +0000 UTC Confirmed:0001-01-01 00:00:00 +0000 UTC Confirmations:0 Confidence:0 Ver:1 LockTime:0 DoubleSpend:false DoubleOf: ReceiveCount:0 VinSize:1 VoutSize:2 Hex: DataProtocol: ChangeAddress: NextInputs: NextOutputs: Inputs:[{PrevHash:50c4738cb29901dc1ae3ed2692a57751653a31192176019d85d3f3922969dd1f OutputIndex:0 OutputValue:300000 Addresses:[C6LBLb668ZTS4okXhjtzapFWAdnFjH7A4i] Sequence:4294967295 ScriptType:pay-to-pubkey-hash Script:4730440220298915c785165233e2f19192bbbb9b8c3fed6d064279cb8968af6698c783b875022037287134f9f0aaf84429ba9bb50f1efcb4cedcfbd34407c285134e068234432c012102b17f04f5fa1bd44315ef33f8759822a302a2ba7fa28c56a50fac0441a341b96a Age:0 WalletName:}] Outputs:[{SpentBy: Value:200000 Addresses:[ByaXmP5k14WRBFLXArfCcqcpAHrUQRy3vL] ScriptType:pay-to-pubkey-hash Script:76a91446c7681dcacaee1ea3f57eced37755d1d09e070188ac DataHex: DataString:} {SpentBy: Value:87500 Addresses:[C6LBLb668ZTS4okXhjtzapFWAdnFjH7A4i] ScriptType:pay-to-pubkey-hash Script:76a91490d969679032cc1af6a69b4161778f12e90cb13588ac DataHex: DataString:}]} ToSign:[] Signatures:[] PubKeys:[] ToSignTX:[] Errors:[]}</span><span class="x">
+</span></code></pre>
 <pre class="highlight php"><code><span class="cp">&lt;?php</span>
 <span class="c1">// Run on console:
 // php -f .\sample\transaction-api\DecodeRawTransactionEndpoint.php
@@ -6571,6 +7215,18 @@ Due to safety checks within the API&rsquo;s transaction creation process, the us
     }]
 }'</span><span class="p">)</span>
 </code></pre>
+<pre class="highlight go"><code><span class="k">package</span><span class="x"> </span><span class="n">main</span><span class="x">
+
+</span><span class="k">import</span><span class="x"> </span><span class="s">"github.com/blockcypher/gobcy"</span><span class="x">
+
+</span><span class="k">func</span><span class="x"> </span><span class="n">main</span><span class="p">()</span><span class="x"> </span><span class="p">{</span><span class="x">
+    </span><span class="c">//note the change to BlockCypher Testnet</span><span class="x">
+    </span><span class="n">bcy</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">gobcy</span><span class="o">.</span><span class="n">API</span><span class="p">{</span><span class="s">"YOURTOKEN"</span><span class="p">,</span><span class="x"> </span><span class="s">"bcy"</span><span class="p">,</span><span class="x"> </span><span class="s">"test"</span><span class="p">}</span><span class="x">
+    </span><span class="c">//use TempMultiTX to set up multisig</span><span class="x">
+    </span><span class="n">temptx</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">gobcy</span><span class="o">.</span><span class="n">TempMultiTX</span><span class="p">(</span><span class="s">"sourceAddr"</span><span class="p">,</span><span class="x"> </span><span class="s">""</span><span class="p">,</span><span class="x"> </span><span class="m">25000</span><span class="p">,</span><span class="x"> </span><span class="m">2</span><span class="p">,</span><span class="x"> </span><span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">"pubkey1"</span><span class="p">,</span><span class="x"> </span><span class="s">"pubkey2"</span><span class="p">,</span><span class="x"> </span><span class="s">"pubkey3"</span><span class="p">})</span><span class="x">
+    </span><span class="c">//Then follow the New/Send two-step process with this temptx as the input</span><span class="x">
+</span><span class="p">}</span><span class="x">
+</span></code></pre>
 <pre class="highlight php"><code><span class="cp">&lt;?php</span>
 <span class="c1">// Run on console:
 // php -f .\sample\transaction-api\CreateTxToFundMultisigAddrWithBuilderEndpoint.php
@@ -6642,6 +7298,18 @@ If you only need a <i>pay-to-script-hash</i> address corresponding to N-of-M mul
         "value"     : 150000
     }] }'</span><span class="p">)</span>
 </code></pre>
+<pre class="highlight go"><code><span class="k">package</span><span class="x"> </span><span class="n">main</span><span class="x">
+
+</span><span class="k">import</span><span class="x"> </span><span class="s">"github.com/blockcypher/gobcy"</span><span class="x">
+
+</span><span class="k">func</span><span class="x"> </span><span class="n">main</span><span class="p">()</span><span class="x"> </span><span class="p">{</span><span class="x">
+    </span><span class="c">//note the change to BlockCypher Testnet</span><span class="x">
+    </span><span class="n">bcy</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">gobcy</span><span class="o">.</span><span class="n">API</span><span class="p">{</span><span class="s">"YOURTOKEN"</span><span class="p">,</span><span class="x"> </span><span class="s">"bcy"</span><span class="p">,</span><span class="x"> </span><span class="s">"test"</span><span class="p">}</span><span class="x">
+    </span><span class="c">//use TempMultiTX to set up multisig</span><span class="x">
+    </span><span class="n">temptx</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">gobcy</span><span class="o">.</span><span class="n">TempMultiTX</span><span class="p">(</span><span class="s">""</span><span class="p">,</span><span class="x"> </span><span class="s">"destAddr"</span><span class="p">,</span><span class="x"> </span><span class="m">25000</span><span class="p">,</span><span class="x"> </span><span class="m">2</span><span class="p">,</span><span class="x"> </span><span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">"pubkey1"</span><span class="p">,</span><span class="x"> </span><span class="s">"pubkey2"</span><span class="p">,</span><span class="x"> </span><span class="s">"pubkey3"</span><span class="p">})</span><span class="x">
+    </span><span class="c">//Then follow the New/Send two-step process with this temptx as the input</span><span class="x">
+</span><span class="p">}</span><span class="x">
+</span></code></pre>
 <pre class="highlight php"><code><span class="cp">&lt;?php</span>
 <span class="c1">// Run on console:
 // php -f .\sample\transaction-api\CreateTxToSpendMultisigFundsWithBuilderEndpoint.php
@@ -6830,6 +7498,27 @@ As with creating <a href="#creating-transactions">normal Transactions</a>, alway
 <span class="o">&gt;&gt;&gt;</span> <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s">'https://api.blockcypher.com/v1/bcy/test/txs/micro'</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
 </code></pre>
+<pre class="highlight go"><code><span class="k">package</span><span class="x"> </span><span class="n">main</span><span class="x">
+
+</span><span class="k">import</span><span class="x"> </span><span class="p">(</span><span class="x">
+    </span><span class="s">"fmt"</span><span class="x">
+
+    </span><span class="s">"github.com/blockcypher/gobcy"</span><span class="x">
+</span><span class="p">)</span><span class="x">
+
+</span><span class="k">func</span><span class="x"> </span><span class="n">main</span><span class="p">()</span><span class="x"> </span><span class="p">{</span><span class="x">
+    </span><span class="c">//note the change to BlockCypher Testnet</span><span class="x">
+    </span><span class="n">bcy</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">gobcy</span><span class="o">.</span><span class="n">API</span><span class="p">{</span><span class="s">"YOURTOKEN"</span><span class="p">,</span><span class="x"> </span><span class="s">"bcy"</span><span class="p">,</span><span class="x"> </span><span class="s">"test"</span><span class="p">}</span><span class="x">
+    </span><span class="n">micro</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">bcy</span><span class="o">.</span><span class="n">SendMicro</span><span class="p">(</span><span class="n">gobcy</span><span class="o">.</span><span class="n">MicroTX</span><span class="p">{</span><span class="n">Priv</span><span class="o">:</span><span class="x"> </span><span class="s">"5e4e8495f90a7d2e7091ec60a6586fdfb57b3108823ecfd955732aab1e3c18d7"</span><span class="p">,</span><span class="x"> </span><span class="n">ToAddr</span><span class="o">:</span><span class="x"> </span><span class="s">"CBXcmktjHSwqtHsC8cgRPYT7Mpq9VT7ASp"</span><span class="p">,</span><span class="x"> </span><span class="n">Value</span><span class="o">:</span><span class="x"> </span><span class="m">200000</span><span class="p">})</span><span class="x">
+    </span><span class="k">if</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="no">nil</span><span class="x"> </span><span class="p">{</span><span class="x">
+        </span><span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="n">err</span><span class="p">)</span><span class="x">
+    </span><span class="p">}</span><span class="x">
+    </span><span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">"%+v</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="x"> </span><span class="n">micro</span><span class="p">)</span><span class="x">
+</span><span class="p">}</span><span class="x">
+
+</span><span class="c">//Result from `go run`:</span><span class="x">
+</span><span class="c">//{Pubkey: Priv:5e4e8495f90a7d2e7091ec60a6586fdfb57b3108823ecfd955732aab1e3c18d7 Wif: ToAddr:CBXcmktjHSwqtHsC8cgRPYT7Mpq9VT7ASp Value:200000 ChangeAddr: Wait:false ToSign:[] Signatures:[] Hash:f3ef51a0d595e5c42a7599335adbb88c03b2fc104376c942dd2201139fe968f7 Inputs:[] Outputs:[] Fees:0}</span><span class="x">
+</span></code></pre>
 <pre class="highlight php"><code><span class="cp">&lt;?php</span>
 <span class="c1">// Run on console:
 // php -f .\sample\microtransaction-api\CreateMicroTXFromPrivateDocsSample.php
@@ -6956,6 +7645,33 @@ curl -d <span class="s1">'{ ..., "signatures": ["30450221009050c3c966d1f895b6d6f
    <span class="p">{</span><span class="s2">"address"</span><span class="o">=&gt;</span><span class="s2">"CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"</span><span class="p">,</span> <span class="s2">"value"</span><span class="o">=&gt;</span><span class="mi">3716000</span><span class="p">}],</span>
  <span class="s2">"fees"</span><span class="o">=&gt;</span><span class="mi">735</span><span class="p">}</span>
 </code></pre>
+<pre class="highlight go"><code><span class="k">package</span><span class="x"> </span><span class="n">main</span><span class="x">
+
+</span><span class="k">import</span><span class="x"> </span><span class="p">(</span><span class="x">
+    </span><span class="s">"fmt"</span><span class="x">
+
+    </span><span class="s">"github.com/blockcypher/gobcy"</span><span class="x">
+</span><span class="p">)</span><span class="x">
+
+</span><span class="k">func</span><span class="x"> </span><span class="n">main</span><span class="p">()</span><span class="x"> </span><span class="p">{</span><span class="x">
+    </span><span class="c">//note the change to BlockCypher Testnet</span><span class="x">
+    </span><span class="n">bcy</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">gobcy</span><span class="o">.</span><span class="n">API</span><span class="p">{</span><span class="s">"YOURTOKEN"</span><span class="p">,</span><span class="x"> </span><span class="s">"bcy"</span><span class="p">,</span><span class="x"> </span><span class="s">"test"</span><span class="p">}</span><span class="x">
+    </span><span class="n">keychain</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">gobcy</span><span class="o">.</span><span class="n">AddrKeychain</span><span class="p">{</span><span class="n">Private</span><span class="o">:</span><span class="x"> </span><span class="s">"5e4e8495f90a7d2e7091ec60a6586fdfb57b3108823ecfd955732aab1e3c18d7"</span><span class="p">,</span><span class="x"> </span><span class="n">Public</span><span class="o">:</span><span class="x"> </span><span class="s">"03daabc0502d41f52358690a65a7001a2a22df432706cce52a3c98da2c47229a51"</span><span class="p">,</span><span class="x"> </span><span class="n">Address</span><span class="o">:</span><span class="x"> </span><span class="s">"CBXcmktjHSwqtHsC8cgRPYT7Mpq9VT7ASp"</span><span class="p">}</span><span class="x">
+    </span><span class="c">//Send MicroTX with Public Key instead of Private Key</span><span class="x">
+    </span><span class="n">micro</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">bcy</span><span class="o">.</span><span class="n">SendMicro</span><span class="p">(</span><span class="n">gobcy</span><span class="o">.</span><span class="n">MicroTX</span><span class="p">{</span><span class="n">Pubkey</span><span class="o">:</span><span class="x"> </span><span class="n">keychain</span><span class="o">.</span><span class="n">Public</span><span class="p">,</span><span class="x"> </span><span class="n">ToAddr</span><span class="o">:</span><span class="x"> </span><span class="s">"C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn"</span><span class="p">,</span><span class="x"> </span><span class="n">Value</span><span class="o">:</span><span class="x"> </span><span class="m">300000</span><span class="p">})</span><span class="x">
+    </span><span class="c">//Sign result locally with associated Private Key</span><span class="x">
+    </span><span class="n">err</span><span class="x"> </span><span class="o">=</span><span class="x"> </span><span class="n">micro</span><span class="o">.</span><span class="n">Sign</span><span class="p">(</span><span class="n">keychain</span><span class="o">.</span><span class="n">Private</span><span class="p">)</span><span class="x">
+    </span><span class="c">//Send signed MicroTX</span><span class="x">
+    </span><span class="n">micro</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">=</span><span class="x"> </span><span class="n">bcy</span><span class="o">.</span><span class="n">SendMicro</span><span class="p">(</span><span class="n">micro</span><span class="p">)</span><span class="x">
+    </span><span class="k">if</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="no">nil</span><span class="x"> </span><span class="p">{</span><span class="x">
+        </span><span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="n">err</span><span class="p">)</span><span class="x">
+    </span><span class="p">}</span><span class="x">
+    </span><span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">"%+v</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="x"> </span><span class="n">micro</span><span class="p">)</span><span class="x">
+</span><span class="p">}</span><span class="x">
+
+</span><span class="c">//Result from `go run`:</span><span class="x">
+</span><span class="c">//{Pubkey:03daabc0502d41f52358690a65a7001a2a22df432706cce52a3c98da2c47229a51 Priv: Wif: ToAddr:C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn Value:300000 ChangeAddr: Wait:false ToSign:[] Signatures:[] Hash:934dfdaae9269ed7cf33f2484b3b3e8a7e5c1be12b9ea010e4bf95a2d11e59c7 Inputs:[{PrevHash:f3ef51a0d595e5c42a7599335adbb88c03b2fc104376c942dd2201139fe968f7 OutputIndex:0} {PrevHash:f3ef51a0d595e5c42a7599335adbb88c03b2fc104376c942dd2201139fe968f7 OutputIndex:2} {PrevHash:3332e1b220d0584f54a3cc8f8d1c6eafe2767b4f0f017379e8ca514ca4823c32 OutputIndex:1}] Outputs:[{Value:300000 Address:C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn} {Value:9958400 Address:BxeGtkPZM6qUsfkZ4pzaq4TF1RHNoqdZHT} {Value:700000 Address:CBXcmktjHSwqtHsC8cgRPYT7Mpq9VT7ASp}] Fees:3400}</span><span class="x">
+</span></code></pre>
 <pre class="highlight php"><code><span class="cp">&lt;?php</span>
 <span class="c1">// Run on console:
 // php -f .\sample\microtransaction-api\CreateMicroTXFromPubkeyDocsSample.php
@@ -7065,6 +7781,27 @@ While we stand by our work behind our confidence research, please note that thes
  <span class="s">'receive_count'</span><span class="p">:</span> <span class="mi">666</span><span class="p">,</span>
  <span class="s">'txhash'</span><span class="p">:</span> <span class="s">'43fa951e1bea87c282f6725cf8bdc08bb48761396c3af8dd5a41a085ab62acc9'</span><span class="p">}</span>
 </code></pre>
+<pre class="highlight go"><code><span class="k">package</span><span class="x"> </span><span class="n">main</span><span class="x">
+
+</span><span class="k">import</span><span class="x"> </span><span class="p">(</span><span class="x">
+    </span><span class="s">"fmt"</span><span class="x">
+
+    </span><span class="s">"github.com/blockcypher/gobcy"</span><span class="x">
+</span><span class="p">)</span><span class="x">
+
+</span><span class="k">func</span><span class="x"> </span><span class="n">main</span><span class="p">()</span><span class="x"> </span><span class="p">{</span><span class="x">
+    </span><span class="n">btc</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">gobcy</span><span class="o">.</span><span class="n">API</span><span class="p">{</span><span class="s">"YOURTOKEN"</span><span class="p">,</span><span class="x"> </span><span class="s">"btc"</span><span class="p">,</span><span class="x"> </span><span class="s">"main"</span><span class="p">}</span><span class="x">
+    </span><span class="c">//querying a recent TX hash detected on BTC network</span><span class="x">
+    </span><span class="n">conf</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">btc</span><span class="o">.</span><span class="n">GetTXConf</span><span class="p">(</span><span class="s">"bb01beea75683be16b5d59dd3e084d167f41a6866b6880b3070eefff392fdd2a"</span><span class="p">)</span><span class="x">
+    </span><span class="k">if</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="no">nil</span><span class="x"> </span><span class="p">{</span><span class="x">
+        </span><span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="n">err</span><span class="p">)</span><span class="x">
+    </span><span class="p">}</span><span class="x">
+    </span><span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">"%+v</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="x"> </span><span class="n">conf</span><span class="p">)</span><span class="x">
+</span><span class="p">}</span><span class="x">
+
+</span><span class="c">//Result from `go run`:</span><span class="x">
+</span><span class="c">//{Age:21112 ReceiveCount:756 Confidence:0.9995223691726662 TXHash:bb01beea75683be16b5d59dd3e084d167f41a6866b6880b3070eefff392fdd2a}</span><span class="x">
+</span></code></pre>
 <pre class="highlight php"><code><span class="cp">&lt;?php</span>
 <span class="c1">// Run on console:
 // php -f .\sample\confidence-factor\TransactionConfidenceEndpoint.php
@@ -7369,6 +8106,26 @@ By default, all payments will be debited with a 10,000 satoshis mining fee. The 
  <span class="s">'id'</span><span class="p">:</span> <span class="s">'f35c80c2-3347-410d-b4ac-d049910289ec'</span><span class="p">,</span>
  <span class="s">'token'</span><span class="p">:</span> <span class="s">'YOUR_TOKEN'</span><span class="p">}</span>
 </code></pre>
+<pre class="highlight go"><code><span class="k">package</span><span class="x"> </span><span class="n">main</span><span class="x">
+
+</span><span class="k">import</span><span class="x"> </span><span class="p">(</span><span class="x">
+    </span><span class="s">"fmt"</span><span class="x">
+
+    </span><span class="s">"github.com/blockcypher/gobcy"</span><span class="x">
+</span><span class="p">)</span><span class="x">
+
+</span><span class="k">func</span><span class="x"> </span><span class="n">main</span><span class="p">()</span><span class="x"> </span><span class="p">{</span><span class="x">
+    </span><span class="n">btc</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">gobcy</span><span class="o">.</span><span class="n">API</span><span class="p">{</span><span class="s">"YOURTOKEN"</span><span class="p">,</span><span class="x"> </span><span class="s">"btc"</span><span class="p">,</span><span class="x"> </span><span class="s">"main"</span><span class="p">}</span><span class="x">
+    </span><span class="n">payfwd</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">btc</span><span class="o">.</span><span class="n">CreatePayFwd</span><span class="p">(</span><span class="n">gobcy</span><span class="o">.</span><span class="n">PayFwd</span><span class="p">{</span><span class="n">Destination</span><span class="o">:</span><span class="x"> </span><span class="s">"15qx9ug952GWGTNn7Uiv6vode4RcGrRemh"</span><span class="p">,</span><span class="x"> </span><span class="n">CallbackURL</span><span class="o">:</span><span class="x"> </span><span class="s">"https://my.domain.com/callbacks/payments"</span><span class="p">})</span><span class="x">
+    </span><span class="k">if</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="no">nil</span><span class="x"> </span><span class="p">{</span><span class="x">
+        </span><span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="n">err</span><span class="p">)</span><span class="x">
+    </span><span class="p">}</span><span class="x">
+    </span><span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">"%+v</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="x"> </span><span class="n">payfwd</span><span class="p">)</span><span class="x">
+</span><span class="p">}</span><span class="x">
+
+</span><span class="c">//Result from `go run`:</span><span class="x">
+</span><span class="c">//{ID:6fbe2b48-fe79-44a2-9cdc-8114bc4d5fcc Destination:15qx9ug952GWGTNn7Uiv6vode4RcGrRemh InputAddr:17Ri1Shdzo5G8kiUys1qoeM8w1PNj1eFAK ProcessAddr: ProcessPercent:0 ProcessValue:0 CallbackURL:https://my.domain.com/callbacks/payments EnableConfirm:false MiningFees:0 TXHistory:[]}</span><span class="x">
+</span></code></pre>
 <pre class="highlight php"><code><span class="cp">&lt;?php</span>
 <span class="c1">// Run on console:
 // php -f .\sample\payment-api\CreatePaymentEndpoint.php
@@ -7455,6 +8212,26 @@ If you decide to have a <b>callback_url</b>, you&rsquo;ll receive a payload at t
   <span class="s">'id'</span><span class="p">:</span> <span class="s">'f35c80c2-3347-410d-b4ac-d049910289ec'</span><span class="p">,</span>
   <span class="s">'token'</span><span class="p">:</span> <span class="s">'YOUR_TOKEN'</span><span class="p">}]</span>
 </code></pre>
+<pre class="highlight go"><code><span class="k">package</span><span class="x"> </span><span class="n">main</span><span class="x">
+
+</span><span class="k">import</span><span class="x"> </span><span class="p">(</span><span class="x">
+    </span><span class="s">"fmt"</span><span class="x">
+
+    </span><span class="s">"github.com/blockcypher/gobcy"</span><span class="x">
+</span><span class="p">)</span><span class="x">
+
+</span><span class="k">func</span><span class="x"> </span><span class="n">main</span><span class="p">()</span><span class="x"> </span><span class="p">{</span><span class="x">
+    </span><span class="n">btc</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">gobcy</span><span class="o">.</span><span class="n">API</span><span class="p">{</span><span class="s">"YOURTOKEN"</span><span class="p">,</span><span class="x"> </span><span class="s">"btc"</span><span class="p">,</span><span class="x"> </span><span class="s">"main"</span><span class="p">}</span><span class="x">
+    </span><span class="n">payfwds</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">btc</span><span class="o">.</span><span class="n">ListPayFwds</span><span class="p">()</span><span class="x">
+    </span><span class="k">if</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="no">nil</span><span class="x"> </span><span class="p">{</span><span class="x">
+        </span><span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="n">err</span><span class="p">)</span><span class="x">
+    </span><span class="p">}</span><span class="x">
+    </span><span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">"%+v</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="x"> </span><span class="n">payfwds</span><span class="p">)</span><span class="x">
+</span><span class="p">}</span><span class="x">
+
+</span><span class="c">//Result from `go run`:</span><span class="x">
+</span><span class="c">//[{ID:6fbe2b48-fe79-44a2-9cdc-8114bc4d5fcc Destination:15qx9ug952GWGTNn7Uiv6vode4RcGrRemh InputAddr:17Ri1Shdzo5G8kiUys1qoeM8w1PNj1eFAK ProcessAddr: ProcessPercent:0 ProcessValue:0 CallbackURL:https://my.domain.com/callbacks/payments EnableConfirm:false MiningFees:0 TXHistory:[]}]</span><span class="x">
+</span></code></pre>
 <pre class="highlight php"><code><span class="cp">&lt;?php</span>
 <span class="c1">// Run on console:
 // php -f .\sample\payment-api\ListPaymentsEndpoint.php
@@ -7512,6 +8289,27 @@ HTTP/1.1 204 No Content
 <span class="c"># will return nothing, but we can confirm that delete was succesful via http code</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="k">assert</span> <span class="n">r</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">204</span>
 </code></pre>
+<pre class="highlight go"><code><span class="k">package</span><span class="x"> </span><span class="n">main</span><span class="x">
+
+</span><span class="k">import</span><span class="x"> </span><span class="p">(</span><span class="x">
+    </span><span class="s">"fmt"</span><span class="x">
+
+    </span><span class="s">"github.com/blockcypher/gobcy"</span><span class="x">
+</span><span class="p">)</span><span class="x">
+
+</span><span class="k">func</span><span class="x"> </span><span class="n">main</span><span class="p">()</span><span class="x"> </span><span class="p">{</span><span class="x">
+    </span><span class="n">btc</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">gobcy</span><span class="o">.</span><span class="n">API</span><span class="p">{</span><span class="s">"YOURTOKEN"</span><span class="p">,</span><span class="x"> </span><span class="s">"btc"</span><span class="p">,</span><span class="x"> </span><span class="s">"main"</span><span class="p">}</span><span class="x">
+    </span><span class="n">err</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">btc</span><span class="o">.</span><span class="n">DeletePayFwd</span><span class="p">(</span><span class="s">"6fbe2b48-fe79-44a2-9cdc-8114bc4d5fcc "</span><span class="p">)</span><span class="x">
+    </span><span class="k">if</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="no">nil</span><span class="x"> </span><span class="p">{</span><span class="x">
+        </span><span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="n">err</span><span class="p">)</span><span class="x">
+    </span><span class="p">}</span><span class="x"> </span><span class="k">else</span><span class="x"> </span><span class="p">{</span><span class="x">
+        </span><span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="s">"PayFwd Deleted"</span><span class="p">)</span><span class="x">
+    </span><span class="p">}</span><span class="x">
+</span><span class="p">}</span><span class="x">
+
+</span><span class="c">//Result from `go run`:</span><span class="x">
+</span><span class="c">//PayFwd Deleted</span><span class="x">
+</span></code></pre>
 <pre class="highlight php"><code><span class="cp">&lt;?php</span>
 <span class="c1">// Run on console:
 // php -f .\sample\payment-api\DeletePaymentEndpoint.php
@@ -7702,6 +8500,26 @@ Testing WebHooks can be tricky; we recommend using <a href="http://requestb.in/"
  <span class="s">'event'</span><span class="p">:</span> <span class="s">'unconfirmed-tx'</span><span class="p">,</span>
  <span class="s">'callback_errors'</span><span class="p">:</span> <span class="mi">0</span><span class="p">}</span>
 </code></pre>
+<pre class="highlight go"><code><span class="k">package</span><span class="x"> </span><span class="n">main</span><span class="x">
+
+</span><span class="k">import</span><span class="x"> </span><span class="p">(</span><span class="x">
+    </span><span class="s">"fmt"</span><span class="x">
+
+    </span><span class="s">"github.com/blockcypher/gobcy"</span><span class="x">
+</span><span class="p">)</span><span class="x">
+
+</span><span class="k">func</span><span class="x"> </span><span class="n">main</span><span class="p">()</span><span class="x"> </span><span class="p">{</span><span class="x">
+    </span><span class="n">btc</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">gobcy</span><span class="o">.</span><span class="n">API</span><span class="p">{</span><span class="s">"YOURTOKEN"</span><span class="p">,</span><span class="x"> </span><span class="s">"btc"</span><span class="p">,</span><span class="x"> </span><span class="s">"main"</span><span class="p">}</span><span class="x">
+    </span><span class="n">hook</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">btc</span><span class="o">.</span><span class="n">CreateHook</span><span class="p">(</span><span class="n">gobcy</span><span class="o">.</span><span class="n">Hook</span><span class="p">{</span><span class="n">Event</span><span class="o">:</span><span class="x"> </span><span class="s">"tx-confirmation"</span><span class="p">,</span><span class="x"> </span><span class="n">Address</span><span class="o">:</span><span class="x"> </span><span class="s">"15qx9ug952GWGTNn7Uiv6vode4RcGrRemh"</span><span class="p">,</span><span class="x"> </span><span class="n">URL</span><span class="o">:</span><span class="x"> </span><span class="s">"https://my.domain.com/callbacks/payments"</span><span class="p">})</span><span class="x">
+    </span><span class="k">if</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="no">nil</span><span class="x"> </span><span class="p">{</span><span class="x">
+        </span><span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="n">err</span><span class="p">)</span><span class="x">
+    </span><span class="p">}</span><span class="x">
+    </span><span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">"%+v</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="x"> </span><span class="n">hook</span><span class="p">)</span><span class="x">
+</span><span class="p">}</span><span class="x">
+
+</span><span class="c">//Result from `go run`:</span><span class="x">
+</span><span class="c">//{ID:376fcc2a-28ac-4ba5-9a29-6449ee0b1d83 Event:tx-confirmation Hash: WalletName: Address:15qx9ug952GWGTNn7Uiv6vode4RcGrRemh Confirmations:6 Confidence:0 Script: URL:https://my.domain.com/callbacks/payments CallbackErrs:0}</span><span class="x">
+</span></code></pre>
 <pre class="highlight php"><code><span class="cp">&lt;?php</span>
 <span class="c1">// Run on console:
 // php -f .\sample\hook-api\CreateWebHookEndpoint.php
@@ -7793,6 +8611,26 @@ Testing WebHooks can be tricky; we recommend using <a href="http://requestb.in/"
   <span class="s">'event'</span><span class="p">:</span> <span class="s">'unconfirmed-tx'</span><span class="p">,</span>
   <span class="s">'callback_errors'</span><span class="p">:</span> <span class="mi">0</span><span class="p">}]</span>
 </code></pre>
+<pre class="highlight go"><code><span class="k">package</span><span class="x"> </span><span class="n">main</span><span class="x">
+
+</span><span class="k">import</span><span class="x"> </span><span class="p">(</span><span class="x">
+    </span><span class="s">"fmt"</span><span class="x">
+
+    </span><span class="s">"github.com/blockcypher/gobcy"</span><span class="x">
+</span><span class="p">)</span><span class="x">
+
+</span><span class="k">func</span><span class="x"> </span><span class="n">main</span><span class="p">()</span><span class="x"> </span><span class="p">{</span><span class="x">
+    </span><span class="n">btc</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">gobcy</span><span class="o">.</span><span class="n">API</span><span class="p">{</span><span class="s">"YOURTOKEN"</span><span class="p">,</span><span class="x"> </span><span class="s">"btc"</span><span class="p">,</span><span class="x"> </span><span class="s">"main"</span><span class="p">}</span><span class="x">
+    </span><span class="n">hooks</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">btc</span><span class="o">.</span><span class="n">ListHooks</span><span class="p">()</span><span class="x">
+    </span><span class="k">if</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="no">nil</span><span class="x"> </span><span class="p">{</span><span class="x">
+        </span><span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="n">err</span><span class="p">)</span><span class="x">
+    </span><span class="p">}</span><span class="x">
+    </span><span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">"%+v</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="x"> </span><span class="n">hooks</span><span class="p">)</span><span class="x">
+</span><span class="p">}</span><span class="x">
+
+</span><span class="c">//Result from `go run`:</span><span class="x">
+</span><span class="c">//[{ID:376fcc2a-28ac-4ba5-9a29-6449ee0b1d83 Event:tx-confirmation Hash: WalletName: Address:15qx9ug952GWGTNn7Uiv6vode4RcGrRemh Confirmations:6 Confidence:0 Script: URL:https://my.domain.com/callbacks/payments CallbackErrs:0}]</span><span class="x">
+</span></code></pre>
 <pre class="highlight php"><code><span class="cp">&lt;?php</span>
 <span class="c1">// Run on console:
 // php -f .\sample\hook-api\ListWebHooksEndpoint.php
@@ -7872,6 +8710,26 @@ Testing WebHooks can be tricky; we recommend using <a href="http://requestb.in/"
  <span class="s">'event'</span><span class="p">:</span> <span class="s">'unconfirmed-tx'</span><span class="p">,</span>
  <span class="s">'callback_errors'</span><span class="p">:</span> <span class="mi">0</span><span class="p">}</span>
 </code></pre>
+<pre class="highlight go"><code><span class="k">package</span><span class="x"> </span><span class="n">main</span><span class="x">
+
+</span><span class="k">import</span><span class="x"> </span><span class="p">(</span><span class="x">
+    </span><span class="s">"fmt"</span><span class="x">
+
+    </span><span class="s">"github.com/blockcypher/gobcy"</span><span class="x">
+</span><span class="p">)</span><span class="x">
+
+</span><span class="k">func</span><span class="x"> </span><span class="n">main</span><span class="p">()</span><span class="x"> </span><span class="p">{</span><span class="x">
+    </span><span class="n">btc</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">gobcy</span><span class="o">.</span><span class="n">API</span><span class="p">{</span><span class="s">"YOURTOKEN"</span><span class="p">,</span><span class="x"> </span><span class="s">"btc"</span><span class="p">,</span><span class="x"> </span><span class="s">"main"</span><span class="p">}</span><span class="x">
+    </span><span class="n">hook</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">btc</span><span class="o">.</span><span class="n">GetHook</span><span class="p">(</span><span class="s">"376fcc2a-28ac-4ba5-9a29-6449ee0b1d83"</span><span class="p">)</span><span class="x">
+    </span><span class="k">if</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="no">nil</span><span class="x"> </span><span class="p">{</span><span class="x">
+        </span><span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="n">err</span><span class="p">)</span><span class="x">
+    </span><span class="p">}</span><span class="x">
+    </span><span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">"%+v</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="x"> </span><span class="n">hook</span><span class="p">)</span><span class="x">
+</span><span class="p">}</span><span class="x">
+
+</span><span class="c">//Result from `go run`:</span><span class="x">
+</span><span class="c">//{ID:376fcc2a-28ac-4ba5-9a29-6449ee0b1d83 Event:tx-confirmation Hash: WalletName: Address:15qx9ug952GWGTNn7Uiv6vode4RcGrRemh Confirmations:6 Confidence:0 Script: URL:https://my.domain.com/callbacks/payments CallbackErrs:0}</span><span class="x">
+</span></code></pre>
 <pre class="highlight php"><code><span class="cp">&lt;?php</span>
 <span class="c1">// Run on console:
 // php -f .\sample\hook-api\WebHookIdEndpoint.php
@@ -7930,6 +8788,27 @@ HTTP/1.1 204 OK
 <span class="c"># Will return nothing, but we can confirm the status code to be sure</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="k">assert</span> <span class="n">r</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">204</span>
 </code></pre>
+<pre class="highlight go"><code><span class="k">package</span><span class="x"> </span><span class="n">main</span><span class="x">
+
+</span><span class="k">import</span><span class="x"> </span><span class="p">(</span><span class="x">
+    </span><span class="s">"fmt"</span><span class="x">
+
+    </span><span class="s">"github.com/blockcypher/gobcy"</span><span class="x">
+</span><span class="p">)</span><span class="x">
+
+</span><span class="k">func</span><span class="x"> </span><span class="n">main</span><span class="p">()</span><span class="x"> </span><span class="p">{</span><span class="x">
+    </span><span class="n">btc</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">gobcy</span><span class="o">.</span><span class="n">API</span><span class="p">{</span><span class="s">"YOURTOKEN"</span><span class="p">,</span><span class="x"> </span><span class="s">"btc"</span><span class="p">,</span><span class="x"> </span><span class="s">"main"</span><span class="p">}</span><span class="x">
+    </span><span class="n">err</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">btc</span><span class="o">.</span><span class="n">DeleteHook</span><span class="p">(</span><span class="s">"376fcc2a-28ac-4ba5-9a29-6449ee0b1d83"</span><span class="p">)</span><span class="x">
+    </span><span class="k">if</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="no">nil</span><span class="x"> </span><span class="p">{</span><span class="x">
+        </span><span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="n">err</span><span class="p">)</span><span class="x">
+    </span><span class="p">}</span><span class="x"> </span><span class="k">else</span><span class="x"> </span><span class="p">{</span><span class="x">
+        </span><span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="s">"Hook deleted"</span><span class="p">)</span><span class="x">
+    </span><span class="p">}</span><span class="x">
+</span><span class="p">}</span><span class="x">
+
+</span><span class="c">//Result from `go run`:</span><span class="x">
+</span><span class="c">//Hook deleted</span><span class="x">
+</span></code></pre>
 <pre class="highlight php"><code><span class="cp">&lt;?php</span>
 <span class="c1">// Run on console:
 // php -f .\sample\hook-api\DeleteWebHookEndpoint.php
@@ -7969,6 +8848,7 @@ HTTP/1.1 204 OK
                 <a href="#" data-language-name="javascript">JavaScript</a>
                 <a href="#" data-language-name="ruby">Ruby</a>
                 <a href="#" data-language-name="python">Python</a>
+                <a href="#" data-language-name="go">Go</a>
                 <a href="#" data-language-name="php">PHP</a>
           </div>
       </div>
