@@ -58,6 +58,29 @@ curl https://api.blockcypher.com/v1/btc/main/txs/43fa951e1bea87c282f6725cf8bdc08
  'txhash': '43fa951e1bea87c282f6725cf8bdc08bb48761396c3af8dd5a41a085ab62acc9'}
 ```
 
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/blockcypher/gobcy"
+)
+
+func main() {
+	btc := gobcy.API{"YOURTOKEN", "btc", "main"}
+	//querying a recent TX hash detected on BTC network
+	conf, err := btc.GetTXConf("bb01beea75683be16b5d59dd3e084d167f41a6866b6880b3070eefff392fdd2a")
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Printf("%+v\n", conf)
+}
+
+//Result from `go run`:
+//{Age:21112 ReceiveCount:756 Confidence:0.9995223691726662 TXHash:bb01beea75683be16b5d59dd3e084d167f41a6866b6880b3070eefff392fdd2a}
+```
+
 ```php
 <?php
 // Run on console:

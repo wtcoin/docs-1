@@ -247,8 +247,11 @@ func main() {
 	//note the change to BlockCypher Testnet
 	bcy := gobcy.API{"YOURTOKEN", "bcy", "test"}
 	keychain := gobcy.AddrKeychain{Private: "5e4e8495f90a7d2e7091ec60a6586fdfb57b3108823ecfd955732aab1e3c18d7", Public: "03daabc0502d41f52358690a65a7001a2a22df432706cce52a3c98da2c47229a51", Address: "CBXcmktjHSwqtHsC8cgRPYT7Mpq9VT7ASp"}
+	//Send MicroTX with Public Key instead of Private Key
 	micro, err := bcy.SendMicro(gobcy.MicroTX{Pubkey: keychain.Public, ToAddr: "C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn", Value: 300000})
+	//Sign result locally with associated Private Key
 	err = micro.Sign(keychain.Private)
+	//Send signed MicroTX
 	micro, err = bcy.SendMicro(micro)
 	if err != nil {
 		fmt.Println(err)
