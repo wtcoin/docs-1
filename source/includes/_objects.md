@@ -456,7 +456,7 @@ Attribute | Type | Description
 ## Address
 
 ```shell
-curl http://api.blockcypher.com/v1/btc/main/addrs/1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD
+curl https://api.blockcypher.com/v1/btc/main/addrs/1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD
 
 {
 "address": "1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD",
@@ -501,7 +501,7 @@ Attribute | Type | Description
 ## AddressKeychain
 
 ```shell
-curl -X POST http://api.blockcypher.com/v1/btc/test3/addrs
+curl -X POST https://api.blockcypher.com/v1/btc/test3/addrs
 
 {
 "private": "86751cb880a9a1addcc3b67979976158dd800afe9d14b68349921299b20c94dd",
@@ -581,7 +581,7 @@ Attribute | Type | Description
 ## HDChain
 
 ```shell
-curl http://api.blockcypher.com/v1/btc/main/wallet/hd/bob/addresses?token=YOURTOKEN
+curl https://api.blockcypher.com/v1/btc/main/wallet/hd/bob/addresses?token=YOURTOKEN
 
 {"chains": [
 	{"chain_addresses": [
@@ -653,7 +653,7 @@ Attribute | Type | Description
 ## PaymentForward
 
 ```shell
-curl -d '{"destination":"15qx9ug952GWGTNn7Uiv6vode4RcGrRemh","callback_url": "https://my.domain.com/callbacks/new-pay","process_fees_address": "1LWw6FdzNUcX8bnekMMZ7eofcGF7SXmbrL", "process_fees_percent": 0.1,"token":"YOURTOKEN"}' http://api.blockcypher.com/v1/btc/main/payments
+curl -d '{"destination":"15qx9ug952GWGTNn7Uiv6vode4RcGrRemh","callback_url": "https://my.domain.com/callbacks/new-pay","process_fees_address": "1LWw6FdzNUcX8bnekMMZ7eofcGF7SXmbrL", "process_fees_percent": 0.1,"token":"YOURTOKEN"}' https://api.blockcypher.com/v1/btc/main/payments
 
 {
 "input_address": "16uKw7GsQSzfMaVTcT7tpFQkd7Rh9qcXWX",

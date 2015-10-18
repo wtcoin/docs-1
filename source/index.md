@@ -754,7 +754,7 @@ The maximum number of elements that can be batched in a single call is 100.
 
 When cURLing BlockCypher, batching also works when the identifiers aren't the last part of the URL; e.g., this URL will return the balances of three separate addresses:
 
-`http://api.blockcypher.com/v1/btc/main/addrs/1J38WorKngZLJvA7qMin9g5jqUfTQUBZNE;1JP8FqoXtCMrR1sZc2McLWmHxENox1Y1PV;1ENn7XmqXNnReiQEFHhBGzfiv5gAyBj7r1/balance`
+`https://api.blockcypher.com/v1/btc/main/addrs/1J38WorKngZLJvA7qMin9g5jqUfTQUBZNE;1JP8FqoXtCMrR1sZc2McLWmHxENox1Y1PV;1ENn7XmqXNnReiQEFHhBGzfiv5gAyBj7r1/balance`
 
 <aside class="warning">
 Since the default, non-registered <a href="#rate-limits-and-tokens">rate limit</a> per second is 5, larger batches require an API token. To use larger batches <a href="https://accounts.blockcypher.com/">please register.</a>
@@ -779,7 +779,7 @@ As mentioned above, Bitcoin Testnet3 is frequently under attack, sometimes from 
 
 ```shell
 # Make new address; returns private key/public key/address
-curl -X POST http://api.blockcypher.com/v1/bcy/test/addrs?token=$YOURTOKEN
+curl -X POST https://api.blockcypher.com/v1/bcy/test/addrs?token=$YOURTOKEN
 
 {
 "private": "26415016a2fb49f51aef161cb35bd537be07b75a6ac1e297d3b7a370cc85433b",
@@ -788,7 +788,7 @@ curl -X POST http://api.blockcypher.com/v1/bcy/test/addrs?token=$YOURTOKEN
 }
 
 # Fund prior address with faucet
-curl -d '{"address": "CFqoZmZ3ePwK5wnkhxJjJAQKJ82C7RJdmd", "amount": 100000}' http://api.blockcypher.com/v1/bcy/test/faucet?token=$YOURTOKEN
+curl -d '{"address": "CFqoZmZ3ePwK5wnkhxJjJAQKJ82C7RJdmd", "amount": 100000}' https://api.blockcypher.com/v1/bcy/test/faucet?token=$YOURTOKEN
 {
 "tx_ref": "02dbf5585d438a1cba82a9041dd815635a6b0df684225cb5271e11397a759479"
 }
@@ -796,7 +796,7 @@ curl -d '{"address": "CFqoZmZ3ePwK5wnkhxJjJAQKJ82C7RJdmd", "amount": 100000}' ht
 
 ```javascript
 // Make new address; returns private key/public key/address
-$.post('http://api.blockcypher.com/v1/bcy/test/addrs?token=$YOUR_TOKEN')
+$.post('https://api.blockcypher.com/v1/bcy/test/addrs?token=$YOUR_TOKEN')
   .then(function(d) {console.log(d)});
 > {
 > "private": "26415016a2fb49f51aef161cb35bd537be07b75a6ac1e297d3b7a370cc85433b",
@@ -806,7 +806,7 @@ $.post('http://api.blockcypher.com/v1/bcy/test/addrs?token=$YOUR_TOKEN')
 
 // Fund prior address with faucet
 var req = JSON.stringify({"address": "CFqoZmZ3ePwK5wnkhxJjJAQKJ82C7RJdmd", "amount": 100000})
-$.post('http://api.blockcypher.com/v1/bcy/test/faucet?token=$YOUR_TOKEN', req)
+$.post('https://api.blockcypher.com/v1/bcy/test/faucet?token=$YOUR_TOKEN', req)
   .then(function(d) {console.log(d)});
 > {
 >   "tx_ref": "02dbf5585d438a1cba82a9041dd815635a6b0df684225cb5271e11397a759479"
@@ -835,7 +835,7 @@ $.post('http://api.blockcypher.com/v1/bcy/test/faucet?token=$YOUR_TOKEN', req)
 >>> import requests, json
 >>> data = {'address': 'CFqoZmZ3ePwK5wnkhxJjJAQKJ82C7RJdmd', 'amount': 100000}
 >>> params = {'token': 'YOUR_TOKEN'}
->>> r = requests.post('http://api.blockcypher.com/v1/bcy/test/faucet', data=json.dumps(data), params=params)
+>>> r = requests.post('https://api.blockcypher.com/v1/bcy/test/faucet', data=json.dumps(data), params=params)
 >>> r.json()
 {'tx_ref': 'b2ecfb5e40f3923b07819f1a386a538e86cc6ce59ae7a59533df487f622d1cbb'}
 ```

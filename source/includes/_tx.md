@@ -313,7 +313,7 @@ The returned object contains detailed information about the transaction, includi
 ## Unconfirmed Transactions Endpoint
 
 ```shell
-curl http://api.blockcypher.com/v1/btc/main/txs
+curl https://api.blockcypher.com/v1/btc/main/txs
 
 [
 	{
@@ -413,7 +413,7 @@ $.get('https://api.blockcypher.com/v1/btc/main/txs').then(function(d) {console.l
 
 ```python
 >>> import requests
->>> r = requests.get('http://api.blockcypher.com/v1/btc/main/txs')
+>>> r = requests.get('https://api.blockcypher.com/v1/btc/main/txs')
 >>> r.json()
 [{'received': '2015-06-10T23:10:31.534Z',
   'ver': 1,

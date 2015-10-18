@@ -18,7 +18,7 @@ By default, all payments will be debited with a 10,000 satoshis mining fee. The 
 ## Create Payment Endpoint
 
 ```shell
-curl -d '{"destination":"15qx9ug952GWGTNn7Uiv6vode4RcGrRemh","callback_url": "https://my.domain.com/callbacks/new-pay"}' http://api.blockcypher.com/v1/btc/main/payments?token=YOURTOKEN
+curl -d '{"destination":"15qx9ug952GWGTNn7Uiv6vode4RcGrRemh","callback_url": "https://my.domain.com/callbacks/new-pay"}' https://api.blockcypher.com/v1/btc/main/payments?token=YOURTOKEN
 
 {
 "input_address": "16uKw7GsQSzfMaVTcT7tpFQkd7Rh9qcXWX",
@@ -59,7 +59,7 @@ $.post(url, JSON.stringify(payment))
 >>> import requests, json
 >>> data = {"destination":"15qx9ug952GWGTNn7Uiv6vode4RcGrRemh","callback_url": "https://my.domain.com/callbacks/new-pay"}
 >>> params = {'token': 'YOUR_TOKEN'}
->>> r = requests.post('http://api.blockcypher.com/v1/btc/main/payments', data=json.dumps(data), params=params)
+>>> r = requests.post('https://api.blockcypher.com/v1/btc/main/payments', data=json.dumps(data), params=params)
 >>> r.json()
 {'destination': '15qx9ug952GWGTNn7Uiv6vode4RcGrRemh',
  'callback_url': 'https://my.domain.com/callbacks/new-pay',
@@ -126,7 +126,7 @@ If you decide to have a <b>callback_url</b>, you'll receive a payload at that ur
 ## List Payments Endpoint
 
 ```shell
-curl http://api.blockcypher.com/v1/btc/main/payments?token=YOURTOKEN
+curl https://api.blockcypher.com/v1/btc/main/payments?token=YOURTOKEN
 
 [
 	{
@@ -140,7 +140,7 @@ curl http://api.blockcypher.com/v1/btc/main/payments?token=YOURTOKEN
 ```
 
 ```javascript
-$.get('http://api.blockcypher.com/v1/btc/main/payments?token='+TOKEN)
+$.get('https://api.blockcypher.com/v1/btc/main/payments?token='+TOKEN)
   .then(function(d) {console.log(d)});
 [
 	{
@@ -165,7 +165,7 @@ $.get('http://api.blockcypher.com/v1/btc/main/payments?token='+TOKEN)
 ```python
 >>> import requests
 >>> params = {'token': 'YOUR_TOKEN'}
->>> r = requests.post('http://api.blockcypher.com/v1/btc/main/payments', params=params)
+>>> r = requests.post('https://api.blockcypher.com/v1/btc/main/payments', params=params)
 >>> r.json()
 [{'destination': '15qx9ug952GWGTNn7Uiv6vode4RcGrRemh',
   'callback_url': 'https://my.domain.com/callbacks/payments',
@@ -227,7 +227,7 @@ You'll get a full array of your currently active payment forwarding addresses, b
 
 ```shell
 # Piping to grep to just show status code
-curl -X DELETE -Is http://api.blockcypher.com/v1/btc/main/payments/399d0923-e920-48ee-8928-2051cbfbc369?token=YOURTOKEN | grep "HTTP/1.1"
+curl -X DELETE -Is https://api.blockcypher.com/v1/btc/main/payments/399d0923-e920-48ee-8928-2051cbfbc369?token=YOURTOKEN | grep "HTTP/1.1"
 
 HTTP/1.1 204 No Content
 ```
@@ -248,7 +248,7 @@ $.ajax({
 ```python
 >>> import requests
 >>> params = {'token': 'YOUR_TOKEN'}
->>> r = requests.delete('http://api.blockcypher.com/v1/btc/main/payments/f35c80c2-3347-410d-b4ac-d049910289ec', params=params)
+>>> r = requests.delete('https://api.blockcypher.com/v1/btc/main/payments/f35c80c2-3347-410d-b4ac-d049910289ec', params=params)
 # will return nothing, but we can confirm that delete was succesful via http code
 >>> assert r.status_code == 204
 ```

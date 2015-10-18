@@ -11,7 +11,7 @@ If you're new to blockchains, you can think of public addresses as similar to ba
 ## Address Balance Endpoint
 
 ```shell
-curl http://api.blockcypher.com/v1/btc/main/addrs/1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD/balance
+curl https://api.blockcypher.com/v1/btc/main/addrs/1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD/balance
 
 {
 "address": "1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD",
@@ -62,7 +62,7 @@ $.get('https://api.blockcypher.com/v1/btc/main/addrs/1DEP8i3QJCsomS4BSMY2RpU1upv
 
 ```python
 >>> import requests
->>> r = requests.get('http://api.blockcypher.com/v1/btc/main/addrs/1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD/balance')
+>>> r = requests.get('https://api.blockcypher.com/v1/btc/main/addrs/1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD/balance')
 >>> r.json()
 {'n_tx': 7,
  'total_received': 4433416,
@@ -137,7 +137,7 @@ The returned object contains information about the address, including its balanc
 ## Address Endpoint
 
 ```shell
-curl http://api.blockcypher.com/v1/btc/main/addrs/1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD
+curl https://api.blockcypher.com/v1/btc/main/addrs/1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD
 
 {
 "address": "1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD",
@@ -262,7 +262,7 @@ $.get('https://api.blockcypher.com/v1/btc/main/addrs/1DEP8i3QJCsomS4BSMY2RpU1upv
 
 ```python
 >>> import requests
->>> r = requests.get('http://api.blockcypher.com/v1/btc/main/addrs/1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD')
+>>> r = requests.get('https://api.blockcypher.com/v1/btc/main/addrs/1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD')
 >>> r.json()
 {'txrefs': [{'spent': False,
    'value': 20213,
@@ -369,7 +369,7 @@ The returned object contains information about the address, including its balanc
 ## Address Full Endpoint
 
 ```shell
-curl http://api.blockcypher.com/v1/btc/main/addrs/1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD/full?before=300000
+curl https://api.blockcypher.com/v1/btc/main/addrs/1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD/full?before=300000
 
 {
 "address": "1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD",
@@ -573,7 +573,7 @@ $.get('https://api.blockcypher.com/v1/btc/main/addrs/1DEP8i3QJCsomS4BSMY2RpU1upv
 ```python
 >>> import requests, json
 >>> data = {'before': 300000}
->>> r = requests.get('http://api.blockcypher.com/v1/btc/main/addrs/1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD/full', data=json.dumps(data))
+>>> r = requests.get('https://api.blockcypher.com/v1/btc/main/addrs/1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD/full', data=json.dumps(data))
 >>> r.json()
 {'txs': [{'size': 438,
    'double_spend': False,
@@ -748,7 +748,7 @@ If your returned <a href="#address">Address</a> object includes the <b>hasMore</
 ## Generate Address Endpoint
 
 ```shell
-curl -X POST http://api.blockcypher.com/v1/btc/test3/addrs
+curl -X POST https://api.blockcypher.com/v1/btc/test3/addrs
 
 {
 "private": "81ee75559d37cbe4b7cbbfb9931ab1ba32172c5cdfc3ac2d020259b4c1104198",
