@@ -139,6 +139,11 @@ $ pip install blockcypher
     "doge", 
     "bcy",  # blockcypher's testnet
 ]
+
+# Here's how to determine which version of the blockcypher SDK you're running:
+>>> import pkg_resources
+>>> pkg_resources.get_distribution("blockcypher")
+blockcypher 1.0.39 (/usr/local/lib/python2.7/site-packages)
 ```
 
 ```go

@@ -2222,6 +2222,28 @@ curl -d '{"data":"I am the walrus", "encoding":"string"}' https://api.blockcyphe
 }
 ```
 
+```python
+# Embedding (Hash) Data
+>>> from blockcypher import embed_data
+>>> embed_data(to_embed='6cbe5d6c75bc36879b5fd32e29b325e288599d31edc76327c7889d407985e2aa', api_key='YOUR_TOKEN')
+{
+  "data": "6cbe5d6c75bc36879b5fd32e29b325e288599d31edc76327c7889d407985e2aa",
+  "encoding": "hex",
+  "token": "YOUR_TOKEN",
+  "hash": "87d494918559a14ea6238ba0e25fb07bffb08716f4a55e25f32ea95a148c85d1"
+}
+
+# Embedding String Data
+>>> from blockcypher import embed_data
+>>> embed_data(to_embed='I am the walrus', api_key='YOUR_TOKEN', data_is_hex=False)
+{
+  "data": "I am the walrus",
+  "encoding": "string",
+  "token": "YOUR_TOKEN",
+  "hash": "cb6974e0fd57c91b70403e85ef48c840eecdca4804dfc4897b1321d5328e4f18"
+}
+```
+
 ```php
 <?php
 // Run on console:
