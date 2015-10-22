@@ -115,8 +115,35 @@ gem install blockcypher-ruby
 ```
 
 ```python
-To see detailed python code snippets, check the official python repository:
-https://github.com/blockcypher/blockcypher-python
+# The official python library (https://github.com/blockcypher/blockcypher-python) works with python2/3
+# Install it like this at the command line:
+$ pip install blockcypher
+
+# To access any method, first import the blockcypher module:
+>>> import blockcypher
+
+# Then call the method:
+>>> blockcypher.foo()
+
+# In your codebase, you should probably do it like this though:
+>>> from blockcypher import foo
+>>> foo()
+
+# By default, all methods return results for BTC, but blockcyphers support many coins.
+# You can pass coin_sybmol='foo' as an argument to any method, where foo is one of the following:
+>>> blockcypher.constants.COIN_SYMBOL_LIST
+[
+    "btc", 
+    "btc-testnet", 
+    "ltc", 
+    "doge", 
+    "bcy",  # blockcypher's testnet
+]
+
+# Here's how to determine which version of the blockcypher SDK you're running:
+>>> import pkg_resources
+>>> pkg_resources.get_distribution("blockcypher")
+blockcypher 1.0.39 (/usr/local/lib/python2.7/site-packages)
 ```
 
 ```go
@@ -316,23 +343,24 @@ $.get('https://api.blockcypher.com/v1/btc/main').then(function(d) {console.log(d
 ```
 
 ```python
->>> import requests
->>> r = requests.get('https://api.blockcypher.com/v1/btc/main')
->>> r.json()
-{'high_fee_per_kb': 48419,
- 'latest_url': 'https://api.blockcypher.com/v1/btc/main/blocks/00000000000000000783cf9ef8177b407976990117d03762efe7d3fdfe44d6a3',
- 'previous_hash': '0000000000000000097689df71fb60cbbade7cddcaa35b6f4c9cb97b08a7a155',
- 'last_fork_height': 359865,
- 'time': '2015-06-08T20:02:59.668542728Z',
- 'unconfirmed_count': 602,
- 'peer_count': 250,
- 'height': 360042,
- 'previous_url': 'https://api.blockcypher.com/v1/btc/main/blocks/0000000000000000097689df71fb60cbbade7cddcaa35b6f4c9cb97b08a7a155',
- 'medium_fee_per_kb': 29283,
- 'hash': '00000000000000000783cf9ef8177b407976990117d03762efe7d3fdfe44d6a3',
- 'name': 'BTC.main',
- 'low_fee_per_kb': 12047,
- 'last_fork_hash': '00000000000000000aa6462fd9faf94712ce1b5a944dc666f491101c996beab9'}
+>>> from blockcypher import get_blockchain_overview
+>>> get_blockchain_overview()
+{
+    "hash": "000000000000000006c488791bafc490efb365ad609ed39e6ee51d1afbc8ed83", 
+    "height": 379780, 
+    "high_fee_per_kb": 57607, 
+    "last_fork_hash": "00000000000000000aef777b65b5d32301c914e7d9f2c4cf1f7366e1eb217124", 
+    "last_fork_height": 280959, 
+    "latest_url": "https://api.blockcypher.com/v1/btc/main/blocks/000000000000000006c488791bafc490efb365ad609ed39e6ee51d1afbc8ed83", 
+    "low_fee_per_kb": 24554, 
+    "medium_fee_per_kb": 28847, 
+    "name": "BTC.main", 
+    "peer_count": 817, 
+    "previous_hash": "0000000000000000026727709d704d20de7d756427a10a86cd0b084066632e55", 
+    "previous_url": "https://api.blockcypher.com/v1/btc/main/blocks/0000000000000000026727709d704d20de7d756427a10a86cd0b084066632e55", 
+    "time": "datetime.datetime(2015, 10, 20, 19, 35, 50, 174235, tzinfo=tzutc())", 
+    "unconfirmed_count": 100231
+}
 ```
 
 ```go
@@ -445,11 +473,20 @@ $.get('https://api.blockcypher.com/v1/btc/main?token='+TOKEN);
 ```
 
 ```python
-# Adding your token as URL parameter
->>> import requests
->>> params = {'token': 'YOUR_TOKEN'}
->>> r = requests.get('https://api.blockcypher.com/v1/btc/main', params=params)
->>> r.json()
+>>> from blockcypher import get_token_info
+>>> get_token_info('YOUR_TOKEN')
+{
+    "hits": {
+        "api/hour": 16366, 
+        "hooks/hour": 266
+    }, 
+    "limits": {
+        "api/hour": 500000, 
+        "api/second": 200, 
+        "hooks/hour": 30000
+    }, 
+    "token": "YOUR_TOKEN"
+}
 ```
 
 ```go
@@ -609,65 +646,78 @@ $.get('https://api.blockcypher.com/v1/btc/main/blocks/5;6;7')
 ```
 
 ```python
+# Where possible, the python library will batch requests for speed
+>>> from blockcypher import get_blocks_overview
 # Batching blocks 5, 6, and 7
->>> import requests
->>> r = requests.get('https://api.blockcypher.com/v1/btc/main/blocks/5;6;7')
->>> r.json()
-[{'bits': 486604799,
-  'n_tx': 1,
-  'txids': ['8aa673bc752f2851fd645d6a0a92917e967083007d9c1684f9423b100540673f'],
-  'fees': 0,
-  'total': 0,
-  'mrkl_root': '8aa673bc752f2851fd645d6a0a92917e967083007d9c1684f9423b100540673f',
-  'time': '2009-01-09T03:39:29Z',
-  'prev_block_url': 'https://api.blockcypher.com/v1/btc/main/blocks/000000003031a0e73735690c5a1ff2a4be82553b2a12b776fbd3a215dc8f778d',
-  'depth': 360035,
-  'hash': '0000000071966c2b1d065fd446b1e485b2c9d9594acd2007ccbd5441cfc89444',
-  'height': 7,
-  'tx_url': 'https://api.blockcypher.com/v1/btc/main/txs/',
-  'prev_block': '000000003031a0e73735690c5a1ff2a4be82553b2a12b776fbd3a215dc8f778d',
-  'ver': 1,
-  'chain': 'BTC.main',
-  'nonce': 2258412857,
-  'received_time': '2009-01-09T03:39:29Z'},
- {'bits': 486604799,
-  'n_tx': 1,
-  'txids': ['20251a76e64e920e58291a30d4b212939aae976baca40e70818ceaa596fb9d37'],
-  'fees': 0,
-  'total': 0,
-  'mrkl_root': '20251a76e64e920e58291a30d4b212939aae976baca40e70818ceaa596fb9d37',
-  'time': '2009-01-09T03:29:49Z',
-  'prev_block_url': 'https://api.blockcypher.com/v1/btc/main/blocks/000000009b7262315dbf071787ad3656097b892abffd1f95a1a022f896f533fc',
-  'depth': 360036,
-  'hash': '000000003031a0e73735690c5a1ff2a4be82553b2a12b776fbd3a215dc8f778d',
-  'height': 6,
-  'tx_url': 'https://api.blockcypher.com/v1/btc/main/txs/',
-  'prev_block': '000000009b7262315dbf071787ad3656097b892abffd1f95a1a022f896f533fc',
-  'ver': 1,
-  'chain': 'BTC.main',
-  'nonce': 2538380312,
-  'received_time': '2009-01-09T03:29:49Z'},
- {'bits': 486604799,
-  'n_tx': 1,
-  'txids': ['63522845d294ee9b0188ae5cac91bf389a0c3723f084ca1025e7d9cdfe481ce1'],
-  'fees': 0,
-  'total': 0,
-  'mrkl_root': '63522845d294ee9b0188ae5cac91bf389a0c3723f084ca1025e7d9cdfe481ce1',
-  'time': '2009-01-09T03:23:48Z',
-  'prev_block_url': 'https://api.blockcypher.com/v1/btc/main/blocks/000000004ebadb55ee9096c9a2f8880e09da59c0d68b1c228da88e48844a1485',
-  'depth': 360037,
-  'hash': '000000009b7262315dbf071787ad3656097b892abffd1f95a1a022f896f533fc',
-  'height': 5,
-  'tx_url': 'https://api.blockcypher.com/v1/btc/main/txs/',
-  'prev_block': '000000004ebadb55ee9096c9a2f8880e09da59c0d68b1c228da88e48844a1485',
-  'ver': 1,
-  'chain': 'BTC.main',
-  'nonce': 2011431709,
-  'received_time': '2009-01-09T03:23:48Z'}]
-
-# Note, when constructing the URL programatically you can use more pythonic syntax:
-base_url = 'https://api.blockcypher.com/v1/btc/main/blocks/'
-full_url = base_url + ';'.join([5,6,7])
+>>> get_blocks_overview([5,6,7])
+[
+    {
+        "bits": 486604799, 
+        "chain": "BTC.main", 
+        "depth": 379775, 
+        "fees": 0, 
+        "hash": "000000003031a0e73735690c5a1ff2a4be82553b2a12b776fbd3a215dc8f778d", 
+        "height": 6, 
+        "mrkl_root": "20251a76e64e920e58291a30d4b212939aae976baca40e70818ceaa596fb9d37", 
+        "n_tx": 1, 
+        "nonce": 2538380312, 
+        "prev_block": "000000009b7262315dbf071787ad3656097b892abffd1f95a1a022f896f533fc", 
+        "prev_block_url": "https://api.blockcypher.com/v1/btc/main/blocks/000000009b7262315dbf071787ad3656097b892abffd1f95a1a022f896f533fc", 
+        "received_time": "datetime.datetime(2009, 1, 9, 3, 29, 49, 0, tzinfo=tzutc())", 
+        "relayed_by": "", 
+        "time": "datetime.datetime(2009, 1, 9, 3, 29, 49, 0, tzinfo=tzutc())", 
+        "total": 0, 
+        "tx_url": "https://api.blockcypher.com/v1/btc/main/txs/", 
+        "txids": [
+            "20251a76e64e920e58291a30d4b212939aae976baca40e70818ceaa596fb9d37"
+        ], 
+        "ver": 1
+    }, 
+    {
+        "bits": 486604799, 
+        "chain": "BTC.main", 
+        "depth": 379774, 
+        "fees": 0, 
+        "hash": "0000000071966c2b1d065fd446b1e485b2c9d9594acd2007ccbd5441cfc89444", 
+        "height": 7, 
+        "mrkl_root": "8aa673bc752f2851fd645d6a0a92917e967083007d9c1684f9423b100540673f", 
+        "n_tx": 1, 
+        "nonce": 2258412857, 
+        "prev_block": "000000003031a0e73735690c5a1ff2a4be82553b2a12b776fbd3a215dc8f778d", 
+        "prev_block_url": "https://api.blockcypher.com/v1/btc/main/blocks/000000003031a0e73735690c5a1ff2a4be82553b2a12b776fbd3a215dc8f778d", 
+        "received_time": "datetime.datetime(2009, 1, 9, 3, 39, 29, 0, tzinfo=tzutc())", 
+        "relayed_by": "", 
+        "time": "datetime.datetime(2009, 1, 9, 3, 39, 29, 0, tzinfo=tzutc())", 
+        "total": 0, 
+        "tx_url": "https://api.blockcypher.com/v1/btc/main/txs/", 
+        "txids": [
+            "8aa673bc752f2851fd645d6a0a92917e967083007d9c1684f9423b100540673f"
+        ], 
+        "ver": 1
+    }, 
+    {
+        "bits": 486604799, 
+        "chain": "BTC.main", 
+        "depth": 379776, 
+        "fees": 0, 
+        "hash": "000000009b7262315dbf071787ad3656097b892abffd1f95a1a022f896f533fc", 
+        "height": 5, 
+        "mrkl_root": "63522845d294ee9b0188ae5cac91bf389a0c3723f084ca1025e7d9cdfe481ce1", 
+        "n_tx": 1, 
+        "nonce": 2011431709, 
+        "prev_block": "000000004ebadb55ee9096c9a2f8880e09da59c0d68b1c228da88e48844a1485", 
+        "prev_block_url": "https://api.blockcypher.com/v1/btc/main/blocks/000000004ebadb55ee9096c9a2f8880e09da59c0d68b1c228da88e48844a1485", 
+        "received_time": "datetime.datetime(2009, 1, 9, 3, 23, 48, 0, tzinfo=tzutc())", 
+        "relayed_by": "", 
+        "time": "datetime.datetime(2009, 1, 9, 3, 23, 48, 0, tzinfo=tzutc())", 
+        "total": 0, 
+        "tx_url": "https://api.blockcypher.com/v1/btc/main/txs/", 
+        "txids": [
+            "63522845d294ee9b0188ae5cac91bf389a0c3723f084ca1025e7d9cdfe481ce1"
+        ], 
+        "ver": 1
+    }
+]
 ```
 
 ```go
@@ -832,12 +882,12 @@ $.post('https://api.blockcypher.com/v1/bcy/test/faucet?token=$YOUR_TOKEN', req)
 
 ```python
 # Fund existing address with faucet
->>> import requests, json
->>> data = {'address': 'CFqoZmZ3ePwK5wnkhxJjJAQKJ82C7RJdmd', 'amount': 100000}
->>> params = {'token': 'YOUR_TOKEN'}
->>> r = requests.post('https://api.blockcypher.com/v1/bcy/test/faucet', data=json.dumps(data), params=params)
->>> r.json()
-{'tx_ref': 'b2ecfb5e40f3923b07819f1a386a538e86cc6ce59ae7a59533df487f622d1cbb'}
+>>> from blockcypher import send_faucet_coins
+# bcy is the coin_symbol for the blockcypher (not bitcoin) testnet
+>>> send_faucet_coins(address_to_fund='CFqoZmZ3ePwK5wnkhxJjJAQKJ82C7RJdmd', satoshis=10000, api_key='YOUR_TOKEN', coin_symbol='bcy')
+{
+    "tx_ref": "5d59f2ff777594fdfd964cd5ee4853e80cc3dc097a2ce67a55c16e643a99dddb"
+}
 ```
 
 ```go

@@ -61,18 +61,19 @@ $.get('https://api.blockcypher.com/v1/btc/main/addrs/1DEP8i3QJCsomS4BSMY2RpU1upv
 ```
 
 ```python
->>> import requests
->>> r = requests.get('https://api.blockcypher.com/v1/btc/main/addrs/1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD/balance')
->>> r.json()
-{'n_tx': 7,
- 'total_received': 4433416,
- 'final_n_tx': 7,
- 'total_sent': 0,
- 'balance': 4433416,
- 'final_balance': 4433416,
- 'unconfirmed_balance': 0,
- 'address': '1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD',
- 'unconfirmed_n_tx': 0}
+>>> from blockcypher import get_address_overview
+>>> get_address_overview('1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD')
+{
+    "address": "1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD", 
+    "balance": 4433416, 
+    "final_balance": 4433416, 
+    "final_n_tx": 7, 
+    "n_tx": 7, 
+    "total_received": 4433416, 
+    "total_sent": 0, 
+    "unconfirmed_balance": 0, 
+    "unconfirmed_n_tx": 0
+}
 ```
 
 ```go
@@ -261,29 +262,50 @@ $.get('https://api.blockcypher.com/v1/btc/main/addrs/1DEP8i3QJCsomS4BSMY2RpU1upv
 ```
 
 ```python
->>> import requests
->>> r = requests.get('https://api.blockcypher.com/v1/btc/main/addrs/1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD')
->>> r.json()
-{'txrefs': [{'spent': False,
-   'value': 20213,
-   'block_height': 302013,
-   'tx_output_n': 0,
-   'double_spend': False,
-   'tx_input_n': -1,
-   'tx_hash': '14b1052855bbf6561bc4db8aa501762e7cc1e86994dda9e782a6b73b1ce0dc1e',
-   'confirmed': '2014-05-22T03:46:25Z',
-   'confirmations': 58033},
-   ..., ],
- 'n_tx': 7,
- 'total_received': 4433416,
- 'final_n_tx': 7,
- 'total_sent': 0,
- 'balance': 4433416,
- 'final_balance': 4433416,
- 'tx_url': 'https://api.blockcypher.com/v1/btc/main/txs/',
- 'unconfirmed_balance': 0,
- 'address': '1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD',
- 'unconfirmed_n_tx': 0}
+>>> from blockcypher import get_address_details
+>>> get_address_details('1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD')
+{
+    "address": "1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD", 
+    "balance": 4433416, 
+    "final_balance": 4433416, 
+    "final_n_tx": 7, 
+    "n_tx": 7, 
+    "total_received": 4433416, 
+    "total_sent": 0, 
+    "tx_url": "https://api.blockcypher.com/v1/btc/main/txs/", 
+    "txrefs": [
+        {
+            "block_height": 302013, 
+            "confirmations": 77809, 
+            "confirmed": "datetime.datetime(2014, 5, 22, 3, 46, 25, 0, tzinfo=tzutc())", 
+            "double_spend": False, 
+            "ref_balance": 4433416, 
+            "spent": False, 
+            "tx_hash": "14b1052855bbf6561bc4db8aa501762e7cc1e86994dda9e782a6b73b1ce0dc1e", 
+            "tx_input_n": -1, 
+            "tx_output_n": 0, 
+            "value": 20213
+        }, 
+        {
+            "block_height": 302002, 
+            "confirmations": 77820, 
+            "confirmed": "datetime.datetime(2014, 5, 22, 2, 56, 8, 0, tzinfo=tzutc())", 
+            "double_spend": False, 
+            "ref_balance": 4413203, 
+            "spent": False, 
+            "tx_hash": "4cff011ec53022f2ae47197d1a2fd4a6ac2a80139f4d0131c1fed625ed5dc869", 
+            "tx_input_n": -1, 
+            "tx_output_n": 0, 
+            "value": 40596
+        }, 
+        ...
+
+    ], 
+    "unconfirmed_balance": 0, 
+    "unconfirmed_n_tx": 0, 
+    "unconfirmed_txrefs": []
+}
+
 ```
 
 ```go
@@ -571,54 +593,73 @@ $.get('https://api.blockcypher.com/v1/btc/main/addrs/1DEP8i3QJCsomS4BSMY2RpU1upv
 ```
 
 ```python
->>> import requests, json
->>> data = {'before': 300000}
->>> r = requests.get('https://api.blockcypher.com/v1/btc/main/addrs/1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD/full', data=json.dumps(data))
->>> r.json()
-{'txs': [{'size': 438,
-   'double_spend': False,
-   'total': 3537488,
-   'preference': 'medium',
-   'confidence': 1,
-   'fees': 20000,
-   'block_hash': '0000000000000000af64802c79f9b22e9091eb5548b4b662d5e444e61885923b',
-   'vin_sz': 2,
-   'ver': 1,
-   'relayed_by': '',
-   'block_height': 292586,
-   'lock_time': 0,
-   'vout_sz': 2,
-   'hash': 'b4735a0690dab16b8789fceaf81c511f3be484e319f684cc214380eaa2851030',
-   'addresses': ['18KXZzuC3xvz6upUMQpsZzXrBwNPWZjdSa',
-    '1AAuRETEcHDqL4VM3R97aZHP8DSUHxpkFV',
-    '1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD',
-    '1VxsEDjo6ZLMT99dpcLu4RQonMDVEQQTG'],
-   'inputs': [{'script_type': 'pay-to-pubkey-hash',
-     'prev_hash': '729f6469b59fea5da77457f3291e2623c2516e3e8e7afc782687c6d59f4c5e41',
-     'script': '483045022100d06cdad1a54081e8499a4117f9f52d7fbc83c679dda7e3c22c08e964915b7354022010a2d6af1601d28d33a456dab2bccf3fbde35b2f3a9db82f72d675c90d015571014104672a00c8ee6fa23d68094dd98188ea1491848498554a10e13194851b614168b225b28b7f5a1c6ba98b5463438ef030c48b60533031ff2de84104e549d8d06ea9',
-     'addresses': ['1VxsEDjo6ZLMT99dpcLu4RQonMDVEQQTG'],
-     'sequence': 4294967295,
-     'output_value': 3500000,
-     'output_index': 0},
-     ...],
-   'confirmations': 67460,
-   'received': '2014-03-26T17:08:04Z',
-   'confirmed': '2014-03-26T17:08:04Z',
-   'outputs': [{'addresses': ['1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD'],
-     'value': 3500000,
-     'script': '76a9148629647bd642a2372d846a7660e210c8414f047c88ac',
-     'script_type': 'pay-to-pubkey-hash'},
-     ...]},
-   ...,],
- 'n_tx': 7,
- 'total_received': 4433416,
- 'final_n_tx': 7,
- 'total_sent': 0,
- 'balance': 4433416,
- 'final_balance': 4433416,
- 'unconfirmed_balance': 0,
- 'address': '1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD',
- 'unconfirmed_n_tx': 0}
+>>> from blockcypher import get_address_full
+>>> get_address_full(address='1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD', before_bh=300000)
+{
+    "address": "1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD", 
+    "balance": 4433416, 
+    "final_balance": 4433416, 
+    "final_n_tx": 7, 
+    "n_tx": 7, 
+    "total_received": 4433416, 
+    "total_sent": 0, 
+    "txs": [
+        {
+            "addresses": [
+                "18KXZzuC3xvz6upUMQpsZzXrBwNPWZjdSa", 
+                "1AAuRETEcHDqL4VM3R97aZHP8DSUHxpkFV", 
+                "1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD", 
+                "1VxsEDjo6ZLMT99dpcLu4RQonMDVEQQTG"
+            ], 
+            "block_hash": "0000000000000000af64802c79f9b22e9091eb5548b4b662d5e444e61885923b", 
+            "block_height": 292586, 
+            "confidence": 1, 
+            "confirmations": 87238, 
+            "confirmed": "datetime.datetime(2014, 3, 26, 17, 8, 4, 0, tzinfo=tzutc())", 
+            "double_spend": False, 
+            "fees": 20000, 
+            "hash": "b4735a0690dab16b8789fceaf81c511f3be484e319f684cc214380eaa2851030", 
+            "inputs": [
+                {
+                    "addresses": [
+                        "1VxsEDjo6ZLMT99dpcLu4RQonMDVEQQTG"
+                    ], 
+                    "output_index": 0, 
+                    "output_value": 3500000, 
+                    "prev_hash": "729f6469b59fea5da77457f3291e2623c2516e3e8e7afc782687c6d59f4c5e41", 
+                    "script": "483045022100d06cdad1a54081e8499a4117f9f52d7fbc83c679dda7e3c22c08e964915b7354022010a2d6af1601d28d33a456dab2bccf3fbde35b2f3a9db82f72d675c90d015571014104672a00c8ee6fa23d68094dd98188ea1491848498554a10e13194851b614168b225b28b7f5a1c6ba98b5463438ef030c48b60533031ff2de84104e549d8d06ea9", 
+                    "script_type": "pay-to-pubkey-hash", 
+                    "sequence": 4294967295
+                }, 
+                ...,
+
+            ], 
+            "lock_time": 0, 
+            "outputs": [
+                {
+                    "addresses": [
+                        "1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD"
+                    ], 
+                    "script": "76a9148629647bd642a2372d846a7660e210c8414f047c88ac", 
+                    "script_type": "pay-to-pubkey-hash", 
+                    "value": 3500000
+                }, 
+                ...,
+            ], 
+            "preference": "medium", 
+            "received": "datetime.datetime(2014, 3, 26, 17, 8, 4, 0, tzinfo=tzutc())", 
+            "relayed_by": "", 
+            "size": 438, 
+            "total": 3537488, 
+            "ver": 1, 
+            "vin_sz": 2, 
+            "vout_sz": 2
+        }, 
+        ...,
+    ], 
+    "unconfirmed_balance": 0, 
+    "unconfirmed_n_tx": 0
+}
 ```
 
 ```go
@@ -778,7 +819,7 @@ $.post('https://api.blockcypher.com/v1/btc/test3/addrs')
 ```
 
 ```python
-# Please use the python library at https://github.com/blockcypher/blockcypher-python to securely generate an address client-side
+# Please use a python library such as https://github.com/sbuss/bitmerchant to securely generate an address client-side
 ```
 
 ```go
@@ -893,18 +934,21 @@ $.post('https://api.blockcypher.com/v1/btc/test3/addrs', data)
 ```
 
 ```python
->>> import requests, json
->>> data = {'pubkeys': ['02c716d071a76cbf0d29c29cacfec76e0ef8116b37389fb7a3e76d6d32cf59f4d3', '033ef4d5165637d99b673bcdbb7ead359cee6afd7aaf78d3da9d2392ee4102c8ea', '022b8934cc41e76cb4286b9f3ed57e2d27798395b04dd23711981a77dc216df8ca'], 'script_type': 'multisig-2-of-3'}
->>> r = requests.post('https://api.blockcypher.com/v1/btc/main/addrs', data=json.dumps(data))
->>> r.json()
-{'public': '',
- 'private': '',
- 'script_type': 'multisig-2-of-3',
- 'pubkeys': ['02c716d071a76cbf0d29c29cacfec76e0ef8116b37389fb7a3e76d6d32cf59f4d3',
-  '033ef4d5165637d99b673bcdbb7ead359cee6afd7aaf78d3da9d2392ee4102c8ea',
-  '022b8934cc41e76cb4286b9f3ed57e2d27798395b04dd23711981a77dc216df8ca'],
- 'address': '3BF1M1PnTge94QewuWh3B8mRVw8U4SVnb4',
- 'wif': ''}
+>>> from blockcypher import generate_multisig_address
+>>> pubkey_list = ['02c716d071a76cbf0d29c29cacfec76e0ef8116b37389fb7a3e76d6d32cf59f4d3', '033ef4d5165637d99b673bcdbb7ead359cee6afd7aaf78d3da9d2392ee4102c8ea', '022b8934cc41e76cb4286b9f3ed57e2d27798395b04dd23711981a77dc216df8ca']
+>>> generate_multisig_address(pubkey_list=pubkey_list, script_type='multisig-2-of-3')
+{
+    "address": "3BF1M1PnTge94QewuWh3B8mRVw8U4SVnb4", 
+    "private": "", 
+    "pubkeys": [
+        "02c716d071a76cbf0d29c29cacfec76e0ef8116b37389fb7a3e76d6d32cf59f4d3", 
+        "033ef4d5165637d99b673bcdbb7ead359cee6afd7aaf78d3da9d2392ee4102c8ea", 
+        "022b8934cc41e76cb4286b9f3ed57e2d27798395b04dd23711981a77dc216df8ca"
+    ], 
+    "public": "", 
+    "script_type": "multisig-2-of-3", 
+    "wif": ""
+}
 ```
 
 ```go

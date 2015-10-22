@@ -132,18 +132,11 @@ $.post(url, JSON.stringify(webhook))
 ```
 
 ```python
->>> import requests, json
->>> data = {'event': 'unconfirmed-tx', 'address': '15qx9ug952GWGTNn7Uiv6vode4RcGrRemh', 'url': 'https://my.domain.com/callbacks/new-tx'}
->>> params = {'token': 'YOUR_TOKEN'}
->>> r = requests.post('https://api.blockcypher.com/v1/btc/main/hooks', data=json.dumps(data), params=params)
->>> r.json()
-{'filter': 'addr=15qx9ug952GWGTNn7Uiv6vode4RcGrRemh&event=unconfirmed-tx',
- 'id': '50d1fb13-2bd4-47d0-8e1b-0695e0322581',
- 'token': 'YOUR_TOKEN',
- 'address': '15qx9ug952GWGTNn7Uiv6vode4RcGrRemh',
- 'url': 'https://my.domain.com/callbacks/new-tx',
- 'event': 'unconfirmed-tx',
- 'callback_errors': 0}
+>>> from blockcypher import subscribe_to_address_webhook
+>>> subscribe_to_address_webhook(callback_url='https://my.domain.com/callbacks/new-tx', subscription_address='15qx9ug952GWGTNn7Uiv6vode4RcGrRemh', event='unconfirmed-tx', api_key='YOUR_TOKEN')
+'bcaf7c39-9a7f-4e8b-8ba4-23b3c1806039'
+
+# returns the webhook ID
 ```
 
 ```go
@@ -244,17 +237,20 @@ $.get('https://api.blockcypher.com/v1/btc/main/hooks?token='+TOKEN)
 ```
 
 ```python
->>> import requests
->>> params = {'token': 'YOUR_TOKEN'}
->>> r = requests.get('https://api.blockcypher.com/v1/btc/main/hooks', params=params)
->>> r.json()
-[{'filter': 'addr=15qx9ug952GWGTNn7Uiv6vode4RcGrRemh&event=unconfirmed-tx',
-  'id': '50d1fb13-2bd4-47d0-8e1b-0695e0322581',
-  'token': 'YOUR_TOKEN',
-  'address': '15qx9ug952GWGTNn7Uiv6vode4RcGrRemh',
-  'url': 'https://my.domain.com/callbacks/new-tx',
-  'event': 'unconfirmed-tx',
-  'callback_errors': 0}]
+>>> from blockcypher import list_webhooks
+>>> list_webhooks('YOUR_TOKEN')
+[
+    {
+        "address": "15qx9ug952GWGTNn7Uiv6vode4RcGrRemh", 
+        "callback_errors": 0, 
+        "confirmations": 6, 
+        "event": "unconfirmed-tx", 
+        "filter": "event=unconfirmed-tx&addr=15qx9ug952GWGTNn7Uiv6vode4RcGrRemh", 
+        "id": "bcaf7c39-9a7f-4e8b-8ba4-23b3c1806039", 
+        "token": "YOUR_TOKEN", 
+        "url": "https://my.domain.com/callbacks/new-tx"
+    }, 
+]
 ```
 
 ```go
@@ -346,16 +342,17 @@ $.get('https://api.blockcypher.com/v1/btc/main/hooks/399d0923-e920-48ee-8928-205
 ```
 
 ```python
->>> import requests
->>> r = requests.get('https://api.blockcypher.com/v1/btc/main/hooks/50d1fb13-2bd4-47d0-8e1b-0695e0322581')
->>> r.json()
-{'filter': 'addr=15qx9ug952GWGTNn7Uiv6vode4RcGrRemh&event=unconfirmed-tx',
- 'id': '50d1fb13-2bd4-47d0-8e1b-0695e0322581',
- 'token': 'YOUR_TOKEN',
- 'address': '15qx9ug952GWGTNn7Uiv6vode4RcGrRemh',
- 'url': 'https://my.domain.com/callbacks/new-tx',
- 'event': 'unconfirmed-tx',
- 'callback_errors': 0}
+>>> from blockcypher import get_webhook_info
+>>> get_webhook_info('bcaf7c39-9a7f-4e8b-8ba4-23b3c1806039')
+{
+    "address": "15qx9ug952GWGTNn7Uiv6vode4RcGrRemh", 
+    "callback_errors": 0, 
+    "event": "unconfirmed-tx", 
+    "filter": "addr=15qx9ug952GWGTNn7Uiv6vode4RcGrRemh&event=unconfirmed-tx", 
+    "id": "bcaf7c39-9a7f-4e8b-8ba4-23b3c1806039", 
+    "token": "YOUR_TOKEN", 
+    "url": "https://my.domain.com/callbacks/new-tx"
+}
 ```
 
 ```go
@@ -431,11 +428,9 @@ $.ajax({
 ```
 
 ```python
->>> import requests
->>> params = {'token': 'YOUR_TOKEN'}
->>> r = requests.delete('https://api.blockcypher.com/v1/btc/main/hooks/50d1fb13-2bd4-47d0-8e1b-0695e0322581', params=params)
-# Will return nothing, but we can confirm the status code to be sure
->>> assert r.status_code == 204
+>>> from blockcypher import unsubscribe_from_webhook
+>>> unsubscribe_from_webhook('bcaf7c39-9a7f-4e8b-8ba4-23b3c1806039')
+True
 ```
 
 ```go

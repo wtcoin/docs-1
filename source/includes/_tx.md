@@ -166,45 +166,60 @@ $.get('https://api.blockcypher.com/v1/btc/main/txs/f854aebae95150b379cc1187d848d
 ```
 
 ```python
->>> import requests
->>> r = requests.get('https://api.blockcypher.com/v1/btc/main/txs/f854aebae95150b379cc1187d848d58225f3c4157fe992bcd166f58bd5063449')
->>> r.json()
-{'confirmed': '2014-03-29T01:29:19Z',
- 'ver': 1,
- 'double_spend': False,
- 'outputs': [{'value': 70320221545,
-   'addresses': ['1N2f642sbgCMbNtXFajz9XDACDFnFzdXzV'],
-   'script_type': 'pay-to-pubkey-hash',
-   'script': '76a914e6aad9d712c419ea8febf009a3f3bfdd8d222fac88ac',
-   'spent_by': '35832d6c70b98b54e9a53ab2d51176eb19ad11bc4505d6bb1ea6c51a68cb92ee'}],
- 'block_height': 293000,
- 'confidence': 1,
- 'total': 70320221545,
- 'block_hash': '0000000000000000c504bdea36e531d8089d324f2d936c86e3274f97f8a44328',
- 'fees': 0,
- 'inputs': [{'output_value': 16450000,
-   'sequence': 4294967295,
-   'prev_hash': '583910b7bf90ab802e22e5c25a89b59862b20c8c1aeb24dfb94e7a508a70f121',
-   'script': '4830450220504b1ccfddf508422bdd8b0fcda2b1483e87aee1b486c0130bc29226bbce3b4e022100b5befcfcf0d3bf6ebf0ac2f93badb19e3042c7bed456c398e743b885e782466c012103b1feb40b99e8ff18469484a50e8b52cc478d5f4f773a341fbd920a4ceaedd4bf',
-   'addresses': ['1GbMfYui17L5m6sAy3L3WXAtf1P32bxJXq'],
-   'output_index': 1,
-   'script_type': 'pay-to-pubkey-hash'},
-   ...
-],
- 'preference': 'low',
- 'vout_sz': 1,
- 'vin_sz': 4,
- 'relayed_by': '',
- 'received': '2014-03-29T01:29:19Z',
- 'hash': 'f854aebae95150b379cc1187d848d58225f3c4157fe992bcd166f58bd5063449',
- 'addresses': ['13XXaBufpMvqRqLkyDty1AXqueZHVe6iyy',
-  '19YtzZdcfs1V2ZCgyRWo8i2wLT8ND1Tu4L',
-  '1BNiazBzCxJacAKo2yL83Wq1VJ18AYzNHy',
-  '1GbMfYui17L5m6sAy3L3WXAtf1P32bxJXq',
-  '1N2f642sbgCMbNtXFajz9XDACDFnFzdXzV'],
- 'lock_time': 0,
- 'size': 636,
- 'confirmations': 67378}
+>>> from blockcypher import get_transaction_details
+>>> get_transaction_details('f854aebae95150b379cc1187d848d58225f3c4157fe992bcd166f58bd5063449')
+{
+    "addresses": [
+        "13XXaBufpMvqRqLkyDty1AXqueZHVe6iyy", 
+        "19YtzZdcfs1V2ZCgyRWo8i2wLT8ND1Tu4L", 
+        "1BNiazBzCxJacAKo2yL83Wq1VJ18AYzNHy", 
+        "1GbMfYui17L5m6sAy3L3WXAtf1P32bxJXq", 
+        "1N2f642sbgCMbNtXFajz9XDACDFnFzdXzV"
+    ], 
+    "block_hash": "0000000000000000c504bdea36e531d8089d324f2d936c86e3274f97f8a44328", 
+    "block_height": 293000, 
+    "confidence": 1, 
+    "confirmations": 86918, 
+    "confirmed": "datetime.datetime(2014, 3, 29, 1, 29, 19, 0, tzinfo=tzutc())", 
+    "double_spend": False, 
+    "fees": 0, 
+    "hash": "f854aebae95150b379cc1187d848d58225f3c4157fe992bcd166f58bd5063449", 
+    "inputs": [
+        {
+            "addresses": [
+                "1GbMfYui17L5m6sAy3L3WXAtf1P32bxJXq"
+            ], 
+            "output_index": 1, 
+            "output_value": 16450000, 
+            "prev_hash": "583910b7bf90ab802e22e5c25a89b59862b20c8c1aeb24dfb94e7a508a70f121", 
+            "script": "4830450220504b1ccfddf508422bdd8b0fcda2b1483e87aee1b486c0130bc29226bbce3b4e022100b5befcfcf0d3bf6ebf0ac2f93badb19e3042c7bed456c398e743b885e782466c012103b1feb40b99e8ff18469484a50e8b52cc478d5f4f773a341fbd920a4ceaedd4bf", 
+            "script_type": "pay-to-pubkey-hash", 
+            "sequence": 4294967295
+        }, 
+        ...,
+
+    ], 
+    "lock_time": 0, 
+    "outputs": [
+        {
+            "addresses": [
+                "1N2f642sbgCMbNtXFajz9XDACDFnFzdXzV"
+            ], 
+            "script": "76a914e6aad9d712c419ea8febf009a3f3bfdd8d222fac88ac", 
+            "script_type": "pay-to-pubkey-hash", 
+            "spent_by": "35832d6c70b98b54e9a53ab2d51176eb19ad11bc4505d6bb1ea6c51a68cb92ee", 
+            "value": 70320221545
+        }
+    ], 
+    "preference": "low", 
+    "received": "datetime.datetime(2014, 3, 29, 1, 29, 19, 0, tzinfo=tzutc())", 
+    "relayed_by": "", 
+    "size": 636, 
+    "total": 70320221545, 
+    "ver": 1, 
+    "vin_sz": 4, 
+    "vout_sz": 1
+}
 ```
 
 ```go
@@ -412,47 +427,58 @@ $.get('https://api.blockcypher.com/v1/btc/main/txs').then(function(d) {console.l
 ```
 
 ```python
->>> import requests
->>> r = requests.get('https://api.blockcypher.com/v1/btc/main/txs')
->>> r.json()
-[{'received': '2015-06-10T23:10:31.534Z',
-  'ver': 1,
-  'double_spend': False,
-  'outputs': [{'value': 131910000,
-    'addresses': ['1Gb4TAU4GD73akvt4V7tg2WdqadcpQSvhH'],
-    'script_type': 'pay-to-pubkey-hash',
-    'script': '76a914aafae908428a1778d0e76f0dca4cb800f731873e88ac'},
-    ...
-    ],
-  'block_height': -1,
-  'confidence': 0.36208077122201,
-  'receive_count': 109,
-  'total': 131940196,
-  'fees': 13754,
-  'inputs': [{'output_value': 9467,
-    'sequence': 4294967295,
-    'prev_hash': '3c65f3bdec16c55fcedec8159ca8b7decf12393e3a7088febbfacfd752534ee0',
-    'script': '47304402207510efc3ff2ed868478ef627c4fd53a27254874e61c1ff1be6fb5221844c08ac02204a8a50c35d3fac8ec0c15f468c98abb629cadf3ac898f7be5e6f464ba9e4fba00121035649100ba29d0b34df8a928c2ed7ab1389d017b4ed206f6df5c212a461a764f2',
-    'age': 38,
-    'addresses': ['1MBuZ5ZxhytsjRZmec5rLr1WhDWm9DgFUJ'],
-    'output_index': 1,
-    'script_type': 'pay-to-pubkey-hash'},
-    ...
-   ],
-  'preference': 'medium',
-  'vout_sz': 2,
-  'vin_sz': 3,
-  'relayed_by': '167.114.118.213:8333',
-  'hash': '97f551c7d200f3acf322160d6ada87830d2ad8d935909630a35a87d61bc8fa74',
-  'addresses': ['1DLDFKuAWGUJqZoYrevG8bHufuZCjCdSFZ',
-   '1Gb4TAU4GD73akvt4V7tg2WdqadcpQSvhH',
-   ...
-   ]
-  'lock_time': 0,
-  'size': 521,
-  'confirmations': 0},
- ...
-],
+>>> from blockcypher import get_broadcast_transactions
+>>> get_broadcast_transactions(limit=1)
+[
+    {
+        "addresses": [
+            "1CM6sSAT6jyGmkvx7zoEGs7cM8EvG39Cah", 
+            "1GKfznPeMp7Ey1MYfCS3CyrZZV2sRdBGWs"
+        ], 
+        "block_height": -1, 
+        "confidence": 0.8789263566526737, 
+        "confirmations": 0, 
+        "double_spend": False, 
+        "fees": 90000, 
+        "hash": "915b22630b74f6dd12ef723ab0e0f99931faa1c343d488118aa528542e99afb7", 
+        "inputs": [
+            {
+                "addresses": [
+                    "1CM6sSAT6jyGmkvx7zoEGs7cM8EvG39Cah"
+                ], 
+                "age": 6802, 
+                "output_index": 1, 
+                "output_value": 599559, 
+                "prev_hash": "825f6f06241ef6e3bb94c7c39126f79e0a9af725fd185f28ff7f0c4d4fb1144c", 
+                "script": "483045022100d549d7b6033081844b7b854055c76d87809ca9ba13ae5179310b3bcffaef2495022008f61a6b4f6a905ed84b05dfb9e21840d547cd409b8a4e713477444e79593792012103c95e6dd62dd842058568d31011d8a425b5209a6758ce45b210af095e78c158e2", 
+                "script_type": "pay-to-pubkey-hash", 
+                "sequence": 4294967295
+            }
+        ], 
+        "lock_time": 0, 
+        "next_inputs": "https://api.blockcypher.com/v1/btc/main/txs/915b22630b74f6dd12ef723ab0e0f99931faa1c343d488118aa528542e99afb7?instart=1&outstart=0&limit=1", 
+        "next_outputs": "https://api.blockcypher.com/v1/btc/main/txs/915b22630b74f6dd12ef723ab0e0f99931faa1c343d488118aa528542e99afb7?instart=0&outstart=1&limit=1", 
+        "outputs": [
+            {
+                "addresses": [
+                    "1GKfznPeMp7Ey1MYfCS3CyrZZV2sRdBGWs"
+                ], 
+                "script": "76a914a811ed2f211a447ba18eb4f7f849a86c201427f388ac", 
+                "script_type": "pay-to-pubkey-hash", 
+                "value": 1000000
+            }
+        ], 
+        "preference": "low", 
+        "receive_count": 569, 
+        "received": "datetime.datetime(2015, 10, 21, 19, 6, 25, 725000, tzinfo=tzutc())", 
+        "relayed_by": "95.211.104.246:8333", 
+        "size": 5837, 
+        "total": 1117192, 
+        "ver": 1, 
+        "vin_sz": 39, 
+        "vout_sz": 2
+    }
+]
 ```
 
 ```go
@@ -708,43 +734,69 @@ $.post('https://api.blockcypher.com/v1/bcy/test/txs/new', JSON.stringify(newtx))
 ```
 
 ```python
->>> import requests, json
->>> data = {'inputs': [{'addresses': ['CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9',]}], 'outputs': [{'addresses': ['C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn', ], 'value': 1000000}]}
->>> r = requests.post('https://api.blockcypher.com/v1/bcy/test/txs/new', data=json.dumps(data))
->>> r.json()
-{'tosign': ['d65bd083f968a2002e6d71044c0aaa601ec45dfdd6dc9168907141bda4f31fbd'],
- 'tx': {'received': '2015-06-10T23:16:15.28508806Z',
-  'ver': 1,
-  'double_spend': False,
-  'outputs': [{'value': 1000000,
-    'addresses': ['C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn'],
-    'script_type': 'pay-to-pubkey-hash',
-    'script': '76a9145fb1af31edd2aa5a2bbaa24f6043d6ec31f7e63288ac'},
-   {'value': 2856000,
-    'addresses': ['CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9'],
-    'script_type': 'pay-to-pubkey-hash',
-    'script': '76a914efec6de6c253e657a9d5506a78ee48d89762fb3188ac'}],
-  'block_height': -1,
-  'total': 3856000,
-  'fees': 12000,
-  'inputs': [{'output_value': 3868000,
-    'sequence': 4294967295,
-    'prev_hash': '6b1c30cad97df956cfcb47b4cd471bb69112fb726b0fb129575337e3fb9f2c1a',
-    'script': '',
-    'age': 294,
-    'addresses': ['CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9'],
-    'output_index': 2,
-    'script_type': ''}],
-  'preference': 'high',
-  'vout_sz': 2,
-  'vin_sz': 1,
-  'relayed_by': '207.38.134.25',
-  'hash': '4508ebb031af94173c58d3848683308ccb8d67c08952feb3d36406066c030bf5',
-  'addresses': ['CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9',
-   'C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn'],
-  'lock_time': 0,
-  'size': 119,
-  'confirmations': 0}}
+# Creating transactions manually is very complicated.
+# We recommend you look at blockcypher.simple_spend_tx() for a full working example.
+
+>>> from blockcypher import create_unsigned_tx
+>>> inputs = [{'address': 'CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9'}, ]
+>>> outputs = [{'address': 'C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn', 'value': 1000000}]
+>>> unsigned_tx = create_unsigned_tx(inputs=inputs, outputs=outputs, coin_symbol='bcy')
+>>> unsigned_tx
+{
+    "tosign": [
+        "c55602559d9306c0932da726ceda788bdca7f7b82d989f0c76c99161941f1198", 
+        "9b3fcf3d94fae6fe0cf4e8a82fa408c5e8c56ee1c03ae88962e3f03879f1ffdb", 
+        "eb2beed1f015ec88714e1e2335af3a0d8e535397ce52a430f649b4f465677ed0", 
+        ...,
+    ], 
+    "tx": {
+        "addresses": [
+            "CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9", 
+            "C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn"
+        ], 
+        "block_height": -1, 
+        "confidence": 0, 
+        "confirmations": 0, 
+        "double_spend": False, 
+        "fees": 142700, 
+        "hash": "afceb017a0d280a746ad5ed5c18228e302ebc2aa71ec768454b9a768f73c24c1", 
+        "inputs": [
+            {
+                "addresses": [
+                    "CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"
+                ], 
+                "age": 163376, 
+                "output_index": 0, 
+                "output_value": 23455, 
+                "prev_hash": "457a538479fb50f3e060702594ef92962c2570d592b8e7c089d7b13fc9b5b3dc", 
+                "script": "", 
+                "script_type": "", 
+                "sequence": 4294967295
+            }, 
+            ...,
+        ], 
+        "lock_time": 0, 
+        "outputs": [
+            {
+                "addresses": [
+                    "C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn"
+                ], 
+                "script": "76a9145fb1af31edd2aa5a2bbaa24f6043d6ec31f7e63288ac", 
+                "script_type": "pay-to-pubkey-hash", 
+                "value": 1000000
+            },
+            ...,
+        ], 
+        "preference": "high", 
+        "received": "2015-10-21T19:11:35.774722671Z", 
+        "relayed_by": "207.38.134.25, 127.0.0.1", 
+        "size": 775, 
+        "total": 3773210, 
+        "ver": 1, 
+        "vin_sz": 17, 
+        "vout_sz": 2
+    }
+}
 ```
 
 ```go
@@ -933,6 +985,15 @@ $.post('https://api.blockcypher.com/v1/bcy/test/txs/new', JSON.stringify(newtx))
       console.log(finaltx);
     })
   });
+```
+
+```python
+>>> from blockcypher import make_tx_signatures
+# Using our same unsigned_tx as before, iterate through unsigned_tx['tx']['inputs'] to find each address in order.
+# Include duplicates as many times as they may appear:
+>>> privkey_list = ['privkeyhex1', 'privkeyhex2', ...]
+>>> pubkey_list = ['pubkeyhex1', 'pubkeyhex2', ,,,]
+>>> tx_signatures = make_tx_signatures(txs_to_sign=unsigned_tx['tosign'], privkey_list=privkey_list, pubkey_list=pubkey_list)
 ```
 
 ```ruby
@@ -1166,6 +1227,63 @@ func main() {
 
 //Result from `go run`:
 // {Trans:{BlockHash: BlockHeight:-1 Hash:55d6ef290774f5428b66a0a27e46a8c37032c33bc15abce4791d56a2f8adb773 Addresses:[C6LBLb668ZTS4okXhjtzapFWAdnFjH7A4i ByaXmP5k14WRBFLXArfCcqcpAHrUQRy3vL] Total:287500 Fees:12500 Size:225 Preference:high RelayedBy:52.27.84.91, 127.0.0.1 Received:2015-10-16 23:38:09.536632402 +0000 UTC Confirmed:0001-01-01 00:00:00 +0000 UTC Confirmations:0 Confidence:0 Ver:1 LockTime:0 DoubleSpend:false DoubleOf: ReceiveCount:0 VinSize:1 VoutSize:2 Hex: DataProtocol: ChangeAddress: NextInputs: NextOutputs: Inputs:[{PrevHash:50c4738cb29901dc1ae3ed2692a57751653a31192176019d85d3f3922969dd1f OutputIndex:0 OutputValue:300000 Addresses:[C6LBLb668ZTS4okXhjtzapFWAdnFjH7A4i] Sequence:4294967295 ScriptType:pay-to-pubkey-hash Script:4730440220298915c785165233e2f19192bbbb9b8c3fed6d064279cb8968af6698c783b875022037287134f9f0aaf84429ba9bb50f1efcb4cedcfbd34407c285134e068234432c012102b17f04f5fa1bd44315ef33f8759822a302a2ba7fa28c56a50fac0441a341b96a Age:0 WalletName:}] Outputs:[{SpentBy: Value:200000 Addresses:[ByaXmP5k14WRBFLXArfCcqcpAHrUQRy3vL] ScriptType:pay-to-pubkey-hash Script:76a91446c7681dcacaee1ea3f57eced37755d1d09e070188ac DataHex: DataString:} {SpentBy: Value:87500 Addresses:[C6LBLb668ZTS4okXhjtzapFWAdnFjH7A4i] ScriptType:pay-to-pubkey-hash Script:76a91490d969679032cc1af6a69b4161778f12e90cb13588ac DataHex: DataString:}]} ToSign:[] Signatures:[] PubKeys:[] ToSignTX:[] Errors:[]}
+```
+
+```python
+>>> from blockcypher import broadcast_signed_transaction
+>>> broadcast_signed_transaction(unsigned_tx=unsigned_tx, signatures=tx_signatures, pubkeys=pubkey_list)
+{
+    "tosign": [
+        ""
+    ], 
+    "tx": {
+        "addresses": [
+            "CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9", 
+            "C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn"
+        ], 
+        "block_height": -1, 
+        "confidence": 0, 
+        "confirmations": 0, 
+        "double_spend": False, 
+        "fees": 142700, 
+        "hash": "afceb017a0d280a746ad5ed5c18228e302ebc2aa71ec768454b9a768f73c24c1", 
+        "inputs": [
+            {
+                "addresses": [
+                    "CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"
+                ], 
+                "age": 163376, 
+                "output_index": 0, 
+                "output_value": 23455, 
+                "prev_hash": "457a538479fb50f3e060702594ef92962c2570d592b8e7c089d7b13fc9b5b3dc", 
+                "script": "", 
+                "script_type": "", 
+                "sequence": 4294967295
+            },
+            ...,
+        ], 
+        "lock_time": 0, 
+        "outputs": [
+            {
+                "addresses": [
+                    "C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn"
+                ], 
+                "script": "76a9145fb1af31edd2aa5a2bbaa24f6043d6ec31f7e63288ac", 
+                "script_type": "pay-to-pubkey-hash", 
+                "value": 1000000
+            }
+        ], 
+        "preference": "high", 
+        "received": datetime.datetime(2015, 10, 21, 19, 11, 35, 774722, tzinfo=tzutc()), 
+        "relayed_by": "207.38.134.25, 127.0.0.1", 
+        "size": 192, 
+        "total": 10000, 
+        "ver": 1, 
+        "vin_sz": 1, 
+        "vout_sz": 1
+    }
+}
+
 ```
 
 ```php
@@ -1429,61 +1547,59 @@ $.post('https://api.blockcypher.com/v1/bcy/test/txs/push', JSON.stringify(pushtx
 ```
 
 ```python
->>> import requests, json
->>> data = {'tx': '01000000011935b41d12936df99d322ac8972b74ecff7b79408bbccaf1b2eb8015228beac8000000006b483045022100921fc36b911094280f07d8504a80fbab9b823a25f102e2bc69b14bcd369dfc7902200d07067d47f040e724b556e5bc3061af132d5a47bd96e901429d53c41e0f8cca012102152e2bb5b273561ece7bbe8b1df51a4c44f5ab0bc940c105045e2cc77e618044ffffffff0240420f00000000001976a9145fb1af31edd2aa5a2bbaa24f6043d6ec31f7e63288ac20da3c00000000001976a914efec6de6c253e657a9d5506a78ee48d89762fb3188ac00000000'}
->>> r = requests.post('https://api.blockcypher.com/v1/bcy/test/txs/push', data=json.dumps(data))
->>> r.json()
+>>> from blockcypher import pushtx
+>>> pushtx(tx_hex='01000000011935b41d12936df99d322ac8972b74ecff7b79408bbccaf1b2eb8015228beac8000000006b483045022100921fc36b911094280f07d8504a80fbab9b823a25f102e2bc69b14bcd369dfc7902200d07067d47f040e724b556e5bc3061af132d5a47bd96e901429d53c41e0f8cca012102152e2bb5b273561ece7bbe8b1df51a4c44f5ab0bc940c105045e2cc77e618044ffffffff0240420f00000000001976a9145fb1af31edd2aa5a2bbaa24f6043d6ec31f7e63288ac20da3c00000000001976a914efec6de6c253e657a9d5506a78ee48d89762fb3188ac00000000')
 {
-  "block_height": -1,
-  "hash": "4e6dfb1415b4fba5bd257c129847c70fbd4e45e41828079c4a282680528f3a50",
-  "addresses": [
-    "CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9",
-    "C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn"
-  ],
-  "total": 4988000,
-  "fees": 12000,
-  "size": 226,
-  "preference": "high",
-  "relayed_by": "73.162.198.68",
-  "received": "2015-05-22T05:10:00.305308666Z",
-  "ver": 1,
-  "lock_time": 0,
-  "double_spend": false,
-  "vin_sz": 1,
-  "vout_sz": 2,
-  "confirmations": 0,
-  "inputs": [
-    {
-      "prev_hash": "c8ea8b221580ebb2f1cabc8b40797bffec742b97c82a329df96d93121db43519",
-      "output_index": 0,
-      "script": "483045022100921fc36b911094280f07d8504a80fbab9b823a25f102e2bc69b14bcd369dfc7902200d07067d47f040e724b556e5bc3061af132d5a47bd96e901429d53c41e0f8cca012102152e2bb5b273561ece7bbe8b1df51a4c44f5ab0bc940c105045e2cc77e618044",
-      "output_value": 5000000,
-      "sequence": 4294967295,
-      "addresses": [
-        "CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"
-      ],
-      "script_type": "pay-to-pubkey-hash",
-      "age": 576
-    }
-  ],
-  "outputs": [
-    {
-      "value": 1000000,
-      "script": "76a9145fb1af31edd2aa5a2bbaa24f6043d6ec31f7e63288ac",
-      "addresses": [
+    "addresses": [
+        "CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9", 
         "C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn"
-      ],
-      "script_type": "pay-to-pubkey-hash"
-    },
-    {
-      "value": 3988000,
-      "script": "76a914efec6de6c253e657a9d5506a78ee48d89762fb3188ac",
-      "addresses": [
-        "CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"
-      ],
-      "script_type": "pay-to-pubkey-hash"
-    }
-  ]
+    ], 
+    "block_height": -1, 
+    "confirmations": 0, 
+    "double_spend": False, 
+    "fees": 12000, 
+    "hash": "4e6dfb1415b4fba5bd257c129847c70fbd4e45e41828079c4a282680528f3a50", 
+    "inputs": [
+        {
+            "addresses": [
+                "CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"
+            ], 
+            "age": 576, 
+            "output_index": 0, 
+            "output_value": 5000000, 
+            "prev_hash": "c8ea8b221580ebb2f1cabc8b40797bffec742b97c82a329df96d93121db43519", 
+            "script": "483045022100921fc36b911094280f07d8504a80fbab9b823a25f102e2bc69b14bcd369dfc7902200d07067d47f040e724b556e5bc3061af132d5a47bd96e901429d53c41e0f8cca012102152e2bb5b273561ece7bbe8b1df51a4c44f5ab0bc940c105045e2cc77e618044", 
+            "script_type": "pay-to-pubkey-hash", 
+            "sequence": 4294967295
+        }
+    ], 
+    "lock_time": 0, 
+    "outputs": [
+        {
+            "addresses": [
+                "C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn"
+            ], 
+            "script": "76a9145fb1af31edd2aa5a2bbaa24f6043d6ec31f7e63288ac", 
+            "script_type": "pay-to-pubkey-hash", 
+            "value": 1000000
+        }, 
+        {
+            "addresses": [
+                "CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"
+            ], 
+            "script": "76a914efec6de6c253e657a9d5506a78ee48d89762fb3188ac", 
+            "script_type": "pay-to-pubkey-hash", 
+            "value": 3988000
+        }
+    ], 
+    "preference": "high", 
+    "received": "2015-05-22T05:10:00.305308666Z", 
+    "relayed_by": "73.162.198.68", 
+    "size": 226, 
+    "total": 4988000, 
+    "ver": 1, 
+    "vin_sz": 1, 
+    "vout_sz": 2
 }
 ```
 
@@ -1744,43 +1860,62 @@ $.post('https://api.blockcypher.com/v1/bcy/test/txs/decode', JSON.stringify(deco
 ```
 
 ```python
->>> import requests, json
->>> data = {'tx': '01000000011935b41d12936df99d322ac8972b74ecff7b79408bbccaf1b2eb8015228beac8000000006b483045022100921fc36b911094280f07d8504a80fbab9b823a25f102e2bc69b14bcd369dfc7902200d07067d47f040e724b556e5bc3061af132d5a47bd96e901429d53c41e0f8cca012102152e2bb5b273561ece7bbe8b1df51a4c44f5ab0bc940c105045e2cc77e618044ffffffff0240420f00000000001976a9145fb1af31edd2aa5a2bbaa24f6043d6ec31f7e63288ac20da3c00000000001976a914efec6de6c253e657a9d5506a78ee48d89762fb3188ac00000000'}
->>> r = requests.post('https://api.blockcypher.com/v1/bcy/test/txs/decode', data=json.dumps(data))
->>> r.json()
-{'received': '2015-06-10T23:37:05.211843254Z',
- 'ver': 1,
- 'double_spend': False,
- 'outputs': [{'value': 1000000,
-   'addresses': ['C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn'],
-   'script_type': 'pay-to-pubkey-hash',
-   'script': '76a9145fb1af31edd2aa5a2bbaa24f6043d6ec31f7e63288ac'},
-  {'value': 3988000,
-   'addresses': ['CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9'],
-   'script_type': 'pay-to-pubkey-hash',
-   'script': '76a914efec6de6c253e657a9d5506a78ee48d89762fb3188ac',
-   'spent_by': '892fd7b36c1c3a2e5edb9b4a5d4ffd9ba74d78d3acf3b249991bd8d10a287dbd'}],
- 'block_height': -1,
- 'total': 4988000,
- 'fees': 12000,
- 'inputs': [{'output_value': 5000000,
-   'sequence': 4294967295,
-   'prev_hash': 'c8ea8b221580ebb2f1cabc8b40797bffec742b97c82a329df96d93121db43519',
-   'script': '483045022100921fc36b911094280f07d8504a80fbab9b823a25f102e2bc69b14bcd369dfc7902200d07067d47f040e724b556e5bc3061af132d5a47bd96e901429d53c41e0f8cca012102152e2bb5b273561ece7bbe8b1df51a4c44f5ab0bc940c105045e2cc77e618044',
-   'age': 28188,
-   'addresses': ['CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9'],
-   'output_index': 0,
-   'script_type': 'pay-to-pubkey-hash'}],
- 'preference': 'high',
- 'vout_sz': 2,
- 'vin_sz': 1,
- 'relayed_by': '207.38.134.25',
- 'hash': '4e6dfb1415b4fba5bd257c129847c70fbd4e45e41828079c4a282680528f3a50',
- 'addresses': ['CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9',
-  'C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn'],
- 'lock_time': 0,
- 'size': 226,
- 'confirmations': 0}
+>>> from blockcypher import decodetx
+>>> tx_hex = '01000000011935b41d12936df99d322ac8972b74ecff7b79408bbccaf1b2eb8015228beac8000000006b483045022100921fc36b911094280f07d8504a80fbab9b823a25f102e2bc69b14bcd369dfc7902200d07067d47f040e724b556e5bc3061af132d5a47bd96e901429d53c41e0f8cca012102152e2bb5b273561ece7bbe8b1df51a4c44f5ab0bc940c105045e2cc77e618044ffffffff0240420f00000000001976a9145fb1af31edd2aa5a2bbaa24f6043d6ec31f7e63288ac20da3c00000000001976a914efec6de6c253e657a9d5506a78ee48d89762fb3188ac00000000'}
+>>> decodetx(tx_hex=tx_hex, coin_symbol='bcy')
+{
+    "addresses": [
+        "CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9", 
+        "C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn"
+    ], 
+    "block_height": -1, 
+    "confirmations": 0, 
+    "double_spend": False, 
+    "fees": 12000, 
+    "hash": "4e6dfb1415b4fba5bd257c129847c70fbd4e45e41828079c4a282680528f3a50", 
+    "inputs": [
+        {
+            "addresses": [
+                "CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"
+            ], 
+            "age": 28188, 
+            "output_index": 0, 
+            "output_value": 5000000, 
+            "prev_hash": "c8ea8b221580ebb2f1cabc8b40797bffec742b97c82a329df96d93121db43519", 
+            "script": "483045022100921fc36b911094280f07d8504a80fbab9b823a25f102e2bc69b14bcd369dfc7902200d07067d47f040e724b556e5bc3061af132d5a47bd96e901429d53c41e0f8cca012102152e2bb5b273561ece7bbe8b1df51a4c44f5ab0bc940c105045e2cc77e618044", 
+            "script_type": "pay-to-pubkey-hash", 
+            "sequence": 4294967295
+        }
+    ], 
+    "lock_time": 0, 
+    "outputs": [
+        {
+            "addresses": [
+                "C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn"
+            ], 
+            "script": "76a9145fb1af31edd2aa5a2bbaa24f6043d6ec31f7e63288ac", 
+            "script_type": "pay-to-pubkey-hash", 
+            "value": 1000000
+        }, 
+        {
+            "addresses": [
+                "CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"
+            ], 
+            "script": "76a914efec6de6c253e657a9d5506a78ee48d89762fb3188ac", 
+            "script_type": "pay-to-pubkey-hash", 
+            "spent_by": "892fd7b36c1c3a2e5edb9b4a5d4ffd9ba74d78d3acf3b249991bd8d10a287dbd", 
+            "value": 3988000
+        }
+    ], 
+    "preference": "high", 
+    "received": "2015-06-10T23:37:05.211843254Z", 
+    "relayed_by": "207.38.134.25", 
+    "size": 226, 
+    "total": 4988000, 
+    "ver": 1, 
+    "vin_sz": 1, 
+    "vout_sz": 2
+}
 ```
 
 ```go
@@ -2083,6 +2218,28 @@ curl -d '{"data":"I am the walrus", "encoding":"string"}' https://api.blockcyphe
   "data": "I am the walrus",
   "encoding": "string",
   "token": "YOURTOKEN",
+  "hash": "cb6974e0fd57c91b70403e85ef48c840eecdca4804dfc4897b1321d5328e4f18"
+}
+```
+
+```python
+# Embedding (Hash) Data
+>>> from blockcypher import embed_data
+>>> embed_data(to_embed='6cbe5d6c75bc36879b5fd32e29b325e288599d31edc76327c7889d407985e2aa', api_key='YOUR_TOKEN')
+{
+  "data": "6cbe5d6c75bc36879b5fd32e29b325e288599d31edc76327c7889d407985e2aa",
+  "encoding": "hex",
+  "token": "YOUR_TOKEN",
+  "hash": "87d494918559a14ea6238ba0e25fb07bffb08716f4a55e25f32ea95a148c85d1"
+}
+
+# Embedding String Data
+>>> from blockcypher import embed_data
+>>> embed_data(to_embed='I am the walrus', api_key='YOUR_TOKEN', data_is_hex=False)
+{
+  "data": "I am the walrus",
+  "encoding": "string",
+  "token": "YOUR_TOKEN",
   "hash": "cb6974e0fd57c91b70403e85ef48c840eecdca4804dfc4897b1321d5328e4f18"
 }
 ```

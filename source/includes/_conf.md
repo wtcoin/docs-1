@@ -47,15 +47,15 @@ curl https://api.blockcypher.com/v1/btc/main/txs/43fa951e1bea87c282f6725cf8bdc08
 ```
 
 ```python
-# Fund existing address with faucet
->>> import requests
->>> r = requests.get('https://api.blockcypher.com/v1/btc/main/txs/43fa951e1bea87c282f6725cf8bdc08bb48761396c3af8dd5a41a085ab62acc9/confidence')
->>> r.json()
-{'age_millis': 12725,
- 'txurl': 'https://api.blockcypher.com/v1/btc/main/txs/43fa951e1bea87c282f6725cf8bdc08bb48761396c3af8dd5a41a085ab62acc9',
- 'confidence': 0.9901509730004237,
- 'receive_count': 666,
- 'txhash': '43fa951e1bea87c282f6725cf8bdc08bb48761396c3af8dd5a41a085ab62acc9'}
+>>> from blockcypher import get_transaction_details
+>>> get_transaction_details('43fa951e1bea87c282f6725cf8bdc08bb48761396c3af8dd5a41a085ab62acc9', confidence_only=True))
+{
+    "age_millis": 12725, 
+    "confidence": 0.9901509730004237, 
+    "receive_count": 666, 
+    "txhash": "43fa951e1bea87c282f6725cf8bdc08bb48761396c3af8dd5a41a085ab62acc9", 
+    "txurl": "https://api.blockcypher.com/v1/btc/main/txs/43fa951e1bea87c282f6725cf8bdc08bb48761396c3af8dd5a41a085ab62acc9"
+}
 ```
 
 ```go
@@ -109,3 +109,5 @@ TXHASH is a *string* representing the hex-encoded transaction hash you're intere
 `43fa951e1bea87c282f6725cf8bdc08bb48761396c3af8dd5a41a085ab62acc9`
 
 The returned [TXConfidence](#txconfidence) object contains the all-important confidence percentage, receive count and more.
+
+You can find an unconfirmed transaction hash from our block explorer [here](https://live.blockcypher.com/btc/latest-unconfirmed-tx).
