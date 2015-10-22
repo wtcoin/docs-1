@@ -70,11 +70,23 @@ $.post(url, JSON.stringify(microtx))
 ```
 
 ```python
+# The python library includes a method that will sign and verify a transaction client-side and should be used instead for security:
+>>> from blockcypher import simple_spend_tx
+>>> simple_spend_tx(from_privkey_hex='97838249d77bfa65f97be02b63fd1b7bb6a58474c7c22784a0da63993d1c2f90', to_address='C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn', to_satoshis=10000, coin_symbol='bcy')
+'7981c7849294648c1e79dd16077a388b808fcf8c20035aec7cc5315b37dacfee'
+
+# If you prefer to use the MicroTX endpoint (say for the wait_guarantee), here's how to do that:
 >>> import requests, json
 >>> data = {'from_private': '97838249d77bfa65f97be02b63fd1b7bb6a58474c7c22784a0da63993d1c2f90', 'to_address': 'C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn', 'value_satoshis': 10000}
 >>> params = {'token': 'YOUR_TOKEN'}
 >>> r = requests.post('https://api.blockcypher.com/v1/bcy/test/txs/micro', data=json.dumps(data), params=params)
 >>> r.json()
+{
+    "from_private": "97838249d77bfa65f97be02b63fd1b7bb6a58474c7c22784a0da63993d1c2f90", 
+    "hash": "fadfc54f69297e12c17d18ad519e636d96b3c7f0638ca2b011baedaff7cac378", 
+    "to_address": "C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn", 
+    "value_satoshis": 10000
+}
 ```
 
 ```go

@@ -143,42 +143,44 @@ $.post('https://api.blockcypher.com/v1/btc/main/wallets/hd?token=USERTOKEN', dat
 ```
 
 ```python
-//normal wallet
->>> import requests, json
->>> data = {'name': 'alice', 'addresses': ['1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e', ]}
->>> params = {'token': 'YOUR_TOKEN'}
->>> r = requests.post('https://api.blockcypher.com/v1/btc/main/wallets', data=json.dumps(data), params=params)
->>> r.json()
-{'name': 'alice',
- 'token': 'YOUR_TOKEN',
- 'addresses': ['1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e']}
+# Regular wallet
+>>> from blockcypher import create_wallet_from_address
+>>> create_wallet_from_address(wallet_name='alice', address='1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e', api_key='YOUR_TOKEN')
+{
+    "addresses": [
+        "1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e"
+    ], 
+    "name": "alice", 
+    "token": "YOUR_TOKEN"
+}
 
-//hd wallet
->>> data = {'name': 'bob', 'extended_public_key': 'xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoC> u1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8'}
->>> params = {'token': 'YOUR_TOKEN'}
->>> r = requests.post('https://api.blockcypher.com/v1/btc/main/wallets/hd', data=json.dumps(data), params=params)
->>> r.json()
-
-{'token': 'YOURTOKEN',
-'name': 'bob',
-'hd': true,
-'extended_public_key': 'xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoCu1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8',
-'chains': [
-	{'chain_addresses': [
-		{
-			'address': '1FHz8bpEE5qUZ9XhfjzAbCCwo5bT1HMNAc',
-			'path': 'm/0'
-		},
-		{
-			'address': '1J8QDN1u7iDMbJktbqXPSrAqruNjkmRFmT',
-			'path': 'm/1'
-		},
-		{
-			'address': '1MWNKnYfE2LVdvAzFUioF3F3JXFpRfDCQb',
-			'path': 'm/2'
-		}
-	]}
-]}
+# HD wallet
+>>> from blockcypher import create_hd_wallet
+>>> create_hd_wallet(wallet_name='bob', xpubkey='xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoCu1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8', api_key='YOUR_TOKEN')
+{
+    "chains": [
+        {
+            "chain_addresses": [
+                {
+                    "address": "1FHz8bpEE5qUZ9XhfjzAbCCwo5bT1HMNAc", 
+                    "path": "m/0"
+                }, 
+                {
+                    "address": "1J8QDN1u7iDMbJktbqXPSrAqruNjkmRFmT", 
+                    "path": "m/1"
+                }, 
+                {
+                    "address": "1MWNKnYfE2LVdvAzFUioF3F3JXFpRfDCQb", 
+                    "path": "m/2"
+                }
+            ]
+        }
+    ], 
+    "extended_public_key": "xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoCu1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8", 
+    "hd": True, 
+    "name": "bob", 
+    "token": "YOUR_TOKEN"
+}
 ```
 
 ```go
@@ -329,16 +331,24 @@ $.get('https://api.blockcypher.com/v1/btc/main/wallets/hd?token=YOURTOKEN')
 ```
 
 ```python
->>> import requests
->>> params = {'token': 'YOURTOKEN'}
->>> r = requests.get('https://api.blockcypher.com/v1/btc/main/wallets', params=params)
->>> r.json()
-{'wallet_names': [ 'alice' ] }
+# Regular wallet
+>>> from blockcypher import list_wallet_names
+>>> list_wallet_names('YOUR_TOKEN')
+{
+    "wallet_names": [
+        "alice"
+    ]
+}
 
-//hd wallets
->>> r = requests.get('https://api.blockcypher.com/v1/btc/main/wallets/hd', params=params)
->>> r.json()
-{'hd_wallet_names': [ 'bob', 'catheryne' ] }
+# HD wallet
+>>> from blockcypher import list_wallet_names
+>>> list_wallet_names('YOUR_TOKEN', is_hd_wallet=True)
+{
+    "hd_wallet_names": [
+        "bob", 
+        "catheryne"
+    ]
+}
 ```
 
 ```go
@@ -461,38 +471,44 @@ $.get('https://api.blockcypher.com/v1/btc/main/wallets/hd/bob?token=USERTOKEN')
 ```
 
 ```python
->>> import requests
->>> params = {'token': 'YOURTOKEN'}
->>> r = requests.get('https://api.blockcypher.com/v1/btc/main/wallets/alice', params=params)
->>> r.json()
-{'name': 'alice',
- 'token': 'YOURTOKEN',
- 'addresses': ['1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e']}
+# Regular wallet
+>>> from blockcypher import get_wallet_addresses
+>>> get_wallet_addresses(wallet_name='alice', api_key='YOUR_TOKEN')
+{
+    "addresses": [
+        "1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e"
+    ], 
+    "name": "alice", 
+    "token": "YOUR_TOKEN"
+}
 
-//hd wallet
->>> r = requests.get('https://api.blockcypher.com/v1/btc/main/wallets/hd/bob', params=params)
->>> r.json()
-
-{'token': 'YOURTOKEN',
-'name': 'bob',
-'hd': true,
-'extended_public_key': 'xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoCu1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8',
-'chains': [
-	{'chain_addresses': [
-		{
-			'address': '1FHz8bpEE5qUZ9XhfjzAbCCwo5bT1HMNAc',
-			'path': 'm/0'
-		},
-		{
-			'address': '1J8QDN1u7iDMbJktbqXPSrAqruNjkmRFmT',
-			'path': 'm/1'
-		},
-		{
-			'address': '1MWNKnYfE2LVdvAzFUioF3F3JXFpRfDCQb',
-			'path': 'm/2'
-		}
-	]}
-]}
+# HD wallet
+>>> from blockcypher import get_wallet_addresses
+>>> get_wallet_addresses(wallet_name='bob', api_key='YOUR_TOKEN', is_hd_wallet=True)
+{
+    "chains": [
+        {
+            "chain_addresses": [
+                {
+                    "address": "1FHz8bpEE5qUZ9XhfjzAbCCwo5bT1HMNAc", 
+                    "path": "m/0"
+                }, 
+                {
+                    "address": "1J8QDN1u7iDMbJktbqXPSrAqruNjkmRFmT", 
+                    "path": "m/1"
+                }, 
+                {
+                    "address": "1MWNKnYfE2LVdvAzFUioF3F3JXFpRfDCQb", 
+                    "path": "m/2"
+                }
+            ]
+        }
+    ], 
+    "extended_public_key": "xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoCu1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8", 
+    "hd": True, 
+    "name": "bob", 
+    "token": "YOUR_TOKEN"
+}
 ```
 
 ```go
@@ -606,14 +622,16 @@ $.post('https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses?token=US
 ```
 
 ```python
->>> import requests, json
->>> data = {'addresses': ['13cj1QtfW61kQHoqXm3khVRYPJrgQiRM6j', ]}
->>> params = {'token': 'YOUR_TOKEN'}
->>> r = requests.post('https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses', data=json.dumps(data), params=params)
->>> r.json()
-{'name': 'alice',
- 'token': 'YOUR_TOKEN',
- 'addresses': ['1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e', '13cj1QtfW61kQHoqXm3khVRYPJrgQiRM6j']}
+>>> from blockcypher import add_address_to_wallet
+>>> add_address_to_wallet(wallet_name='alice', address='13cj1QtfW61kQHoqXm3khVRYPJrgQiRM6j', api_key='YOUR_TOKEN')
+{
+    "addresses": [
+        "1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e", 
+        "13cj1QtfW61kQHoqXm3khVRYPJrgQiRM6j"
+    ], 
+    "name": "alice", 
+    "token": "YOUR_TOKEN"
+}
 ```
 
 ```go
@@ -745,33 +763,39 @@ $.get('https://api.blockcypher.com/v1/btc/main/wallets/hd/bob/addresses?token=US
 ```
 
 ```python
-//normal wallet
->>> import requests
->>> params = {'token': 'YOUR_TOKEN'}
->>> r = requests.get('https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses', params=params)
->>> r.json()
-{'addresses': ['13cj1QtfW61kQHoqXm3khVRYPJrgQiRM6j',
-  '1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e']}
+# Regular wallet
+>>> from blockcypher import get_wallet_addresses
+>>> get_wallet_addresses(wallet_name='alice', api_key='YOUR_TOKEN')
+{
+    "addresses": [
+        "13cj1QtfW61kQHoqXm3khVRYPJrgQiRM6j", 
+        "1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e"
+    ]
+}
 
-//hd wallet
->>> r = requests.get('https://api.blockcypher.com/v1/btc/main/wallets/hd/alice/addresses', params=params)
->>> r.json()
-{'chains': [
-	{'chain_addresses': [
-		{
-			'address': '1FHz8bpEE5qUZ9XhfjzAbCCwo5bT1HMNAc',
-			'path': 'm/0'
-		},
-		{
-			'address': '1J8QDN1u7iDMbJktbqXPSrAqruNjkmRFmT',
-			'path': 'm/1'
-		},
-		{
-			'address': '1MWNKnYfE2LVdvAzFUioF3F3JXFpRfDCQb',
-			'path': 'm/2'
-		}]
-	}
-]}
+# HD wallet
+>>> from blockcypher import get_wallet_addresses
+>>> get_wallet_addresses(wallet_name='alice', api_key='YOUR_TOKEN', is_hd_wallet=True)
+{
+    "chains": [
+        {
+            "chain_addresses": [
+                {
+                    "address": "1FHz8bpEE5qUZ9XhfjzAbCCwo5bT1HMNAc", 
+                    "path": "m/0"
+                }, 
+                {
+                    "address": "1J8QDN1u7iDMbJktbqXPSrAqruNjkmRFmT", 
+                    "path": "m/1"
+                }, 
+                {
+                    "address": "1MWNKnYfE2LVdvAzFUioF3F3JXFpRfDCQb", 
+                    "path": "m/2"
+                }
+            ]
+        }
+    ]
+}
 ```
 
 ```go
@@ -874,11 +898,9 @@ $.ajax({
 ```
 
 ```python
->>> import requests, json
->>> data = {'token': 'YOUR_TOKEN', 'address': '1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e'}
->>> r = requests.delete('https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses', data=json.dumps(data))
-# returns nothing, let's just check the status code to be sure
->>> assert r.status_code == 204
+>>> from blockcypher import remove_address_from_wallet
+>>> remove_address_from_wallet(wallet_name='alice', address='1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e', api_key='YOUR_TOKEN')
+True
 ```
 
 ```go
@@ -982,7 +1004,7 @@ $.post('https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses/generate
 ```
 
 ```python
-# Please use the python library at https://github.com/blockcypher/blockcypher-python to securely generate an address client-side
+# Please use a python library such as https://github.com/blockcypher/blockcypher-python to securely generate an address client-side
 ```
 
 ```go
@@ -1080,7 +1102,21 @@ curl -X POST 'https://api.blockcypher.com/v1/btc/main/wallets/hd/catheryne/addre
 ```
 
 ```python
-# todo: python hd derive examples
+>>> from blockcypher import derive_hd_address
+>>> derive_hd_address(api_key='YOUR_TOKEN', wallet_name='bob', coin_symbol='btc')
+{
+    "chains": [
+        {
+            "chain_addresses": [
+                {
+                    "address": "19urzZsoBNsomSfj68PUUGLXDz261tK5Jo", 
+                    "path": "m/3", 
+                    "public": "02c85080e00080aa933f93a2718bba9f01fd6fdc8e4712a155849f5ba588666471"
+                }
+            ]
+        }
+    ]
+}
 ```
 
 ```go
@@ -1171,15 +1207,16 @@ $.ajax({
 ```
 
 ```python
-//normal wallet
->>> import requests
->>> params = {'token': 'YOUR_TOKEN'}
->>> r = requests.delete('https://api.blockcypher.com/v1/btc/main/wallets/alice', params=params)
-# returns nothing, let's just check the status code to be sure
->>> assert r.status_code == 204
+# Regular wallet
+>>> from blockcypher import delete_wallet
+>>> delete_wallet(wallet_name='alice', api_key='YOUR_TOKEN')
+True
 
-//hd wallet
->>> r = requests.delete('https://api.blockcypher.com/v1/btc/main/wallets/hd/bob', params=params)
+# HD wallet
+>>> from blockcypher import delete_wallet
+>>> delete_wallet(wallet_name='bob', api_key='YOUR_TOKEN', is_hd_wallet=True)
+True
+
 ```
 
 ```go

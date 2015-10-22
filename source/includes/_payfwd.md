@@ -56,16 +56,16 @@ $.post(url, JSON.stringify(payment))
 ```
 
 ```python
->>> import requests, json
->>> data = {"destination":"15qx9ug952GWGTNn7Uiv6vode4RcGrRemh","callback_url": "https://my.domain.com/callbacks/new-pay"}
->>> params = {'token': 'YOUR_TOKEN'}
->>> r = requests.post('https://api.blockcypher.com/v1/btc/main/payments', data=json.dumps(data), params=params)
->>> r.json()
-{'destination': '15qx9ug952GWGTNn7Uiv6vode4RcGrRemh',
- 'callback_url': 'https://my.domain.com/callbacks/new-pay',
- 'input_address': '1CUYiFY3LzEd9dXgR6ubRaYPTq2SMxFFCJ',
- 'id': 'f35c80c2-3347-410d-b4ac-d049910289ec',
- 'token': 'YOUR_TOKEN'}
+>>> from blockcypher import create_forwarding_address_with_details
+>>> create_forwarding_address_with_details(destination_address='15qx9ug952GWGTNn7Uiv6vode4RcGrRemh', api_key='YOUR_TOKEN', callback_url='https://my.domain.com/callbacks/new-pay')
+{
+    "callback_url": "https://my.domain.com/callbacks/new-pay", 
+    "destination": "15qx9ug952GWGTNn7Uiv6vode4RcGrRemh", 
+    "id": "f35c80c2-3347-410d-b4ac-d049910289ec", 
+    "input_address": "1CUYiFY3LzEd9dXgR6ubRaYPTq2SMxFFCJ", 
+    "token": "YOUR_TOKEN"
+}
+# You can use create_forwarding_address to just return the input_address and not the rest of the JSON
 ```
 
 ```go
@@ -163,15 +163,17 @@ $.get('https://api.blockcypher.com/v1/btc/main/payments?token='+TOKEN)
 ```
 
 ```python
->>> import requests
->>> params = {'token': 'YOUR_TOKEN'}
->>> r = requests.post('https://api.blockcypher.com/v1/btc/main/payments', params=params)
->>> r.json()
-[{'destination': '15qx9ug952GWGTNn7Uiv6vode4RcGrRemh',
-  'callback_url': 'https://my.domain.com/callbacks/payments',
-  'input_address': '1CUYiFY3LzEd9dXgR6ubRaYPTq2SMxFFCJ',
-  'id': 'f35c80c2-3347-410d-b4ac-d049910289ec',
-  'token': 'YOUR_TOKEN'}]
+>>> from blockcypher import list_forwarding_addresses
+>>> list_forwarding_addresses(api_key='YOUR_TOKEN')
+[
+    {
+        "callback_url": "https://my.domain.com/callbacks/payments", 
+        "destination": "15qx9ug952GWGTNn7Uiv6vode4RcGrRemh", 
+        "id": "f35c80c2-3347-410d-b4ac-d049910289ec", 
+        "input_address": "1CUYiFY3LzEd9dXgR6ubRaYPTq2SMxFFCJ", 
+        "token": "YOUR_TOKEN"
+    }
+]
 ```
 
 ```go
@@ -246,11 +248,9 @@ $.ajax({
 ```
 
 ```python
->>> import requests
->>> params = {'token': 'YOUR_TOKEN'}
->>> r = requests.delete('https://api.blockcypher.com/v1/btc/main/payments/f35c80c2-3347-410d-b4ac-d049910289ec', params=params)
-# will return nothing, but we can confirm that delete was succesful via http code
->>> assert r.status_code == 204
+>>> from blockcypher import delete_forwarding_address
+>>> delete_forwarding_address('f35c80c2-3347-410d-b4ac-d049910289ec')
+True
 ```
 
 ```go

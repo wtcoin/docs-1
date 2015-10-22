@@ -38,6 +38,27 @@ curl https://api.blockcypher.com/v1/btc/main
 }
 ```
 
+```python
+>>> from blockcypher import get_blockchain_overview
+>>> get_blockchain_overview()
+{
+    "hash": "000000000000000006c488791bafc490efb365ad609ed39e6ee51d1afbc8ed83", 
+    "height": 379780, 
+    "high_fee_per_kb": 57607, 
+    "last_fork_hash": "00000000000000000aef777b65b5d32301c914e7d9f2c4cf1f7366e1eb217124", 
+    "last_fork_height": 280959, 
+    "latest_url": "https://api.blockcypher.com/v1/btc/main/blocks/000000000000000006c488791bafc490efb365ad609ed39e6ee51d1afbc8ed83", 
+    "low_fee_per_kb": 24554, 
+    "medium_fee_per_kb": 28847, 
+    "name": "BTC.main", 
+    "peer_count": 817, 
+    "previous_hash": "0000000000000000026727709d704d20de7d756427a10a86cd0b084066632e55", 
+    "previous_url": "https://api.blockcypher.com/v1/btc/main/blocks/0000000000000000026727709d704d20de7d756427a10a86cd0b084066632e55", 
+    "time": "datetime.datetime(2015, 10, 20, 19, 35, 50, 174235, tzinfo=tzutc())", 
+    "unconfirmed_count": 100231
+}
+```
+
 A Blockchain represents the current state of a particular blockchain from the [Coin/Chain resources](#restful-resources) that BlockCypher supports. Typically returned from the [Chain API endpoint](#chain-endpoint).
 
 Attribute | Type | Description
@@ -85,6 +106,42 @@ curl https://api.blockcypher.com/v1/btc/main/blocks/0000000000000000189bba3564a6
 "depth": 61793,
 "prev_block_url": "https://api.blockcypher.com/v1/btc/main/blocks/0000000000000000ced0958bd27720b71d32c5847e40660aaca39f33c298abb0",
 "tx_url": "https://api.blockcypher.com/v1/btc/main/txs/"
+}
+```
+
+```python
+>>> from blockcypher import get_block_overview
+>>> get_block_overview('0000000000000000189bba3564a63772107b5673c940c16f12662b3e8546b412')
+{
+    "bits": 419486617, 
+    "chain": "BTC.main", 
+    "depth": 85570, 
+    "fees": 130999, 
+    "hash": "0000000000000000189bba3564a63772107b5673c940c16f12662b3e8546b412", 
+    "height": 294322, 
+    "mrkl_root": "359d624d37aee1efa5662b7f5dbc390e996d561afc8148e8d716cf6ad765a952", 
+    "n_tx": 10, 
+    "nonce": 1225187768, 
+    "prev_block": "0000000000000000ced0958bd27720b71d32c5847e40660aaca39f33c298abb0", 
+    "prev_block_url": "https://api.blockcypher.com/v1/btc/main/blocks/0000000000000000ced0958bd27720b71d32c5847e40660aaca39f33c298abb0", 
+    "received_time": "datetime.datetime(2014, 4, 5, 7, 49, 18, 0, tzinfo=tzutc())", 
+    "relayed_by": "", 
+    "time": "datetime.datetime(2014, 4, 5, 7, 49, 18, 0, tzinfo=tzutc())", 
+    "total": 1146652915, 
+    "tx_url": "https://api.blockcypher.com/v1/btc/main/txs/", 
+    "txids": [
+        "32b3b86e40d996b1f281e24e8d4af2ceacbf874c4038369cc21baa807409b277", 
+        "1579f716359ba1a207f70248135f5e5fadf539be1dcf5300613aedcb6577d287", 
+        "dd1f183348eb41eaaa9ecf8012f9cca3ecbae41a6349f0cc4bfd2b1a497fa3d0", 
+        "749d12ccd180968b82aef4c271ca4effdf981d9b5d12523264457c9d4e6fa78e", 
+        "c4fe2ee16b8e3067d3d95caf7944011f4959781288b807df8bf853b7f80ed97c", 
+        "5a2114675265522d2b7ce8a7874cfa7a22ccc3fb6566a8599d6432c6805b1b5f", 
+        "077d851c8240671de80caa8be9f5285201c08a70edc5a45a9cd35fe7eaebf5e1", 
+        "6202cc55fbd9130e065c9294a5b2e061c26f3d2c8df56c32da605d9f183103f9", 
+        "ad3e7aa1c33f1d3e1c105d94f7b1542808da07bbe66b9621b050104a85dbf650", 
+        "36cc61016b9d1bd69768666f287db1edaa9b292fb442f152af7099305677230e"
+    ], 
+    "ver": 2
 }
 ```
 
@@ -169,6 +226,11 @@ curl https://api.blockcypher.com/v1/btc/main/txs/f854aebae95150b379cc1187d848d58
 	}
 ]
 }
+```
+
+```python
+f854aebae95150b379cc1187d848d58225f3c4157fe992bcd166f58bd5063449
+
 ```
 
 A TX represents the current state of a particular transaction from either a [Block](#block) within a [Blockchain](#blockchain), or an unconfirmed transaction that has yet to be included in a [Block](#block). Typically returned from the [Unconfirmed Transactions](#unconfirmed-transactions-endpoint) and [Transaction Hash](#transaction-hash) endpoints.
