@@ -583,6 +583,8 @@ Attribute | Type | Description
 **wif**	| *string* | [Wallet import format](https://en.bitcoin.it/wiki/Wallet_import_format), a common encoding for the private key.
 **pubkeys**	| *array[string]* | ***Optional*** Array of public keys to provide to generate a multisig address.
 **script_type**	| *string* | ***Optional*** If generating a multisig address, the type of multisig script; typically "multisig-n-of-m", where n and m are integers.
+**original_address** | *string* | ***Optional*** If [generating an OAP address](#generate-asset-address-endpoint), this represents the parent blockchain's underlying address (the typical **address** listed above).
+**oap_address** | *string* | ***Optional*** The OAP address, if generated using the [Generate Asset Address Endpoint](#generate-asset-address-endpoint). 
 
 ## Wallet
 
@@ -680,6 +682,66 @@ Attribute | Type | Description
 
 An HD Address object contains an address and its BIP32 HD path (location of the address in the HD tree). It also contains the hex-encoded public key when returned from the [Derive Address in Wallet](#derive-address-in-wallet-endpoint) endpoint.
 
+## OAPIssue
+
+```shell
+{
+"from_private": "0eb369746401c3369517239...", 
+"to_address": "1C3nrGhUDxBbr393u2Wq4PiE8T6oEYjYhrK",
+"amount": 200,
+"metadata": "ACMEShares"
+}
+```
+
+An OAPIssue represents a request for either issuance or transfer of new assets, as detailed in the [Asset API](#asset-api).
+
+Attribute | Type | Description
+--------- | ---- | -----------
+**from_private** | *string* | The private key being used to issue or transfer assets.
+**to_address** | *string* | The target OAP address assets for issue or transfer.
+**amount** | *int* | The amount of assets being issued or transfered.
+**metadata** | *string* | ***Optional*** Metadata that can optionally be encoded into the issue or transfer transaction.
+
+## OAPTX
+
+```shell
+{
+  "ver": 1,
+  "assetid": "1Npqwstp55vgThp4pwAC9UhYkvPJ28b2Ui",
+  "hash": "022e05bdfa2e148bc1882cb7a81506b8316fee6957b11625126d075a8cf8791b",
+  "received": "2015-10-25T05:48:13.417949402Z",
+  "oap_meta": "ACMEShares",
+  "double_spend": false,
+  "inputs": [
+    {
+      "prev_hash": "56253cffa1b3508d106391da3646cda2aee0bd080db427321c77ad11739e4239",
+      "output_index": 0,
+      "address": "1ByJUiocpifLPaYVTALpA7JYa9DxpGxXKKP",
+      "output_value": 1000
+    }
+  ],
+  "outputs": [
+    {
+      "address": "1C3nrGhUDxBbr393u2Wq4PiE8T6oEYjYhrK",
+      "value": 200,
+      "original_output_index": 1
+    }
+  ]
+}
+```
+
+An OAPTX represents an [Open Assets Protocol](https://github.com/OpenAssets/open-assets-protocol) transaction, generated when issuing or transfering assets.
+
+Attribute | Type | Description
+--------- | ---- | -----------
+**ver** | *int* | Version of Open Assets Protocol transaction. Typically 1.
+**assetid** | *string* | Unique indentifier associated with this asset; can be used to query other transactions associated with this asset.
+**hash** | *string* | This transaction's unique hash; same as the underlying transaction on the asset's parent blockchain.
+**received** | [*time*](https://tools.ietf.org/html/rfc3339) | Time this transaction was received.
+**oap_meta** | *string* | ***Optional*** Associated metadata with this transaction, if it exists.
+**double_spend** | *bool* | *true* if this is an attempted double spend; *false* otherwise.
+**inputs** | array[...] | Array of input data, which can be seen explicitly in the cURL example. Very similar to array of [TXInput](#txinput)s, but with values related to assets instead of satoshis.
+**outputs** | array[...] | Array of output data, which can be seen explicitly in the cURL example. Very similar to array of [TXOutput](#txoutput)s, but with values related to assets instead of satoshis.
 
 ## Event
 

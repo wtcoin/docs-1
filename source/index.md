@@ -22,6 +22,7 @@ includes:
   - microtx
   - conf
   - meta
+  - asset
   - payfwd
   - events
 ---
