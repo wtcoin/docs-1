@@ -2165,6 +2165,16 @@ Only one of these three fields is required for the microtransaction endpoint: <b
 <td><em>string</em></td>
 <td><strong><em>Optional</em></strong> If generating a multisig address, the type of multisig script; typically &ldquo;multisig-n-of-m&rdquo;, where n and m are integers.</td>
 </tr>
+<tr>
+<td><strong>original_address</strong></td>
+<td><em>string</em></td>
+<td><strong><em>Optional</em></strong> If <a href="#generate-asset-address-endpoint">generating an OAP address</a>, this represents the parent blockchain&rsquo;s underlying address (the typical <strong>address</strong> listed above).</td>
+</tr>
+<tr>
+<td><strong>oap_address</strong></td>
+<td><em>string</em></td>
+<td><strong><em>Optional</em></strong> The OAP address, if generated using the <a href="#generate-asset-address-endpoint">Generate Asset Address Endpoint</a>.</td>
+</tr>
 </tbody></table>
 
 <h2 id="wallet">Wallet</h2>
@@ -2338,6 +2348,123 @@ Only one of these three fields is required for the microtransaction endpoint: <b
 </tbody></table>
 
 <p>An HD Address object contains an address and its BIP32 HD path (location of the address in the HD tree). It also contains the hex-encoded public key when returned from the <a href="#derive-address-in-wallet-endpoint">Derive Address in Wallet</a> endpoint.</p>
+
+<h2 id="oapissue">OAPIssue</h2>
+<pre class="highlight shell"><code><span class="o">{</span>
+<span class="s2">"from_private"</span>: <span class="s2">"0eb369746401c3369517239..."</span>, 
+<span class="s2">"to_address"</span>: <span class="s2">"1C3nrGhUDxBbr393u2Wq4PiE8T6oEYjYhrK"</span>,
+<span class="s2">"amount"</span>: 200,
+<span class="s2">"metadata"</span>: <span class="s2">"ACMEShares"</span>
+<span class="o">}</span>
+</code></pre>
+
+<p>An OAPIssue represents a request for either issuance or transfer of new assets, as detailed in the <a href="#asset-api">Asset API</a>.</p>
+
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>from_private</strong></td>
+<td><em>string</em></td>
+<td>The private key being used to issue or transfer assets.</td>
+</tr>
+<tr>
+<td><strong>to_address</strong></td>
+<td><em>string</em></td>
+<td>The target OAP address assets for issue or transfer.</td>
+</tr>
+<tr>
+<td><strong>amount</strong></td>
+<td><em>int</em></td>
+<td>The amount of assets being issued or transfered.</td>
+</tr>
+<tr>
+<td><strong>metadata</strong></td>
+<td><em>string</em></td>
+<td><strong><em>Optional</em></strong> Metadata that can optionally be encoded into the issue or transfer transaction.</td>
+</tr>
+</tbody></table>
+
+<h2 id="oaptx">OAPTX</h2>
+<pre class="highlight shell"><code><span class="o">{</span>
+  <span class="s2">"ver"</span>: 1,
+  <span class="s2">"assetid"</span>: <span class="s2">"1Npqwstp55vgThp4pwAC9UhYkvPJ28b2Ui"</span>,
+  <span class="s2">"hash"</span>: <span class="s2">"022e05bdfa2e148bc1882cb7a81506b8316fee6957b11625126d075a8cf8791b"</span>,
+  <span class="s2">"received"</span>: <span class="s2">"2015-10-25T05:48:13.417949402Z"</span>,
+  <span class="s2">"oap_meta"</span>: <span class="s2">"ACMEShares"</span>,
+  <span class="s2">"double_spend"</span>: <span class="nb">false</span>,
+  <span class="s2">"inputs"</span>: <span class="o">[</span>
+    <span class="o">{</span>
+      <span class="s2">"prev_hash"</span>: <span class="s2">"56253cffa1b3508d106391da3646cda2aee0bd080db427321c77ad11739e4239"</span>,
+      <span class="s2">"output_index"</span>: 0,
+      <span class="s2">"address"</span>: <span class="s2">"1ByJUiocpifLPaYVTALpA7JYa9DxpGxXKKP"</span>,
+      <span class="s2">"output_value"</span>: 1000
+    <span class="o">}</span>
+  <span class="o">]</span>,
+  <span class="s2">"outputs"</span>: <span class="o">[</span>
+    <span class="o">{</span>
+      <span class="s2">"address"</span>: <span class="s2">"1C3nrGhUDxBbr393u2Wq4PiE8T6oEYjYhrK"</span>,
+      <span class="s2">"value"</span>: 200,
+      <span class="s2">"original_output_index"</span>: 1
+    <span class="o">}</span>
+  <span class="o">]</span>
+<span class="o">}</span>
+</code></pre>
+
+<p>An OAPTX represents an <a href="https://github.com/OpenAssets/open-assets-protocol">Open Assets Protocol</a> transaction, generated when issuing or transfering assets.</p>
+
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>ver</strong></td>
+<td><em>int</em></td>
+<td>Version of Open Assets Protocol transaction. Typically 1.</td>
+</tr>
+<tr>
+<td><strong>assetid</strong></td>
+<td><em>string</em></td>
+<td>Unique indentifier associated with this asset; can be used to query other transactions associated with this asset.</td>
+</tr>
+<tr>
+<td><strong>hash</strong></td>
+<td><em>string</em></td>
+<td>This transaction&rsquo;s unique hash; same as the underlying transaction on the asset&rsquo;s parent blockchain.</td>
+</tr>
+<tr>
+<td><strong>received</strong></td>
+<td><a href="https://tools.ietf.org/html/rfc3339"><em>time</em></a></td>
+<td>Time this transaction was received.</td>
+</tr>
+<tr>
+<td><strong>oap_meta</strong></td>
+<td><em>string</em></td>
+<td><strong><em>Optional</em></strong> Associated metadata with this transaction, if it exists.</td>
+</tr>
+<tr>
+<td><strong>double_spend</strong></td>
+<td><em>bool</em></td>
+<td><em>true</em> if this is an attempted double spend; <em>false</em> otherwise.</td>
+</tr>
+<tr>
+<td><strong>inputs</strong></td>
+<td>array[&hellip;]</td>
+<td>Array of input data, which can be seen explicitly in the cURL example. Very similar to array of <a href="#txinput">TXInput</a>s, but with values related to assets instead of satoshis.</td>
+</tr>
+<tr>
+<td><strong>outputs</strong></td>
+<td>array[&hellip;]</td>
+<td>Array of output data, which can be seen explicitly in the cURL example. Very similar to array of <a href="#txoutput">TXOutput</a>s, but with values related to assets instead of satoshis.</td>
+</tr>
+</tbody></table>
 
 <h2 id="event">Event</h2>
 <pre class="highlight shell"><code>curl https://api.blockcypher.com/v1/btc/main/hooks/399d0923-e920-48ee-8928-2051cbfbc369
@@ -8409,6 +8536,277 @@ curl https://api.blockcypher.com/v1/btc/main/addrs/1rundZJCMJhUiWQNFS5uT3BvisBuL
 <aside class="warning">
 As a last friendly reminder, if you set public metadata, <b>you cannot delete it.</b> It&rsquo;s set there forever, and viewable to the world. This endpoint will only delete your <b>private</b> metadata. If you accidentally set public metadata and need it deleted, <a href="mailto:support@blockcypher.com">contact us</a>.
 </aside>
+
+          <h1 id="asset-api">Asset API</h1>
+
+<p>Blockchains are about transferring value and ownership, so why can&rsquo;t that value extend beyond a blockchain&rsquo;s native token? Thanks to the possibility of embedding arbitrary data through <em>null-data</em> outputs, a blockchain can!</p>
+
+<p>However, the act of creating these alternate forms of value&mdash;and choosing a format that was universally readable&mdash;can be fraught with difficulty. We built our Asset API to simplify that process. Now instead of spelunking through a blockchain&rsquo;s native transactions and interpreting them yourself, you can utilize this set of APIs to easily issue, check, and transfer assets. This set of endpoints currently leverages the <a href="https://github.com/OpenAssets/open-assets-protocol">Open Assets Protocol</a>, a simple, robust method of embedding assets across any blockchain that supports <em>null-data</em> outputs.</p>
+
+<p>The endpoints (and code examples) are ordered below to demonstrate how to create asset addresses, issue assets, transfer them, then query the assets/asset addresses you initially created.</p>
+
+<h2 id="generate-asset-address-endpoint">Generate Asset Address Endpoint</h2>
+<pre class="highlight shell"><code><span class="c"># generate on bitcoin mainnet</span>
+curl -X POST https://api.blockcypher.com/v1/btc/main/oap/addrs?token<span class="o">=</span>YOURTOKEN
+
+<span class="o">{</span>
+  <span class="s2">"private"</span>: <span class="s2">"c0e09905fddb1b4a42d297cae1a5f20ca4cbe813e92a7dc4035ffc54561c05de"</span>,
+  <span class="s2">"public"</span>: <span class="s2">"02e9431a3ba8d756a26c03c07ffda2a7e28a17b62051f77ea3944c21dc090ba45b"</span>,
+  <span class="s2">"oap_address"</span>: <span class="s2">"akFjrBkcu9QQoJeBkwWeH54jnymaGVSUBAs"</span>,
+  <span class="s2">"original_address"</span>: <span class="s2">"15mxwaoZfvX7SQ2PttY6RCqDeAQ6UqVjuM"</span>,
+  <span class="s2">"wif"</span>: <span class="s2">"L3ge2aRsGReaBtYVYg9Lau2LxDkRW4Cak1dQsuttShEnRXcA1Vfy"</span>
+<span class="o">}</span>
+
+<span class="c"># generate on blockcypher testnet</span>
+curl -X POST https://api.blockcypher.com/v1/bcy/test/oap/addrs?token<span class="o">=</span>YOURTOKEN
+
+<span class="o">{</span>
+  <span class="s2">"private"</span>: <span class="s2">"0eb369746401c3369517239314a6bc0f2bda6124a4dda15643887f86dc0590cf"</span>,
+  <span class="s2">"public"</span>: <span class="s2">"026b9f2786b96f7f1aae011a08f5aaccc70f2249606fac4c400d6aa35f50bf7373"</span>,
+  <span class="s2">"oap_address"</span>: <span class="s2">"1ByJUiocpifLPaYVTALpA7JYa9DxpGxXKKP"</span>,
+  <span class="s2">"original_address"</span>: <span class="s2">"ByJUiocpifLPaYVTALpA7JYa9DxpLQwte4"</span>,
+  <span class="s2">"wif"</span>: <span class="s2">"BopcB66fRGgKkwiT2fKyxcawQBJ57DgNyvFq65XuVQdTboxsBkRm"</span>
+<span class="o">}</span>
+
+<span class="c"># generate another oap_address to use in examples below</span>
+curl -X POST https://api.blockcypher.com/v1/bcy/test/oap/addrs?token<span class="o">=</span>YOURTOKEN
+
+<span class="o">{</span>
+  <span class="s2">"private"</span>: <span class="s2">"442abd64783a6411d9e6eb0ed9575c6676bb51824aa3ad4b53577e3d344910c6"</span>,
+  <span class="s2">"public"</span>: <span class="s2">"03121e17e0996513813c504c63016cea9a7cf9689025e33f9157bccea67ba60846"</span>,
+  <span class="s2">"oap_address"</span>: <span class="s2">"1C3nrGhUDxBbr393u2Wq4PiE8T6oEYjYhrK"</span>,
+  <span class="s2">"original_address"</span>: <span class="s2">"C3nrGhUDxBbr393u2Wq4PiE8T6oEYU9At1"</span>,
+  <span class="s2">"wif"</span>: <span class="s2">"BqcYBWUvXszsRi1A5cD6t21CT7sbBoJQEkRSnFuoznJDn4hw5aGg"</span>
+<span class="o">}</span>
+</code></pre>
+
+<table><thead>
+<tr>
+<th>Resource</th>
+<th>Method</th>
+<th>Request Object</th>
+<th>Return Object</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>/oap/addrs</td>
+<td>POST</td>
+<td><em>nil</em></td>
+<td><a href="#addresskeychain">AddressKeychain</a></td>
+</tr>
+</tbody></table>
+
+<p>The Generate Asset Address Endpoint returns a private/public keypair and the associated <strong>oap_address</strong> (the asset address) and <strong>original_address</strong> (native address on parent blockchain).</p>
+
+<aside class="notice">
+On Bitcoin&rsquo;s blockchain, <b>oap_address</b> will have an &ldquo;a&rdquo; prefix, while the <b>original_address</b> will have a &ldquo;1&rdquo; prefix. Note that on BlockCypher&rsquo;s testnet, <b>oap_address</b> will have a &ldquo;1&rdquo; prefix, while <b>original_address</b> will have a &ldquo;B&rdquo; or &ldquo;C&rdquo; prefix. This can be confusing, but unfortunately can&rsquo;t be prevented due to the way <b>oap_address</b> is generated.
+</aside>
+
+<h2 id="issue-asset-endpoint">Issue Asset Endpoint</h2>
+<pre class="highlight shell"><code><span class="c"># Since new address, I need to fund underlying bcy original_address to enable issuance transaction (otherwise no money for mining fees)</span>
+<span class="c"># Going to use a faucet thanks to testnet</span>
+curl -d <span class="s1">'{"address": "ByJUiocpifLPaYVTALpA7JYa9DxpLQwte4", "amount": 1000000}'</span> https://api.blockcypher.com/v1/bcy/test/faucet?token<span class="o">=</span>YOURTOKEN
+<span class="o">{</span><span class="s2">"tx_ref"</span>: <span class="s2">"e7ca58724100f20b81e82ac24cb83cc112627be9cbfd2d09b96a87fbafe9e636"</span><span class="o">}</span>
+
+<span class="c"># issue 1000 ACMEShares</span>
+curl -d <span class="s1">'{"from_private": "0eb369746401c3369517239314a6bc0f2bda6124a4dda15643887f86dc0590cf", "to_address": "1ByJUiocpifLPaYVTALpA7JYa9DxpGxXKKP", "amount": 1000, "metadata": "ACMEShares"}'</span> https://api.blockcypher.com/v1/bcy/test/oap/issue?token<span class="o">=</span>YOURTOKEN
+
+<span class="o">{</span>
+  <span class="s2">"ver"</span>: 1,
+  <span class="s2">"assetid"</span>: <span class="s2">"1Npqwstp55vgThp4pwAC9UhYkvPJ28b2Ui"</span>,
+  <span class="s2">"hash"</span>: <span class="s2">"56253cffa1b3508d106391da3646cda2aee0bd080db427321c77ad11739e4239"</span>,
+  <span class="s2">"received"</span>: <span class="s2">"2015-10-25T05:41:45.092075094Z"</span>,
+  <span class="s2">"double_spend"</span>: <span class="nb">false</span>,
+  <span class="s2">"oap_meta"</span>: <span class="s2">"ACMEShares"</span>,
+  <span class="s2">"inputs"</span>: <span class="o">[]</span>,
+  <span class="s2">"outputs"</span>: <span class="o">[</span>
+    <span class="o">{</span>
+      <span class="s2">"address"</span>: <span class="s2">"1ByJUiocpifLPaYVTALpA7JYa9DxpGxXKKP"</span>,
+      <span class="s2">"value"</span>: 1000,
+      <span class="s2">"original_output_index"</span>: 0
+    <span class="o">}</span>
+  <span class="o">]</span>
+<span class="o">}</span>
+</code></pre>
+
+<table><thead>
+<tr>
+<th>Resource</th>
+<th>Method</th>
+<th>Request Object</th>
+<th>Return Object</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>/oap/issue</td>
+<td>POST</td>
+<td><a href="#oapissue">OAPIssue</a></td>
+<td><a href="#oaptx">OAPTX</a></td>
+</tr>
+</tbody></table>
+
+<p>The Issue Asset Endpoint issues new assets onto an OAP <strong>to_address</strong>, using your private key.</p>
+
+<aside class="warning">
+For both issuing and transferring assets, the underlying <b>original_address</b> derived from the private key must have enough funds (in the parent blockchain&rsquo;s native token) to pay mining fees for transactions. These fees are adaptively calculated by our API; for Bitcoin, they are usually between 2 to 10 cents per issuance/transfer.
+</aside>
+
+<h2 id="transfer-asset-endpoint">Transfer Asset Endpoint</h2>
+<pre class="highlight shell"><code><span class="c"># using assetid in endpoint as issued above</span>
+<span class="c"># from private key</span>
+curl -d <span class="s1">'{"from_private": "0eb369746401c3369517239314a6bc0f2bda6124a4dda15643887f86dc0590cf", "to_address": "1C3nrGhUDxBbr393u2Wq4PiE8T6oEYjYhrK", "amount": 200, "metadata": "ACMEShares"}'</span> https://api.blockcypher.com/v1/bcy/test/oap/1Npqwstp55vgThp4pwAC9UhYkvPJ28b2Ui/transfer?token<span class="o">=</span>YOURTOKEN
+
+<span class="o">{</span>
+  <span class="s2">"ver"</span>: 1,
+  <span class="s2">"assetid"</span>: <span class="s2">"1Npqwstp55vgThp4pwAC9UhYkvPJ28b2Ui"</span>,
+  <span class="s2">"hash"</span>: <span class="s2">"022e05bdfa2e148bc1882cb7a81506b8316fee6957b11625126d075a8cf8791b"</span>,
+  <span class="s2">"received"</span>: <span class="s2">"2015-10-25T05:48:13.417949402Z"</span>,
+  <span class="s2">"oap_meta"</span>: <span class="s2">"ACMEShares"</span>,
+  <span class="s2">"double_spend"</span>: <span class="nb">false</span>,
+  <span class="s2">"inputs"</span>: <span class="o">[</span>
+    <span class="o">{</span>
+      <span class="s2">"prev_hash"</span>: <span class="s2">"56253cffa1b3508d106391da3646cda2aee0bd080db427321c77ad11739e4239"</span>,
+      <span class="s2">"output_index"</span>: 0,
+      <span class="s2">"address"</span>: <span class="s2">"1ByJUiocpifLPaYVTALpA7JYa9DxpGxXKKP"</span>,
+      <span class="s2">"output_value"</span>: 1000
+    <span class="o">}</span>
+  <span class="o">]</span>,
+  <span class="s2">"outputs"</span>: <span class="o">[</span>
+    <span class="o">{</span>
+      <span class="s2">"address"</span>: <span class="s2">"1C3nrGhUDxBbr393u2Wq4PiE8T6oEYjYhrK"</span>,
+      <span class="s2">"value"</span>: 200,
+      <span class="s2">"original_output_index"</span>: 1
+    <span class="o">}</span>
+  <span class="o">]</span>
+<span class="o">}</span>
+</code></pre>
+
+<p>The Transfer Asset Endpoint transfers already issued assets (represented by ASSETID) onto a different OAP <strong>to_address</strong>, using your private key.</p>
+
+<aside class="notice">
+Assets can only be transfered after they&rsquo;ve been confirmed in the blockchain; the API will return an error if asset transfer is attempted on unconfirmed transactions.
+</aside>
+
+<aside class="warning">
+For both issuing and transferring assets, the underlying <b>original_address</b> derived from the private key must have enough funds (in the parent blockchain&rsquo;s native token) to pay mining fees for transactions. These fees are adaptively calculated by our API; for Bitcoin, they are usually between 2 to 10 cents per issuance/transfer.
+</aside>
+
+<h2 id="list-asset-txs-endpoint">List Asset TXs Endpoint</h2>
+<pre class="highlight shell"><code><span class="c"># using asset id as generated above</span>
+curl https://api.blockcypher.com/v1/bcy/test/oap/1Npqwstp55vgThp4pwAC9UhYkvPJ28b2Ui/txs?token<span class="o">=</span>YOURTOKEN
+
+<span class="o">[</span>
+  <span class="s2">"5f13d5c56ed5b7fe673832e2b5b21feceecebfd08aef03f3208ee855d25f050c"</span>,
+  <span class="s2">"022e05bdfa2e148bc1882cb7a81506b8316fee6957b11625126d075a8cf8791b"</span>,
+  <span class="s2">"7216fd3fb2908f87255f9514c98f40cf1299ea6b9182fa4825f5c5bfacf8b038"</span>,
+  <span class="s2">"56253cffa1b3508d106391da3646cda2aee0bd080db427321c77ad11739e4239"</span>,
+  <span class="s2">"dff06ef62b8d67ce6eb0750ed0a414932c1b13b825870d8711cd81219418f6d4"</span>
+<span class="o">]</span>
+</code></pre>
+
+<table><thead>
+<tr>
+<th>Resource</th>
+<th>Method</th>
+<th>Return Object</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>/oap/$ASSETID/txs</td>
+<td>GET</td>
+<td>Array[<em>String</em>]</td>
+</tr>
+</tbody></table>
+
+<p>The List Asset TXs Endpoint returns an array of strings representing transaction hashes associated with this ASSETID.</p>
+
+<h2 id="get-asset-tx-endpoint">Get Asset TX Endpoint</h2>
+<pre class="highlight shell"><code><span class="c"># using asset id as generated above, and first txhash from list asset txs endpoint</span>
+curl https://api.blockcypher.com/v1/bcy/test/oap/1Npqwstp55vgThp4pwAC9UhYkvPJ28b2Ui/txs/5f13d5c56ed5b7fe673832e2b5b21feceecebfd08aef03f3208ee855d25f050c?token<span class="o">=</span>YOURTOKEN
+
+<span class="o">{</span>
+  <span class="s2">"ver"</span>: 1,
+  <span class="s2">"assetid"</span>: <span class="s2">"1Npqwstp55vgThp4pwAC9UhYkvPJ28b2Ui"</span>,
+  <span class="s2">"hash"</span>: <span class="s2">"5f13d5c56ed5b7fe673832e2b5b21feceecebfd08aef03f3208ee855d25f050c"</span>,
+  <span class="s2">"block_height"</span>: 506539,
+  <span class="s2">"confirmed"</span>: <span class="s2">"2015-10-25T04:50:06Z"</span>,
+  <span class="s2">"received"</span>: <span class="s2">"2015-10-25T04:49:32.37Z"</span>,
+  <span class="s2">"double_spend"</span>: <span class="nb">false</span>,
+  <span class="s2">"oap_meta"</span>: <span class="s2">"ACMEShares"</span>,
+  <span class="s2">"inputs"</span>: <span class="o">[]</span>,
+  <span class="s2">"outputs"</span>: <span class="o">[</span>
+    <span class="o">{</span>
+      <span class="s2">"address"</span>: <span class="s2">"1ByJUiocpifLPaYVTALpA7JYa9DxpGxXKKP"</span>,
+      <span class="s2">"value"</span>: 1000,
+      <span class="s2">"original_output_index"</span>: 0
+    <span class="o">}</span>
+  <span class="o">]</span>
+<span class="o">}</span>
+</code></pre>
+
+<table><thead>
+<tr>
+<th>Resource</th>
+<th>Method</th>
+<th>Return Object</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>/oap/$ASSETID/txs/$TXHASH</td>
+<td>GET</td>
+<td><a href="#oaptx">OAPTX</a></td>
+</tr>
+</tbody></table>
+
+<p>The Get Asset TX Endpoint returns an <a href="#oaptx">OAPTX</a> by TXHASH and ASSETID.</p>
+
+<h2 id="get-asset-address-endpoint">Get Asset Address Endpoint</h2>
+<pre class="highlight shell"><code><span class="c"># using the transfer address from above</span>
+curl https://api.blockcypher.com/v1/bcy/test/oap/1Npqwstp55vgThp4pwAC9UhYkvPJ28b2Ui/addrs/1C3nrGhUDxBbr393u2Wq4PiE8T6oEYjYhrK?token<span class="o">=</span>YOURTOKEN
+
+<span class="o">{</span>
+  <span class="s2">"address"</span>: <span class="s2">"1C3nrGhUDxBbr393u2Wq4PiE8T6oEYjYhrK"</span>,
+  <span class="s2">"total_received"</span>: 200,
+  <span class="s2">"total_sent"</span>: 0,
+  <span class="s2">"balance"</span>: 200,
+  <span class="s2">"unconfirmed_balance"</span>: 0,
+  <span class="s2">"final_balance"</span>: 200,
+  <span class="s2">"n_tx"</span>: 1,
+  <span class="s2">"unconfirmed_n_tx"</span>: 0,
+  <span class="s2">"final_n_tx"</span>: 1,
+  <span class="s2">"txrefs"</span>: <span class="o">[</span>
+    <span class="o">{</span>
+      <span class="s2">"tx_hash"</span>: <span class="s2">"022e05bdfa2e148bc1882cb7a81506b8316fee6957b11625126d075a8cf8791b"</span>,
+      <span class="s2">"block_height"</span>: 506598,
+      <span class="s2">"tx_input_n"</span>: -1,
+      <span class="s2">"tx_output_n"</span>: 1,
+      <span class="s2">"value"</span>: 200,
+      <span class="s2">"ref_balance"</span>: 200,
+      <span class="s2">"spent"</span>: <span class="nb">false</span>,
+      <span class="s2">"confirmations"</span>: 26,
+      <span class="s2">"confirmed"</span>: <span class="s2">"2015-10-25T05:49:07Z"</span>,
+      <span class="s2">"double_spend"</span>: <span class="nb">false</span>
+    <span class="o">}</span>
+  <span class="o">]</span>,
+  <span class="s2">"tx_url"</span>: <span class="s2">"https://api.blockcypher.com/v1/bcy/test/oap/1Npqwstp55vgThp4pwAC9UhYkvPJ28b2Ui/txs/"</span>
+<span class="o">}</span>
+</code></pre>
+
+<table><thead>
+<tr>
+<th>Resource</th>
+<th>Method</th>
+<th>Return Object</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>/oap/$ASSETID/addrs/$OAPADDR</td>
+<td>GET</td>
+<td><a href="#address">Address</a></td>
+</tr>
+</tbody></table>
+
+<p>The Get Asset Address Endpoint returns an <a href="#address">Address</a> representing information about a particular OAPADDR underneath a given ASSETID. Note that while it returns an <a href="#address">Address</a> object, anything that would have represented &ldquo;satoshis&rdquo; now represents &ldquo;amount of asset.&rdquo; (e.g., <strong>balance</strong>, <strong>value</strong>, etc.)</p>
 
           <h1 id="payment-forwarding">Payment Forwarding</h1>
 
