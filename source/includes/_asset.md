@@ -193,7 +193,6 @@ The Get Asset TX Endpoint returns an [OAPTX](#oaptx) by TXHASH and ASSETID.
 # using the transfer address from above
 curl https://api.blockcypher.com/v1/bcy/test/oap/1Npqwstp55vgThp4pwAC9UhYkvPJ28b2Ui/addrs/1C3nrGhUDxBbr393u2Wq4PiE8T6oEYjYhrK?token=YOURTOKEN
 
-# todo: reduce footprint of this return
 {
   "address": "1C3nrGhUDxBbr393u2Wq4PiE8T6oEYjYhrK",
   "total_received": 200,
