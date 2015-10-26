@@ -6,6 +6,10 @@ However, the act of creating these alternate forms of value---and choosing a for
 
 The endpoints (and code examples) are ordered below to demonstrate how to create asset addresses, issue assets, transfer them, then query the assets/asset addresses you initially created.
 
+<aside class="notice">
+The Asset API only works with confirmed transactions; the API will return an error if asset transfer or issuance is attempted using unconfirmed transaction outputs. It also requires the use of <a href="#rate-limits-and-tokens">user tokens</a>, you can <a href="https://accounts.blockcypher.com/">register for one here.</a>
+</aside>
+
 ## Generate Asset Address Endpoint
 
 ```shell
@@ -125,10 +129,6 @@ curl -d '{"from_private": "0eb369746401c3369517239314a6bc0f2bda6124a4dda15643887
 ```
 
 The Transfer Asset Endpoint transfers already issued assets (represented by ASSETID) onto a different OAP **to_address**, using your private key.
-
-<aside class="notice">
-Assets can only be transfered after they've been confirmed in the blockchain; the API will return an error if asset transfer is attempted on unconfirmed transactions.
-</aside>
 
 <aside class="warning">
 For both issuing and transferring assets, the underlying <b>original_address</b> derived from the private key must have enough funds (in the parent blockchain's native token) to pay mining fees for transactions. These fees are adaptively calculated by our API; for Bitcoin, they are usually between 2 to 10 cents per issuance/transfer.
