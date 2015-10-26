@@ -60,13 +60,16 @@ On Bitcoin's blockchain, <b>oap_address</b> will have an "a" prefix, while the <
 ## Issue Asset Endpoint
 
 ```shell
-# Since new address, I need to fund underlying bcy original_address to enable issuance transaction (otherwise no money for mining fees)
+# Since this is a new address, I need to fund underlying bcy original_address 
+# to enable issuance transaction (otherwise no money available for mining fees)
+
 # Going to use a faucet thanks to testnet
 curl -d '{"address": "ByJUiocpifLPaYVTALpA7JYa9DxpLQwte4", "amount": 1000000}' https://api.blockcypher.com/v1/bcy/test/faucet?token=YOURTOKEN
 {"tx_ref": "e7ca58724100f20b81e82ac24cb83cc112627be9cbfd2d09b96a87fbafe9e636"}
 
-# issue 1000 ACMEShares
-curl -d '{"from_private": "0eb369746401c3369517239314a6bc0f2bda6124a4dda15643887f86dc0590cf", "to_address": "1ByJUiocpifLPaYVTALpA7JYa9DxpGxXKKP", "amount": 1000, "metadata": "ACMEShares"}' https://api.blockcypher.com/v1/bcy/test/oap/issue?token=YOURTOKEN
+# using same underlying (now-funded address) to issue 1000 assets
+# also could have used a different, funded bcy address to issue assets to a new oap_address
+curl -d '{"from_private": "0eb369746401c3369517239314a6bc0f2bda6124a4dda15643887f86dc0590cf", "to_address": "1ByJUiocpifLPaYVTALpA7JYa9DxpGxXKKP", "amount": 1000, "metadata": "1a2b3c4d5e6f"}' https://api.blockcypher.com/v1/bcy/test/oap/issue?token=YOURTOKEN
 
 {
   "ver": 1,
@@ -74,7 +77,7 @@ curl -d '{"from_private": "0eb369746401c3369517239314a6bc0f2bda6124a4dda15643887
   "hash": "56253cffa1b3508d106391da3646cda2aee0bd080db427321c77ad11739e4239",
   "received": "2015-10-25T05:41:45.092075094Z",
   "double_spend": false,
-  "oap_meta": "ACMEShares",
+  "oap_meta": "1a2b3c4d5e6f",
   "inputs": [],
   "outputs": [
     {
@@ -90,7 +93,11 @@ Resource | Method | Request Object | Return Object
 -------- | ------ | -------------- | -------------
 /oap/issue | POST | [OAPIssue](#oapissue) | [OAPTX](#oaptx)
 
-The Issue Asset Endpoint issues new assets onto an OAP **to_address**, using your private key.
+The Issue Asset Endpoint issues new assets onto an OAP **to_address**, using your private key. Notice that an issuance returns an [OAPTX](#oaptx) with no **inputs**, since it is the original issue.
+
+<aside class="notice">
+If you use the same private key to issue multiple times, it's the same asset. To issue different assets, a different issuing key and address are needed each time.
+</aside>
 
 <aside class="warning">
 For both issuing and transferring assets, the underlying <b>original_address</b> derived from the private key must have enough funds (in the parent blockchain's native token) to pay mining fees for transactions. These fees are adaptively calculated by our API; for Bitcoin, they are usually between 2 to 10 cents per issuance/transfer.
@@ -101,14 +108,14 @@ For both issuing and transferring assets, the underlying <b>original_address</b>
 ```shell
 # using assetid in endpoint as issued above
 # from private key
-curl -d '{"from_private": "0eb369746401c3369517239314a6bc0f2bda6124a4dda15643887f86dc0590cf", "to_address": "1C3nrGhUDxBbr393u2Wq4PiE8T6oEYjYhrK", "amount": 200, "metadata": "ACMEShares"}' https://api.blockcypher.com/v1/bcy/test/oap/1Npqwstp55vgThp4pwAC9UhYkvPJ28b2Ui/transfer?token=YOURTOKEN
+curl -d '{"from_private": "0eb369746401c3369517239314a6bc0f2bda6124a4dda15643887f86dc0590cf", "to_address": "1C3nrGhUDxBbr393u2Wq4PiE8T6oEYjYhrK", "amount": 200, "metadata": "1a2b3c4d5e6f"}' https://api.blockcypher.com/v1/bcy/test/oap/1Npqwstp55vgThp4pwAC9UhYkvPJ28b2Ui/transfer?token=YOURTOKEN
 
 {
   "ver": 1,
   "assetid": "1Npqwstp55vgThp4pwAC9UhYkvPJ28b2Ui",
   "hash": "022e05bdfa2e148bc1882cb7a81506b8316fee6957b11625126d075a8cf8791b",
   "received": "2015-10-25T05:48:13.417949402Z",
-  "oap_meta": "ACMEShares",
+  "oap_meta": "1a2b3c4d5e6f",
   "double_spend": false,
   "inputs": [
     {
@@ -127,6 +134,10 @@ curl -d '{"from_private": "0eb369746401c3369517239314a6bc0f2bda6124a4dda15643887
   ]
 }
 ```
+
+Resource | Method | Request Object | Return Object
+-------- | ------ | -------------- | -------------
+/oap/$ASSETID/transfer | POST | [OAPIssue](#oapissue) | [OAPTX](#oaptx)
 
 The Transfer Asset Endpoint transfers already issued assets (represented by ASSETID) onto a different OAP **to_address**, using your private key.
 
@@ -169,7 +180,7 @@ curl https://api.blockcypher.com/v1/bcy/test/oap/1Npqwstp55vgThp4pwAC9UhYkvPJ28b
   "confirmed": "2015-10-25T04:50:06Z",
   "received": "2015-10-25T04:49:32.37Z",
   "double_spend": false,
-  "oap_meta": "ACMEShares",
+  "oap_meta": "1a2b3c4d5e6f",
   "inputs": [],
   "outputs": [
     {

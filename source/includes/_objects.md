@@ -689,7 +689,7 @@ An HD Address object contains an address and its BIP32 HD path (location of the 
 "from_private": "0eb369746401c3369517239...", 
 "to_address": "1C3nrGhUDxBbr393u2Wq4PiE8T6oEYjYhrK",
 "amount": 200,
-"metadata": "ACMEShares"
+"metadata": "1a2b3c4d5e6f"
 }
 ```
 
@@ -700,7 +700,7 @@ Attribute | Type | Description
 **from_private** | *string* | The private key being used to issue or transfer assets.
 **to_address** | *string* | The target OAP address assets for issue or transfer.
 **amount** | *int* | The amount of assets being issued or transfered.
-**metadata** | *string* | ***Optional*** Metadata that can optionally be encoded into the issue or transfer transaction.
+**metadata** | *string* | ***Optional*** Hex-encoded metadata that can optionally be encoded into the issue or transfer transaction.
 
 ## OAPTX
 
@@ -738,7 +738,7 @@ Attribute | Type | Description
 **assetid** | *string* | Unique indentifier associated with this asset; can be used to query other transactions associated with this asset.
 **hash** | *string* | This transaction's unique hash; same as the underlying transaction on the asset's parent blockchain.
 **received** | [*time*](https://tools.ietf.org/html/rfc3339) | Time this transaction was received.
-**oap_meta** | *string* | ***Optional*** Associated metadata with this transaction, if it exists.
+**oap_meta** | *string* | ***Optional*** Associated hex-encoded metadata with this transaction, if it exists.
 **double_spend** | *bool* | *true* if this is an attempted double spend; *false* otherwise.
 **inputs** | array[...] | Array of input data, which can be seen explicitly in the cURL example. Very similar to array of [TXInput](#txinput)s, but with values related to assets instead of satoshis.
 **outputs** | array[...] | Array of output data, which can be seen explicitly in the cURL example. Very similar to array of [TXOutput](#txoutput)s, but with values related to assets instead of satoshis.
