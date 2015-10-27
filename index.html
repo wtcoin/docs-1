@@ -5929,14 +5929,14 @@ Even if you don&rsquo;t use the API to assist in creating transactions, we highl
 <td>Filters TXInputs/TXOutputs, if unset, default is 20.</td>
 </tr>
 <tr>
-<td><strong>inStart</strong></td>
+<td><strong>instart</strong></td>
 <td><em>integer</em></td>
-<td>Filters TX to only include TXInputs after this input index.</td>
+<td>Filters TX to only include TXInputs from this input index and above.</td>
 </tr>
 <tr>
-<td><strong>outStart</strong></td>
+<td><strong>outstart</strong></td>
 <td><em>integer</em></td>
-<td>Filters TX to only include TXOutputs after this output index.</td>
+<td>Filters TX to only include TXOutputs from this output index and above.</td>
 </tr>
 <tr>
 <td><strong>includeHex</strong></td>
@@ -8647,7 +8647,7 @@ curl -X POST https://api.blockcypher.com/v1/bcy/test/oap/addrs?token<span class=
 </tr>
 </tbody></table>
 
-<p>The Generate Asset Address Endpoint returns a private/public keypair and the associated <strong>oap_address</strong> (the asset address) and <strong>original_address</strong> (native address on parent blockchain).</p>
+<p>The Generate Asset Address Endpoint returns a private/public keypair and the associated <strong>oap_address</strong> (the asset address) and <strong>original_address</strong> (native address on parent blockchain). Asset addresses are just like regular bitcoin addresses, and are generated from a private-public keypair. They only differ by a prefix (ex: &lsquo;a&rsquo; for instead of &#39;1&rsquo;) to distinguish them.</p>
 
 <aside class="notice">
 On Bitcoin&rsquo;s blockchain, <b>oap_address</b> will have an &ldquo;a&rdquo; prefix, while the <b>original_address</b> will have a &ldquo;1&rdquo; prefix. Note that on BlockCypher&rsquo;s testnet, <b>oap_address</b> will have a &ldquo;1&rdquo; prefix, while <b>original_address</b> will have a &ldquo;B&rdquo; or &ldquo;C&rdquo; prefix. This can be confusing, but unfortunately can&rsquo;t be prevented due to the way <b>oap_address</b> is generated.
