@@ -315,8 +315,8 @@ Resource | Method | Return Object
 Flag | Type | Effect
 ---- | ---- | ------
 **limit** | *integer* | Filters TXInputs/TXOutputs, if unset, default is 20.
-**inStart** | *integer* | Filters TX to only include TXInputs after this input index.
-**outStart** | *integer* | Filters TX to only include TXOutputs after this output index.
+**instart** | *integer* | Filters TX to only include TXInputs from this input index and above.
+**outstart** | *integer* | Filters TX to only include TXOutputs from this output index and above.
 **includeHex** | *bool* | If *true*, includes hex-encoded raw transaction; *false* by default.
 
 TXHASH is a *string* representing the hex-encoded transaction hash you're interested in querying, for example:
