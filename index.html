@@ -9185,7 +9185,7 @@ HTTP/1.1 204 No Content
 
 <p><strong><a href="https://developer.mozilla.org/en-US/docs/WebSockets">WebSockets</a></strong> are typically used in client applications when a server is not already running: e.g., a web page displaying the most recent transactions or a wallet app updating its UI when a transaction has been confirmed. Websockets are less reliable in longer interactions (&gt; 1 hour) because they require a connection to stay open.</p>
 
-<p><strong><a href="https://webhooks.pbworks.com/w/page/13385124/FrontPage">WebHooks</a></strong> are the most reliable way to get event notifications but requires running a server to receive the callbacks. We automatically retry HTTP requests 3 times.</p>
+<p><strong><a href="https://webhooks.pbworks.com/w/page/13385124/FrontPage">WebHooks</a></strong> are the most reliable way to get event notifications but requires running a server to receive the callbacks. We automatically retry HTTP requests 5 times.</p>
 
 <h2 id="types-of-events">Types of Events</h2>
 
@@ -9275,6 +9275,8 @@ Events like <i>unconfirmed-tx</i> can produce a lot of requests. To avoid rate-l
 <li>The JSON <a href="#event">Event</a> should be sent using a POST request to the &ldquo;create webhook endpoint&rdquo; and include a <strong>url</strong> property to denote where payloads should be delivered.</li>
 <li>The <a href="#tx">TX</a> or <a href="#block">Block</a> associated with the <a href="#event">Event</a> will be POSTed to the provided <strong>url</strong>. The POSTed payload will also include <em>X-EventType</em> and <em>X-EventId</em> metadata in the HTTP header specifying the <strong>event</strong> type and <strong>id</strong> of the WebHook which triggered the payload.</li>
 </ul>
+
+<p>We retry individual payloads to your <strong>url</strong> five times; if one fails, we wait exponentially between retries: 1 second, 2s, 4s, 8s, 16s. In order to protect against stale callback <strong>url</strong>s, your <a href="#event">Event</a> will be deleted if it reaches 50 aggregate <strong>callback_errors</strong> from failed payloads.</p>
 
 <aside class="warning">
 To prevent eavesdropping, we recommend securing your callback <b>url</b> by using SSL and providing a <i>secret</i> parameter appended to the <a href="#event">Event</a> request. We POST the payload to the unaltered <b>url</b>, which allows you to check on your server that the parameter was not modified.
