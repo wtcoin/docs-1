@@ -9,7 +9,7 @@ The Metadata API supports both public and private key-value storage. In both cas
 ## Get Metadata Endpoint
 
 ```shell
-# Get Public Metadata (set by your or anyone else)
+# Get Public Metadata (set by you or anyone else)
 curl https://api.blockcypher.com/v1/btc/main/addrs/1rundZJCMJhUiWQNFS5uT3BvisBuLxkAp/meta?token=YOURTOKEN
 
 {"name":"silkroad","owner":"dpr"}
@@ -29,7 +29,20 @@ curl https://api.blockcypher.com/v1/btc/main/addrs/1rundZJCMJhUiWQNFS5uT3BvisBuL
 ```
 
 ```python
-#todo: python examples
+>>> from blockcypher import get_metadata
+
+# Get Private Metadata (none set yet, returns empty)
+>>> get_metadata(address='1rundZJCMJhUiWQNFS5uT3BvisBuLxkAp', api_key='YOUR_TOKEN', private=True)
+{}
+
+# Get Public Metadata (set by you or anyone else)
+>>> get_metadata(address='1rundZJCMJhUiWQNFS5uT3BvisBuLxkAp', api_key='YOUR_TOKEN')
+{
+    "name": "silkroad", 
+    "owner": "dpr"
+}
+
+# Note: get_metadata also accepts 'tx_hash' and 'block_hash' as arguments (instead of 'address')
 ```
 
 ```php
@@ -86,7 +99,33 @@ curl https://api.blockcypher.com/v1/btc/main/addrs/1rundZJCMJhUiWQNFS5uT3BvisBuL
 ```
 
 ```python
-#todo: python examples
+>>> from blockcypher import put_metadata
+
+# Put Private Metadata
+>>> put_metadata(metadata_dict={"satoshi":"nakamoto", "alice":"bob"}, address='1rundZJCMJhUiWQNFS5uT3BvisBuLxkAp', api_key='YOUR_TOKEN', private=True)
+True
+
+# Get Metadata Again
+>>> get_metadata(address='1rundZJCMJhUiWQNFS5uT3BvisBuLxkAp', api_key='YOUR_TOKEN', private=True)
+{
+    "alice": "bob", 
+    "satoshi": "nakamoto"
+}
+
+# Modify/Add Private Metadata 
+>>> put_metadata(metadata_dict={"satoshi":"moto", "charlie":"tango"}, address='1rundZJCMJhUiWQNFS5uT3BvisBuLxkAp', api_key='YOUR_TOKEN', private=True)
+True
+
+# Get Metadata Again
+>>> get_metadata(address='1rundZJCMJhUiWQNFS5uT3BvisBuLxkAp', api_key='YOUR_TOKEN', private=True)
+
+{
+    "alice": "bob", 
+    "charlie": "tango", 
+    "satoshi": "moto"
+}
+
+# Note: put_metadata also accepts 'tx_hash' and 'block_hash' as arguments (instead of 'address')
 ```
 
 ```php
@@ -133,7 +172,15 @@ curl https://api.blockcypher.com/v1/btc/main/addrs/1rundZJCMJhUiWQNFS5uT3BvisBuL
 ```
 
 ```python
-#todo: python examples
+>>> from blockcypher import delete_metadata
+>>> delete_metadata(address='1rundZJCMJhUiWQNFS5uT3BvisBuLxkAp', api_key='YOUR_TOKEN')
+True
+
+# Get Private Metadata Again to Confirm Deletion
+>>> get_metadata(address='1rundZJCMJhUiWQNFS5uT3BvisBuLxkAp', api_key='YOUR_TOKEN', private=True)
+{}
+
+# Note: delete_metadata also accepts 'tx_hash' and 'block_hash' as arguments (instead of 'address')
 ```
 
 ```php
