@@ -51,7 +51,7 @@ Resource | Method | Request Object | Return Object
 -------- | ------ | -------------- | -------------
 /oap/addrs | POST | *nil* | [AddressKeychain](#addresskeychain)
 
-The Generate Asset Address Endpoint returns a private/public keypair and the associated **oap_address** (the asset address) and **original_address** (native address on parent blockchain).
+The Generate Asset Address Endpoint returns a private/public keypair and the associated **oap_address** (the asset address) and **original_address** (native address on parent blockchain). Asset addresses are just like regular bitcoin addresses, and are generated from a private-public keypair. They only differ by a prefix (ex: 'a' for instead of '1') to distinguish them.
 
 <aside class="notice">
 On Bitcoin's blockchain, <b>oap_address</b> will have an "a" prefix, while the <b>original_address</b> will have a "1" prefix. Note that on BlockCypher's testnet, <b>oap_address</b> will have a "1" prefix, while <b>original_address</b> will have a "B" or "C" prefix. This can be confusing, but unfortunately can't be prevented due to the way <b>oap_address</b> is generated.
