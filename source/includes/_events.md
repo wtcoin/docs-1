@@ -6,7 +6,7 @@ Blockchains are highly transactional systems. Many usage patterns require knowin
 
 **[WebSockets](https://developer.mozilla.org/en-US/docs/WebSockets)** are typically used in client applications when a server is not already running: e.g., a web page displaying the most recent transactions or a wallet app updating its UI when a transaction has been confirmed. Websockets are less reliable in longer interactions (> 1 hour) because they require a connection to stay open.
 
-**[WebHooks](https://webhooks.pbworks.com/w/page/13385124/FrontPage)** are the most reliable way to get event notifications but requires running a server to receive the callbacks. We automatically retry HTTP requests 3 times.
+**[WebHooks](https://webhooks.pbworks.com/w/page/13385124/FrontPage)** are the most reliable way to get event notifications but requires running a server to receive the callbacks. We automatically retry HTTP requests 5 times.
 
 ## Types of Events
 
@@ -77,6 +77,8 @@ WebHooks leverage similar objects and interactions but with two key differences:
 
 - The JSON [Event](#event) should be sent using a POST request to the "create webhook endpoint" and include a **url** property to denote where payloads should be delivered.
 - The [TX](#tx) or [Block](#block) associated with the [Event](#event) will be POSTed to the provided **url**. The POSTed payload will also include *X-EventType* and *X-EventId* metadata in the HTTP header specifying the **event** type and **id** of the WebHook which triggered the payload.
+
+We retry individual payloads to your **url** five times; if one fails, we wait exponentially between retries: 1 second, 2s, 4s, 8s, 16s. In order to protect against stale callback **url**s, your [Event](#event) will be deleted if it reaches 50 aggregate **callback_errors** from failed payloads.
 
 <aside class="warning">
 To prevent eavesdropping, we recommend securing your callback <b>url</b> by using SSL and providing a <i>secret</i> parameter appended to the <a href="#event">Event</a> request. We POST the payload to the unaltered <b>url</b>, which allows you to check on your server that the parameter was not modified.
