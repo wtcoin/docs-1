@@ -386,7 +386,7 @@ ADDRESS is a *string* representing the public address (or wallet/HD wallet name)
 
 `1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD`
 
-The returned object contains information about the address, including its balance in satoshis, the number of transactions associated with it, and transaction inputs/outputs.
+The returned object contains information about the address, including its balance in satoshis, the number of transactions associated with it, and transaction inputs/outputs in descending order by block height---and if multiple transaction inputs/outputs associated with this address exist within the same block, by descending block index (position in block).
 
 ## Address Full Endpoint
 
@@ -780,7 +780,7 @@ ADDRESS is a *string* representing the public address (or wallet/HD wallet name)
 
 `1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD`
 
-The returned object contains information about the address, including its balance in satoshis, the number of transactions associated with it, and the corresponding full transaction records.
+The returned object contains information about the address, including its balance in satoshis, the number of transactions associated with it, and the corresponding full transaction records in descending order by block height---and if multiple transactions associated with this address exist within the same block, by descending block index (position in block).
 
 <aside class="notice">
 If your returned <a href="#address">Address</a> object includes the <b>hasMore</b> attribute, there are more transactions associated with the address than transfered through this endpoint. If this happens, note the block height of the last transaction in the array, and then you can use the <b>before</b> flag to page through results.
