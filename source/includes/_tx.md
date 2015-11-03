@@ -735,8 +735,13 @@ $.post('https://api.blockcypher.com/v1/bcy/test/txs/new', JSON.stringify(newtx))
 
 ```python
 # Creating transactions manually is very complicated.
-# We recommend you look at blockcypher.simple_spend_tx() for a full working example.
+# We recommend you look at blockcypher.simple_spend_tx() for a full working example of building a transaction using the blockcypher API, verifying and signing that transactionally locally, and then broadcasting it to the network using blockypher's API
+# With blockcypher.simple_spend_tx(), this whole example would look like just the following:
+>>> from blockcypher import simple_spend_tx
+>>> simple_spend_tx(from_privkey_hex='97838249d77bfa65f97be02b63fd1b7bb6a58474c7c22784a0da63993d1c2f90', to_address='C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn', to_satoshis=1000000, coin_symbol='bcy')
+'7981c7849294648c1e79dd16077a388b808fcf8c20035aec7cc5315b37dacfee'
 
+# That said, here it is in parts
 >>> from blockcypher import create_unsigned_tx
 >>> inputs = [{'address': 'CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9'}, ]
 >>> outputs = [{'address': 'C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn', 'value': 1000000}]
