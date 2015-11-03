@@ -6353,8 +6353,13 @@ Always use HTTPS for creating and pushing transactions.
  <span class="s2">"tosign"</span><span class="o">=&gt;</span><span class="p">[</span><span class="s2">"c24150bea2d3b50c852d1c5eaccd3b6e286623b516e255f876d2b7c0d93f200b"</span><span class="p">]}</span>
 </code></pre>
 <pre class="highlight python"><code><span class="c"># Creating transactions manually is very complicated.</span>
-<span class="c"># We recommend you look at blockcypher.simple_spend_tx() for a full working example.</span>
+<span class="c"># We recommend you look at blockcypher.simple_spend_tx() for a full working example of building a transaction using the blockcypher API, verifying and signing that transactionally locally, and then broadcasting it to the network using blockypher's API</span>
+<span class="c"># With blockcypher.simple_spend_tx(), this whole example would look like just the following:</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">blockcypher</span> <span class="kn">import</span> <span class="n">simple_spend_tx</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">simple_spend_tx</span><span class="p">(</span><span class="n">from_privkey_hex</span><span class="o">=</span><span class="s">'97838249d77bfa65f97be02b63fd1b7bb6a58474c7c22784a0da63993d1c2f90'</span><span class="p">,</span> <span class="n">to_address</span><span class="o">=</span><span class="s">'C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn'</span><span class="p">,</span> <span class="n">to_satoshis</span><span class="o">=</span><span class="mi">1000000</span><span class="p">,</span> <span class="n">coin_symbol</span><span class="o">=</span><span class="s">'bcy'</span><span class="p">)</span>
+<span class="s">'7981c7849294648c1e79dd16077a388b808fcf8c20035aec7cc5315b37dacfee'</span>
 
+<span class="c"># That said, here it is in parts</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">blockcypher</span> <span class="kn">import</span> <span class="n">create_unsigned_tx</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">inputs</span> <span class="o">=</span> <span class="p">[{</span><span class="s">'address'</span><span class="p">:</span> <span class="s">'CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9'</span><span class="p">},</span> <span class="p">]</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">outputs</span> <span class="o">=</span> <span class="p">[{</span><span class="s">'address'</span><span class="p">:</span> <span class="s">'C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn'</span><span class="p">,</span> <span class="s">'value'</span><span class="p">:</span> <span class="mi">1000000</span><span class="p">}]</span>
@@ -7972,7 +7977,7 @@ As with creating <a href="#creating-transactions">normal Transactions</a>, alway
  <span class="s2">"value_satoshis"</span><span class="o">=&gt;</span><span class="mi">20000</span><span class="p">,</span>
  <span class="s2">"hash"</span><span class="o">=&gt;</span><span class="s2">"5d618233bccbeaa570072d719ff4718ae02eebffb748210166d9b6180ea8da59"</span><span class="p">}</span>
 </code></pre>
-<pre class="highlight python"><code><span class="c"># The python library includes a method that will sign and verify a transaction client-side and should be used instead for security:</span>
+<pre class="highlight python"><code><span class="c"># The python library includes a method that will sign and verify a transaction client-side, so your private key never leaves your computer. It should be used instead for security:</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">blockcypher</span> <span class="kn">import</span> <span class="n">simple_spend_tx</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">simple_spend_tx</span><span class="p">(</span><span class="n">from_privkey_hex</span><span class="o">=</span><span class="s">'97838249d77bfa65f97be02b63fd1b7bb6a58474c7c22784a0da63993d1c2f90'</span><span class="p">,</span> <span class="n">to_address</span><span class="o">=</span><span class="s">'C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn'</span><span class="p">,</span> <span class="n">to_satoshis</span><span class="o">=</span><span class="mi">10000</span><span class="p">,</span> <span class="n">coin_symbol</span><span class="o">=</span><span class="s">'bcy'</span><span class="p">)</span>
 <span class="s">'7981c7849294648c1e79dd16077a388b808fcf8c20035aec7cc5315b37dacfee'</span>
