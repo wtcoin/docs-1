@@ -378,7 +378,7 @@ Flag | Type | Effect
 ---- | ---- | ------
 **unspentOnly** | *bool* | If **unspentOnly** is *true*, filters response to only include unspent transaction outputs (UTXOs).
 **before** | *integer* | Filters response to only include transactions below **before** height in the blockchain.
-**limit** | *integer* | Only includes **limit** number of TXRefs; if unset, default is 50, while the maximum is 200.
+**limit** | *integer* | **limit** sets the minimum number of returned TXRefs; there can be less if there are less than **limit** TXRefs associated with this address, but there can be more in the rare case of more TXRefs in the block at the bottom of your call. This ensures paging by block height never misses TXRefs. Defaults to 50, maximum is 200.
 **confirmations** | *integer* | If set, only returns the **balance** and TXRefs that have this number of **confirmations**.
 **omitWalletAddresses** | *bool* | If **omitWalletAddresses** is *true* and you're querying a [Wallet](#wallet) or [HDWallet](#hdwallet), the response will omit address information (useful to speed up the API call for larger wallets).
 
@@ -772,7 +772,7 @@ Resource | Method | Return Object
 Flag | Type | Effect
 ---- | ---- | ------
 **before** | *integer* | Filters response to only include transactions below **before** height in the blockchain.
-**limit** | *integer* | Only includes **limit** number of TXs; if unset, default is 10, while the maximum is 50.
+**limit** | *integer* | **limit** sets the minimum number of returned TXs; there can be less if there are less than **limit** TXs associated with this address, but there can also be more in the rare case of more TXs in the block at the bottom of your call. This ensures paging by block height never misses TXs. Defaults to 10, maximum is 50.
 **includeHex** | *bool* | If *true*, includes hex-encoded raw transaction for each TX; *false* by default.
 **omitWalletAddresses** | *bool* | If **omitWalletAddresses** is *true* and you're querying a [Wallet](#wallet) or [HDWallet](#hdwallet), the response will omit address information (useful to speed up the API call for larger wallets).
 
