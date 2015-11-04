@@ -1,5 +1,7 @@
 ---
-title: BlockCypher Reference
+title: Blockchain Developer API for Bitcoin, Testnet, Litecoin and More | Blockcypher
+seo_description: Build blockchain applications easily with our web APIs and callbacks. High throughputs, linear scaling, low-latency. Over 99.99% uptime with no single point of failure.
+
 
 language_tabs:
   - shell: cURL
