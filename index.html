@@ -833,7 +833,8 @@ Since the default, non-registered <a href="#rate-limits-and-tokens">rate limit</
 <aside class="warning">
 As mentioned above, Bitcoin Testnet3 is frequently under attack, sometimes from core developers stress-testing the protocol, sometimes from malevolent actors attempting new attack vectors. It can be extremely&mdash;and inconsistently&mdash;unreliable. Unless your testing environment requires Testnet3, we strongly encourage you to use BlockCypher&rsquo;s Test Chain.
 </aside>
-<pre class="highlight shell"><code><span class="c"># Make new address; returns private key/public key/address</span>
+<pre class="highlight shell"><code><span class="c"># Note resource change to bcy/test instead of btc/main</span>
+<span class="c"># Make new address; returns private key/public key/address</span>
 curl -X POST https://api.blockcypher.com/v1/bcy/test/addrs?token<span class="o">=</span><span class="nv">$YOURTOKEN</span>
 
 <span class="o">{</span>
@@ -1765,36 +1766,31 @@ Objects sometimes contain <b>attributes</b> that are <b><i>optional.</i></b> The
 </tbody></table>
 
 <h2 id="txskeleton">TXSkeleton</h2>
-<pre class="highlight shell"><code>curl -d <span class="s1">'{"inputs":[{"addresses": ["CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"]}],"outputs":[{"addresses": ["C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn"], "value": 1000000}]}'</span> https://api.blockcypher.com/v1/bcy/test/txs/new
+<pre class="highlight shell"><code><span class="c"># Note resource change to bcy/test instead of btc/main</span>
+curl -d <span class="s1">'{"inputs":[{"addresses": ["CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"]}],"outputs":[{"addresses": ["C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn"], "value": 1000000}]}'</span> https://api.blockcypher.com/v1/bcy/test/txs/new
 
 <span class="o">{</span>
 <span class="s2">"tx"</span>: <span class="o">{</span>
     <span class="s2">"block_height"</span>: -1,
-    <span class="s2">"hash"</span>: <span class="s2">"f961dea839fd69653547a0308360..."</span>,
+    <span class="s2">"block_index"</span>: 0,
+    <span class="s2">"hash"</span>: <span class="s2">"4d6e32d71313fb548232642fd..."</span>,
     <span class="s2">"addresses"</span>: <span class="o">[</span>
-        <span class="s2">"1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD"</span>,
-        <span class="s2">"1FGAsJFNgWvFz2tWQAnRq8S6fVX9Zmuxje"</span>,
-        <span class="o">]</span>,
-    <span class="s2">"total"</span>: 661116,
-    <span class="s2">"fees"</span>: 10000,
-    <span class="s2">"received"</span>: <span class="s2">"2014-04-20T23:52:21.069978821Z"</span>,
+        <span class="s2">"CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"</span>,
+        <span class="s2">"C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn"</span>
+    <span class="o">]</span>,
+    <span class="s2">"total"</span>: 5419600,
+    <span class="s2">"fees"</span>: 12500,
+    <span class="s2">"size"</span>: 119,
     ...
 <span class="o">}</span>,
 <span class="s2">"tosign"</span>: <span class="o">[</span>
-    <span class="s2">"04779733bba8085dd86c21d86c..."</span>,
-    <span class="s2">"0396ea6f1bf7493e738339bd72..."</span>
+    <span class="s2">"97d81abd54cae1648951f49..."</span>
 <span class="o">]</span>,
 <span class="s2">"errors"</span>: <span class="o">[</span>
     <span class="o">{</span> <span class="s2">"error"</span>: <span class="s2">"..."</span> <span class="o">}</span>
 <span class="o">]</span>,
-<span class="s2">"signatures"</span>: <span class="o">[</span>
-    <span class="s2">"a832bd21afc21..."</span>,
-    <span class="s2">"0123ba82a273b..."</span>
-<span class="o">]</span>,
-<span class="s2">"pubkeys"</span>: <span class="o">[</span>
-    <span class="s2">"02c8d29d..."</span>,
-    <span class="s2">"02c9d27d..."</span>,
-<span class="o">]</span>
+<span class="s2">"signatures"</span>: <span class="o">[]</span>,
+<span class="s2">"pubkeys"</span>: <span class="o">[]</span>
 <span class="o">}</span>
 </code></pre>
 
@@ -6203,7 +6199,8 @@ Always use HTTPS for creating and pushing transactions.
 </aside>
 
 <h3 id="new-transaction-endpoint">New Transaction Endpoint</h3>
-<pre class="highlight shell"><code>curl -d <span class="s1">'{"inputs":[{"addresses": ["CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"]}],"outputs":[{"addresses": ["C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn"], "value": 1000000}]}'</span> https://api.blockcypher.com/v1/bcy/test/txs/new
+<pre class="highlight shell"><code><span class="c"># Note resource change to bcy/test instead of btc/main, makes sharing private keys easier :)</span>
+curl -d <span class="s1">'{"inputs":[{"addresses": ["CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"]}],"outputs":[{"addresses": ["C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn"], "value": 1000000}]}'</span> https://api.blockcypher.com/v1/bcy/test/txs/new
 
 <span class="o">{</span>
 <span class="s2">"tx"</span>: <span class="o">{</span>
@@ -6653,6 +6650,7 @@ The <b>hash</b> assigned to <a href="#tx">TX</a> within the return object is onl
 One of the most common errors in the signing process is a data format mismatch. We always return and expect hex-encoded data, but oftentimes, standard signing libraries require byte arrays. Remember to convert your data, and always send hex-encoded signatures to BlockCypher.
 </aside>
 <pre class="highlight shell"><code><span class="c"># the request body is truncated because it's huge, but it's the same as the returned object from above plus the signatures and public keys</span>
+<span class="c"># remember, still using bcy/test instead of btc/main</span>
 curl -d <span class="s1">'{"tx": {...}, "tosign": [ "32b5ea64c253b6b466366647458cfd60de9cd29d7dc542293aa0b8b7300cd827" ], "signatures": [ "3045022100921fc36b911094280f07d8504a80fbab9b823a25f102e2bc69b14bcd369dfc7902200d07067d47f040e724b556e5bc3061af132d5a47bd96e901429d53c41e0f8cca" ], "pubkeys": [ "02152e2bb5b273561ece7bbe8b1df51a4c44f5ab0bc940c105045e2cc77e618044" ] }'</span> https://api.blockcypher.com/v1/bcy/test/txs/send
 
 <span class="o">{</span>
@@ -7024,7 +7022,8 @@ Due to safety checks within the API&rsquo;s transaction creation process, the us
 </aside>
 
 <h2 id="push-raw-transaction-endpoint">Push Raw Transaction Endpoint</h2>
-<pre class="highlight shell"><code>curl -d <span class="s1">'{"tx":"01000000011935b41d12936df99d322ac8972b74ecff7b79408bbccaf1b2eb8015228beac8000000006b483045022100921fc36b911094280f07d8504a80fbab9b823a25f102e2bc69b14bcd369dfc7902200d07067d47f040e724b556e5bc3061af132d5a47bd96e901429d53c41e0f8cca012102152e2bb5b273561ece7bbe8b1df51a4c44f5ab0bc940c105045e2cc77e618044ffffffff0240420f00000000001976a9145fb1af31edd2aa5a2bbaa24f6043d6ec31f7e63288ac20da3c00000000001976a914efec6de6c253e657a9d5506a78ee48d89762fb3188ac00000000"}'</span> https://api.blockcypher.com/v1/bcy/test/txs/push
+<pre class="highlight shell"><code><span class="c"># Note resource change to bcy/test instead of btc/main</span>
+curl -d <span class="s1">'{"tx":"01000000011935b41d12936df99d322ac8972b74ecff7b79408bbccaf1b2eb8015228beac8000000006b483045022100921fc36b911094280f07d8504a80fbab9b823a25f102e2bc69b14bcd369dfc7902200d07067d47f040e724b556e5bc3061af132d5a47bd96e901429d53c41e0f8cca012102152e2bb5b273561ece7bbe8b1df51a4c44f5ab0bc940c105045e2cc77e618044ffffffff0240420f00000000001976a9145fb1af31edd2aa5a2bbaa24f6043d6ec31f7e63288ac20da3c00000000001976a914efec6de6c253e657a9d5506a78ee48d89762fb3188ac00000000"}'</span> https://api.blockcypher.com/v1/bcy/test/txs/push
 
 <span class="o">{</span>
   <span class="s2">"block_height"</span>: -1,
@@ -7337,7 +7336,8 @@ Due to safety checks within the API&rsquo;s transaction creation process, the us
 <p>If it succeeds, you&rsquo;ll receive a decoded <a href="#tx">TX</a> object and an HTTP Status Code 201. If you&rsquo;d like, you can use the decoded transaction <strong>hash</strong> alongside an <a href="#events-and-hooks">Event</a> to track its progress in the network.</p>
 
 <h2 id="decode-raw-transaction-endpoint">Decode Raw Transaction Endpoint</h2>
-<pre class="highlight shell"><code>curl -d <span class="s1">'{"tx":"01000000011935b41d12936df99d322ac8972b74ecff7b79408bbccaf1b2eb8015228beac8000000006b483045022100921fc36b911094280f07d8504a80fbab9b823a25f102e2bc69b14bcd369dfc7902200d07067d47f040e724b556e5bc3061af132d5a47bd96e901429d53c41e0f8cca012102152e2bb5b273561ece7bbe8b1df51a4c44f5ab0bc940c105045e2cc77e618044ffffffff0240420f00000000001976a9145fb1af31edd2aa5a2bbaa24f6043d6ec31f7e63288ac20da3c00000000001976a914efec6de6c253e657a9d5506a78ee48d89762fb3188ac00000000"}'</span> https://api.blockcypher.com/v1/bcy/test/txs/decode
+<pre class="highlight shell"><code><span class="c"># Note resource change to bcy/test instead of btc/main</span>
+curl -d <span class="s1">'{"tx":"01000000011935b41d12936df99d322ac8972b74ecff7b79408bbccaf1b2eb8015228beac8000000006b483045022100921fc36b911094280f07d8504a80fbab9b823a25f102e2bc69b14bcd369dfc7902200d07067d47f040e724b556e5bc3061af132d5a47bd96e901429d53c41e0f8cca012102152e2bb5b273561ece7bbe8b1df51a4c44f5ab0bc940c105045e2cc77e618044ffffffff0240420f00000000001976a9145fb1af31edd2aa5a2bbaa24f6043d6ec31f7e63288ac20da3c00000000001976a914efec6de6c253e657a9d5506a78ee48d89762fb3188ac00000000"}'</span> https://api.blockcypher.com/v1/bcy/test/txs/decode
 
 <span class="o">{</span>
   <span class="s2">"block_height"</span>: -1,
@@ -7947,7 +7947,8 @@ As with creating <a href="#creating-transactions">normal Transactions</a>, alway
 <li>If not set, <strong>change_address</strong> defaults to the original source address computed by the private or public key sent. You can set it manually in the request object, useful if your source address is high-value, or you want to mitigate security risk after sending private keys.</li>
 <li>If not set, <strong>wait_guarantee</strong> defaults to <em>true</em>, which means the API will wait for BlockCypher to guarantee the transaction, using our <a href="#confidence-factor">Confidence Factor</a>. The guarantee usually takes around 8 seconds. If manually set to <em>false</em>, the Microtransaction endpoint will return as soon as the transaction is broadcast.</li>
 </ul>
-<pre class="highlight shell"><code>curl -d <span class="s1">'{ "from_private": "97838249d77bf...", "to_address": "C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn", "value_satoshis": 10000 }'</span> https://api.blockcypher.com/v1/bcy/test/txs/micro?token<span class="o">=</span>YOURTOKEN
+<pre class="highlight shell"><code><span class="c"># Note resource change to bcy/test instead of btc/main, makes it easier to share private keys :)</span>
+curl -d <span class="s1">'{ "from_private": "97838249d77bfa65f97be02b63fd1b7bb6a58474c7c22784a0da63993d1c2f90", "to_address": "C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn", "value_satoshis": 10000 }'</span> https://api.blockcypher.com/v1/bcy/test/txs/micro?token<span class="o">=</span>YOURTOKEN
 
 <span class="o">{</span>
 <span class="s2">"from_private"</span>: <span class="s2">"97838249d77bfa65f97be02b63fd1b7bb6a58474c7c22784a0da63993d1c2f90"</span>,
@@ -8044,7 +8045,8 @@ As with creating <a href="#creating-transactions">normal Transactions</a>, alway
 <aside class="warning">
 The private key method doesn&rsquo;t work with <b>uncompressed public addresses</b> as sources. You can still use uncompressed public addresses via the public key method listed below, but if you want to use the private key method, please use compressed public addresses (which has been the predominant standard since Bitcoin 0.6.0). You can read more about the distinction between <a href="https://bitcoin.org/en/developer-guide#public-key-formats">uncompressed and compressed keys here.</a>
 </aside>
-<pre class="highlight shell"><code>curl -d <span class="s1">'{ "from_pubkey": "02152e2bb5b273561ece7bbe8b1df...", "to_address": "C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn", "value_satoshis": 20000 }'</span> https://api.blockcypher.com/v1/bcy/test/txs/micro?token<span class="o">=</span>YOURTOKEN
+<pre class="highlight shell"><code><span class="c"># Note resource change to bcy/test instead of btc/main</span>
+curl -d <span class="s1">'{ "from_pubkey": "02152e2bb5b273561ece7bbe8b1df...", "to_address": "C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn", "value_satoshis": 20000 }'</span> https://api.blockcypher.com/v1/bcy/test/txs/micro?token<span class="o">=</span>YOURTOKEN
 
 <span class="o">{</span>
   <span class="s2">"from_pubkey"</span>: <span class="s2">"02152e2bb5b273561ece7bbe..."</span>,
