@@ -12,8 +12,7 @@ language_tabs:
   - php: PHP
 
 toc_footers:
-  - <a href='https://accounts.blockcypher.com/'>Register for a Free Token</a>
-  - Docs Powered by <a href="https://github.com/tripit/slate">Slate</a>
+  - <a href='https://accounts.blockcypher.com/'>Sign Up/Login</a>
 
 includes:
   - objects
