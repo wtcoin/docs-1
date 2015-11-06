@@ -830,6 +830,7 @@ As mentioned above, Bitcoin Testnet3 is frequently under attack, sometimes from 
 </aside>
 
 ```shell
+# Note resource change to bcy/test instead of btc/main
 # Make new address; returns private key/public key/address
 curl -X POST https://api.blockcypher.com/v1/bcy/test/addrs?token=$YOURTOKEN
 

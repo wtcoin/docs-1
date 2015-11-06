@@ -34,7 +34,8 @@ The request object is a partially filled out [MicroTX](#microtx), whose format d
 - If not set, **wait_guarantee** defaults to *true*, which means the API will wait for BlockCypher to guarantee the transaction, using our [Confidence Factor](#confidence-factor). The guarantee usually takes around 8 seconds. If manually set to *false*, the Microtransaction endpoint will return as soon as the transaction is broadcast.
 
 ```shell
-curl -d '{ "from_private": "97838249d77bf...", "to_address": "C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn", "value_satoshis": 10000 }' https://api.blockcypher.com/v1/bcy/test/txs/micro?token=YOURTOKEN
+# Note resource change to bcy/test instead of btc/main, makes it easier to share private keys :)
+curl -d '{ "from_private": "97838249d77bfa65f97be02b63fd1b7bb6a58474c7c22784a0da63993d1c2f90", "to_address": "C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn", "value_satoshis": 10000 }' https://api.blockcypher.com/v1/bcy/test/txs/micro?token=YOURTOKEN
 
 {
 "from_private": "97838249d77bfa65f97be02b63fd1b7bb6a58474c7c22784a0da63993d1c2f90",
@@ -143,6 +144,7 @@ The private key method doesn't work with <b>uncompressed public addresses</b> as
 </aside>
 
 ```shell
+# Note resource change to bcy/test instead of btc/main
 curl -d '{ "from_pubkey": "02152e2bb5b273561ece7bbe8b1df...", "to_address": "C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn", "value_satoshis": 20000 }' https://api.blockcypher.com/v1/bcy/test/txs/micro?token=YOURTOKEN
 
 {

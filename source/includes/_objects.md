@@ -389,36 +389,31 @@ Attribute | Type | Description
 ## TXSkeleton
 
 ```shell
+# Note resource change to bcy/test instead of btc/main
 curl -d '{"inputs":[{"addresses": ["CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"]}],"outputs":[{"addresses": ["C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn"], "value": 1000000}]}' https://api.blockcypher.com/v1/bcy/test/txs/new
 
 {
 "tx": {
 	"block_height": -1,
-	"hash": "f961dea839fd69653547a0308360...",
+	"block_index": 0,
+	"hash": "4d6e32d71313fb548232642fd...",
 	"addresses": [
-		"1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD",
-		"1FGAsJFNgWvFz2tWQAnRq8S6fVX9Zmuxje",
-		],
-	"total": 661116,
-	"fees": 10000,
-	"received": "2014-04-20T23:52:21.069978821Z",
+		"CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9",
+		"C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn"
+	],
+	"total": 5419600,
+	"fees": 12500,
+	"size": 119,
 	...
 },
 "tosign": [
-	"04779733bba8085dd86c21d86c...",
-	"0396ea6f1bf7493e738339bd72..."
+	"97d81abd54cae1648951f49..."
 ],
 "errors": [
 	{ "error": "..." }
 ],
-"signatures": [
-	"a832bd21afc21...",
-	"0123ba82a273b..."
-],
-"pubkeys": [
-	"02c8d29d...",
-	"02c9d27d...",
-]
+"signatures": [],
+"pubkeys": []
 }
 ```
 
