@@ -64,7 +64,7 @@ $.get('https://api.blockcypher.com/v1/btc/main').then(function(d) {console.log(d
 ```
 
 ```python
->>> from blockcypher import get_block_overview
+>>> from blockcypher import get_blockchain_overview
 >>> get_blockchain_overview()
 {
     "hash": "0000000000000000097ebad5b89f15d46bc2bb36423af7cbcaa83a87f3f2a178", 
