@@ -378,6 +378,7 @@ Attribute | Type | Description
 **spent** | *bool* | 	*true* if this is an output and was spent. If it's an input, or an unspent output, it will be *false*. 
 **double_spend** | *bool* | *true* if this is an attempted double spend; *false* otherwise.
 **confirmations** | *integer* | Number of subsequent blocks, including the block the transaction is in. Unconfirmed transactions have 0 confirmations.
+**script** | *string* | ***Optional*** Raw, hex-encoded script of this input/output.
 **ref_balance** | *integer* | ***Optional*** The past balance of the parent address the moment this transaction was confirmed. Not present for unconfirmed transactions.
 **confidence** | *float* | ***Optional*** The percentage chance this transaction will be included in the next block, if unconfirmed. For more information, check the section on [Confidence Factor.](#confidence-factor)
 **confirmed** | [*time*](https://tools.ietf.org/html/rfc3339) | ***Optional*** Time at which transaction was included in a block; only present for confirmed transactions.

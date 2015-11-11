@@ -377,6 +377,7 @@ Resource | Method | Return Object
 Flag | Type | Effect
 ---- | ---- | ------
 **unspentOnly** | *bool* | If **unspentOnly** is *true*, filters response to only include unspent transaction outputs (UTXOs).
+**includeScript** | *bool* | If **includeScript** is *true*, includes raw script of input or output within returned [TXRefs.](#txref)
 **before** | *integer* | Filters response to only include transactions below **before** height in the blockchain.
 **limit** | *integer* | **limit** sets the minimum number of returned TXRefs; there can be less if there are less than **limit** TXRefs associated with this address, but there can be more in the rare case of more TXRefs in the block at the bottom of your call. This ensures paging by block height never misses TXRefs. Defaults to 50, maximum is 200.
 **confirmations** | *integer* | If set, only returns the **balance** and TXRefs that have this number of **confirmations**.
