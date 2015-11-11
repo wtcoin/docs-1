@@ -1729,6 +1729,11 @@ Objects sometimes contain <b>attributes</b> that are <b><i>optional.</i></b> The
 <td>Number of subsequent blocks, including the block the transaction is in. Unconfirmed transactions have 0 confirmations.</td>
 </tr>
 <tr>
+<td><strong>script</strong></td>
+<td><em>string</em></td>
+<td><strong><em>Optional</em></strong> Raw, hex-encoded script of this input/output.</td>
+</tr>
+<tr>
 <td><strong>ref_balance</strong></td>
 <td><em>integer</em></td>
 <td><strong><em>Optional</em></strong> The past balance of the parent address the moment this transaction was confirmed. Not present for unconfirmed transactions.</td>
@@ -3610,6 +3615,11 @@ With recent blocks, $BLOCK_HEIGHT is not always a unique identifier, due to the 
 <td><strong>unspentOnly</strong></td>
 <td><em>bool</em></td>
 <td>If <strong>unspentOnly</strong> is <em>true</em>, filters response to only include unspent transaction outputs (UTXOs).</td>
+</tr>
+<tr>
+<td><strong>includeScript</strong></td>
+<td><em>bool</em></td>
+<td>If <strong>includeScript</strong> is <em>true</em>, includes raw script of input or output within returned <a href="#txref">TXRefs.</a></td>
 </tr>
 <tr>
 <td><strong>before</strong></td>
