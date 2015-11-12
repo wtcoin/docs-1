@@ -601,6 +601,8 @@ Attribute | Type | Description
 
 A Wallet contains a list of addresses associated by its name and the user's token. It can be used interchangeably with all the [Address API](#address-api) endpoints, and in many places that require addresses, like when [Creating Transactions](#creating-transactions).
 
+The name of a wallet must be 1-25 characters long and cannot start with any characters that start an address for the currency contained in the wallet. For example, bitcoin wallet names cannot start with '1' or '3'.
+
 ## HDWallet
 
 ```shell
@@ -637,6 +639,8 @@ Attribute | Type | Description
 **hd** | *bool* | *true* for HD wallets, not present for normal wallets.
 **extended_public_key** | *string* | The extended public key all addresses in the HD wallet are derived from. It's encoded in [BIP32 format](https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki#serialization-format)
 **subchain_indexes** | *array[integer]* | ***optional*** returned for HD wallets created with subchains.
+
+The name of a wallet must be 1-25 characters long and cannot start with any characters that start an address for the currency contained in the wallet. For example, bitcoin wallet names cannot start with '1' or '3'.
 
 ## HDChain
 
