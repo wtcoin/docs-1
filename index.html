@@ -535,24 +535,24 @@ curl https://api.blockcypher.com/v1/tokens/<span class="nv">$YOURTOKEN</span>
 <span class="c1"># Use $apiContext as function param or set as default ApiContext 
 </span></code></pre>
 
-<p>We want everyone to try BlockCypher with as little friction as possible, which is why you don&rsquo;t need a token to get started. However, we do rate-limit non-registered users to maintain fidelity for registered users:</p>
+<p>We want everyone to try BlockCypher with as little friction as possible, which is why you don&rsquo;t need a token for any read-only <strong>GET</strong> calls. Please <a href="http://accounts.blockcypher.com/">register for a user token</a> if you want to use <strong>POST</strong> and <strong>DELETE</strong> calls. Once you have your token, you can append it to all your requests like any other URL parameter if you&rsquo;re using cURL, or through the appropriate method in the language SDK you&rsquo;re using.</p>
+
+<p>We do rate-limit our free tier, with or without a token:</p>
 
 <ul>
-<li>Classic requests, up to 5 requests/sec and 600 requests/hr</li>
-<li>WebHooks and WebSockets, up to 600 requests/hr</li>
+<li>Classic requests, up to 3 requests/sec and 200 requests/hr</li>
+<li>WebHooks and WebSockets, up to 200 requests/hr</li>
 </ul>
 
 <aside class="warning">
-If you exceed these limits as a non-registered user, your requests will return an HTTP Status Code 429!
+If you exceed these limits, your requests will return an HTTP Status Code 429!
 </aside>
-
-<p>Please <a href="http://accounts.blockcypher.com/">register for a user token</a> if your usage exceeds those limits, or if you want to preventively avoid the rate limits. Once you have your token, you can append it to all your requests like any other URL parameter if you&rsquo;re using cURL, or through the appropriate method in the language SDK you&rsquo;re using.</p>
 
 <p>Our future pricing plan will be tiered based on usage and volume. We will have a free tier and an extended free plan for our early users. To request higher limits or SLAs, please <a href="mailto:contact@blockcypher.com">email us.</a></p>
 
 <p>You can check your current limits and usage via a <strong>GET</strong> on the following endpoint, outside of our normal coin/chain pattern:</p>
 
-<p><code class="prettyprint">https://api.blockcypher.com/v1/tokens/YOURTOKEN</code></p>
+<p><code class="prettyprint">https://api.blockcypher.com/v1/tokens/$YOURTOKEN</code></p>
 
 <aside class="warning">
 If your limits are at default levels (i.e. haven&rsquo;t been raised by us) the endpoint won&rsquo;t return any limit information.
@@ -3018,7 +3018,7 @@ Only one of these three fields is required for the microtransaction endpoint: <b
 <tr>
 <td><strong>limit</strong></td>
 <td><em>integer</em></td>
-<td>Filters response to only include a maximum of <strong>limit</strong> transactions hashes in the block. Maximum value allowed is 200.</td>
+<td>Filters response to only include a maximum of <strong>limit</strong> transactions hashes in the block. Maximum value allowed is 500.</td>
 </tr>
 </tbody></table>
 
@@ -3210,7 +3210,7 @@ Only one of these three fields is required for the microtransaction endpoint: <b
 <tr>
 <td><strong>limit</strong></td>
 <td><em>integer</em></td>
-<td>Filters response to only include a maximum of <strong>limit</strong> transactions hashes in the block. Maximum value allowed is 200.</td>
+<td>Filters response to only include a maximum of <strong>limit</strong> transactions hashes in the block. Maximum value allowed is 500.</td>
 </tr>
 </tbody></table>
 
