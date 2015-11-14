@@ -674,7 +674,7 @@ import (
 
 func main() {
 	btc := gobcy.API{"YOURTOKEN", "btc", "main"}
-	addr, err := btc.GetAddrFullCustom("1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD", false, 300000, 0, false)
+	addr, err := btc.GetAddrFullCustom("1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD", false, 0, 300000, 0, false)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -774,6 +774,7 @@ Flag | Type | Effect
 ---- | ---- | ------
 **before** | *integer* | Filters response to only include transactions below **before** height in the blockchain.
 **limit** | *integer* | **limit** sets the minimum number of returned TXs; there can be less if there are less than **limit** TXs associated with this address, but there can also be more in the rare case of more TXs in the block at the bottom of your call. This ensures paging by block height never misses TXs. Defaults to 10, maximum is 50.
+**confirmations** | *integer* | If set, only returns the **balance** and TXs that have this number of **confirmations**.
 **includeHex** | *bool* | If *true*, includes hex-encoded raw transaction for each TX; *false* by default.
 **omitWalletAddresses** | *bool* | If **omitWalletAddresses** is *true* and you're querying a [Wallet](#wallet) or [HDWallet](#hdwallet), the response will omit address information (useful to speed up the API call for larger wallets).
 
