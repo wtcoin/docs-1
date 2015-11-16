@@ -380,7 +380,7 @@ Flag | Type | Effect
 **includeScript** | *bool* | If **includeScript** is *true*, includes raw script of input or output within returned [TXRefs.](#txref)
 **before** | *integer* | Filters response to only include transactions below **before** height in the blockchain.
 **limit** | *integer* | **limit** sets the minimum number of returned TXRefs; there can be less if there are less than **limit** TXRefs associated with this address, but there can be more in the rare case of more TXRefs in the block at the bottom of your call. This ensures paging by block height never misses TXRefs. Defaults to 50, maximum is 200.
-**confirmations** | *integer* | If set, only returns the **balance** and TXRefs that have this number of **confirmations**.
+**confirmations** | *integer* | If set, only returns the **balance** and TXRefs that have *at least* this number of **confirmations**.
 **omitWalletAddresses** | *bool* | If **omitWalletAddresses** is *true* and you're querying a [Wallet](#wallet) or [HDWallet](#hdwallet), the response will omit address information (useful to speed up the API call for larger wallets).
 
 ADDRESS is a *string* representing the public address (or wallet/HD wallet name) you're interested in querying, for example:
@@ -774,7 +774,7 @@ Flag | Type | Effect
 ---- | ---- | ------
 **before** | *integer* | Filters response to only include transactions below **before** height in the blockchain.
 **limit** | *integer* | **limit** sets the minimum number of returned TXs; there can be less if there are less than **limit** TXs associated with this address, but there can also be more in the rare case of more TXs in the block at the bottom of your call. This ensures paging by block height never misses TXs. Defaults to 10, maximum is 50.
-**confirmations** | *integer* | If set, only returns the **balance** and TXs that have this number of **confirmations**.
+**confirmations** | *integer* | If set, only returns the **balance** and TXs that have *at least* this number of **confirmations**.
 **includeHex** | *bool* | If *true*, includes hex-encoded raw transaction for each TX; *false* by default.
 **omitWalletAddresses** | *bool* | If **omitWalletAddresses** is *true* and you're querying a [Wallet](#wallet) or [HDWallet](#hdwallet), the response will omit address information (useful to speed up the API call for larger wallets).
 
