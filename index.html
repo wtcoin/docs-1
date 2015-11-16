@@ -3638,7 +3638,7 @@ With recent blocks, $BLOCK_HEIGHT is not always a unique identifier, due to the 
 <tr>
 <td><strong>confirmations</strong></td>
 <td><em>integer</em></td>
-<td>If set, only returns the <strong>balance</strong> and TXRefs that have this number of <strong>confirmations</strong>.</td>
+<td>If set, only returns the <strong>balance</strong> and TXRefs that have <em>at least</em> this number of <strong>confirmations</strong>.</td>
 </tr>
 <tr>
 <td><strong>omitWalletAddresses</strong></td>
@@ -3928,7 +3928,7 @@ With recent blocks, $BLOCK_HEIGHT is not always a unique identifier, due to the 
 
 </span><span class="k">func</span><span class="x"> </span><span class="n">main</span><span class="p">()</span><span class="x"> </span><span class="p">{</span><span class="x">
     </span><span class="n">btc</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">gobcy</span><span class="o">.</span><span class="n">API</span><span class="p">{</span><span class="s">"YOURTOKEN"</span><span class="p">,</span><span class="x"> </span><span class="s">"btc"</span><span class="p">,</span><span class="x"> </span><span class="s">"main"</span><span class="p">}</span><span class="x">
-    </span><span class="n">addr</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">btc</span><span class="o">.</span><span class="n">GetAddrFullCustom</span><span class="p">(</span><span class="s">"1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD"</span><span class="p">,</span><span class="x"> </span><span class="no">false</span><span class="p">,</span><span class="x"> </span><span class="m">300000</span><span class="p">,</span><span class="x"> </span><span class="m">0</span><span class="p">,</span><span class="x"> </span><span class="no">false</span><span class="p">)</span><span class="x">
+    </span><span class="n">addr</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">btc</span><span class="o">.</span><span class="n">GetAddrFullCustom</span><span class="p">(</span><span class="s">"1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD"</span><span class="p">,</span><span class="x"> </span><span class="no">false</span><span class="p">,</span><span class="x"> </span><span class="m">0</span><span class="p">,</span><span class="x"> </span><span class="m">300000</span><span class="p">,</span><span class="x"> </span><span class="m">0</span><span class="p">,</span><span class="x"> </span><span class="no">false</span><span class="p">)</span><span class="x">
     </span><span class="k">if</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="no">nil</span><span class="x"> </span><span class="p">{</span><span class="x">
         </span><span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="n">err</span><span class="p">)</span><span class="x">
     </span><span class="p">}</span><span class="x">
@@ -4048,6 +4048,11 @@ With recent blocks, $BLOCK_HEIGHT is not always a unique identifier, due to the 
 <td><strong>limit</strong></td>
 <td><em>integer</em></td>
 <td><strong>limit</strong> sets the minimum number of returned TXs; there can be less if there are less than <strong>limit</strong> TXs associated with this address, but there can also be more in the rare case of more TXs in the block at the bottom of your call. This ensures paging by block height never misses TXs. Defaults to 10, maximum is 50.</td>
+</tr>
+<tr>
+<td><strong>confirmations</strong></td>
+<td><em>integer</em></td>
+<td>If set, only returns the <strong>balance</strong> and TXs that have <em>at least</em> this number of <strong>confirmations</strong>.</td>
 </tr>
 <tr>
 <td><strong>includeHex</strong></td>
