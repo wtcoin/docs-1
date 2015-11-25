@@ -710,7 +710,7 @@ Attribute | Type | Description
   "assetid": "1Npqwstp55vgThp4pwAC9UhYkvPJ28b2Ui",
   "hash": "022e05bdfa2e148bc1882cb7a81506b8316fee6957b11625126d075a8cf8791b",
   "received": "2015-10-25T05:48:13.417949402Z",
-  "oap_meta": "ACMEShares",
+  "oap_meta": "1a2b3c4d5e6f",
   "double_spend": false,
   "inputs": [
     {
