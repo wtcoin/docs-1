@@ -709,7 +709,8 @@ Attribute | Type | Description
   "ver": 1,
   "assetid": "1Npqwstp55vgThp4pwAC9UhYkvPJ28b2Ui",
   "hash": "022e05bdfa2e148bc1882cb7a81506b8316fee6957b11625126d075a8cf8791b",
-  "received": "2015-10-25T05:48:13.417949402Z",
+  "confirmed": "2015-10-25T04:50:06Z",
+  "received": "2015-10-25T04:49:32.37Z",
   "oap_meta": "1a2b3c4d5e6f",
   "double_spend": false,
   "inputs": [
@@ -737,6 +738,7 @@ Attribute | Type | Description
 **ver** | *int* | Version of Open Assets Protocol transaction. Typically 1.
 **assetid** | *string* | Unique indentifier associated with this asset; can be used to query other transactions associated with this asset.
 **hash** | *string* | This transaction's unique hash; same as the underlying transaction on the asset's parent blockchain.
+**confirmed** |[*time*](https://tools.ietf.org/html/rfc3339) | ***Optional*** Time this transaction was confirmed; only returned for confirmed transactions.
 **received** | [*time*](https://tools.ietf.org/html/rfc3339) | Time this transaction was received.
 **oap_meta** | *string* | ***Optional*** Associated hex-encoded metadata with this transaction, if it exists.
 **double_spend** | *bool* | *true* if this is an attempted double spend; *false* otherwise.
