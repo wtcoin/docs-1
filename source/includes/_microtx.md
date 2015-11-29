@@ -80,7 +80,7 @@ $.post(url, JSON.stringify(microtx))
 >>> import requests, json
 >>> data = {'from_private': '97838249d77bfa65f97be02b63fd1b7bb6a58474c7c22784a0da63993d1c2f90', 'to_address': 'C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn', 'value_satoshis': 10000}
 >>> params = {'token': 'YOUR_TOKEN'}
->>> r = requests.post('https://api.blockcypher.com/v1/bcy/test/txs/micro', data=json.dumps(data), params=params)
+>>> r = requests.post('https://api.blockcypher.com/v1/bcy/test/txs/micro', data=data, params=params)
 >>> r.json()
 {
     "from_private": "97838249d77bfa65f97be02b63fd1b7bb6a58474c7c22784a0da63993d1c2f90", 
