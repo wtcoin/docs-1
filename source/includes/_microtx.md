@@ -72,8 +72,8 @@ $.post(url, JSON.stringify(microtx))
 
 ```python
 # The python library includes a method that will sign and verify a transaction client-side, so your private key never leaves your computer. It should be used instead for security:
->>> from blockcypher import simple_spend_tx
->>> simple_spend_tx(from_privkey_hex='97838249d77bfa65f97be02b63fd1b7bb6a58474c7c22784a0da63993d1c2f90', to_address='C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn', to_satoshis=10000, coin_symbol='bcy')
+>>> from blockcypher import simple_spend
+>>> simple_spend(from_privkey='97838249d77bfa65f97be02b63fd1b7bb6a58474c7c22784a0da63993d1c2f90', to_address='C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn', to_satoshis=10000, coin_symbol='bcy')
 '7981c7849294648c1e79dd16077a388b808fcf8c20035aec7cc5315b37dacfee'
 
 # If you prefer to use the MicroTX endpoint (say for the wait_guarantee), here's how to do that:
