@@ -527,8 +527,9 @@ With recent blocks, $BLOCK_HEIGHT is not always a unique identifier, due to the 
 
 ## Feature Endpoint
 
-```curl
+```shell
 curl https://api.blockcypher.com/v1/btc/main/feature/bip65?token=YOURTOKEN
+
 {
   "name": "bip65",
   "state": "EXCLUSIVE",
