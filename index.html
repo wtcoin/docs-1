@@ -253,7 +253,7 @@ Currently, we only have cURL, JavaScript, and Python code samples on this page, 
 
 <h3 id="changelog-and-errors">Changelog and Errors</h3>
 
-<p>Our documentation is powered by <a href="https://pages.github.com/">GitHub Pages</a> and <a href="https://github.com/tripit/slate">Slate</a>, which makes viewing changes as simple as checking the <a href="https://github.com/blockcypher/documentation/commits/master">git commit history.</a>. If there&rsquo;s an error or you&rsquo;d like to suggest a change, please consider submitting a pull request to benefit the broader BlockCypher community.</p>
+<p>Our documentation is powered by <a href="https://pages.github.com/">GitHub Pages</a> and <a href="https://github.com/tripit/slate">Slate</a>, which makes viewing changes as simple as checking the <a href="https://github.com/blockcypher/docs/commits/master">git commit history.</a>. If there&rsquo;s an error or you&rsquo;d like to suggest a change, please consider submitting a pull request to benefit the broader BlockCypher community.</p>
 
 <h2 id="api-versions">API Versions</h2>
 
@@ -3229,6 +3229,31 @@ Only one of these three fields is required for the microtransaction endpoint: <b
 <aside class="warning">
 With recent blocks, $BLOCK_HEIGHT is not always a unique identifier, due to the possibility of soft forks and the nature of the consensus model with blockchains. If you&rsquo;re querying blocks with <b>depth above 10</b> (i.e., there are more than 10 blocks ahead of your target) the height should be a safe identifier.
 </aside>
+
+<h2 id="feature-endpoint">Feature Endpoint</h2>
+<pre class="highlight shell"><code>curl https://api.blockcypher.com/v1/btc/main/feature/bip65?token<span class="o">=</span>YOURTOKEN
+
+<span class="o">{</span>
+  <span class="s2">"name"</span>: <span class="s2">"bip65"</span>,
+  <span class="s2">"state"</span>: <span class="s2">"EXCLUSIVE"</span>,
+  <span class="s2">"last_transition_height"</span>: 388380,
+  <span class="s2">"last_transition_hash"</span>: <span class="s2">"000000000000000009f886db2c7c12a497603e86378bace3ead93d350be3f38c"</span>
+<span class="o">}</span>
+</code></pre>
+
+<table><thead>
+<tr>
+<th>Resource</th>
+<th>Method</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>/feature/$NAME</td>
+<td>GET</td>
+</tr>
+</tbody></table>
+
+<p>If you&rsquo;re curious about the adoption of upgrade features on a blockchain, you can use this endpoint to get some information about its state on the network. For example, for bip65 on bitcoin, you could check its state via this URL: <code class="prettyprint">https://api.blockcypher.com/v1/btc/main/feature/bip65?token=YOURTOKEN</code>. Generally speaking, for bitcoin, this will follow the form of tracking bipXX (where XX = a number), but the list of features we&rsquo;re tracking is always changing.</p>
 
           <h1 id="address-api">Address API</h1>
 
