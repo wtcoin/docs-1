@@ -933,6 +933,10 @@ While this particular usage will differ between client libraries, the result is 
 
 As a return object, you'll receive a [TXSkeleton](#txskeleton) containing a slightly-more complete [TX](#tx) alongside data you need to sign in the **tosign** array. You'll need this object for the next steps of the transaction creation process.
 
+<aside class="warning">
+The <a href="#txskeleton">TXSkeleton</a> returned by this endpoint may contain some data that's temporary or incomplete, like the <b>hash</b>, <b>size</b>, and the inputs' <b>script</b> fields. This is by design, as the final <a href="#tx">TX</a> can only be computed once signed data has been added. Do not rely on these fields until they are returned and sent to the network via the Send Transaction Endpoint outlined below.
+</aside>
+
 ### Validating the Data to Sign
 
 For the extra cautious, you can protect yourself from a potential malicious attack on BlockCypher by validating the data we're asking you to sign. Unfortunately, it's impossible to do so directly, as pre-signed signature data is hashed twice using SHA256. To get around this, set the **includeToSignTx** URL flag to *true*. The optional **tosign_tx** array will be returned within the [TXSkeleton](#txskeleton), which you can use in the following way:
@@ -946,10 +950,6 @@ If you want to automatically empty your input address(es) without knowing their 
 
 <aside class="notice">
 There are many manually configurable options available via your <a href="#tx">TX</a> request object. You can read about them in more detail in the <a href="#customizing-transaction-requests">Customizing Transaction Requests</a> section below.
-</aside>
-
-<aside class="warning">
-The <b>hash</b> assigned to <a href="#tx">TX</a> within the return object is only temporary. A final <b>hash</b> will be provided after the transaction is sent to the network through the Send Transaction Endpoint.
 </aside>
 
 ```shell
