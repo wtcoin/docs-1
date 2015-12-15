@@ -248,7 +248,7 @@ We know many learn more from code examples than specific reference documentation
 
 ### Changelog and Errors
 
-Our documentation is powered by [GitHub Pages](https://pages.github.com/) and [Slate](https://github.com/tripit/slate), which makes viewing changes as simple as checking the [git commit history.](https://github.com/blockcypher/documentation/commits/master). If there's an error or you'd like to suggest a change, please consider submitting a pull request to benefit the broader BlockCypher community.
+Our documentation is powered by [GitHub Pages](https://pages.github.com/) and [Slate](https://github.com/tripit/slate), which makes viewing changes as simple as checking the [git commit history.](https://github.com/blockcypher/docs/commits/master). If there's an error or you'd like to suggest a change, please consider submitting a pull request to benefit the broader BlockCypher community.
 
 ## API Versions
 
@@ -965,4 +965,3 @@ You need <a href="https://accounts.blockcypher.com/">a token</a> to use test fau
 <aside class="warning">
 On the BlockCypher Test Chain, the faucet will refuse to fund an address with more than 500 billion BlockCypher satoshis and will not fund more than 100 million BlockCypher satoshis at a time. On Bitcoin Testnet3 those numbers are adjusted to 10 million and 500,000 testnet satoshis respectively.
 </aside>
-

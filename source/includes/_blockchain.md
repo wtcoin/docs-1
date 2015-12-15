@@ -524,3 +524,20 @@ As above, the returned object contains information about the block, including it
 <aside class="warning">
 With recent blocks, $BLOCK_HEIGHT is not always a unique identifier, due to the possibility of soft forks and the nature of the consensus model with blockchains. If you're querying blocks with <b>depth above 10</b> (i.e., there are more than 10 blocks ahead of your target) the height should be a safe identifier.
 </aside>
+
+## Feature Endpoint
+
+```curl
+curl https://api.blockcypher.com/v1/btc/main/feature/bip65?token=YOURTOKEN
+{
+  "name": "bip65",
+  "state": "EXCLUSIVE",
+  "last_transition_height": 388380,
+  "last_transition_hash": "000000000000000009f886db2c7c12a497603e86378bace3ead93d350be3f38c"
+}
+```
+Resource | Method 
+-------- | ------ 
+/feature/$NAME | GET
+
+If you're curious about the adoption of upgrade features on a blockchain, you can use this endpoint to get some information about its state on the network. For example, for bip65 on bitcoin, you could check its state via this URL: `https://api.blockcypher.com/v1/btc/main/feature/bip65?token=YOURTOKEN`. Generally speaking, for bitcoin, this will follow the form of tracking bipXX (where XX = a number), but the list of features we're tracking is always changing.
