@@ -6615,6 +6615,10 @@ curl -d <span class="s1">'{"inputs":[{"addresses": ["CEztKBAYNoUEEaPYbkyFeXC5v8J
 
 <p>As a return object, you&rsquo;ll receive a <a href="#txskeleton">TXSkeleton</a> containing a slightly-more complete <a href="#tx">TX</a> alongside data you need to sign in the <strong>tosign</strong> array. You&rsquo;ll need this object for the next steps of the transaction creation process.</p>
 
+<aside class="warning">
+The <a href="#txskeleton">TXSkeleton</a> returned by this endpoint may contain some data that&rsquo;s temporary or incomplete, like the <b>hash</b>, <b>size</b>, and the inputs&rsquo; <b>script</b> fields. This is by design, as the final <a href="#tx">TX</a> can only be computed once signed data has been added. Do not rely on these fields until they are returned and sent to the network via the Send Transaction Endpoint outlined below.
+</aside>
+
 <h3 id="validating-the-data-to-sign">Validating the Data to Sign</h3>
 
 <p>For the extra cautious, you can protect yourself from a potential malicious attack on BlockCypher by validating the data we&rsquo;re asking you to sign. Unfortunately, it&rsquo;s impossible to do so directly, as pre-signed signature data is hashed twice using SHA256. To get around this, set the <strong>includeToSignTx</strong> URL flag to <em>true</em>. The optional <strong>tosign_tx</strong> array will be returned within the <a href="#txskeleton">TXSkeleton</a>, which you can use in the following way:</p>
@@ -6630,10 +6634,6 @@ If you want to automatically empty your input address(es) without knowing their 
 
 <aside class="notice">
 There are many manually configurable options available via your <a href="#tx">TX</a> request object. You can read about them in more detail in the <a href="#customizing-transaction-requests">Customizing Transaction Requests</a> section below.
-</aside>
-
-<aside class="warning">
-The <b>hash</b> assigned to <a href="#tx">TX</a> within the return object is only temporary. A final <b>hash</b> will be provided after the transaction is sent to the network through the Send Transaction Endpoint.
 </aside>
 <pre class="highlight shell"><code><span class="c"># next, you sign the data returned in the tosign array locally</span>
 <span class="c"># here we're using our signer tool (https://github.com/blockcypher/btcutils/tree/master/signer), but any ECDSA secp256k1 signing tool should work</span>
