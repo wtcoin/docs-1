@@ -7036,6 +7036,36 @@ One of the most common errors we see are users who use uncompressed public keys 
 </aside>
 
 <h2 id="customizing-transaction-requests">Customizing Transaction Requests</h2>
+<pre class="highlight shell"><code><span class="c"># here are some example request objects for `/txs/new`</span>
+<span class="c"># simplest posssible case, with input address, output address and value</span>
+<span class="s1">'{
+"inputs":
+    [{"addresses": ["CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"]}],
+"outputs":
+  [{"addresses": ["C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn"], "value": 1000000}]
+}'</span>
+
+<span class="c"># let's add confirmation field to only allow UTXOs, and set fee preference to medium</span>
+<span class="s1">'{
+"inputs":
+    [{"addresses": ["CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"]}],
+"outputs":
+  [{"addresses": ["C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn"], "value": 1000000}],
+"confirmations": 1,
+"preference": "medium"
+}'</span>
+
+<span class="c"># instead of providing an address, let's specify a particular UTXO via prev_hash and output_index, and add a different change_address</span>
+<span class="s1">'{
+"inputs":
+    [{"prev_hash":"a238c817bea2d54dad4cdde38a1cfeb2aa5592313bc49514f3cd0d9db71c69c8", "output_index":0}],
+"outputs":
+  [{"addresses": ["C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn"], "value": 1000000}],
+"confirmations": 1,
+"preference": "medium",
+"change_address": "CFr99841LyMkyX5ZTGepY58rjXJhyNGXHf"
+}'</span>
+</code></pre>
 
 <p>While we demonstrated the simplest use of our <a href="#creating-transactions">two-endpoint process to create transactions</a>, you can have finer-grain control by modifying the <a href="#tx">TX</a> request object before sending to <code class="prettyprint">/txs/new</code>.</p>
 
