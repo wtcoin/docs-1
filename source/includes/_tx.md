@@ -1365,6 +1365,38 @@ One of the most common errors we see are users who use uncompressed public keys 
 
 ## Customizing Transaction Requests
 
+```shell
+# here are some example request objects for `/txs/new`
+# simplest posssible case, with input address, output address and value
+'{
+"inputs":
+	[{"addresses": ["CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"]}],
+"outputs":
+  [{"addresses": ["C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn"], "value": 1000000}]
+}'
+
+# let's add confirmation field to only allow UTXOs, and set fee preference to medium
+'{
+"inputs":
+	[{"addresses": ["CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9"]}],
+"outputs":
+  [{"addresses": ["C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn"], "value": 1000000}],
+"confirmations": 1,
+"preference": "medium"
+}'
+
+# instead of providing an address, let's specify a particular UTXO via prev_hash and output_index, and add a different change_address
+'{
+"inputs":
+	[{"prev_hash":"a238c817bea2d54dad4cdde38a1cfeb2aa5592313bc49514f3cd0d9db71c69c8", "output_index":0}],
+"outputs":
+  [{"addresses": ["C1rGdt7QEPGiwPMFhNKNhHmyoWpa5X92pn"], "value": 1000000}],
+"confirmations": 1,
+"preference": "medium",
+"change_address": "CFr99841LyMkyX5ZTGepY58rjXJhyNGXHf"
+}'
+```
+
 While we demonstrated the simplest use of our [two-endpoint process to create transactions](#creating-transactions), you can have finer-grain control by modifying the [TX](#tx) request object before sending to `/txs/new`.
 
 By default, we allow unconfirmed UTXOs as inputs when creating transactions. If you only want to allow confirmed UTXOs, set the **confirmations** value in your [TX](#tx) request object to 1.
