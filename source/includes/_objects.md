@@ -155,7 +155,8 @@ Attribute | Type | Description
 **chain** | *string* | The name of the blockchain represented, in the form of $COIN.$CHAIN
 **total** | *integer* | The total number of satoshis transacted in this block.
 **fees** | *integer* | The total number of fees---in satoshis---collected by miners in this block.
-**ver** | *integer* | Block version. In Bitcoin, per [BIP34](https://github.com/bitcoin/bips/blob/master/bip-0034.mediawiki) the last version 1 block was at height 227835.
+**size** | *integer* | ***Optional*** Raw size of block (including header and all transactions) in bytes. Not returned for bitcoin blocks earlier than height 389104.
+**ver** | *integer* | Block version. 
 **time** | [*time*](https://tools.ietf.org/html/rfc3339) | Recorded time at which block was built. *Note: Miners rarely post accurate clock times.*
 **received_time** | [*time*](https://tools.ietf.org/html/rfc3339) | The time BlockCypher's servers receive the block. Our servers' clock is continuously adjusted and accurate.
 **relayed_by** | *string* | Address of the peer that sent BlockCypher's servers this block.
