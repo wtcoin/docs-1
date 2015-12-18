@@ -1200,9 +1200,14 @@ Objects sometimes contain <b>attributes</b> that are <b><i>optional.</i></b> The
 <td>The total number of fees&mdash;in satoshis&mdash;collected by miners in this block.</td>
 </tr>
 <tr>
+<td><strong>size</strong></td>
+<td><em>integer</em></td>
+<td><strong><em>Optional</em></strong> Raw size of block (including header and all transactions) in bytes. Not returned for bitcoin blocks earlier than height 389104.</td>
+</tr>
+<tr>
 <td><strong>ver</strong></td>
 <td><em>integer</em></td>
-<td>Block version. In Bitcoin, per <a href="https://github.com/bitcoin/bips/blob/master/bip-0034.mediawiki">BIP34</a> the last version 1 block was at height 227835.</td>
+<td>Block version.</td>
 </tr>
 <tr>
 <td><strong>time</strong></td>
