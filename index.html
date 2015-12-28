@@ -801,10 +801,14 @@ curl <span class="s1">'https://api.blockcypher.com/v1/btc/main/blocks/5;6;7'</sp
 <span class="nv">$blockList</span> <span class="o">=</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">];</span> <span class="c1">// PHP 5.4
 </span></code></pre>
 
-<p>All endpoints that can retrieve a single <a href="#objects">Object</a> can be batched to return multiple objects. If you&rsquo;re cURLing the API directly, batching simply requires appending each identifier to the previous one using a semicolon (check the code pane for an example). The results are aggregated in a JSON array and may not be ordered, especially for bigger batches. But this shouldn&rsquo;t matter, as the requested identifiers are always present in the returned objects. The other supported client SDKs batch differently, but each idiomatic to their respective language (check the code pane examples in each library).</p>
+<p>All endpoints that can retrieve a single <a href="#objects">Object</a> can be batched to return multiple objects. If you&rsquo;re cURLing the API directly, batching simply requires appending each identifier to the previous one using a semicolon (check the code pane for an example). The results are aggregated in a JSON array. The other supported client SDKs batch differently, but each idiomatic to their respective language (check the code pane examples in each library).</p>
 
 <aside class="notice">
 The maximum number of elements that can be batched in a single call is 100.
+</aside>
+
+<aside class="notice">
+As you may have noticed from the examples, batched calls don&rsquo;t necessarily respect ordering, especially for bigger batches. But this shouldn&rsquo;t matter, as the requested identifiers are always present in the returned objects. 
 </aside>
 
 <p>When cURLing BlockCypher, batching also works when the identifiers aren&rsquo;t the last part of the URL; e.g., this URL will return the balances of three separate addresses:</p>
