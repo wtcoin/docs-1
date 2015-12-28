@@ -798,10 +798,14 @@ $blockList = explode(";", "5;6;7");
 $blockList = [5,6,7]; // PHP 5.4
 ```
 
-All endpoints that can retrieve a single [Object](#objects) can be batched to return multiple objects. If you're cURLing the API directly, batching simply requires appending each identifier to the previous one using a semicolon (check the code pane for an example). The results are aggregated in a JSON array and may not be ordered, especially for bigger batches. But this shouldn't matter, as the requested identifiers are always present in the returned objects. The other supported client SDKs batch differently, but each idiomatic to their respective language (check the code pane examples in each library).
+All endpoints that can retrieve a single [Object](#objects) can be batched to return multiple objects. If you're cURLing the API directly, batching simply requires appending each identifier to the previous one using a semicolon (check the code pane for an example). The results are aggregated in a JSON array. The other supported client SDKs batch differently, but each idiomatic to their respective language (check the code pane examples in each library).
 
 <aside class="notice">
 The maximum number of elements that can be batched in a single call is 100.
+</aside>
+
+<aside class="notice">
+As you may have noticed from the examples, batched calls don't necessarily respect ordering, especially for bigger batches. But this shouldn't matter, as the requested identifiers are always present in the returned objects. 
 </aside>
 
 When cURLing BlockCypher, batching also works when the identifiers aren't the last part of the URL; e.g., this URL will return the balances of three separate addresses:
