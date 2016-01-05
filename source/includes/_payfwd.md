@@ -223,7 +223,11 @@ Resource | Method | Return Object
 -------- | ------ | -------------
 /payments | GET | Array[[PaymentForward](#paymentforward)]
 
-You'll get a full array of your currently active payment forwarding addresses, based on your token.
+Flag | Type | Effect
+---- | ---- | ------
+**start** | *integer* | Returns list of payment forwards starting at the **start** index; useful for paging beyond the limit of 200 payment forwards.
+
+This returns the full array of your currently active payment forwarding addresses, based on your token. By default, this endpoint only returns the first 200 payment forwards. If you have more, you can page through them using the optional **start** parameter.
 
 ## Delete Payment Endpoint
 

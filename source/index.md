@@ -821,9 +821,9 @@ Since the default, non-registered <a href="#rate-limits-and-tokens">rate limit</
 We offer two different options for testing your blockchain application: Bitcoin Testnet3, and BlockCypher's Test Chain. We offer automated faucets for both Testnet3 and BlockCypher's Test Chain, but we recommend using BlockCypher's Test Chain for a variety of reasons:
 
 - It's nearly identical in characteristics to Bitcoin Main, with a few differences listed below.
+- The prefix for standard addreses is 'B' or 'C' (0x1B). The prefix for multisig addresses is 'D' (0x1F). This is also known as the "address version byte," which you can [read more about here.](https://bitcoin.org/en/developer-reference#address-conversion)
 - The chain is private (no data is broadcasted, only BlockCypher mines the transactions), making it much more predictable than the Bitcoin's testnet (which is frequently under attack).
 - New blocks get built every minute, confirming the transactions that have been created using our transaction API.
-- The prefix for standard addreses is 'B' or 'C' (0x1B). The prefix for multisig addresses is 'D' (0x1F).
 
 In case you missed the [Resources section](#restful-resources), the BlockCypher Test Chain is accessible from this resource:
 
