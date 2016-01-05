@@ -825,9 +825,9 @@ Since the default, non-registered <a href="#rate-limits-and-tokens">rate limit</
 
 <ul>
 <li>It&rsquo;s nearly identical in characteristics to Bitcoin Main, with a few differences listed below.</li>
+<li>The prefix for standard addreses is &lsquo;B&rsquo; or &#39;C&rsquo; (0x1B). The prefix for multisig addresses is &rsquo;D&rsquo; (0x1F). This is also known as the &ldquo;address version byte,&rdquo; which you can <a href="https://bitcoin.org/en/developer-reference#address-conversion">read more about here.</a></li>
 <li>The chain is private (no data is broadcasted, only BlockCypher mines the transactions), making it much more predictable than the Bitcoin&rsquo;s testnet (which is frequently under attack).</li>
 <li>New blocks get built every minute, confirming the transactions that have been created using our transaction API.</li>
-<li>The prefix for standard addreses is &lsquo;B&rsquo; or &#39;C&rsquo; (0x1B). The prefix for multisig addresses is &rsquo;D&rsquo; (0x1F).</li>
 </ul>
 
 <p>In case you missed the <a href="#restful-resources">Resources section</a>, the BlockCypher Test Chain is accessible from this resource:</p>
@@ -9209,7 +9209,21 @@ If you decide to have a <b>callback_url</b>, you&rsquo;ll receive a payload at t
 </tr>
 </tbody></table>
 
-<p>You&rsquo;ll get a full array of your currently active payment forwarding addresses, based on your token.</p>
+<table><thead>
+<tr>
+<th>Flag</th>
+<th>Type</th>
+<th>Effect</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>start</strong></td>
+<td><em>integer</em></td>
+<td>Returns list of payment forwards starting at the <strong>start</strong> index; useful for paging beyond the limit of 200 payment forwards.</td>
+</tr>
+</tbody></table>
+
+<p>This returns the full array of your currently active payment forwarding addresses, based on your token. By default, this endpoint only returns the first 200 payment forwards. If you have more, you can page through them using the optional <strong>start</strong> parameter.</p>
 
 <h2 id="delete-payment-endpoint">Delete Payment Endpoint</h2>
 <pre class="highlight shell"><code><span class="c"># Piping to grep to just show status code</span>
