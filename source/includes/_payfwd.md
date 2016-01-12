@@ -15,6 +15,10 @@ Payment forwarding is tied to your usage token, you can't create a payment forwa
 By default, all payments will be debited with a 10,000 satoshis mining fee. The amount of the fee is configurable. But for very small payments, if the amount sent is even lower than the mining and user-set processing fees, the forward will fail.
 </aside>
 
+<aside class="warning">
+If you set a <b>processing fee</b> (either a percentage or fixed amount) please note that mining fees will be deducted from this fee amount. Therefore, if the processing fee is below the mining fee, the payment forward will fail. This is easy to prevent with fixed process fees, but take caution when using a percentage-based processing fee.
+</aside>
+
 ## Create Payment Endpoint
 
 ```shell
