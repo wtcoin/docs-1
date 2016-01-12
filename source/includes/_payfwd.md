@@ -11,12 +11,12 @@ We do not take a fee on payment forwarding, other than the required 10,000 satos
 Payment forwarding is tied to your usage token, you can't create a payment forwarding request without one. You can <a href="http://account.blockcypher.com">register for a token here.</a>
 </aside>
 
-<aside class="warning">
-By default, all payments will be debited with a 10,000 satoshis mining fee. The amount of the fee is configurable. But for very small payments, if the amount sent is even lower than the mining and user-set processing fees, the forward will fail.
+<aside class="notice">
+Note that <b>mining fees</b> are deducted from any user-set <b>processing fees</b> first. This can often lead to lower processing fees than expected; for rare cases, with small enough payments/percentages, this can even mean no processing fees.
 </aside>
 
 <aside class="warning">
-If you set a <b>processing fee</b> (either a percentage or fixed amount) please note that mining fees will be deducted from this fee amount. Therefore, if the processing fee is below the mining fee, the payment forward will fail. This is easy to prevent with fixed process fees, but take caution when using a percentage-based processing fee.
+By default, all payments will be debited with a 10,000 satoshis <b>mining fee</b>. The amount of the fee is configurable, and if a <b>processing fee</b> is set, it will be deducted from that fee first. But for very small payments, if the amount sent is even lower than the mining and user-set processing fees, the forward will fail.
 </aside>
 
 ## Create Payment Endpoint
