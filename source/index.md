@@ -263,9 +263,6 @@ BlockCypher has client SDKs for the following languages:
 - **Java** [https://github.com/blockcypher/java-client](https://github.com/blockcypher/java-client)
 - **PHP** [https://github.com/blockcypher/php-client](https://github.com/blockcypher/php-client)
 - **Go** [https://github.com/blockcypher/gobcy](https://github.com/blockcypher/gobcy)
-
-These client SDKs are under development, but are still officially supported:
-
 - **Node.js** [https://github.com/blockcypher/node-client](https://github.com/blockcypher/node-client)
 
 If you're using these languages, we strongly encourage you to use an official SDK. Of course, all our API calls are standard HTTP endpoints using JSON formatted responses, so any language (or cURL from the command-line) will work just fine.

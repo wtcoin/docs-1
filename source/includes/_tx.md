@@ -971,7 +971,7 @@ There are many manually configurable options available via your <a href="#tx">TX
 var bitcoin = require("bitcoinjs-lib");
 var bigi    = require("bigi");
 var buffer  = require('buffer');
-var key     = new bitcoin.ECKey(bigi.fromHex(my_hex_private_key), true);
+var keys    = new bitcoin.ECPair(bigi.fromHex(my_hex_private_key));
 
 var newtx = {
   inputs: [{addresses: ['CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9']}],
@@ -983,7 +983,7 @@ $.post('https://api.blockcypher.com/v1/bcy/test/txs/new', JSON.stringify(newtx))
     // signing each of the hex-encoded string required to finalize the transaction
     tmptx.pubkeys = [];
     tmptx.signatures = tmptx.tosign.map(function(tosign, n) {
-      tmptx.pubkeys.push(key.pub.toHex());
+      tmptx.pubkeys.push(keys.getPublicKeyBuffer.toString("hex"));
       return key.sign(new buffer.Buffer(tosign, "hex")).toDER().toString("hex");
     });
     // sending back the transaction with all the signatures to broadcast
