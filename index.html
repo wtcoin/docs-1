@@ -269,11 +269,6 @@ Currently, we only have cURL, JavaScript, and Python code samples on this page, 
 <li><strong>Java</strong> <a href="https://github.com/blockcypher/java-client">https://github.com/blockcypher/java-client</a></li>
 <li><strong>PHP</strong> <a href="https://github.com/blockcypher/php-client">https://github.com/blockcypher/php-client</a></li>
 <li><strong>Go</strong> <a href="https://github.com/blockcypher/gobcy">https://github.com/blockcypher/gobcy</a></li>
-</ul>
-
-<p>These client SDKs are under development, but are still officially supported:</p>
-
-<ul>
 <li><strong>Node.js</strong> <a href="https://github.com/blockcypher/node-client">https://github.com/blockcypher/node-client</a></li>
 </ul>
 
@@ -6670,7 +6665,7 @@ There are many manually configurable options available via your <a href="#tx">TX
 <span class="kd">var</span> <span class="nx">bitcoin</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">"bitcoinjs-lib"</span><span class="p">);</span>
 <span class="kd">var</span> <span class="nx">bigi</span>    <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">"bigi"</span><span class="p">);</span>
 <span class="kd">var</span> <span class="nx">buffer</span>  <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'buffer'</span><span class="p">);</span>
-<span class="kd">var</span> <span class="nx">key</span>     <span class="o">=</span> <span class="k">new</span> <span class="nx">bitcoin</span><span class="p">.</span><span class="nx">ECKey</span><span class="p">(</span><span class="nx">bigi</span><span class="p">.</span><span class="nx">fromHex</span><span class="p">(</span><span class="nx">my_hex_private_key</span><span class="p">),</span> <span class="kc">true</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">keys</span>    <span class="o">=</span> <span class="k">new</span> <span class="nx">bitcoin</span><span class="p">.</span><span class="nx">ECPair</span><span class="p">(</span><span class="nx">bigi</span><span class="p">.</span><span class="nx">fromHex</span><span class="p">(</span><span class="nx">my_hex_private_key</span><span class="p">));</span>
 
 <span class="kd">var</span> <span class="nx">newtx</span> <span class="o">=</span> <span class="p">{</span>
   <span class="na">inputs</span><span class="p">:</span> <span class="p">[{</span><span class="na">addresses</span><span class="p">:</span> <span class="p">[</span><span class="s1">'CEztKBAYNoUEEaPYbkyFeXC5v8Jz9RoZH9'</span><span class="p">]}],</span>
@@ -6682,7 +6677,7 @@ There are many manually configurable options available via your <a href="#tx">TX
     <span class="c1">// signing each of the hex-encoded string required to finalize the transaction</span>
     <span class="nx">tmptx</span><span class="p">.</span><span class="nx">pubkeys</span> <span class="o">=</span> <span class="p">[];</span>
     <span class="nx">tmptx</span><span class="p">.</span><span class="nx">signatures</span> <span class="o">=</span> <span class="nx">tmptx</span><span class="p">.</span><span class="nx">tosign</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">tosign</span><span class="p">,</span> <span class="nx">n</span><span class="p">)</span> <span class="p">{</span>
-      <span class="nx">tmptx</span><span class="p">.</span><span class="nx">pubkeys</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">key</span><span class="p">.</span><span class="nx">pub</span><span class="p">.</span><span class="nx">toHex</span><span class="p">());</span>
+      <span class="nx">tmptx</span><span class="p">.</span><span class="nx">pubkeys</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">keys</span><span class="p">.</span><span class="nx">getPublicKeyBuffer</span><span class="p">.</span><span class="nx">toString</span><span class="p">(</span><span class="s2">"hex"</span><span class="p">));</span>
       <span class="k">return</span> <span class="nx">key</span><span class="p">.</span><span class="nx">sign</span><span class="p">(</span><span class="k">new</span> <span class="nx">buffer</span><span class="p">.</span><span class="nx">Buffer</span><span class="p">(</span><span class="nx">tosign</span><span class="p">,</span> <span class="s2">"hex"</span><span class="p">)).</span><span class="nx">toDER</span><span class="p">().</span><span class="nx">toString</span><span class="p">(</span><span class="s2">"hex"</span><span class="p">);</span>
     <span class="p">});</span>
     <span class="c1">// sending back the transaction with all the signatures to broadcast</span>
