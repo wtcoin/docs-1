@@ -466,11 +466,15 @@ curl https://api.blockcypher.com/v1/tokens/<span class="nv">$YOURTOKEN</span>
 <span class="s2">"limits"</span>: <span class="o">{</span>
     <span class="s2">"api/hour"</span>: 10000,
     <span class="s2">"api/second"</span>: 500,
-    <span class="s2">"hooks/hour"</span>: 5000
+    <span class="s2">"hooks/hour"</span>: 5000,
+    <span class="s2">"confidence/hour"</span>: 1000,
+    <span class="s2">"hooks"</span>: 5000,
+    <span class="s2">"payments"</span>: 5000
 <span class="o">}</span>,
 <span class="s2">"hits"</span>: <span class="o">{</span>
-    <span class="s2">"api/hour"</span>: 28,
-    <span class="s2">"hooks/hour"</span>: 24
+    <span class="s2">"api/hour"</span>: 280,
+    <span class="s2">"hooks/hour"</span>: 240,
+    <span class="s2">"confidence/hour"</span>: 100
 <span class="o">}</span>
 <span class="o">}</span>
 <span class="c"># These are quite above the default limits, but if you'd like them, reach out at contact@blockcypher.com ;)</span>
@@ -492,12 +496,16 @@ curl https://api.blockcypher.com/v1/tokens/<span class="nv">$YOURTOKEN</span>
 <span class="p">{</span>
     <span class="s">"hits"</span><span class="p">:</span> <span class="p">{</span>
         <span class="s">"api/hour"</span><span class="p">:</span> <span class="mi">16366</span><span class="p">,</span> 
-        <span class="s">"hooks/hour"</span><span class="p">:</span> <span class="mi">266</span>
+        <span class="s">"hooks/hour"</span><span class="p">:</span> <span class="mi">266</span><span class="p">,</span>
+        <span class="s">"confidence/hour"</span><span class="p">:</span> <span class="mi">101</span>
     <span class="p">},</span> 
     <span class="s">"limits"</span><span class="p">:</span> <span class="p">{</span>
         <span class="s">"api/hour"</span><span class="p">:</span> <span class="mi">500000</span><span class="p">,</span> 
         <span class="s">"api/second"</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span> 
-        <span class="s">"hooks/hour"</span><span class="p">:</span> <span class="mi">30000</span>
+        <span class="s">"hooks/hour"</span><span class="p">:</span> <span class="mi">30000</span><span class="p">,</span>
+        <span class="s">"confidence/hour"</span><span class="p">:</span> <span class="mi">1000</span><span class="p">,</span>
+        <span class="s">"hooks"</span><span class="p">:</span> <span class="mi">10000</span><span class="p">,</span>
+        <span class="s">"payments"</span><span class="p">:</span> <span class="mi">10000</span>
     <span class="p">},</span> 
     <span class="s">"token"</span><span class="p">:</span> <span class="s">"YOUR_TOKEN"</span>
 <span class="p">}</span>
@@ -532,11 +540,13 @@ curl https://api.blockcypher.com/v1/tokens/<span class="nv">$YOURTOKEN</span>
 
 <p>We want everyone to try BlockCypher with as little friction as possible, which is why you don&rsquo;t need a token for any read-only <strong>GET</strong> calls. Please <a href="http://accounts.blockcypher.com/">register for a user token</a> if you want to use <strong>POST</strong> and <strong>DELETE</strong> calls. Once you have your token, you can append it to all your requests like any other URL parameter if you&rsquo;re using cURL, or through the appropriate method in the language SDK you&rsquo;re using.</p>
 
-<p>We do rate-limit our free tier, with or without a token:</p>
+<p>We do rate-limit our free tier, with or without a token (though tokens are required for WebHooks/Sockets, Payments, and any <strong>POST</strong> or <strong>DELETE</strong> calls):</p>
 
 <ul>
 <li>Classic requests, up to 3 requests/sec and 200 requests/hr</li>
+<li>Confidence lookups, up to 200 requests/hr</li>
 <li>WebHooks and WebSockets, up to 200 requests/hr</li>
+<li>WebHooks and Payments, up to 200 stored on our servers</li>
 </ul>
 
 <aside class="warning">
@@ -1297,7 +1307,6 @@ Objects sometimes contain <b>attributes</b> that are <b><i>optional.</i></b> The
 <span class="s2">"vin_sz"</span>: 4,
 <span class="s2">"vout_sz"</span>: 1,
 <span class="s2">"confirmations"</span>: 63171,
-<span class="s2">"confidence"</span>: 1,
 <span class="s2">"inputs"</span>: <span class="o">[</span>
     <span class="o">{</span>
         <span class="s2">"prev_hash"</span>: <span class="s2">"583910b7bf90ab802e22e5c25a89..."</span>,
@@ -1415,11 +1424,6 @@ Objects sometimes contain <b>attributes</b> that are <b><i>optional.</i></b> The
 <td>Number of subsequent blocks, including the block the transaction is in. Unconfirmed transactions have 0 confirmations.</td>
 </tr>
 <tr>
-<td><strong>confidence</strong></td>
-<td><em>float</em></td>
-<td>The percentage chance this transaction will be included in the next block, if unconfirmed. For more information, check the section on <a href="#confidence-factor">Confidence Factor.</a></td>
-</tr>
-<tr>
 <td><strong>inputs</strong></td>
 <td><em>array[<a href="#txinput">TXInput</a>]</em></td>
 <td><a href="#txinput">TXInput</a> Array, limited to 20 by default.</td>
@@ -1428,6 +1432,11 @@ Objects sometimes contain <b>attributes</b> that are <b><i>optional.</i></b> The
 <td><strong>outputs</strong></td>
 <td><em>array[<a href="#txoutput">TXOutput</a>]</em></td>
 <td><a href="#txoutput">TXOutput</a> Array, limited to 20 by default.</td>
+</tr>
+<tr>
+<td><strong>confidence</strong></td>
+<td><em>float</em></td>
+<td><strong><em>Optional</em></strong> The percentage chance this transaction will be included in the next block, if unconfirmed. For more information, check the section on <a href="#confidence-factor">Confidence Factor.</a></td>
 </tr>
 <tr>
 <td><strong>confirmed</strong></td>
@@ -5703,7 +5712,6 @@ Even if you don&rsquo;t use the API to assist in creating transactions, we highl
 <span class="s2">"vin_sz"</span>: 4,
 <span class="s2">"vout_sz"</span>: 1,
 <span class="s2">"confirmations"</span>: 64373,
-<span class="s2">"confidence"</span>: 1,
 <span class="s2">"inputs"</span>: <span class="o">[</span>
     <span class="o">{</span>
     <span class="s2">"prev_hash"</span>: <span class="s2">"583910b7bf90ab802e22e5c25a89b59..."</span>,
@@ -5756,7 +5764,6 @@ Even if you don&rsquo;t use the API to assist in creating transactions, we highl
 <span class="o">&gt;</span> <span class="s2">"vin_sz"</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
 <span class="o">&gt;</span> <span class="s2">"vout_sz"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
 <span class="o">&gt;</span> <span class="s2">"confirmations"</span><span class="p">:</span> <span class="mi">64373</span><span class="p">,</span>
-<span class="o">&gt;</span> <span class="s2">"confidence"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
 <span class="o">&gt;</span> <span class="s2">"inputs"</span><span class="p">:</span> <span class="p">[</span>
 <span class="o">&gt;</span>   <span class="p">{</span>
 <span class="o">&gt;</span>   <span class="s2">"prev_hash"</span><span class="p">:</span> <span class="s2">"583910b7bf90ab802e22e5c25a89b59..."</span><span class="p">,</span>
@@ -5807,7 +5814,6 @@ Even if you don&rsquo;t use the API to assist in creating transactions, we highl
  <span class="s2">"vin_sz"</span><span class="o">=&gt;</span><span class="mi">4</span><span class="p">,</span>
  <span class="s2">"vout_sz"</span><span class="o">=&gt;</span><span class="mi">1</span><span class="p">,</span>
  <span class="s2">"confirmations"</span><span class="o">=&gt;</span><span class="mi">68362</span><span class="p">,</span>
- <span class="s2">"confidence"</span><span class="o">=&gt;</span><span class="mi">1</span><span class="p">,</span>
  <span class="s2">"inputs"</span><span class="o">=&gt;</span>
   <span class="p">[{</span><span class="s2">"prev_hash"</span><span class="o">=&gt;</span><span class="s2">"583910b7bf90ab802e22e5c25a89b59862b20c8c1aeb24dfb94e7a508a70f121"</span><span class="p">,</span>
     <span class="s2">"output_index"</span><span class="o">=&gt;</span><span class="mi">1</span><span class="p">,</span>
@@ -5836,7 +5842,6 @@ Even if you don&rsquo;t use the API to assist in creating transactions, we highl
     <span class="p">],</span> 
     <span class="s">"block_hash"</span><span class="p">:</span> <span class="s">"0000000000000000c504bdea36e531d8089d324f2d936c86e3274f97f8a44328"</span><span class="p">,</span> 
     <span class="s">"block_height"</span><span class="p">:</span> <span class="mi">293000</span><span class="p">,</span> 
-    <span class="s">"confidence"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> 
     <span class="s">"confirmations"</span><span class="p">:</span> <span class="mi">86918</span><span class="p">,</span> 
     <span class="s">"confirmed"</span><span class="p">:</span> <span class="s">"datetime.datetime(2014, 3, 29, 1, 29, 19, 0, tzinfo=tzutc())"</span><span class="p">,</span> 
     <span class="s">"double_spend"</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span> 
@@ -5930,7 +5935,6 @@ Even if you don&rsquo;t use the API to assist in creating transactions, we highl
 <span class="s2">"vin_sz"</span><span class="o">:</span> <span class="mi">4</span><span class="p">,</span>
 <span class="s2">"vout_sz"</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
 <span class="s2">"confirmations"</span><span class="o">:</span> <span class="mi">63171</span><span class="p">,</span>
-<span class="s2">"confidence"</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
 <span class="s2">"inputs"</span><span class="o">:</span> <span class="p">[</span>
     <span class="p">{</span>
         <span class="s2">"prev_hash"</span><span class="o">:</span> <span class="s2">"583910b7bf90ab802e22e5c25a89..."</span><span class="p">,</span>
@@ -6002,6 +6006,11 @@ Even if you don&rsquo;t use the API to assist in creating transactions, we highl
 <td><strong>includeHex</strong></td>
 <td><em>bool</em></td>
 <td>If <em>true</em>, includes hex-encoded raw transaction; <em>false</em> by default.</td>
+</tr>
+<tr>
+<td><strong>includeConfidence</strong></td>
+<td><em>bool</em></td>
+<td>If <em>true</em>, includes the <em>confidence</em> attribute (useful for unconfirmed transactions). For more info about this figure, check the <a href="#confidence-factor">Confidence Factor</a> documentation.</td>
 </tr>
 </tbody></table>
 
@@ -6114,7 +6123,6 @@ Even if you don&rsquo;t use the API to assist in creating transactions, we highl
             <span class="s">"1GKfznPeMp7Ey1MYfCS3CyrZZV2sRdBGWs"</span>
         <span class="p">],</span> 
         <span class="s">"block_height"</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> 
-        <span class="s">"confidence"</span><span class="p">:</span> <span class="mf">0.8789263566526737</span><span class="p">,</span> 
         <span class="s">"confirmations"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> 
         <span class="s">"double_spend"</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span> 
         <span class="s">"fees"</span><span class="p">:</span> <span class="mi">90000</span><span class="p">,</span> 
@@ -6176,7 +6184,7 @@ Even if you don&rsquo;t use the API to assist in creating transactions, we highl
 </span><span class="p">}</span><span class="x">
 
 </span><span class="c">//Result from `go run`:</span><span class="x">
-</span><span class="c">//[{BlockHash: BlockHeight:-1 Hash:f8928f4b57b4a419056d979de6c6daf1f8cf9e431b2d2e056d5122115bbf6e03 Addresses:[13m2zkhwfufunZj48C5yiCK5GyauoZASEK 1443nQwA3q5gRELUUrFFbsQ7wjfnzLKmNb 17QqqUkKsuGWF7EgftiY9HrXEPPYoLAmJ4 18WLk2MdxoJvkWewdYfZAUS7D5BitKWxrM 19Fkb6WcpT8xr2A9kggKJ1ogUQyDjGXGq7 1ApjvBUwNEt8kEvTn2XTDHqDQhPn8MApRq 1Ckk3HysYTTeTXrt4mAxa4wzP9WjLEBgKM 1DXEqjgC2QV7CsDiEjYdthmxvJEwEAEchB 1FuFEWK9Ms6YFfmBLQWeQxE5FUYcWHHdMf 1Gsp5Cz8xbxHdcKCBUL8eA8sWgTbs6pbVK 1JK6ANFKJvck3TArHfH8hxYXM69LLQi4Cd 1JpqxXp3WsDWru1HrC3jXKoiwstUMoGwE7 1KcTNQtGB2VkF8gHRcUP3LeKT4ipDWC3xz 1QJrogp9xSNMrEKH7eE74qy86baCsUnTFe] Total:14404949 Fees:18480 Size:1845 Preference:low RelayedBy:194.237.158.153:8333 Received:2015-10-16 23:12:50.822 +0000 UTC Confirmed:0001-01-01 00:00:00 +0000 UTC Confirmations:0 Confidence:0.4147856074218964 Ver:1 LockTime:0 DoubleSpend:false DoubleOf: ReceiveCount:138 VinSize:12 VoutSize:2 Hex: DataProtocol: ChangeAddress: NextInputs: NextOutputs: Inputs:[{PrevHash:de3e7627b5aaacc505901120a3c4cabebfee3d5d3c2b9349808fab8db26bd252 OutputIndex:0 OutputValue:1303094 Addresses:[1JpqxXp3WsDWru1HrC3jXKoiwstUMoGwE7] Sequence:4294967295 ScriptType:pay-to-pubkey-hash Script:483045022100e5f613cbdc60d13614dc58a2bdb9c67f348933e478288bb2e08a58e63c22dffc02201dda42464b34fa1a24e954cfa05ac2936575a039f5eb18201fe96dfd020c9967012103f1fbbcd8f5e50dde03be77c153a416c370b4c14c0d2c27eac66a64e4a47bd3f6 Age:0 WalletName:} {PrevHash:ce86c754efeb48d3b78e56f344082e825a76b2bfcb670eef5968934cf7694f24 OutputIndex:1 OutputValue:1006641 Addresses:[1ApjvBUwNEt8kEvTn2XTDHqDQhPn8MApRq] Sequence:4294967295 ScriptType:pay-to-pubkey-hash Script:483045022100a844dd4291fdd417cabaea58e9694c8e4d4ff6d3d80bbd7a3b703465b7be6cf102204ff0c4b5f2e904c4e06f086c4cba57b9bc40310f7bf463176f75eea8a117c8b8012102eb8c62ca2106a753fe5f0c1937729e1db551f15b0d202871c3f3cb1391ed4a1f Age:0 WalletName:} {PrevHash:f6a89efed192e3d9dabb9fae65ecf6780bae904bc17397ec69c898435e55ee41 OutputIndex:1 OutputValue:1146424 Addresses:[1FuFEWK9Ms6YFfmBLQWeQxE5FUYcWHHdMf] Sequence:4294967295 ScriptType:pay-to-pubkey-hash Script:4730440220258aa6e1a1e0fd03ad55d2fefe512785609fe079faa284eaf9263ba36ed0027002207740057cd9ade642a972f3490289d0256f604c60c1cfdeef4fffc9fcb3973e130121023a778b5d5eb3b1e2c7394f441a21ab104df692ad8e8ad6a9838b8dac7318be6d Age:0 WalletName:} {PrevHash:1b1f154612323edbf9f1970a42a1c33fb0ab9f734a5f080fb04c0f26921640c3 OutputIndex:1 OutputValue:1001406 Addresses:[13m2zkhwfufunZj48C5yiCK5GyauoZASEK] Sequence:4294967295 ScriptType:pay-to-pubkey-hash Script:483045022100a0e44c26c6f16e20c17f309bbf2b8fc4b89da36a46734aa82a7d72b4147a7703022024646da778e77bac3f9e76f5b34e8fc9d39225daea17f331da507e9116f64506012102a6fa3938b873686753bf48cc5551d1f5b9615481f87c67fe04d4f596088f01ef Age:0 WalletName:} {PrevHash:9a8935c75f8479c2a7149c6e26f52b32d07a35cf15c120a81a431b8024f2bff8 OutputIndex:0 OutputValue:1042321 Addresses:[1KcTNQtGB2VkF8gHRcUP3LeKT4ipDWC3xz] Sequence:4294967295 ScriptType:pay-to-pubkey-hash Script:473044022011a7fe8be1b3d1bfdf0137e81b85dae50fd8fda81503ecd72b9b5d325bc5b9a1022069b7d1bf262818fa65fc109f5ea6f8cdd14df4de3e2b83562f353251d5d8821f01210303fa00593f969a7f419ee258f588d3d4d672717ea0e73c1a15b3eeff767de575 Age:0 WalletName:} {PrevHash:7c0017d41d61f44d25b216f4918d4e7037f0247cd5f0d270e8b44e097e8cb5d3 OutputIndex:1 OutputValue:1950455 Addresses:[1Ckk3HysYTTeTXrt4mAxa4wzP9WjLEBgKM] Sequence:4294967295 ScriptType:pay-to-pubkey-hash Script:473044022063383285fe15f2afad8e2574a1545c60f098b749041c40a0241659a3d1bc616d022059e93d5a55cd10847d1fe233dc64ceefae8cd4f191306f6b0078b75c5a2de57801210276043ad0e0491dd2b1792db12e3e1f031b97574c316ea19e9331155a47659741 Age:0 WalletName:} {PrevHash:f3f3d69581b8f8bcee3243c0fcb812737ecc446e8f2a4b4e23eb564498643750 OutputIndex:1 OutputValue:1164682 Addresses:[1QJrogp9xSNMrEKH7eE74qy86baCsUnTFe] Sequence:4294967295 ScriptType:pay-to-pubkey-hash Script:47304402200a96d273b08ba084151784edfd82eda23f3283a5871d92b455854bc4cdeb9d14022053a834acc49b5e7fd195136bf6f0ac52ea1da088f737a298f213f950718b31720121026ebc9ee90c3f61c7289785982385523b4085f0454aed5e259dbdd8c50c3cc552 Age:0 WalletName:} {PrevHash:83fc9cbe8f9e28de140fad9a64885c848ef112d988f7110d9518ca60837ec36a OutputIndex:1 OutputValue:1019486 Addresses:[1Gsp5Cz8xbxHdcKCBUL8eA8sWgTbs6pbVK] Sequence:4294967295 ScriptType:pay-to-pubkey-hash Script:473044022046bff50b4b67a39cbc09537a6e4b43d6c4aff8aba48db142875692dc935d7b1c022031cf89787b71e27a8c6721874b76c47a2b38042f6885dbf217be1851820ab560012102b4643824e610792d544ceae83ba6d1b0e6bbe0deb4b07059c3e95d41243c877e Age:0 WalletName:} {PrevHash:1a599344c35a02a89a4e0adf385df1539afe83863cf63a3fcb02c922f2808a86 OutputIndex:1 OutputValue:1224402 Addresses:[17QqqUkKsuGWF7EgftiY9HrXEPPYoLAmJ4] Sequence:4294967295 ScriptType:pay-to-pubkey-hash Script:47304402202facd04cdd448e71b505e254b4768bf765525e527fc14dae1a6b9baaab7abbb7022060ff7fe015c32cf27f99d43f910d891c7acefd355b0e0db177f0c10180e83f2c012103cf170047f6744b1a37652034610d2549129aaf94a9b8c2c97465d6e7c135d4fe Age:0 WalletName:} {PrevHash:69043a9c6675f7bfa5c56d6e1b523c6a7a615ab0e505c99856b168e47a44aa8c OutputIndex:1 OutputValue:1255773 Addresses:[19Fkb6WcpT8xr2A9kggKJ1ogUQyDjGXGq7] Sequence:4294967295 ScriptType:pay-to-pubkey-hash Script:473044022013a74f574e6c787010064e395233a5404c64b42ddc1412e071290ae1c09a79100220763496a016227db16ff0537c131b9aa1a70ca58cade03a548d88e9272f3d9218012103efde06c3eba524a6f4b15bbf699f422d1cbc08d1127ef71da109d6be5e4ae7e9 Age:0 WalletName:} {PrevHash:a63907e2e843d142d8f6865b35e80ffbc16addaa3cd0c0d1c0c65eeb67bebe5c OutputIndex:0 OutputValue:1078122 Addresses:[1DXEqjgC2QV7CsDiEjYdthmxvJEwEAEchB] Sequence:4294967295 ScriptType:pay-to-pubkey-hash Script:47304402205e8c41c90624444b533ed10ac4afa0039f5b16ab9fcf7c74ab8e01c65579706402207936add6ca8a6d35ee803bdfa57ade55aa6cd647d67ffddcd1dd8fb22bfcffce012103dfd1d1cbc043c91a1ae71d3e3a55156e94ecc9664c0e58b65f490b03fc0dcdb0 Age:0 WalletName:} {PrevHash:f758e79c071aa8ea136033ec1555c7381a46078a31f73a397b94be8427121848 OutputIndex:1 OutputValue:1230623 Addresses:[1JK6ANFKJvck3TArHfH8hxYXM69LLQi4Cd] Sequence:4294967295 ScriptType:pay-to-pubkey-hash Script:47304402202488d537e1a97e0810423a2b39cc958ce00e63d724d565c579fc08db6e1d2c00022008baf16a0c15568aa54386e8f4b0017b0a544a90208e815bc491c6141ed5248c012102487efb8337132b593bec69020e4b8aee118c8046b842cc150023915c06dfb596 Age:0 WalletName:}] Outputs:[{SpentBy: Value:1000593 Addresses:[18WLk2MdxoJvkWewdYfZAUS7D5BitKWxrM] ScriptType:pay-to-pubkey-hash Script:76a91452556c48f68b7cd56ed997ca23e183fff8808ded88ac DataHex: DataString:} {SpentBy: Value:13404356 Addresses:[1443nQwA3q5gRELUUrFFbsQ7wjfnzLKmNb] ScriptType:pay-to-pubkey-hash Script:76a914217bf2c6fabaf36888c4ba7af725b54412d3716988ac DataHex: DataString:}]} {BlockHash: BlockHeight:-1 ...}]</span><span class="x">
+</span><span class="c">//[{BlockHash: BlockHeight:-1 Hash:f8928f4b57b4a419056d979de6c6daf1f8cf9e431b2d2e056d5122115bbf6e03 Addresses:[13m2zkhwfufunZj48C5yiCK5GyauoZASEK 1443nQwA3q5gRELUUrFFbsQ7wjfnzLKmNb 17QqqUkKsuGWF7EgftiY9HrXEPPYoLAmJ4 18WLk2MdxoJvkWewdYfZAUS7D5BitKWxrM 19Fkb6WcpT8xr2A9kggKJ1ogUQyDjGXGq7 1ApjvBUwNEt8kEvTn2XTDHqDQhPn8MApRq 1Ckk3HysYTTeTXrt4mAxa4wzP9WjLEBgKM 1DXEqjgC2QV7CsDiEjYdthmxvJEwEAEchB 1FuFEWK9Ms6YFfmBLQWeQxE5FUYcWHHdMf 1Gsp5Cz8xbxHdcKCBUL8eA8sWgTbs6pbVK 1JK6ANFKJvck3TArHfH8hxYXM69LLQi4Cd 1JpqxXp3WsDWru1HrC3jXKoiwstUMoGwE7 1KcTNQtGB2VkF8gHRcUP3LeKT4ipDWC3xz 1QJrogp9xSNMrEKH7eE74qy86baCsUnTFe] Total:14404949 Fees:18480 Size:1845 Preference:low RelayedBy:194.237.158.153:8333 Received:2015-10-16 23:12:50.822 +0000 UTC Confirmed:0001-01-01 00:00:00 +0000 UTC Confirmations:0 Ver:1 LockTime:0 DoubleSpend:false DoubleOf: ReceiveCount:138 VinSize:12 VoutSize:2 Hex: DataProtocol: ChangeAddress: NextInputs: NextOutputs: Inputs:[{PrevHash:de3e7627b5aaacc505901120a3c4cabebfee3d5d3c2b9349808fab8db26bd252 OutputIndex:0 OutputValue:1303094 Addresses:[1JpqxXp3WsDWru1HrC3jXKoiwstUMoGwE7] Sequence:4294967295 ScriptType:pay-to-pubkey-hash Script:483045022100e5f613cbdc60d13614dc58a2bdb9c67f348933e478288bb2e08a58e63c22dffc02201dda42464b34fa1a24e954cfa05ac2936575a039f5eb18201fe96dfd020c9967012103f1fbbcd8f5e50dde03be77c153a416c370b4c14c0d2c27eac66a64e4a47bd3f6 Age:0 WalletName:} {PrevHash:ce86c754efeb48d3b78e56f344082e825a76b2bfcb670eef5968934cf7694f24 OutputIndex:1 OutputValue:1006641 Addresses:[1ApjvBUwNEt8kEvTn2XTDHqDQhPn8MApRq] Sequence:4294967295 ScriptType:pay-to-pubkey-hash Script:483045022100a844dd4291fdd417cabaea58e9694c8e4d4ff6d3d80bbd7a3b703465b7be6cf102204ff0c4b5f2e904c4e06f086c4cba57b9bc40310f7bf463176f75eea8a117c8b8012102eb8c62ca2106a753fe5f0c1937729e1db551f15b0d202871c3f3cb1391ed4a1f Age:0 WalletName:} {PrevHash:f6a89efed192e3d9dabb9fae65ecf6780bae904bc17397ec69c898435e55ee41 OutputIndex:1 OutputValue:1146424 Addresses:[1FuFEWK9Ms6YFfmBLQWeQxE5FUYcWHHdMf] Sequence:4294967295 ScriptType:pay-to-pubkey-hash Script:4730440220258aa6e1a1e0fd03ad55d2fefe512785609fe079faa284eaf9263ba36ed0027002207740057cd9ade642a972f3490289d0256f604c60c1cfdeef4fffc9fcb3973e130121023a778b5d5eb3b1e2c7394f441a21ab104df692ad8e8ad6a9838b8dac7318be6d Age:0 WalletName:} {PrevHash:1b1f154612323edbf9f1970a42a1c33fb0ab9f734a5f080fb04c0f26921640c3 OutputIndex:1 OutputValue:1001406 Addresses:[13m2zkhwfufunZj48C5yiCK5GyauoZASEK] Sequence:4294967295 ScriptType:pay-to-pubkey-hash Script:483045022100a0e44c26c6f16e20c17f309bbf2b8fc4b89da36a46734aa82a7d72b4147a7703022024646da778e77bac3f9e76f5b34e8fc9d39225daea17f331da507e9116f64506012102a6fa3938b873686753bf48cc5551d1f5b9615481f87c67fe04d4f596088f01ef Age:0 WalletName:} {PrevHash:9a8935c75f8479c2a7149c6e26f52b32d07a35cf15c120a81a431b8024f2bff8 OutputIndex:0 OutputValue:1042321 Addresses:[1KcTNQtGB2VkF8gHRcUP3LeKT4ipDWC3xz] Sequence:4294967295 ScriptType:pay-to-pubkey-hash Script:473044022011a7fe8be1b3d1bfdf0137e81b85dae50fd8fda81503ecd72b9b5d325bc5b9a1022069b7d1bf262818fa65fc109f5ea6f8cdd14df4de3e2b83562f353251d5d8821f01210303fa00593f969a7f419ee258f588d3d4d672717ea0e73c1a15b3eeff767de575 Age:0 WalletName:} {PrevHash:7c0017d41d61f44d25b216f4918d4e7037f0247cd5f0d270e8b44e097e8cb5d3 OutputIndex:1 OutputValue:1950455 Addresses:[1Ckk3HysYTTeTXrt4mAxa4wzP9WjLEBgKM] Sequence:4294967295 ScriptType:pay-to-pubkey-hash Script:473044022063383285fe15f2afad8e2574a1545c60f098b749041c40a0241659a3d1bc616d022059e93d5a55cd10847d1fe233dc64ceefae8cd4f191306f6b0078b75c5a2de57801210276043ad0e0491dd2b1792db12e3e1f031b97574c316ea19e9331155a47659741 Age:0 WalletName:} {PrevHash:f3f3d69581b8f8bcee3243c0fcb812737ecc446e8f2a4b4e23eb564498643750 OutputIndex:1 OutputValue:1164682 Addresses:[1QJrogp9xSNMrEKH7eE74qy86baCsUnTFe] Sequence:4294967295 ScriptType:pay-to-pubkey-hash Script:47304402200a96d273b08ba084151784edfd82eda23f3283a5871d92b455854bc4cdeb9d14022053a834acc49b5e7fd195136bf6f0ac52ea1da088f737a298f213f950718b31720121026ebc9ee90c3f61c7289785982385523b4085f0454aed5e259dbdd8c50c3cc552 Age:0 WalletName:} {PrevHash:83fc9cbe8f9e28de140fad9a64885c848ef112d988f7110d9518ca60837ec36a OutputIndex:1 OutputValue:1019486 Addresses:[1Gsp5Cz8xbxHdcKCBUL8eA8sWgTbs6pbVK] Sequence:4294967295 ScriptType:pay-to-pubkey-hash Script:473044022046bff50b4b67a39cbc09537a6e4b43d6c4aff8aba48db142875692dc935d7b1c022031cf89787b71e27a8c6721874b76c47a2b38042f6885dbf217be1851820ab560012102b4643824e610792d544ceae83ba6d1b0e6bbe0deb4b07059c3e95d41243c877e Age:0 WalletName:} {PrevHash:1a599344c35a02a89a4e0adf385df1539afe83863cf63a3fcb02c922f2808a86 OutputIndex:1 OutputValue:1224402 Addresses:[17QqqUkKsuGWF7EgftiY9HrXEPPYoLAmJ4] Sequence:4294967295 ScriptType:pay-to-pubkey-hash Script:47304402202facd04cdd448e71b505e254b4768bf765525e527fc14dae1a6b9baaab7abbb7022060ff7fe015c32cf27f99d43f910d891c7acefd355b0e0db177f0c10180e83f2c012103cf170047f6744b1a37652034610d2549129aaf94a9b8c2c97465d6e7c135d4fe Age:0 WalletName:} {PrevHash:69043a9c6675f7bfa5c56d6e1b523c6a7a615ab0e505c99856b168e47a44aa8c OutputIndex:1 OutputValue:1255773 Addresses:[19Fkb6WcpT8xr2A9kggKJ1ogUQyDjGXGq7] Sequence:4294967295 ScriptType:pay-to-pubkey-hash Script:473044022013a74f574e6c787010064e395233a5404c64b42ddc1412e071290ae1c09a79100220763496a016227db16ff0537c131b9aa1a70ca58cade03a548d88e9272f3d9218012103efde06c3eba524a6f4b15bbf699f422d1cbc08d1127ef71da109d6be5e4ae7e9 Age:0 WalletName:} {PrevHash:a63907e2e843d142d8f6865b35e80ffbc16addaa3cd0c0d1c0c65eeb67bebe5c OutputIndex:0 OutputValue:1078122 Addresses:[1DXEqjgC2QV7CsDiEjYdthmxvJEwEAEchB] Sequence:4294967295 ScriptType:pay-to-pubkey-hash Script:47304402205e8c41c90624444b533ed10ac4afa0039f5b16ab9fcf7c74ab8e01c65579706402207936add6ca8a6d35ee803bdfa57ade55aa6cd647d67ffddcd1dd8fb22bfcffce012103dfd1d1cbc043c91a1ae71d3e3a55156e94ecc9664c0e58b65f490b03fc0dcdb0 Age:0 WalletName:} {PrevHash:f758e79c071aa8ea136033ec1555c7381a46078a31f73a397b94be8427121848 OutputIndex:1 OutputValue:1230623 Addresses:[1JK6ANFKJvck3TArHfH8hxYXM69LLQi4Cd] Sequence:4294967295 ScriptType:pay-to-pubkey-hash Script:47304402202488d537e1a97e0810423a2b39cc958ce00e63d724d565c579fc08db6e1d2c00022008baf16a0c15568aa54386e8f4b0017b0a544a90208e815bc491c6141ed5248c012102487efb8337132b593bec69020e4b8aee118c8046b842cc150023915c06dfb596 Age:0 WalletName:}] Outputs:[{SpentBy: Value:1000593 Addresses:[18WLk2MdxoJvkWewdYfZAUS7D5BitKWxrM] ScriptType:pay-to-pubkey-hash Script:76a91452556c48f68b7cd56ed997ca23e183fff8808ded88ac DataHex: DataString:} {SpentBy: Value:13404356 Addresses:[1443nQwA3q5gRELUUrFFbsQ7wjfnzLKmNb] ScriptType:pay-to-pubkey-hash Script:76a914217bf2c6fabaf36888c4ba7af725b54412d3716988ac DataHex: DataString:}]} {BlockHash: BlockHeight:-1 ...}]</span><span class="x">
 </span></code></pre>
 <pre class="highlight php"><code><span class="cp">&lt;?php</span>
 <span class="c1">// Run on console:
@@ -6195,7 +6203,6 @@ Even if you don&rsquo;t use the API to assist in creating transactions, we highl
     <span class="o">...</span>
     <span class="p">],</span>
   <span class="s1">'block_height'</span><span class="o">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
-  <span class="s1">'confidence'</span><span class="o">:</span> <span class="mf">0.36208077122201</span><span class="p">,</span>
   <span class="s1">'receive_count'</span><span class="o">:</span> <span class="mi">109</span><span class="p">,</span>
   <span class="s1">'total'</span><span class="o">:</span> <span class="mi">131940196</span><span class="p">,</span>
   <span class="s1">'fees'</span><span class="o">:</span> <span class="mi">13754</span><span class="p">,</span>
@@ -8321,7 +8328,7 @@ curl -d <span class="s1">'{ ..., "signatures": ["30450221009050c3c966d1f895b6d6f
 
           <h1 id="confidence-factor">Confidence Factor</h1>
 
-<p>One of the things that makes BlockCypher&rsquo;s API uniquely powerful is our ability to accurately predict the likelihood of an attempted double-spend succeeding against a transaction; this percentage probability is automatically included within the <strong>confidence</strong> attribute on any <a href="#tx">unconfirmed transaction</a> returned by our API, in addition to the explicit <a href="#transaction-confidence-endpoint">Transaction Confidence Endpoint</a> detailed below.</p>
+<p>One of the things that makes BlockCypher&rsquo;s API uniquely powerful is our ability to accurately predict the likelihood of an attempted double-spend succeeding against a transaction; this percentage probability is optionally included within the <strong>confidence</strong> attribute on any <a href="#tx">unconfirmed transaction</a> returned by the <a href="#transaction-hash-endpoint">Transaction Hash Endpoint</a> when using the <strong>includeConfidence</strong> flag, in addition to the explicit <a href="#transaction-confidence-endpoint">Transaction Confidence Endpoint</a> detailed below.</p>
 
 <p>So what does that <strong>confidence</strong> attribute actually mean? In simpler terms, if an unconfirmed transaction returns a <strong>confidence</strong> factor of 99.9%, then our data says there&rsquo;s a 0.1% chance that an attempted double-spend will succeed. By design, we&rsquo;re conservative. Even when we return 90% confidence, the likelihood of a successful double-spend is significantly lower than 10%.</p>
 
