@@ -313,7 +313,7 @@ Flag | Type | Effect
 **instart** | *integer* | Filters TX to only include TXInputs from this input index and above.
 **outstart** | *integer* | Filters TX to only include TXOutputs from this output index and above.
 **includeHex** | *bool* | If *true*, includes hex-encoded raw transaction; *false* by default.
-**includeConfidence** | *bool* | If *true*, includes the *confidence* attribute (useful for unconfirmed transactions). For more info about this figure, check the [Confidence Factor](#confidence-factor) documentation.
+**includeConfidence** | *bool* | If *true*, includes the **confidence** attribute (useful for unconfirmed transactions). For more info about this figure, check the [Confidence Factor](#confidence-factor) documentation.
 
 TXHASH is a *string* representing the hex-encoded transaction hash you're interested in querying, for example:
 

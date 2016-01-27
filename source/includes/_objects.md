@@ -254,7 +254,7 @@ Attribute | Type | Description
 **confirmations** | *integer* | Number of subsequent blocks, including the block the transaction is in. Unconfirmed transactions have 0 confirmations.
 **inputs** | *array[[TXInput](#txinput)]* | [TXInput](#txinput) Array, limited to 20 by default.
 **outputs** | *array[[TXOutput](#txoutput)]* | [TXOutput](#txoutput) Array, limited to 20 by default.
-**confidence** | *float* | ***Optional*** The percentage chance this transaction will be included in the next block, if unconfirmed. For more information, check the section on [Confidence Factor.](#confidence-factor)
+**confidence** | *float* | ***Optional*** The percentage chance this transaction will not be double-spent against, if unconfirmed. For more information, check the section on [Confidence Factor.](#confidence-factor)
 **confirmed** | [*time*](https://tools.ietf.org/html/rfc3339) | ***Optional*** Time at which transaction was included in a block; only present for confirmed transactions.
 **receive_count** | *integer* | ***Optional*** Number of peers that have sent this transaction to BlockCypher; only present for unconfirmed transactions.
 **change_address** | *string* | ***Optional*** Address BlockCypher will use to send back your change, if you [constructed this transaction](#creating-transactions). If not set, defaults to the address from which the coins were originally sent.
@@ -343,7 +343,7 @@ Attribute | Type | Description
 --------- | ---- | -----------
 **age_millis** | *integer* | The age of the transaction in milliseconds, based on the earliest time BlockCypher saw it relayed in the network.
 **receive_count** | *integer* | Number of peers that have sent this transaction to BlockCypher; only positive for unconfirmed transactions. -1 for confirmed transactions.
-**confidence** | *float* | A number from 0 to 1 representing BlockCypher's confidence that the transaction will make it into the next block.
+**confidence** | *float* | A number from 0 to 1 representing BlockCypher's confidence that the transaction won't be double-spent against.
 **txhash** | *string* | The hash of the transaction. While reasonably unique, using hashes as identifiers may be [unsafe](https://en.bitcoin.it/wiki/Transaction_Malleability).
 **txurl** | *url* | The BlockCypher URL one can use to query more detailed information about this transaction.
 
@@ -380,7 +380,7 @@ Attribute | Type | Description
 **confirmations** | *integer* | Number of subsequent blocks, including the block the transaction is in. Unconfirmed transactions have 0 confirmations.
 **script** | *string* | ***Optional*** Raw, hex-encoded script of this input/output.
 **ref_balance** | *integer* | ***Optional*** The past balance of the parent address the moment this transaction was confirmed. Not present for unconfirmed transactions.
-**confidence** | *float* | ***Optional*** The percentage chance this transaction will be included in the next block, if unconfirmed. For more information, check the section on [Confidence Factor.](#confidence-factor)
+**confidence** | *float* | ***Optional*** The percentage chance this transaction will not be double-spent against, if unconfirmed. For more information, check the section on [Confidence Factor.](#confidence-factor)
 **confirmed** | [*time*](https://tools.ietf.org/html/rfc3339) | ***Optional*** Time at which transaction was included in a block; only present for confirmed transactions.
 **spent_by** | *string* | ***Optional*** The transaction hash that spent this output. Only returned for outputs that have been spent. The spending transaction may be unconfirmed.
 **received** | [*time*](https://tools.ietf.org/html/rfc3339) | ***Optional*** Time this transaction was received by BlockCypher's servers; only present for unconfirmed transactions.
