@@ -1,6 +1,6 @@
 # Confidence Factor
 
-One of the things that makes BlockCypher's API uniquely powerful is our ability to accurately predict the likelihood of an attempted double-spend succeeding against a transaction; this percentage probability is automatically included within the **confidence** attribute on any [unconfirmed transaction](#tx) returned by our API, in addition to the explicit [Transaction Confidence Endpoint](#transaction-confidence-endpoint) detailed below.
+One of the things that makes BlockCypher's API uniquely powerful is our ability to accurately predict the likelihood of an attempted double-spend succeeding against a transaction; this percentage probability is optionally included within the **confidence** attribute on any [unconfirmed transaction](#tx) returned by the [Transaction Hash Endpoint](#transaction-hash-endpoint) when using the **includeConfidence** flag, in addition to the explicit [Transaction Confidence Endpoint](#transaction-confidence-endpoint) detailed below.
 
 So what does that **confidence** attribute actually mean? In simpler terms, if an unconfirmed transaction returns a **confidence** factor of 99.9%, then our data says there's a 0.1% chance that an attempted double-spend will succeed. By design, we're conservative. Even when we return 90% confidence, the likelihood of a successful double-spend is significantly lower than 10%.
 
