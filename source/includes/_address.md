@@ -910,7 +910,7 @@ var data = {
   ],
   "script_type": "multisig-2-of-3"
 };
-$.post('https://api.blockcypher.com/v1/btc/test3/addrs', data)
+$.post('https://api.blockcypher.com/v1/btc/test3/addrs', JSON.stringify(data))
   .then(function(d) {console.log(d)});
 > {
 > "private": "",
