@@ -868,8 +868,8 @@ curl -d <span class="s1">'{"address": "CFqoZmZ3ePwK5wnkhxJjJAQKJ82C7RJdmd", "amo
 <span class="o">&gt;</span> <span class="p">}</span>
 
 <span class="c1">// Fund prior address with faucet</span>
-<span class="kd">var</span> <span class="nx">req</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span><span class="s2">"address"</span><span class="p">:</span> <span class="s2">"CFqoZmZ3ePwK5wnkhxJjJAQKJ82C7RJdmd"</span><span class="p">,</span> <span class="s2">"amount"</span><span class="p">:</span> <span class="mi">100000</span><span class="p">})</span>
-<span class="nx">$</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="s1">'https://api.blockcypher.com/v1/bcy/test/faucet?token=$YOUR_TOKEN'</span><span class="p">,</span> <span class="nx">req</span><span class="p">)</span>
+<span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"address"</span><span class="p">:</span> <span class="s2">"CFqoZmZ3ePwK5wnkhxJjJAQKJ82C7RJdmd"</span><span class="p">,</span> <span class="s2">"amount"</span><span class="p">:</span> <span class="mi">100000</span><span class="p">}</span>
+<span class="nx">$</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="s1">'https://api.blockcypher.com/v1/bcy/test/faucet?token=$YOUR_TOKEN'</span><span class="p">,</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">req</span><span class="p">))</span>
   <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">{</span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">d</span><span class="p">)});</span>
 <span class="o">&gt;</span> <span class="p">{</span>
 <span class="o">&gt;</span>   <span class="s2">"tx_ref"</span><span class="p">:</span> <span class="s2">"02dbf5585d438a1cba82a9041dd815635a6b0df684225cb5271e11397a759479"</span>
@@ -4254,7 +4254,7 @@ Always use HTTPS for Address Generation requests. Otherwise, your generated priv
   <span class="p">],</span>
   <span class="s2">"script_type"</span><span class="p">:</span> <span class="s2">"multisig-2-of-3"</span>
 <span class="p">};</span>
-<span class="nx">$</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="s1">'https://api.blockcypher.com/v1/btc/test3/addrs'</span><span class="p">,</span> <span class="nx">data</span><span class="p">)</span>
+<span class="nx">$</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="s1">'https://api.blockcypher.com/v1/btc/test3/addrs'</span><span class="p">,</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">data</span><span class="p">))</span>
   <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">{</span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">d</span><span class="p">)});</span>
 <span class="o">&gt;</span> <span class="p">{</span>
 <span class="o">&gt;</span> <span class="s2">"private"</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span>
@@ -4463,7 +4463,7 @@ curl -d <span class="s1">'{"name": "catheryne", "extended_public_key": "xpub661M
 </code></pre>
 <pre class="highlight javascript"><code><span class="c1">//normal wallet</span>
 <span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"name"</span><span class="p">:</span> <span class="s2">"alice"</span><span class="p">,</span><span class="s2">"addresses"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"1JcX75oraJEmzXXHpDjRctw3BX6qDmFM8e"</span><span class="p">]};</span>
-<span class="nx">$</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="s1">'https://api.blockcypher.com/v1/btc/main/wallets?token=USERTOKEN'</span><span class="p">,</span> <span class="nx">data</span><span class="p">)</span>
+<span class="nx">$</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="s1">'https://api.blockcypher.com/v1/btc/main/wallets?token=USERTOKEN'</span><span class="p">,</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">data</span><span class="p">))</span>
   <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">{</span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">d</span><span class="p">)});</span>
 <span class="o">&gt;</span> <span class="p">{</span><span class="s2">"token"</span><span class="p">:</span> <span class="s2">"USERTOKEN"</span><span class="p">,</span>
 <span class="o">&gt;</span> <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"alice"</span><span class="p">,</span>
@@ -4473,7 +4473,7 @@ curl -d <span class="s1">'{"name": "catheryne", "extended_public_key": "xpub661M
 
 <span class="c1">//hd wallet</span>
 <span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"name"</span><span class="p">:</span> <span class="s2">"bob"</span><span class="p">,</span> <span class="s2">"extended_public_key"</span><span class="p">:</span> <span class="s2">"xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoCu1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8"</span> <span class="p">};</span>
-<span class="nx">$</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="s1">'https://api.blockcypher.com/v1/btc/main/wallets/hd?token=USERTOKEN'</span><span class="p">,</span> <span class="nx">data</span><span class="p">)</span>
+<span class="nx">$</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="s1">'https://api.blockcypher.com/v1/btc/main/wallets/hd?token=USERTOKEN'</span><span class="p">,</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">data</span><span class="p">))</span>
   <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">{</span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">d</span><span class="p">)});</span>
 <span class="o">&gt;</span> <span class="p">{</span><span class="s2">"token"</span><span class="p">:</span> <span class="s2">"YOURTOKEN"</span><span class="p">,</span>
 <span class="o">&gt;</span> <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"bob"</span><span class="p">,</span>
@@ -4976,7 +4976,7 @@ curl https://api.blockcypher.com/v1/btc/main/wallets/hd/bob?token<span class="o"
 <span class="o">]}</span>
 </code></pre>
 <pre class="highlight javascript"><code><span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"addresses"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"13cj1QtfW61kQHoqXm3khVRYPJrgQiRM6j"</span><span class="p">]};</span>
-<span class="nx">$</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="s1">'https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses?token=USERTOKEN'</span><span class="p">,</span> <span class="nx">data</span><span class="p">)</span>
+<span class="nx">$</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="s1">'https://api.blockcypher.com/v1/btc/main/wallets/alice/addresses?token=USERTOKEN'</span><span class="p">,</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">data</span><span class="p">))</span>
   <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">{</span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">d</span><span class="p">)});</span>
 <span class="o">&gt;</span> <span class="p">{</span>
 <span class="o">&gt;</span>   <span class="s2">"token"</span><span class="p">:</span> <span class="s2">"USERTOKEN"</span><span class="p">,</span>
