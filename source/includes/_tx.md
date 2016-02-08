@@ -939,7 +939,7 @@ For the extra cautious, you can protect yourself from a potential malicious atta
 - Decoding the hex-encoded string using our `/txs/decode` endpoint (or an independent, client-side source) should give you the output addresses and amounts that match your work-in-progress transaction.
 
 <aside class="notice">
-If you want to automatically empty your input address(es) without knowing their exact value, your <a href="#tx">TX</a> request object's <b>value</b> can be set to -1 to <i>sweep</i> all value from your input address(es) to your output address.
+If you want to automatically empty your input address(es) without knowing their exact value, your <a href="#tx">TX</a> request object's <b>value</b> can be set to -1 to <i>sweep</i> all value from your input address(es) to your output address. Please be advised that this only works with a single output address.
 </aside>
 
 <aside class="notice">
