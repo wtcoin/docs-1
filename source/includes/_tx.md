@@ -981,7 +981,7 @@ $.post('https://api.blockcypher.com/v1/bcy/test/txs/new', JSON.stringify(newtx))
       return key.sign(new buffer.Buffer(tosign, "hex")).toDER().toString("hex");
     });
     // sending back the transaction with all the signatures to broadcast
-    $.post(url, tmptx).then(function(finaltx) {
+    $.post('https://api.blockcypher.com/v1/bcy/test/txs/send', tmptx).then(function(finaltx) {
       console.log(finaltx);
     })
   });
