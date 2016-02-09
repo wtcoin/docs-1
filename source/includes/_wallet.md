@@ -287,7 +287,6 @@ If the named wallet already exists under your token, attempting to create a new 
 ## List Wallets Endpoint
 
 ```shell
-# normal wallets
 curl https://api.blockcypher.com/v1/btc/main/wallets?token=YOURTOKEN
 {
 "wallet_names": [
@@ -299,7 +298,6 @@ curl https://api.blockcypher.com/v1/btc/main/wallets?token=YOURTOKEN
 ```
 
 ```javascript
-//normal wallets
 $.get('https://api.blockcypher.com/v1/btc/main/wallets?token=YOURTOKEN')
   .then(function(d) {console.log(d)});
 > {
@@ -316,7 +314,6 @@ $.get('https://api.blockcypher.com/v1/btc/main/wallets?token=YOURTOKEN')
 ```
 
 ```python
-# Regular wallet
 >>> from blockcypher import list_wallet_names
 >>> list_wallet_names('YOUR_TOKEN')
 {
@@ -343,11 +340,11 @@ func main() {
 	if err != nil {
 		fmt.Println(err)
 	}
-	fmt.Printf("Normal Wallets:%v\n", walletNames)
+	fmt.Printf("Wallets:%v\n", walletNames)
 }
 
 //Result from `go run`:
-//Normal Wallets: [alice catheryne bob]
+//Wallets: [alice catheryne bob]
 ```
 
 ```php
