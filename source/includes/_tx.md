@@ -959,8 +959,8 @@ There are many manually configurable options available via your <a href="#tx">TX
 ```javascript
 // next, you sign the data returned in the tosign array locally
 // here we're using bitcoinjs built to expose bigi, buffer, and require
-// you can use this library here:
-//   http://dev.blockcypher.com/data/samples/bitcoinjs-min.js
+// you can get bitcoin.js here:
+// http://bitcoinjs.org/
 
 var bitcoin = require("bitcoinjs-lib");
 var bigi    = require("bigi");

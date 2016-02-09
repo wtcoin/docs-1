@@ -190,12 +190,12 @@ curl -d '{ ..., "signatures": ["30450221009050c3c966d1f895b6d6f6ab544113b88b3ce6
 ```javascript
 // here we're using bitcoinjs built to expose bigi, buffer, and require
 // you can use this library here:
-//   http://dev.blockcypher.com/data/samples/bitcoinjs-min.js
+// http://bitcoinjs.org/
 
 var bitcoin = require("bitcoinjs-lib");
 var bigi    = require("bigi");
 var buffer  = require('buffer');
-var key     = new bitcoin.ECKey(bigi.fromHex(my_hex_private_key), true);
+var key     = new bitcoin.ECPair(bigi.fromHex(my_hex_private_key), true);
 
 var microtx = {
   from_pubkey: "02152e2bb5b273561ece7bbe...",
