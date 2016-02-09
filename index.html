@@ -4656,8 +4656,7 @@ If the named wallet already exists under your token, attempting to create a new 
 </aside>
 
 <h2 id="list-wallets-endpoint">List Wallets Endpoint</h2>
-<pre class="highlight shell"><code><span class="c"># normal wallets</span>
-curl https://api.blockcypher.com/v1/btc/main/wallets?token<span class="o">=</span>YOURTOKEN
+<pre class="highlight shell"><code>curl https://api.blockcypher.com/v1/btc/main/wallets?token<span class="o">=</span>YOURTOKEN
 <span class="o">{</span>
 <span class="s2">"wallet_names"</span>: <span class="o">[</span>
         <span class="s2">"alice"</span>,
@@ -4666,8 +4665,7 @@ curl https://api.blockcypher.com/v1/btc/main/wallets?token<span class="o">=</spa
     <span class="o">]</span>
 <span class="o">}</span>
 </code></pre>
-<pre class="highlight javascript"><code><span class="c1">//normal wallets</span>
-<span class="nx">$</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">'https://api.blockcypher.com/v1/btc/main/wallets?token=YOURTOKEN'</span><span class="p">)</span>
+<pre class="highlight javascript"><code><span class="nx">$</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">'https://api.blockcypher.com/v1/btc/main/wallets?token=YOURTOKEN'</span><span class="p">)</span>
   <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">{</span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">d</span><span class="p">)});</span>
 <span class="o">&gt;</span> <span class="p">{</span>
 <span class="o">&gt;</span> <span class="s2">"wallet_names"</span><span class="p">:</span> <span class="p">[</span>
@@ -4679,8 +4677,7 @@ curl https://api.blockcypher.com/v1/btc/main/wallets?token<span class="o">=</spa
 </code></pre>
 <pre class="highlight ruby"><code><span class="c1"># TODO: ruby examples</span>
 </code></pre>
-<pre class="highlight python"><code><span class="c"># Regular wallet</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">blockcypher</span> <span class="kn">import</span> <span class="n">list_wallet_names</span>
+<pre class="highlight python"><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">blockcypher</span> <span class="kn">import</span> <span class="n">list_wallet_names</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">list_wallet_names</span><span class="p">(</span><span class="s">'YOUR_TOKEN'</span><span class="p">)</span>
 <span class="p">{</span>
     <span class="s">"wallet_names"</span><span class="p">:</span> <span class="p">[</span>
@@ -4704,11 +4701,11 @@ curl https://api.blockcypher.com/v1/btc/main/wallets?token<span class="o">=</spa
     </span><span class="k">if</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="no">nil</span><span class="x"> </span><span class="p">{</span><span class="x">
         </span><span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="n">err</span><span class="p">)</span><span class="x">
     </span><span class="p">}</span><span class="x">
-    </span><span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">"Normal Wallets:%v</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="x"> </span><span class="n">walletNames</span><span class="p">)</span><span class="x">
+    </span><span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">"Wallets:%v</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="x"> </span><span class="n">walletNames</span><span class="p">)</span><span class="x">
 </span><span class="p">}</span><span class="x">
 
 </span><span class="c">//Result from `go run`:</span><span class="x">
-</span><span class="c">//Normal Wallets: [alice catheryne bob]</span><span class="x">
+</span><span class="c">//Wallets: [alice catheryne bob]</span><span class="x">
 </span></code></pre>
 <pre class="highlight php"><code><span class="cp">&lt;?php</span>
 <span class="c1">//TODO: php examples
