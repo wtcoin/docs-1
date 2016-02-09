@@ -6641,8 +6641,8 @@ There are many manually configurable options available via your <a href="#tx">TX
 </code></pre>
 <pre class="highlight javascript"><code><span class="c1">// next, you sign the data returned in the tosign array locally</span>
 <span class="c1">// here we're using bitcoinjs built to expose bigi, buffer, and require</span>
-<span class="c1">// you can use this library here:</span>
-<span class="c1">//   http://dev.blockcypher.com/data/samples/bitcoinjs-min.js</span>
+<span class="c1">// you can get bitcoin.js here:</span>
+<span class="c1">// http://bitcoinjs.org/</span>
 
 <span class="kd">var</span> <span class="nx">bitcoin</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">"bitcoinjs-lib"</span><span class="p">);</span>
 <span class="kd">var</span> <span class="nx">bigi</span>    <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">"bigi"</span><span class="p">);</span>
@@ -8165,12 +8165,12 @@ curl -d <span class="s1">'{ ..., "signatures": ["30450221009050c3c966d1f895b6d6f
 </code></pre>
 <pre class="highlight javascript"><code><span class="c1">// here we're using bitcoinjs built to expose bigi, buffer, and require</span>
 <span class="c1">// you can use this library here:</span>
-<span class="c1">//   http://dev.blockcypher.com/data/samples/bitcoinjs-min.js</span>
+<span class="c1">// http://bitcoinjs.org/</span>
 
 <span class="kd">var</span> <span class="nx">bitcoin</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">"bitcoinjs-lib"</span><span class="p">);</span>
 <span class="kd">var</span> <span class="nx">bigi</span>    <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">"bigi"</span><span class="p">);</span>
 <span class="kd">var</span> <span class="nx">buffer</span>  <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'buffer'</span><span class="p">);</span>
-<span class="kd">var</span> <span class="nx">key</span>     <span class="o">=</span> <span class="k">new</span> <span class="nx">bitcoin</span><span class="p">.</span><span class="nx">ECKey</span><span class="p">(</span><span class="nx">bigi</span><span class="p">.</span><span class="nx">fromHex</span><span class="p">(</span><span class="nx">my_hex_private_key</span><span class="p">),</span> <span class="kc">true</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">key</span>     <span class="o">=</span> <span class="k">new</span> <span class="nx">bitcoin</span><span class="p">.</span><span class="nx">ECPair</span><span class="p">(</span><span class="nx">bigi</span><span class="p">.</span><span class="nx">fromHex</span><span class="p">(</span><span class="nx">my_hex_private_key</span><span class="p">),</span> <span class="kc">true</span><span class="p">);</span>
 
 <span class="kd">var</span> <span class="nx">microtx</span> <span class="o">=</span> <span class="p">{</span>
   <span class="na">from_pubkey</span><span class="p">:</span> <span class="s2">"02152e2bb5b273561ece7bbe..."</span><span class="p">,</span>
