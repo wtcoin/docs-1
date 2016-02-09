@@ -291,14 +291,7 @@ If the named wallet already exists under your token, attempting to create a new 
 curl https://api.blockcypher.com/v1/btc/main/wallets?token=YOURTOKEN
 {
 "wallet_names": [
-		"alice"
-	]
-}
-
-# hd wallets
-curl https://api.blockcypher.com/v1/btc/main/wallets/hd?token=YOURTOKEN
-{
-"hd_wallet_names": [
+		"alice",
 		"bob",
 		"catheryne"
 	]
@@ -312,14 +305,6 @@ $.get('https://api.blockcypher.com/v1/btc/main/wallets?token=YOURTOKEN')
 > {
 > "wallet_names": [
 > 		"alice"
-> 	]
-> }
-
-//hd wallets
-$.get('https://api.blockcypher.com/v1/btc/main/wallets/hd?token=YOURTOKEN')
-  .then(function(d) {console.log(d)});
-> {
-> "hd_wallet_names": [
 > 		"bob",
 > 		"catheryne"
 > 	]
@@ -336,16 +321,8 @@ $.get('https://api.blockcypher.com/v1/btc/main/wallets/hd?token=YOURTOKEN')
 >>> list_wallet_names('YOUR_TOKEN')
 {
     "wallet_names": [
-        "alice"
-    ]
-}
-
-# HD wallet
->>> from blockcypher import list_wallet_names
->>> list_wallet_names('YOUR_TOKEN', is_hd_wallet=True)
-{
-    "hd_wallet_names": [
-        "bob", 
+        "alice",
+        "bob",
         "catheryne"
     ]
 }
@@ -362,19 +339,15 @@ import (
 
 func main() {
 	btc := gobcy.API{"YOURTOKEN", "btc", "main"}
-	//normal wallets
 	walletNames, err := btc.ListWallets()
-	//hdwallets
-	hdWalletNames, err := btc.ListHDWallets()
 	if err != nil {
 		fmt.Println(err)
 	}
-	fmt.Printf("Normal Wallets:%v\nHDWallets:%v\n", walletNames, hdWalletNames)
+	fmt.Printf("Normal Wallets:%v\n", walletNames)
 }
 
 //Result from `go run`:
-//Normal Wallets: [alice]
-//HD Wallets: [catheryne bob]
+//Normal Wallets: [alice catheryne bob]
 ```
 
 ```php
@@ -385,9 +358,8 @@ func main() {
 Resource | Method | Return Object
 -------- | ------ | -------------
 /wallets | GET | {"wallet_names":$NAMEARRAY}
-/wallets/hd | GET | {"hd_wallet_names":$NAMEARRAY}
 
-This endpoint returns a string array ($NAMEARRAY) of active wallet names under the token you queried. You can then query detailed information on individual wallets (via their names) by leveraging the [Get Wallet Endpoint.](#get-wallet-endpoint)
+This endpoint returns a string array ($NAMEARRAY) of active wallet names (both normal and HD) under the token you queried. You can then query detailed information on individual wallets (via their names) by leveraging the [Get Wallet Endpoint.](#get-wallet-endpoint)
 
 <aside class="notice">
 If you're building a client-side application where your users might have access to your token, and your security model requires maintaining wallet name privacy, we can blacklist this endpoint for you. Just reach out to <a href="mailto:support@blockcypher.com">support@blockcypher.com</a> to let us know.
