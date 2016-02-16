@@ -1,10 +1,8 @@
-BlockCypher's Docs
-========
+# BlockCypher's Docs
 
 This repository contains all of [BlockCypher's](http://www.blockcypher.com) API documentation, presented with the help of [GitHub Pages](https://pages.github.com/) and [Slate](https://github.com/tripit/slate).
 
-Running BlockCypher's Docs Locally
-------------------------------
+## Running BlockCypher's Docs Locally
 
 We welcome Pull Requests to help us improve our documentation. If you're making edits, it's a good idea to run your fork of our docs locally before submitting a Pull Request; to do so, follow these instructions straight from [Slate.](https://github.com/tripit/slate)
 
@@ -24,24 +22,21 @@ You're going to need:
  4. Install all dependencies: `bundle install`
  5. Start the test server: `bundle exec middleman server`
 
-Or use the included Dockerfile! (must install Docker first)
-
 ```shell
-docker build -t slate .
-docker run -d -p 4567:4567 slate
+# either run this to run locally
+bundle install
+bundle exec middleman server
+
+# OR run this to run with vagrant
+vagrant up
 ```
+You can now see the docs at <http://localhost:4567>.
 
-You can now see the docs at <http://localhost:4567>. 
-
-*Note: if you're using the Docker setup on OSX, the docs will be
-availalable at the output of `boot2docker ip` instead of `localhost:4567`.*
-
-Found an error or bug?
---------------------
+## Found an error or bug?
 
 Just [submit an issue](https://github.com/blockcypher/docs/issues). And, of course, feel free to submit Pull Requests with bug fixes or proposed changes.
 
-Special Thanks
---------------------
+## Special Thanks
+
 - [Slate](https://github.com/tripit/slate)
 - [GitHub Pages](https://pages.github.com/)

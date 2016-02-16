@@ -221,10 +221,6 @@ $apiContext = ApiContext::create(
 
 In these docs you'll find everything you need to leverage BlockCypher for your applications. For all officially supported languages, you'll see code samples, in addition to basic cURL requests/responses for every endpoint. You can switch between cURL/language samples via the selector in the upper right. We're working on supporting more languages, but if you're working on your own language library, definitely let us know: we'd love to add more community supported libraries here.
 
-<aside class="notice">
-Currently, we only have cURL, JavaScript, and Python code samples on this page, but are working on adding more samples from our <a href="#blockcypher-supported-language-sdks">supported languages</a> soon!
-</aside>
-
 ### Section Summaries
 
 - [Objects:](#objects) An overview of all the objects in the API, alongside detailed descriptions of every field.
@@ -248,7 +244,7 @@ We know many learn more from code examples than specific reference documentation
 
 ### Changelog and Errors
 
-Our documentation is powered by [GitHub Pages](https://pages.github.com/) and [Slate](https://github.com/tripit/slate), which makes viewing changes as simple as checking the [git commit history.](https://github.com/blockcypher/docs/commits/master). If there's an error or you'd like to suggest a change, please consider submitting a pull request to benefit the broader BlockCypher community.
+Our documentation is powered by [GitHub Pages](https://pages.github.com/) and [Slate](https://github.com/tripit/slate), which makes viewing changes as simple as checking the [git commit history](https://github.com/blockcypher/docs/commits/master). If there's an error or you'd like to suggest a change, please consider submitting a pull request to benefit the broader BlockCypher community.
 
 ## API Versions
 
