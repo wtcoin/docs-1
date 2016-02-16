@@ -10,22 +10,95 @@
 		<link rel="icon" type="image/png" href="images/favicon-96x96.png" sizes="96x96">
 		<link rel="icon" type="image/png" href="images/favicon-16x16.png" sizes="16x16">
 		<link rel="icon" type="image/png" href="images/favicon-32x32.png" sizes="32x32">
-		<link href="images/favicon.ico" rel="icon" type="image/ico" />
+		<link href="/images/favicon.ico" rel="icon" type="image/ico" />
     <title>Blockchain Developer API for Bitcoin, Testnet, Litecoin and More | Blockcypher</title>
 
-    <link href="stylesheets/screen.css" rel="stylesheet" type="text/css" media="screen" />
-    <link href="stylesheets/print.css" rel="stylesheet" type="text/css" media="print" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-      <script src="javascripts/all_nosearch.js" type="text/javascript"></script>
-
-      <script>
-        $(function() {
-          setupLanguages(["shell","javascript","ruby","python","go","php"]);
-        });
-      </script>
+    <style>
+      .highlight table td { padding: 5px; }
+.highlight table pre { margin: 0; }
+.highlight, .highlight .w {
+  color: #f8f8f2;
+  background-color: #272822;
+}
+.highlight .err {
+  color: #151515;
+  background-color: #ac4142;
+}
+.highlight .c, .highlight .cd, .highlight .cm, .highlight .c1, .highlight .cs {
+  color: #505050;
+}
+.highlight .cp {
+  color: #f4bf75;
+}
+.highlight .nt {
+  color: #f4bf75;
+}
+.highlight .o, .highlight .ow {
+  color: #d0d0d0;
+}
+.highlight .p, .highlight .pi {
+  color: #d0d0d0;
+}
+.highlight .gi {
+  color: #90a959;
+}
+.highlight .gd {
+  color: #ac4142;
+}
+.highlight .gh {
+  color: #6a9fb5;
+  background-color: #151515;
+  font-weight: bold;
+}
+.highlight .k, .highlight .kn, .highlight .kp, .highlight .kr, .highlight .kv {
+  color: #aa759f;
+}
+.highlight .kc {
+  color: #d28445;
+}
+.highlight .kt {
+  color: #d28445;
+}
+.highlight .kd {
+  color: #d28445;
+}
+.highlight .s, .highlight .sb, .highlight .sc, .highlight .sd, .highlight .s2, .highlight .sh, .highlight .sx, .highlight .s1 {
+  color: #90a959;
+}
+.highlight .sr {
+  color: #75b5aa;
+}
+.highlight .si {
+  color: #8f5536;
+}
+.highlight .se {
+  color: #8f5536;
+}
+.highlight .nn {
+  color: #f4bf75;
+}
+.highlight .nc {
+  color: #f4bf75;
+}
+.highlight .no {
+  color: #f4bf75;
+}
+.highlight .na {
+  color: #6a9fb5;
+}
+.highlight .m, .highlight .mf, .highlight .mh, .highlight .mi, .highlight .il, .highlight .mo, .highlight .mb, .highlight .mx {
+  color: #90a959;
+}
+.highlight .ss {
+  color: #90a959;
+}
+    </style>
+    <link href="stylesheets/screen.css" rel="stylesheet" media="screen" />
+    <link href="stylesheets/print.css" rel="stylesheet" media="print" />
+      <script src="javascripts/all_nosearch.js"></script>
   </head>
 
-  <body class="index">
+  <body class="index" data-languages="[&quot;shell&quot;,&quot;javascript&quot;,&quot;ruby&quot;,&quot;python&quot;,&quot;go&quot;,&quot;php&quot;]">
     <a href="#" id="nav-button">
       <span>
         NAV
@@ -222,10 +295,6 @@ Unless noted otherwise, all samples assume this initializing code:
 
 <p>In these docs you&rsquo;ll find everything you need to leverage BlockCypher for your applications. For all officially supported languages, you&rsquo;ll see code samples, in addition to basic cURL requests/responses for every endpoint. You can switch between cURL/language samples via the selector in the upper right. We&rsquo;re working on supporting more languages, but if you&rsquo;re working on your own language library, definitely let us know: we&rsquo;d love to add more community supported libraries here.</p>
 
-<aside class="notice">
-Currently, we only have cURL, JavaScript, and Python code samples on this page, but are working on adding more samples from our <a href="#blockcypher-supported-language-sdks">supported languages</a> soon!
-</aside>
-
 <h3 id="section-summaries">Section Summaries</h3>
 
 <ul>
@@ -253,7 +322,7 @@ Currently, we only have cURL, JavaScript, and Python code samples on this page, 
 
 <h3 id="changelog-and-errors">Changelog and Errors</h3>
 
-<p>Our documentation is powered by <a href="https://pages.github.com/">GitHub Pages</a> and <a href="https://github.com/tripit/slate">Slate</a>, which makes viewing changes as simple as checking the <a href="https://github.com/blockcypher/docs/commits/master">git commit history.</a>. If there&rsquo;s an error or you&rsquo;d like to suggest a change, please consider submitting a pull request to benefit the broader BlockCypher community.</p>
+<p>Our documentation is powered by <a href="https://pages.github.com/">GitHub Pages</a> and <a href="https://github.com/tripit/slate">Slate</a>, which makes viewing changes as simple as checking the <a href="https://github.com/blockcypher/docs/commits/master">git commit history</a>. If there&rsquo;s an error or you&rsquo;d like to suggest a change, please consider submitting a pull request to benefit the broader BlockCypher community.</p>
 
 <h2 id="api-versions">API Versions</h2>
 
