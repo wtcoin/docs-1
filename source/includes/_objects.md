@@ -260,7 +260,7 @@ Attribute | Type | Description
 **change_address** | *string* | ***Optional*** Address BlockCypher will use to send back your change, if you [constructed this transaction](#creating-transactions). If not set, defaults to the address from which the coins were originally sent.
 **block_hash** | *string* | ***Optional***  Hash of the block that contains this transaction; only present for confirmed transactions.
 **double_of** | *string* | ***Optional*** If this transaction is a double-spend (i.e. **double_spend** == *true*) then this is the hash of the transaction it's double-spending.
-**data_protocol** | *string* | ***Optional*** Returned if this transaction contains an OP_RETURN associated with a known data protocol. Data protocols currently detected: *blockchainid* ; *openassets* ; *factom* ; *colu* ; *coinspark*
+**data_protocol** | *string* | ***Optional*** Returned if this transaction contains an OP_RETURN associated with a known data protocol. Data protocols currently detected: *blockchainid* ; *openassets* ; *factom* ; *colu* ; *coinspark* ; *omni*
 **hex** | *string* | ***Optional*** Hex-encoded bytes of the transaction, as sent over the network.
 **next_inputs** | *url* | ***Optional*** If there are more transaction inptus that couldn't fit into the TXInput array, this is the BlockCypher URL to query the next set of TXInputs (within a TX object).
 **next_outputs** | *url* | ***Optional*** If there are more transaction outputs that couldn't fit into the TXOutput array, this is the BlockCypher URL to query the next set of TXOutputs(within a TX object).
