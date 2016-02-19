@@ -536,14 +536,14 @@ curl https://api.blockcypher.com/v1/tokens/<span class="nv">$YOURTOKEN</span>
     <span class="s2">"api/hour"</span>: 10000,
     <span class="s2">"api/second"</span>: 500,
     <span class="s2">"hooks/hour"</span>: 5000,
-    <span class="s2">"confidence/hour"</span>: 1000,
+    <span class="s2">"confidence/day"</span>: 1000,
     <span class="s2">"hooks"</span>: 5000,
     <span class="s2">"payments"</span>: 5000
 <span class="o">}</span>,
 <span class="s2">"hits"</span>: <span class="o">{</span>
     <span class="s2">"api/hour"</span>: 280,
     <span class="s2">"hooks/hour"</span>: 240,
-    <span class="s2">"confidence/hour"</span>: 100
+    <span class="s2">"confidence/day"</span>: 100
 <span class="o">}</span>
 <span class="o">}</span>
 <span class="c"># These are quite above the default limits, but if you'd like them, reach out at contact@blockcypher.com ;)</span>
@@ -566,13 +566,13 @@ curl https://api.blockcypher.com/v1/tokens/<span class="nv">$YOURTOKEN</span>
     <span class="s">"hits"</span><span class="p">:</span> <span class="p">{</span>
         <span class="s">"api/hour"</span><span class="p">:</span> <span class="mi">16366</span><span class="p">,</span> 
         <span class="s">"hooks/hour"</span><span class="p">:</span> <span class="mi">266</span><span class="p">,</span>
-        <span class="s">"confidence/hour"</span><span class="p">:</span> <span class="mi">101</span>
+        <span class="s">"confidence/day"</span><span class="p">:</span> <span class="mi">101</span>
     <span class="p">},</span> 
     <span class="s">"limits"</span><span class="p">:</span> <span class="p">{</span>
         <span class="s">"api/hour"</span><span class="p">:</span> <span class="mi">500000</span><span class="p">,</span> 
         <span class="s">"api/second"</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span> 
         <span class="s">"hooks/hour"</span><span class="p">:</span> <span class="mi">30000</span><span class="p">,</span>
-        <span class="s">"confidence/hour"</span><span class="p">:</span> <span class="mi">1000</span><span class="p">,</span>
+        <span class="s">"confidence/day"</span><span class="p">:</span> <span class="mi">1000</span><span class="p">,</span>
         <span class="s">"hooks"</span><span class="p">:</span> <span class="mi">10000</span><span class="p">,</span>
         <span class="s">"payments"</span><span class="p">:</span> <span class="mi">10000</span>
     <span class="p">},</span> 
@@ -613,9 +613,9 @@ curl https://api.blockcypher.com/v1/tokens/<span class="nv">$YOURTOKEN</span>
 
 <ul>
 <li>Classic requests, up to 3 requests/sec and 200 requests/hr</li>
-<li>Confidence lookups, up to 200 requests/hr</li>
 <li>WebHooks and WebSockets, up to 200 requests/hr</li>
 <li>WebHooks and Payments, up to 200 stored on our servers</li>
+<li>Confidence lookups, up to 50 requests/day</li>
 </ul>
 
 <aside class="warning">
