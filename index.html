@@ -3764,6 +3764,11 @@ With recent blocks, $BLOCK_HEIGHT is not always a unique identifier, due to the 
 <td>If set, only returns the <strong>balance</strong> and TXRefs that have <em>at least</em> this number of <strong>confirmations</strong>.</td>
 </tr>
 <tr>
+<td><strong>confidence</strong></td>
+<td><em>integer</em></td>
+<td>Filters response to only include TXRefs above <strong>confidence</strong> in percent; e.g., if this is set to 99, will only return TXRefs with 99% confidence or above (including all confirmed TXRefs). For more detail on confidence, check the <a href="#confidence-factor">Confidence Factor</a> documentation.</td>
+</tr>
+<tr>
 <td><strong>omitWalletAddresses</strong></td>
 <td><em>bool</em></td>
 <td>If <strong>omitWalletAddresses</strong> is <em>true</em> and you&rsquo;re querying a <a href="#wallet">Wallet</a> or <a href="#hdwallet">HDWallet</a>, the response will omit address information (useful to speed up the API call for larger wallets).</td>
@@ -4181,6 +4186,11 @@ With recent blocks, $BLOCK_HEIGHT is not always a unique identifier, due to the 
 <td><strong>confirmations</strong></td>
 <td><em>integer</em></td>
 <td>If set, only returns the <strong>balance</strong> and TXs that have <em>at least</em> this number of <strong>confirmations</strong>.</td>
+</tr>
+<tr>
+<td><strong>confidence</strong></td>
+<td><em>integer</em></td>
+<td>Filters response to only include TXRefs above <strong>confidence</strong> in percent; e.g., if this is set to 99, will only return TXRefs with 99% confidence or above (including all confirmed TXRefs). For more detail on confidence, check the <a href="#confidence-factor">Confidence Factor</a> documentation.</td>
 </tr>
 <tr>
 <td><strong>includeHex</strong></td>
