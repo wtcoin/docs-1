@@ -778,6 +778,7 @@ Flag | Type | Effect
 **before** | *integer* | Filters response to only include transactions below **before** height in the blockchain.
 **after** | *integer* | Filters response to only include transactions above **after** height in the blockchain.
 **limit** | *integer* | **limit** sets the minimum number of returned TXs; there can be less if there are less than **limit** TXs associated with this address, but there can also be more in the rare case of more TXs in the block at the bottom of your call. This ensures paging by block height never misses TXs. Defaults to 10, maximum is 50.
+**txlimit** | *integer* | This filters the TXInputs/TXOutputs within the returned TXs to include a maximum of **txlimit** items.
 **confirmations** | *integer* | If set, only returns the **balance** and TXs that have *at least* this number of **confirmations**.
 **confidence** | *integer* | Filters response to only include TXs above **confidence** in percent; e.g., if this is set to 99, will only return TXs with 99% confidence or above (including all confirmed TXs). For more detail on confidence, check the [Confidence Factor](#confidence-factor) documentation.
 **includeHex** | *bool* | If *true*, includes hex-encoded raw transaction for each TX; *false* by default.
