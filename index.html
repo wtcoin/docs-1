@@ -4183,6 +4183,11 @@ With recent blocks, $BLOCK_HEIGHT is not always a unique identifier, due to the 
 <td><strong>limit</strong> sets the minimum number of returned TXs; there can be less if there are less than <strong>limit</strong> TXs associated with this address, but there can also be more in the rare case of more TXs in the block at the bottom of your call. This ensures paging by block height never misses TXs. Defaults to 10, maximum is 50.</td>
 </tr>
 <tr>
+<td><strong>txlimit</strong></td>
+<td><em>integer</em></td>
+<td>This filters the TXInputs/TXOutputs within the returned TXs to include a maximum of <strong>txlimit</strong> items.</td>
+</tr>
+<tr>
 <td><strong>confirmations</strong></td>
 <td><em>integer</em></td>
 <td>If set, only returns the <strong>balance</strong> and TXs that have <em>at least</em> this number of <strong>confirmations</strong>.</td>
