@@ -977,8 +977,8 @@ $.post('https://api.blockcypher.com/v1/bcy/test/txs/new', JSON.stringify(newtx))
     // signing each of the hex-encoded string required to finalize the transaction
     tmptx.pubkeys = [];
     tmptx.signatures = tmptx.tosign.map(function(tosign, n) {
-      tmptx.pubkeys.push(keys.getPublicKeyBuffer.toString("hex"));
-      return key.sign(new buffer.Buffer(tosign, "hex")).toDER().toString("hex");
+      tmptx.pubkeys.push(keys.getPublicKeyBuffer().toString("hex"));
+      return keys.sign(new buffer.Buffer(tosign, "hex")).toDER().toString("hex");
     });
     // sending back the transaction with all the signatures to broadcast
     $.post('https://api.blockcypher.com/v1/bcy/test/txs/send', tmptx).then(function(finaltx) {
