@@ -816,7 +816,7 @@ When cURLing BlockCypher, batching also works when the identifiers aren't the la
 `https://api.blockcypher.com/v1/btc/main/addrs/1J38WorKngZLJvA7qMin9g5jqUfTQUBZNE;1JP8FqoXtCMrR1sZc2McLWmHxENox1Y1PV;1ENn7XmqXNnReiQEFHhBGzfiv5gAyBj7r1/balance`
 
 <aside class="warning">
-Since the default, non-registered <a href="#rate-limits-and-tokens">rate limit</a> per second is 5, larger batches require an API token. To use larger batches <a href="https://accounts.blockcypher.com/">please register.</a>
+With regard to rate limits, each individual batch call counts as a request; for example, if you request 3 addresses in a batch, you're still using 3 API calls of resources on our end. The big advantage to batching is that you avoid 3 separate round-trip calls/reduce latency. Since the default, non-registered <a href="#rate-limits-and-tokens">rate limit</a> per second is 3, larger batches require a paid API token. To use larger batches <a href="https://accounts.blockcypher.com/">please register.</a>
 </aside>
 
 ## Testing
