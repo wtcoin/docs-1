@@ -1418,7 +1418,7 @@ For even more control, you can also change the **script_type** in the **outputs*
 1. *unknown* (non-standard script)
 
 <aside class="warning">
-Due to safety checks within the API's transaction creation process, the user-set <b>value</b> field of an <b>output</b> may never be 0, except when using a <i>null-data</i> <b>script-type</b>, where it <b>must be 0</b>.
+Due to safety checks within the API's transaction creation process, the user-set <b>value</b> field of an <b>output</b> may never be 0, except when using a <i>null-data</i> <b>script-type</b>, where it must be 0.
 </aside>
 
 ## Push Raw Transaction Endpoint
