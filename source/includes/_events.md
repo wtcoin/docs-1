@@ -22,7 +22,7 @@ Event | Description
 *tx-confidence* | Triggered any time an **address** has an unconfirmed transaction above the **confidence** property specified in the [Event](#event), based on our [Confidence Factor.](#confidence-factor) The payload is the [TX](#tx) that triggered the event. If **confidence** is not set, defaults to 0.99. To ensure transactions are not missed, even if your confidence threshold is not reached, a transaction is still sent after a minute timeout; please remember to double-check the **confidence** attribute in the [TX](#tx) payload.
 
 <aside class="notice">
-Events like <i>unconfirmed-tx</i> can produce a lot of requests. To avoid rate-limiting, please <a href="http://accounts.blockcypher.com/">register for a token.</a>
+Events like <i>unconfirmed-tx</i> can produce a lot of requests. To avoid rate-limiting, please <a href="http://accounts-beta.blockcypher.com/">register for a token.</a>
 </aside>
 
 ## Using WebSockets

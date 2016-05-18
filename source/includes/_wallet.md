@@ -29,7 +29,7 @@ If an address ahead of current addresses listed in an HD Wallet receives a trans
 Both HD Wallets and normal Wallets can be leveraged by the [Address API](#address-api), just by using their $NAME instead of $ADDRESS. They can also be used with [Events](#events-and-hooks) and with the [Transaction API](#transaction-api). In general, using a wallet instead of an address in an API will have the effect of [batching the set of addresses](#batching) contained in the wallet.
 
 <aside class="notice">
-You are required to authenticate with your <a href="#rate-limits-and-tokens">user token</a> when using a Wallet or HD Wallet in any API endpoint. You can register <a href="http://accounts.blockcypher.com/">for a token here.</a>
+You are required to authenticate with your <a href="#rate-limits-and-tokens">user token</a> when using a Wallet or HD Wallet in any API endpoint. You can register <a href="http://accounts-beta.blockcypher.com/">for a token here.</a>
 </aside>
 
 The following code examples should be considered serially; that is to say, the results will appear as if each API call were done sequentially. Also, $NAME is a *string* representing the name of your wallet, for example:
