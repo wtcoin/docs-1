@@ -457,7 +457,7 @@ Attribute | Type | Description
 "from_pubkey": "03bb318b00de944086fad67ab78a832eb1bf26916053ecd3b14a3f48f9fbe0821f",
 "to_address": "mrS82nWF3TCfhafSaKnmUUktGNYuTZn1Ap",
 "value_satoshis": 5000,
-"token": "477a17a15d55b408038404a46c059ef9",
+"token": "YOURTOKEN",
 "signatures": [
 	"3045022100..."
 ],
