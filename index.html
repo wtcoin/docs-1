@@ -120,7 +120,7 @@
       <div id="toc">
       </div>
         <ul class="toc-footer">
-            <li><a href='https://accounts.blockcypher.com/'>Sign Up/Login</a></li>
+            <li><a href='https://accounts-beta.blockcypher.com/'>Sign Up/Login</a></li>
         </ul>
     </div>
     <div class="page-wrapper">
@@ -607,7 +607,7 @@ curl https://api.blockcypher.com/v1/tokens/<span class="nv">$YOURTOKEN</span>
 <span class="c1"># Use $apiContext as function param or set as default ApiContext 
 </span></code></pre>
 
-<p>We want everyone to try BlockCypher with as little friction as possible, which is why you don&rsquo;t need a token for any read-only <strong>GET</strong> calls. Please <a href="http://accounts.blockcypher.com/">register for a user token</a> if you want to use <strong>POST</strong> and <strong>DELETE</strong> calls. Once you have your token, you can append it to all your requests like any other URL parameter if you&rsquo;re using cURL, or through the appropriate method in the language SDK you&rsquo;re using.</p>
+<p>We want everyone to try BlockCypher with as little friction as possible, which is why you don&rsquo;t need a token for any read-only <strong>GET</strong> calls. Please <a href="http://accounts-beta.blockcypher.com/">register for a user token</a> if you want to use <strong>POST</strong> and <strong>DELETE</strong> calls. Once you have your token, you can append it to all your requests like any other URL parameter if you&rsquo;re using cURL, or through the appropriate method in the language SDK you&rsquo;re using.</p>
 
 <p>We do rate-limit our free tier, with or without a token (though tokens are required for WebHooks/Sockets, Payments, and any <strong>POST</strong> or <strong>DELETE</strong> calls):</p>
 
@@ -622,7 +622,7 @@ curl https://api.blockcypher.com/v1/tokens/<span class="nv">$YOURTOKEN</span>
 If you exceed these limits, your requests will return an HTTP Status Code 429!
 </aside>
 
-<p>Our future pricing plan will be tiered based on usage and volume. We will have a free tier and an extended free plan for our early users. To request higher limits or SLAs, please <a href="mailto:contact@blockcypher.com">email us.</a></p>
+<p>On <a href="https://accounts-beta.blockcypher.com/">the accounts page</a>, you&rsquo;ll find paid plans starting at $75 a month (with a 10% discount if you pay with Bitcoin). To request higher limits or SLAs beyond what&rsquo;s offered on the accounts page, please <a href="mailto:contact@blockcypher.com">email us.</a></p>
 
 <p>You can check your current limits and usage via a <strong>GET</strong> on the following endpoint, outside of our normal coin/chain pattern:</p>
 
@@ -890,7 +890,7 @@ As you may have noticed from the examples, batched calls don&rsquo;t necessarily
 <p><code class="prettyprint">https://api.blockcypher.com/v1/btc/main/addrs/1J38WorKngZLJvA7qMin9g5jqUfTQUBZNE;1JP8FqoXtCMrR1sZc2McLWmHxENox1Y1PV;1ENn7XmqXNnReiQEFHhBGzfiv5gAyBj7r1/balance</code></p>
 
 <aside class="warning">
-With regard to rate limits, each individual batch call counts as a request; for example, if you request 3 addresses in a batch, you&rsquo;re still using 3 API calls of resources on our end. The big advantage to batching is that you avoid 3 separate round-trip calls/reduce latency. Since the default, non-registered <a href="#rate-limits-and-tokens">rate limit</a> per second is 3, larger batches require a paid API token. To use larger batches <a href="https://accounts.blockcypher.com/">please register.</a>
+With regard to rate limits, each individual batch call counts as a request; for example, if you request 3 addresses in a batch, you&rsquo;re still using 3 API calls of resources on our end. The big advantage to batching is that you avoid 3 separate round-trip calls/reduce latency. Since the default, non-registered <a href="#rate-limits-and-tokens">rate limit</a> per second is 3, larger batches require a paid API token. To use larger batches <a href="https://accounts-beta.blockcypher.com/">please register.</a>
 </aside>
 
 <h2 id="testing">Testing</h2>
@@ -1022,17 +1022,10 @@ curl -d <span class="s1">'{"address": "CFqoZmZ3ePwK5wnkhxJjJAQKJ82C7RJdmd", "amo
 
 <p>To help facilitate automated testing in your applications, a faucet endpoint is available on both BlockCypher&rsquo;s Test Chain and Bitcoin Testnet3. Calling the faucet endpoint, along with passing a valid address, will automatically create&mdash;and propagate&mdash;a new transaction funding the address with the amount you provide.</p>
 
-<p>The faucets can be used from your browser if you want to play with them before automating:</p>
-
-<ul>
-<li><a href="https://accounts.blockcypher.com/testnet-faucet">Bitcoin Testnet Faucet</a></li>
-<li><a href="https://accounts.blockcypher.com/blockcypher-faucet">BlockCypher Test Chain Faucet</a></li>
-</ul>
-
 <p>This example shows how to leverage the faucet to programmatically fund addresses, to test your applications. While the example used BlockCypher&rsquo;s Test Chain, the same example could have used Bitcoin Testnet3 and worked the exact same way.</p>
 
 <aside class="notice">
-You need <a href="https://accounts.blockcypher.com/">a token</a> to use test faucets.
+You need <a href="https://accounts-beta.blockcypher.com/">a token</a> to use test faucets.
 </aside>
 
 <aside class="warning">
@@ -2041,7 +2034,7 @@ Only one of these three fields is required for the microtransaction endpoint: <b
 <tr>
 <td><strong>token</strong></td>
 <td><em>string</em></td>
-<td>Your <a href="http://accounts.blockcypher.com/">BlockCypher API token</a></td>
+<td>Your <a href="http://accounts-beta.blockcypher.com/">BlockCypher API token</a></td>
 </tr>
 <tr>
 <td><strong>change_address</strong></td>
@@ -4479,7 +4472,7 @@ Don&rsquo;t be confused: this Wallet API has nothing to do with private key mana
 <p>Both HD Wallets and normal Wallets can be leveraged by the <a href="#address-api">Address API</a>, just by using their $NAME instead of $ADDRESS. They can also be used with <a href="#events-and-hooks">Events</a> and with the <a href="#transaction-api">Transaction API</a>. In general, using a wallet instead of an address in an API will have the effect of <a href="#batching">batching the set of addresses</a> contained in the wallet.</p>
 
 <aside class="notice">
-You are required to authenticate with your <a href="#rate-limits-and-tokens">user token</a> when using a Wallet or HD Wallet in any API endpoint. You can register <a href="http://accounts.blockcypher.com/">for a token here.</a>
+You are required to authenticate with your <a href="#rate-limits-and-tokens">user token</a> when using a Wallet or HD Wallet in any API endpoint. You can register <a href="http://accounts-beta.blockcypher.com/">for a token here.</a>
 </aside>
 
 <p>The following code examples should be considered serially; that is to say, the results will appear as if each API call were done sequentially. Also, $NAME is a <em>string</em> representing the name of your wallet, for example:</p>
@@ -7178,7 +7171,7 @@ One of the most common errors we see are users who use uncompressed public keys 
 </ol>
 
 <aside class="warning">
-Due to safety checks within the API&rsquo;s transaction creation process, the user-set <b>value</b> field of an <b>output</b> may never be 0, even when using a <i>null-data</i> <b>script-type</b>. You can still embed data in the blockchain, but you need to set the value to (at least) 1 satoshi. Please note that whatever value you set will become unrecoverable if the transaction successfully propagates. For simpler data embedding needs, consider using our <a href="#data-endpoint">Data Endpoint.</a>
+Due to safety checks within the API&rsquo;s transaction creation process, the user-set <b>value</b> field of an <b>output</b> may never be 0, except when using a <i>null-data</i> <b>script-type</b>, where it <b>must be 0</b>.
 </aside>
 
 <h2 id="push-raw-transaction-endpoint">Push Raw Transaction Endpoint</h2>
@@ -8032,7 +8025,7 @@ curl -d <span class="s1">'{"data":"I am the walrus", "encoding":"string"}'</span
 <p>Some of the most interesting blockchain applications involve embedding data through <em>null-data</em> (also known as OP_RETURN) output scripts with transactions. While you can certainly use our <a href="#creating-transactions">guided transaction process</a> and customize your script output, there&rsquo;s a simpler way: through our Data Endpoint. All you need is the data you want to embed (up to 40 bytes, inclusive) and we&rsquo;ll handle the rest.</p>
 
 <aside class="notice">
-Embedding data into a blockchain is not free, but we&rsquo;re covering the cost for now, leveraging our <a href="#microtransaction-api">Microtransaction</a> infrastructure. Consequently, in order for us to keep track of fees, we require that all calls to the Data Endpoint use a token. You can <a href="http://accounts.blockcypher.com/">register for one here.</a>
+Embedding data into a blockchain is not free, but we&rsquo;re covering the cost for now, leveraging our <a href="#microtransaction-api">Microtransaction</a> infrastructure. Consequently, in order for us to keep track of fees, we require that all calls to the Data Endpoint use a token. You can <a href="http://accounts-beta.blockcypher.com/">register for one here.</a>
 </aside>
 
 <table><thead>
@@ -8068,7 +8061,7 @@ While some miners have a patch allowing 80 byte <i>null-data</i> outputs on Bitc
 <p>We also pay for the mining fees for your first 8,000 microtransactions. After which, we automatically optimize fee structure to achieve a balance between guaranteeing confidence it will be in the next block and minimizing cost. If there isn&rsquo;t enough value in your microtransaction for the fee, we&rsquo;ll return an error.</p>
 
 <aside class="notice">
-In order for us to keep track of mining fees, we require that all calls to the Microtransactions API use a token. You can <a href="http://accounts.blockcypher.com/">register for one here.</a>
+In order for us to keep track of mining fees, we require that all calls to the Microtransactions API use a token. You can <a href="http://accounts-beta.blockcypher.com/">register for one here.</a>
 </aside>
 
 <aside class="warning">
@@ -8507,7 +8500,7 @@ While we stand by our work behind our confidence research, please note that thes
 
 <h2 id="private-vs-public-metadata">Private vs Public Metadata</h2>
 
-<p>The Metadata API supports both public and private key-value storage. In both cases, setting metadata requires use of a token (if you haven&rsquo;t already, you can <a href="https://accounts.blockcypher.com/">register for one here</a>). <strong>Public metadata is immutable</strong>; once set, it cannot be modified or deleted. If you accidentally set public metadata and need it deleted, <a href="mailto:support@blockcypher.com">contact us</a>. Also, as implied by the name, it&rsquo;s openly accessible to the whole world&mdash;regardless of whether they have a token or not. Consequently, private metadata is associated and only accessible with your user token. The methods for interacting with metadata are outlined below.</p>
+<p>The Metadata API supports both public and private key-value storage. In both cases, setting metadata requires use of a token (if you haven&rsquo;t already, you can <a href="https://accounts-beta.blockcypher.com/">register for one here</a>). <strong>Public metadata is immutable</strong>; once set, it cannot be modified or deleted. If you accidentally set public metadata and need it deleted, <a href="mailto:support@blockcypher.com">contact us</a>. Also, as implied by the name, it&rsquo;s openly accessible to the whole world&mdash;regardless of whether they have a token or not. Consequently, private metadata is associated and only accessible with your user token. The methods for interacting with metadata are outlined below.</p>
 
 <h2 id="get-metadata-endpoint">Get Metadata Endpoint</h2>
 <pre class="highlight shell"><code><span class="c"># Get Public Metadata (set by you or anyone else)</span>
@@ -8760,7 +8753,7 @@ As a last friendly reminder, if you set public metadata, <b>you cannot delete it
 <p>The endpoints (and code examples) are ordered below to demonstrate how to create asset addresses, issue assets, transfer them, then query the assets/asset addresses you initially created.</p>
 
 <aside class="notice">
-The Asset API only works with confirmed transactions; the API will return an error if asset transfer or issuance is attempted using unconfirmed transaction outputs. It also requires the use of <a href="#rate-limits-and-tokens">user tokens</a>, you can <a href="https://accounts.blockcypher.com/">register for one here.</a>
+The Asset API only works with confirmed transactions; the API will return an error if asset transfer or issuance is attempted using unconfirmed transaction outputs. It also requires the use of <a href="#rate-limits-and-tokens">user tokens</a>, you can <a href="https://accounts-beta.blockcypher.com/">register for one here.</a>
 </aside>
 
 <h2 id="generate-asset-address-endpoint">Generate Asset Address Endpoint</h2>
@@ -9057,7 +9050,7 @@ curl https://api.blockcypher.com/v1/bcy/test/oap/1Npqwstp55vgThp4pwAC9UhYkvPJ28b
 <p>We do not take a fee on payment forwarding, other than the required 10,000 satoshi miner fee; payments are free. However, as part of your own services, you can include a fee (either fixed or a percentage) that will also be automatically transfered to your own address in the same transaction. Fee-based business models are thus easily achieved, and moreover, easily auditable via the blockchain.</p>
 
 <aside class="notice">
-Payment forwarding is tied to your usage token, you can&rsquo;t create a payment forwarding request without one. You can <a href="http://accounts.blockcypher.com">register for a token here.</a>
+Payment forwarding is tied to your usage token, you can&rsquo;t create a payment forwarding request without one. You can <a href="http://accounts-beta.blockcypher.com">register for a token here.</a>
 </aside>
 
 <aside class="notice">
@@ -9409,7 +9402,7 @@ HTTP/1.1 204 No Content
 </tbody></table>
 
 <aside class="notice">
-Events like <i>unconfirmed-tx</i> can produce a lot of requests. To avoid rate-limiting, please <a href="http://accounts.blockcypher.com/">register for a token.</a>
+Events like <i>unconfirmed-tx</i> can produce a lot of requests. To avoid rate-limiting, please <a href="http://accounts-beta.blockcypher.com/">register for a token.</a>
 </aside>
 
 <h2 id="using-websockets">Using WebSockets</h2>
