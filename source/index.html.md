@@ -442,7 +442,7 @@ curl https://api.blockcypher.com/v1/tokens/$YOURTOKEN
 	"api/hour": 10000,
 	"api/second": 500,
 	"hooks/hour": 5000,
-	"confidence/day": 1000,
+	"confidence/hour": 1000,
 	"hooks": 5000,
 	"payments": 5000
 },
@@ -478,13 +478,13 @@ $.get('https://api.blockcypher.com/v1/btc/main?token='+TOKEN);
     "hits": {
         "api/hour": 16366, 
         "hooks/hour": 266,
-        "confidence/day": 101
+        "confidence/hour": 101
     }, 
     "limits": {
         "api/hour": 500000, 
         "api/second": 200, 
         "hooks/hour": 30000,
-        "confidence/day": 1000,
+        "confidence/hour": 1000,
         "hooks": 10000,
         "payments": 10000
     }, 
@@ -525,12 +525,12 @@ $apiContext = ApiContext::create(
 
 We want everyone to try BlockCypher with as little friction as possible, which is why you don't need a token for any read-only **GET** calls. Please [register for a user token](http://accounts-beta.blockcypher.com/) if you want to use **POST** and **DELETE** calls. Once you have your token, you can append it to all your requests like any other URL parameter if you're using cURL, or through the appropriate method in the language SDK you're using.
 
-We do rate-limit our free tier, with or without a token (though tokens are required for WebHooks/Sockets, Payments, and any **POST** or **DELETE** calls):
+We do rate-limit our free tier, with or without a token (though tokens are required for Confidence lookups, WebHooks/Sockets, Payments, and any **POST** or **DELETE** calls):
 
 - Classic requests, up to 3 requests/sec and 200 requests/hr
 - WebHooks and WebSockets, up to 200 requests/hr
 - WebHooks and Payments, up to 200 stored on our servers
-- Confidence lookups, up to 50 requests/day
+- Confidence lookups, up to 15 requests/hour
 
 <aside class="warning">
 If you exceed these limits, your requests will return an HTTP Status Code 429!
