@@ -449,7 +449,7 @@ curl https://api.blockcypher.com/v1/tokens/$YOURTOKEN
 "hits": {
 	"api/hour": 280,
 	"hooks/hour": 240,
-	"confidence/day": 100
+	"confidence/hour": 100
 }
 }
 # These are quite above the default limits, but if you'd like them, reach out at contact@blockcypher.com ;)
