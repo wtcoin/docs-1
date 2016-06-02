@@ -4,7 +4,7 @@ Cryptocurrency addresses, transactions, and blocks are extremely powerful, but t
 
 ## Private vs Public Metadata 
 
-The Metadata API supports both public and private key-value storage. In both cases, setting metadata requires use of a token (if you haven't already, you can [register for one here](https://accounts-beta.blockcypher.com/)). **Public metadata is immutable**; once set, it cannot be modified or deleted. If you accidentally set public metadata and need it deleted, [contact us](mailto:support@blockcypher.com). Also, as implied by the name, it's openly accessible to the whole world---regardless of whether they have a token or not. Consequently, private metadata is associated and only accessible with your user token. The methods for interacting with metadata are outlined below.
+The Metadata API supports both public and private key-value storage. In both cases, setting metadata requires use of a token (if you haven't already, you can [register for one here](https://accounts.blockcypher.com/)). **Public metadata is immutable**; once set, it cannot be modified or deleted. If you accidentally set public metadata and need it deleted, [contact us](mailto:support@blockcypher.com). Also, as implied by the name, it's openly accessible to the whole world---regardless of whether they have a token or not. Consequently, private metadata is associated and only accessible with your user token. The methods for interacting with metadata are outlined below.
 
 ## Get Metadata Endpoint
 

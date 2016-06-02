@@ -7,7 +7,7 @@ Simple. We leverage our own infrastructure; in particular, our [Confidence Facto
 We also pay for the mining fees for your first 8,000 microtransactions. After which, we automatically optimize fee structure to achieve a balance between guaranteeing confidence it will be in the next block and minimizing cost. If there isn't enough value in your microtransaction for the fee, we'll return an error.
 
 <aside class="notice">
-In order for us to keep track of mining fees, we require that all calls to the Microtransactions API use a token. You can <a href="http://accounts-beta.blockcypher.com/">register for one here.</a>
+In order for us to keep track of mining fees, we require that all calls to the Microtransactions API use a token. You can <a href="http://accounts.blockcypher.com/">register for one here.</a>
 </aside>
 
 <aside class="warning">

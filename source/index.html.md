@@ -12,7 +12,7 @@ language_tabs:
   - php: PHP
 
 toc_footers:
-  - <a href='https://accounts-beta.blockcypher.com/'>Sign Up/Login</a>
+  - <a href='https://accounts.blockcypher.com/'>Sign Up/Login</a>
 
 includes:
   - objects
@@ -523,7 +523,7 @@ $apiContext = ApiContext::create(
 # Use $apiContext as function param or set as default ApiContext 
 ```
 
-We want everyone to try BlockCypher with as little friction as possible, which is why you don't need a token for any read-only **GET** calls. Please [register for a user token](http://accounts-beta.blockcypher.com/) if you want to use **POST** and **DELETE** calls. Once you have your token, you can append it to all your requests like any other URL parameter if you're using cURL, or through the appropriate method in the language SDK you're using.
+We want everyone to try BlockCypher with as little friction as possible, which is why you don't need a token for any read-only **GET** calls. Please [register for a user token](http://accounts.blockcypher.com/) if you want to use **POST** and **DELETE** calls. Once you have your token, you can append it to all your requests like any other URL parameter if you're using cURL, or through the appropriate method in the language SDK you're using.
 
 We do rate-limit our free tier, with or without a token (though tokens are required for Confidence lookups, WebHooks/Sockets, Payments, and any **POST** or **DELETE** calls):
 
@@ -536,7 +536,7 @@ We do rate-limit our free tier, with or without a token (though tokens are requi
 If you exceed these limits, your requests will return an HTTP Status Code 429!
 </aside>
 
-On [the accounts page](https://accounts-beta.blockcypher.com/), you'll find paid plans starting at $75 a month (with a 10% discount if you pay with Bitcoin). To request higher limits or SLAs beyond what's offered on the accounts page, please [email us.](mailto:contact@blockcypher.com)
+On [the accounts page](https://accounts.blockcypher.com/), you'll find paid plans starting at $75 a month (with a 10% discount if you pay with Bitcoin). To request higher limits or SLAs beyond what's offered on the accounts page, please [email us.](mailto:contact@blockcypher.com)
 
 You can check your current limits and usage via a **GET** on the following endpoint, outside of our normal coin/chain pattern:
 
@@ -816,7 +816,7 @@ When cURLing BlockCypher, batching also works when the identifiers aren't the la
 `https://api.blockcypher.com/v1/btc/main/addrs/1J38WorKngZLJvA7qMin9g5jqUfTQUBZNE;1JP8FqoXtCMrR1sZc2McLWmHxENox1Y1PV;1ENn7XmqXNnReiQEFHhBGzfiv5gAyBj7r1/balance`
 
 <aside class="warning">
-With regard to rate limits, each individual batch call counts as a request; for example, if you request 3 addresses in a batch, you're still using 3 API calls of resources on our end. The big advantage to batching is that you avoid 3 separate round-trip calls/reduce latency. Since the default, non-registered <a href="#rate-limits-and-tokens">rate limit</a> per second is 3, larger batches require a paid API token. To use larger batches <a href="https://accounts-beta.blockcypher.com/">please register.</a>
+With regard to rate limits, each individual batch call counts as a request; for example, if you request 3 addresses in a batch, you're still using 3 API calls of resources on our end. The big advantage to batching is that you avoid 3 separate round-trip calls/reduce latency. Since the default, non-registered <a href="#rate-limits-and-tokens">rate limit</a> per second is 3, larger batches require a paid API token. To use larger batches <a href="https://accounts.blockcypher.com/">please register.</a>
 </aside>
 
 ## Testing
@@ -961,7 +961,7 @@ To help facilitate automated testing in your applications, a faucet endpoint is 
 This example shows how to leverage the faucet to programmatically fund addresses, to test your applications. While the example used BlockCypher's Test Chain, the same example could have used Bitcoin Testnet3 and worked the exact same way.
 
 <aside class="notice">
-You need <a href="https://accounts-beta.blockcypher.com/">a token</a> to use test faucets.
+You need <a href="https://accounts.blockcypher.com/">a token</a> to use test faucets.
 </aside>
 
 <aside class="warning">

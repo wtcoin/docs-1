@@ -501,7 +501,7 @@ Attribute | Type | Description
 **from_wif** | *string* | WIF-encoded private key from which you're sending coins.
 **to_address** | *string* | The target address to which you're sending coins.
 **value_satoshis** | *int* | Value you're sending/you've sent in satoshis.
-**token** | *string* | Your [BlockCypher API token](http://accounts-beta.blockcypher.com/)
+**token** | *string* | Your [BlockCypher API token](http://accounts.blockcypher.com/)
 **change_address** | *string* | ***Optional*** Address BlockCypher will use to send back your change. If not set, defaults to the address from which the coins were originally sent. While not required, we recommend that you set a change address.
 **wait_guarantee** | *bool* | ***Optional*** If not set, defaults to *true*, which means the API will wait for BlockCypher to guarantee the transaction, using our [Confidence Factor](#confidence-factor). The guarantee usually takes around 8 seconds. If manually set to *false*, the Microtransaction endpoint will return as soon as the transaction is broadcast.
 **tosign** | *array[string]* | ***Optional*** Hex-encoded data for you to sign after initiating the microtransaction. Sent in reply to a microtransaction generated using **from_pubkey**/a public key.

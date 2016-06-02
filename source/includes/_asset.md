@@ -7,7 +7,7 @@ However, the act of creating these alternate forms of value---and choosing a for
 The endpoints (and code examples) are ordered below to demonstrate how to create asset addresses, issue assets, transfer them, then query the assets/asset addresses you initially created.
 
 <aside class="notice">
-The Asset API only works with confirmed transactions; the API will return an error if asset transfer or issuance is attempted using unconfirmed transaction outputs. It also requires the use of <a href="#rate-limits-and-tokens">user tokens</a>, you can <a href="https://accounts-beta.blockcypher.com/">register for one here.</a>
+The Asset API only works with confirmed transactions; the API will return an error if asset transfer or issuance is attempted using unconfirmed transaction outputs. It also requires the use of <a href="#rate-limits-and-tokens">user tokens</a>, you can <a href="https://accounts.blockcypher.com/">register for one here.</a>
 </aside>
 
 ## Generate Asset Address Endpoint
