@@ -1,0 +1,315 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="Build Ethereum applications easily with our web APIs and callbacks. High throughputs, linear scaling, low-latency. Over 99.99% uptime with no single point of failure.">
+		<link rel="icon" type="image/png" href="images/favicon-192x192.png" sizes="192x192">
+		<link rel="icon" type="image/png" href="images/favicon-160x160.png" sizes="160x160">
+		<link rel="icon" type="image/png" href="images/favicon-96x96.png" sizes="96x96">
+		<link rel="icon" type="image/png" href="images/favicon-16x16.png" sizes="16x16">
+		<link rel="icon" type="image/png" href="images/favicon-32x32.png" sizes="32x32">
+		<link href="/images/favicon.ico" rel="icon" type="image/ico" />
+    <title>Blockchain Developer API for Ethereum | Blockcypher</title>
+
+    <style>
+      .highlight table td { padding: 5px; }
+.highlight table pre { margin: 0; }
+.highlight, .highlight .w {
+  color: #f8f8f2;
+  background-color: #272822;
+}
+.highlight .err {
+  color: #151515;
+  background-color: #ac4142;
+}
+.highlight .c, .highlight .cd, .highlight .cm, .highlight .c1, .highlight .cs {
+  color: #505050;
+}
+.highlight .cp {
+  color: #f4bf75;
+}
+.highlight .nt {
+  color: #f4bf75;
+}
+.highlight .o, .highlight .ow {
+  color: #d0d0d0;
+}
+.highlight .p, .highlight .pi {
+  color: #d0d0d0;
+}
+.highlight .gi {
+  color: #90a959;
+}
+.highlight .gd {
+  color: #ac4142;
+}
+.highlight .gh {
+  color: #6a9fb5;
+  background-color: #151515;
+  font-weight: bold;
+}
+.highlight .k, .highlight .kn, .highlight .kp, .highlight .kr, .highlight .kv {
+  color: #aa759f;
+}
+.highlight .kc {
+  color: #d28445;
+}
+.highlight .kt {
+  color: #d28445;
+}
+.highlight .kd {
+  color: #d28445;
+}
+.highlight .s, .highlight .sb, .highlight .sc, .highlight .sd, .highlight .s2, .highlight .sh, .highlight .sx, .highlight .s1 {
+  color: #90a959;
+}
+.highlight .sr {
+  color: #75b5aa;
+}
+.highlight .si {
+  color: #8f5536;
+}
+.highlight .se {
+  color: #8f5536;
+}
+.highlight .nn {
+  color: #f4bf75;
+}
+.highlight .nc {
+  color: #f4bf75;
+}
+.highlight .no {
+  color: #f4bf75;
+}
+.highlight .na {
+  color: #6a9fb5;
+}
+.highlight .m, .highlight .mf, .highlight .mh, .highlight .mi, .highlight .il, .highlight .mo, .highlight .mb, .highlight .mx {
+  color: #90a959;
+}
+.highlight .ss {
+  color: #90a959;
+}
+    </style>
+    <link href="stylesheets/screen.css" rel="stylesheet" media="screen" />
+    <link href="stylesheets/print.css" rel="stylesheet" media="print" />
+      <script src="javascripts/all_nosearch.js"></script>
+  </head>
+
+  <body class="index" data-languages="[&quot;shell&quot;]">
+    <a href="#" id="nav-button">
+      <span>
+        NAV
+        <img src="images/navbar.png" />
+      </span>
+    </a>
+    <div class="tocify-wrapper">
+			<a href="http://www.blockcypher.com/">
+				<img src="images/logo.svg" />
+			</a>
+        <div class="lang-selector">
+              <a href="#" data-language-name="shell">cURL</a>
+        </div>
+      <div id="toc">
+      </div>
+        <ul class="toc-footer">
+            <li><a href='https://accounts.blockcypher.com/'>Sign Up/Login</a></li>
+        </ul>
+    </div>
+    <div class="page-wrapper">
+      <div class="dark-box"></div>
+      <div class="content">
+        <h1 id="introduction-to-ethereum">Introduction to Ethereum</h1>
+<pre class="highlight shell"><code><span class="c">#  _               _                  </span>
+<span class="c"># |_) |  _   _ |  /     ._  |_   _  ._</span>
+<span class="c"># |_) | (_) (_ |&lt; \_ \/ |_) | | (/_ | </span>
+<span class="c">#                    /  |             </span>
+</code></pre>
+
+<p>Welcome to <a href="http://www.blockcypher.com/">BlockCypher&rsquo;s</a> Ethereum API documentation!</p>
+
+<h2 id="documentation-structure">Documentation Structure</h2>
+<pre class="highlight shell"><code>man curl | grep -A 3 <span class="s2">"DESCRIPTION"</span>
+
+DESCRIPTION
+curl is a tool to transfer data from or to a server, using one of the supported protocols <span class="o">(</span>DICT, FILE, FTP, FTPS, GOPHER, HTTP, HTTPS, IMAP, IMAPS, LDAP, LDAPS, POP3, POP3S, RTMP, RTSP, SCP, SFTP, SMB, SMBS, SMTP, SMTPS, TELNET and TFTP<span class="o">)</span>. The <span class="nb">command </span>is designed to work without user interaction.
+</code></pre>
+
+<p>In these docs you&rsquo;ll find everything you need to leverage BlockCypher for your Ethereum applications. For now, you&rsquo;ll see cURL examples for interacting with the Ethereum blockchain, but we&rsquo;ll add SDK examples as we support them. </p>
+
+<h3 id="section-summaries">Section Summaries</h3>
+
+<ul>
+<li><a href="#objects">Objects:</a> An overview of all the objects in the BlockCypher Ethereum API, alongside detailed descriptions of every field.</li>
+<li><a href="#blockchain-api">Blockchain API:</a> Endpoints to query general information about the Ethereum blockchain and its blocks.</li>
+<li><a href="#address-api">Address API:</a> Query information about addresses, and generate addresses.</li>
+<li><a href="#transaction-api">Transaction API:</a> Information about transactions, how to generate/send your own.</li>
+</ul>
+
+<h3 id="changelog-and-errors">Changelog and Errors</h3>
+
+<p>Our documentation is powered by <a href="https://pages.github.com/">GitHub Pages</a> and <a href="https://github.com/tripit/slate">Slate</a>, which makes viewing changes as simple as checking the <a href="https://github.com/blockcypher/eth-docs/commits/master">git commit history</a>. If there&rsquo;s an error or you&rsquo;d like to suggest a change, please consider submitting a pull request to benefit the broader BlockCypher community.</p>
+
+<h2 id="api-versions">API Versions</h2>
+
+<p>All API calls are versioned, and the current BlockCypher API is v1. <strong>The BlockCypher Ethereum API is currently in beta</strong>, and we hope not to introduce any breaking changes, but until it&rsquo;s out of beta we can&rsquo;t make that guarantee until it&rsquo;s stable.</p>
+
+<h2 id="restful-resources">RESTful Resources</h2>
+<pre class="highlight shell"><code>curl https://eth.api.call.here
+</code></pre>
+
+<p>Almost all resources exist under a given blockchain, and follow this pattern:</p>
+
+<p><code class="prettyprint">https://api.blockcypher.com/$API_VERSION/$COIN/$CHAIN/</code></p>
+
+<p>Currently, there&rsquo;s only one version of the API (v1). For Ethereum, this is the resource you&rsquo;ll use:</p>
+
+<table><thead>
+<tr>
+<th>Coin</th>
+<th>Chain</th>
+<th>Resource</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Ethereum</td>
+<td>Main</td>
+<td><code class="prettyprint">api.blockcypher.com/ether/endpoint/here</code></td>
+</tr>
+</tbody></table>
+
+<aside class="notice">
+Unless otherwise noted, all descriptions of direct HTTP requests will assume one of these base resources prepends it. But you can always see the full call in the cURL code sample.
+</aside>
+
+<aside class="success">
+Our API <b>always</b> returns values in wei, the lowest non-divisible unit in Ethereum. As a friendly reminder, there are 10^18 wei in a single ether (1,000,000,000,000,000,000w = 1ETH).
+</aside>
+
+<h2 id="rate-limits-and-tokens">Rate Limits and Tokens</h2>
+<pre class="highlight shell"><code><span class="c"># Adding your token as URL parameter</span>
+curl https://api.blockcypher.com/ether/path/here?token<span class="o">=</span><span class="nv">$YOURTOKEN</span>
+
+<span class="c"># Checking your token's limits</span>
+curl https://api.blockcypher.com/v1/tokens/YOURTOKEN
+<span class="o">{</span>
+<span class="s2">"token"</span>: <span class="s2">"YOURTOKEN"</span>,
+<span class="s2">"limits"</span>: <span class="o">{</span>
+    <span class="s2">"api/hour"</span>: 10000,
+    <span class="s2">"api/second"</span>: 500,
+    <span class="s2">"hooks/hour"</span>: 5000,
+    <span class="s2">"confidence/hour"</span>: 1000,
+    <span class="s2">"hooks"</span>: 5000,
+    <span class="s2">"payments"</span>: 5000
+<span class="o">}</span>,
+<span class="s2">"hits"</span>: <span class="o">{</span>
+    <span class="s2">"api/hour"</span>: 280,
+    <span class="s2">"hooks/hour"</span>: 240,
+    <span class="s2">"confidence/hour"</span>: 100
+<span class="o">}</span>
+<span class="o">}</span>
+<span class="c"># These are quite above the default limits, but if you'd like them, reach out at contact@blockcypher.com ;)</span>
+</code></pre>
+
+<p>We want everyone to try BlockCypher with as little friction as possible, which is why you don&rsquo;t need a token for any read-only <strong>GET</strong> calls. Please <a href="http://accounts.blockcypher.com/">register for a user token</a> if you want to use <strong>POST</strong> and <strong>DELETE</strong> calls. Once you have your token, you can append it to all your requests like any other URL parameter.</p>
+
+<p>We do rate-limit our free tier, with or without a token (though tokens are required for Confidence lookups, WebHooks/Sockets, Payments, and any <strong>POST</strong> or <strong>DELETE</strong> calls):</p>
+
+<ul>
+<li>Classic requests, up to 3 requests/sec and 200 requests/hr</li>
+<li>WebHooks and WebSockets, up to 200 requests/hr</li>
+<li>WebHooks and Payments, up to 200 stored on our servers</li>
+<li>Confidence lookups, up to 15 requests/hour</li>
+</ul>
+
+<aside class="warning">
+If you exceed these limits, your requests will return an HTTP Status Code 429!
+</aside>
+
+<p>On <a href="https://accounts.blockcypher.com/">the accounts page</a>, you&rsquo;ll find paid plans starting at $75 a month (with a 10% discount if you pay with Bitcoin). To request higher limits or SLAs beyond what&rsquo;s offered on the accounts page, please <a href="mailto:contact@blockcypher.com">email us.</a></p>
+
+<p>You can check your current limits and usage via a <strong>GET</strong> on the following endpoint, outside of our normal coin/chain pattern:</p>
+
+<p><code class="prettyprint">https://api.blockcypher.com/v1/tokens/YOURTOKEN</code></p>
+
+<h2 id="batching">Batching</h2>
+<pre class="highlight shell"><code><span class="c"># Batching blocks 5, 6, and 7</span>
+curl <span class="s1">'https://api.blockcypher.com/v1/btc/main/blocks/5;6;7'</span>
+
+<span class="o">[{</span>
+<span class="s2">"hash"</span>: <span class="s2">"000000003031a0e73735690c5a1ff2a4be82553b2a12b776fbd3a215dc8f778d"</span>,
+<span class="s2">"height"</span>: 6,
+<span class="s2">"chain"</span>: <span class="s2">"BTC.main"</span>,
+<span class="s2">"total"</span>: 0,
+<span class="s2">"fees"</span>: 0,
+<span class="s2">"ver"</span>: 1,
+<span class="s2">"time"</span>: <span class="s2">"2009-01-09T03:29:49Z"</span>,
+...,
+<span class="o">}</span>,
+<span class="o">{</span>
+<span class="s2">"hash"</span>: <span class="s2">"000000009b7262315dbf071787ad3656097b892abffd1f95a1a022f896f533fc"</span>,
+<span class="s2">"height"</span>: 5,
+<span class="s2">"chain"</span>: <span class="s2">"BTC.main"</span>,
+<span class="s2">"total"</span>: 0,
+<span class="s2">"fees"</span>: 0,
+<span class="s2">"ver"</span>: 1,
+<span class="s2">"time"</span>: <span class="s2">"2009-01-09T03:23:48Z"</span>,
+...,
+<span class="o">}</span>,
+<span class="o">{</span>
+<span class="s2">"hash"</span>: <span class="s2">"0000000071966c2b1d065fd446b1e485b2c9d9594acd2007ccbd5441cfc89444"</span>,
+<span class="s2">"height"</span>: 7,
+<span class="s2">"chain"</span>: <span class="s2">"BTC.main"</span>,
+<span class="s2">"total"</span>: 0,
+<span class="s2">"fees"</span>: 0,
+<span class="s2">"ver"</span>: 1,
+<span class="s2">"time"</span>: <span class="s2">"2009-01-09T03:39:29Z"</span>,
+...,
+<span class="o">}]</span>
+</code></pre>
+
+<p>All endpoints that can retrieve a single <a href="#objects">Object</a> can be batched to return multiple objects. If you&rsquo;re cURLing the API directly, batching simply requires appending each identifier to the previous one using a semicolon (check the code pane for an example). The results are aggregated in a JSON array. </p>
+
+<aside class="notice">
+The maximum number of elements that can be batched in a single call is 100.
+</aside>
+
+<aside class="notice">
+As you may have noticed from the examples, batched calls don&rsquo;t necessarily respect ordering, especially for bigger batches. But this shouldn&rsquo;t matter, as the requested identifiers are always present in the returned objects. 
+</aside>
+
+<p>When cURLing BlockCypher, batching also works when the identifiers aren&rsquo;t the last part of the URL; e.g., this URL will return the balances of three separate addresses:</p>
+
+<p><code class="prettyprint">https://api.blockcypher.com/v1/btc/main/addrs/1J38WorKngZLJvA7qMin9g5jqUfTQUBZNE;1JP8FqoXtCMrR1sZc2McLWmHxENox1Y1PV;1ENn7XmqXNnReiQEFHhBGzfiv5gAyBj7r1/balance</code></p>
+
+<aside class="warning">
+With regard to rate limits, each individual batch call counts as a request; for example, if you request 3 addresses in a batch, you&rsquo;re still using 3 API calls of resources on our end. The big advantage to batching is that you avoid 3 separate round-trip calls/reduce latency. Since the default, non-registered <a href="#rate-limits-and-tokens">rate limit</a> per second is 3, larger batches require a paid API token. To use larger batches <a href="https://accounts.blockcypher.com/">please register.</a>
+</aside>
+
+          <h1 id="objects">Objects</h1>
+
+<p>Object docs here.</p>
+
+          <h1 id="blockchain-api">Blockchain API</h1>
+
+<p>Blockchain docs here.</p>
+
+          <h1 id="address-api">Address API</h1>
+
+<p>Address docs here.</p>
+
+          <h1 id="transaction-api">Transaction API</h1>
+
+<p>Transaction docs here.</p>
+
+      </div>
+      <div class="dark-box">
+          <div class="lang-selector">
+                <a href="#" data-language-name="shell">cURL</a>
+          </div>
+      </div>
+    </div>
+  </body>
+</html>
