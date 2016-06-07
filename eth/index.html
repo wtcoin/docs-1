@@ -11,7 +11,7 @@
 		<link rel="icon" type="image/png" href="images/favicon-16x16.png" sizes="16x16">
 		<link rel="icon" type="image/png" href="images/favicon-32x32.png" sizes="32x32">
 		<link href="/images/favicon.ico" rel="icon" type="image/ico" />
-    <title>Blockchain Developer API for Ethereum | Blockcypher</title>
+    <title>Blockchain Developer API for Ethereum | BlockCypher</title>
 
     <style>
       .highlight table td { padding: 5px; }
@@ -121,14 +121,36 @@
     <div class="page-wrapper">
       <div class="dark-box"></div>
       <div class="content">
-        <h1 id="introduction-to-ethereum">Introduction to Ethereum</h1>
-<pre class="highlight shell"><code><span class="c">#  _               _                  </span>
-<span class="c"># |_) |  _   _ |  /     ._  |_   _  ._</span>
-<span class="c"># |_) | (_) (_ |&lt; \_ \/ |_) | | (/_ | </span>
-<span class="c">#                    /  |             </span>
+        <h1 id="introduction">Introduction</h1>
+<pre class="highlight shell"><code><span class="c">#   ^</span>
+<span class="c">#  / \    _               _</span>
+<span class="c"># / ^ \  |_) |  _   _ |  /     ._  |_   _  ._</span>
+<span class="c">#&lt;     &gt; |_) | (_) (_ |&lt; \_ \/ |_) | | (/_ |</span>
+<span class="c"># \ v /                     /  |</span>
+<span class="c">#  \ /</span>
+<span class="c">#   v</span>
 </code></pre>
 
-<p>Welcome to <a href="http://www.blockcypher.com/">BlockCypher&rsquo;s</a> Ethereum API documentation!</p>
+<p>Welcome to <a href="http://www.blockcypher.com/">BlockCypher&rsquo;s</a> Ethereum API documentation! If you&rsquo;re familiar with our Bitcoin endpoints, you&rsquo;ll feel right at home with our Ethereum API. However, there are a few differences, and they stem in part from the fundamental differences between Bitcoin and Ethereum. In the most abstract sense, Bitcoin and Ethereum are cousins; they both have &ldquo;blocks&rdquo; of transactions linked together into a chain, they both use Proof of Work to reach consensus (for now, as Ethereum plans to move to Proof of Stake in a future release), they are both about decentralizing trust. But that&rsquo;s where the similarities end. Here are just some of Ethereum&rsquo;s differences:</p>
+
+<ul>
+<li>There are no UTXOs, only &ldquo;accounts&rdquo; (of two varieties)</li>
+<li>Block time is significantly shorter; 15 second target instead of 10 minutes</li>
+<li>Miners get rewards for including references to orphan blocks (so called &ldquo;uncle blocks&rdquo;)</li>
+<li>Ethereum&rsquo;s scripting language is far more expressive than Bitcoin&rsquo;s; typically advanced transactions/contracts are constructed using a higher level language then converted into EVM bytecode</li>
+<li>Ethereum has no strict cap on monetary supply (ether supply)</li>
+<li>Transactions cost &ldquo;gas&rdquo; to run (denominated in ether) depending on how computationally expensive they are to run. Blocks also have total gas limits to prevent runaway computation/keep the network decentralized.</li>
+</ul>
+
+<p>In a nutshell, Bitcoin is about decentralized, trust-minimizing, sound money. Ethereum is about decentralized, trust-minimizing, sound computation. Much more detail about these differences can be read at the <a href="https://github.com/ethereum/wiki/wiki/Design-Rationale">Ethereum Wiki here.</a> You can find more information at the <a href="https://ethereum.org/">project&rsquo;s webpage as well.</a></p>
+
+<aside class="warning">
+As with our other coin/chain nodes, we rebuilt an Ethereum node from the ground up to support much higher scale and throughput, but it&rsquo;s a lot newer than our other implementations. THIS IS VERY MUCH A BETA. Things may break/it might not be suitable for production applications. 
+</aside>
+
+<aside class="notice">
+We don&rsquo;t have the full suite of API endpoints compared to Bitcoin, but we are always adding more as our implementation matures. Check these docs for the latest features.
+</aside>
 
 <h2 id="documentation-structure">Documentation Structure</h2>
 <pre class="highlight shell"><code>man curl | grep -A 3 <span class="s2">"DESCRIPTION"</span>
@@ -137,7 +159,7 @@ DESCRIPTION
 curl is a tool to transfer data from or to a server, using one of the supported protocols <span class="o">(</span>DICT, FILE, FTP, FTPS, GOPHER, HTTP, HTTPS, IMAP, IMAPS, LDAP, LDAPS, POP3, POP3S, RTMP, RTSP, SCP, SFTP, SMB, SMBS, SMTP, SMTPS, TELNET and TFTP<span class="o">)</span>. The <span class="nb">command </span>is designed to work without user interaction.
 </code></pre>
 
-<p>In these docs you&rsquo;ll find everything you need to leverage BlockCypher for your Ethereum applications. For now, you&rsquo;ll see cURL examples for interacting with the Ethereum blockchain, but we&rsquo;ll add SDK examples as we support them. </p>
+<p>In these docs you&rsquo;ll find everything you need to start working with Ethereum with BlockCypher. For now, you&rsquo;ll see cURL examples for interacting with the Ethereum blockchain, but we&rsquo;ll add SDK examples as we support them.</p>
 
 <h3 id="section-summaries">Section Summaries</h3>
 
@@ -157,7 +179,23 @@ curl is a tool to transfer data from or to a server, using one of the supported 
 <p>All API calls are versioned, and the current BlockCypher API is v1. <strong>The BlockCypher Ethereum API is currently in beta</strong>, and we hope not to introduce any breaking changes, but until it&rsquo;s out of beta we can&rsquo;t make that guarantee until it&rsquo;s stable.</p>
 
 <h2 id="restful-resources">RESTful Resources</h2>
-<pre class="highlight shell"><code>curl https://eth.api.call.here
+<pre class="highlight shell"><code>curl https://api.blockcypher.com/v1/eth/main
+<span class="o">{</span>
+  <span class="s2">"name"</span>: <span class="s2">"ETH.main"</span>,
+  <span class="s2">"height"</span>: 1656653,
+  <span class="s2">"hash"</span>: <span class="s2">"c5e3a1df5a295fa536fe2d7f8201f529153753665763e20dd9329659136d0c3c"</span>,
+  <span class="s2">"time"</span>: <span class="s2">"2016-06-06T21:53:30.368223984Z"</span>,
+  <span class="s2">"latest_url"</span>: <span class="s2">"https://api.blockcypher.com/v1/eth/main/blocks/c5e3a1df5a295fa536fe2d7f8201f529153753665763e20dd9329659136d0c3c"</span>,
+  <span class="s2">"previous_hash"</span>: <span class="s2">"781c3b4eb45895cab359a15f6b947c54d6974e9829eaf6937531098107c35e46"</span>,
+  <span class="s2">"previous_url"</span>: <span class="s2">"https://api.blockcypher.com/v1/eth/main/blocks/781c3b4eb45895cab359a15f6b947c54d6974e9829eaf6937531098107c35e46"</span>,
+  <span class="s2">"peer_count"</span>: 200,
+  <span class="s2">"unconfirmed_count"</span>: 11619,
+  <span class="s2">"high_fee_per_kb"</span>: 40000000000,
+  <span class="s2">"medium_fee_per_kb"</span>: 20000000000,
+  <span class="s2">"low_fee_per_kb"</span>: 5000000000,
+  <span class="s2">"last_fork_height"</span>: 1654102,
+  <span class="s2">"last_fork_hash"</span>: <span class="s2">"7c592f2594eea525754819ed15345a765db0a63e492bac833cb667296c3dee37"</span>
+<span class="o">}</span>
 </code></pre>
 
 <p>Almost all resources exist under a given blockchain, and follow this pattern:</p>
@@ -176,7 +214,7 @@ curl is a tool to transfer data from or to a server, using one of the supported 
 <tr>
 <td>Ethereum</td>
 <td>Main</td>
-<td><code class="prettyprint">api.blockcypher.com/ether/endpoint/here</code></td>
+<td><code class="prettyprint">api.blockcypher.com/v1/eth/main</code></td>
 </tr>
 </tbody></table>
 
@@ -185,12 +223,12 @@ Unless otherwise noted, all descriptions of direct HTTP requests will assume one
 </aside>
 
 <aside class="success">
-Our API <b>always</b> returns values in wei, the lowest non-divisible unit in Ethereum. As a friendly reminder, there are 10^18 wei in a single ether (1,000,000,000,000,000,000w = 1ETH).
+Our API <b>always</b> returns values in wei, the lowest non-divisible unit in Ethereum. As a friendly reminder, there are 10^18 wei in a single ether (1,000,000,000,000,000,000w = 1ETH). Some say it&rsquo;s wei too much subdivision, but we disagree.
 </aside>
 
 <h2 id="rate-limits-and-tokens">Rate Limits and Tokens</h2>
 <pre class="highlight shell"><code><span class="c"># Adding your token as URL parameter</span>
-curl https://api.blockcypher.com/ether/path/here?token<span class="o">=</span><span class="nv">$YOURTOKEN</span>
+curl https://api.blockcypher.com/v1/eth/main?token<span class="o">=</span>YOURTOKEN
 
 <span class="c"># Checking your token's limits</span>
 curl https://api.blockcypher.com/v1/tokens/YOURTOKEN
@@ -235,38 +273,73 @@ If you exceed these limits, your requests will return an HTTP Status Code 429!
 <p><code class="prettyprint">https://api.blockcypher.com/v1/tokens/YOURTOKEN</code></p>
 
 <h2 id="batching">Batching</h2>
-<pre class="highlight shell"><code><span class="c"># Batching blocks 5, 6, and 7</span>
-curl <span class="s1">'https://api.blockcypher.com/v1/btc/main/blocks/5;6;7'</span>
-
+<pre class="highlight shell"><code><span class="c"># Batching blocks 5, 6, and 7 from Ethereum</span>
+curl <span class="s1">'https://api.blockcypher.com/v1/eth/main/blocks/5;6;7'</span>
 <span class="o">[{</span>
-<span class="s2">"hash"</span>: <span class="s2">"000000003031a0e73735690c5a1ff2a4be82553b2a12b776fbd3a215dc8f778d"</span>,
-<span class="s2">"height"</span>: 6,
-<span class="s2">"chain"</span>: <span class="s2">"BTC.main"</span>,
-<span class="s2">"total"</span>: 0,
-<span class="s2">"fees"</span>: 0,
-<span class="s2">"ver"</span>: 1,
-<span class="s2">"time"</span>: <span class="s2">"2009-01-09T03:29:49Z"</span>,
-...,
+  <span class="s2">"hash"</span>: <span class="s2">"f37c632d361e0a93f08ba29b1a2c708d9caa3ee19d1ee8d2a02612bffe49f0a9"</span>,
+  <span class="s2">"height"</span>: 5,
+  <span class="s2">"chain"</span>: <span class="s2">"ETH.main"</span>,
+  <span class="s2">"total"</span>: 0,
+  <span class="s2">"fees"</span>: 0,
+  <span class="s2">"size"</span>: 537,
+  <span class="s2">"ver"</span>: 0,
+  <span class="s2">"time"</span>: <span class="s2">"2015-07-30T15:28:03Z"</span>,
+  <span class="s2">"received_time"</span>: <span class="s2">"2015-07-30T15:28:03Z"</span>,
+  <span class="s2">"coinbase_addr"</span>: <span class="s2">"05a56e2d52c817161883f50c441c3228cfe54d9f"</span>,
+  <span class="s2">"relayed_by"</span>: <span class="s2">""</span>,
+  <span class="s2">"nonce"</span>: 18134254966252788979,
+  <span class="s2">"n_tx"</span>: 0,
+  <span class="s2">"prev_block"</span>: <span class="s2">"23adf5a3be0f5235b36941bcb29b62504278ec5b9cdfa277b992ba4a7a3cd3a2"</span>,
+  <span class="s2">"mrkl_root"</span>: <span class="s2">"4470f3dc1cc8097394a4ae85302eac3368462b3c1cfa523ffca942c1dd478220"</span>,
+  <span class="s2">"txids"</span>: <span class="o">[]</span>,
+  <span class="s2">"depth"</span>: 1656648,
+  <span class="s2">"prev_block_url"</span>: <span class="s2">"https://api.blockcypher.com/v1/eth/main/blocks/23adf5a3be0f5235b36941bcb29b62504278ec5b9cdfa277b992ba4a7a3cd3a2"</span>,
+  <span class="s2">"tx_url"</span>: <span class="s2">"https://api.blockcypher.com/v1/eth/main/txs/"</span>
 <span class="o">}</span>,
 <span class="o">{</span>
-<span class="s2">"hash"</span>: <span class="s2">"000000009b7262315dbf071787ad3656097b892abffd1f95a1a022f896f533fc"</span>,
-<span class="s2">"height"</span>: 5,
-<span class="s2">"chain"</span>: <span class="s2">"BTC.main"</span>,
-<span class="s2">"total"</span>: 0,
-<span class="s2">"fees"</span>: 0,
-<span class="s2">"ver"</span>: 1,
-<span class="s2">"time"</span>: <span class="s2">"2009-01-09T03:23:48Z"</span>,
-...,
+  <span class="s2">"hash"</span>: <span class="s2">"1f1aed8e3694a067496c248e61879cda99b0709a1dfbacd0b693750df06b326e"</span>,
+  <span class="s2">"height"</span>: 6,
+  <span class="s2">"chain"</span>: <span class="s2">"ETH.main"</span>,
+  <span class="s2">"total"</span>: 0,
+  <span class="s2">"fees"</span>: 0,
+  <span class="s2">"size"</span>: 537,
+  <span class="s2">"ver"</span>: 0,
+  <span class="s2">"time"</span>: <span class="s2">"2015-07-30T15:28:27Z"</span>,
+  <span class="s2">"received_time"</span>: <span class="s2">"2015-07-30T15:28:27Z"</span>,
+  <span class="s2">"coinbase_addr"</span>: <span class="s2">"0193d941b50d91be6567c7ee1c0fe7af498b4137"</span>,
+  <span class="s2">"relayed_by"</span>: <span class="s2">""</span>,
+  <span class="s2">"nonce"</span>: 8915216988711600153,
+  <span class="s2">"n_tx"</span>: 0,
+  <span class="s2">"prev_block"</span>: <span class="s2">"f37c632d361e0a93f08ba29b1a2c708d9caa3ee19d1ee8d2a02612bffe49f0a9"</span>,
+  <span class="s2">"mrkl_root"</span>: <span class="s2">"c211464e6957ae62a33c2146cf36371222ea4557c42efe9c618971e09d056aae"</span>,
+  <span class="s2">"txids"</span>: <span class="o">[]</span>,
+  <span class="s2">"depth"</span>: 1656647,
+  <span class="s2">"prev_block_url"</span>: <span class="s2">"https://api.blockcypher.com/v1/eth/main/blocks/f37c632d361e0a93f08ba29b1a2c708d9caa3ee19d1ee8d2a02612bffe49f0a9"</span>,
+  <span class="s2">"tx_url"</span>: <span class="s2">"https://api.blockcypher.com/v1/eth/main/txs/"</span>
 <span class="o">}</span>,
 <span class="o">{</span>
-<span class="s2">"hash"</span>: <span class="s2">"0000000071966c2b1d065fd446b1e485b2c9d9594acd2007ccbd5441cfc89444"</span>,
-<span class="s2">"height"</span>: 7,
-<span class="s2">"chain"</span>: <span class="s2">"BTC.main"</span>,
-<span class="s2">"total"</span>: 0,
-<span class="s2">"fees"</span>: 0,
-<span class="s2">"ver"</span>: 1,
-<span class="s2">"time"</span>: <span class="s2">"2009-01-09T03:39:29Z"</span>,
-...,
+  <span class="s2">"hash"</span>: <span class="s2">"e0c7c0b46e116b874354dce6f64b8581bd239186b03f30a978e3dc38656f723a"</span>,
+  <span class="s2">"height"</span>: 7,
+  <span class="s2">"chain"</span>: <span class="s2">"ETH.main"</span>,
+  <span class="s2">"total"</span>: 0,
+  <span class="s2">"fees"</span>: 0,
+  <span class="s2">"size"</span>: 1078,
+  <span class="s2">"ver"</span>: 0,
+  <span class="s2">"time"</span>: <span class="s2">"2015-07-30T15:28:30Z"</span>,
+  <span class="s2">"received_time"</span>: <span class="s2">"2015-07-30T15:28:30Z"</span>,
+  <span class="s2">"coinbase_addr"</span>: <span class="s2">"dd2f1e6e498202e86d8f5442af596580a4f03c2c"</span>,
+  <span class="s2">"relayed_by"</span>: <span class="s2">""</span>,
+  <span class="s2">"nonce"</span>: 13599487003767981,
+  <span class="s2">"n_tx"</span>: 0,
+  <span class="s2">"prev_block"</span>: <span class="s2">"1f1aed8e3694a067496c248e61879cda99b0709a1dfbacd0b693750df06b326e"</span>,
+  <span class="s2">"mrkl_root"</span>: <span class="s2">"ff8d97d9ca01ee59c793c4da2ba4ce8c31d358b42f216ab2f11af4bb097b6a2b"</span>,
+  <span class="s2">"uncles"</span>: <span class="o">[</span>
+    <span class="s2">"4b8729311c5b59f418c5154fd54d85e6a8b42eabf83a1d3c05c754a8f10354cc"</span>
+  <span class="o">]</span>,
+  <span class="s2">"txids"</span>: <span class="o">[]</span>,
+  <span class="s2">"depth"</span>: 1656646,
+  <span class="s2">"prev_block_url"</span>: <span class="s2">"https://api.blockcypher.com/v1/eth/main/blocks/1f1aed8e3694a067496c248e61879cda99b0709a1dfbacd0b693750df06b326e"</span>,
+  <span class="s2">"tx_url"</span>: <span class="s2">"https://api.blockcypher.com/v1/eth/main/txs/"</span>
 <span class="o">}]</span>
 </code></pre>
 
@@ -289,20 +362,1288 @@ With regard to rate limits, each individual batch call counts as a request; for 
 </aside>
 
           <h1 id="objects">Objects</h1>
+<pre class="highlight shell"><code><span class="c"># All cURL'd Objects are JSON:</span>
 
-<p>Object docs here.</p>
+<span class="o">{</span>
+    key: value,
+    key: value,
+<span class="o">}</span>
+</code></pre>
+
+<p>Before diving into BlockCypher&rsquo;s endpoints, this section details all the Objects exposed and expected by the API. Some of you might be more interested in the endpoints themselves, in which case, feel free to <a href="#blockchain-api">skip to the next section.</a> For each Object there&rsquo;s a description and a link to a germane API endpoint.</p>
+
+<aside class="notice">
+Objects sometimes contain <b>attributes</b> that are <b><i>optional.</i></b> These are always noted in the <b>description</b>. In these cases, the Object may not be guaranteed to include that <b>attribute</b> in its response.
+</aside>
+
+<h2 id="blockchain">Blockchain</h2>
+<pre class="highlight shell"><code>curl -s https://api.blockcypher.com/v1/eth/main
+<span class="o">{</span>
+  <span class="s2">"name"</span>: <span class="s2">"ETH.main"</span>,
+  <span class="s2">"height"</span>: 1656653,
+  <span class="s2">"hash"</span>: <span class="s2">"c5e3a1df5a295fa536fe2d7f8201f529153753665763e20dd9329659136d0c3c"</span>,
+  <span class="s2">"time"</span>: <span class="s2">"2016-06-06T21:53:30.368223984Z"</span>,
+  <span class="s2">"latest_url"</span>: <span class="s2">"https://api.blockcypher.com/v1/eth/main/blocks/c5e3a1df5a295fa536fe2d7f8201f529153753665763e20dd9329659136d0c3c"</span>,
+  <span class="s2">"previous_hash"</span>: <span class="s2">"781c3b4eb45895cab359a15f6b947c54d6974e9829eaf6937531098107c35e46"</span>,
+  <span class="s2">"previous_url"</span>: <span class="s2">"https://api.blockcypher.com/v1/eth/main/blocks/781c3b4eb45895cab359a15f6b947c54d6974e9829eaf6937531098107c35e46"</span>,
+  <span class="s2">"peer_count"</span>: 200,
+  <span class="s2">"unconfirmed_count"</span>: 11619,
+  <span class="s2">"high_fee_per_kb"</span>: 40000000000,
+  <span class="s2">"medium_fee_per_kb"</span>: 20000000000,
+  <span class="s2">"low_fee_per_kb"</span>: 5000000000,
+  <span class="s2">"last_fork_height"</span>: 1654102,
+  <span class="s2">"last_fork_hash"</span>: <span class="s2">"7c592f2594eea525754819ed15345a765db0a63e492bac833cb667296c3dee37"</span>
+<span class="o">}</span>
+</code></pre>
+
+<p>A Blockchain represents the current state of the Ethereum blockchain. Typically returned from the <a href="#chain-endpoint">Chain API endpoint</a>.</p>
+
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>name</strong></td>
+<td><em>string</em></td>
+<td>The name of the blockchain represented, in the form of $COIN.$CHAIN.</td>
+</tr>
+<tr>
+<td><strong>height</strong></td>
+<td><em>integer</em></td>
+<td>The current height of the blockchain; i.e., the number of blocks in the blockchain.</td>
+</tr>
+<tr>
+<td><strong>hash</strong></td>
+<td><em>string</em></td>
+<td>The hash of the latest confirmed block in the blockchain; in Ethereum, the <a href="https://medium.com/@ConsenSys/are-you-really-using-sha-3-or-old-code-c5df31ad2b0">hashing function is Keccak/SHA3</a>.</td>
+</tr>
+<tr>
+<td><strong>time</strong></td>
+<td><a href="https://tools.ietf.org/html/rfc3339"><em>time</em></a></td>
+<td>The time of the latest update to the blockchain; typically when the latest block was added.</td>
+</tr>
+<tr>
+<td><strong>latest_url</strong></td>
+<td><em>url</em></td>
+<td>The BlockCypher URL to query for more information on the latest confirmed block; returns a <a href="#block">Block</a>.</td>
+</tr>
+<tr>
+<td><strong>previous_hash</strong></td>
+<td><em>string</em></td>
+<td>The hash of the second-to-latest confirmed block in the blockchain.</td>
+</tr>
+<tr>
+<td><strong>previous_url</strong></td>
+<td><em>url</em></td>
+<td>The BlockCypher URL to query for more information on the second-to-latest confirmed block; returns a <a href="#block">Block</a>.</td>
+</tr>
+<tr>
+<td><strong>unconfirmed_count</strong></td>
+<td><em>integer</em></td>
+<td>Number of unconfirmed transactions in memory pool (likely to be included in next block).</td>
+</tr>
+<tr>
+<td><strong>high_fee_per_kb</strong></td>
+<td><em>integer</em></td>
+<td>A rolling average of the fee (in wei) paid per kilobyte for transactions to be confirmed within 1 to 2 blocks.</td>
+</tr>
+<tr>
+<td><strong>medium_fee_per_kb</strong></td>
+<td><em>integer</em></td>
+<td>A rolling average of the fee (in wei) paid per kilobyte for transactions to be confirmed within 3 to 6 blocks.</td>
+</tr>
+<tr>
+<td><strong>low_fee_per_kb</strong></td>
+<td><em>integer</em></td>
+<td>A rolling average of the fee (in wei) paid per kilobyte for transactions to be confirmed in 7 or more blocks.</td>
+</tr>
+<tr>
+<td><strong>last_fork_height</strong></td>
+<td><em>integer</em></td>
+<td><strong><em>Optional</em></strong> The current height of the latest fork to the blockchain; when no competing blockchain fork present, not returned with endpoints that return Blockchains.</td>
+</tr>
+<tr>
+<td><strong>last_fork_hash</strong></td>
+<td><em>string</em></td>
+<td><strong><em>Optional</em></strong> The hash of the latest confirmed block in the latest fork of the blockchain; when no competing blockchain fork present, not returned with endpoints that return Blockchains.</td>
+</tr>
+</tbody></table>
+
+<h2 id="block">Block</h2>
+<pre class="highlight shell"><code>curl -s https://api.blockcypher.com/v1/eth/main/blocks/7
+<span class="o">{</span>
+  <span class="s2">"hash"</span>: <span class="s2">"e0c7c0b46e116b874354dce6f64b8581bd239186b03f30a978e3dc38656f723a"</span>,
+  <span class="s2">"height"</span>: 7,
+  <span class="s2">"chain"</span>: <span class="s2">"ETH.main"</span>,
+  <span class="s2">"total"</span>: 0,
+  <span class="s2">"fees"</span>: 0,
+  <span class="s2">"size"</span>: 1078,
+  <span class="s2">"ver"</span>: 0,
+  <span class="s2">"time"</span>: <span class="s2">"2015-07-30T15:28:30Z"</span>,
+  <span class="s2">"received_time"</span>: <span class="s2">"2015-07-30T15:28:30Z"</span>,
+  <span class="s2">"coinbase_addr"</span>: <span class="s2">"dd2f1e6e498202e86d8f5442af596580a4f03c2c"</span>,
+  <span class="s2">"relayed_by"</span>: <span class="s2">""</span>,
+  <span class="s2">"nonce"</span>: 13599487003767981,
+  <span class="s2">"n_tx"</span>: 0,
+  <span class="s2">"prev_block"</span>: <span class="s2">"1f1aed8e3694a067496c248e61879cda99b0709a1dfbacd0b693750df06b326e"</span>,
+  <span class="s2">"mrkl_root"</span>: <span class="s2">"ff8d97d9ca01ee59c793c4da2ba4ce8c31d358b42f216ab2f11af4bb097b6a2b"</span>,
+  <span class="s2">"uncles"</span>: <span class="o">[</span>
+    <span class="s2">"4b8729311c5b59f418c5154fd54d85e6a8b42eabf83a1d3c05c754a8f10354cc"</span>
+  <span class="o">]</span>,
+  <span class="s2">"txids"</span>: <span class="o">[]</span>,
+    <span class="s2">"internal_txids"</span>: <span class="o">[]</span>,
+  <span class="s2">"depth"</span>: 1656646,
+  <span class="s2">"prev_block_url"</span>: <span class="s2">"https://api.blockcypher.com/v1/eth/main/blocks/1f1aed8e3694a067496c248e61879cda99b0709a1dfbacd0b693750df06b326e"</span>,
+  <span class="s2">"tx_url"</span>: <span class="s2">"https://api.blockcypher.com/v1/eth/main/txs/"</span>
+<span class="o">}</span>
+</code></pre>
+
+<p>A Block represents the current state of a particular block from a <a href="#blockchain">Blockchain</a>. Typically returned from the <a href="#block-hash-endpoint">Block Hash</a> and <a href="#block-height-endpoint">Block Height</a> endpoints.</p>
+
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>hash</strong></td>
+<td><em>string</em></td>
+<td>The hash of the block; in Ethereum, the <a href="https://medium.com/@ConsenSys/are-you-really-using-sha-3-or-old-code-c5df31ad2b0">hashing function is Keccak/SHA3</a></td>
+</tr>
+<tr>
+<td><strong>height</strong></td>
+<td><em>integer</em></td>
+<td>The height of the block in the blockchain; i.e., there are <strong>height</strong> earlier blocks in its blockchain.</td>
+</tr>
+<tr>
+<td><strong>depth</strong></td>
+<td><em>integer</em></td>
+<td>The depth of the block in the blockchain; i.e., there are <strong>depth</strong> later blocks in its blockchain.</td>
+</tr>
+<tr>
+<td><strong>chain</strong></td>
+<td><em>string</em></td>
+<td>The name of the blockchain represented, in the form of $COIN.$CHAIN</td>
+</tr>
+<tr>
+<td><strong>total</strong></td>
+<td><em>integer</em></td>
+<td>The total number of wei transacted in this block.</td>
+</tr>
+<tr>
+<td><strong>fees</strong></td>
+<td><em>integer</em></td>
+<td>The total number of fees&mdash;in wei&mdash;collected by miners in this block.</td>
+</tr>
+<tr>
+<td><strong>size</strong></td>
+<td><em>integer</em></td>
+<td>Raw size of block (including header and all transactions) in bytes.</td>
+</tr>
+<tr>
+<td><strong>ver</strong></td>
+<td><em>integer</em></td>
+<td>Block version.</td>
+</tr>
+<tr>
+<td><strong>time</strong></td>
+<td><a href="https://tools.ietf.org/html/rfc3339"><em>time</em></a></td>
+<td>Recorded time at which block was built.</td>
+</tr>
+<tr>
+<td><strong>received_time</strong></td>
+<td><a href="https://tools.ietf.org/html/rfc3339"><em>time</em></a></td>
+<td>The time BlockCypher&rsquo;s servers receive the block.</td>
+</tr>
+<tr>
+<td><strong>coinbase_addr</strong></td>
+<td><em>string</em></td>
+<td>The Ethereum address of the miner that received the coinbase and fee reward.</td>
+</tr>
+<tr>
+<td><strong>relayed_by</strong></td>
+<td><em>string</em></td>
+<td>Address of the peer that sent BlockCypher&rsquo;s servers this block.</td>
+</tr>
+<tr>
+<td><strong>nonce</strong></td>
+<td><em>integer</em></td>
+<td>The number used by a miner to generate this block.</td>
+</tr>
+<tr>
+<td><strong>n_tx</strong></td>
+<td><em>integer</em></td>
+<td>Number of transactions in this block.</td>
+</tr>
+<tr>
+<td><strong>prev_block</strong></td>
+<td><em>string</em></td>
+<td>The hash of the previous block in the blockchain.</td>
+</tr>
+<tr>
+<td><strong>prev_block_url</strong></td>
+<td><em>url</em></td>
+<td>The BlockCypher URL to query for more information on the previous block.</td>
+</tr>
+<tr>
+<td><strong>tx_url</strong></td>
+<td><em>url</em></td>
+<td>The base BlockCypher URL to receive transaction details. To get more details about specific transactions, you must concatenate this URL with the desired transaction hash(es).</td>
+</tr>
+<tr>
+<td><strong>mrkl_root</strong></td>
+<td><em>string</em></td>
+<td>The Merkle root of this block.</td>
+</tr>
+<tr>
+<td><strong>txids</strong></td>
+<td><em>array[string]</em></td>
+<td>An array of transaction hashes in this block (initiated by externally controlled accounts). By default, only 20 are included.</td>
+</tr>
+<tr>
+<td><strong>internal_txids</strong></td>
+<td><em>array[string]</em></td>
+<td>An array of internal transaction hashes (initiated by internal contracts) in this block. By default, only 20 are included.</td>
+</tr>
+<tr>
+<td><strong>next_txids</strong></td>
+<td><em>url</em></td>
+<td><strong><em>Optional</em></strong> If there are more transactions that couldn&rsquo;t fit in the <strong>txids</strong> array, this is the BlockCypher URL to query the next set of transactions (within a Block object).</td>
+</tr>
+<tr>
+<td><strong>next_internal_txids</strong></td>
+<td><em>url</em></td>
+<td><strong><em>Optional</em></strong> If there are more internal transactions that couldn&rsquo;t fit in the <strong>internal_txids</strong> array, this is the BlockCypher URL to query the next set of transactions (within a Block object).</td>
+</tr>
+<tr>
+<td><strong>uncles</strong></td>
+<td><em>array[string]</em></td>
+<td>List of uncle blocks by hash included by the miner of this block. You can read <a href="https://www.cryptocompare.com/mining/guides/what-are-mining-rewards-in-ethereum/">more about uncles here.</a></td>
+</tr>
+</tbody></table>
+
+<h2 id="tx">TX</h2>
+<pre class="highlight shell"><code>curl -s https://api.blockcypher.com/v1/eth/main/txs/8f39fb4940c084460da00a876a521ef2ba84ad6ea8d2f5628c9f1f8aeb395342
+<span class="o">{</span>
+  <span class="s2">"block_hash"</span>: <span class="s2">"b35265965f6f14c5d692b2030922fce53067fc0e9d8c8490c31d4ecd3e46500c"</span>,
+  <span class="s2">"block_height"</span>: 1564040,
+  <span class="s2">"block_index"</span>: 0,
+  <span class="s2">"hash"</span>: <span class="s2">"8f39fb4940c084460da00a876a521ef2ba84ad6ea8d2f5628c9f1f8aeb395342"</span>,
+  <span class="s2">"addresses"</span>: <span class="o">[</span>
+    <span class="s2">"738d145faabb1e00cf5a017588a9c0f998318012"</span>,
+    <span class="s2">"4e9d8b4f18d984f6f0c88d07e4b39201e825cd17"</span>
+  <span class="o">]</span>,
+  <span class="s2">"total"</span>: 10153153359437326,
+  <span class="s2">"fees"</span>: 1595580000000000,
+  <span class="s2">"size"</span>: 116,
+  <span class="s2">"relayed_by"</span>: <span class="s2">""</span>,
+  <span class="s2">"confirmed"</span>: <span class="s2">"2016-05-22T12:43:00Z"</span>,
+  <span class="s2">"received"</span>: <span class="s2">"2016-05-22T12:43:00Z"</span>,
+  <span class="s2">"ver"</span>: 0,
+  <span class="s2">"double_spend"</span>: <span class="nb">false</span>,
+  <span class="s2">"vin_sz"</span>: 1,
+  <span class="s2">"vout_sz"</span>: 1,
+  <span class="s2">"confirmations"</span>: 92614,
+  <span class="s2">"confidence"</span>: 1,
+  <span class="s2">"inputs"</span>: <span class="o">[</span>
+    <span class="o">{</span>
+      <span class="s2">"sequence"</span>: 273,
+      <span class="s2">"addresses"</span>: <span class="o">[</span>
+        <span class="s2">"738d145faabb1e00cf5a017588a9c0f998318012"</span>
+      <span class="o">]</span>
+    <span class="o">}</span>
+  <span class="o">]</span>,
+  <span class="s2">"outputs"</span>: <span class="o">[</span>
+    <span class="o">{</span>
+      <span class="s2">"value"</span>: 10153153359437326,
+      <span class="s2">"script"</span>: <span class="s2">"4e71d92d"</span>,
+      <span class="s2">"addresses"</span>: <span class="o">[</span>
+        <span class="s2">"4e9d8b4f18d984f6f0c88d07e4b39201e825cd17"</span>
+      <span class="o">]</span>
+    <span class="o">}</span>
+  <span class="o">]</span>
+<span class="o">}</span>
+</code></pre>
+
+<p>A TX represents the current state of a particular transaction from either a <a href="#block">Block</a> within a <a href="#blockchain">Blockchain</a>, or an unconfirmed transaction that has yet to be included in a <a href="#block">Block</a>.</p>
+
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>block_height</strong></td>
+<td><em>integer</em></td>
+<td>Height of the block that contains this transaction. If this is an unconfirmed transaction, it will equal -1.</td>
+</tr>
+<tr>
+<td><strong>hash</strong></td>
+<td><em>string</em></td>
+<td>The hash of the transaction.</td>
+</tr>
+<tr>
+<td><strong>addresses</strong></td>
+<td><em>array[string]</em></td>
+<td>Array of Ethereum addresses involved in the transaction.</td>
+</tr>
+<tr>
+<td><strong>total</strong></td>
+<td><em>integer</em></td>
+<td>The total number of wei exchanged in this transaction.</td>
+</tr>
+<tr>
+<td><strong>fees</strong></td>
+<td><em>integer</em></td>
+<td>The total number of fees&mdash;in wei&mdash;collected by miners in this transaction.</td>
+</tr>
+<tr>
+<td><strong>size</strong></td>
+<td><em>integer</em></td>
+<td>The size of the transaction in bytes.</td>
+</tr>
+<tr>
+<td><strong>relayed_by</strong></td>
+<td><em>string</em></td>
+<td>Address of the peer that sent BlockCypher&rsquo;s servers this transaction. May be empty.</td>
+</tr>
+<tr>
+<td><strong>received</strong></td>
+<td><a href="https://tools.ietf.org/html/rfc3339"><em>time</em></a></td>
+<td>Time this transaction was received by BlockCypher&rsquo;s servers.</td>
+</tr>
+<tr>
+<td><strong>ver</strong></td>
+<td><em>integer</em></td>
+<td>Version number of this transaction.</td>
+</tr>
+<tr>
+<td><strong>double_spend</strong></td>
+<td><em>bool</em></td>
+<td><em>true</em> if this is an attempted double spend; <em>false</em> otherwise.</td>
+</tr>
+<tr>
+<td><strong>vin_sz</strong></td>
+<td><em>integer</em></td>
+<td>Total number of inputs in the transaction.</td>
+</tr>
+<tr>
+<td><strong>vout_sz</strong></td>
+<td><em>integer</em></td>
+<td>Total number of outputs in the transaction.</td>
+</tr>
+<tr>
+<td><strong>confirmations</strong></td>
+<td><em>integer</em></td>
+<td>Number of subsequent blocks, including the block the transaction is in. Unconfirmed transactions have 0 confirmations.</td>
+</tr>
+<tr>
+<td><strong>inputs</strong></td>
+<td><em>Object</em></td>
+<td>An array object containing a single input with a <strong>sequence</strong> number (used as a nonce for account balances) and an Ethereum account <strong>address</strong>. Only contains one input in the array; we still use an array to maintain parity with the Bitcoin API.</td>
+</tr>
+<tr>
+<td><strong>outputs</strong></td>
+<td><em>Object</em></td>
+<td>An array object containing a single output with <strong>value</strong> (in wei), <strong>script</strong>, and an Ethereum account <strong>address</strong>. Only contains one output in the array; we still use an array to maintain parity with the Bitcoin API.</td>
+</tr>
+<tr>
+<td><strong>confirmed</strong></td>
+<td><a href="https://tools.ietf.org/html/rfc3339"><em>time</em></a></td>
+<td><strong><em>Optional</em></strong> Time at which transaction was included in a block; only present for confirmed transactions.</td>
+</tr>
+<tr>
+<td><strong>receive_count</strong></td>
+<td><em>integer</em></td>
+<td><strong><em>Optional</em></strong> Number of peers that have sent this transaction to BlockCypher; only present for unconfirmed transactions.</td>
+</tr>
+<tr>
+<td><strong>block_hash</strong></td>
+<td><em>string</em></td>
+<td><strong><em>Optional</em></strong>  Hash of the block that contains this transaction; only present for confirmed transactions.</td>
+</tr>
+<tr>
+<td><strong>double_of</strong></td>
+<td><em>string</em></td>
+<td><strong><em>Optional</em></strong> If this transaction is a double-spend (i.e. <strong>double_spend</strong> == <em>true</em>) then this is the hash of the transaction it&rsquo;s double-spending.</td>
+</tr>
+</tbody></table>
+
+<h2 id="txref">TXRef</h2>
+<pre class="highlight shell"><code><span class="o">{</span>
+    <span class="s2">"tx_hash"</span>: <span class="s2">"ba44f568dc77d33893261c041994eeaef17d108a1845ccb9e376afea2acdd0e9"</span>,
+    <span class="s2">"block_height"</span>: 1648312,
+    <span class="s2">"tx_input_n"</span>: 0,
+    <span class="s2">"tx_output_n"</span>: -1,
+    <span class="s2">"value"</span>: 50420000000000000,
+    <span class="s2">"ref_balance"</span>: 2845236193385545395,
+    <span class="s2">"confirmations"</span>: 8342,
+    <span class="s2">"confirmed"</span>: <span class="s2">"2016-06-05T12:47:08Z"</span>,
+    <span class="s2">"double_spend"</span>: <span class="nb">false</span>
+<span class="o">}</span>
+</code></pre>
+
+<p>A TXRef object represents summarized data about a transaction input or output. Typically found in an array within an <a href="#address">Address</a> object, which is usually returned from the standard <a href="#address-endpoint">Address Endpoint</a>.</p>
+
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>block_height</strong></td>
+<td><em>integer</em></td>
+<td>Height of the block that contains this transaction input/output. If it&rsquo;s unconfirmed, this will equal -1.</td>
+</tr>
+<tr>
+<td><strong>tx_hash</strong></td>
+<td><em>string</em></td>
+<td>The hash of the transaction containing this input/output.</td>
+</tr>
+<tr>
+<td><strong>tx_input_n</strong></td>
+<td><em>integer</em></td>
+<td>Index of this input in the enclosing transaction. 0 if it&rsquo;s an input, -1 if it&rsquo;s an output.</td>
+</tr>
+<tr>
+<td><strong>tx_output_n</strong></td>
+<td><em>integer</em></td>
+<td>Index of this output in the enclosing transaction. -1 if it&rsquo;s an input, 0 if it&rsquo;s an output.</td>
+</tr>
+<tr>
+<td><strong>value</strong></td>
+<td><em>integer</em></td>
+<td>The value transfered by this input/output in wei exchanged in the enclosing transaction.</td>
+</tr>
+<tr>
+<td><strong>double_spend</strong></td>
+<td><em>bool</em></td>
+<td><em>true</em> if this is an attempted double spend; <em>false</em> otherwise.</td>
+</tr>
+<tr>
+<td><strong>confirmations</strong></td>
+<td><em>integer</em></td>
+<td>Number of subsequent blocks, including the block the transaction is in. Unconfirmed transactions have 0 confirmations.</td>
+</tr>
+<tr>
+<td><strong>ref_balance</strong></td>
+<td><em>integer</em></td>
+<td><strong><em>Optional</em></strong> The past balance of the parent address the moment this transaction was confirmed. Not present for unconfirmed transactions.</td>
+</tr>
+<tr>
+<td><strong>confirmed</strong></td>
+<td><a href="https://tools.ietf.org/html/rfc3339"><em>time</em></a></td>
+<td><strong><em>Optional</em></strong> Time at which transaction was included in a block; only present for confirmed transactions.</td>
+</tr>
+<tr>
+<td><strong>double_of</strong></td>
+<td><em>string</em></td>
+<td><strong><em>Optional</em></strong> If this transaction is a double-spend (i.e. <strong>double_spend</strong> == <em>true</em>) then this is the hash of the transaction it&rsquo;s double-spending.</td>
+</tr>
+</tbody></table>
+
+<h2 id="txskeleton">TXSkeleton</h2>
+<pre class="highlight shell"><code>curl -sd <span class="s1">'{"inputs":[{"addresses": ["1cc60c94254c0f0f0b957fb7c3dfed2d00e49a4c"]}],"outputs":[{"addresses": ["add42af7dd58b27e1e6ca5c4fdc01214b52d382f"], "value": 4200000000000000}]}'</span> https://api.blockcypher.com/v1/eth/main/txs/new?token<span class="o">=</span>YOURTOKEN
+<span class="o">{</span>
+  <span class="s2">"tx"</span>: <span class="o">{</span>
+    <span class="s2">"block_height"</span>: -1,
+    <span class="s2">"block_index"</span>: 0,
+    <span class="s2">"hash"</span>: <span class="s2">"5f32efeee4c1132df5aea5ac42735e0e21df995dd1cb0a4196eff4afc81ccb77"</span>,
+    <span class="s2">"addresses"</span>: <span class="o">[</span>
+      <span class="s2">"1cc60c94254c0f0f0b957fb7c3dfed2d00e49a4c"</span>,
+      <span class="s2">"add42af7dd58b27e1e6ca5c4fdc01214b52d382f"</span>
+    <span class="o">]</span>,
+    <span class="s2">"total"</span>: 4200000000000000,
+    <span class="s2">"fees"</span>: 861000000000000,
+    <span class="s2">"size"</span>: 44,
+    <span class="s2">"relayed_by"</span>: <span class="s2">""</span>,
+    <span class="s2">"received"</span>: <span class="s2">"2016-06-07T06:41:25.396799578Z"</span>,
+    <span class="s2">"ver"</span>: 0,
+    <span class="s2">"double_spend"</span>: <span class="nb">false</span>,
+    <span class="s2">"vin_sz"</span>: 1,
+    <span class="s2">"vout_sz"</span>: 1,
+    <span class="s2">"inputs"</span>: <span class="o">[</span>
+      <span class="o">{</span>
+        <span class="s2">"sequence"</span>: 2,
+        <span class="s2">"addresses"</span>: <span class="o">[</span>
+          <span class="s2">"1cc60c94254c0f0f0b957fb7c3dfed2d00e49a4c"</span>
+        <span class="o">]</span>
+      <span class="o">}</span>
+    <span class="o">]</span>,
+    <span class="s2">"outputs"</span>: <span class="o">[</span>
+      <span class="o">{</span>
+        <span class="s2">"value"</span>: 4200000000000000,
+        <span class="s2">"addresses"</span>: <span class="o">[</span>
+          <span class="s2">"add42af7dd58b27e1e6ca5c4fdc01214b52d382f"</span>
+        <span class="o">]</span>
+      <span class="o">}</span>
+    <span class="o">]</span>
+  <span class="o">}</span>,
+  <span class="s2">"tosign"</span>: <span class="o">[</span>
+    <span class="s2">"dd3c2cc1cf735ce5a3bbb5de7fb8f3ac2d9b6e6ec211ec6d8c03f098403e7736"</span>
+  <span class="o">]</span>,
+    <span class="s2">"signatures"</span>: <span class="o">[]</span>,
+    <span class="s2">"errors"</span>: <span class="o">[]</span>
+<span class="o">}</span>
+</code></pre>
+
+<p>A TXSkeleton is a convenience/wrapper Object that&rsquo;s used primarily when <a href="#creating-transactions">Creating Transactions</a> through the <a href="#new-transaction-endpoint">New</a> and <a href="#send-transaction-endpoint">Send</a> endpoints.</p>
+
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>tx</strong></td>
+<td><em><a href="#tx">TX</a></em></td>
+<td>A temporary <a href="#tx">TX</a>, usually returned fully filled.</td>
+</tr>
+<tr>
+<td><strong>tosign</strong></td>
+<td><em>array[string]</em></td>
+<td>Array of hex-encoded data for you to sign, containing one element for you to sign. Still an array to maintain parity with the Bitcoin API.</td>
+</tr>
+<tr>
+<td><strong>signatures</strong></td>
+<td><em>array[string]</em></td>
+<td>Array of signatures corresponding to all the data in <strong>tosign</strong>, typically provided by you. Only one signature is required.</td>
+</tr>
+<tr>
+<td><strong>errors</strong></td>
+<td><em>array[&ldquo;error&rdquo;:string]</em></td>
+<td><strong><em>Optional</em></strong> Array of errors in the form <em>&ldquo;error&rdquo;:&ldquo;description-of-error&rdquo;</em>. This is only returned if there was an error in any stage of transaction generation, and is usually accompanied by a HTTP 400 code.</td>
+</tr>
+</tbody></table>
+
+<h2 id="address">Address</h2>
+<pre class="highlight shell"><code>curl -s https://api.blockcypher.com/v1/eth/main/addrs/738d145faabb1e00cf5a017588a9c0f998318012
+<span class="o">{</span>
+  <span class="s2">"address"</span>: <span class="s2">"738d145faabb1e00cf5a017588a9c0f998318012"</span>,
+  <span class="s2">"total_received"</span>: 9762206505909057760,
+  <span class="s2">"total_sent"</span>: 6916970312523512365,
+  <span class="s2">"balance"</span>: 2845236193385545395,
+  <span class="s2">"unconfirmed_balance"</span>: 0,
+  <span class="s2">"final_balance"</span>: 2845236193385545395,
+  <span class="s2">"n_tx"</span>: 702,
+  <span class="s2">"unconfirmed_n_tx"</span>: 0,
+  <span class="s2">"final_n_tx"</span>: 702,
+  <span class="s2">"txrefs"</span>: <span class="o">[</span>
+    <span class="o">{</span>
+      <span class="s2">"tx_hash"</span>: <span class="s2">"ba44f568dc77d33893261c041994eeaef17d108a1845ccb9e376afea2acdd0e9"</span>,
+      <span class="s2">"block_height"</span>: 1648312,
+      <span class="s2">"tx_input_n"</span>: 0,
+      <span class="s2">"tx_output_n"</span>: -1,
+      <span class="s2">"value"</span>: 50420000000000000,
+      <span class="s2">"ref_balance"</span>: 2845236193385545395,
+      <span class="s2">"confirmations"</span>: 8342,
+      <span class="s2">"confirmed"</span>: <span class="s2">"2016-06-05T12:47:08Z"</span>,
+      <span class="s2">"double_spend"</span>: <span class="nb">false</span>
+    <span class="o">}</span>,
+    <span class="o">{</span>
+      <span class="s2">"tx_hash"</span>: <span class="s2">"99ec589ab8cb9498093c4d0c534bdcfd8bd04bfead1d869e3a79165a4f98af0d"</span>,
+      <span class="s2">"block_height"</span>: 1628712,
+      <span class="s2">"tx_input_n"</span>: 0,
+      <span class="s2">"tx_output_n"</span>: -1,
+      <span class="s2">"value"</span>: 10623553359437326,
+      <span class="s2">"ref_balance"</span>: 2895656193385545395,
+      <span class="s2">"confirmations"</span>: 27942,
+      <span class="s2">"confirmed"</span>: <span class="s2">"2016-06-02T06:53:55Z"</span>,
+      <span class="s2">"double_spend"</span>: <span class="nb">false</span>
+    <span class="o">}</span>,
+    <span class="o">{</span>
+      <span class="s2">"tx_hash"</span>: <span class="s2">"20551685c6c311738da9f42019eb66fccd2cec4cc48e00d98967365d6ad77164"</span>,
+      <span class="s2">"block_height"</span>: 1628222,
+      <span class="s2">"tx_input_n"</span>: 0,
+      <span class="s2">"tx_output_n"</span>: -1,
+      <span class="s2">"value"</span>: 10623553359437326,
+      <span class="s2">"ref_balance"</span>: 2906279746744982721,
+      <span class="s2">"confirmations"</span>: 28432,
+      <span class="s2">"confirmed"</span>: <span class="s2">"2016-06-02T05:02:50Z"</span>,
+      <span class="s2">"double_spend"</span>: <span class="nb">false</span>
+    <span class="o">}</span>,
+        ...
+  <span class="o">]</span>,
+  <span class="s2">"hasMore"</span>: <span class="nb">true</span>,
+  <span class="s2">"tx_url"</span>: <span class="s2">"https://api.blockcypher.com/v1/eth/main/txs/"</span>
+<span class="o">}</span>
+</code></pre>
+
+<p>An Address represents the state of an Ethereum address/account, containing information about the state of balances and transactions related to this address. Typically returned from the <a href="#address-balance-endpoint">Address Balance</a> and <a href="#address-endpoint">Address</a> endpoints.</p>
+
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>address</strong></td>
+<td><em>string</em></td>
+<td>The requested address.</td>
+</tr>
+<tr>
+<td><strong>total_received</strong></td>
+<td><em>integer</em></td>
+<td>Total amount of confirmed wei received by this address.</td>
+</tr>
+<tr>
+<td><strong>total_sent</strong></td>
+<td><em>integer</em></td>
+<td>Total amount of confirmed wei sent by this address.</td>
+</tr>
+<tr>
+<td><strong>balance</strong></td>
+<td><em>integer</em></td>
+<td>Balance of confirmed wei on this address. (i.e., for transactions whose confirmations &gt; 0).</td>
+</tr>
+<tr>
+<td><strong>unconfirmed_balance</strong></td>
+<td><em>integer</em></td>
+<td>Balance of unconfirmed wei on this address. Can be negative (if unconfirmed transactions are just spending part of an address balance). Only unconfirmed transactions (haven&rsquo;t made it into a block) are included in this calculation.</td>
+</tr>
+<tr>
+<td><strong>final_balance</strong></td>
+<td><em>integer</em></td>
+<td>Total balance of wei, including confirmed and unconfirmed transactions, for this address.</td>
+</tr>
+<tr>
+<td><strong>n_tx</strong></td>
+<td><em>integer</em></td>
+<td>Number of confirmed transactions on this address. Only transactions that have made it into a block (confirmations &gt; 0) are counted.</td>
+</tr>
+<tr>
+<td><strong>unconfirmed_n_tx</strong></td>
+<td><em>integer</em></td>
+<td>Number of unconfirmed transactions for this address. Only unconfirmed transactions (confirmations == 0) are counted.</td>
+</tr>
+<tr>
+<td><strong>final_n_tx</strong></td>
+<td><em>integer</em></td>
+<td>Final number of transactions, including confirmed and unconfirmed transactions, for this address.</td>
+</tr>
+<tr>
+<td><strong>tx_url</strong></td>
+<td><em>url</em></td>
+<td><strong><em>Optional</em></strong> To retrieve base URL transactions. To get the full URL, concatenate this URL with a transaction&rsquo;s hash.</td>
+</tr>
+<tr>
+<td><strong>txrefs</strong></td>
+<td><em>array[<a href="#txref">TXRef</a>]</em></td>
+<td><strong><em>Optional</em></strong> Array of transaction summaries for this address. Usually only returned from the standard <a href="#address-endpoint">Address Endpoint</a>.</td>
+</tr>
+<tr>
+<td><strong>unconfirmed_txrefs</strong></td>
+<td><em>array[<a href="#txref">TXRef</a>]</em></td>
+<td><strong><em>Optional</em></strong> All unconfirmed transaction summaries for this address. Usually only returned from the standard <a href="#address-endpoint">Address Endpoint</a>.</td>
+</tr>
+<tr>
+<td><strong>hasMore</strong></td>
+<td><em>bool</em></td>
+<td><strong><em>Optional</em></strong> If <em>true</em>, then the Address object contains more transactions than shown. Useful for determining whether to poll the API for more transaction information.</td>
+</tr>
+</tbody></table>
+
+<h2 id="addresskeychain">AddressKeychain</h2>
+<pre class="highlight shell"><code>curl -sX POST https://api.blockcypher.com/v1/eth/main/addrs
+<span class="o">{</span>
+    <span class="s2">"private"</span>: <span class="s2">"32605f9fbe224ebe621f88c33ae27099d4ce803e3b1cb5a1a3169790fd71beee"</span>,
+    <span class="s2">"public"</span>: <span class="s2">"04d3e1b49ef16dcde23be535b621d15c83ff75ef097ae43f2ef7a98bcddbb402034ddb6a5ca781d7333ef988bb9a5cd98c1f407d8acf77a1a8a17a26899fa66be5"</span>,
+    <span class="s2">"address"</span>: <span class="s2">"d543125acfc1e4d22f7f62aa5fbb2bb9a42bdb6d"</span>
+<span class="o">}</span>
+</code></pre>
+
+<p>An AddressKeychain represents an associated collection of public and private keys alongside their respective Ethereum address. Generally returned and used with the <a href="#generate-address-endpoint">Generate Address Endpoint</a>.</p>
+
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>address</strong></td>
+<td><em>string</em></td>
+<td>Standard address representation.</td>
+</tr>
+<tr>
+<td><strong>public</strong></td>
+<td><em>string</em></td>
+<td>Hex-encoded Public key.</td>
+</tr>
+<tr>
+<td><strong>private</strong></td>
+<td><em>string</em></td>
+<td>Hex-encoded Private key.</td>
+</tr>
+</tbody></table>
 
           <h1 id="blockchain-api">Blockchain API</h1>
 
 <p>Blockchain docs here.</p>
 
+<p>The first component&mdash;and highest level&mdash;of the BlockCypher Ethereum API allows you to query general information about Ethereum&rsquo;s blockchain and blocks.</p>
+
+<p>If you&rsquo;re new to blockchains, you can think of the blockchain itself as an immutable, distributed ledger. Each block in the blockchain is like a &ldquo;page&rdquo; in the ledger containing information about transactions between parties. A great place to start understanding the mechanics behind blockchains is the <a href="http://bitcoin.org/bitcoin.pdf">original Bitcoin whitepaper.</a> To get a handle on how Ethereum differs from Bitcoin, you can check the <a href="https://github.com/ethereum/wiki/wiki/White-Paper">Ethereum project whitepaper.</a></p>
+
+<h2 id="chain-endpoint">Chain Endpoint</h2>
+<pre class="highlight shell"><code>curl -s https://api.blockcypher.com/v1/eth/main
+<span class="o">{</span>
+  <span class="s2">"name"</span>: <span class="s2">"ETH.main"</span>,
+  <span class="s2">"height"</span>: 1656653,
+  <span class="s2">"hash"</span>: <span class="s2">"c5e3a1df5a295fa536fe2d7f8201f529153753665763e20dd9329659136d0c3c"</span>,
+  <span class="s2">"time"</span>: <span class="s2">"2016-06-06T21:53:30.368223984Z"</span>,
+  <span class="s2">"latest_url"</span>: <span class="s2">"https://api.blockcypher.com/v1/eth/main/blocks/c5e3a1df5a295fa536fe2d7f8201f529153753665763e20dd9329659136d0c3c"</span>,
+  <span class="s2">"previous_hash"</span>: <span class="s2">"781c3b4eb45895cab359a15f6b947c54d6974e9829eaf6937531098107c35e46"</span>,
+  <span class="s2">"previous_url"</span>: <span class="s2">"https://api.blockcypher.com/v1/eth/main/blocks/781c3b4eb45895cab359a15f6b947c54d6974e9829eaf6937531098107c35e46"</span>,
+  <span class="s2">"peer_count"</span>: 200,
+  <span class="s2">"unconfirmed_count"</span>: 11619,
+  <span class="s2">"high_fee_per_kb"</span>: 40000000000,
+  <span class="s2">"medium_fee_per_kb"</span>: 20000000000,
+  <span class="s2">"low_fee_per_kb"</span>: 5000000000,
+  <span class="s2">"last_fork_height"</span>: 1654102,
+  <span class="s2">"last_fork_hash"</span>: <span class="s2">"7c592f2594eea525754819ed15345a765db0a63e492bac833cb667296c3dee37"</span>
+<span class="o">}</span>
+</code></pre>
+
+<p>General information about the Ethereum blockchain is available by GET-ing the <a href="#restful-resources">base resource</a>.</p>
+
+<table><thead>
+<tr>
+<th>Resource</th>
+<th>Method</th>
+<th>Return Object</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>/</td>
+<td>GET</td>
+<td><a href="#blockchain">Blockchain</a></td>
+</tr>
+</tbody></table>
+
+<p>The returned object contains a litany of information, including its height, the time/hash of the latest block, and more.</p>
+
+<p>For more detailed information about the data returned, check the <a href="#blockchain">Blockchain</a> object.</p>
+
+<h2 id="block-hash-endpoint">Block Hash Endpoint</h2>
+<pre class="highlight shell"><code>curl -s https://api.blockcypher.com/v1/eth/main/blocks/b35265965f6f14c5d692b2030922fce53067fc0e9d8c8490c31d4ecd3e46500c
+<span class="o">{</span>
+  <span class="s2">"hash"</span>: <span class="s2">"b35265965f6f14c5d692b2030922fce53067fc0e9d8c8490c31d4ecd3e46500c"</span>,
+  <span class="s2">"height"</span>: 1564040,
+  <span class="s2">"chain"</span>: <span class="s2">"ETH.main"</span>,
+  <span class="s2">"total"</span>: 20306306718874652,
+  <span class="s2">"fees"</span>: 1595580000000000,
+  <span class="s2">"size"</span>: 661,
+  <span class="s2">"ver"</span>: 0,
+  <span class="s2">"time"</span>: <span class="s2">"2016-05-22T12:43:00Z"</span>,
+  <span class="s2">"received_time"</span>: <span class="s2">"2016-05-22T12:43:00Z"</span>,
+  <span class="s2">"coinbase_addr"</span>: <span class="s2">"4bb96091ee9d802ed039c4d1a5f6216f90f81b01"</span>,
+  <span class="s2">"relayed_by"</span>: <span class="s2">""</span>,
+  <span class="s2">"nonce"</span>: 2464233431647216841,
+  <span class="s2">"n_tx"</span>: 1,
+  <span class="s2">"prev_block"</span>: <span class="s2">"e52d8cd9bf52374fd47e9d9ed81d2702f9e6352455f0ac07000bd3682b70cde7"</span>,
+  <span class="s2">"mrkl_root"</span>: <span class="s2">"23f82aa013765c42fbee7f4e57c22befd7aece689834d0d2d6e25208713efb6a"</span>,
+  <span class="s2">"txids"</span>: <span class="o">[</span>
+    <span class="s2">"8f39fb4940c084460da00a876a521ef2ba84ad6ea8d2f5628c9f1f8aeb395342"</span>
+  <span class="o">]</span>,
+  <span class="s2">"internal_txids"</span>: <span class="o">[</span>
+    <span class="s2">"dd107c8488867fd53c0aa3bf1d8a478a077ec67af75842d24f1a64eb44e4d902"</span>,
+    <span class="s2">"9a98678d209910f70bded624f2c5c18ed17d417752072d41c5d61b42c277348c"</span>,
+    <span class="s2">"ad959961f46663f785e1e0a0b2656960b5d27061097c5092c4e68964bfaf0041"</span>,
+    <span class="s2">"5a23d74a484ec58b211264888846be6d7428c33be93223396eff3626e036a7f4"</span>,
+    <span class="s2">"73906b2f1a1d7fd17c77684e5e811ae8710e4a032501090da264712db7a48e7a"</span>,
+    <span class="s2">"53ce88e1cf98b37fb64c16121b4641dde65290838ce0bde6cb1c319df3ef8ff9"</span>,
+    <span class="s2">"29bc4e7fa2db28b0a2ef9e7a5e073cc7532e609f752b2eb0b5731b0c6b926a2c"</span>,
+    <span class="s2">"4a9afc5a680917955e781b890688143f56badc76785af98753d5267270d7d809"</span>
+  <span class="o">]</span>,
+  <span class="s2">"depth"</span>: 92613,
+  <span class="s2">"prev_block_url"</span>: <span class="s2">"https://api.blockcypher.com/v1/eth/main/blocks/e52d8cd9bf52374fd47e9d9ed81d2702f9e6352455f0ac07000bd3682b70cde7"</span>,
+  <span class="s2">"tx_url"</span>: <span class="s2">"https://api.blockcypher.com/v1/eth/main/txs/"</span>
+<span class="o">}</span>
+</code></pre>
+
+<p>If you want more data on a particular block, you can use the Block Hash endpoint.</p>
+
+<table><thead>
+<tr>
+<th>Resource</th>
+<th>Method</th>
+<th>Return Object</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>/blocks/$BLOCK_HASH</td>
+<td>GET</td>
+<td><a href="#block">Block</a></td>
+</tr>
+</tbody></table>
+
+<table><thead>
+<tr>
+<th>Flag</th>
+<th>Type</th>
+<th>Effect</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>txstart</strong></td>
+<td><em>integer</em></td>
+<td>Filters response to only include transaction hashes after <strong>txstart</strong> in the block.</td>
+</tr>
+<tr>
+<td><strong>limit</strong></td>
+<td><em>integer</em></td>
+<td>Filters response to only include a maximum of <strong>limit</strong> transactions hashes in the block. Maximum value allowed is 500.</td>
+</tr>
+</tbody></table>
+
+<p>$BLOCK_HASH is a <em>string</em> representing the hash of the block you&rsquo;re interested in querying, for example:</p>
+
+<p><code class="prettyprint">0000000000000000189bba3564a63772107b5673c940c16f12662b3e8546b412</code></p>
+
+<p>The returned object contains information about the block, including its height, the total amount of wei transacted within it, the number of transactions in it, transaction hashes listed in the canonical order in which they appear in the block, and more. For more detail on the data returned, check the <a href="#block">Block</a> object.</p>
+
+<h2 id="block-height-endpoint">Block Height Endpoint</h2>
+<pre class="highlight shell"><code>curl -s https://api.blockcypher.com/v1/eth/main/blocks/7
+<span class="o">{</span>
+  <span class="s2">"hash"</span>: <span class="s2">"e0c7c0b46e116b874354dce6f64b8581bd239186b03f30a978e3dc38656f723a"</span>,
+  <span class="s2">"height"</span>: 7,
+  <span class="s2">"chain"</span>: <span class="s2">"ETH.main"</span>,
+  <span class="s2">"total"</span>: 0,
+  <span class="s2">"fees"</span>: 0,
+  <span class="s2">"size"</span>: 1078,
+  <span class="s2">"ver"</span>: 0,
+  <span class="s2">"time"</span>: <span class="s2">"2015-07-30T15:28:30Z"</span>,
+  <span class="s2">"received_time"</span>: <span class="s2">"2015-07-30T15:28:30Z"</span>,
+  <span class="s2">"coinbase_addr"</span>: <span class="s2">"dd2f1e6e498202e86d8f5442af596580a4f03c2c"</span>,
+  <span class="s2">"relayed_by"</span>: <span class="s2">""</span>,
+  <span class="s2">"nonce"</span>: 13599487003767981,
+  <span class="s2">"n_tx"</span>: 0,
+  <span class="s2">"prev_block"</span>: <span class="s2">"1f1aed8e3694a067496c248e61879cda99b0709a1dfbacd0b693750df06b326e"</span>,
+  <span class="s2">"mrkl_root"</span>: <span class="s2">"ff8d97d9ca01ee59c793c4da2ba4ce8c31d358b42f216ab2f11af4bb097b6a2b"</span>,
+  <span class="s2">"uncles"</span>: <span class="o">[</span>
+    <span class="s2">"4b8729311c5b59f418c5154fd54d85e6a8b42eabf83a1d3c05c754a8f10354cc"</span>
+  <span class="o">]</span>,
+  <span class="s2">"txids"</span>: <span class="o">[]</span>,
+  <span class="s2">"depth"</span>: 1656646,
+  <span class="s2">"prev_block_url"</span>: <span class="s2">"https://api.blockcypher.com/v1/eth/main/blocks/1f1aed8e3694a067496c248e61879cda99b0709a1dfbacd0b693750df06b326e"</span>,
+  <span class="s2">"tx_url"</span>: <span class="s2">"https://api.blockcypher.com/v1/eth/main/txs/"</span>
+<span class="o">}</span>
+</code></pre>
+
+<p>You can also query for information on a block using its height, using the same resource but with a different variable type.</p>
+
+<table><thead>
+<tr>
+<th>Resource</th>
+<th>Method</th>
+<th>Return Object</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>/blocks/$BLOCK_HEIGHT</td>
+<td>GET</td>
+<td><a href="#block">Block</a></td>
+</tr>
+</tbody></table>
+
+<table><thead>
+<tr>
+<th>Flag</th>
+<th>Type</th>
+<th>Effect</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>txstart</strong></td>
+<td><em>integer</em></td>
+<td>Filters response to only include transaction hashes after <strong>txstart</strong> in the block.</td>
+</tr>
+<tr>
+<td><strong>limit</strong></td>
+<td><em>integer</em></td>
+<td>Filters response to only include a maximum of <strong>limit</strong> transactions hashes in the block. Maximum value allowed is 500.</td>
+</tr>
+</tbody></table>
+
+<p>BLOCK_HEIGHT is an <em>integer</em> representing the height of the block you&rsquo;re interested in querying, for example:</p>
+
+<p><code class="prettyprint">1500000</code></p>
+
+<p>As above, the returned object contains information about the block, including its hash, the total amount of wei transacted within it, the number of transactions in it, transaction hashes listed in the canonical order in which they appear in the block, and more. For more detail on the data returned, check the <a href="#block">Block</a> object.</p>
+
+<aside class="warning">
+With recent blocks, $BLOCK_HEIGHT is not always a unique identifier, due to the possibility of soft forks/orphans and the nature of the consensus model with blockchains. If you&rsquo;re querying blocks with <b>depth above 10</b> (i.e., there are more than 10 blocks ahead of your target) the height should be a safe identifier.
+</aside>
+
           <h1 id="address-api">Address API</h1>
 
-<p>Address docs here.</p>
+<p>BlockCypher&rsquo;s Ethereum Address API allows you to look up information about public Ethereum addresses/accounts and generate your own low-value Ethereum addresses/public-private key pairs.</p>
+
+<p>If you&rsquo;re new to blockchains, you can think of public addresses as similar to bank account numbers in a traditional ledger. The biggest differences:</p>
+
+<ul>
+<li>Anyone can generate a public address themselves (through <a href="https://en.wikipedia.org/wiki/Elliptic_Curve_Digital_Signature_Algorithm">ECDSA</a> in Ethereum by default). No single authority is needed to generate new addresses; it&rsquo;s just public-private key cryptography.</li>
+<li>There are two kinds of addresses in Ethereum: external addresses and contract addresses. Contract addresses are controlled by embedded scripts within the Ethereum blockchain, while external addresses are controlled in a similar manner to Bitcoin.</li>
+</ul>
+
+<h2 id="address-balance-endpoint">Address Balance Endpoint</h2>
+<pre class="highlight shell"><code>curl -s https://api.blockcypher.com/v1/eth/main/addrs/738d145faabb1e00cf5a017588a9c0f998318012/balance
+<span class="o">{</span>
+  <span class="s2">"address"</span>: <span class="s2">"738d145faabb1e00cf5a017588a9c0f998318012"</span>,
+  <span class="s2">"total_received"</span>: 9762206505909057760,
+  <span class="s2">"total_sent"</span>: 6916970312523512365,
+  <span class="s2">"balance"</span>: 2845236193385545395,
+  <span class="s2">"unconfirmed_balance"</span>: 0,
+  <span class="s2">"final_balance"</span>: 2845236193385545395,
+  <span class="s2">"n_tx"</span>: 702,
+  <span class="s2">"unconfirmed_n_tx"</span>: 0,
+  <span class="s2">"final_n_tx"</span>: 702
+<span class="o">}</span>
+</code></pre>
+
+<p>The Address Balance Endpoint is the simplest&mdash;and fastest&mdash;method to get a subset of information on a public address.</p>
+
+<table><thead>
+<tr>
+<th>Resource</th>
+<th>Method</th>
+<th>Return Object</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>/addrs/$ADDRESS/balance</td>
+<td>GET</td>
+<td><a href="#address">Address</a></td>
+</tr>
+</tbody></table>
+
+<p>ADDRESS is a <em>string</em> representing the public address you&rsquo;re interested in querying, for example:</p>
+
+<p><code class="prettyprint">738d145faabb1e00cf5a017588a9c0f998318012</code></p>
+
+<p>The returned object contains information about the address, including its balance in wei and the number of transactions associated with it. The endpoint omits any detailed transaction information, but if that isn&rsquo;t required by your application, then it&rsquo;s the fastest and preferred way to get public address information.</p>
+
+<h2 id="address-endpoint">Address Endpoint</h2>
+<pre class="highlight shell"><code>curl -s https://api.blockcypher.com/v1/eth/main/addrs/738d145faabb1e00cf5a017588a9c0f998318012
+<span class="o">{</span>
+  <span class="s2">"address"</span>: <span class="s2">"738d145faabb1e00cf5a017588a9c0f998318012"</span>,
+  <span class="s2">"total_received"</span>: 9762206505909057760,
+  <span class="s2">"total_sent"</span>: 6916970312523512365,
+  <span class="s2">"balance"</span>: 2845236193385545395,
+  <span class="s2">"unconfirmed_balance"</span>: 0,
+  <span class="s2">"final_balance"</span>: 2845236193385545395,
+  <span class="s2">"n_tx"</span>: 702,
+  <span class="s2">"unconfirmed_n_tx"</span>: 0,
+  <span class="s2">"final_n_tx"</span>: 702,
+  <span class="s2">"txrefs"</span>: <span class="o">[</span>
+    <span class="o">{</span>
+      <span class="s2">"tx_hash"</span>: <span class="s2">"ba44f568dc77d33893261c041994eeaef17d108a1845ccb9e376afea2acdd0e9"</span>,
+      <span class="s2">"block_height"</span>: 1648312,
+      <span class="s2">"tx_input_n"</span>: 0,
+      <span class="s2">"tx_output_n"</span>: -1,
+      <span class="s2">"value"</span>: 50420000000000000,
+      <span class="s2">"ref_balance"</span>: 2845236193385545395,
+      <span class="s2">"confirmations"</span>: 8342,
+      <span class="s2">"confirmed"</span>: <span class="s2">"2016-06-05T12:47:08Z"</span>,
+      <span class="s2">"double_spend"</span>: <span class="nb">false</span>
+    <span class="o">}</span>,
+    <span class="o">{</span>
+      <span class="s2">"tx_hash"</span>: <span class="s2">"99ec589ab8cb9498093c4d0c534bdcfd8bd04bfead1d869e3a79165a4f98af0d"</span>,
+      <span class="s2">"block_height"</span>: 1628712,
+      <span class="s2">"tx_input_n"</span>: 0,
+      <span class="s2">"tx_output_n"</span>: -1,
+      <span class="s2">"value"</span>: 10623553359437326,
+      <span class="s2">"ref_balance"</span>: 2895656193385545395,
+      <span class="s2">"confirmations"</span>: 27942,
+      <span class="s2">"confirmed"</span>: <span class="s2">"2016-06-02T06:53:55Z"</span>,
+      <span class="s2">"double_spend"</span>: <span class="nb">false</span>
+    <span class="o">}</span>,
+    <span class="o">{</span>
+      <span class="s2">"tx_hash"</span>: <span class="s2">"20551685c6c311738da9f42019eb66fccd2cec4cc48e00d98967365d6ad77164"</span>,
+      <span class="s2">"block_height"</span>: 1628222,
+      <span class="s2">"tx_input_n"</span>: 0,
+      <span class="s2">"tx_output_n"</span>: -1,
+      <span class="s2">"value"</span>: 10623553359437326,
+      <span class="s2">"ref_balance"</span>: 2906279746744982721,
+      <span class="s2">"confirmations"</span>: 28432,
+      <span class="s2">"confirmed"</span>: <span class="s2">"2016-06-02T05:02:50Z"</span>,
+      <span class="s2">"double_spend"</span>: <span class="nb">false</span>
+    <span class="o">}</span>,
+        ...
+  <span class="o">]</span>,
+  <span class="s2">"hasMore"</span>: <span class="nb">true</span>,
+  <span class="s2">"tx_url"</span>: <span class="s2">"https://api.blockcypher.com/v1/eth/main/txs/"</span>
+<span class="o">}</span>
+</code></pre>
+
+<p>The Address Endpoint returns more information about an address&rsquo; transactions than the <a href="#address-balance-endpoint">Address Balance Endpoint</a>, but sacrifices some response speed in the process.</p>
+
+<table><thead>
+<tr>
+<th>Resource</th>
+<th>Method</th>
+<th>Return Object</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>/addrs/$ADDRESS</td>
+<td>GET</td>
+<td><a href="#address">Address</a></td>
+</tr>
+</tbody></table>
+
+<table><thead>
+<tr>
+<th>Flag</th>
+<th>Type</th>
+<th>Effect</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>before</strong></td>
+<td><em>integer</em></td>
+<td>Filters response to only include transactions below <strong>before</strong> height in the blockchain.</td>
+</tr>
+<tr>
+<td><strong>after</strong></td>
+<td><em>integer</em></td>
+<td>Filters response to only include transactions above <strong>after</strong> height in the blockchain.</td>
+</tr>
+<tr>
+<td><strong>limit</strong></td>
+<td><em>integer</em></td>
+<td><strong>limit</strong> sets the minimum number of returned TXRefs; there can be less if there are less than <strong>limit</strong> TXRefs associated with this address, but there can be more in the rare case of more TXRefs in the block at the bottom of your call. This ensures paging by block height never misses TXRefs. Defaults to 200, maximum is 2000.</td>
+</tr>
+<tr>
+<td><strong>confirmations</strong></td>
+<td><em>integer</em></td>
+<td>If set, only returns the <strong>balance</strong> and TXRefs that have <em>at least</em> this number of <strong>confirmations</strong>.</td>
+</tr>
+</tbody></table>
+
+<p>ADDRESS is a <em>string</em> representing the public address (or wallet/HD wallet name) you&rsquo;re interested in querying, for example:</p>
+
+<p><code class="prettyprint">738d145faabb1e00cf5a017588a9c0f998318012</code></p>
+
+<p>The returned object contains information about the address, including its balance in wei, the number of transactions associated with it, and transaction summaries in descending order by block height.</p>
+
+<h2 id="generate-address-endpoint">Generate Address Endpoint</h2>
+<pre class="highlight shell"><code>curl -sX POST https://api.blockcypher.com/v1/eth/main/addrs?token<span class="o">=</span>YOURTOKEN
+<span class="o">{</span>
+  <span class="s2">"private"</span>: <span class="s2">"44c984a089184a9a659e10210af360049f366a34f7f3cb253ac5cbfcb33f3d7c"</span>,
+  <span class="s2">"public"</span>: <span class="s2">"04b7de9b47fc1fb278648266316dffe47cc7f5280b69b05b5770ad1624ee3da7647c98ade5e4c35b99e606535eaca54db0f913c8aa1fa7226f15b9996325d0989d"</span>,
+  <span class="s2">"address"</span>: <span class="s2">"e3f7e628fff7589218d88ae1d6bcdac52fef2168"</span>
+<span class="o">}</span>
+</code></pre>
+
+<p>The Generate Address endpoint allows you to generate private-public key-pairs along with an associated public address. No information is required with this POST request.</p>
+
+<aside class="success">
+The private key returned is immediately discarded by our servers, but we advise that these keys should not be used for any high-value&mdash;or long-term storage&mdash;addresses.
+</aside>
+
+<aside class="warning">
+Always use HTTPS for Address Generation requests. Otherwise, your generated private keys will be sent over insecure channels and could be MITM&rsquo;d.
+</aside>
+
+<table><thead>
+<tr>
+<th>Resource</th>
+<th>Method</th>
+<th>Request Object</th>
+<th>Return Object</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>/addrs</td>
+<td>POST</td>
+<td><em>nil</em></td>
+<td><a href="#addresskeychain">AddressKeychain</a></td>
+</tr>
+</tbody></table>
+
+<p>The returned object contains a private key, a public key, and a public address, all hex-encoded.</p>
 
           <h1 id="transaction-api">Transaction API</h1>
 
-<p>Transaction docs here.</p>
+<p>BlockCypher&rsquo;s Ethereum Transaction API allows you to look up information about unconfirmed transactions, query transactions based on hash, and create and propagate your own transactions.</p>
+
+<p>Unlike Bitcoin, Ethereum has no concept of <a href="https://bitcoin.org/en/glossary/unspent-transaction-output">UTXOs</a>. Instead, addresses have a running balance, and use an ever-increasing sequence/nonce for every transaction to maintain proper address state. You can read more about <a href="https://github.com/ethereum/wiki/wiki/Design-Rationale#accounts-and-not-utxos">this design decision here.</a> Transaction signing and generation are also different in Ethereum, but for basic transactions, the process is very similar to our Bitcoin API.</p>
+
+<h2 id="transaction-hash-endpoint">Transaction Hash Endpoint</h2>
+<pre class="highlight shell"><code>curl -s https://api.blockcypher.com/v1/eth/main/txs/8f39fb4940c084460da00a876a521ef2ba84ad6ea8d2f5628c9f1f8aeb395342
+<span class="o">{</span>
+  <span class="s2">"block_hash"</span>: <span class="s2">"b35265965f6f14c5d692b2030922fce53067fc0e9d8c8490c31d4ecd3e46500c"</span>,
+  <span class="s2">"block_height"</span>: 1564040,
+  <span class="s2">"block_index"</span>: 0,
+  <span class="s2">"hash"</span>: <span class="s2">"8f39fb4940c084460da00a876a521ef2ba84ad6ea8d2f5628c9f1f8aeb395342"</span>,
+  <span class="s2">"addresses"</span>: <span class="o">[</span>
+    <span class="s2">"738d145faabb1e00cf5a017588a9c0f998318012"</span>,
+    <span class="s2">"4e9d8b4f18d984f6f0c88d07e4b39201e825cd17"</span>
+  <span class="o">]</span>,
+  <span class="s2">"total"</span>: 10153153359437326,
+  <span class="s2">"fees"</span>: 1595580000000000,
+  <span class="s2">"size"</span>: 116,
+  <span class="s2">"relayed_by"</span>: <span class="s2">""</span>,
+  <span class="s2">"confirmed"</span>: <span class="s2">"2016-05-22T12:43:00Z"</span>,
+  <span class="s2">"received"</span>: <span class="s2">"2016-05-22T12:43:00Z"</span>,
+  <span class="s2">"ver"</span>: 0,
+  <span class="s2">"double_spend"</span>: <span class="nb">false</span>,
+  <span class="s2">"vin_sz"</span>: 1,
+  <span class="s2">"vout_sz"</span>: 1,
+  <span class="s2">"confirmations"</span>: 94919,
+  <span class="s2">"confidence"</span>: 1,
+  <span class="s2">"inputs"</span>: <span class="o">[</span>
+    <span class="o">{</span>
+      <span class="s2">"sequence"</span>: 273,
+      <span class="s2">"addresses"</span>: <span class="o">[</span>
+        <span class="s2">"738d145faabb1e00cf5a017588a9c0f998318012"</span>
+      <span class="o">]</span>
+    <span class="o">}</span>
+  <span class="o">]</span>,
+  <span class="s2">"outputs"</span>: <span class="o">[</span>
+    <span class="o">{</span>
+      <span class="s2">"value"</span>: 10153153359437326,
+      <span class="s2">"script"</span>: <span class="s2">"4e71d92d"</span>,
+      <span class="s2">"addresses"</span>: <span class="o">[</span>
+        <span class="s2">"4e9d8b4f18d984f6f0c88d07e4b39201e825cd17"</span>
+      <span class="o">]</span>
+    <span class="o">}</span>
+  <span class="o">]</span>
+<span class="o">}</span>
+</code></pre>
+
+<p>The Transaction Hash Endpoint returns detailed information about a given transaction based on its hash.</p>
+
+<table><thead>
+<tr>
+<th>Resource</th>
+<th>Method</th>
+<th>Return Object</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>/txs/$TXHASH</td>
+<td>GET</td>
+<td><a href="#tx">TX</a></td>
+</tr>
+</tbody></table>
+
+<p>TXHASH is a <em>string</em> representing the hex-encoded transaction hash you&rsquo;re interested in querying, for example:</p>
+
+<p><code class="prettyprint">8f39fb4940c084460da00a876a521ef2ba84ad6ea8d2f5628c9f1f8aeb395342</code></p>
+
+<p>The returned object contains detailed information about the transaction, including the value transfered, fees collected, date received, any scripts associated with an output, and more.</p>
+
+<h2 id="unconfirmed-transactions-endpoint">Unconfirmed Transactions Endpoint</h2>
+<pre class="highlight shell"><code>curl -s https://api.blockcypher.com/v1/eth/main/txs
+<span class="o">[</span>
+  <span class="o">{</span>
+    <span class="s2">"block_height"</span>: -1,
+    <span class="s2">"block_index"</span>: 0,
+    <span class="s2">"hash"</span>: <span class="s2">"1f5bd529e72f6aa5724b6a3971781909e5156dc60058ccdfea15419bef25f5dd"</span>,
+    <span class="s2">"addresses"</span>: <span class="o">[</span>
+      <span class="s2">"70d84f9b00556bb41c04aa0205506345f43ba746"</span>,
+      <span class="s2">"f7b0b916b2849255a61127fc4a42b9dfeaddf7d6"</span>
+    <span class="o">]</span>,
+    <span class="s2">"total"</span>: 972909140000000000,
+    <span class="s2">"fees"</span>: 1260000000000000,
+    <span class="s2">"size"</span>: 110,
+    <span class="s2">"relayed_by"</span>: <span class="s2">""</span>,
+    <span class="s2">"received"</span>: <span class="s2">"2016-06-07T07:47:40.14486539Z"</span>,
+    <span class="s2">"ver"</span>: 0,
+    <span class="s2">"double_spend"</span>: <span class="nb">false</span>,
+    <span class="s2">"vin_sz"</span>: 1,
+    <span class="s2">"vout_sz"</span>: 1,
+    <span class="s2">"confirmations"</span>: 0,
+    <span class="s2">"inputs"</span>: <span class="o">[</span>
+      <span class="o">{</span>
+        <span class="s2">"sequence"</span>: 19,
+        <span class="s2">"addresses"</span>: <span class="o">[</span>
+          <span class="s2">"70d84f9b00556bb41c04aa0205506345f43ba746"</span>
+        <span class="o">]</span>
+      <span class="o">}</span>
+    <span class="o">]</span>,
+    <span class="s2">"outputs"</span>: <span class="o">[</span>
+      <span class="o">{</span>
+        <span class="s2">"value"</span>: 972909140000000000,
+        <span class="s2">"addresses"</span>: <span class="o">[</span>
+          <span class="s2">"f7b0b916b2849255a61127fc4a42b9dfeaddf7d6"</span>
+        <span class="o">]</span>
+      <span class="o">}</span>
+    <span class="o">]</span>
+  <span class="o">}</span>,
+  <span class="o">{</span>
+    <span class="s2">"block_height"</span>: -1,
+    <span class="s2">"block_index"</span>: 0,
+    <span class="s2">"hash"</span>: <span class="s2">"1bd833698337fce44a7feedf6bbe78c90ada088389ebafcad0b56901def3c989"</span>,
+    <span class="s2">"addresses"</span>: <span class="o">[</span>
+      <span class="s2">"a1b5f95be71ffa2f86adefcaa0028c46fe825161"</span>,
+      <span class="s2">"b7443c8bdff977234ed9394169f181f9e9851422"</span>
+    <span class="o">]</span>,
+    <span class="s2">"total"</span>: 1000000000000000000,
+    <span class="s2">"fees"</span>: 2420000000000000,
+    <span class="s2">"size"</span>: 111,
+    <span class="s2">"relayed_by"</span>: <span class="s2">""</span>,
+    <span class="s2">"received"</span>: <span class="s2">"2016-06-07T07:47:38.710195289Z"</span>,
+    <span class="s2">"ver"</span>: 0,
+    <span class="s2">"double_spend"</span>: <span class="nb">false</span>,
+    <span class="s2">"vin_sz"</span>: 1,
+    <span class="s2">"vout_sz"</span>: 1,
+    <span class="s2">"confirmations"</span>: 0,
+    <span class="s2">"inputs"</span>: <span class="o">[</span>
+      <span class="o">{</span>
+        <span class="s2">"sequence"</span>: 68,
+        <span class="s2">"addresses"</span>: <span class="o">[</span>
+          <span class="s2">"a1b5f95be71ffa2f86adefcaa0028c46fe825161"</span>
+        <span class="o">]</span>
+      <span class="o">}</span>
+    <span class="o">]</span>,
+    <span class="s2">"outputs"</span>: <span class="o">[</span>
+      <span class="o">{</span>
+        <span class="s2">"value"</span>: 1000000000000000000,
+        <span class="s2">"addresses"</span>: <span class="o">[</span>
+          <span class="s2">"b7443c8bdff977234ed9394169f181f9e9851422"</span>
+        <span class="o">]</span>
+      <span class="o">}</span>
+    <span class="o">]</span>
+  <span class="o">}</span>,
+    ...
+<span class="o">]</span>
+</code></pre>
+
+<p>The Unconfirmed Transactions Endpoint returns an array of the latest transactions that haven&rsquo;t been included in any blocks.</p>
+
+<table><thead>
+<tr>
+<th>Resource</th>
+<th>Method</th>
+<th>Return Object</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>/txs</td>
+<td>GET</td>
+<td>Array[<a href="#TX">TX</a>]</td>
+</tr>
+</tbody></table>
+
+<p>The returned object is an array of transactions that haven&rsquo;t been included in blocks, arranged in reverse chronological order (latest is first, then older transactions follow).</p>
 
       </div>
       <div class="dark-box">
