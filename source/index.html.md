@@ -78,7 +78,7 @@ includes:
 Welcome to [BlockCypher's](http://www.blockcypher.com/) API documentation! BlockCypher is a simple, mostly RESTful JSON API for interacting with blockchains, accessed over HTTP or HTTPS from the [api.blockcypher.com](https://api.blockcypher.com/v1/btc/main) domain. Currently, BlockCypher supports Bitcoin, Bitcoin Testnet3, Litecoin, Dogecoin, and BlockCypher's Test Chain (more about BlockCypher's Test Chain [below](#testing)).
 
 <aside class="notice">
-We just released our beta Ethereum API! While it's very similar to the API here, it's different enough to necessitate its own documentation; you can find those docs here: <a href="http://dev.blockcypher.com/eth">http://dev.blockcypher.com/eth</a>
+We just released <strong>our beta Ethereum API!</strong> While it's very similar to the API here, it's different enough to necessitate its own documentation; you can find those docs here: <a href="http://dev.blockcypher.com/eth">http://dev.blockcypher.com/eth</a>
 </aside>
 
 BlockCypher's API provides a superset of the endpoints you'd find in reference implementations, in addition to some special features that make BlockCypher uniquely powerful, like our unconfirmed transaction [Confidence Factor](#confidence-factor), dependable WebHook or WebSockets-based [Events](#events-and-hooks), [On-Chain Microtransactions](#microtransaction-api), and [Payment Forwarding](#payment-forwarding).
