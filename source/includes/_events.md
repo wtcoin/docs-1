@@ -298,7 +298,7 @@ $webHooks = $webHookClient->getAll();
 ]
 ```
 
-This resource lists your currently active events, according the base resource and $YOURTOKEN.
+This resource lists your currently active events, according to the base resource and $YOURTOKEN.
 
 Resource | Method | Return Object
 -------- | ------ | -------------
