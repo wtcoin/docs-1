@@ -870,7 +870,7 @@ $.post('https://api.blockcypher.com/v1/bcy/test/addrs?token=$YOUR_TOKEN')
 
 // Fund prior address with faucet
 var data = {"address": "CFqoZmZ3ePwK5wnkhxJjJAQKJ82C7RJdmd", "amount": 100000}
-$.post('https://api.blockcypher.com/v1/bcy/test/faucet?token=$YOUR_TOKEN', JSON.stringify(req))
+$.post('https://api.blockcypher.com/v1/bcy/test/faucet?token=$YOUR_TOKEN', JSON.stringify(data))
   .then(function(d) {console.log(d)});
 > {
 >   "tx_ref": "02dbf5585d438a1cba82a9041dd815635a6b0df684225cb5271e11397a759479"
