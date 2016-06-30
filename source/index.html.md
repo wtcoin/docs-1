@@ -454,6 +454,21 @@ curl https://api.blockcypher.com/v1/tokens/$YOURTOKEN
 	"api/hour": 280,
 	"hooks/hour": 240,
 	"confidence/hour": 100
+},
+"hits_history": {
+	{
+	"api/hour": 253,
+	"confidence/hour": 50,
+	"time": "2016-06-15T07:00:00-00:00",
+	"hooks": 358,
+	},
+	{
+	"api/hour": 2,
+	"hooks/hour": 30,
+	"time": "2016-06-15T06:00:00-00:00"
+	"hooks": 358,
+	},
+	...
 }
 }
 # These are quite above the default limits, but if you'd like them, reach out at contact@blockcypher.com ;)
@@ -532,9 +547,11 @@ We want everyone to try BlockCypher with as little friction as possible, which i
 We do rate-limit our free tier, with or without a token (though tokens are required for Confidence lookups, WebHooks/Sockets, Payments, and any **POST** or **DELETE** calls):
 
 - Classic requests, up to 3 requests/sec and 200 requests/hr
-- WebHooks and WebSockets, up to 200 requests/hr
+- WebHooks and WebSockets, up to 200 requests sent to your servers/hr
 - WebHooks and Payments, up to 200 stored on our servers
 - Confidence lookups, up to 15 requests/hour
+
+The hourly rate limits reset on the top of the hour UTC. For example, if you're under the free tier, and you have used 200 regular requests by 03:58 UTC, you'll hit a rate limit until it resets at 04:00 UTC.
 
 <aside class="warning">
 If you exceed these limits, your requests will return an HTTP Status Code 429!
@@ -546,9 +563,9 @@ You can check your current limits and usage via a **GET** on the following endpo
 
 `https://api.blockcypher.com/v1/tokens/$YOURTOKEN`
 
-<aside class="warning">
-If your limits are at default levels (i.e. haven't been raised by us) the endpoint won't return any limit information.
-</aside>
+Within that return object, you'll also find **hits_history** array, which shows your token's last 48 hours of usage, while **hits** shows the current hour's usage.
+
+You can even see information about your remaining limits by checking the **X-Ratelimit-Remaining** attribute in the HTTP header in normal API calls. Keep in mind the **X-Ratelimit-Remaining** attribute corresponds to the hourly rate limit associated with the endpoint you call (e.g., if it's from a WebHook, that corresponds to the Hooks/Hour; if it's a normal call, the number corresponds to the normal Requests/Hour limit).
 
 ## Batching
 
