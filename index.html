@@ -548,6 +548,21 @@ curl https://api.blockcypher.com/v1/tokens/<span class="nv">$YOURTOKEN</span>
     <span class="s2">"api/hour"</span>: 280,
     <span class="s2">"hooks/hour"</span>: 240,
     <span class="s2">"confidence/hour"</span>: 100
+<span class="o">}</span>,
+<span class="s2">"hits_history"</span>: <span class="o">{</span>
+    <span class="o">{</span>
+    <span class="s2">"api/hour"</span>: 253,
+    <span class="s2">"confidence/hour"</span>: 50,
+    <span class="s2">"time"</span>: <span class="s2">"2016-06-15T07:00:00-00:00"</span>,
+    <span class="s2">"hooks"</span>: 358,
+    <span class="o">}</span>,
+    <span class="o">{</span>
+    <span class="s2">"api/hour"</span>: 2,
+    <span class="s2">"hooks/hour"</span>: 30,
+    <span class="s2">"time"</span>: <span class="s2">"2016-06-15T06:00:00-00:00"</span>
+    <span class="s2">"hooks"</span>: 358,
+    <span class="o">}</span>,
+    ...
 <span class="o">}</span>
 <span class="o">}</span>
 <span class="c"># These are quite above the default limits, but if you'd like them, reach out at contact@blockcypher.com ;)</span>
@@ -617,10 +632,12 @@ curl https://api.blockcypher.com/v1/tokens/<span class="nv">$YOURTOKEN</span>
 
 <ul>
 <li>Classic requests, up to 3 requests/sec and 200 requests/hr</li>
-<li>WebHooks and WebSockets, up to 200 requests/hr</li>
+<li>WebHooks and WebSockets, up to 200 requests sent to your servers/hr</li>
 <li>WebHooks and Payments, up to 200 stored on our servers</li>
 <li>Confidence lookups, up to 15 requests/hour</li>
 </ul>
+
+<p>The hourly rate limits reset on the top of the hour UTC. For example, if you&rsquo;re under the free tier, and you have used 200 regular requests by 03:58 UTC, you&rsquo;ll hit a rate limit until it resets at 04:00 UTC.</p>
 
 <aside class="warning">
 If you exceed these limits, your requests will return an HTTP Status Code 429!
@@ -632,9 +649,9 @@ If you exceed these limits, your requests will return an HTTP Status Code 429!
 
 <p><code class="prettyprint">https://api.blockcypher.com/v1/tokens/$YOURTOKEN</code></p>
 
-<aside class="warning">
-If your limits are at default levels (i.e. haven&rsquo;t been raised by us) the endpoint won&rsquo;t return any limit information.
-</aside>
+<p>Within that return object, you&rsquo;ll also find <strong>hits_history</strong> array, which shows your token&rsquo;s last 48 hours of usage, while <strong>hits</strong> shows the current hour&rsquo;s usage.</p>
+
+<p>You can even see information about your remaining limits by checking the <strong>X-Ratelimit-Remaining</strong> attribute in the HTTP header in normal API calls. Keep in mind the <strong>X-Ratelimit-Remaining</strong> attribute corresponds to the hourly rate limit associated with the endpoint you call (e.g., if it&rsquo;s from a WebHook, that corresponds to the Hooks/Hour; if it&rsquo;s a normal call, the number corresponds to the normal Requests/Hour limit).</p>
 
 <h2 id="batching">Batching</h2>
 <pre class="highlight shell"><code><span class="c"># Batching blocks 5, 6, and 7</span>
@@ -2104,7 +2121,7 @@ Only one of these three fields is required for the microtransaction endpoint: <b
 <span class="o">}</span>
 </code></pre>
 
-<p>An Address represents a public address on a blockchain, and contains information about the state of balances and transactions related to this address. Typically returned from the <a href="#address-balance-endpoint">Address Balance</a>, <a href="#address-endpoint">Address</a>, and <a href="#address-detail-endpoint">Address Detail Endpoint</a>.</p>
+<p>An Address represents a public address on a blockchain, and contains information about the state of balances and transactions related to this address. Typically returned from the <a href="#address-balance-endpoint">Address Balance</a>, <a href="#address-endpoint">Address</a>, and <a href="#address-full-endpoint">Address Full Endpoint</a>.</p>
 
 <table><thead>
 <tr>
@@ -2176,7 +2193,7 @@ Only one of these three fields is required for the microtransaction endpoint: <b
 <tr>
 <td><strong>txs</strong></td>
 <td><em>array[<a href="#tx">TX</a>]</em></td>
-<td><strong><em>Optional</em></strong>  Array of full transaction details associated with this address. Usually only returned from the <a href="#address-detail">Address Detail Endpoint</a>.</td>
+<td><strong><em>Optional</em></strong>  Array of full transaction details associated with this address. Usually only returned from the <a href="#address-full-endpoint">Address Full Endpoint</a>.</td>
 </tr>
 <tr>
 <td><strong>txrefs</strong></td>
