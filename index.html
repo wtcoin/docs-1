@@ -309,6 +309,8 @@ Unless noted otherwise, all samples assume this initializing code:
 <li><a href="#transaction-api">Transaction API:</a> Information about transactions, how to generate/send your own, and how to embed data into the blockchain.</li>
 <li><a href="#microtransaction-api">Microtransaction API:</a> Send on-chain microtransactions while BlockCypher covers your initial mining fees, and low computed fees afterwards.</li>
 <li><a href="#confidence-factor">Confidence Factor:</a> Get an accurate measure of the likelihood of a successful double-spend against your unconfirmed transactions.</li>
+<li><a href="#metadata-api">Metadata API:</a> Store both public and private key-value pairs against addresses, transactions, and blocks.</li>
+<li><a href="#asset-api">Asset API:</a> Create and manage your own assets&mdash;embedded on a public blockchain&mdash;via the Open Assets standard.</li>
 <li><a href="#payment-forwarding">Payment Forwarding:</a> Create one-time addresses that will automatically forward to an address of your choosing, while optionally adding processing fees.</li>
 <li><a href="#events-and-hooks">Events and Hooks:</a> Reliable notifications system for a wide variety of events on blockchains, available through WebHooks or WebSockets.</li>
 </ul>
@@ -5328,12 +5330,12 @@ curl https://api.blockcypher.com/v1/btc/main/wallets/hd/bob/addresses?token<span
 <tr>
 <td><strong>used</strong></td>
 <td><em>bool</em></td>
-<td>Returns only used addresses if set to <em>true</em> and only unused if <em>false</em>.</td>
+<td>Returns only used addresses if set to <em>true</em> and only unused if <em>false</em>. <strong>Only valid on HD wallets.</strong></td>
 </tr>
 <tr>
 <td><strong>zerobalance</strong></td>
 <td><em>bool</em></td>
-<td>Returns only addresses with zero balance if set to <em>true</em> and only addresses with non-zero balance if <em>false</em>.</td>
+<td>Returns only addresses with zero balance if set to <em>true</em> and only addresses with non-zero balance if <em>false</em>. <strong>Only valid on HD wallets.</strong></td>
 </tr>
 </tbody></table>
 
