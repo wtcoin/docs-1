@@ -234,6 +234,8 @@ In these docs you'll find everything you need to leverage BlockCypher for your a
 - [Transaction API:](#transaction-api) Information about transactions, how to generate/send your own, and how to embed data into the blockchain.
 - [Microtransaction API:](#microtransaction-api) Send on-chain microtransactions while BlockCypher covers your initial mining fees, and low computed fees afterwards.
 - [Confidence Factor:](#confidence-factor) Get an accurate measure of the likelihood of a successful double-spend against your unconfirmed transactions.
+- [Metadata API:](#metadata-api) Store both public and private key-value pairs against addresses, transactions, and blocks.
+- [Asset API:](#asset-api) Create and manage your own assets---embedded on a public blockchain---via the Open Assets standard.
 - [Payment Forwarding:](#payment-forwarding) Create one-time addresses that will automatically forward to an address of your choosing, while optionally adding processing fees.
 - [Events and Hooks:](#events-and-hooks) Reliable notifications system for a wide variety of events on blockchains, available through WebHooks or WebSockets.
 

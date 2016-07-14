@@ -839,8 +839,8 @@ Resource | Method | Return Object
 
 Flag | Type | Effect
 ---- | ---- | ------
-**used** | *bool* | Returns only used addresses if set to *true* and only unused if *false*.
-**zerobalance** | *bool* | Returns only addresses with zero balance if set to *true* and only addresses with non-zero balance if *false*.
+**used** | *bool* | Returns only used addresses if set to *true* and only unused if *false*. **Only valid on HD wallets.**
+**zerobalance** | *bool* | Returns only addresses with zero balance if set to *true* and only addresses with non-zero balance if *false*. **Only valid on HD wallets.**
 
 
 This endpoint returns a list of the addresses associated with the $NAME wallet. It returns the addresses in a partially filled out [Wallet](#wallet) which you'll find under the **addresses** attribute. For HD wallets it returns an [HDChain](#hd-chain) object.
