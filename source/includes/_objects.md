@@ -254,6 +254,7 @@ Attribute | Type | Description
 **confirmations** | *integer* | Number of subsequent blocks, including the block the transaction is in. Unconfirmed transactions have 0 confirmations.
 **inputs** | *array[[TXInput](#txinput)]* | [TXInput](#txinput) Array, limited to 20 by default.
 **outputs** | *array[[TXOutput](#txoutput)]* | [TXOutput](#txoutput) Array, limited to 20 by default.
+**opt_in_rbf** | *bool* | ***Optional*** Returns **true** if this transaction has opted in to Replace-By-Fee (RBF), either **true** or not present. You can read more [about Opt-In RBF here.](https://bitcoincore.org/en/faq/optin_rbf/)
 **confidence** | *float* | ***Optional*** The percentage chance this transaction will not be double-spent against, if unconfirmed. For more information, check the section on [Confidence Factor.](#confidence-factor)
 **confirmed** | [*time*](https://tools.ietf.org/html/rfc3339) | ***Optional*** Time at which transaction was included in a block; only present for confirmed transactions.
 **receive_count** | *integer* | ***Optional*** Number of peers that have sent this transaction to BlockCypher; only present for unconfirmed transactions.
