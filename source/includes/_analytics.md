@@ -2,6 +2,12 @@
 
 Blockchains contain a wealth of data, but much of it is inscrutable without arduous effort. Our Analytics API makes uncovering these patterns easy, enabling you to discover insights efficiently and programmatically.
 
+<aside class="warning">
+The Analytics API is in <strong>pre-beta</strong>, and currently only supports Bitcoin Mainnet (/btc/main/analytics). Things may break/it might not be suitable for production applications. 
+</aside>
+
+The publicly accessible Analytics API is a set of preconfigured tools and pipelines built against our flexible analytics backend. It serves as both a useful tool for one-off analysis and a live demonstration for custom implementations. If you're interested in a custom Analytics solution at enterprise scale---or have any ideas for general purpose analytics queries to benefit the community!---please reach out to [analytics@blockcypher.com](mailto:analytics@blockcypher.com).
+
 The API is asynchronous; here's the high level general workflow:
 
 1. Create an analytics job, based on the *engine* types listed below.
@@ -10,9 +16,13 @@ The API is asynchronous; here's the high level general workflow:
 
 Each engine has its own request parameters---listed below---but all are described in detail on the [JobArgs](#jobargs) object page.
 
+<aside class="notice">
+By design, user data is not exposed to our Analytics API. Consequently, you can't query by things like token-specific wallet name, HD wallet name, and user-set metadata; only native blockchain objects are supported.
+</aside>
+
 ## Analytics Engines and Parameters
 
-The following *engines* can power your analytics jobs. The resource below represents the URL you'd POST to [create an analytics job](#create-analytics-job) based on the engine you're interested in using, along with the required and optional [JobsArg](#jobsarg) parameters for searching.
+The following *engines* can power your analytics jobs. The resource below represents the URL you'd POST to [create an analytics job](#create-analytics-job) based on the engine you're interested in using, along with the required and optional [JobArgs](#jobargs) parameters for searching.
 
 ### Paying Addresses
 
@@ -20,8 +30,7 @@ Resource | Required [JobArgs](#jobargs) | Optional [JobArgs](#jobargs)
 -------- | ---------------------------- | ----------------------------
 /analytics/payingaddresses | **address** | **value_threshold** 
 
-Returns the list of addresses (along with their associated transaction hashes) and amounts that have paid the target **address**/subject of your query. Optionally restricted by only returning **value_transfer** (in satoshis) transfers and above.
-
+Returns the list of addresses (along with their associated transaction hashes) and amounts that have paid the target **address**. Optionally restricted by only returning **value_transfer** (in satoshis) transfers and above.
 
 ### Payee Addresses
 
@@ -29,7 +38,7 @@ Resource | Required [JobArgs](#jobargs) | Optional [JobArgs](#jobargs)
 -------- | ---------------------------- | ----------------------------
 /analytics/payeeaddresses | **address** | **value_threshold** 
 
-Returns the list of addresses (along with their associated transaction hashes) and amounts that have been paid by the target **address**/subject of your query. Optionally restricted by only returning **value_transfer** (in satoshis) transfers and above.
+Returns the list of addresses (along with their associated transaction hashes) and amounts that have been paid by the target **address**. Optionally restricted by only returning **value_transfer** (in satoshis) transfers and above.
 
 ### Top Addresses
 
@@ -54,6 +63,14 @@ Resource | Required [JobArgs](#jobargs) | Optional [JobArgs](#jobargs)
 /analytics/addressconnectivity | **address**, **degree** | **limit**
 
 N-**degree** address connectivity query. Currently only examines addresses that generate outputs in the same transaction as the target **address**.
+
+### Source Lookup
+
+Resource | Required [JobArgs](#jobargs) | Optional [JobArgs](#jobargs)
+-------- | ---------------------------- | ----------------------------
+/analytics/sourcelookup | **source** | **start**, **end**, **limit**
+
+Returns transactions relayed by a given **source** (IP address and port) within the given time range denoted by **start** and **end**. Note that the max **limit** is 1000 for this *engine.*
 
 ## Create Analytics Job
 
@@ -109,6 +126,10 @@ Resource | Method | Return Object
 /analytics/job/$TICKET | GET | [Job](#job)
 
 You can check the status of your job with this endpoint, using the **ticket** returned in the [Job object](#job) from [creating an analytics job](#create-analytics-job). If it's **finished**, it will include a **result_path** with the URL you can follow to get your results.
+
+<aside class="notice">
+Depending on the number of analytics jobs in our queue, it may take some time for the job to start. Most jobs won't take more than 10 minutes to run. The status fields <strong>finished,started,</strong> and <strong>result_path</strong> are cleared 24 hours after the job's last update, but the results are kept indefinitely.
+</aside>
 
 ## Get Analytics Job Results
 

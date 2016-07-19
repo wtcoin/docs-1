@@ -869,7 +869,7 @@ Attribute | Type | Description
 }
 ```
 
-A JobArgs represents the query parameters of a particular analytics job, used when [Creating an Analytics Job](#create-analytics-job) and returned within a [Job](#job). Note that the required and optional arguments can change depending on the *engine* you're using; for more specifics check the [Analytics Engine and Parameters](#analytics-engine-and-parameters) section.
+A JobArgs represents the query parameters of a particular analytics job, used when [Creating an Analytics Job](#create-analytics-job) and returned within a [Job](#job). Note that the required and optional arguments can change depending on the *engine* you're using; for more specifics check the [Analytics Engine and Parameters](#analytics-engines-and-parameters) section.
 
 Attribute | Type | Description
 --------- | ---- | -----------
@@ -879,6 +879,7 @@ Attribute | Type | Description
 **start** | [*time*](https://tools.ietf.org/html/rfc3339) | Beginning of time range to query.
 **end** | [*time*](https://tools.ietf.org/html/rfc3339) | End of time range to query.
 **degree** | *int* | Degree of connectiveness to query.
+**source** | *string* | IP address and port, of the form "0.0.0.0:80". Ideally an IP and port combination found from another API lookup (for example, **relayed_by** from the [Transaction Hash Endpoint](#transaction-hash-endpoint))
 
 ## JobResults
 
@@ -907,4 +908,4 @@ Attribute | Type | Description
 **page** | *int* | Current page of results.
 **more** | *bool* | *true* if there are more results in a separate page; *false* otherwise.
 **next_page** | *url* | ***Optional*** URL to get the next page of results; only present if there are more results to show.
-**results** | *array[Objects|strings]* | Results of analytics job; structure of results are dependent on *engine*-type of query.
+**results** | *array[...]* | Results of analytics job; structure of results are dependent on *engine*-type of query, but are generally either *strings* of address hashes or JSON objects.
