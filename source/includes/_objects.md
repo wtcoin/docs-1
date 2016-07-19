@@ -228,11 +228,6 @@ curl https://api.blockcypher.com/v1/btc/main/txs/f854aebae95150b379cc1187d848d58
 }
 ```
 
-```python
-f854aebae95150b379cc1187d848d58225f3c4157fe992bcd166f58bd5063449
-
-```
-
 A TX represents the current state of a particular transaction from either a [Block](#block) within a [Blockchain](#blockchain), or an unconfirmed transaction that has yet to be included in a [Block](#block). Typically returned from the [Unconfirmed Transactions](#unconfirmed-transactions-endpoint) and [Transaction Hash](#transaction-hash) endpoints.
 
 Attribute | Type | Description
@@ -739,7 +734,7 @@ Attribute | Type | Description
 **ver** | *int* | Version of Open Assets Protocol transaction. Typically 1.
 **assetid** | *string* | Unique indentifier associated with this asset; can be used to query other transactions associated with this asset.
 **hash** | *string* | This transaction's unique hash; same as the underlying transaction on the asset's parent blockchain.
-**confirmed** |[*time*](https://tools.ietf.org/html/rfc3339) | ***Optional*** Time this transaction was confirmed; only returned for confirmed transactions.
+**confirmed** | [*time*](https://tools.ietf.org/html/rfc3339) | ***Optional*** Time this transaction was confirmed; only returned for confirmed transactions.
 **received** | [*time*](https://tools.ietf.org/html/rfc3339) | Time this transaction was received.
 **oap_meta** | *string* | ***Optional*** Associated hex-encoded metadata with this transaction, if it exists.
 **double_spend** | *bool* | *true* if this is an attempted double spend; *false* otherwise.
@@ -830,3 +825,86 @@ Attribute | Type | Description
 **input_transaction_hash** | *string* | The transaction hash representing the initial payment to the **input_address**.
 **transaction_hash** | *string* | The transaction hash of the generated transaction that forwards the payment from the **input_address** to the **destination.**
 
+
+## Job
+
+```shell
+{
+	"token": "YOURTOKEN",
+	"analytics_engine": "payeeaddresses",
+	"created_at": "2016-07-11T19:33:35.518605498Z",
+	"completed_at": "2016-07-11T19:35:25.539002964Z",
+	"finished": true,
+	"started": true,
+	"ticket": "50b77697-ff13-4a50-8a2b-cee605bc3000",
+	"result_path": "https://api.blockcypher.com/v1/btc/main/analytics/job/50b77697-ff13-4a50-8a2b-cee605bc3000/results",
+	"args": {
+		"address": "1bones5gF1HJeiexQus6UtvhU4EUD4qfj",
+		"value_threshold": 100000000
+	}
+}
+```
+
+A Job represents an analytics query set up through the [Analytics API](#analytics-api).
+
+Attribute | Type | Description
+--------- | ---- | -----------
+**token** | *string* | The token that created this job.
+**analytics_engine** | *string* | The *engine* used for the job query.
+**created_at** | [*time*](https://tools.ietf.org/html/rfc3339) | The time this job was created.
+**completed_at** | [*time*](https://tools.ietf.org/html/rfc3339) | ***Optional*** When this job was completed; only present on complete jobs.
+**finished** | *bool* | **true** if this job is finished processing, **false** otherwise. 
+**started** | *bool* | **true** if this job has begun processing, **false** otherwise.
+**ticket** | *string* | Unique identifier for this job, used to get job status and results.
+**result_path** | *url* | ***Optional*** URL to query job results; only present on complete jobs.
+**args** | [JobArgs](#jobargs) | Query arguments for this job.
+
+## JobArgs
+
+```shell
+{
+	"address": "1bones5gF1HJeiexQus6UtvhU4EUD4qfj",
+	"degree": 2,
+	"limit": 100
+}
+```
+
+A JobArgs represents the query parameters of a particular analytics job, used when [Creating an Analytics Job](#create-analytics-job) and returned within a [Job](#job). Note that the required and optional arguments can change depending on the *engine* you're using; for more specifics check the [Analytics Engine and Parameters](#analytics-engine-and-parameters) section.
+
+Attribute | Type | Description
+--------- | ---- | -----------
+**address** | *string* | Address hash this job is querying.
+**value_threshold** | *int* | Minimal/threshold value (in satoshis) to query.
+**limit** | *int* | Limit of results to return.
+**start** | [*time*](https://tools.ietf.org/html/rfc3339) | Beginning of time range to query.
+**end** | [*time*](https://tools.ietf.org/html/rfc3339) | End of time range to query.
+**degree** | *int* | Degree of connectiveness to query.
+
+## JobResults
+
+```shell
+{
+	"page": 0,
+	"more": true,
+	"next_page": "https://api.blockcypher.com/v1/btc/main/analytics/job/50b77697-ff13-4a50-8a2b-cee605bc3000/results?page=1",
+	"results": [
+		{
+			"DstAddr": "1changemCPo732F6oYUyhbyGtFcNVjprq",
+			"SrcAddr": "1bones5gF1HJeiexQus6UtvhU4EUD4qfj",
+			"TxHash": "0x3b06b1e9d70217d5e02644703fe79f54355b0ea05cd535787f5a6c627f1c
+			43ef",
+			"Value": 1e+08
+		},
+		....
+	]
+}
+```
+
+A JobResults represents the result of a particular analytics job, returned from [Get Analytics Job Results](#get-analytics-job-results). Note that the **results** field will depend largely on the *engine* used.
+
+Attribute | Type | Description
+--------- | ---- | -----------
+**page** | *int* | Current page of results.
+**more** | *bool* | *true* if there are more results in a separate page; *false* otherwise.
+**next_page** | *url* | ***Optional*** URL to get the next page of results; only present if there are more results to show.
+**results** | *array[Objects|strings]* | Results of analytics job; structure of results are dependent on *engine*-type of query.
