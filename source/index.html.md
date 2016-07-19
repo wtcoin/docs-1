@@ -23,7 +23,7 @@ includes:
   - microtx
   - conf
   - meta
-	- analytics
+  - analytics
   - asset
   - payfwd
   - events
