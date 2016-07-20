@@ -1108,6 +1108,100 @@ Objects sometimes contain <b>attributes</b> that are <b><i>optional.</i></b> The
 </tr>
 </tbody></table>
 
+<h2 id="contract">Contract</h2>
+<pre class="highlight shell"><code><span class="o">{</span>
+<span class="s2">"solidity"</span>: <span class="s2">"contract mortal {</span><span class="se">\n</span><span class="s2">  /* Define variable owner of the type address*/</span><span class="se">\n</span><span class="s2">    address owner;</span><span class="se">\n</span><span class="s2">    /* this function is executed at initialization and sets the owner of the contract */</span><span class="se">\n</span><span class="s2">    function mortal() { owner = msg.sender; }</span><span class="se">\n</span><span class="s2">    /* Function to recover the funds on the contract */</span><span class="se">\n</span><span class="s2">    function kill() { if (msg.sender == owner) suicide(owner); }</span><span class="se">\n</span><span class="s2">}</span><span class="se">\n\n</span><span class="s2">contract greeter is mortal {</span><span class="se">\n</span><span class="s2">    /* define variable greeting of the type string */</span><span class="se">\n</span><span class="s2">    string greeting;</span><span class="se">\n</span><span class="s2">    /* this runs when the contract is executed */</span><span class="se">\n</span><span class="s2">    function greeter(string _greeting) public {</span><span class="se">\n</span><span class="s2">        greeting = _greeting;</span><span class="se">\n</span><span class="s2">    }</span><span class="se">\n</span><span class="s2">    /* main function */</span><span class="se">\n</span><span class="s2">    function greet() constant returns (string) {</span><span class="se">\n</span><span class="s2">        return greeting;</span><span class="se">\n</span><span class="s2">    }</span><span class="se">\n</span><span class="s2">}"</span>,
+<span class="s2">"params"</span>: <span class="o">[</span><span class="s2">"Hello BlockCypher Test"</span><span class="o">]</span>,
+<span class="s2">"publish"</span>: <span class="o">[</span><span class="s2">"greeter"</span><span class="o">]</span>,
+<span class="s2">"private"</span>: <span class="s2">"3ca40..."</span>,
+<span class="s2">"gas_amount"</span>: 500000
+<span class="o">}</span>
+
+<span class="o">{</span>
+<span class="s2">"name"</span>: <span class="s2">"greeter"</span>,
+<span class="s2">"solidity"</span>: <span class="s2">"contract mortal {</span><span class="se">\n</span><span class="s2">  /* Define variable owner of the type address*/</span><span class="se">\n</span><span class="s2">    address owner;</span><span class="se">\n</span><span class="s2">    /* this function is executed at initialization and sets the owner of the contract */</span><span class="se">\n</span><span class="s2">    function mortal() { owner = msg.sender; }</span><span class="se">\n</span><span class="s2">    /* Function to recover the funds on the contract */</span><span class="se">\n</span><span class="s2">    function kill() { if (msg.sender == owner) suicide(owner); }</span><span class="se">\n</span><span class="s2">}</span><span class="se">\n\n</span><span class="s2">contract greeter is mortal {</span><span class="se">\n</span><span class="s2">    /* define variable greeting of the type string */</span><span class="se">\n</span><span class="s2">    string greeting;</span><span class="se">\n</span><span class="s2">    /* this runs when the contract is executed */</span><span class="se">\n</span><span class="s2">    function greeter(string _greeting) public {</span><span class="se">\n</span><span class="s2">        greeting = _greeting;</span><span class="se">\n</span><span class="s2">    }</span><span class="se">\n</span><span class="s2">    /* main function */</span><span class="se">\n</span><span class="s2">    function greet() constant returns (string) {</span><span class="se">\n</span><span class="s2">        return greeting;</span><span class="se">\n</span><span class="s2">    }</span><span class="se">\n</span><span class="s2">}"</span>,
+<span class="s2">"bin"</span>: <span class="s2">"606060405260405161023e38038061023e8339810160405280510160008054600160a060020a031916331790558060016000509080519060200190828054600181600116156101000203166002900490600052602060002090601f016020900481019282601f10609f57805160ff19168380011785555b50608e9291505b8082111560cc57600081558301607d565b50505061016e806100d06000396000f35b828001600101855582156076579182015b82811115607657825182600050559160200191906001019060b0565b509056606060405260e060020a600035046341c0e1b58114610026578063cfae321714610068575b005b6100246000543373ffffffffffffffffffffffffffffffffffffffff908116911614156101375760005473ffffffffffffffffffffffffffffffffffffffff16ff5b6100c9600060609081526001805460a06020601f6002600019610100868816150201909416939093049283018190040281016040526080828152929190828280156101645780601f1061013957610100808354040283529160200191610164565b60405180806020018281038252838181518152602001915080519060200190808383829060006004602084601f0104600f02600301f150905090810190601f1680156101295780820380516001836020036101000a031916815260200191505b509250505060405180910390f35b565b820191906000526020600020905b81548152906001019060200180831161014757829003601f168201915b505050505090509056"</span>,
+<span class="s2">"abi"</span>: <span class="o">[</span>...],
+<span class="s2">"gas_amount"</span>: 500000,
+<span class="s2">"creation_tx_hash"</span>: <span class="s2">"61474003e56d67aba6bf148c5ec361e3a3c1ceea37fe3ace7d87759b399292f9"</span>,
+<span class="s2">"address"</span>: <span class="s2">"0eb688e79698d645df015cf2e9db5a6fe16357f1"</span>,
+<span class="s2">"params"</span>: <span class="o">[</span>
+    <span class="s2">"Hello BlockCypher Test"</span>
+<span class="o">]</span>
+<span class="o">}</span>
+</code></pre>
+
+<p>A Contract represents an embedded contract on the Ethereum blockchain, and is used with both creating and executing contracts in our <a href="#contract-api">Contract API</a>. All the fields below are generally <strong><em>optional</em></strong>, but may be required depending on the particular contract endpoint you&rsquo;re using.</p>
+
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>solidity</strong></td>
+<td><em>string</em></td>
+<td>Solidity code of this contract; required when creating a contract. In responses, only returned with contracts initially compiled by BlockCypher.</td>
+</tr>
+<tr>
+<td><strong>params</strong></td>
+<td>Array[<em>string</em>]</td>
+<td>Parameters for either contract creation or method execution.</td>
+</tr>
+<tr>
+<td><strong>publish</strong></td>
+<td>Array[<em>string</em>]</td>
+<td>Named contract(s) to publish; necessary to specify when first <a href="#create-contract-endpoint">creating a contract</a>.</td>
+</tr>
+<tr>
+<td><strong>private</strong></td>
+<td><em>string</em></td>
+<td>Private key associated with a funded Ethereum external account used to publish a contract or execute a method.</td>
+</tr>
+<tr>
+<td><strong>gas_amount</strong></td>
+<td><em>int</em></td>
+<td>Amount of gas to use in contract creation or method execution.</td>
+</tr>
+<tr>
+<td><strong>name</strong></td>
+<td><em>string</em></td>
+<td>Name of contract as published.</td>
+</tr>
+<tr>
+<td><strong>bin</strong></td>
+<td><em>string</em></td>
+<td>Hex-encoded binary compilation of this contract.</td>
+</tr>
+<tr>
+<td><strong>abi</strong></td>
+<td><em><a href="https://github.com/ethereum/wiki/wiki/Ethereum-Contract-ABI">ABI</a></em></td>
+<td>JSON-encoded ABI. Only returned with contracts initially compiled by BlockCypher.</td>
+</tr>
+<tr>
+<td><strong>address</strong></td>
+<td><em>string</em></td>
+<td>Hex-encoded address of this contract.</td>
+</tr>
+<tr>
+<td><strong>created</strong></td>
+<td><em><a href="https://tools.ietf.org/html/rfc3339">time</a></em></td>
+<td>Timestamp when this contract was confirmed in the Ethereum blockchain.</td>
+</tr>
+<tr>
+<td><strong>creation_tx_hash</strong></td>
+<td><em>string</em></td>
+<td>Hex-encoded transaction hash that created this contract.</td>
+</tr>
+<tr>
+<td><strong>results</strong></td>
+<td>Array[<em>string</em>]</td>
+<td>If this is a response from a <a href="#call-contract-method-endpoint">calling a contract method</a>, this array of results may appear if the method returns any.</td>
+</tr>
+</tbody></table>
+
 <h2 id="event">Event</h2>
 <pre class="highlight shell"><code>curl -s https://api.blockcypher.com/v1/eth/main/hooks/ce83d08f-7b86-4a6a-9b41-85507648f9c7?token<span class="o">=</span>YOURTOKEN
 <span class="o">{</span>
@@ -2018,6 +2112,326 @@ curl -sd <span class="s1">'{"tx": {...}, "tosign": [ "a83f5bea598e0d217a03a2646d
 <p><code class="prettyprint">f86b808504e3b2920082520894add42af7dd58b27e1e6ca5c4fdc01214b52d382f870bdccd84e7b000801ba0b86360f1c2d2b38421a80e71bf4cf54371bc9aa62f81c925484c6557b44b13f1a07b5690150c10a3947225fb612162c90ccfaefde99f7d363a8013e3eead0e55dd</code></p>
 
 <p>If it succeeds, you&rsquo;ll receive a decoded <a href="#tx">TX</a> object and an HTTP Status Code 201. You can then use the <strong>hash</strong> to track its progress on the network.</p>
+
+          <h1 id="contract-api">Contract API</h1>
+
+<p>Compared to other blockchains, contracts lie at the heart of Ethereum&rsquo;s unique value proposition. Contracts can be expressively programmed in languages like <a href="https://solidity.readthedocs.io/en/latest/">Solidity</a>; if you&rsquo;re not familiar with Ethereum&rsquo;s contract language you should definitely start there.</p>
+
+<aside class="warning">
+With great power comes great responsibility; in other words, it&rsquo;s easier to shoot yourself in the foot with Ethereum. Don&rsquo;t <a href="https://en.wikipedia.org/wiki/Decentralized_autonomous_organization#Security">The DAO it.</a> Follow best <a href="https://github.com/ethereum/wiki/wiki/Safety">security and safety practices</a> when coding your smart contracts.
+</aside>
+
+<p>We offer a number of API endpoints that significantly simplify contract creation and method calling. Via the methods below, you can embed new contracts into the Ethereum blockchain, check their contents, and initiate contract methods and execution.</p>
+
+<h2 id="create-contract-endpoint">Create Contract Endpoint</h2>
+<pre class="highlight shell"><code><span class="c"># Check solidity compilation via non-published test</span>
+<span class="c"># Using "greeter" contract solidity example, the "hello world" of Ethereum</span>
+cat testGreeter.json
+<span class="o">{</span>
+  <span class="s2">"solidity"</span>: <span class="s2">"contract mortal {</span><span class="se">\n</span><span class="s2">  /* Define variable owner of the type address*/</span><span class="se">\n</span><span class="s2">    address owner;</span><span class="se">\n</span><span class="s2">    /* this function is executed at initialization and sets the owner of the contract */</span><span class="se">\n</span><span class="s2">    function mortal() { owner = msg.sender; }</span><span class="se">\n</span><span class="s2">    /* Function to recover the funds on the contract */</span><span class="se">\n</span><span class="s2">    function kill() { if (msg.sender == owner) suicide(owner); }</span><span class="se">\n</span><span class="s2">}</span><span class="se">\n\n</span><span class="s2">contract greeter is mortal {</span><span class="se">\n</span><span class="s2">    /* define variable greeting of the type string */</span><span class="se">\n</span><span class="s2">    string greeting;</span><span class="se">\n</span><span class="s2">    /* this runs when the contract is executed */</span><span class="se">\n</span><span class="s2">    function greeter(string _greeting) public {</span><span class="se">\n</span><span class="s2">        greeting = _greeting;</span><span class="se">\n</span><span class="s2">    }</span><span class="se">\n</span><span class="s2">    /* main function */</span><span class="se">\n</span><span class="s2">    function greet() constant returns (string) {</span><span class="se">\n</span><span class="s2">        return greeting;</span><span class="se">\n</span><span class="s2">    }</span><span class="se">\n</span><span class="s2">}"</span>,
+  <span class="s2">"params"</span>: <span class="o">[</span><span class="s2">"Hello BlockCypher Test"</span><span class="o">]</span>
+<span class="o">}</span>
+curl -sd @testGreeter.json https://api.blockcypher.com/v1/eth/main/contracts?token<span class="o">=</span>YOURTOKEN
+<span class="o">[</span>
+  <span class="o">{</span>
+    <span class="s2">"name"</span>: <span class="s2">"greeter"</span>,
+    <span class="s2">"solidity"</span>: <span class="s2">"contract mortal {</span><span class="se">\n</span><span class="s2">  /* Define variable owner of the type address*/</span><span class="se">\n</span><span class="s2">    address owner;</span><span class="se">\n</span><span class="s2">    /* this function is executed at initialization and sets the owner of the contract */</span><span class="se">\n</span><span class="s2">    function mortal() { owner = msg.sender; }</span><span class="se">\n</span><span class="s2">    /* Function to recover the funds on the contract */</span><span class="se">\n</span><span class="s2">    function kill() { if (msg.sender == owner) suicide(owner); }</span><span class="se">\n</span><span class="s2">}</span><span class="se">\n\n</span><span class="s2">contract greeter is mortal {</span><span class="se">\n</span><span class="s2">    /* define variable greeting of the type string */</span><span class="se">\n</span><span class="s2">    string greeting;</span><span class="se">\n</span><span class="s2">    /* this runs when the contract is executed */</span><span class="se">\n</span><span class="s2">    function greeter(string _greeting) public {</span><span class="se">\n</span><span class="s2">        greeting = _greeting;</span><span class="se">\n</span><span class="s2">    }</span><span class="se">\n</span><span class="s2">    /* main function */</span><span class="se">\n</span><span class="s2">    function greet() constant returns (string) {</span><span class="se">\n</span><span class="s2">        return greeting;</span><span class="se">\n</span><span class="s2">    }</span><span class="se">\n</span><span class="s2">}"</span>,
+    <span class="s2">"bin"</span>: <span class="s2">"606060405260405161023e38038061023e8339810160405280510160008054600160a060020a031916331790558060016000509080519060200190828054600181600116156101000203166002900490600052602060002090601f016020900481019282601f10609f57805160ff19168380011785555b50608e9291505b8082111560cc57600081558301607d565b50505061016e806100d06000396000f35b828001600101855582156076579182015b82811115607657825182600050559160200191906001019060b0565b509056606060405260e060020a600035046341c0e1b58114610026578063cfae321714610068575b005b6100246000543373ffffffffffffffffffffffffffffffffffffffff908116911614156101375760005473ffffffffffffffffffffffffffffffffffffffff16ff5b6100c9600060609081526001805460a06020601f6002600019610100868816150201909416939093049283018190040281016040526080828152929190828280156101645780601f1061013957610100808354040283529160200191610164565b60405180806020018281038252838181518152602001915080519060200190808383829060006004602084601f0104600f02600301f150905090810190601f1680156101295780820380516001836020036101000a031916815260200191505b509250505060405180910390f35b565b820191906000526020600020905b81548152906001019060200180831161014757829003601f168201915b505050505090509056"</span>,
+    <span class="s2">"abi"</span>: <span class="o">[</span>
+      <span class="o">{</span>
+        <span class="s2">"constant"</span>: <span class="nb">false</span>,
+        <span class="s2">"inputs"</span>: <span class="o">[]</span>,
+        <span class="s2">"name"</span>: <span class="s2">"kill"</span>,
+        <span class="s2">"outputs"</span>: <span class="o">[]</span>,
+        <span class="s2">"type"</span>: <span class="s2">"function"</span>
+      <span class="o">}</span>,
+      <span class="o">{</span>
+        <span class="s2">"constant"</span>: <span class="nb">true</span>,
+        <span class="s2">"inputs"</span>: <span class="o">[]</span>,
+        <span class="s2">"name"</span>: <span class="s2">"greet"</span>,
+        <span class="s2">"outputs"</span>: <span class="o">[</span>
+          <span class="o">{</span>
+            <span class="s2">"name"</span>: <span class="s2">""</span>,
+            <span class="s2">"type"</span>: <span class="s2">"string"</span>
+          <span class="o">}</span>
+        <span class="o">]</span>,
+        <span class="s2">"type"</span>: <span class="s2">"function"</span>
+      <span class="o">}</span>,
+      <span class="o">{</span>
+        <span class="s2">"inputs"</span>: <span class="o">[</span>
+          <span class="o">{</span>
+            <span class="s2">"name"</span>: <span class="s2">"_greeting"</span>,
+            <span class="s2">"type"</span>: <span class="s2">"string"</span>
+          <span class="o">}</span>
+        <span class="o">]</span>,
+        <span class="s2">"type"</span>: <span class="s2">"constructor"</span>
+      <span class="o">}</span>
+    <span class="o">]</span>,
+    <span class="s2">"params"</span>: <span class="o">[</span>
+      <span class="s2">"Hello BlockCypher Test"</span>
+    <span class="o">]</span>
+  <span class="o">}</span>,
+  <span class="o">{</span>
+    <span class="s2">"name"</span>: <span class="s2">"mortal"</span>,
+    <span class="s2">"solidity"</span>: <span class="s2">"contract mortal {</span><span class="se">\n</span><span class="s2">  /* Define variable owner of the type address*/</span><span class="se">\n</span><span class="s2">    address owner;</span><span class="se">\n</span><span class="s2">    /* this function is executed at initialization and sets the owner of the contract */</span><span class="se">\n</span><span class="s2">    function mortal() { owner = msg.sender; }</span><span class="se">\n</span><span class="s2">    /* Function to recover the funds on the contract */</span><span class="se">\n</span><span class="s2">    function kill() { if (msg.sender == owner) suicide(owner); }</span><span class="se">\n</span><span class="s2">}</span><span class="se">\n\n</span><span class="s2">contract greeter is mortal {</span><span class="se">\n</span><span class="s2">    /* define variable greeting of the type string */</span><span class="se">\n</span><span class="s2">    string greeting;</span><span class="se">\n</span><span class="s2">    /* this runs when the contract is executed */</span><span class="se">\n</span><span class="s2">    function greeter(string _greeting) public {</span><span class="se">\n</span><span class="s2">        greeting = _greeting;</span><span class="se">\n</span><span class="s2">    }</span><span class="se">\n</span><span class="s2">    /* main function */</span><span class="se">\n</span><span class="s2">    function greet() constant returns (string) {</span><span class="se">\n</span><span class="s2">        return greeting;</span><span class="se">\n</span><span class="s2">    }</span><span class="se">\n</span><span class="s2">}"</span>,
+    <span class="s2">"bin"</span>: <span class="s2">"606060405260008054600160a060020a03191633179055605c8060226000396000f3606060405260e060020a600035046341c0e1b58114601a575b005b60186000543373ffffffffffffffffffffffffffffffffffffffff90811691161415605a5760005473ffffffffffffffffffffffffffffffffffffffff16ff5b56"</span>,
+    <span class="s2">"abi"</span>: <span class="o">[</span>
+      <span class="o">{</span>
+        <span class="s2">"constant"</span>: <span class="nb">false</span>,
+        <span class="s2">"inputs"</span>: <span class="o">[]</span>,
+        <span class="s2">"name"</span>: <span class="s2">"kill"</span>,
+        <span class="s2">"outputs"</span>: <span class="o">[]</span>,
+        <span class="s2">"type"</span>: <span class="s2">"function"</span>
+      <span class="o">}</span>,
+      <span class="o">{</span>
+        <span class="s2">"inputs"</span>: <span class="o">[]</span>,
+        <span class="s2">"type"</span>: <span class="s2">"constructor"</span>
+      <span class="o">}</span>
+    <span class="o">]</span>,
+    <span class="s2">"params"</span>: <span class="o">[</span>
+      <span class="s2">"Hello BlockCypher Test"</span>
+    <span class="o">]</span>
+  <span class="o">}</span>
+<span class="o">]</span>
+
+<span class="c"># Now publish the greeter contract </span>
+cat publishGreeter.json
+<span class="o">{</span>
+  <span class="s2">"solidity"</span>: <span class="s2">"contract mortal {</span><span class="se">\n</span><span class="s2">  /* Define variable owner of the type address*/</span><span class="se">\n</span><span class="s2">    address owner;</span><span class="se">\n</span><span class="s2">    /* this function is executed at initialization and sets the owner of the contract */</span><span class="se">\n</span><span class="s2">    function mortal() { owner = msg.sender; }</span><span class="se">\n</span><span class="s2">    /* Function to recover the funds on the contract */</span><span class="se">\n</span><span class="s2">    function kill() { if (msg.sender == owner) suicide(owner); }</span><span class="se">\n</span><span class="s2">}</span><span class="se">\n\n</span><span class="s2">contract greeter is mortal {</span><span class="se">\n</span><span class="s2">    /* define variable greeting of the type string */</span><span class="se">\n</span><span class="s2">    string greeting;</span><span class="se">\n</span><span class="s2">    /* this runs when the contract is executed */</span><span class="se">\n</span><span class="s2">    function greeter(string _greeting) public {</span><span class="se">\n</span><span class="s2">        greeting = _greeting;</span><span class="se">\n</span><span class="s2">    }</span><span class="se">\n</span><span class="s2">    /* main function */</span><span class="se">\n</span><span class="s2">    function greet() constant returns (string) {</span><span class="se">\n</span><span class="s2">        return greeting;</span><span class="se">\n</span><span class="s2">    }</span><span class="se">\n</span><span class="s2">}"</span>,
+  <span class="s2">"params"</span>: <span class="o">[</span><span class="s2">"Hello BlockCypher Test"</span><span class="o">]</span>,
+  <span class="s2">"publish"</span>: <span class="o">[</span><span class="s2">"greeter"</span><span class="o">]</span>,
+  <span class="s2">"private"</span>: <span class="s2">"3ca40..."</span>,
+  <span class="s2">"gas_amount"</span>: 500000
+<span class="o">}</span>
+curl -d @publishGreeter.json https://api.blockcypher.com/v1/eth/main/contracts?token<span class="o">=</span>YOURTOKEN
+<span class="o">[</span>
+  <span class="o">{</span>
+    <span class="s2">"name"</span>: <span class="s2">"greeter"</span>,
+    <span class="s2">"solidity"</span>: <span class="s2">"contract mortal {</span><span class="se">\n</span><span class="s2">  /* Define variable owner of the type address*/</span><span class="se">\n</span><span class="s2">    address owner;</span><span class="se">\n</span><span class="s2">    /* this function is executed at initialization and sets the owner of the contract */</span><span class="se">\n</span><span class="s2">    function mortal() { owner = msg.sender; }</span><span class="se">\n</span><span class="s2">    /* Function to recover the funds on the contract */</span><span class="se">\n</span><span class="s2">    function kill() { if (msg.sender == owner) suicide(owner); }</span><span class="se">\n</span><span class="s2">}</span><span class="se">\n\n</span><span class="s2">contract greeter is mortal {</span><span class="se">\n</span><span class="s2">    /* define variable greeting of the type string */</span><span class="se">\n</span><span class="s2">    string greeting;</span><span class="se">\n</span><span class="s2">    /* this runs when the contract is executed */</span><span class="se">\n</span><span class="s2">    function greeter(string _greeting) public {</span><span class="se">\n</span><span class="s2">        greeting = _greeting;</span><span class="se">\n</span><span class="s2">    }</span><span class="se">\n</span><span class="s2">    /* main function */</span><span class="se">\n</span><span class="s2">    function greet() constant returns (string) {</span><span class="se">\n</span><span class="s2">        return greeting;</span><span class="se">\n</span><span class="s2">    }</span><span class="se">\n</span><span class="s2">}"</span>,
+    <span class="s2">"bin"</span>: <span class="s2">"606060405260405161023e38038061023e8339810160405280510160008054600160a060020a031916331790558060016000509080519060200190828054600181600116156101000203166002900490600052602060002090601f016020900481019282601f10609f57805160ff19168380011785555b50608e9291505b8082111560cc57600081558301607d565b50505061016e806100d06000396000f35b828001600101855582156076579182015b82811115607657825182600050559160200191906001019060b0565b509056606060405260e060020a600035046341c0e1b58114610026578063cfae321714610068575b005b6100246000543373ffffffffffffffffffffffffffffffffffffffff908116911614156101375760005473ffffffffffffffffffffffffffffffffffffffff16ff5b6100c9600060609081526001805460a06020601f6002600019610100868816150201909416939093049283018190040281016040526080828152929190828280156101645780601f1061013957610100808354040283529160200191610164565b60405180806020018281038252838181518152602001915080519060200190808383829060006004602084601f0104600f02600301f150905090810190601f1680156101295780820380516001836020036101000a031916815260200191505b509250505060405180910390f35b565b820191906000526020600020905b81548152906001019060200180831161014757829003601f168201915b505050505090509056"</span>,
+    <span class="s2">"abi"</span>: <span class="o">[</span>
+      <span class="o">{</span>
+        <span class="s2">"constant"</span>: <span class="nb">false</span>,
+        <span class="s2">"inputs"</span>: <span class="o">[]</span>,
+        <span class="s2">"name"</span>: <span class="s2">"kill"</span>,
+        <span class="s2">"outputs"</span>: <span class="o">[]</span>,
+        <span class="s2">"type"</span>: <span class="s2">"function"</span>
+      <span class="o">}</span>,
+      <span class="o">{</span>
+        <span class="s2">"constant"</span>: <span class="nb">true</span>,
+        <span class="s2">"inputs"</span>: <span class="o">[]</span>,
+        <span class="s2">"name"</span>: <span class="s2">"greet"</span>,
+        <span class="s2">"outputs"</span>: <span class="o">[</span>
+          <span class="o">{</span>
+            <span class="s2">"name"</span>: <span class="s2">""</span>,
+            <span class="s2">"type"</span>: <span class="s2">"string"</span>
+          <span class="o">}</span>
+        <span class="o">]</span>,
+        <span class="s2">"type"</span>: <span class="s2">"function"</span>
+      <span class="o">}</span>,
+      <span class="o">{</span>
+        <span class="s2">"inputs"</span>: <span class="o">[</span>
+          <span class="o">{</span>
+            <span class="s2">"name"</span>: <span class="s2">"_greeting"</span>,
+            <span class="s2">"type"</span>: <span class="s2">"string"</span>
+          <span class="o">}</span>
+        <span class="o">]</span>,
+        <span class="s2">"type"</span>: <span class="s2">"constructor"</span>
+      <span class="o">}</span>
+    <span class="o">]</span>,
+    <span class="s2">"gas_amount"</span>: 500000,
+    <span class="s2">"creation_tx_hash"</span>: <span class="s2">"61474003e56d67aba6bf148c5ec361e3a3c1ceea37fe3ace7d87759b399292f9"</span>,
+    <span class="s2">"address"</span>: <span class="s2">"0eb688e79698d645df015cf2e9db5a6fe16357f1"</span>,
+    <span class="s2">"params"</span>: <span class="o">[</span>
+      <span class="s2">"Hello BlockCypher Test"</span>
+    <span class="o">]</span>
+  <span class="o">}</span>,
+  <span class="o">{</span>
+    <span class="s2">"name"</span>: <span class="s2">"mortal"</span>,
+    <span class="s2">"solidity"</span>: <span class="s2">"contract mortal {</span><span class="se">\n</span><span class="s2">  /* Define variable owner of the type address*/</span><span class="se">\n</span><span class="s2">    address owner;</span><span class="se">\n</span><span class="s2">    /* this function is executed at initialization and sets the owner of the contract */</span><span class="se">\n</span><span class="s2">    function mortal() { owner = msg.sender; }</span><span class="se">\n</span><span class="s2">    /* Function to recover the funds on the contract */</span><span class="se">\n</span><span class="s2">    function kill() { if (msg.sender == owner) suicide(owner); }</span><span class="se">\n</span><span class="s2">}</span><span class="se">\n\n</span><span class="s2">contract greeter is mortal {</span><span class="se">\n</span><span class="s2">    /* define variable greeting of the type string */</span><span class="se">\n</span><span class="s2">    string greeting;</span><span class="se">\n</span><span class="s2">    /* this runs when the contract is executed */</span><span class="se">\n</span><span class="s2">    function greeter(string _greeting) public {</span><span class="se">\n</span><span class="s2">        greeting = _greeting;</span><span class="se">\n</span><span class="s2">    }</span><span class="se">\n</span><span class="s2">    /* main function */</span><span class="se">\n</span><span class="s2">    function greet() constant returns (string) {</span><span class="se">\n</span><span class="s2">        return greeting;</span><span class="se">\n</span><span class="s2">    }</span><span class="se">\n</span><span class="s2">}"</span>,
+    <span class="s2">"bin"</span>: <span class="s2">"606060405260008054600160a060020a03191633179055605c8060226000396000f3606060405260e060020a600035046341c0e1b58114601a575b005b60186000543373ffffffffffffffffffffffffffffffffffffffff90811691161415605a5760005473ffffffffffffffffffffffffffffffffffffffff16ff5b56"</span>,
+    <span class="s2">"abi"</span>: <span class="o">[</span>
+      <span class="o">{</span>
+        <span class="s2">"constant"</span>: <span class="nb">false</span>,
+        <span class="s2">"inputs"</span>: <span class="o">[]</span>,
+        <span class="s2">"name"</span>: <span class="s2">"kill"</span>,
+        <span class="s2">"outputs"</span>: <span class="o">[]</span>,
+        <span class="s2">"type"</span>: <span class="s2">"function"</span>
+      <span class="o">}</span>,
+      <span class="o">{</span>
+        <span class="s2">"inputs"</span>: <span class="o">[]</span>,
+        <span class="s2">"type"</span>: <span class="s2">"constructor"</span>
+      <span class="o">}</span>
+    <span class="o">]</span>,
+    <span class="s2">"gas_amount"</span>: 500000,
+    <span class="s2">"params"</span>: <span class="o">[</span>
+      <span class="s2">"Hello BlockCypher Test"</span>
+    <span class="o">]</span>
+  <span class="o">}</span>
+<span class="o">]</span>
+
+<span class="c"># you can check the creation_tx_hash to see that the contract was published</span>
+curl -s https://api.blockcypher.com/v1/eth/main/txs/61474003e56d67aba6bf148c5ec361e3a3c1ceea37fe3ace7d87759b399292f9
+<span class="o">{</span>
+  <span class="s2">"block_hash"</span>: <span class="s2">"fcd88715c95e6082612ab673ae3053d8bbfc51ca0b00aa82974ea4d139010015"</span>,
+  <span class="s2">"block_height"</span>: 1917071,
+  <span class="s2">"block_index"</span>: 0,
+  <span class="s2">"hash"</span>: <span class="s2">"61474003e56d67aba6bf148c5ec361e3a3c1ceea37fe3ace7d87759b399292f9"</span>,
+  <span class="s2">"addresses"</span>: <span class="o">[</span>
+    <span class="s2">"e2d7871ca37379ea18d259cdf3592fe032183d94"</span>
+  <span class="o">]</span>,
+  <span class="s2">"total"</span>: 0,
+  <span class="s2">"fees"</span>: 8448706000000000,
+  <span class="s2">"size"</span>: 756,
+  <span class="s2">"gas_used"</span>: 206066,
+  <span class="s2">"gas_price"</span>: 41000000000,
+  <span class="s2">"contract_creation"</span>: <span class="nb">true</span>,
+  <span class="s2">"relayed_by"</span>: <span class="s2">""</span>,
+  <span class="s2">"confirmed"</span>: <span class="s2">"2016-07-20T01:54:50Z"</span>,
+  <span class="s2">"received"</span>: <span class="s2">"2016-07-20T01:54:50Z"</span>,
+  <span class="s2">"ver"</span>: 0,
+  <span class="s2">"double_spend"</span>: <span class="nb">false</span>,
+  <span class="s2">"vin_sz"</span>: 1,
+  <span class="s2">"vout_sz"</span>: 1,
+  <span class="s2">"confirmations"</span>: 5,
+  <span class="s2">"confidence"</span>: 1,
+  <span class="s2">"inputs"</span>: <span class="o">[</span>
+    <span class="o">{</span>
+      <span class="s2">"sequence"</span>: 7,
+      <span class="s2">"addresses"</span>: <span class="o">[</span>
+        <span class="s2">"e2d7871ca37379ea18d259cdf3592fe032183d94"</span>
+      <span class="o">]</span>
+    <span class="o">}</span>
+  <span class="o">]</span>,
+  <span class="s2">"outputs"</span>: <span class="o">[</span>
+    <span class="o">{</span>
+      <span class="s2">"value"</span>: 0,
+      <span class="s2">"script"</span>: <span class="s2">"606060405260405161023e38038061023e8339810160405280510160008054600160a060020a031916331790558060016000509080519060200190828054600181600116156101000203166002900490600052602060002090601f016020900481019282601f10609f57805160ff19168380011785555b50608e9291505b8082111560cc57600081558301607d565b50505061016e806100d06000396000f35b828001600101855582156076579182015b82811115607657825182600050559160200191906001019060b0565b509056606060405260e060020a600035046341c0e1b58114610026578063cfae321714610068575b005b6100246000543373ffffffffffffffffffffffffffffffffffffffff908116911614156101375760005473ffffffffffffffffffffffffffffffffffffffff16ff5b6100c9600060609081526001805460a06020601f6002600019610100868816150201909416939093049283018190040281016040526080828152929190828280156101645780601f1061013957610100808354040283529160200191610164565b60405180806020018281038252838181518152602001915080519060200190808383829060006004602084601f0104600f02600301f150905090810190601f1680156101295780820380516001836020036101000a031916815260200191505b509250505060405180910390f35b565b820191906000526020600020905b81548152906001019060200180831161014757829003601f168201915b5050505050905090560000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000001648656c6c6f20426c6f636b437970686572205465737400000000000000000000"</span>,
+      <span class="s2">"addresses"</span>: <span class="o">[</span>
+        <span class="s2">"0eb688e79698d645df015cf2e9db5a6fe16357f1"</span>
+      <span class="o">]</span>
+    <span class="o">}</span>
+  <span class="o">]</span>
+<span class="o">}</span>
+</code></pre>
+
+<p>The Create Contract Endpoint allows you to submit your <strong>solidity</strong> code and <strong>params</strong> to check raw serialized binary compilation and <a href="https://github.com/ethereum/wiki/wiki/Ethereum-Contract-ABI">ABI</a>.</p>
+
+<p>If you include a <strong>private</strong> key (associated with a funded Ethereum external account), <strong>gas_amount</strong>, and contract(s) to <strong>publish</strong>, BlockCypher will embed the contract into the blockchain and return the transaction hash that created the contract and the contract address.</p>
+
+<table><thead>
+<tr>
+<th>Resource</th>
+<th>Method</th>
+<th>Request Object</th>
+<th>Return Object</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>/contracts</td>
+<td>POST</td>
+<td><a href="#contract">Contract</a></td>
+<td>Array[<a href="#contract">Contract</a>]</td>
+</tr>
+</tbody></table>
+
+<h2 id="get-contract-address-endpoint">Get Contract Address Endpoint</h2>
+<pre class="highlight shell"><code>
+<span class="c"># and/or, check the contract address. if it was created by blockcypher, we'll return the code and ABI as well.</span>
+curl -s https://api.blockcypher.com/v1/eth/main/contracts/0eb688e79698d645df015cf2e9db5a6fe16357f1?token<span class="o">=</span>YOURTOKEN
+<span class="o">{</span>
+  <span class="s2">"solidity"</span>: <span class="s2">"contract mortal {</span><span class="se">\n</span><span class="s2">  /* Define variable owner of the type address*/</span><span class="se">\n</span><span class="s2">    address owner;</span><span class="se">\n</span><span class="s2">    /* this function is executed at initialization and sets the owner of the contract */</span><span class="se">\n</span><span class="s2">    function mortal() { owner = msg.sender; }</span><span class="se">\n</span><span class="s2">    /* Function to recover the funds on the contract */</span><span class="se">\n</span><span class="s2">    function kill() { if (msg.sender == owner) suicide(owner); }</span><span class="se">\n</span><span class="s2">}</span><span class="se">\n\n</span><span class="s2">contract greeter is mortal {</span><span class="se">\n</span><span class="s2">    /* define variable greeting of the type string */</span><span class="se">\n</span><span class="s2">    string greeting;</span><span class="se">\n</span><span class="s2">    /* this runs when the contract is executed */</span><span class="se">\n</span><span class="s2">    function greeter(string _greeting) public {</span><span class="se">\n</span><span class="s2">        greeting = _greeting;</span><span class="se">\n</span><span class="s2">    }</span><span class="se">\n</span><span class="s2">    /* main function */</span><span class="se">\n</span><span class="s2">    function greet() constant returns (string) {</span><span class="se">\n</span><span class="s2">        return greeting;</span><span class="se">\n</span><span class="s2">    }</span><span class="se">\n</span><span class="s2">}"</span>,
+  <span class="s2">"bin"</span>: <span class="s2">"606060405260405161023e38038061023e8339810160405280510160008054600160a060020a031916331790558060016000509080519060200190828054600181600116156101000203166002900490600052602060002090601f016020900481019282601f10609f57805160ff19168380011785555b50608e9291505b8082111560cc57600081558301607d565b50505061016e806100d06000396000f35b828001600101855582156076579182015b82811115607657825182600050559160200191906001019060b0565b509056606060405260e060020a600035046341c0e1b58114610026578063cfae321714610068575b005b6100246000543373ffffffffffffffffffffffffffffffffffffffff908116911614156101375760005473ffffffffffffffffffffffffffffffffffffffff16ff5b6100c9600060609081526001805460a06020601f6002600019610100868816150201909416939093049283018190040281016040526080828152929190828280156101645780601f1061013957610100808354040283529160200191610164565b60405180806020018281038252838181518152602001915080519060200190808383829060006004602084601f0104600f02600301f150905090810190601f1680156101295780820380516001836020036101000a031916815260200191505b509250505060405180910390f35b565b820191906000526020600020905b81548152906001019060200180831161014757829003601f168201915b5050505050905090560000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000001648656c6c6f20426c6f636b437970686572205465737400000000000000000000"</span>,
+  <span class="s2">"abi"</span>: <span class="s2">"[{</span><span class="se">\"</span><span class="s2">constant</span><span class="se">\"</span><span class="s2">:false,</span><span class="se">\"</span><span class="s2">inputs</span><span class="se">\"</span><span class="s2">:[],</span><span class="se">\"</span><span class="s2">name</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">kill</span><span class="se">\"</span><span class="s2">,</span><span class="se">\"</span><span class="s2">outputs</span><span class="se">\"</span><span class="s2">:[],</span><span class="se">\"</span><span class="s2">type</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">function</span><span class="se">\"</span><span class="s2">},{</span><span class="se">\"</span><span class="s2">constant</span><span class="se">\"</span><span class="s2">:true,</span><span class="se">\"</span><span class="s2">inputs</span><span class="se">\"</span><span class="s2">:[],</span><span class="se">\"</span><span class="s2">name</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">greet</span><span class="se">\"</span><span class="s2">,</span><span class="se">\"</span><span class="s2">outputs</span><span class="se">\"</span><span class="s2">:[{</span><span class="se">\"</span><span class="s2">name</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"\"</span><span class="s2">,</span><span class="se">\"</span><span class="s2">type</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">string</span><span class="se">\"</span><span class="s2">}],</span><span class="se">\"</span><span class="s2">type</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">function</span><span class="se">\"</span><span class="s2">},{</span><span class="se">\"</span><span class="s2">inputs</span><span class="se">\"</span><span class="s2">:[{</span><span class="se">\"</span><span class="s2">name</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">_greeting</span><span class="se">\"</span><span class="s2">,</span><span class="se">\"</span><span class="s2">type</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">string</span><span class="se">\"</span><span class="s2">}],</span><span class="se">\"</span><span class="s2">type</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">constructor</span><span class="se">\"</span><span class="s2">}]"</span>,
+  <span class="s2">"creation_tx_hash"</span>: <span class="s2">"61474003e56d67aba6bf148c5ec361e3a3c1ceea37fe3ace7d87759b399292f9"</span>,
+  <span class="s2">"created"</span>: <span class="s2">"2016-07-20T01:54:50Z"</span>,
+  <span class="s2">"address"</span>: <span class="s2">"0eb688e79698d645df015cf2e9db5a6fe16357f1"</span>
+<span class="o">}</span>
+</code></pre>
+
+<table><thead>
+<tr>
+<th>Resource</th>
+<th>Method</th>
+<th>Return Object</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>/contract/$ADDRESS</td>
+<td>GET</td>
+<td><a href="#contract">Contract</a></td>
+</tr>
+</tbody></table>
+
+<p>ADDRESS is a <em>string</em> representing the contract address you&rsquo;re interested in querying, for example: </p>
+
+<p><code class="prettyprint">0eb688e79698d645df015cf2e9db5a6fe16357f1</code></p>
+
+<p>The returned object contains information the contract; if you deployed the contract with BlockCypher, it will return <strong>solidity</strong> and <strong>abi</strong> as well.</p>
+
+<h2 id="call-contract-method-endpoint">Call Contract Method Endpoint</h2>
+<pre class="highlight shell"><code><span class="c"># call the greet method, using your own private key and gas amount to fund</span>
+cat call.json
+<span class="o">{</span>
+    <span class="s2">"private"</span>: <span class="s2">"3ca40..."</span>,
+    <span class="s2">"gas_amount"</span>: 20000 
+<span class="o">}</span>
+curl -d @call.json -s https://api.blockcypher.com/v1/eth/main/contracts/0eb688e79698d645df015cf2e9db5a6fe16357f1/greet?token<span class="o">=</span>YOURTOKEN
+<span class="o">{</span>
+  <span class="s2">"gas_amount"</span>: 20000,
+  <span class="s2">"address"</span>: <span class="s2">"0eb688e79698d645df015cf2e9db5a6fe16357f1"</span>,
+  <span class="s2">"results"</span>: <span class="o">[</span>
+    <span class="s2">"Hello BlockCypher Test"</span>
+  <span class="o">]</span>
+<span class="o">}</span>
+
+<span class="c"># use the same private key/gas amount to call the "kill" method, which causes the contract to create an internal_tx to refund the initial private key</span>
+curl -d @call.json -s https://api.blockcypher.com/v1/eth/main/contracts/0eb688e79698d645df015cf2e9db5a6fe16357f1/kill?token<span class="o">=</span>YOURTOKEN
+<span class="o">{</span><span class="s2">"error"</span>: <span class="s2">"Error calling contract: Gas value too low, intrinsic gas required is 53272.."</span><span class="o">}</span>
+
+<span class="c"># whoops! let's try upping the gas</span>
+cat call.json
+<span class="o">{</span>
+    <span class="s2">"private"</span>: <span class="s2">"3ca40..."</span>,
+    <span class="s2">"gas_amount"</span>: 100000 
+<span class="o">}</span>
+curl -d @call.json -s https://api.blockcypher.com/v1/eth/main/contracts/0eb688e79698d645df015cf2e9db5a6fe16357f1/kill?token<span class="o">=</span>YOURTOKEN
+<span class="o">{</span>
+  <span class="s2">"gas_amount"</span>: 100000,
+  <span class="s2">"call_tx_hash"</span>: <span class="s2">"42dc5862aeedf1001db37c404c8dc922918167589aba1e0b19c6a9372eedb294"</span>,
+  <span class="s2">"address"</span>: <span class="s2">"0eb688e79698d645df015cf2e9db5a6fe16357f1"</span>
+<span class="o">}</span>
+</code></pre>
+
+<p>Using the Call Contract Method Endpoint, you can even invoke a particular contract&rsquo;s method. To do so, you must include a <strong>private</strong> key associated with a funded external account and a specified <strong>gas_amount</strong> in your request object. <strong>params</strong> are optionally accepted if the contract method allows them.</p>
+
+<table><thead>
+<tr>
+<th>Resource</th>
+<th>Method</th>
+<th>Request Object</th>
+<th>Return Object</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>/contracts/$ADDRESS/$METHOD</td>
+<td>POST</td>
+<td><a href="#contract">Contract</a></td>
+<td><a href="#contract">Contract</a></td>
+</tr>
+</tbody></table>
+
+<p>ADDRESS is a <em>string</em> representing the contract address you&rsquo;re interested in querying, for example: </p>
+
+<p><code class="prettyprint">0eb688e79698d645df015cf2e9db5a6fe16357f1</code></p>
+
+<p>METHOD is a <em>string</em> representing a declared method from the above contract; in the above example, the options are:</p>
+
+<p><code class="prettyprint">greet</code></p>
+
+<p>or</p>
+
+<p><code class="prettyprint">kill</code></p>
 
           <h1 id="events-and-hooks">Events and Hooks</h1>
 
