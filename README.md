@@ -1,6 +1,6 @@
 # BlockCypher's Docs
 
-This repository contains all of [BlockCypher's](http://www.blockcypher.com) API documentation, presented with the help of [GitHub Pages](https://pages.github.com/) and [Slate](https://github.com/tripit/slate).
+This repository contains all of [BlockCypher's](http://www.blockcypher.com) API documentation, presented with the help of [Slate](https://github.com/tripit/slate).
 
 ## Running BlockCypher's Docs Locally
 
@@ -32,6 +32,16 @@ vagrant up
 ```
 You can now see the docs at <http://localhost:4567>.
 
+### Building Static Docs
+
+We build our docs locally then serve them from our own server. If you want to build them locally---instead of running them via `middleman server`, if you're curious about the html output---you can run this command:
+
+```shell
+bundle exec middleman build
+```
+
+This creates a `./build` directory, which contains all the generated HTML, CSS, Javascript, and assets.
+
 ## Found an error or bug?
 
 Just [submit an issue](https://github.com/blockcypher/docs/issues). And, of course, feel free to submit Pull Requests with bug fixes or proposed changes.
@@ -39,4 +49,3 @@ Just [submit an issue](https://github.com/blockcypher/docs/issues). And, of cour
 ## Special Thanks
 
 - [Slate](https://github.com/tripit/slate)
-- [GitHub Pages](https://pages.github.com/)
