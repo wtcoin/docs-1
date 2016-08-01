@@ -772,6 +772,11 @@ Objects sometimes contain <b>attributes</b> that are <b><i>optional.</i></b> The
 <td><strong><em>Optional</em></strong> Time at which transaction was included in a block; only present for confirmed transactions.</td>
 </tr>
 <tr>
+<td><strong>gas_limit</strong></td>
+<td><em>integer</em></td>
+<td><strong><em>Optional</em></strong> If creating a transaction, can optionally set a higher default gas limit (useful if your recepient is a contract). If not set, default is 21000 gas for external accounts and 80000 for contract accounts.</td>
+</tr>
+<tr>
 <td><strong>contract_creation</strong></td>
 <td><em>bool</em></td>
 <td><strong><em>Optional</em></strong> If true, this transaction was used to create a contract and contract account. Note that the contract address (in the <strong>outputs</strong> field) will be blank until the transaction is confirmed.</td>
@@ -1114,7 +1119,7 @@ Objects sometimes contain <b>attributes</b> that are <b><i>optional.</i></b> The
 <span class="s2">"params"</span>: <span class="o">[</span><span class="s2">"Hello BlockCypher Test"</span><span class="o">]</span>,
 <span class="s2">"publish"</span>: <span class="o">[</span><span class="s2">"greeter"</span><span class="o">]</span>,
 <span class="s2">"private"</span>: <span class="s2">"3ca40..."</span>,
-<span class="s2">"gas_amount"</span>: 500000
+<span class="s2">"gas_limit"</span>: 500000
 <span class="o">}</span>
 
 <span class="o">{</span>
@@ -1122,7 +1127,7 @@ Objects sometimes contain <b>attributes</b> that are <b><i>optional.</i></b> The
 <span class="s2">"solidity"</span>: <span class="s2">"contract mortal {</span><span class="se">\n</span><span class="s2">  /* Define variable owner of the type address*/</span><span class="se">\n</span><span class="s2">    address owner;</span><span class="se">\n</span><span class="s2">    /* this function is executed at initialization and sets the owner of the contract */</span><span class="se">\n</span><span class="s2">    function mortal() { owner = msg.sender; }</span><span class="se">\n</span><span class="s2">    /* Function to recover the funds on the contract */</span><span class="se">\n</span><span class="s2">    function kill() { if (msg.sender == owner) suicide(owner); }</span><span class="se">\n</span><span class="s2">}</span><span class="se">\n\n</span><span class="s2">contract greeter is mortal {</span><span class="se">\n</span><span class="s2">    /* define variable greeting of the type string */</span><span class="se">\n</span><span class="s2">    string greeting;</span><span class="se">\n</span><span class="s2">    /* this runs when the contract is executed */</span><span class="se">\n</span><span class="s2">    function greeter(string _greeting) public {</span><span class="se">\n</span><span class="s2">        greeting = _greeting;</span><span class="se">\n</span><span class="s2">    }</span><span class="se">\n</span><span class="s2">    /* main function */</span><span class="se">\n</span><span class="s2">    function greet() constant returns (string) {</span><span class="se">\n</span><span class="s2">        return greeting;</span><span class="se">\n</span><span class="s2">    }</span><span class="se">\n</span><span class="s2">}"</span>,
 <span class="s2">"bin"</span>: <span class="s2">"606060405260405161023e38038061023e8339810160405280510160008054600160a060020a031916331790558060016000509080519060200190828054600181600116156101000203166002900490600052602060002090601f016020900481019282601f10609f57805160ff19168380011785555b50608e9291505b8082111560cc57600081558301607d565b50505061016e806100d06000396000f35b828001600101855582156076579182015b82811115607657825182600050559160200191906001019060b0565b509056606060405260e060020a600035046341c0e1b58114610026578063cfae321714610068575b005b6100246000543373ffffffffffffffffffffffffffffffffffffffff908116911614156101375760005473ffffffffffffffffffffffffffffffffffffffff16ff5b6100c9600060609081526001805460a06020601f6002600019610100868816150201909416939093049283018190040281016040526080828152929190828280156101645780601f1061013957610100808354040283529160200191610164565b60405180806020018281038252838181518152602001915080519060200190808383829060006004602084601f0104600f02600301f150905090810190601f1680156101295780820380516001836020036101000a031916815260200191505b509250505060405180910390f35b565b820191906000526020600020905b81548152906001019060200180831161014757829003601f168201915b505050505090509056"</span>,
 <span class="s2">"abi"</span>: <span class="o">[</span>...],
-<span class="s2">"gas_amount"</span>: 500000,
+<span class="s2">"gas_limit"</span>: 500000,
 <span class="s2">"creation_tx_hash"</span>: <span class="s2">"61474003e56d67aba6bf148c5ec361e3a3c1ceea37fe3ace7d87759b399292f9"</span>,
 <span class="s2">"address"</span>: <span class="s2">"0eb688e79698d645df015cf2e9db5a6fe16357f1"</span>,
 <span class="s2">"params"</span>: <span class="o">[</span>
@@ -1161,9 +1166,9 @@ Objects sometimes contain <b>attributes</b> that are <b><i>optional.</i></b> The
 <td>Private key associated with a funded Ethereum external account used to publish a contract or execute a method.</td>
 </tr>
 <tr>
-<td><strong>gas_amount</strong></td>
+<td><strong>gas_limit</strong></td>
 <td><em>int</em></td>
-<td>Amount of gas to use in contract creation or method execution.</td>
+<td>Maximum amount of gas to use in contract creation or method execution.</td>
 </tr>
 <tr>
 <td><strong>name</strong></td>
@@ -1896,6 +1901,10 @@ Always use HTTPS for creating and pushing transactions.
 
 <p>As you can see from the code example, you only need to provide a single public address within the <strong>addresses</strong> array of both the <strong>input</strong> and <strong>output</strong> of your <a href="#tx">TX</a> request object. You also need to fill in the <strong>value</strong> with the amount you&rsquo;d like to transfer from one address to another. Note that we only accept a single input and output <strong>address</strong> per Ethereum&rsquo;s transaction model, and <strong>tosign</strong> only returns a single element in its array; we use arrays for parity with our Bitcoin API.</p>
 
+<aside class="notice">
+By default, creating a transaction that sends to an external account sets the <strong>gas_limit</strong> to 21000. For contract account recepients, that limit is raised to 80000. If you&rsquo;d like to set a custom limit, add <strong>gas_limit</strong> to your request object.
+</aside>
+
 <p>As a return object, you&rsquo;ll receive a <a href="#txskeleton">TXSkeleton</a> containing a slightly-more complete <a href="#tx">TX</a> alongside data you need to sign in the <strong>tosign</strong> array. You&rsquo;ll need this object for the next steps of the transaction creation process.</p>
 
 <aside class="warning">
@@ -2203,7 +2212,7 @@ cat publishGreeter.json
   <span class="s2">"params"</span>: <span class="o">[</span><span class="s2">"Hello BlockCypher Test"</span><span class="o">]</span>,
   <span class="s2">"publish"</span>: <span class="o">[</span><span class="s2">"greeter"</span><span class="o">]</span>,
   <span class="s2">"private"</span>: <span class="s2">"3ca40..."</span>,
-  <span class="s2">"gas_amount"</span>: 500000
+  <span class="s2">"gas_limit"</span>: 500000
 <span class="o">}</span>
 curl -d @publishGreeter.json https://api.blockcypher.com/v1/eth/main/contracts?token<span class="o">=</span>YOURTOKEN
 <span class="o">[</span>
@@ -2241,7 +2250,7 @@ curl -d @publishGreeter.json https://api.blockcypher.com/v1/eth/main/contracts?t
         <span class="s2">"type"</span>: <span class="s2">"constructor"</span>
       <span class="o">}</span>
     <span class="o">]</span>,
-    <span class="s2">"gas_amount"</span>: 500000,
+    <span class="s2">"gas_limit"</span>: 500000,
     <span class="s2">"creation_tx_hash"</span>: <span class="s2">"61474003e56d67aba6bf148c5ec361e3a3c1ceea37fe3ace7d87759b399292f9"</span>,
     <span class="s2">"address"</span>: <span class="s2">"0eb688e79698d645df015cf2e9db5a6fe16357f1"</span>,
     <span class="s2">"params"</span>: <span class="o">[</span>
@@ -2265,7 +2274,7 @@ curl -d @publishGreeter.json https://api.blockcypher.com/v1/eth/main/contracts?t
         <span class="s2">"type"</span>: <span class="s2">"constructor"</span>
       <span class="o">}</span>
     <span class="o">]</span>,
-    <span class="s2">"gas_amount"</span>: 500000,
+    <span class="s2">"gas_limit"</span>: 500000,
     <span class="s2">"params"</span>: <span class="o">[</span>
       <span class="s2">"Hello BlockCypher Test"</span>
     <span class="o">]</span>
@@ -2319,7 +2328,7 @@ curl -s https://api.blockcypher.com/v1/eth/main/txs/61474003e56d67aba6bf148c5ec3
 
 <p>The Create Contract Endpoint allows you to submit your <strong>solidity</strong> code and <strong>params</strong> to check raw serialized binary compilation and <a href="https://github.com/ethereum/wiki/wiki/Ethereum-Contract-ABI">ABI</a>. It&rsquo;s an easy to validate your contract compiles before pushing it to the Ethereum blockchain.</p>
 
-<p>If you include a <strong>private</strong> key (associated with a funded Ethereum external account), <strong>gas_amount</strong>, and contract(s) to <strong>publish</strong>, BlockCypher will embed the contract into the blockchain and return the transaction hash that created the contract and the contract address. Find both of those properties under the returned contract object as <strong>address</strong> and <strong>creation_tx_hash</strong>.</p>
+<p>If you include a <strong>private</strong> key (associated with a funded Ethereum external account), <strong>gas_limit</strong>, and contract(s) to <strong>publish</strong>, BlockCypher will embed the contract into the blockchain and return the transaction hash that created the contract and the contract address. Find both of those properties under the returned contract object as <strong>address</strong> and <strong>creation_tx_hash</strong>.</p>
 
 <p>The <strong>params</strong> property lets you provide arguments to the contract constructor. If your contract has no constructor or the constructor takes no arguments, this property can be omitted.</p>
 
@@ -2380,11 +2389,11 @@ curl -s https://api.blockcypher.com/v1/eth/main/contracts/0eb688e79698d645df015c
 cat call.json
 <span class="o">{</span>
     <span class="s2">"private"</span>: <span class="s2">"3ca40..."</span>,
-    <span class="s2">"gas_amount"</span>: 20000 
+    <span class="s2">"gas_limit"</span>: 20000 
 <span class="o">}</span>
 curl -d @call.json -s https://api.blockcypher.com/v1/eth/main/contracts/0eb688e79698d645df015cf2e9db5a6fe16357f1/greet?token<span class="o">=</span>YOURTOKEN
 <span class="o">{</span>
-  <span class="s2">"gas_amount"</span>: 20000,
+  <span class="s2">"gas_limit"</span>: 20000,
   <span class="s2">"address"</span>: <span class="s2">"0eb688e79698d645df015cf2e9db5a6fe16357f1"</span>,
   <span class="s2">"results"</span>: <span class="o">[</span>
     <span class="s2">"Hello BlockCypher Test"</span>
@@ -2399,11 +2408,11 @@ curl -d @call.json -s https://api.blockcypher.com/v1/eth/main/contracts/0eb688e7
 cat call.json
 <span class="o">{</span>
     <span class="s2">"private"</span>: <span class="s2">"3ca40..."</span>,
-    <span class="s2">"gas_amount"</span>: 100000 
+    <span class="s2">"gas_limit"</span>: 100000 
 <span class="o">}</span>
 curl -d @call.json -s https://api.blockcypher.com/v1/eth/main/contracts/0eb688e79698d645df015cf2e9db5a6fe16357f1/kill?token<span class="o">=</span>YOURTOKEN
 <span class="o">{</span>
-  <span class="s2">"gas_amount"</span>: 100000,
+  <span class="s2">"gas_limit"</span>: 100000,
   <span class="s2">"call_tx_hash"</span>: <span class="s2">"42dc5862aeedf1001db37c404c8dc922918167589aba1e0b19c6a9372eedb294"</span>,
   <span class="s2">"address"</span>: <span class="s2">"0eb688e79698d645df015cf2e9db5a6fe16357f1"</span>
 <span class="o">}</span>
@@ -2411,7 +2420,7 @@ curl -d @call.json -s https://api.blockcypher.com/v1/eth/main/contracts/0eb688e7
 
 <p>The Call Contract Method endpoint makes every method in your contracts callable simply via an HTTP request. It&rsquo;s a binding that translates a published contract into a set of endpoints (one for each method) and a provided JSON array into a set of arguments to invoke a given method.</p>
 
-<p>To call a method on a given contract, you must include a <strong>private</strong> key associated with a funded external account and a specified <strong>gas_amount</strong> in your request object. <strong>params</strong> are optionally accepted if the contract method allows them. Make sure the JSON types your provide match your contract signature (string, number, etc.).</p>
+<p>To call a method on a given contract, you must include a <strong>private</strong> key associated with a funded external account and a specified <strong>gas_limit</strong> in your request object. <strong>params</strong> are optionally accepted if the contract method allows them. Make sure the JSON types your provide match your contract signature (string, number, etc.).</p>
 
 <p>The Call Contract endpoint will check the contract ABI to determine whether the method has been declared &ldquo;constant&rdquo;. If so, no transaction will be created and no gas will be consumed. The method is just called locally on our servers and won&rsquo;t be registered on the blockchain. Otherwise, we will build the call transaction to invoke the method on the Ethereum blockchain and propagate it on the network. Keep in mind that in that case, you will need to wait for the call transaction to be included in a block to see its effects.</p>
 
