@@ -1315,7 +1315,7 @@ Objects sometimes contain <b>attributes</b> that are <b><i>optional.</i></b> The
 </tr>
 </tbody></table>
 
-<p>The returned object contains a litany of information, including its height, the time/hash of the latest block, and more.</p>
+<p>The returned object contains a litany of information, including its height, the time/hash of the latest block, and more. For Ethereum, the object includes information on gas_price, denoted in wei. Unlike Bitcoin, fees are determined by the computational execution cost of the transaction via gas; in order to prevent runaway contract execution, each operation in Ethereum&rsquo;s Virtual Machine requires a fixed/known amount of gas. While the amount of gas is fixed for a given EVM operation, the price of gas fluctuates based on market demand on the Ethereum blockchain (similar to Bitcoin fees). For more detail, check this <a href="https://ethereum.stackexchange.com/questions/3/what-is-meant-by-the-term-gas">very helpful Stack Exchange explanation</a>.</p>
 
 <p>For more detailed information about the data returned, check the <a href="#blockchain">Blockchain</a> object.</p>
 
